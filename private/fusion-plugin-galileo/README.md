@@ -1,11 +1,6 @@
 # graphene-galileo
 
-galileo client for granphene framework
-
-## Overview
-
-TODO: Write an overview of what "graphene-galileo" does.
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+galileo client plugin for granphene framework
 
 ## Installation
 
@@ -13,12 +8,17 @@ TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
 npm install @uber/graphene-galileo
 ```
 
-## Usage
 
-TODO: Write a usage example for "graphene-galileo".
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+## Config
 
-## Development
-
-TODO: Write developer documentation for "graphene-galileo".
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+```
+clients: {
+  galileo: {
+    enabled: true,
+    appName: '<if you want to overwrite>',
+    config: {
+      /* custom config if any*/
+    }
+  }
+}
+```
