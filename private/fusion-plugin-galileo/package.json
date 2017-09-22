@@ -1,7 +1,7 @@
 {
   "name": "@uber/graphene-galileo",
   "description": "galileo client for granphene framework",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Rajesh Segu <segu@uber.com>",
   "keywords": [
     "uber-library",
