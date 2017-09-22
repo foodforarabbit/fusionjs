@@ -21,7 +21,9 @@
   },
   "licenses": [],
   "main": "dist/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "@uber/atreyu": "^5.4.1"
+  },
   "devDependencies": {
     "@uber/eslint-config": "^3.0.0",
     "@uber/eslint-config-es6": "^3.0.0",

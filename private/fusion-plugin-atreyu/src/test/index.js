@@ -1,10 +1,14 @@
 const test = require('tape');
 
-const grapheneAtreyu = require('../');
+const atreyuClient = require('../');
 
-test('grapheneAtreyu', function t(assert) {
-  assert.ok(typeof grapheneAtreyu === 'function',
-    'exported correctly');
+test('Graphene Client', function t(assert) {
+  assert.ok(atreyuClient, 'exported correctly');
+
+  assert.ok(
+    atreyuClient.register && atreyuClient.meta,
+    'should expose plugin interface methods'
+  );
 
   assert.end();
 });
