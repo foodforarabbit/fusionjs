@@ -1,7 +1,7 @@
 {
   "name": "@uber/graphene-atreyu",
   "description": "atreyu plugin for graphene framework",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Rajesh Segu <segu@uber.com>",
   "keywords": [
     "uber-library",
