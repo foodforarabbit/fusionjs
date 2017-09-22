@@ -1,10 +1,14 @@
 const test = require('tape');
 
-const grapheneGalileo = require('../');
+const galileoClient = require('../');
 
-test('grapheneGalileo', function t(assert) {
-  assert.ok(typeof grapheneGalileo === 'function',
-    'exported correctly');
+test('Graphene Client', function t(assert) {
+  assert.ok(galileoClient, 'exported correctly');
+
+  assert.ok(
+    galileoClient.register && galileoClient.meta,
+    'should expose plugin interface methods'
+  );
 
   assert.end();
 });
