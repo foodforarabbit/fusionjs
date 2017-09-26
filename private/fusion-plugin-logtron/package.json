@@ -1,0 +1,51 @@
+{
+  "name": "graphene-logtron",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/node.cjs.js",
+  "module": "./dist/node.es.js",
+  "browser": {
+    "./dist/node.cjs.js": "./dist/browser.cjs.js",
+    "./dist/node.es.js": "./dist/browser.es.js"
+  },
+  "es2015": {
+    "./dist/node.cjs.js": "./dist/node.cjs.es2015.js",
+    "./dist/node.es.js": "./dist/node.es.es2015.js",
+    "./dist/browser.cjs.js": "./dist/browser.cjs.es2015.js",
+    "./dist/browser.es.js": "./dist/browser.es.es2015.js"
+  },
+  "dependencies": {
+    "@uber/babel-helpers": "^0.0.74",
+    "@uber/graphene-app": "^0.0.1",
+    "@uber/graphene-plugin": "^0.0.1",
+    "@uber/logtron": "^9.0.5",
+    "koa-bodyparser": "4.2.0",
+    "error-stack-parser": "^2.0.0",
+    "source-map": "^0.5.6",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "@uber/monorepo-scripts": "^0.0.51",
+    "@uber/graphene-universal-events": "^0.0.74",
+    "create-universal-package": "^1.0.0-rc.14",
+    "eslint": "^4.2.0",
+    "eslint-config-uber-universal-stage-3": "1.0.0-rc.3",
+    "eslint-plugin-cup": "^1.0.0-rc.4",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-react": "^7.1.0",
+    "prettier": "1.4.2",
+    "tape-cup": "^4.7.1",
+    "unitest": "^1.0.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "lint",
+    "transpile": "npm run clean && cup build",
+    "build-test": "rm -rf dist-test && cup build-tests",
+    "just-test":
+      "node_modules/.bin/unitest --browser=dist-tests/browser.js && node dist-tests/node.js",
+    "test": "npm run build-test && npm run just-test",
+    "prepublish": "npm run transpile"
+  }
+}
