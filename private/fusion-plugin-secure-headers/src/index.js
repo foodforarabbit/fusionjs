@@ -1,3 +1,1 @@
-module.exports = grapheneSecureHeaders;
-
-function grapheneSecureHeaders() {}
+// Main export file
