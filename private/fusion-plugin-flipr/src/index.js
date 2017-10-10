@@ -1,3 +1,1 @@
-module.exports = grapheneFlipr;
-
-function grapheneFlipr() {}
+// Main export file

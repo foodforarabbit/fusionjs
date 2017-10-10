@@ -10,3 +10,6 @@ core
 npm-debug.log
 
 dist/
+dist-test/
+
+.idea/
