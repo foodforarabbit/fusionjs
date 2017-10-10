@@ -1,11 +1,8 @@
-# graphene-secure-headers
-
-A Graphene plugin to improve the security by setting headers, such as Content Security Policy, X-Frame-Options...etc.
+# @uber/graphene-secure-headers
 
 ## Overview
 
-TODO: Write an overview of what "graphene-secure-headers" does.
-TODO: If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com).
+A Graphene plugin to improve the web application security by setting headers, such as Content Security Policy, X-Frame-Options...etc.
 
 ## Installation
 
@@ -13,12 +10,73 @@ TODO: If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com)
 npm install @uber/graphene-secure-headers
 ```
 
-## Usage
+## Usage Example
 
-TODO: Write a usage example for "graphene-secure-headers".
-TODO: If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com).
+```js
+// src/main.js
 
-## Development
+import React from 'react';
+import SecureHeaders from '@uber/graphene-secure-headers';
 
-TODO: Write developer documentation for "graphene-secure-headers".
-TODO: If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com).
+export default () => {
+  const app = new App(<Home />);
+  app.plugin(SecureHeaders, {
+    config: {
+      serviceName: 'awesome-frontend'
+    }
+  });
+  return app;
+}
+```
+
+---
+
+### Config
+```js
+{
+  serviceName: 'awesome-frontend',
+  /* Required:string */
+  
+  useFrameguard: true,
+  /* Optional:boolean. Default to true unless explictly specified false.
+     See https://github.com/helmetjs/frameguard for more info.
+  */
+  
+  csp: {
+	  overrides: {
+	  /* Optional. Overrides for CSP headers */
+	  },
+	  
+	  reportUri: 'https://csp.uber.com/csp?a=awesome-service&ro=true&v=0',
+	  /* Optional:string. When not specified the plugin generates it for you. */
+	  
+	  useStrictDynamicMode: true,
+	  /* Optional:boolean. The most secure settings. 
+	  | It allows the execution of scripts dynamically added to the page, 
+	  | as long as they were loaded by a safe, already-trusted script. */
+	  
+	  allowInsecureContent: false,
+	  /* Optional:boolean. Allow non-HTTPS assets when the page is loaded via HTTPS, not great.
+	  | (Inverted alias for `blockAllMixedContent`)
+	  */
+	  
+	  assetBase: "https://d1a3f4spazzrp4.cloudfront.net",
+	  cdnBase: "https://d1a3f4spazzrp4.cloudfront.net",
+	  /* Optional:string. This adds sources to asset directives such as "imgSrc" */
+	  
+	  analyticsServiceNames: ["googleAnalytics", "tealium"],
+	  /* Optional: AnalyticsServiceName[]. 
+	  | An array of names of analytics services for their assets to be whitelisted.
+	  | Google Analytics is currently included by default.
+	  | AnalyticsServiceNames: "tealium" | "mixpanel" | "googleAnalytics" | "googleTagManager" 
+	  */
+  }
+}
+```
+---
+
+## Resources
+
++ [Google CSP Guide](https://csp.withgoogle.com/docs/index.html)
++ [MDN docs on CSP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
++ [HelmetJS](https://helmetjs.github.io/)
