@@ -1,11 +1,7 @@
-# graphene-flipr
-
-Flipr client for Graphene
+# @uber/graphene-flipr
 
 ## Overview
-
-TODO: Write an overview of what "graphene-flipr" does.
-TODO: If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com).
+Flipr client for Graphene
 
 ## Installation
 
@@ -13,12 +9,62 @@ TODO: If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com)
 npm install @uber/graphene-flipr
 ```
 
-## Usage
+## Usage Example
 
-TODO: Write a usage example for "graphene-flipr".
-TODO: If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com).
+```js
+// src/main.js
 
-## Development
+import React from 'react';
+import FliprPlugin from '@uber/graphene-flipr';
+import MyPlugin from './myplugin';
 
-TODO: Write developer documentation for "graphene-flipr".
-TODO: If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com).
+export default () => {
+  const app = new App(<Home />);
+  const Flipr = app.plugin(FliprPlugin, {
+    config: {
+      defaultNamespace: 'awesome-frontend'
+    }
+  });
+  app.plugin(MyPlugin, {Flipr});
+  
+  return app;
+}
+
+// myPlugin.js
+export default ({Flipr}) => (ctx, next) => {
+  if (Flipr.of().get('be.awesome')) {
+    // make awesome
+  }
+  return next();
+}
+```
+
+## Config
+
+### Config properties from @uber/graphene-flipr
++ `defaultNamespace`: string
+
+Equivalent to 
+
+```js
+propertiesNamespaces: [
+  'defaultNamespace',
+  `defaultNamespace.${__DATA_CENTER__}`,
+  `defaultNamespace.${__HOST_NAME__}`,
+]
+```
++ `dataCenter`: string
++ `overrides`: object
+
+Properties from this object will finally override the config initializing `@uber/flipr-client` 
+
+### Config properties referenced from @uber/flipr-client
+See [@uber/flipr-client](https://code.uberinternal.com/diffusion/RTFLIP/repository/master/) for more information on the following config properties
+
++ `propertiesNamespaces`
++ `updateInterval`
++ `defaultProperties`
++ `diskCachePath`
+
+## Logger
+`uber/graphene-flipr` has an optional dependency on a Logger [plugin](https://github.com/uber-web/graphene/blob/master/packages/plugin/docs/index.md) which constructs a logger with [Winston](https://github.com/winstonjs/winston#using-logging-levels)-like interface.

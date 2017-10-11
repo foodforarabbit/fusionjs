@@ -38,7 +38,10 @@
     "test": "npm run build-test && npm run just-test",
     "prepublish": "npm run transpile"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@uber/flipr-client": "^17.0.10",
+    "@uber/graphene-plugin": "^0.1.0"
+  },
   "engines": {
     "node": ">= 8"
   }
