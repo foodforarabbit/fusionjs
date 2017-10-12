@@ -1,24 +1,94 @@
-# graphene-atreyu
+# Atreyu plugin for Graphene
 
-atreyu plugin for graphene framework
+This is a Graphene plugin for [Atreyu](https://code.uberinternal.com/diffusion/WEATREY/browse/master/#what-is-atreyu)
 
-## Overview
+### Simple example
 
-TODO: Write an overview of what "graphene-atreyu" does.
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+```js
+// src/main.js
+import App from '@graphene/react';
+import Atreyu from '@uber/graphene-atreyu';
+import {config, options} from './atreyu/config';
+import graphs from './atreyu/graphs';
+import HelloWorld from './hello-world';
 
-## Installation
+export default () => {
+  const app = new App();
+  const Services = app.plugin(Atreyu, {config, options, graphs});
+  app.plugin(HelloWorld, {Services});
+  return app;
+}
 
+// src/atreyu/config.js
+export default {
+  config: {
+    serviceNames: ["trident"],
+  },
+  options: {
+    m3: null,
+    logger: null,
+    galileo: null,
+    tracer: null,
+    channelsOnInit:true,
+  }
+}
+
+// src/atreyu/graphs.js
+export default {
+  trips: {
+    service: 'trident',
+    method: 'TripService::getTripsForClient',
+    args: {
+      query: {
+        clientUUID: '{data.uuid}',
+        returnType: 'TRIP',
+      }
+    }
+  }
+}
+
+// src/hello-world.js
+export default ({Services}) => (ctx, next) => {
+  if (__NODE__) {
+    if (ctx.path === '/api/trips') {
+      const {graphs} = Services.of(ctx).graphs;
+      return graphs.trips.resolve().then(trips => {
+        ctx.body = trips;
+      }).then(next);
+    }
+  }
+  return next();
+}
 ```
-npm install @uber/graphene-atreyu
+
+### API
+
+#### Plugin registration
+
+```js
+const Services = app.plugin(Atreyu, {config, options, graphs, requests})
 ```
 
-## Usage
+- `config: Object` - an Atreyu config
+- `options: Object`- Atreyu options
+- `graphs: Object` - a map of graphs
+- `requests: Object` - a map of requests
 
-TODO: Write a usage example for "graphene-atreyu".
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+#### Instance properties
 
-## Development
+```js
+const {graphs, requests} = Services.of(ctx);
+```
 
-TODO: Write developer documentation for "graphene-atreyu".
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+- `graphs - Object<string, Resolver>`
+- `requests - Object<string, Resolver>`
+
+```js
+type Resolve {
+  resolve: (args: Object) => Promise
+}
+```
+
+#### Static methods
+
+- `Services.teardown()` - Disconnects the Atreyu client
