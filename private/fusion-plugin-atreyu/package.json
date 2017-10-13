@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@uber/atreyu": "^5.4.2",
-    "@uber/babel-helpers": "^0.0.74",
     "@uber/graphene-plugin": "^0.1.0"
   },
   "devDependencies": {
