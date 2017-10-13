@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 import path from 'path';
-import test from 'tape-cup';
+import test from 'tape';
 import plugin from '../../server';
 
 test('interface', async t => {
