@@ -1,6 +1,6 @@
 {
   "name": "@uber/graphene-atreyu",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
@@ -37,10 +37,8 @@
     "lint": "eslint . --fix",
     "clean": "rm -rf dist",
     "transpile": "npm run clean && cup build",
-    "build-test":
-      "rm -rf dist-tests && mkdir dist-tests && cd dist-tests && idl fetch code.uber.internal/starcraft/safari && cd .. && cup build-tests",
-    "just-test":
-      "node_modules/.bin/unitest --browser=dist-tests/browser.js && node dist-tests/node.js",
+    "build-test": "rm -rf dist-tests && mkdir dist-tests && cd dist-tests && idl fetch code.uber.internal/starcraft/safari && cd .. && cup build-tests",
+    "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js && node dist-tests/node.js",
     "test": "npm run build-test && npm run just-test",
     "prepublish": "npm run transpile"
   }
