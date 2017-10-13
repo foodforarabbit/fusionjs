@@ -10,3 +10,5 @@ core
 npm-debug.log
 
 dist/
+dist-tests/
+.DS_Store
