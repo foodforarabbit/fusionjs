@@ -10,7 +10,7 @@ Most micro-services at Uber use the [Thrift](https://thrift.apache.org/) protoco
 
 In order to use Thrift services via Atreyu, you need to install [IDL, Uber's Thrift registry CLI](https://code.uberinternal.com/w/rpc/idl/).
 
-```sh
+```
 # make sure you're using unpm as the NPM registry
 npm install --save-dev idl
 ```
@@ -27,7 +27,7 @@ This will create a `idl` folder and save the Thrift definition for the Safari se
 
 To communicate with a micro-service via Atreyu, you typically need to define a graph. Here's an example that lists metadata about all countries where Uber operates in:
 
-```js
+```
 export default {
   countryGraph: {
     all: {
@@ -45,7 +45,7 @@ See the [Safari Thrift declarations](https://engdocs.uberinternal.com/safari/thr
 
 You also need to make sure Cerberus is running. Run `cerberus -t safari` from your terminal.
 
-```js
+```
 // src/main.js
 import App from '@graphene/react';
 import Atreyu from '@uber/graphene-atreyu';
@@ -103,7 +103,7 @@ If your call throws the error `Could not stringify body (res2) argument`, it's m
 
 If your call throws a connection errors, it's likely due to a missing `/ect/uber/hyperbahn/hosts.json` file. Below is a sample of that file:
 
-```json
+```
 ["127.0.0.1:6424", "127.0.0.1:6425", "127.0.0.1:6426"]
 ```
 
@@ -111,7 +111,7 @@ Another reason could be that cerberus isn't autodetecting a service. To add it m
 
 To diagnose issues, it's recommended that you use [Yab](https://github.com/yarpc/yab) to check that a request to a service works without Atreyu. Here's an example:
 
-```sh
+```
 yab --peer-list /etc/uber/hyperbahn/hosts.json -t idl/code.uber.internal/starcraft/safari/safari_v2.thrift safari Safari::searchCountries -3 '{"request": {}}'
 ```
 
@@ -119,7 +119,7 @@ yab --peer-list /etc/uber/hyperbahn/hosts.json -t idl/code.uber.internal/starcra
 
 Requests in a graph can depend on data from other requests:
 
-```js
+```
 export default {
   myGraph: {
     user: {
@@ -151,7 +151,7 @@ The `{user.signupTerritory}` specifies that the `legacyTerritoryUUID` argument t
 
 #### Plugin registration
 
-```js
+```
 const Services = app.plugin(Atreyu, {config, options, graphs, requests})
 ```
 
@@ -182,14 +182,14 @@ const Services = app.plugin(Atreyu, {config, options, graphs, requests})
 
 #### Instance properties
 
-```js
+```
 const {graphs, requests} = Services.of(ctx);
 ```
 
 - `graphs - Object<string, Resolver>`
 - `requests - Object<string, Resolver>`
 
-```js
+```
 type Resolve {
   resolve: (args: Object) => Promise<Object>
 }
