@@ -1,3 +1,5 @@
-module.exports = grapheneM3;
+/* eslint-env browser */
+import server from './server';
+import client from './client';
 
-function grapheneM3() {}
+export default (__NODE__ ? server : client);
