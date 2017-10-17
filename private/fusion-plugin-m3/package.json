@@ -41,6 +41,10 @@
     "test": "npm run build-test && npm run just-test",
     "prepublish": "npm run transpile"
   },
+  "dependencies": {
+    "@uber/graphene-plugin": "^0.1.0",
+    "@uber/node-m3-client-addon": "^1.4.0"
+  },
   "engines": {
     "node": ">=8.7.0",
     "npm": ">=5.4.2",
