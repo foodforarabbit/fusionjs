@@ -1,9 +1,0 @@
-{
-  "extends": [
-    "@uber/eslint-config",
-    "@uber/eslint-config-es6"
-  ],
-  "ecmaFeatures": {
-    "experimentalObjectRestSpread": true
-  }
-}

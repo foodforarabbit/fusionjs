@@ -1,3 +1,5 @@
-module.exports = grapheneHeatpipe;
+/* eslint-env browser */
+import server from './server';
+import browser from './browser';
 
-function grapheneHeatpipe() {}
+export default (__NODE__ ? server : browser);
