@@ -40,6 +40,7 @@ export default function({UniversalEvents, m3Config, __m3Mock}) {
     m3Functions.gauge({key, value, tags});
 
   [
+    'scope',
     'immediateIncrement',
     'immediateDecrement',
     'immediateTiming',
