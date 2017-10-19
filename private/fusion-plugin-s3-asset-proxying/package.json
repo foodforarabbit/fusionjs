@@ -4,7 +4,8 @@
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
-    "dist"
+    "dist",
+    "upload.js"
   ],
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
@@ -18,8 +19,15 @@
     "./dist/browser.cjs.js": "./dist/browser.cjs.es2015.js",
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
+  "bin": {
+    "upload-assets-to-s3": "upload.js",
+    "upload-s3": "upload.js"
+  },
   "dependencies": {
-    "@uber/graphene-plugin": "^0.1.2"
+    "@uber/graphene-plugin": "^0.1.2",
+    "aws-sdk": "^2.137.0",
+    "mime": "^2.0.3",
+    "mime-db": "^1.30.0"
   },
   "devDependencies": {
     "@uber/eslint-config-graphene": "^0.1.2",
