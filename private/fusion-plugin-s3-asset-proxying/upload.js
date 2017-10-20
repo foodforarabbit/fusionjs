@@ -39,8 +39,11 @@ module.exports = async (
         console.log(`Skipping upload of sourcemap: ${uploadPath}`);
         return Promise.resolve();
       }
+      console.log(uploadPath);
       const mimeType = mime.getType(uploadPath);
+      console.log(mimeType);
       const mimeInfo = mimeDb[mimeType];
+      console.log(mimeInfo);
 
       const fileBuffer = await util.promisify(fs.readFile)(
         path.join(directory, filename)
