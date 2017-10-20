@@ -1,6 +1,6 @@
 {
   "name": "@uber/graphene-s3-asset-proxying",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
