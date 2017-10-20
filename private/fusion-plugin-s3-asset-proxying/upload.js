@@ -7,10 +7,12 @@ const mime = require('mime');
 const mimeDb = require('mime-db');
 const AWS = require('aws-sdk');
 
-module.exports = async ({
-  directory = path.join(process.cwd(), '.framework/dist/production/client'),
-  s3Config,
-}) => {
+module.exports = async (
+  {
+    directory = path.join(process.cwd(), '.framework/dist/production/client'),
+    s3Config,
+  } = {}
+) => {
   const files = await util.promisify(fs.readdir)(directory);
 
   const {
