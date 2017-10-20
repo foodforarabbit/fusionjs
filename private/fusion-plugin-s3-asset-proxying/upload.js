@@ -39,17 +39,17 @@ module.exports = async (
         console.log(`Skipping upload of sourcemap: ${uploadPath}`);
         return Promise.resolve();
       }
-      console.log(uploadPath);
       const mimeType = mime.getType(uploadPath);
-      console.log(mimeType);
       const mimeInfo = mimeDb[mimeType];
-      console.log(mimeInfo);
+
+      // Some extensions (like br) do not have mimeInfo. In that case, do not compress.
+      const compressible = mimeInfo && mimeInfo.compressible;
 
       const fileBuffer = await util.promisify(fs.readFile)(
         path.join(directory, filename)
       );
 
-      const uploadBuffer = mimeInfo.compressible
+      const uploadBuffer = compressible
         ? await util.promisify(zlib.gzip)(fileBuffer)
         : fileBuffer;
 
@@ -65,7 +65,7 @@ module.exports = async (
             ContentType: mimeType,
             ContentLength: contentLength,
             CacheControl: 'max-age=31536000',
-            ContentEncoding: mimeInfo.compressible ? 'gzip' : null,
+            ContentEncoding: compressible ? 'gzip' : null,
           },
           function(uploadError) {
             if (
