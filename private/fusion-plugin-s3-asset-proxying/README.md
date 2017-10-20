@@ -20,11 +20,8 @@ import AssetProxyingPlugin from 'graphene-s3-asset-proxying';
 export default function() {
   // ... Setup graphene app
 
-  // Setup Secrets plugin
-  const AssetProxying = app.plugin(AssetProxyingPlugin);
-
-  // Using secrets - only possible on the server
-  if (__NODE__) {
+  if (!__DEV__ && __NODE__) {
+    const AssetProxying = app.plugin(AssetProxyingPlugin);
     await AssetProxying.of().init();
   }
 
