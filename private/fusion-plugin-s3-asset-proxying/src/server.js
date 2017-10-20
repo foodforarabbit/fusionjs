@@ -3,7 +3,7 @@ import path from 'path';
 import {Plugin} from '@uber/graphene-plugin';
 import LRU from 'lru-cache';
 
-export default ({config}) => {
+export default ({config} = {}) => {
   return class extends Plugin {
     constructor() {
       super();
