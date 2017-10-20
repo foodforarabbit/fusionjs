@@ -6,7 +6,8 @@
   "files": [
     "dist",
     "cli.js",
-    "upload.js"
+    "upload.js",
+    "s3-config"
   ],
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
