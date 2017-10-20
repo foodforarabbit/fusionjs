@@ -2,8 +2,6 @@
 import path from 'path';
 import {Plugin} from '@uber/graphene-plugin';
 import LRU from 'lru-cache';
-const AWS = require('aws-sdk');
-const getConfig = require('../s3-config.js');
 
 export default ({config}) => {
   return class extends Plugin {
@@ -20,14 +18,16 @@ export default ({config}) => {
     }
 
     async init() {
-      this.config = config || (await getConfig());
+      // Require this inline because rollup is busted
+      this.config = config || (await require('../s3-config.js')());
       const {
         accessKeyId,
         secretAccessKey,
         s3ForcePathStyle,
         endpoint,
       } = this.config;
-      this.s3 = new AWS.S3({
+      // Require this inline because rollup is busted
+      this.s3 = new (require('aws-sdk')).S3({
         accessKeyId,
         secretAccessKey,
         s3ForcePathStyle,
