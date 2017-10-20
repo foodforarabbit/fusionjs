@@ -3,9 +3,9 @@ const util = require('util');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = async function getConfig({
-  secretsPath = path.join(process.cwd(), 'config/secrets/secrets.json'),
-}) {
+module.exports = async function getConfig(
+  {secretsPath = path.join(process.cwd(), 'config/secrets/secrets.json')} = {}
+) {
   const {
     s3: {
       aws: prefix,
