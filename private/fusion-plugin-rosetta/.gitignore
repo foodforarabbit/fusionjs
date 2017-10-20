@@ -13,3 +13,5 @@ dist/
 dist-tests/
 
 .idea/
+
+.nyc_output/
