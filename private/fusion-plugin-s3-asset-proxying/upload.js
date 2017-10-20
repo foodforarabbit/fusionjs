@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /* eslint-env node */
 const util = require('util');
 const fs = require('fs');
@@ -8,16 +7,10 @@ const mime = require('mime');
 const mimeDb = require('mime-db');
 const AWS = require('aws-sdk');
 
-process.on('unhandledRejection', err => {
-  throw err;
-});
-
-(async () => {
-  const directory = path.join(
-    process.cwd(),
-    '.framework/dist/production/client'
-  );
-
+module.exports = async ({
+  directory = path.join(process.cwd(), '.framework/dist/production/client'),
+  s3Config,
+}) => {
   const files = await util.promisify(fs.readdir)(directory);
 
   const {
@@ -25,10 +18,15 @@ process.on('unhandledRejection', err => {
     prefix,
     accessKeyId,
     secretAccessKey,
-  } = await require('./upload-config.js')();
+    s3ForcePathStyle,
+    endpoint,
+  } =
+    s3Config || (await require('./s3-config.js')());
   const s3 = new AWS.S3({
     accessKeyId,
     secretAccessKey,
+    s3ForcePathStyle,
+    endpoint,
   });
 
   return Promise.all(
@@ -39,7 +37,7 @@ process.on('unhandledRejection', err => {
         console.log(`Skipping upload of sourcemap: ${uploadPath}`);
         return Promise.resolve();
       }
-      const mimeType = mime.lookup(uploadPath);
+      const mimeType = mime.getType(uploadPath);
       const mimeInfo = mimeDb[mimeType];
 
       const fileBuffer = await util.promisify(fs.readFile)(
@@ -90,4 +88,4 @@ process.on('unhandledRejection', err => {
       });
     })
   );
-})();
+};

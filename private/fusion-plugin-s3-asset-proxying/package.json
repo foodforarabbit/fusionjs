@@ -5,6 +5,7 @@
   "license": "UNLICENSED",
   "files": [
     "dist",
+    "cli.js",
     "upload.js"
   ],
   "main": "./dist/node.cjs.js",
@@ -20,26 +21,31 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "bin": {
-    "upload-assets-to-s3": "upload.js",
-    "upload-s3": "upload.js"
+    "upload-assets-to-s3": "cli.js",
+    "upload-s3": "cli.js",
+    "upload-assets": "cli.js"
   },
   "dependencies": {
     "@uber/graphene-plugin": "^0.1.2",
-    "aws-sdk": "^2.137.0",
+    "aws-sdk": "^2.138.0",
+    "lru-cache": "^4.1.1",
     "mime": "^2.0.3",
     "mime-db": "^1.30.0"
   },
   "devDependencies": {
     "@uber/eslint-config-graphene": "^0.1.2",
     "babel-eslint": "^8.0.1",
-    "create-universal-package": "^1.0.0-rc.15",
+    "create-universal-package": "^1.0.0-rc.18",
     "eslint": "^4.8.0",
     "eslint-plugin-cup": "^1.0.0-rc.4",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
+    "get-port": "^3.2.0",
     "prettier": "1.7.4",
+    "s3rver": "^1.0.3",
     "tape-cup": "^4.7.1",
+    "tmp": "^0.0.33",
     "unitest": "^1.1.0"
   },
   "scripts": {
