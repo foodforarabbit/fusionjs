@@ -2,12 +2,12 @@
 import M3Client from '@uber/node-m3-client-addon';
 import {Plugin} from '@uber/graphene-plugin';
 
-export default function({UniversalEvents, m3Config, __m3Mock}) {
-  const m3 = __m3Mock || new M3Client(m3Config);
+export default function({UniversalEvents, m3Config, Client = M3Client}) {
+  const m3 = new Client(m3Config);
   const events = UniversalEvents.of();
 
   const m3Functions = {
-    counter: ({key, value, tags}) => m3.counter(key, value, tags),
+    counter: ({key, value, tags}) => m3.counter(key, value, {tags}),
     increment: ({key, tags}) => m3.increment(key, 1, {tags}),
     decrement: ({key, tags}) => m3.decrement(key, 1, {tags}),
     timing: ({key, value, tags}) => m3.timing(key, value, {tags}),
