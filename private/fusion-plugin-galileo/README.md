@@ -1,6 +1,6 @@
 # graphene-galileo
 
-galileo client plugin for granphene framework
+galileo client plugin for granphene
 
 ## Installation
 
@@ -8,17 +8,38 @@ galileo client plugin for granphene framework
 npm install @uber/graphene-galileo
 ```
 
+## Graphene
+
+## Usage
+
+```js
+// ...
+import GalileoPlugin from  '@uber/graphene-galileo';
+import galileoConfig from  'config/galileo';
+// ...
+
+const Galileo = app.plugin(GalileoPlugin, {
+  Logger, // UniversalLogger plugin instance
+  Tracer, // Jeager plugin instance
+  config: galileoConfig
+});
+
+// Access galileo client
+Galileo.of().client();
+
+// Cleanup Galileo
+Galileo.of().destory()
+```
 
 ## Config
 
+Config should be added to app/src/config/galileo.js to the scaffolded application
+
 ```
-clients: {
-  galileo: {
-    enabled: true,
+export default {
     appName: '<if you want to overwrite>',
-    config: {
+    galileo: {
       /* custom config if any*/
     }
-  }
 }
 ```
