@@ -1,11 +1,6 @@
 # graphene-tracer
 
-tracer plugin for graphene
-
-## Overview
-
-TODO: Write an overview of what "graphene-tracer" does.
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+tracer client plugin for granphene
 
 ## Installation
 
@@ -13,12 +8,42 @@ TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
 npm install @uber/graphene-tracer
 ```
 
+## Graphene
+
 ## Usage
 
-TODO: Write a usage example for "graphene-tracer".
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+```js
+// ...
+import TracerPlugin from  '@uber/graphene-tracer';
+import tracerConfig from  'config/tracer';
+// ...
 
-## Development
+const Tracer = app.plugin(TracerPlugin, {
+  Logger, // UniversalLogger plugin instance
+  config: tracerConfig,
+  options: {}   //optional
+});
 
-TODO: Write developer documentation for "graphene-tracer".
-TODO: If this section is empty, please contact [Rajesh Segu](segu@uber.com).
+// Access tracer client
+Tracer.of().tracer
+
+// Access tracer span
+Tracer.of(ctx).span
+
+// Cleanup tracer client
+Tracer.destory()
+```
+
+## Config
+
+Config should be added to app/src/config/tracer.js to the scaffolded application
+
+```
+export default {
+    appName: '<if you want to overwrite>',
+    mock: false, // enable only for local testing
+    ...
+}
+```
+
+Detailed config options can be found at https://code.uberinternal.com/diffusion/INJAEGERCLIEN/

@@ -1,3 +1,5 @@
-module.exports = grapheneTracer;
+// Main export file
+import server from './server';
+import browser from './browser';
 
-function grapheneTracer() {}
+export default (__NODE__ ? server : browser);
