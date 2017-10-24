@@ -25,10 +25,10 @@ const Galileo = app.plugin(GalileoPlugin, {
 });
 
 // Access galileo client
-Galileo.of().client();
+Galileo.of().galileo;
 
 // Cleanup Galileo
-Galileo.of().destory()
+Galileo.destroy()
 ```
 
 ## Config

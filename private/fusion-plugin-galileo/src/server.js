@@ -7,42 +7,34 @@ import {SingletonPlugin} from '@uber/graphene-plugin';
 export default function createGalileoPlugin({
   Logger,
   Tracer,
-  config,
+  config = {},
   GalileoClient = Galileo,
 }) {
   const logger = Logger.of().createChild('galileo');
-  const tracer = Tracer.of().client();
+  const tracer = Tracer.of().tracer;
+  const galileoConfig = {
+    appName: config.appName,
+    galileo: config.galileo || {},
+  };
+
+  const galileo = new GalileoClient(
+    galileoConfig,
+    tracer,
+    opentracing.FORMAT_HTTP_HEADERS,
+    logger
+  );
 
   class GalileoPlugin extends SingletonPlugin {
-    constructor() {
-      super();
-      this.galileo = this.initGalileo(config);
+    constructor(ctx) {
+      super(ctx);
+      this.galileo = galileo;
     }
 
-    initGalileo(config) {
-      const galileoConfig = {
-        appName: config.appName,
-        galileo: config.galileo || {},
-      };
-
-      return new GalileoClient(
-        galileoConfig,
-        tracer,
-        opentracing.FORMAT_HTTP_HEADERS,
-        logger
-      );
-    }
-
-    client() {
-      return this.galileo;
-    }
-
-    destroy() {
-      const {wonkaClient} = this.galileo;
+    static destroy() {
+      const {wonkaClient} = galileo;
       if (wonkaClient) {
         wonkaClient.destroy();
       }
-      this.galileo = null;
       return true;
     }
   }
