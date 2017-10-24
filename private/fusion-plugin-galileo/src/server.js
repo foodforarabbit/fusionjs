@@ -11,7 +11,7 @@ export default function createGalileoPlugin({
   GalileoClient = Galileo,
 }) {
   const logger = Logger.of().createChild('galileo');
-  const {tracer} = Tracer.of();
+  const tracer = Tracer.of().client();
 
   class GalileoPlugin extends SingletonPlugin {
     constructor() {

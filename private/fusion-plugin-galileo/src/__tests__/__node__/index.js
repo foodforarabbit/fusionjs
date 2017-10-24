@@ -1,12 +1,16 @@
 import test from 'tape-cup';
 import GalileoPlugin from '../../server';
 
-const mockTracer = {};
+const mockTracer = {
+  client() {
+    return {tracer: true};
+  }
+};
 const mockLogger = {};
 
 const MockTracer = {
   of() {
-    return {tracer: mockTracer};
+    return mockTracer;
   },
 };
 
@@ -33,7 +37,7 @@ test('Graphene Galileo Plugin', t => {
 
   function MockGalileo(cfg, tracer, format, logger) {
     t.looseEquals(cfg, config, 'config is passed down');
-    t.equals(tracer, mockTracer, 'tracer instance needs to be passed down');
+    t.looseEquals(tracer, {tracer: true}, 'tracer instance needs to be passed down');
     t.equals(logger, mockLogger, 'logger instance needs to be passed down');
     t.equals(format, 'http_headers', 'format needs to be passed down');
     return {};
