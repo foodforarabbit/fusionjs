@@ -1,6 +1,6 @@
 {
   "name": "@uber/graphene-galileo",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "main": "./dist/node.cjs.js",
