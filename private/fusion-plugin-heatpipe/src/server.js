@@ -5,17 +5,17 @@ import util from 'util';
 import HeatpipePublisher from '@uber/node-heatpipe-publisher';
 import {Plugin} from '@uber/graphene-plugin';
 
-export default function({heatpipeConfig, M3, Logger, UniversalEvents}) {
+export default function({heatpipeConfig, M3, Logger, UniversalEvents,  Client=HeatpipePublisher}) {
   const m3 = M3 && M3.of();
   const logger = Logger && Logger.of();
 
   assert(m3, '{M3} is a required dependency of Heatpipe Plugin');
   assert(logger, '{Logger} is a required dependency of Heatpipe Plugin');
 
-  const heatpipe = new HeatpipePublisher({
+  const heatpipe = new Client({
     statsd: m3,
     m3Client: m3,
-    logger: logger,
+    logger,
     ...heatpipeConfig,
   });
 
