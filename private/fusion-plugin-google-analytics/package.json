@@ -1,7 +1,7 @@
 {
   "name": "@uber/graphene-google-analytics",
   "description": "Google analytics plugin for Graphene",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
