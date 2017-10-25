@@ -50,9 +50,9 @@
     "@uber/node-m3-client-addon": "^1.4.0"
   },
   "engines": {
-    "node": ">=8.7.0",
-    "npm": ">=5.4.2",
-    "yarn": ">=1.2.1"
+    "node": ">=8.3.0",
+    "npm": ">=5.0.0",
+    "yarn": ">=1.0.0"
   },
   "private": true
 }
