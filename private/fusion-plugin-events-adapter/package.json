@@ -1,5 +1,5 @@
 {
-  "name": "@uber/events-adapter",
+  "name": "@uber/graphene-events-adapter",
   "description": "An adapter for all uber specific events",
   "version": "0.1.1",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
