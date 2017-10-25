@@ -19,8 +19,12 @@
     "./dist/browser.cjs.js": "./dist/browser.cjs.es2015.js",
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
+  "peerDependencies": {
+    "@uber/graphene-app": "^0.1.11"
+  },
   "devDependencies": {
     "@uber/eslint-config-graphene": "^0.1.2",
+    "@uber/graphene-app": "^0.1.11",
     "babel-eslint": "^8.0.1",
     "babel-plugin-istanbul": "^4.1.5",
     "create-universal-package": "^1.0.0-rc.15",
@@ -42,6 +46,7 @@
     "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
     "cover": "npm run build-test && npm run just-cover",
     "just-cover": "nyc --reporter=cobertura npm run just-test",
+    "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html",
     "test": "npm run build-test && npm run just-test",
     "prepublish": "npm run transpile"
   },

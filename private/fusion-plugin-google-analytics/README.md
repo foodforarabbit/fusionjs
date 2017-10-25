@@ -35,7 +35,7 @@ if (__BROWSER__) {
   GA.of().pageview({
     title: document.title,  // optional
     page: window.location.pathname,  // optional
-    location: window.location.pathname, // optional
+    location: window.location.href, // optional
   });
 
   // see https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
