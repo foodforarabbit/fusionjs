@@ -1,17 +1,13 @@
-import util from 'util';
-import fs from "fs";
-import path from "path";
-import sourcemap from "source-map";
-import ErrorStackParser from "error-stack-parser";
-
-const readDir = util.promisify(fs.readdir);
-const readFile = util.promisify(fs.readFile);
+import fs from 'fs';
+import path from 'path';
+import sourcemap from 'source-map';
+import ErrorStackParser from 'error-stack-parser';
 
 export default function createErrorTransform(config) {
-  const mappers = await loadSourceMaps(config);
+  const mappers = loadSourceMapsSync(config);
 
   return function parseError(data) {
-    const { message, source, line, col, error } = data;
+    const {message, source, line, col, error} = data;
 
     let parsed;
     if (error && error.stack) {
@@ -26,7 +22,7 @@ export default function createErrorTransform(config) {
         parsed = {
           message,
           source,
-          line
+          line,
         };
       }
     } else {
@@ -44,7 +40,7 @@ export default function createErrorTransform(config) {
 
   function applySourceMap(fileName, line, column) {
     const map = mappers[path.basename(fileName)];
-    return map ? map.originalPositionFor({ line, column }) : null;
+    return map ? map.originalPositionFor({line, column}) : null;
   }
 
   // Returns log for older browsers that don't send the entire error object
@@ -57,15 +53,15 @@ export default function createErrorTransform(config) {
         message,
         source,
         line,
-        col
+        col,
       };
     }
 
-    const name = mapped.name || "unknown function name";
+    const name = mapped.name || 'unknown function name';
 
     return {
       message: message,
-      stack: `${name} at ${mapped.source}:${mapped.line}:${mapped.column}`
+      stack: `${name} at ${mapped.source}:${mapped.line}:${mapped.column}`,
     };
   }
 
@@ -95,30 +91,28 @@ export default function createErrorTransform(config) {
       .filter(Boolean);
 
     // Extra \n at the beginning lines up the stack
-    const stackString = `\n${frames.join("\n    ")}`;
+    const stackString = `\n${frames.join('\n    ')}`;
     const logMeta = {
       message: error.message,
       stack: stackString
-        .replace(/(js)(\?.+)$/gm, "$1")
-        .replace(/webpack:\/\/\//g, "./")
-        .replace(/~\//g, "node_modules/")
+        .replace(/(js)(\?.+)$/gm, '$1')
+        .replace(/webpack:\/\/\//g, './')
+        .replace(/~\//g, 'node_modules/'),
     };
     return logMeta;
   }
 }
 
-async function loadSourceMaps(config) {
+function loadSourceMapsSync(config) {
   const mappers = {};
 
   try {
-    const paths = await readDir(config.path)
-    const maps = paths
+    fs
+      .readdirSync(config.path)
       .filter(fName => fName.endsWith(config.ext))
-      .map(toSourceMapper);
-    (await Promise.all(maps)).forEach(map => {
-      mappers[name] = map
-    });
+      .reduce(toSourceMapper, mappers);
   } catch (e) {
+    // If this fails, something is broken so we should throw.
     const wrappedError = new Error(
       `Failed to read sourcemaps from ${config.path}`
     );
@@ -127,10 +121,11 @@ async function loadSourceMaps(config) {
   }
   return mappers;
 
-  async function toSourceMapper(maps, fName) {
+  function toSourceMapper(maps, fName) {
     const jsName = path.basename(fName, config.ext);
     const fullFname = path.join(config.path, fName);
-    const sourceMapConents = await readFile(fullFname, "utf8");
-    return {name: jsName, map: new sourcemap.SourceMapConsumer(sourceMapConents)}
+    const sourceMapConents = fs.readFileSync(fullFname, 'utf8');
+    maps[jsName] = new sourcemap.SourceMapConsumer(sourceMapConents);
+    return maps;
   }
 }

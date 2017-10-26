@@ -18,6 +18,7 @@ export default ({ UniversalEvents }) => {
   }
   return class UniversalLogger extends Plugin {
     constructor(ctx) {
+      super(ctx);
       this.emitter = UniversalEvents.of(ctx);
       supportedLevels.forEach(level => {
         this[level] = (message, meta) => {
