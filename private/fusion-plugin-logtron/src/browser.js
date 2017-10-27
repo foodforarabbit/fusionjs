@@ -1,24 +1,23 @@
-import { Plugin } from "@uber/graphene-plugin";
+import {SingletonPlugin} from '@uber/graphene-plugin';
 
 const supportedLevels = [
-  "trace",
-  "debug",
-  "info",
-  "access",
-  "warn",
-  "error",
-  "fatal"
+  'trace',
+  'debug',
+  'info',
+  'access',
+  'warn',
+  'error',
+  'fatal',
 ];
 
-export default ({ UniversalEvents }) => {
+export default ({UniversalEvents}) => {
   if (__DEV__) {
     if (!UniversalEvents) {
-      throw new Error("UniversalEvents is a required parameter");
+      throw new Error('UniversalEvents is a required parameter');
     }
   }
-  return class UniversalLogger extends Plugin {
+  class UniversalLogger {
     constructor(ctx) {
-      super(ctx);
       this.emitter = UniversalEvents.of(ctx);
       supportedLevels.forEach(level => {
         this[level] = (message, meta) => {
@@ -35,7 +34,7 @@ export default ({ UniversalEvents }) => {
       // Supports the interface of logger[level]('message', new Error('some-error'));
       if (meta instanceof Error) {
         meta = {
-          error: meta
+          error: meta,
         };
       }
       // This is a hack required to make errors be json serializable.
@@ -51,7 +50,8 @@ export default ({ UniversalEvents }) => {
         meta.error = error;
       }
 
-      return this.emitter.emit("client-logging", { level, message, meta });
+      return this.emitter.emit('client-logging', {level, message, meta});
     }
-  };
+  }
+  return new SingletonPlugin({Service: UniversalLogger});
 };

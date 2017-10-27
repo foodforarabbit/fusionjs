@@ -3,7 +3,7 @@ import path from 'path';
 import Logtron from '@uber/logtron';
 import LoggerStream from '@uber/logtron/backends/logger-stream';
 import winston from 'winston';
-import {Plugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from '@uber/graphene-plugin';
 import createErrorTransform from './create-error-transform';
 
 const InMemory = winston.transports.Memory;
@@ -62,13 +62,6 @@ export default ({UniversalEvents, M3, backends = {}, meta}) => {
     backends: logtronBackends,
   });
 
-  class UniversalLogger extends Plugin {
-    constructor() {
-      super();
-      this.logger = logger;
-    }
-  }
-
   // in dev we don't send client errors to the server
   if (env === 'production') {
     const events = UniversalEvents.of();
@@ -93,7 +86,11 @@ export default ({UniversalEvents, M3, backends = {}, meta}) => {
     });
   }
 
-  return UniversalLogger;
+  return new SingletonPlugin({
+    Service: function() {
+      return logger;
+    },
+  });
 };
 
 function isErrorMeta(meta) {
