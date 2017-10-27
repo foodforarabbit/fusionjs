@@ -6,7 +6,7 @@ tape('m3 emitter interface', t => {
   const events = {
     emit() {},
   };
-  const m3 = M3(events);
+  const m3 = M3({events});
   t.equal(typeof m3.increment, 'function', 'exposes an increment function');
   t.equal(typeof m3.decrement, 'function', 'exposes an decrement function');
   t.equal(typeof m3.gauge, 'function', 'exposes an gauge function');
@@ -23,7 +23,7 @@ tape('m3 emitter increment', t => {
       t.end();
     },
   };
-  const m3 = M3(events);
+  const m3 = M3({events});
   m3.increment('test');
 });
 
@@ -35,7 +35,7 @@ tape('m3 emitter decrement', t => {
       t.end();
     },
   };
-  const m3 = M3(events);
+  const m3 = M3({events});
   m3.decrement('test');
 });
 
@@ -47,7 +47,7 @@ tape('m3 emitter timing', t => {
       t.end();
     },
   };
-  const m3 = M3(events);
+  const m3 = M3({events});
   m3.timing('test');
 });
 
@@ -59,7 +59,7 @@ tape('m3 emitter counter', t => {
       t.end();
     },
   };
-  const m3 = M3(events);
+  const m3 = M3({events});
   m3.counter('test');
 });
 
@@ -71,6 +71,6 @@ tape('m3 emitter gauge', t => {
       t.end();
     },
   };
-  const m3 = M3(events);
+  const m3 = M3({events});
   m3.gauge('test');
 });

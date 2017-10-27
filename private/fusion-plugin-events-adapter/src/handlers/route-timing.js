@@ -1,6 +1,4 @@
-import M3 from '../emitters/m3';
-export default function routeTiming(events) {
-  const m3 = M3(events);
+export default function routeTiming({events, m3}) {
   const addHandler = handler => type => {
     events.on(type, handler(type));
   };
