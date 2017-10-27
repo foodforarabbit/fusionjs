@@ -6,9 +6,6 @@ export default function EventsAdapterFactory({UniversalEvents}) {
     throw new Error('{UniversalEvents} dependency is required');
   }
   const events = UniversalEvents.of();
-  if (!events) {
-    throw new Error('{UniversalEvents.of()} must return an instance of UniversalEvents');
-  }
 
   function webEventsMetaMapper(payload) {
     const location = window.location || {};
@@ -22,6 +19,8 @@ export default function EventsAdapterFactory({UniversalEvents}) {
           screen_height: window.screen ? window.screen.height : null,
           screen_width: window.screen ? window.screen.width : null,
         },
+        // TODO: this should probably come from react router, because the router
+        // knows the matched path/trackingId
         page: {
           hostname: location.hostname,
           pathname: location.pathname,
@@ -37,5 +36,5 @@ export default function EventsAdapterFactory({UniversalEvents}) {
   events.map('redux:action', webEventsMetaMapper);
   events.map('browser-performance-emitter:stats', webEventsMetaMapper);
 
-  return class NoopPlugin extends Plugin {};
+  return new Plugin();
 }

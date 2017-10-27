@@ -8,7 +8,13 @@ import Heatpipe from './emitters/heatpipe';
 import routeTiming from './handlers/route-timing';
 import browserPerformance from './handlers/browser-performance';
 
-export default function EventsAdapterFactory({UniversalEvents, Session, Geolocation, I18n, config: {appName}}) {
+export default function EventsAdapterFactory({
+  UniversalEvents,
+  Session,
+  Geolocation,
+  I18n,
+  config: {appName},
+}) {
   assert.ok(UniversalEvents, '{UniversalEvents} dependency is required');
   const events = UniversalEvents.of();
   assert.ok(
@@ -22,5 +28,5 @@ export default function EventsAdapterFactory({UniversalEvents, Session, Geolocat
   routeTiming({events, m3});
   browserPerformance({events, m3, heatpipe});
 
-  return class NoopPlugin extends Plugin {};
+  return new Plugin();
 }
