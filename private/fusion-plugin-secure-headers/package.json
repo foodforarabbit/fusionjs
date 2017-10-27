@@ -1,7 +1,7 @@
 {
   "name": "@uber/graphene-secure-headers",
   "description": "A Graphene plugin to improve the security by setting headers, such as Content Security Policy, X-Frame-Options...etc.",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "main": "./dist/node.cjs.js",
