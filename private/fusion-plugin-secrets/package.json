@@ -1,6 +1,6 @@
 {
   "name": "@uber/graphene-secrets-client",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
