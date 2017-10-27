@@ -1,6 +1,6 @@
 {
   "name": "@uber/graphene-logtron",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Graphene plugin for universal logging via logtron",
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
