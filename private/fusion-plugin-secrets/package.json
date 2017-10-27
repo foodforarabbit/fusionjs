@@ -19,18 +19,23 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "dependencies": {
-    "@uber/graphene-plugin": "^0.1.2",
     "dottie": "^2.0.0"
   },
+  "peerDependencies": {
+    "@uber/graphene-plugin": "^0.2.1"
+  },
   "devDependencies": {
-    "@uber/eslint-config-graphene": "^0.1.2",
+    "@uber/eslint-config-graphene": "^0.2.1",
+    "@uber/graphene-plugin": "^0.2.1",
     "babel-eslint": "^8.0.1",
-    "create-universal-package": "^1.0.0-rc.15",
-    "eslint": "^4.8.0",
+    "babel-plugin-istanbul": "^4.1.5",
+    "create-universal-package": "^1.0.0-rc.18",
+    "eslint": "^4.9.0",
     "eslint-plugin-cup": "^1.0.0-rc.4",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
+    "nyc": "^11.2.1",
     "prettier": "1.7.4",
     "tape-cup": "^4.7.1",
     "unitest": "^1.1.0"
@@ -42,6 +47,9 @@
     "build-test": "rm -rf dist-tests && cup build-tests",
     "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
     "test": "npm run build-test && npm run just-test",
+    "cover": "npm run build-test && npm run just-cover",
+    "just-cover": "nyc --reporter=cobertura npm run just-test",
+    "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html",
     "prepublish": "npm run transpile"
   },
   "engines": {

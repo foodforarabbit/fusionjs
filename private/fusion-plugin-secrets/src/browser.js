@@ -1,10 +1,14 @@
 import {Plugin} from '@uber/graphene-plugin';
 
-export default () => {
-  return class extends Plugin {
+export default opts => {
+  if (__DEV__ && opts)
+    throw new Error(
+      'Cannot pass options to secrets plugin in the browser. Try: `app.plugin(SecretsClient, __NODE__ && {...})`'
+    );
+  class Service {
     constructor() {
-      super();
-      throw new Error('secrets are unavailable on the browser');
+      throw new Error('Cannot instantiate secret service in the browser');
     }
-  };
+  }
+  return new Plugin({Service});
 };

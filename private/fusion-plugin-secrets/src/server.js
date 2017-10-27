@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 import dottie from 'dottie';
-import {Plugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from '@uber/graphene-plugin';
 
 export default (
   {
@@ -18,12 +18,7 @@ export default (
   if (__DEV__ && !devValues) {
     throw new Error('devValues are required in development');
   }
-  return class extends Plugin {
-    static of() {
-      // Singleton only, we don't care about scoping for ctx (similarly, we wouldn't want/need to init per request)
-      return super.of();
-    }
-
+  class SecretService {
     async init() {
       try {
         this.secrets = __DEV__
@@ -33,12 +28,12 @@ export default (
         throw new Error(`Failed to parse secrets at ${secretsPath}`);
       }
     }
-
     get(...args) {
       if (this.secrets === undefined) {
         throw new Error('You must call init() before accessing secrets');
       }
       return dottie.get.call(null, this.secrets, ...args);
     }
-  };
+  }
+  return new SingletonPlugin({Service: SecretService});
 };
