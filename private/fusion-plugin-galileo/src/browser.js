@@ -1,9 +1,13 @@
-/* eslint-env browser */
-
-export default function() {
-  if (__DEV__) {
+import {Plugin} from '@uber/graphene-plugin';
+export default function(options) {
+  if (__DEV__ && options) {
     throw new Error(
-      '[Graphene] Galileo is a node library, please do not include it on the browser'
+      'Cannot pass parameters to Galileo plugin in the browser. Try: `app.plugin(GalileoPlugin, __NODE__ && {...})`'
     );
   }
+  return new Plugin({
+    Service: function() {
+      throw new Error('Cannot use GalileoPlugin in the browser');
+    },
+  });
 }

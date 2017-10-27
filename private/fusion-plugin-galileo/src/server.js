@@ -24,13 +24,12 @@ export default function createGalileoPlugin({
     logger
   );
 
-  class GalileoPlugin extends SingletonPlugin {
-    constructor(ctx) {
-      super(ctx);
+  class GalileoPlugin {
+    constructor() {
       this.galileo = galileo;
     }
 
-    static destroy() {
+    destroy() {
       const {wonkaClient} = galileo;
       if (wonkaClient) {
         wonkaClient.destroy();
@@ -39,5 +38,5 @@ export default function createGalileoPlugin({
     }
   }
 
-  return GalileoPlugin;
+  return new SingletonPlugin({Service: GalileoPlugin});
 }

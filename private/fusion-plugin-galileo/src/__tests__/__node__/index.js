@@ -48,7 +48,7 @@ test('Graphene Galileo Plugin', t => {
   });
   t.ok(typeof Galileo, 'function', 'exposes a function');
   t.ok(Galileo.of().galileo, 'should have galileo instance created');
-  t.ok(Galileo.destroy(), 'should destory the galileo instance');
+  t.ok(Galileo.of().destroy(), 'should destory the galileo instance');
 
   t.end();
 });
