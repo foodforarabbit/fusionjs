@@ -1,6 +1,6 @@
 /* eslint-env node */
 import M3Client from '@uber/node-m3-client-addon';
-import {Plugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from '@uber/graphene-plugin';
 
 export default function({UniversalEvents, m3Config, Client = M3Client}) {
   const m3 = new Client(m3Config);
@@ -18,11 +18,7 @@ export default function({UniversalEvents, m3Config, Client = M3Client}) {
     events.on(`m3:${funcName}`, m3Functions[funcName]);
   }
 
-  class M3ServerPlugin extends Plugin {
-    static of() {
-      return super.of();
-    }
-  }
+  function M3ServerPlugin() {}
 
   M3ServerPlugin.prototype.counter = (key, value, tags) =>
     m3Functions.counter({key, value, tags});
@@ -50,5 +46,5 @@ export default function({UniversalEvents, m3Config, Client = M3Client}) {
     M3ServerPlugin.prototype[funcName] = m3[funcName].bind(m3);
   });
 
-  return M3ServerPlugin;
+  return new SingletonPlugin({Service: M3ServerPlugin});
 }

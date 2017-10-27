@@ -1,10 +1,9 @@
 /* eslint-env browser */
-import {Plugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from '@uber/graphene-plugin';
 
 export default function({UniversalEvents}) {
-  return class M3BrowserPlugin extends Plugin {
-    constructor(ctx) {
-      super(ctx);
+  class M3BrowserPlugin {
+    constructor() {
       const emitter = UniversalEvents.of();
       this.emit = emitter.emit.bind(emitter);
     }
@@ -23,5 +22,6 @@ export default function({UniversalEvents}) {
     gauge(key, value, tags) {
       this.emit('m3:gauge', {key, value, tags});
     }
-  };
+  }
+  return new SingletonPlugin({Service: M3BrowserPlugin});
 }
