@@ -10,3 +10,5 @@ core
 npm-debug.log
 
 dist/
+dist-tests/
+.nyc_output/
