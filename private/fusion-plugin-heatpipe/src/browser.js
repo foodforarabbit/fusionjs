@@ -1,15 +1,15 @@
 /* eslint-env browser */
-import {Plugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from '@uber/graphene-plugin';
 
 export default function({UniversalEvents}) {
-  return class HeatpipeBrowserPlugin extends Plugin {
-    constructor(ctx) {
-      super(ctx);
+  class HeatpipeBrowserPlugin {
+    constructor() {
       const emitter = UniversalEvents.of();
       this.emit = emitter.emit.bind(emitter);
     }
     publish(topicInfo, message) {
       this.emit('heatpipe:publish', {topicInfo, message});
     }
-  };
+  }
+  return new SingletonPlugin({Service: HeatpipeBrowserPlugin});
 }

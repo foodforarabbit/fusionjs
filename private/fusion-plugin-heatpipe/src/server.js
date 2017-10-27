@@ -3,7 +3,7 @@ import assert from 'assert';
 import util from 'util';
 
 import HeatpipePublisher from '@uber/node-heatpipe-publisher';
-import {Plugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from '@uber/graphene-plugin';
 
 export default function({heatpipeConfig, M3, Logger, UniversalEvents,  Client=HeatpipePublisher}) {
   const m3 = M3 && M3.of();
@@ -26,10 +26,7 @@ export default function({heatpipeConfig, M3, Logger, UniversalEvents,  Client=He
     heatpipe.publish(topicInfo, message)
   );
 
-  class HeatpipeServerPlugin extends Plugin {
-    static of() {
-      return super.of();
-    }
+  function HeatpipeServerPlugin() {
   }
 
   HeatpipeServerPlugin.prototype.asyncPublish = util.promisify(
@@ -38,5 +35,5 @@ export default function({heatpipeConfig, M3, Logger, UniversalEvents,  Client=He
   HeatpipeServerPlugin.prototype.publish = heatpipe.publish.bind(heatpipe);
   HeatpipeServerPlugin.prototype.destroy = heatpipe.destroy.bind(heatpipe);
 
-  return HeatpipeServerPlugin;
+  return new SingletonPlugin({Service: HeatpipeServerPlugin});
 }
