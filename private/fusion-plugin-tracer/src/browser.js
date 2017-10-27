@@ -1,9 +1,13 @@
-/* eslint-env browser */
-
-export default function() {
-  if (__DEV__) {
+import {Plugin} from '@uber/graphene-plugin';
+export default function(opts) {
+  if (__DEV__ && opts) {
     throw Error(
-      '[Graphene] Tracer Client is a node library, please do not include it on the browser'
+      'Cannot pass dependencies to TracerPlugin in the browser. Try: `app.plugin(TracerPlugin, __NODE__ && {...})`'
     );
   }
+  return new Plugin({
+    Service: function() {
+      throw new Error('Cannot instantiate TracerPlugin in the browser');
+    },
+  });
 }

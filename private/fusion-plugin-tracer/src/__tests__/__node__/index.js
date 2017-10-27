@@ -51,7 +51,7 @@ test('Tracer Plugin', t => {
     mockTracer,
     'should have tracer instance created'
   );
-  t.ok(Tracer.destroy(), 'should destroy the tracer instance');
+  t.ok(Tracer.of().destroy(), 'should destroy the tracer instance');
 
   t.end();
 });

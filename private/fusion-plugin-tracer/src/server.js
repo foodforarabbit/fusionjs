@@ -19,44 +19,43 @@ export default function createTracerPlugin({
 
   const tracer = initClient(config, options);
 
-  class TracerPlugin extends Plugin {
-    constructor(ctx) {
-      super(ctx);
+  class TracerPlugin {
+    constructor() {
       this.span = null;
       this.tracer = tracer;
     }
 
-    static async middleware(ctx, next) {
-      const {request} = ctx;
-      const context = tracer.extract(
-        opentracing.FORMAT_HTTP_HEADERS,
-        request.headers
-      );
-
-      const tags = {};
-      tags[opentracing.Tags.COMPONENT] = 'graphene';
-      tags[opentracing.Tags.SPAN_KIND] = opentracing.Tags.SPAN_KIND_RPC_SERVER;
-      tags[opentracing.Tags.HTTP_URL] = request.path;
-      tags[opentracing.Tags.HTTP_METHOD] = request.method;
-
-      const span = tracer.startSpan(`${request.method}_${request.path}`, {
-        childOf: context,
-        tags: tags,
-      });
-
-      this.of(ctx).span = span;
-
-      await next();
-
-      span.setTag(opentracing.Tags.HTTP_STATUS_CODE, ctx.response.status);
-      span.finish();
-    }
-
-    static destroy() {
-      tracer.close();
+    destroy() {
+      this.tracer.close();
       return true;
     }
   }
 
-  return TracerPlugin;
+  async function middleware(ctx, next) {
+    const {request} = ctx;
+    const context = tracer.extract(
+      opentracing.FORMAT_HTTP_HEADERS,
+      request.headers
+    );
+
+    const tags = {};
+    tags[opentracing.Tags.COMPONENT] = 'graphene';
+    tags[opentracing.Tags.SPAN_KIND] = opentracing.Tags.SPAN_KIND_RPC_SERVER;
+    tags[opentracing.Tags.HTTP_URL] = request.path;
+    tags[opentracing.Tags.HTTP_METHOD] = request.method;
+
+    const span = tracer.startSpan(`${request.method}_${request.path}`, {
+      childOf: context,
+      tags: tags,
+    });
+
+    this.of(ctx).span = span;
+
+    await next();
+
+    span.setTag(opentracing.Tags.HTTP_STATUS_CODE, ctx.response.status);
+    span.finish();
+  }
+
+  return new Plugin({middleware, Service: TracerPlugin});
 }
