@@ -20,7 +20,7 @@ import MyPlugin from './myPlugin';
 export default () => {
   const app = new App(<Home />);
   const Logger = app.plugin(GrapheneLogger);
-  const Rosetta = app.plugin(GrapheneRosetta, {
+  const Rosetta = app.plugin(GrapheneRosetta, __NODE__ && {
     Logger, // required
     service: 'service-name', // required
     dir: '../translations/', // optional
@@ -33,15 +33,15 @@ export default () => {
 
 // myPlugin.js
 export default const MyPlugin = ({Rosetta}) => {
-  const {client} = Rosetta.of();
+  const rosetta = Rosetta.of();
   return function myMiddleware(ctx, next) => {
-    const locales = client.locales;
-    const translations = client.translations;
+    const locales = rosetta.locales;
+    const translations = rosetta.translations;
     return next();
   }
   // ...
   // in tests, you need to call cleanup to clear the load interval
   // ...
-  Rosetta.of().cleanup();
+  Rosetta.of().clearInterval();
 }
 ```

@@ -17,17 +17,18 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "devDependencies": {
-    "@uber/eslint-config-graphene": "^0.1.0",
-    "babel-eslint": "^8.0.0",
+    "@uber/eslint-config-graphene": "^0.2.1",
+    "@uber/graphene-plugin": "^0.2.1",
+    "babel-eslint": "^8.0.1",
     "babel-plugin-istanbul": "^4.1.5",
-    "create-universal-package": "^1.0.0-rc.14",
-    "eslint": "^4.2.0",
+    "create-universal-package": "^1.0.0-rc.18",
+    "eslint": "^4.9.0",
     "eslint-plugin-cup": "^1.0.0-rc.4",
-    "eslint-plugin-flowtype": "^2.35.0",
-    "eslint-plugin-prettier": "^2.1.2",
-    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
     "nyc": "^11.2.1",
-    "prettier": "1.4.2",
+    "prettier": "1.7.4",
     "tape-cup": "^4.7.1",
     "unitest": "^1.1.0"
   },
@@ -44,8 +45,10 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/graphene-plugin": "^0.1.0",
     "@uber/node-genghis": "^2.0.6"
+  },
+  "peerDependencies": {
+    "@uber/graphene-plugin": "^0.2.1"
   },
   "engines": {
     "node": ">= 8"

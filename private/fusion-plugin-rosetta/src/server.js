@@ -1,4 +1,4 @@
-import {Plugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from '@uber/graphene-plugin';
 import Genghis from '@uber/node-genghis';
 
 export default ({Logger, Client = Genghis, ...config}) => {
@@ -6,17 +6,8 @@ export default ({Logger, Client = Genghis, ...config}) => {
   const client = new Client({logger, ...config});
   client.load();
   client.setLoadInterval();
-  class RosettaPlugin extends Plugin {
-    static of() {
-      return super.of();
-    }
-    constructor() {
-      super();
-      this.client = client;
-    }
-    cleanup() {
-      this.client.clearInterval();
-    }
+  function Service() {
+    return client;
   }
-  return RosettaPlugin;
+  return new SingletonPlugin({Service});
 };

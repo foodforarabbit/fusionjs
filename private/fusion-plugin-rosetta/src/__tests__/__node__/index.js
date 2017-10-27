@@ -30,7 +30,7 @@ tape('Rosetta plugin', t => {
     thing: 'test',
   });
   const rosetta = Rosetta.of();
-  t.ok(rosetta.client instanceof Client, 'exposes the client');
-  rosetta.cleanup();
+  t.ok(rosetta instanceof Client, 'exposes the client');
+  rosetta.clearInterval();
   t.end();
 });
