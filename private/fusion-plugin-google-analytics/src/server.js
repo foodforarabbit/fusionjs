@@ -4,16 +4,17 @@ import {html} from '@uber/graphene-app';
 
 export default function() {
   const escaped = html`<script async src='https://www.google-analytics.com/analytics.js'></script>`;
-  return class extends Plugin {
+  class GAServer {
     constructor() {
-      super();
       throw new Error('Google analytics cannot be used on the server');
     }
-    static middleware(ctx, next) {
-      if (ctx.element) {
-        ctx.body.head.push(escaped);
-      }
-      return next();
+  }
+
+  function middleware(ctx, next) {
+    if (ctx.element) {
+      ctx.body.head.push(escaped);
     }
-  };
+    return next();
+  }
+  return new Plugin({middleware, Service: GAServer});
 }

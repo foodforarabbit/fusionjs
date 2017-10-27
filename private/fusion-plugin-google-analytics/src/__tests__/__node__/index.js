@@ -1,13 +1,13 @@
 import tape from 'tape-cup';
 import Plugin from '../../server';
 
-tape('ga plugin on the server', t => {
+tape.only('ga plugin on the server', t => {
   const PluginClass = Plugin();
   t.ok(PluginClass, 'does not throw at setup time');
   t.equal(typeof PluginClass.of, 'function', 'exposes a of function');
   t.throws(() => PluginClass.of(), 'throws at instantiation time');
   t.throws(
-    () => new PluginClass(),
+    () => new PluginClass.Service(),
     /Google analytics cannot be used on the server/,
     'throws when using constructor'
   );

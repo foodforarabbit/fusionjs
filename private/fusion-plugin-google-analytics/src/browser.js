@@ -24,9 +24,8 @@ export default function(options = {}) {
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/command-queue-reference
     options.name = options.trackingId.replace(/-/g, '_');
   }
-  return class GoogleAnalytics extends Plugin {
-    constructor(ctx) {
-      super(ctx);
+  class GoogleAnalytics {
+    constructor() {
       this.options = options;
 
       // load ga script
@@ -87,5 +86,6 @@ export default function(options = {}) {
         this.ga('.set', 'anonymizeIp', true);
       }
     }
-  };
+  }
+  return new Plugin({Service: GoogleAnalytics});
 }
