@@ -1,8 +1,7 @@
 const STAT_EVENT = 'stat';
 
 export default function browserPerformance({events, m3, heatpipe}) {
-  events.on('browser-performance-emitter:stats', (payload, args) => {
-    const ctx = args && args.ctx;
+  events.on('browser-performance-emitter:stats', (payload, ctx) => {
     const {webEventsMeta, calculatedStats, resourceEntries} = payload;
 
     if (!isEmpty(calculatedStats)) {
@@ -19,7 +18,7 @@ export default function browserPerformance({events, m3, heatpipe}) {
             webEventsMeta,
           });
 
-          m3.timing(key, statValue);
+          m3.timing({key, value: statValue});
         }
       });
     }

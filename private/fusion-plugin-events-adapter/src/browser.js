@@ -5,7 +5,13 @@ export default function EventsAdapterFactory({UniversalEvents}) {
   if (!UniversalEvents) {
     throw new Error('{UniversalEvents} dependency is required');
   }
+
   const events = UniversalEvents.of();
+  if (!events) {
+    throw new Error(
+      '{UniversalEvents.of()} must return an instance of UniversalEvents'
+    );
+  }
 
   function webEventsMetaMapper(payload) {
     const location = window.location || {};
