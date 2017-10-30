@@ -19,8 +19,7 @@
     "@uber/logtron": "^9.0.5",
     "koa-bodyparser": "4.2.0",
     "error-stack-parser": "^2.0.1",
-    "source-map": "^0.6.1",
-    "winston": "^2.4.0"
+    "source-map": "^0.6.1"
   },
   "peerDependencies": {
     "@uber/graphene-app": "^0.2.1",

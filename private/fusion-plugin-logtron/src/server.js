@@ -1,12 +1,9 @@
 /* eslint-env node */
+import assert from 'assert';
 import path from 'path';
 import Logtron from '@uber/logtron';
-import LoggerStream from '@uber/logtron/backends/logger-stream';
-import winston from 'winston';
 import {SingletonPlugin} from '@uber/graphene-plugin';
 import createErrorTransform from './create-error-transform';
-
-const InMemory = winston.transports.Memory;
 
 const supportedLevels = [
   'trace',
@@ -30,15 +27,13 @@ function validateItem(item) {
   return true;
 }
 
-class InMemoryLogger {
-  createStream() {
-    return new LoggerStream(new InMemory({json: true}), {});
-  }
-}
-
-export default ({UniversalEvents, M3, backends = {}, meta}) => {
+export default ({UniversalEvents, M3, backends = {}, team, appName}) => {
+  assert.ok(team, '{team} parameter is required');
+  assert.ok(appName, '{appName} parameter is required');
+  assert.ok(UniversalEvents, '{UniversalEvents} parameter is required');
+  assert.ok(M3, '{M3} parameter is required');
   const env = __DEV__ ? 'dev' : process.env.NODE_ENV;
-  if (__DEV__) {
+  if (backends.console !== false) {
     backends.console = true;
   }
   const statsd = M3.of();
@@ -48,18 +43,10 @@ export default ({UniversalEvents, M3, backends = {}, meta}) => {
       proxyPort: 18084,
     };
   }
-  const logtronBackends = Logtron.defaultBackends(backends);
-  // TODO: We can maybe remove this, since testing can be done via listening to
-  // the server events.
-  if (backends.memory) {
-    // This takes the console transport and replaces it with a memory transport
-    // access at: logger.mainLogger.streams.console.logger.writeOutput
-    backends.console = new InMemoryLogger();
-  }
   const logger = Logtron({
-    meta,
+    meta: {team, project: appName},
     statsd,
-    backends: logtronBackends,
+    backends: Logtron.defaultBackends(backends),
   });
 
   // in dev we don't send client errors to the server

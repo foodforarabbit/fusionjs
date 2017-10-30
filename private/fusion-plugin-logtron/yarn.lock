@@ -278,10 +278,6 @@ async@^1.4.0:
   version "1.5.2"
   resolved "https://unpm.uberinternal.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@~1.0.0:
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/async/-/async-1.0.0.tgz#f8fc04ca3a13784ade9e1641af98578cfbd647a9"
-
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://unpm.uberinternal.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -1076,10 +1072,6 @@ color-name@^1.1.1:
 colors@0.6.x:
   version "0.6.2"
   resolved "https://unpm.uberinternal.com/colors/-/colors-0.6.2.tgz#2423fe6678ac0c5dae8852e5d0e5be08c997abcc"
-
-colors@1.0.x:
-  version "1.0.3"
-  resolved "https://unpm.uberinternal.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
 
 combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.5"
@@ -2231,7 +2223,7 @@ isomorphic-fetch@^2.1.1:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
 
-isstream@0.1.x, isstream@~0.1.2:
+isstream@~0.1.2:
   version "0.1.2"
   resolved "https://unpm.uberinternal.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
@@ -3896,17 +3888,6 @@ winston-uber@^1.0.0:
     eyes "0.1.x"
     pkginfo "0.3.x"
     request "^2.81.0"
-    stack-trace "0.0.x"
-
-winston@^2.4.0:
-  version "2.4.0"
-  resolved "https://unpm.uberinternal.com/winston/-/winston-2.4.0.tgz#808050b93d52661ed9fb6c26b3f0c826708b0aee"
-  dependencies:
-    async "~1.0.0"
-    colors "1.0.x"
-    cycle "1.0.x"
-    eyes "0.1.x"
-    isstream "0.1.x"
     stack-trace "0.0.x"
 
 wordwrap@0.0.2:
