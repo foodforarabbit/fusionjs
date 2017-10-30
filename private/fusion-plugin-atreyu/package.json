@@ -1,6 +1,6 @@
 {
   "name": "@uber/graphene-atreyu",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "",
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
