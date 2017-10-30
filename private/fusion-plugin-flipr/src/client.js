@@ -1,3 +1,10 @@
 /* eslint-env browser */
 // TODO: [Nice to have] Make specified Flipr properties in config.clientProperties available on client
-export default function() {}
+import {SingletonPlugin} from '@uber/graphene-plugin';
+export default function() {
+  return new SingletonPlugin({
+    Service: function() {
+      throw new Error('Cannot instantiate FliprPlugin in the browser');
+    },
+  });
+}

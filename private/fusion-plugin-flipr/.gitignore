@@ -10,6 +10,7 @@ core
 npm-debug.log
 
 dist/
-dist-test/
-
+dist-tests/
+.DS_Store
+.nyc_output/
 .idea/

@@ -3,7 +3,7 @@ import assert from 'assert';
 import Flipr from '@uber/flipr-client';
 import os from 'os';
 import path from 'path';
-import {Plugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from '@uber/graphene-plugin';
 
 function getFliprPropertiesNamespaces({rootNamespace, dataCenter}) {
   return [
@@ -21,7 +21,8 @@ function getFliprDiskCachePath() {
   return __DEV__ ? path.join(__dirname, '../flipr/') : null;
 }
 
-export default ({config, Logger}) => {
+export const DEFAULT_UPDATE_INTERVAL = 5000;
+export default ({config, Logger, Client = Flipr}) => {
   const {
     // Plugin config properties
     defaultNamespace,
@@ -45,44 +46,39 @@ export default ({config, Logger}) => {
   );
   const logger = (Logger && Logger.of()) || null;
 
-  class FliprPlugin extends Plugin {
-    static of() {
-      return super.of();
-    }
+  return new SingletonPlugin({
+    Service: class FliprService {
+      constructor() {
+        const flipr = new Client({
+          propertiesNamespaces:
+            (defaultNamespace &&
+              getFliprPropertiesNamespaces({
+                rootNamespace: defaultNamespace,
+                dataCenter,
+              })) ||
+              propertiesNamespaces,
+          logger,
+          dcPath: getFliprDatacenterPath(),
+          updateInterval: updateInterval || DEFAULT_UPDATE_INTERVAL,
+          defaultProperties,
+          diskCachePath: diskCachePath || getFliprDiskCachePath(),
+          ...overrides,
+        });
 
-    constructor(ctx) {
-      super(ctx);
-      const flipr = new Flipr({
-        propertiesNamespaces:
-          (defaultNamespace &&
-            getFliprPropertiesNamespaces({
-              rootNamespace: defaultNamespace,
-              dataCenter,
-            })) ||
-            propertiesNamespaces,
-        logger,
-        dcPath: getFliprDatacenterPath(),
-        updateInterval: updateInterval || 5000,
-        defaultProperties,
-        diskCachePath: diskCachePath || getFliprDiskCachePath(),
-        ...overrides,
-      });
-
-      for (const key in flipr) {
-        if (typeof flipr[key] === 'function') {
-          Object.defineProperty(this, key, {
-            value: (...args) => flipr[key](...args),
-          });
+        for (const key in flipr) {
+          if (typeof flipr[key] === 'function') {
+            Object.defineProperty(this, key, {
+              value: (...args) => flipr[key](...args),
+            });
+          }
         }
+
+        flipr.startUpdating(function onUpdating(err) {
+          if (err) {
+            throw err;
+          }
+        });
       }
-
-      flipr.startUpdating(function onUpdating(err) {
-        if (err) {
-          throw err;
-        }
-      });
-    }
-  }
-
-  return FliprPlugin;
+    },
+  });
 };
