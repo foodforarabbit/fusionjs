@@ -15,7 +15,7 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "dependencies": {
-    "@uber/babel-helpers": "^0.1.2",
+    "@uber/babel-helpers": "^0.2.1",
     "@uber/logtron": "^9.0.5",
     "koa-bodyparser": "4.2.0",
     "error-stack-parser": "^2.0.1",
@@ -23,16 +23,16 @@
     "winston": "^2.4.0"
   },
   "peerDependencies": {
-    "@uber/graphene-app": "^0.1.11",
-    "@uber/graphene-plugin": "^0.1.9"
+    "@uber/graphene-app": "^0.2.1",
+    "@uber/graphene-plugin": "^0.2.1"
   },
   "devDependencies": {
-    "@uber/eslint-config-graphene": "^0.1.2",
-    "@uber/graphene-universal-events": "^0.1.9",
-    "@uber/graphene-app": "^0.1.11",
-    "@uber/graphene-plugin": "^0.1.9",
+    "@uber/eslint-config-graphene": "^0.2.1",
+    "@uber/graphene-universal-events": "^0.2.1",
+    "@uber/graphene-app": "^0.2.1",
+    "@uber/graphene-plugin": "^0.2.1",
     "create-universal-package": "^1.0.0-rc.18",
-    "eslint": "^4.9.0",
+    "eslint": "^4.10.0",
     "babel-eslint": "^8.0.1",
     "babel-plugin-istanbul": "^4.1.5",
     "eslint-plugin-cup": "^1.0.0-rc.4",
