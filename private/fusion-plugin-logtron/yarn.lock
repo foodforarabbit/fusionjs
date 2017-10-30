@@ -41,35 +41,36 @@
   version "8.0.47"
   resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-8.0.47.tgz#968e596f91acd59069054558a00708c445ca30c2"
 
-"@uber/babel-helpers@^0.1.2":
-  version "0.1.2"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fbabel-helpers/-/private/%40uber%2Fbabel-helpers-0.1.2.tgz#5ec41f7eec336dd7ce2a1ee0e6ffbf0ffd335263"
+"@uber/babel-helpers@^0.2.1":
+  version "0.2.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fbabel-helpers/-/private/%40uber%2Fbabel-helpers-0.2.1.tgz#21c8aad72e1758224e418bc3b8b22f1b69c571ed"
 
-"@uber/eslint-config-graphene@^0.1.2":
-  version "0.1.2"
-  resolved "https://unpm.uberinternal.com/%40uber%2Feslint-config-graphene/-/private/%40uber%2Feslint-config-graphene-0.1.2.tgz#4a6294daf2b8bed4f044abbd9dc290de411e7129"
+"@uber/eslint-config-graphene@^0.2.1":
+  version "0.2.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Feslint-config-graphene/-/private/%40uber%2Feslint-config-graphene-0.2.1.tgz#26b95a112a388f572fdef2c514d510c805c0828b"
   dependencies:
     eslint-config-uber-universal-stage-3 "^1.0.0-rc.6"
 
-"@uber/graphene-app@^0.1.11":
-  version "0.1.11"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fgraphene-app/-/private/%40uber%2Fgraphene-app-0.1.11.tgz#202801abfd078c22cc4d97f8d2aa4aa9cfd58983"
+"@uber/graphene-app@^0.2.1":
+  version "0.2.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fgraphene-app/-/private/%40uber%2Fgraphene-app-0.2.1.tgz#c2858818bf443f7ecade81118ee6004d755678ce"
   dependencies:
-    "@uber/graphene-plugin" "^0.1.9"
+    "@uber/graphene-plugin" "^0.2.1"
     koa "^2.3.0"
+    node-mocks-http "^1.6.6"
 
-"@uber/graphene-plugin@^0.1.9":
-  version "0.1.9"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fgraphene-plugin/-/private/%40uber%2Fgraphene-plugin-0.1.9.tgz#5e350bf6285cf4ca7f8c0b3ae08e9398039c00c2"
+"@uber/graphene-plugin@^0.2.1":
+  version "0.2.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fgraphene-plugin/-/private/%40uber%2Fgraphene-plugin-0.2.1.tgz#c6b68db23820de6982a7a3f72fccf6ab8867c752"
   dependencies:
     koa-compose "^4.0.0"
 
-"@uber/graphene-universal-events@^0.1.9":
-  version "0.1.9"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fgraphene-universal-events/-/private/%40uber%2Fgraphene-universal-events-0.1.9.tgz#832a698214e348b3b1372ffc445313a95a38f547"
+"@uber/graphene-universal-events@^0.2.1":
+  version "0.2.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fgraphene-universal-events/-/private/%40uber%2Fgraphene-universal-events-0.2.1.tgz#8260a73a90daee85ac40f893505adea380cb2f33"
   dependencies:
-    "@uber/babel-helpers" "^0.1.2"
-    "@uber/graphene-plugin" "^0.1.9"
+    "@uber/babel-helpers" "^0.2.1"
+    "@uber/graphene-plugin" "^0.2.1"
     koa-bodyparser "4.2.0"
 
 "@uber/kafka-logger@^7.0.0":
@@ -108,7 +109,7 @@
     winston-uber "^1.0.0"
     xtend "^4.0.0"
 
-accepts@^1.2.2:
+accepts@^1.2.2, accepts@^1.3.3:
   version "1.3.4"
   resolved "https://unpm.uberinternal.com/accepts/-/accepts-1.3.4.tgz#86246758c7dd6d21a6474ff084a4740ec05eb21f"
   dependencies:
@@ -1468,9 +1469,9 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.9.0:
-  version "4.9.0"
-  resolved "https://unpm.uberinternal.com/eslint/-/eslint-4.9.0.tgz#76879d274068261b191fe0f2f56c74c2f4208e8b"
+eslint@^4.10.0:
+  version "4.10.0"
+  resolved "https://unpm.uberinternal.com/eslint/-/eslint-4.10.0.tgz#f25d0d7955c81968c2309aa5c9a229e045176bb7"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"
@@ -1759,7 +1760,7 @@ form-data@~2.3.1:
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
 
-fresh@^0.5.0:
+fresh@^0.5.0, fresh@^0.5.2:
   version "0.5.2"
   resolved "https://unpm.uberinternal.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
 
@@ -2577,6 +2578,10 @@ meow@^3.1.0:
     redent "^1.0.0"
     trim-newlines "^1.0.0"
 
+merge-descriptors@^1.0.1:
+  version "1.0.1"
+  resolved "https://unpm.uberinternal.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
+
 merge-source-map@^1.0.2:
   version "1.0.4"
   resolved "https://unpm.uberinternal.com/merge-source-map/-/merge-source-map-1.0.4.tgz#a5de46538dae84d4114cc5ea02b4772a6346701f"
@@ -2586,6 +2591,10 @@ merge-source-map@^1.0.2:
 merge2@1.0.3:
   version "1.0.3"
   resolved "https://unpm.uberinternal.com/merge2/-/merge2-1.0.3.tgz#fa44f8b2262615ab72f0808a401d478a70e394db"
+
+methods@^1.1.2:
+  version "1.1.2"
+  resolved "https://unpm.uberinternal.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
 
 micromatch@^2.3.11:
   version "2.3.11"
@@ -2614,6 +2623,10 @@ mime-types@^2.0.7, mime-types@^2.1.12, mime-types@~2.1.15, mime-types@~2.1.16, m
   resolved "https://unpm.uberinternal.com/mime-types/-/mime-types-2.1.17.tgz#09d7a393f03e995a79f8af857b70a9e0ab16557a"
   dependencies:
     mime-db "~1.30.0"
+
+mime@^1.3.4:
+  version "1.4.1"
+  resolved "https://unpm.uberinternal.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
 
 mimic-fn@^1.0.0:
   version "1.1.0"
@@ -2684,12 +2697,31 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://unpm.uberinternal.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+net@^1.0.2:
+  version "1.0.2"
+  resolved "https://unpm.uberinternal.com/net/-/net-1.0.2.tgz#d1757ec9a7fb2371d83cf4755ce3e27e10829388"
+
 node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://unpm.uberinternal.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
+
+node-mocks-http@^1.6.6:
+  version "1.6.6"
+  resolved "https://unpm.uberinternal.com/node-mocks-http/-/node-mocks-http-1.6.6.tgz#0fdeef866cc122a80051bbd89a876d3c4cd21e13"
+  dependencies:
+    accepts "^1.3.3"
+    depd "^1.1.0"
+    fresh "^0.5.2"
+    merge-descriptors "^1.0.1"
+    methods "^1.1.2"
+    mime "^1.3.4"
+    net "^1.0.2"
+    parseurl "^1.3.1"
+    range-parser "^1.2.0"
+    type-is "^1.6.14"
 
 node-uuid@~1.4.1:
   version "1.4.8"
@@ -2880,7 +2912,7 @@ parse-passwd@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
 
-parseurl@^1.3.0:
+parseurl@^1.3.0, parseurl@^1.3.1:
   version "1.3.2"
   resolved "https://unpm.uberinternal.com/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
 
@@ -3032,6 +3064,10 @@ randomatic@^1.1.3:
   dependencies:
     is-number "^3.0.0"
     kind-of "^4.0.0"
+
+range-parser@^1.2.0:
+  version "1.2.0"
+  resolved "https://unpm.uberinternal.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
 raw-body@^2.2.0:
   version "2.3.2"
