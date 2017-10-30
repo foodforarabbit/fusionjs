@@ -1,9 +1,28 @@
 /* eslint-env node */
+import assert from 'assert';
 import M3Client from '@uber/node-m3-client-addon';
 import {SingletonPlugin} from '@uber/graphene-plugin';
 
-export default function({UniversalEvents, m3Config, Client = M3Client}) {
-  const m3 = new Client(m3Config);
+export default function({
+  UniversalEvents,
+  appName,
+  Client = M3Client,
+  commonTags,
+}) {
+  assert.equal(typeof appName, 'string', '{appName} parameter is required');
+  assert.ok(UniversalEvents, '{UniversalEvents} parameter is required');
+  const m3 = new Client({
+    commonTags: Object.assign(
+      {
+        dc: process.env.UBER_DATACENTER || 'local',
+        deployment: process.env.UDEPLOY_DEPLOYMENT_NAME || 'production',
+        env: process.env.NODE_ENV || 'production',
+        service: appName,
+        scaffolded_web_app: true, // eslint-disable-line camelcase
+      },
+      commonTags
+    ),
+  });
   const events = UniversalEvents.of();
 
   const m3Functions = {

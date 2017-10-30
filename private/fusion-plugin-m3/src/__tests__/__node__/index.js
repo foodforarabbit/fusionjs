@@ -1,9 +1,17 @@
 import tape from 'tape-cup';
 import M3Plugin from '../../server';
 
-tape('m3 plugin server', t => {
-  t.plan(27);
-  const m3Config = {hello: 'world'};
+tape('m3 server plugin required parameters', t => {
+  t.throws(() => {
+    M3Plugin({UniversalEvents: {}});
+  }, /parameter is required/);
+  t.throws(() => {
+    M3Plugin({appName: ''});
+  }, /parameter is required/);
+  t.end();
+});
+tape('m3 server plugin', t => {
+  t.plan(31);
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   const events = {
     of() {
@@ -16,7 +24,23 @@ tape('m3 plugin server', t => {
   };
   class Client {
     constructor(config) {
-      t.equal(config, m3Config, 'passes config through');
+      t.equal(typeof config.commonTags.dc, 'string', 'passes in common tag dc');
+      t.equal(
+        typeof config.commonTags.deployment,
+        'string',
+        'passes in common tag deployment'
+      );
+      t.equal(
+        config.commonTags.service,
+        'app-name',
+        'passes in common tag service'
+      );
+      t.equal(
+        config.commonTags.scaffolded_web_app,
+        true,
+        'passes in common tag scaffolded_web_app'
+      );
+      t.equal(config.commonTags.a, 'a', 'allows passing in commonTags config');
     }
     counter(key, value, {tags}) {
       t.equal(key, 'key', 'counter passes key through');
@@ -62,7 +86,12 @@ tape('m3 plugin server', t => {
       t.equal(arg, 'test', 'close passes through arguments');
     }
   }
-  const m3 = M3Plugin({UniversalEvents: events, Client, m3Config}).of();
+  const m3 = M3Plugin({
+    UniversalEvents: events,
+    Client,
+    appName: 'app-name',
+    commonTags: {a: 'a'},
+  }).of();
   m3.counter('key', 'value', 'tags');
   m3.increment('key', 'tags');
   m3.decrement('key', 'tags');
