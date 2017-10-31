@@ -2,7 +2,7 @@
 import tape from 'tape-cup';
 import HeatpipePlugin from '../../server';
 
-tape('[graphene] heatpipe-plugin', async t => {
+tape('[fusion] heatpipe-plugin', async t => {
   const fixture = {
     heatpipeConfig: {foo: 'bar'},
     topicInfo: {
@@ -102,7 +102,11 @@ tape('[graphene] heatpipe-plugin', async t => {
   try {
     await heatpipe.asyncPublish(fixture.topicInfo, fixture.message);
   } catch (err) {
-    t.equal(err, fixture.error, 'service instance asyncPublish() - throws error');
+    t.equal(
+      err,
+      fixture.error,
+      'service instance asyncPublish() - throws error'
+    );
   }
 
   heatpipe.publish(fixture.topicInfo, fixture.message, err => {

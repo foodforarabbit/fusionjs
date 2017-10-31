@@ -1,17 +1,17 @@
-# graphene-heatpipe
+# fusion-plugin-heatpipe
 
-Heatpipe publisher plugin for Graphene
+Heatpipe publisher plugin for fusion
 
 ## Installation
 
 ```
-npm install @uber/graphene-heatpipe
+npm install @uber/fusion-plugin-heatpipe
 ```
 
 ## Usage
 ```js
 // ...
-import HeatpipePlugin from  '@uber/graphene-heatpipe';
+import HeatpipePlugin from  '@uber/fusion-plugin-heatpipe';
 import heatpipeConfig from  'config/heatpipe';
 // ...
 const Heatpipe = app.plugin(HeatpipePlugin, {

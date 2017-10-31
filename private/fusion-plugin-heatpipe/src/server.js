@@ -3,9 +3,15 @@ import assert from 'assert';
 import util from 'util';
 
 import HeatpipePublisher from '@uber/node-heatpipe-publisher';
-import {SingletonPlugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from 'fusion-plugin';
 
-export default function({heatpipeConfig, M3, Logger, UniversalEvents,  Client=HeatpipePublisher}) {
+export default function({
+  heatpipeConfig,
+  M3,
+  Logger,
+  UniversalEvents,
+  Client = HeatpipePublisher,
+}) {
   const m3 = M3 && M3.of();
   const logger = Logger && Logger.of();
 
@@ -26,8 +32,7 @@ export default function({heatpipeConfig, M3, Logger, UniversalEvents,  Client=He
     heatpipe.publish(topicInfo, message)
   );
 
-  function HeatpipeServerPlugin() {
-  }
+  function HeatpipeServerPlugin() {}
 
   HeatpipeServerPlugin.prototype.asyncPublish = util.promisify(
     heatpipe.publish.bind(heatpipe)
