@@ -3,7 +3,7 @@ import assert from 'assert';
 import Flipr from '@uber/flipr-client';
 import os from 'os';
 import path from 'path';
-import {SingletonPlugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from 'fusion-plugin';
 
 function getFliprPropertiesNamespaces({rootNamespace, dataCenter}) {
   return [

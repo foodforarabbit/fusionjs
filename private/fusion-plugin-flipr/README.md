@@ -1,12 +1,12 @@
-# @uber/graphene-flipr
+# @uber/fusion-plugin-flipr
 
 ## Overview
-Flipr client for Graphene
+Flipr client for fusion
 
 ## Installation
 
 ```
-npm install @uber/graphene-flipr
+npm install @uber/fusion-plugin-flipr
 ```
 
 ## Usage Example
@@ -15,7 +15,7 @@ npm install @uber/graphene-flipr
 // src/main.js
 
 import React from 'react';
-import FliprPlugin from '@uber/graphene-flipr';
+import FliprPlugin from '@uber/fusion-plugin-flipr';
 import MyPlugin from './myplugin';
 
 export default () => {
@@ -41,7 +41,7 @@ export default ({Flipr}) => (ctx, next) => {
 
 ## Config
 
-### Config properties from @uber/graphene-flipr
+### Config properties from @uber/fusion-plugin-flipr
 + `defaultNamespace`: string
 
 Equivalent to 
@@ -67,4 +67,4 @@ See [@uber/flipr-client](https://code.uberinternal.com/diffusion/RTFLIP/reposito
 + `diskCachePath`
 
 ## Logger
-`uber/graphene-flipr` has an optional dependency on a Logger [plugin](https://github.com/uber-web/graphene/blob/master/packages/plugin/docs/index.md) which constructs a logger with [Winston](https://github.com/winstonjs/winston#using-logging-levels)-like interface.
+`uber/fusion-plugin-flipr` has an optional dependency on a Logger [plugin](https://github.com/uber-web/fusion/blob/master/packages/plugin/docs/index.md) which constructs a logger with [Winston](https://github.com/winstonjs/winston#using-logging-levels)-like interface.
