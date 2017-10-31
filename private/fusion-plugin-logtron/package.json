@@ -1,7 +1,7 @@
 {
-  "name": "@uber/graphene-logtron",
-  "version": "0.2.3",
-  "description": "Graphene plugin for universal logging via logtron",
+  "name": "@uber/fusion-plugin-logtron",
+  "version": "0.0.0",
+  "description": "fusion plugin for universal logging via logtron",
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
   "browser": {
@@ -22,14 +22,12 @@
     "source-map": "^0.6.1"
   },
   "peerDependencies": {
-    "@uber/graphene-app": "^0.2.1",
-    "@uber/graphene-plugin": "^0.2.1"
+    "fusion-plugin": "^0.1.1"
   },
   "devDependencies": {
-    "@uber/eslint-config-graphene": "^0.2.1",
-    "@uber/graphene-universal-events": "^0.2.1",
-    "@uber/graphene-app": "^0.2.1",
-    "@uber/graphene-plugin": "^0.2.1",
+    "eslint-config-fusion": "^0.1.0",
+    "fusion-plugin-universal-events": "^0.1.1",
+    "fusion-plugin": "^0.1.1",
     "create-universal-package": "^1.0.0-rc.18",
     "eslint": "^4.10.0",
     "babel-eslint": "^8.0.1",
