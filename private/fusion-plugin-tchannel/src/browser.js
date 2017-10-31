@@ -1,4 +1,4 @@
-import {SingletonPlugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from 'fusion-plugin';
 export default opts => {
   if (opts)
     throw new Error(

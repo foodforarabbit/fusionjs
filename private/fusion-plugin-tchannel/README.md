@@ -1,21 +1,21 @@
-# TChannel plugin for Graphene
+# TChannel plugin for fusion
 
-This is a Graphene plugin for Tchannel and hyperbahn.
+This is a fusion plugin for Tchannel and hyperbahn.
 
 ### Installation
 
 ```
-npm install @uber/graphene-tchannel
+npm install @uber/fusion-plugin-tchannel
 ```
 
 ### Usage
 
 ```js
 // main.js
-import UniversalEventsPlugin from '@uber/graphene-universal-events';
-import LoggerPlugin from '@uber/graphene-logtron';
-import M3Plugin from '@uber/graphene-m3';
-import TChannelPlugin from '@uber/graphene-tchannel';
+import UniversalEventsPlugin from 'fusion-plugin-universal-events';
+import LoggerPlugin from '@uber/fusion-plugin-logtron';
+import M3Plugin from '@uber/fusion-plugin-m3';
+import TChannelPlugin from '@uber/fusion-plugin-tchannel';
 
 const UniversalEvents = app.plugin(UniversalEventsPlugin, {fetch});
 const M3 = app.plugin(M3Plugin, {UniversalEvents});

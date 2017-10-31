@@ -1,5 +1,5 @@
 /* eslint-env node */
-import {SingletonPlugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from 'fusion-plugin';
 import TChannel from 'tchannel';
 import Hyperbahn from 'tchannel/hyperbahn';
 import path from 'path';

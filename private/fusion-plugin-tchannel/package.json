@@ -1,7 +1,7 @@
 {
-  "name": "@uber/graphene-tchannel",
-  "version": "2.2.1",
-  "description": "",
+  "name": "@uber/fusion-plugin-tchannel",
+  "version": "0.0.0",
+  "description": "fusion plugin for tchannel",
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
   "browser": {
@@ -15,19 +15,19 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "peerDependencies": {
-    "@uber/graphene-plugin": "^0.2.1"
+    "fusion-plugin": "^0.1.1"
   },
   "devDependencies": {
-    "@uber/eslint-config-graphene": "^0.2.1",
-    "@uber/graphene-plugin": "^0.2.1",
     "babel-eslint": "8.0.1",
     "babel-plugin-istanbul": "^4.1.5",
     "create-universal-package": "^1.0.0-rc.18",
     "eslint": "^4.9.0",
+    "eslint-config-fusion": "^0.1.0",
     "eslint-plugin-cup": "^1.0.0-rc.4",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
+    "fusion-plugin": "^0.1.1",
     "idl": "^3.1.9",
     "nyc": "^11.2.1",
     "prettier": "1.7.4",
