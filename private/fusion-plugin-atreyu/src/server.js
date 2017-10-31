@@ -1,5 +1,5 @@
 import Atreyu from '@uber/atreyu';
-import {SingletonPlugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from 'fusion-plugin';
 
 export default (args = {}) => {
   const {

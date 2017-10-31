@@ -1,13 +1,13 @@
-# Atreyu plugin for Graphene
+# Atreyu plugin for fusion
 
-This is a Graphene plugin for [Atreyu](https://code.uberinternal.com/diffusion/WEATREY/browse/master/#what-is-atreyu)
+This is a fusion plugin for [Atreyu](https://code.uberinternal.com/diffusion/WEATREY/browse/master/#what-is-atreyu)
 
 Atreyu is data querying/aggregation library similar to GraphQL, but designed to be used with Uber's micro-service infrastructure.
 
 ```js
 // src/main.js
-import App from '@graphene/react';
-import Atreyu from '@uber/graphene-atreyu';
+import App from '@fusion/react';
+import Atreyu from '@uber/fusion-plugin-atreyu';
 import {config} from './atreyu/config';
 
 export default () => {
