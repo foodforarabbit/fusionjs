@@ -1,26 +1,26 @@
-# @uber/graphene-rosetta
+# @uber/fusion-plugin-rosetta
 
 ## Overview
-Rosetta client for Graphene
+Rosetta plugin for fusion
 
 ## Installation
 
 ```
-npm install @uber/graphene-rosetta
+npm install @uber/fusion-plugin-rosetta
 ```
 
 ## Usage Example
 
 ```js
 // src/main.js
-import GrapheneLogger from '@uber/graphene-logger';
-import GrapheneRosetta from '@uber/graphene-rosetta';
+import FusionLogger from '@uber/fusion-plugin-logger';
+import FusionRosetta from '@uber/fusion-plugin-rosetta';
 import MyPlugin from './myPlugin';
 
 export default () => {
   const app = new App(<Home />);
-  const Logger = app.plugin(GrapheneLogger);
-  const Rosetta = app.plugin(GrapheneRosetta, __NODE__ && {
+  const Logger = app.plugin(FusionLogger);
+  const Rosetta = app.plugin(FusionRosetta, __NODE__ && {
     Logger, // required
     service: 'service-name', // required
     dir: '../translations/', // optional
