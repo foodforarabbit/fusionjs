@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import {SingletonPlugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from 'fusion-plugin';
 
 export default function({UniversalEvents}) {
   class M3BrowserPlugin {

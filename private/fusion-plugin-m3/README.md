@@ -1,6 +1,6 @@
-# @uber/graphene-m3
+# @uber/fusion-plugin-m3
 
-M3 client for Graphene
+M3 plugin for fusion 
 
 ## Overview
 
@@ -10,7 +10,7 @@ This plugin exports a very similar interface to [node-m3-client-addon](https://c
 ## Installation
 
 ```
-npm install @uber/graphene-m3
+npm install @uber/fusion-plugin-m3
 ```
 
 ## Usage

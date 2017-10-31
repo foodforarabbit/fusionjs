@@ -1,7 +1,7 @@
 /* eslint-env node */
 import assert from 'assert';
 import M3Client from '@uber/node-m3-client-addon';
-import {SingletonPlugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from 'fusion-plugin';
 
 export default function({
   UniversalEvents,

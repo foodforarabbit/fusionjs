@@ -1,7 +1,7 @@
 {
-  "name": "@uber/graphene-m3",
-  "description": "M3 client for Graphene",
-  "version": "0.2.1",
+  "name": "@uber/fusion-plugin-m3",
+  "description": "M3 plugin for fusion",
+  "version": "0.0.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -20,12 +20,12 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "devDependencies": {
-    "@uber/eslint-config-graphene": "^0.2.1",
-    "@uber/graphene-plugin": "^0.2.1",
+    "eslint-config-fusion": "^0.1.0",
+    "fusion-plugin": "^0.1.1",
     "babel-eslint": "^8.0.1",
     "babel-plugin-istanbul": "^4.1.5",
     "create-universal-package": "^1.0.0-rc.18",
-    "eslint": "^4.9.0",
+    "eslint": "^4.10.0",
     "eslint-plugin-cup": "^1.0.0-rc.4",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-prettier": "^2.3.1",
@@ -50,7 +50,7 @@
     "@uber/node-m3-client-addon": "^1.4.0"
   },
   "peerDependencies": {
-    "@uber/graphene-plugin": "^0.2.1"
+    "fusion-plugin": "^0.1.1"
   },
   "engines": {
     "node": ">=8.3.0",
