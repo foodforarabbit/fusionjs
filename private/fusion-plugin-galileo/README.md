@@ -1,20 +1,20 @@
-# graphene-galileo
+# fusion-plugin-galileo
 
 galileo client plugin for granphene
 
 ## Installation
 
 ```
-npm install @uber/graphene-galileo
+npm install @uber/fusion-plugin-galileo
 ```
 
-## Graphene
+## fusion
 
 ## Usage
 
 ```js
 // ...
-import GalileoPlugin from  '@uber/graphene-galileo';
+import GalileoPlugin from  '@uber/fusion-plugin-galileo';
 import galileoConfig from  'config/galileo';
 // ...
 

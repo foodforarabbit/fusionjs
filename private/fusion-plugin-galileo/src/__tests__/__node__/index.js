@@ -26,7 +26,7 @@ test('Galileo Plugin', t => {
   t.end();
 });
 
-test('Graphene Galileo Plugin', t => {
+test('fusion Galileo Plugin', t => {
   const config = {
     appName: 'uber',
     galileo: {test: 'test'},
