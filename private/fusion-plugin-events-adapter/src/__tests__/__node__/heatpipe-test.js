@@ -127,7 +127,11 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
         'heatpipe:publish',
         'emits publish event with correct type'
       );
-      t.deepEqual(payload.topicInfo, webTopicInfo, 'publishWebEvents sets correct topic information');
+      t.deepEqual(
+        payload.topicInfo,
+        webTopicInfo,
+        'publishWebEvents sets correct topic information'
+      );
       t.deepEqual(
         payload.message,
         {

@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import {Plugin} from '@uber/graphene-plugin';
+import {Plugin} from 'fusion-plugin';
 
 export default function EventsAdapterFactory({UniversalEvents}) {
   if (!UniversalEvents) {
