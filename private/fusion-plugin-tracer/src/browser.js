@@ -1,4 +1,4 @@
-import {Plugin} from '@uber/graphene-plugin';
+import {Plugin} from 'fusion-plugin';
 export default function(opts) {
   if (__DEV__ && opts) {
     throw Error(

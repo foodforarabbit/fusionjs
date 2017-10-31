@@ -1,6 +1,6 @@
 /* eslint-env node */
 import {JaegerClient, initTracer} from '@uber/jaeger-client-adapter';
-import {Plugin} from '@uber/graphene-plugin';
+import {Plugin} from 'fusion-plugin';
 
 const {opentracing} = JaegerClient;
 
@@ -39,7 +39,7 @@ export default function createTracerPlugin({
     );
 
     const tags = {};
-    tags[opentracing.Tags.COMPONENT] = 'graphene';
+    tags[opentracing.Tags.COMPONENT] = 'fusion';
     tags[opentracing.Tags.SPAN_KIND] = opentracing.Tags.SPAN_KIND_RPC_SERVER;
     tags[opentracing.Tags.HTTP_URL] = request.path;
     tags[opentracing.Tags.HTTP_METHOD] = request.method;

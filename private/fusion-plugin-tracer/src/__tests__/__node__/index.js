@@ -77,7 +77,7 @@ test('Tracer Middleware', t => {
       );
       t.looseEquals(
         headers,
-        {'x-uber-source': 'graphene'},
+        {'x-uber-source': 'fusion'},
         'headers should be passed as is'
       );
       return 'inbound_context';
@@ -87,7 +87,7 @@ test('Tracer Middleware', t => {
       t.looseEquals(
         options.tags,
         {
-          component: 'graphene',
+          component: 'fusion',
           'span.kind': 'server',
           'http.url': '/path',
           'http.method': 'GET',
@@ -114,7 +114,7 @@ test('Tracer Middleware', t => {
   const ctx = {
     request: {
       path: '/path',
-      headers: {'x-uber-source': 'graphene'},
+      headers: {'x-uber-source': 'fusion'},
       method: 'GET',
     },
     response: {status: 200},

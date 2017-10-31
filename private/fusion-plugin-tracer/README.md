@@ -1,20 +1,20 @@
-# graphene-tracer
+# fusion-tracer
 
-tracer client plugin for granphene
+A fusion plugin for jaeger tracing
 
 ## Installation
 
 ```
-npm install @uber/graphene-tracer
+npm install @uber/@uber/fusion-plugin-tracer
 ```
 
-## Graphene
+## fusion
 
 ## Usage
 
 ```js
 // ...
-import TracerPlugin from  '@uber/graphene-tracer';
+import TracerPlugin from  '@uber/@uber/fusion-plugin-tracer';
 import tracerConfig from  'config/tracer';
 // ...
 
