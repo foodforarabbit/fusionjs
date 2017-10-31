@@ -49,7 +49,8 @@ function addDirectives(policy, directives) {
     directiveKey
   ) {
     return addSourcesToDirective(p, directiveKey, directives[directiveKey]);
-  }, policy);
+  },
+  policy);
 }
 
 export {addDirectives, addSourcesToDirective, addSourceToAssetDirectives};

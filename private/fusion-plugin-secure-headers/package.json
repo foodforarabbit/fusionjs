@@ -1,7 +1,7 @@
 {
-  "name": "@uber/graphene-secure-headers",
-  "description": "A Graphene plugin to improve the security by setting headers, such as Content Security Policy, X-Frame-Options...etc.",
-  "version": "0.1.0",
+  "name": "@uber/fusion-plugin-secure-headers",
+  "description": "A fusion plugin to improve the security by setting headers, such as Content Security Policy, X-Frame-Options...etc.",
+  "version": "0.0.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "main": "./dist/node.cjs.js",
@@ -17,7 +17,7 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "devDependencies": {
-    "@uber/eslint-config-graphene": "^0.2.1",
+    "eslint-config-fusion": "^0.1.0",
     "babel-eslint": "^8.0.1",
     "babel-plugin-istanbul": "^4.1.5",
     "create-universal-package": "^1.0.0-rc.18",
