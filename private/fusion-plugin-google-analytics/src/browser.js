@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import {Plugin} from '@uber/graphene-plugin';
+import {Plugin} from 'fusion-plugin';
 import loadGoogleAnalytics from './load-ga';
 
 export default function(options = {}) {

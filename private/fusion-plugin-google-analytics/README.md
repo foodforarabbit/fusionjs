@@ -1,6 +1,6 @@
-# @uber/graphene-google-analytics
+# @uber/fusion-plugin-google-analytics
 
-Google analytics plugin for graphene.
+Google analytics plugin for fusion.
 
 ## Overview
 
@@ -9,13 +9,13 @@ This plugin provides a minimal api on top of google analytics exposed via a plug
 ## Installation
 
 ```
-npm install @uber/graphene-google-analytics
+npm install @uber/fusion-plugin-google-analytics
 ```
 
 ## Usage
 ```js
 // main.js
-import GoogleAnalyticsPlugin from '@uber/graphene-google-analytics';
+import GoogleAnalyticsPlugin from '@uber/fusion-plugin-google-analytics';
 
 const GA = app.plugin(GoogleAnalyticsPlugin, {
   trackingId: '' // required

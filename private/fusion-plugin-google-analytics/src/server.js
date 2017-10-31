@@ -1,6 +1,6 @@
 /* eslint-env node */
-import {Plugin} from '@uber/graphene-plugin';
-import {html} from '@uber/graphene-app';
+import {Plugin} from 'fusion-plugin';
+import {html} from 'fusion-core';
 
 export default function() {
   const escaped = html`<script async src='https://www.google-analytics.com/analytics.js'></script>`;
