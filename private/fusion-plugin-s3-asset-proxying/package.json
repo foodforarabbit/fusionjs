@@ -1,6 +1,6 @@
 {
-  "name": "@uber/graphene-s3-asset-proxying",
-  "version": "0.0.9",
+  "name": "@uber/fusion-plugin-s3-asset-proxying",
+  "version": "0.0.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -27,27 +27,30 @@
     "upload-assets": "cli.js"
   },
   "dependencies": {
-    "@uber/graphene-plugin": "^0.1.2",
     "aws-sdk": "^2.138.0",
     "lru-cache": "^4.1.1",
     "mime": "^2.0.3",
     "mime-db": "^1.30.0"
   },
   "devDependencies": {
-    "@uber/eslint-config-graphene": "^0.1.2",
     "babel-eslint": "^8.0.1",
     "create-universal-package": "^1.0.0-rc.18",
     "eslint": "^4.8.0",
+    "eslint-config-fusion": "^0.1.0",
     "eslint-plugin-cup": "^1.0.0-rc.4",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
+    "fusion-plugin": "^0.1.1",
     "get-port": "^3.2.0",
     "prettier": "1.7.4",
     "s3rver": "^1.0.3",
     "tape-cup": "^4.7.1",
     "tmp": "^0.0.33",
     "unitest": "^1.1.0"
+  },
+  "peerDependencies": {
+    "fusion-plugin": "^0.1.1"
   },
   "scripts": {
     "clean": "rm -rf dist",

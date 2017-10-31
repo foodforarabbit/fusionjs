@@ -1,6 +1,6 @@
-# @uber/graphene-s3-asset-proxying
+# @uber/fusion-plugin-s3-asset-proxying
 
-Cli and graphene plugin to upload and proxy assets to/from S3.
+Cli and fusion plugin to upload and proxy assets to/from S3.
 
 ---
 
@@ -14,11 +14,11 @@ Upload cli:
 Plugin:
 ```js
 // main.js
-import App from '@graphene/core';
-import AssetProxyingPlugin from 'graphene-s3-asset-proxying';
+import App from 'fusion-core';
+import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying';
 
 export default function() {
-  // ... Setup graphene app
+  // ... Setup fusion app
 
   if (!__DEV__ && __NODE__) {
     const AssetProxying = app.plugin(AssetProxyingPlugin);
@@ -34,7 +34,7 @@ export default function() {
 ### API
 
 Upload cli:
-* Cli should be used after a graphene framework production build by calling either `upload-assets-to-s3`, `upload-assets`, or `upload-s3`.
+* Cli should be used after a fusion framework production build by calling either `upload-assets-to-s3`, `upload-assets`, or `upload-s3`.
 
 Plugin:
 * `config` - S3 configuration can be overridden (`bucket`, `prefix`, `accessKeyId`, and `secretAccessKey`), but should be kept default at Uber to integrate with the standard S3 infrastructure.
