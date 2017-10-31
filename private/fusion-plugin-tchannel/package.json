@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-tchannel",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "fusion plugin for tchannel",
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
