@@ -1,4 +1,4 @@
-# @uber/graphene-secrets-client
+# @uber/fusion-plugin-secrets
 
 Provides access to secrets in Uber production environments.
 
@@ -8,12 +8,10 @@ Provides access to secrets in Uber production environments.
 
 ```js
 // main.js
-import App from '@graphene/core';
-import SecretsPlugin from '@uber/graphene-secrets-client';
+import App from 'fusion-core';
+import SecretsPlugin from '@uber/fusion-plugin-secrets';
 
 export default function() {
-  // ... Setup graphene app
-
   // Setup Secrets plugin
   const Secrets = app.plugin(SecretsPlugin, {
     devValues:

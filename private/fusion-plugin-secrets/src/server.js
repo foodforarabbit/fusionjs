@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 import dottie from 'dottie';
-import {SingletonPlugin} from '@uber/graphene-plugin';
+import {SingletonPlugin} from 'fusion-plugin';
 
 export default (
   {
