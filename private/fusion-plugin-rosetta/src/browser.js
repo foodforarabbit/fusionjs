@@ -1,4 +1,4 @@
-import {Plugin} from 'fusion-plugin';
+import {Plugin} from 'fusion-core';
 export default function(config) {
   if (__DEV__ && config) {
     throw new Error(

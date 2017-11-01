@@ -1,4 +1,4 @@
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 import Genghis from '@uber/node-genghis';
 
 export default ({Logger, Client = Genghis, ...config}) => {
