@@ -1235,9 +1235,9 @@ eslint-config-cup@^1.0.0-rc.4:
   version "1.0.0-rc.4"
   resolved "https://unpm.uberinternal.com/eslint-config-cup/-/eslint-config-cup-1.0.0-rc.4.tgz#c40df6a837fe0815e1d1fcaef629289b837514b4"
 
-eslint-config-fusion@^0.1.0:
-  version "0.1.0"
-  resolved "https://unpm.uberinternal.com/eslint-config-fusion/-/eslint-config-fusion-0.1.0.tgz#6dae686abe2373bb492602b22b7efe066e41138f"
+eslint-config-fusion@^0.1.2:
+  version "0.1.2"
+  resolved "https://unpm.uberinternal.com/eslint-config-fusion/-/eslint-config-fusion-0.1.2.tgz#cf380a75090d3cee0c9c086165b86fd60619e0aa"
   dependencies:
     eslint-config-uber-universal-stage-3 "^1.0.0-rc.6"
 
@@ -1301,7 +1301,7 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.9.0:
+eslint@^4.10.0:
   version "4.10.0"
   resolved "https://unpm.uberinternal.com/eslint/-/eslint-4.10.0.tgz#f25d0d7955c81968c2309aa5c9a229e045176bb7"
   dependencies:
