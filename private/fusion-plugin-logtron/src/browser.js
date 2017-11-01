@@ -1,4 +1,4 @@
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 
 const supportedLevels = [
   'trace',

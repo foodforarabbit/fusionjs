@@ -22,12 +22,12 @@
     "source-map": "^0.6.1"
   },
   "peerDependencies": {
-    "fusion-plugin": "^0.1.1"
+    "fusion-core": "^0.1.2"
   },
   "devDependencies": {
-    "eslint-config-fusion": "^0.1.0",
-    "fusion-plugin-universal-events": "^0.1.1",
-    "fusion-plugin": "^0.1.1",
+    "eslint-config-fusion": "^0.1.2",
+    "fusion-plugin-universal-events": "^0.1.2",
+    "fusion-core": "^0.1.2",
     "create-universal-package": "^1.0.0-rc.18",
     "eslint": "^4.10.0",
     "babel-eslint": "^8.0.1",

@@ -2,7 +2,7 @@
 import assert from 'assert';
 import path from 'path';
 import Logtron from '@uber/logtron';
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 import createErrorTransform from './create-error-transform';
 
 const supportedLevels = [
