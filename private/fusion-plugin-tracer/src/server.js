@@ -1,6 +1,6 @@
 /* eslint-env node */
 import {JaegerClient, initTracer} from '@uber/jaeger-client-adapter';
-import {Plugin} from 'fusion-plugin';
+import {Plugin} from 'fusion-core';
 
 const {opentracing} = JaegerClient;
 
