@@ -1,6 +1,6 @@
 /* eslint-env node */
 import assert from 'assert';
-import {Plugin} from 'fusion-plugin';
+import {Plugin} from 'fusion-core';
 
 import M3 from './emitters/m3';
 import Heatpipe from './emitters/heatpipe';

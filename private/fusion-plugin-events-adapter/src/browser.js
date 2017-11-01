@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import {Plugin} from 'fusion-plugin';
+import {Plugin} from 'fusion-core';
 
 export default function EventsAdapterFactory({UniversalEvents}) {
   if (!UniversalEvents) {
