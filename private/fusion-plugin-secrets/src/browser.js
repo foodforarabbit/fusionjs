@@ -1,4 +1,4 @@
-import {Plugin} from 'fusion-plugin';
+import {Plugin} from 'fusion-core';
 
 export default opts => {
   if (__DEV__ && opts)

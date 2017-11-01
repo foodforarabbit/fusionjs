@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 import dottie from 'dottie';
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 
 export default (
   {
