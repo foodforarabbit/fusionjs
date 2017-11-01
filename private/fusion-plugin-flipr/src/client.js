@@ -1,6 +1,6 @@
 /* eslint-env browser */
 // TODO: [Nice to have] Make specified Flipr properties in config.clientProperties available on client
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 export default function() {
   return new SingletonPlugin({
     Service: function() {

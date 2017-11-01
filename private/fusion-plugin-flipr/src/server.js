@@ -3,7 +3,7 @@ import assert from 'assert';
 import Flipr from '@uber/flipr-client';
 import os from 'os';
 import path from 'path';
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 
 function getFliprPropertiesNamespaces({rootNamespace, dataCenter}) {
   return [
@@ -56,7 +56,7 @@ export default ({config, Logger, Client = Flipr}) => {
                 rootNamespace: defaultNamespace,
                 dataCenter,
               })) ||
-              propertiesNamespaces,
+            propertiesNamespaces,
           logger,
           dcPath: getFliprDatacenterPath(),
           updateInterval: updateInterval || DEFAULT_UPDATE_INTERVAL,
