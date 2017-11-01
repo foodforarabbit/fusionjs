@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import {Plugin} from 'fusion-plugin';
+import {Plugin} from 'fusion-core';
 import loadGoogleAnalytics from './load-ga';
 
 export default function(options = {}) {

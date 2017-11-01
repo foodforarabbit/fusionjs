@@ -1259,9 +1259,9 @@ eslint-config-cup@^1.0.0-rc.4:
   version "1.0.0-rc.4"
   resolved "https://unpm.uberinternal.com/eslint-config-cup/-/eslint-config-cup-1.0.0-rc.4.tgz#c40df6a837fe0815e1d1fcaef629289b837514b4"
 
-eslint-config-fusion@^0.1.0:
-  version "0.1.0"
-  resolved "https://unpm.uberinternal.com/eslint-config-fusion/-/eslint-config-fusion-0.1.0.tgz#6dae686abe2373bb492602b22b7efe066e41138f"
+eslint-config-fusion@^0.1.2:
+  version "0.1.2"
+  resolved "https://unpm.uberinternal.com/eslint-config-fusion/-/eslint-config-fusion-0.1.2.tgz#cf380a75090d3cee0c9c086165b86fd60619e0aa"
   dependencies:
     eslint-config-uber-universal-stage-3 "^1.0.0-rc.6"
 
@@ -1325,7 +1325,7 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.9.0:
+eslint@^4.10.0:
   version "4.10.0"
   resolved "https://unpm.uberinternal.com/eslint/-/eslint-4.10.0.tgz#f25d0d7955c81968c2309aa5c9a229e045176bb7"
   dependencies:
@@ -1642,18 +1642,13 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-core@^0.1.1:
-  version "0.1.1"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-0.1.1.tgz#7d0af56ee6c6e4143df22993ddc7f58070a7670e"
+fusion-core@^0.1.2:
+  version "0.1.2"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-0.1.2.tgz#0bfb84dfcf73d1398ffb5e838eef8266ba79619c"
   dependencies:
     koa "^2.3.0"
-    node-mocks-http "^1.6.6"
-
-fusion-plugin@^0.1.1:
-  version "0.1.1"
-  resolved "https://unpm.uberinternal.com/fusion-plugin/-/fusion-plugin-0.1.1.tgz#5dd353935002d84409b32df1389451c716f7999b"
-  dependencies:
     koa-compose "^4.0.0"
+    node-mocks-http "^1.6.6"
 
 get-caller-file@^1.0.1:
   version "1.0.2"

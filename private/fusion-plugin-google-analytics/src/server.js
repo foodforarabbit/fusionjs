@@ -1,5 +1,5 @@
 /* eslint-env node */
-import {Plugin} from 'fusion-plugin';
+import {Plugin} from 'fusion-core';
 import {html} from 'fusion-core';
 
 export default function() {
