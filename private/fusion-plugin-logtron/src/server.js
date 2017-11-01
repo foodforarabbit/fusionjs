@@ -53,7 +53,7 @@ export default ({UniversalEvents, M3, backends = {}, team, appName}) => {
   if (env === 'production') {
     const events = UniversalEvents.of();
     const transformError = createErrorTransform({
-      path: path.join(process.cwd(), `.framework/dist/${env}/client`),
+      path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
       ext: '.map',
     });
     events.on('client-logging', payload => {
