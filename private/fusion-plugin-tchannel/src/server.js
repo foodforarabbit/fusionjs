@@ -1,5 +1,5 @@
 /* eslint-env node */
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 import TChannel from 'tchannel';
 import Hyperbahn from 'tchannel/hyperbahn';
 import path from 'path';
