@@ -16,20 +16,20 @@
   },
   "peerDependencies": {
     "@uber/atreyu": "^5.4.5",
-    "fusion-plugin": "^0.1.1"
+    "fusion-core": "^0.1.2"
   },
   "devDependencies": {
     "@uber/atreyu": "^5.4.5",
     "babel-eslint": "8.0.1",
     "babel-plugin-istanbul": "^4.1.5",
     "create-universal-package": "^1.0.0-rc.18",
-    "eslint": "^4.9.0",
-    "eslint-config-fusion": "^0.1.0",
+    "eslint": "^4.10.0",
+    "eslint-config-fusion": "^0.1.2",
     "eslint-plugin-cup": "^1.0.0-rc.4",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
-    "fusion-plugin": "^0.1.1",
+    "fusion-core": "^0.1.2",
     "idl": "^3.1.9",
     "nyc": "^11.2.1",
     "prettier": "1.7.4",
