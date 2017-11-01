@@ -1,4 +1,4 @@
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 
 export default args => {
   if (args) {

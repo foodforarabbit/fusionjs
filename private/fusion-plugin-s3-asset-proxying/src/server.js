@@ -1,6 +1,6 @@
 /* eslint-env node */
 import path from 'path';
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 import LRU from 'lru-cache';
 
 export default ({config} = {}) => {
