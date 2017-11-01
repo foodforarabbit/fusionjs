@@ -1,7 +1,7 @@
 /* eslint-env node */
 import Galileo from '@uber/galileo';
 import {opentracing} from 'jaeger-client';
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 
 // eslint-disable-next-line no-unused-vars
 export default function createGalileoPlugin({

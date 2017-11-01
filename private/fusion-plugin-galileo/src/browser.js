@@ -1,4 +1,4 @@
-import {Plugin} from 'fusion-plugin';
+import {Plugin} from 'fusion-core';
 export default function(options) {
   if (__DEV__ && options) {
     throw new Error(
