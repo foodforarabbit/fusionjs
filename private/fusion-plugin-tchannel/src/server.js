@@ -11,7 +11,7 @@ export default (
     appName,
     Logger,
     M3,
-    config,
+    hyperbahnConfig,
     TChannelClient = TChannel,
     HyperbahnClient = Hyperbahn,
   } = {}
@@ -38,8 +38,9 @@ export default (
       isHealthy: defaultHealthCheck,
       statsd: m3,
       hardFail: true,
+      advertise: true,
     },
-    config.hyperbahn
+    hyperbahnConfig
   );
 
   // reading ports from config defined hosts.json
@@ -65,13 +66,12 @@ export default (
   channel.listen(0, cHost, advertiseHyperbahn);
 
   function advertiseHyperbahn() {
-    var shouldAdvertise = config.hyperbahn && config.hyperbahn.advertise;
+    var shouldAdvertise = hbConfig.advertise;
     if (channel.listening) {
-      // explicitly checking false because the default is to advertise
-      if (shouldAdvertise === false) {
-        logger.info('Hyperbahn advertising disabled');
-      } else {
+      if (shouldAdvertise) {
         hyperbahn.advertise();
+      } else {
+        logger.info('Hyperbahn advertising disabled');
       }
     } else {
       // This race condition happens sometimes while testing because uic is

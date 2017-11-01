@@ -45,10 +45,8 @@ test('interface', async t => {
 
   const Tchannel = plugin({
     appName: 'hello',
-    config: {
-      hyperbahn: {
-        hostPortList: [],
-      },
+    hyperbahnConfig: {
+      hostPortList: [],
     },
     Logger: mockLogger,
     M3: mockM3,
