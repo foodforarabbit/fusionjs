@@ -3,7 +3,7 @@ import assert from 'assert';
 import util from 'util';
 
 import HeatpipePublisher from '@uber/node-heatpipe-publisher';
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 
 export default function({
   heatpipeConfig,

@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import {SingletonPlugin} from 'fusion-plugin';
+import {SingletonPlugin} from 'fusion-core';
 
 export default function({UniversalEvents}) {
   class HeatpipeBrowserPlugin {
