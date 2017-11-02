@@ -32,5 +32,9 @@ export default function EventsAdapterFactory({
   reduxAction({events, heatpipe});
   routeTiming({events, m3});
 
-  return new Plugin();
+  return new Plugin({
+    Service: () => {
+      throw new Error('No available service for EventsAdapter');
+    },
+  });
 }

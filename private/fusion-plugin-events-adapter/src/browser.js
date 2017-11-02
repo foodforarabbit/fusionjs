@@ -42,5 +42,9 @@ export default function EventsAdapterFactory({UniversalEvents}) {
   events.map('redux:action', webEventsMetaMapper);
   events.map('browser-performance-emitter:stats', webEventsMetaMapper);
 
-  return new Plugin();
+  return new Plugin({
+    Service: () => {
+      throw new Error('No available service for EventsAdapter');
+    },
+  });
 }
