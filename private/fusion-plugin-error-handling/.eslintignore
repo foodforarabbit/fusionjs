@@ -1,0 +1,18 @@
+# This is the shared .eslintignore for all packages.
+# ESLint does not allow for multiple/nested .eslintignore files
+# All rules should be duplicated in [1] and [2]
+
+# [1] Linting individual packages from CWD
+node_modules/
+dist/
+dist-test/
+dist-tests/
+coverage/
+test/fixtures/
+.framework/
+
+# [2] Linting all packages with top-level lint command
+packages/*/node_modules/
+packages/*/coverage/
+packages/*/test/fixtures/
+packages/*/.framework/
