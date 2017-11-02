@@ -9,7 +9,7 @@ const AWS = require('aws-sdk');
 
 module.exports = async (
   {
-    directory = path.join(process.cwd(), '.framework/dist/production/client'),
+    directory = path.join(process.cwd(), '.fusion/dist/production/client'),
     s3Config,
   } = {}
 ) => {

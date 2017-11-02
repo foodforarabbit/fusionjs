@@ -8,7 +8,7 @@ Cli and fusion plugin to upload and proxy assets to/from S3.
 
 Upload cli:
 ```
-"build-production": "framework build --production && upload-assets-to-s3"
+"build-production": "fusion build --production && upload-assets-to-s3"
 ```
 
 Plugin:
@@ -34,7 +34,7 @@ export default function() {
 ### API
 
 Upload cli:
-* Cli should be used after a fusion framework production build by calling either `upload-assets-to-s3`, `upload-assets`, or `upload-s3`.
+* Cli should be used after a Fusion framework production build by calling either `upload-assets-to-s3`, `upload-assets`, or `upload-s3`.
 
 Plugin:
 * `config` - S3 configuration can be overridden (`bucket`, `prefix`, `accessKeyId`, and `secretAccessKey`), but should be kept default at Uber to integrate with the standard S3 infrastructure.
