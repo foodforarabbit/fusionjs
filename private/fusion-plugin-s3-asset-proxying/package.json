@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-s3-asset-proxying",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
