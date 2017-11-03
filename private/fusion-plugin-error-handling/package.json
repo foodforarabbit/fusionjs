@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-error-handling",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An uber fusion plugin for error handling",
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
