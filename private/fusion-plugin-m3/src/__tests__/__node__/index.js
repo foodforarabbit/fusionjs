@@ -6,7 +6,7 @@ tape('m3 server plugin required parameters', t => {
     M3Plugin({UniversalEvents: {}});
   }, /parameter is required/);
   t.throws(() => {
-    M3Plugin({appName: ''});
+    M3Plugin({service: ''});
   }, /parameter is required/);
   t.end();
 });
@@ -89,7 +89,7 @@ tape('m3 server plugin', t => {
   const m3 = M3Plugin({
     UniversalEvents: events,
     Client,
-    appName: 'app-name',
+    service: 'app-name',
     commonTags: {a: 'a'},
   }).of();
   m3.counter('key', 'value', 'tags');

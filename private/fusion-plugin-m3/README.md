@@ -1,6 +1,6 @@
 # @uber/fusion-plugin-m3
 
-M3 plugin for fusion 
+M3 plugin for fusion
 
 ## Overview
 
@@ -17,9 +17,10 @@ npm install @uber/fusion-plugin-m3
 ```js
 // main.js
 import m3Config from 'config/m3';
+const service = 'service-name';
 
 const UniversalEvents = app.plugin(UniversalEvents, {fetch});
-const M3Service = app.plugin(M3Plugin, {UniversalEvents, m3Config});
+const M3Service = app.plugin(M3Plugin, {UniversalEvents, m3Config, service});
 
 // increments on server
 if (__NODE__) {

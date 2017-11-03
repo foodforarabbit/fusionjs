@@ -5,11 +5,11 @@ import {SingletonPlugin} from 'fusion-core';
 
 export default function({
   UniversalEvents,
-  appName,
+  service,
   Client = M3Client,
   commonTags,
 }) {
-  assert.equal(typeof appName, 'string', '{appName} parameter is required');
+  assert.equal(typeof service, 'string', '{service} parameter is required');
   assert.ok(UniversalEvents, '{UniversalEvents} parameter is required');
   const m3 = new Client({
     commonTags: Object.assign(
@@ -17,7 +17,7 @@ export default function({
         dc: process.env.UBER_DATACENTER || 'local',
         deployment: process.env.UDEPLOY_DEPLOYMENT_NAME || 'production',
         env: process.env.NODE_ENV || 'production',
-        service: appName,
+        service,
         scaffolded_web_app: true, // eslint-disable-line camelcase
       },
       commonTags
