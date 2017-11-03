@@ -15,16 +15,14 @@ Plugin:
 ```js
 // main.js
 import App from 'fusion-core';
+import SecretsPlugin from '@uber/fusion-plugin-secrets';
 import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying';
 
 export default function() {
   // ... Setup fusion app
 
-  if (!__DEV__ && __NODE__) {
-    const AssetProxying = app.plugin(AssetProxyingPlugin);
-    await AssetProxying.of().init();
-  }
-
+  const Secrets = app.plugin(SecretsPlugin);
+  app.plugin(AssetProxyingPlugin, {Secrets});
   // ... Configuration of other plugins
 }
 ```

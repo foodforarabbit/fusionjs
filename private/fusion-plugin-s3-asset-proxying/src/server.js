@@ -2,27 +2,24 @@
 import path from 'path';
 import {SingletonPlugin} from 'fusion-core';
 import LRU from 'lru-cache';
+import S3Config from '../s3-config';
+import aws from 'aws-sdk';
 
-export default ({config} = {}) => {
+export default ({config, Secrets} = {}) => {
   class S3Service {
     constructor() {
       this.notFoundCache = new LRU({
         // store 404s
         max: 500,
       });
-    }
-
-    async init() {
-      // Require this inline because rollup is busted
-      this.config = config || (await require('../s3-config.js')());
+      this.config = config || S3Config(Secrets);
       const {
         accessKeyId,
         secretAccessKey,
         s3ForcePathStyle,
         endpoint,
       } = this.config;
-      // Require this inline because rollup is busted
-      this.s3 = new (require('aws-sdk')).S3({
+      this.s3 = new aws.S3({
         accessKeyId,
         secretAccessKey,
         s3ForcePathStyle,
@@ -33,9 +30,6 @@ export default ({config} = {}) => {
 
   async function middleware(ctx, next) {
     const state = this.of();
-    if (!state.config || !state.s3) {
-      throw new Error('You must init asset proxying middleware before using');
-    }
 
     if (ctx.method !== 'HEAD' && ctx.method !== 'GET' && ctx.status !== 404) {
       return next();

@@ -56,8 +56,6 @@ test('Server Client', t => {
     const plugin = AssetProxyingPlugin({
       config: s3Config,
     });
-    const proxy = plugin.of();
-    await proxy.init();
 
     await upload({
       directory: path.join(process.cwd(), 'src/__tests__/fixture-files'),
