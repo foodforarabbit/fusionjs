@@ -8,7 +8,7 @@ tape('server plugin interface', t => {
     () => {
       Plugin({
         team: null,
-        appName: 'app',
+        service: 'app',
         UniversalEvents: {},
         M3: {},
       });
@@ -21,20 +21,20 @@ tape('server plugin interface', t => {
     () => {
       Plugin({
         team: 'team',
-        appName: null,
+        service: null,
         UniversalEvents: {},
         M3: {},
       });
     },
-    /{appName} parameter is required/,
-    'enforces appName parameter'
+    /{service} parameter is required/,
+    'enforces service parameter'
   );
 
   t.throws(
     () => {
       Plugin({
         team: 'team',
-        appName: 'app',
+        service: 'app',
         UniversalEvents: null,
         M3: {},
       });
@@ -47,7 +47,7 @@ tape('server plugin interface', t => {
     () => {
       Plugin({
         team: 'team',
-        appName: 'app',
+        service: 'app',
         UniversalEvents: {},
         M3: null,
       });
@@ -70,7 +70,7 @@ tape('server plugin basic creation', t => {
     },
   };
   const Logger = Plugin({
-    appName: 'app',
+    service: 'app',
     team: 'team',
     UniversalEvents,
     M3,

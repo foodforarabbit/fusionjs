@@ -27,9 +27,9 @@ function validateItem(item) {
   return true;
 }
 
-export default ({UniversalEvents, M3, backends = {}, team, appName}) => {
+export default ({UniversalEvents, M3, backends = {}, team, service}) => {
   assert.ok(team, '{team} parameter is required');
-  assert.ok(appName, '{appName} parameter is required');
+  assert.ok(service, '{service} parameter is required');
   assert.ok(UniversalEvents, '{UniversalEvents} parameter is required');
   assert.ok(M3, '{M3} parameter is required');
   const env = __DEV__ ? 'dev' : process.env.NODE_ENV;
@@ -44,7 +44,7 @@ export default ({UniversalEvents, M3, backends = {}, team, appName}) => {
     };
   }
   const logger = Logtron({
-    meta: {team, project: appName},
+    meta: {team, project: service},
     statsd,
     backends: Logtron.defaultBackends(backends),
   });
