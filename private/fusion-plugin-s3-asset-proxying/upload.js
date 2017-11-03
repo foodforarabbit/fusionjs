@@ -6,6 +6,7 @@ const path = require('path');
 const mime = require('mime');
 const mimeDb = require('mime-db');
 const AWS = require('aws-sdk');
+const loadConfig = require('./s3-config');
 
 module.exports = async (
   {
@@ -23,7 +24,7 @@ module.exports = async (
     s3ForcePathStyle,
     endpoint,
   } =
-    s3Config || (await require('./s3-config.js')());
+    s3Config || loadConfig();
   const s3 = new AWS.S3({
     accessKeyId,
     secretAccessKey,

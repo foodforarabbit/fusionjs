@@ -2,17 +2,18 @@
 import path from 'path';
 import {SingletonPlugin} from 'fusion-core';
 import LRU from 'lru-cache';
-import S3Config from '../s3-config';
 import aws from 'aws-sdk';
+const loadConfig = require('../s3-config');
 
-export default ({config, Secrets} = {}) => {
+export default ({config} = {}) => {
+  config = config || loadConfig();
   class S3Service {
     constructor() {
       this.notFoundCache = new LRU({
         // store 404s
         max: 500,
       });
-      this.config = config || S3Config(Secrets);
+      this.config = config;
       const {
         accessKeyId,
         secretAccessKey,
