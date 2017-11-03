@@ -33,10 +33,8 @@ export default () => {
 
 // myPlugin.js
 export default const MyPlugin = ({Rosetta}) => {
-  const rosetta = Rosetta.of();
   return function myMiddleware(ctx, next) => {
-    const locales = rosetta.locales;
-    const translations = rosetta.translations;
+    const {locale, translations} = Rosetta.of(ctx);
     return next();
   }
   // ...
