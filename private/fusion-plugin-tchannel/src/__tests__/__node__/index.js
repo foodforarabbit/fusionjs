@@ -44,7 +44,7 @@ test('interface', async t => {
   };
 
   const Tchannel = plugin({
-    appName: 'hello',
+    service: 'hello',
     hyperbahnConfig: {
       hostPortList: [],
     },

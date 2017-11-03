@@ -23,8 +23,8 @@ const Logger = app.plugin(LoggerPlugin, {M3});
 const TChannelPlugin = app.plugin(TChannelPlugin, {
   M3,
   Logger,
-  appName: '',
-  hyperbahnConfig: {} // config passed to hyperbahn
+  service: '',
+  hyperbahnConfig: __NODE__ && {} // config passed to hyperbahn
 });
 if (__NODE__) {
   const {tchannel, hyperbahn} = TChannelPlugin.of();

@@ -1,8 +1,8 @@
 import {SingletonPlugin} from 'fusion-core';
 export default opts => {
-  if (opts)
+  if (opts && opts.hyperbahnConfig)
     throw new Error(
-      'Cannot pass options to tchannel in the browser. Try: `app.plugin(TchannelPlugin, __NODE__ && {...})`'
+      'Cannot pass hyperbahnConfig to tchannel in the browser. Try: `app.plugin(TchannelPlugin, __NODE__ && {...})`'
     );
   return new SingletonPlugin({
     Service: () => {

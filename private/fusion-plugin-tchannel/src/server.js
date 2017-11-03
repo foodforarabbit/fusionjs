@@ -8,7 +8,7 @@ import myLocalIp from 'my-local-ip';
 
 export default (
   {
-    appName,
+    service,
     Logger,
     M3,
     hyperbahnConfig,
@@ -24,7 +24,7 @@ export default (
     logger: logger.createChild('tchannel'),
     statsd: m3,
     statTags: {
-      app: appName,
+      app: service,
       cluster: dc,
       version: appVersion,
     },
@@ -34,7 +34,7 @@ export default (
     {
       logger: logger,
       tchannel: channel,
-      serviceName: appName,
+      serviceName: service,
       isHealthy: defaultHealthCheck,
       statsd: m3,
       hardFail: true,
@@ -53,6 +53,11 @@ export default (
   if (!hbConfig.hostPortList) {
     logger.warn('no hostPortList set - trying Uber default location');
     hbConfig.hostPortList = readFile('/etc/uber/hyperbahn/hosts.json');
+  }
+
+  if (__DEV__ && !hbConfig.hostPortFile) {
+    logger.warn('no hostPortList set - using development defaults');
+    hbConfig.hostPortList = ['127.0.0.1:21300', '127.0.0.1:21301'];
   }
 
   // we can't continue without any ports defined
@@ -81,7 +86,7 @@ export default (
   }
 
   function defaultHealthCheck() {
-    return {ok: true, message: appName + ' is healthy\n'};
+    return {ok: true, message: service + ' is healthy\n'};
   }
 
   function readFile(file) {
