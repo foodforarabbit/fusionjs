@@ -3,9 +3,9 @@ import path from 'path';
 import {SingletonPlugin} from 'fusion-core';
 import LRU from 'lru-cache';
 import aws from 'aws-sdk';
-const loadConfig = require('../s3-config');
 
 export default ({config} = {}) => {
+  const loadConfig = require('../s3-config');
   config = config || loadConfig();
   class S3Service {
     constructor() {

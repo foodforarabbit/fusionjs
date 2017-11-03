@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@rtsao/babel-preset-env@github:rtsao/babel-preset-env#release":
+"@rtsao/babel-preset-env@rtsao/babel-preset-env#release":
   version "1.6.0"
   resolved "https://codeload.github.com/rtsao/babel-preset-env/tar.gz/715dd5ae0b227595cad886b7b3f46d1fe8ceaf8b"
   dependencies:
@@ -192,9 +192,9 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://unpm.uberinternal.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-aws-sdk@^2.141.0:
-  version "2.141.0"
-  resolved "https://unpm.uberinternal.com/aws-sdk/-/aws-sdk-2.141.0.tgz#3d96a5970fd9f540ceabcc1d4baeb33b71583aa7"
+aws-sdk@^2.145.0:
+  version "2.145.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.145.0.tgz#085bb4553231defd93b96b0d95023717c9c3c093"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -1684,9 +1684,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-core@^0.1.2:
-  version "0.1.2"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-0.1.2.tgz#0bfb84dfcf73d1398ffb5e838eef8266ba79619c"
+fusion-core@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/fusion-core/-/fusion-core-0.1.8.tgz#2a71b98c6e0c59d3aba949e14e119051dc27f261"
   dependencies:
     koa "^2.3.0"
     koa-compose "^4.0.0"
