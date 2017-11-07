@@ -15,8 +15,7 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "peerDependencies": {
-    "@uber/atreyu": "^5.4.5",
-    "fusion-core": "^0.1.2"
+    "fusion-core": "^0.1.8"
   },
   "devDependencies": {
     "@uber/atreyu": "^5.4.5",
@@ -32,7 +31,7 @@
     "fusion-core": "^0.1.2",
     "idl": "^3.1.9",
     "nyc": "^11.2.1",
-    "prettier": "1.7.4",
+    "prettier": "1.8.1",
     "tape-cup": "^4.7.1",
     "unitest": "^1.1.0"
   },
@@ -47,6 +46,9 @@
     "just-cover": "nyc --reporter=cobertura npm run just-test",
     "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html",
     "prepublish": "npm run transpile"
+  },
+  "dependencies": {
+    "@uber/atreyu": "^5.4.5"
   },
   "engines": {
     "node": ">=8.3.0",
