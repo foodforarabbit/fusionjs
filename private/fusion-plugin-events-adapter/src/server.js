@@ -12,10 +12,10 @@ import routeTiming from './handlers/route-timing';
 
 export default function EventsAdapterFactory({
   UniversalEvents,
-  Session,
+  AnalyticsSession,
   Geolocation,
   I18n,
-  config: {appName},
+  config: {service},
 }) {
   assert.ok(UniversalEvents, '{UniversalEvents} dependency is required');
   const events = UniversalEvents.of();
@@ -25,7 +25,13 @@ export default function EventsAdapterFactory({
   );
 
   const m3 = M3({events});
-  const heatpipe = Heatpipe({events, Session, Geolocation, I18n, appName});
+  const heatpipe = Heatpipe({
+    events,
+    AnalyticsSession,
+    Geolocation,
+    I18n,
+    service,
+  });
 
   browserPerformance({events, m3, heatpipe});
   pageViewBrowser({events, heatpipe});

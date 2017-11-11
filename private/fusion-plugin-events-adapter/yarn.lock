@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@rtsao/babel-preset-env@github:rtsao/babel-preset-env#release":
+"@rtsao/babel-preset-env@rtsao/babel-preset-env#release":
   version "1.6.0"
   resolved "https://codeload.github.com/rtsao/babel-preset-env/tar.gz/715dd5ae0b227595cad886b7b3f46d1fe8ceaf8b"
   dependencies:

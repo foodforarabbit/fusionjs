@@ -38,7 +38,7 @@ tape('heatpipe emitter publish', t => {
 });
 
 const webEventsFixture = {
-  appName: 'awesome-frontend',
+  service: 'awesome-frontend',
   eventMessage: {
     type: 'stat',
     name: 'need_for_speed',
@@ -69,14 +69,12 @@ const webEventsFixture = {
     dimensions: {screen_height: 900},
     page: {hostname: 'www.uber.com'},
   },
-  Session: {
-    _analytics: {
-      id: 5,
-      time: 1509116637127,
+  AnalyticsSession: {
+    _ua: {
+      session_id: '05fec7ce-21c5-4d6f-9a60-e0346e9d68ab',
+      session_time_ms: 1509116637127,
     },
-    of: () => ({
-      get: () => webEventsFixture.Session._analytics,
-    }),
+    of: () => webEventsFixture.AnalyticsSession._ua,
   },
   I18n: {
     _localeString: 'zh-TW',
@@ -110,10 +108,10 @@ const webEventsFixture = {
       user_agent: webEventsFixture.ctx.useragent.ua,
       locale: webEventsFixture.I18n._localeString,
     },
-    app_name: webEventsFixture.appName,
+    app_name: webEventsFixture.service,
     user_id: webEventsFixture.ctx.headers['x-auth-params-user-uuid'],
-    session_id: webEventsFixture.Session._analytics.id,
-    session_time_ms: webEventsFixture.Session._analytics.time,
+    session_id: webEventsFixture.AnalyticsSession._ua.session_id,
+    session_time_ms: webEventsFixture.AnalyticsSession._ua.session_time_ms,
     latitude: webEventsFixture.Geolocation._geoObject.latitude,
     longitude: webEventsFixture.Geolocation._geoObject.longitude,
   }),
@@ -145,10 +143,10 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
   };
   const hp = Heatpipe({
     events,
-    Session: webEventsFixture.Session,
+    AnalyticsSession: webEventsFixture.AnalyticsSession,
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
-    appName: webEventsFixture.appName,
+    service: webEventsFixture.service,
   });
   hp.publishWebEvents({
     message: webEventsFixture.eventMessage,

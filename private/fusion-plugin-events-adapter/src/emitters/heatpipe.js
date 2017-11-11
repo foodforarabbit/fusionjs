@@ -3,7 +3,13 @@ export const webTopicInfo = {
   version: 8,
 };
 
-export default function({events, Session, Geolocation, I18n, appName}) {
+export default function({
+  events,
+  AnalyticsSession,
+  Geolocation,
+  I18n,
+  service,
+}) {
   const Heatpipe = {
     publish: ({topicInfo, message}) => {
       events.emit('heatpipe:publish', {topicInfo, message});
@@ -46,8 +52,8 @@ export default function({events, Session, Geolocation, I18n, appName}) {
           user_agent: userAgent.ua,
         }) ||
         {};
-      const analyticsSession =
-        (Session && Session.of(ctx).get('analytics')) || {};
+      const {session_id = 'unknown', session_time_ms = 0} =
+        (AnalyticsSession && AnalyticsSession.of(ctx)) || {};
       const geolocation = (Geolocation && Geolocation.of(ctx).lookup()) || {};
 
       return {
@@ -55,10 +61,10 @@ export default function({events, Session, Geolocation, I18n, appName}) {
           ...uaInfo,
           locale: (I18n && I18n.of(ctx).locale.toString()) || '',
         },
-        app_name: appName,
+        app_name: service,
         user_id: ctx.headers['x-auth-params-user-uuid'] || 'unknown',
-        session_id: analyticsSession.id,
-        session_time_ms: analyticsSession.time,
+        session_id,
+        session_time_ms,
         time_ms: Date.now(),
         ...geolocation,
       };
