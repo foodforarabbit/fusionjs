@@ -1,8 +1,10 @@
 {
   "name": "@uber/fusion-plugin-logtron",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "fusion plugin for universal logging via logtron",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
   "browser": {
