@@ -58,7 +58,9 @@ export default function buildCSPMiddleware({ctx, config, cspFlipr}) {
       );
     }
     if (serviceName) {
-      return `https://csp.uber.com/csp?a=${serviceName}&ro=${shouldUseReportOnlyMode()}`;
+      return `https://csp.uber.com/csp?a=${
+        serviceName
+      }&ro=${shouldUseReportOnlyMode()}`;
     }
     return `https://csp.uber.com/csp?a=unknown&ro=${shouldUseReportOnlyMode()}`;
   }
