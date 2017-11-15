@@ -10,28 +10,32 @@
   "main": "./dist/node.cjs.js",
   "module": "./dist/node.es.js",
   "browser": {
-    "./dist/node.cjs.js": "./dist/browser.cjs.js",
-    "./dist/node.es.js": "./dist/browser.es.js"
+    "./dist/node.cjs.js": "./dist/browser.es5.cjs.js",
+    "./dist/node.es.js": "./dist/browser.es5.es.js"
   },
   "es2015": {
-    "./dist/node.cjs.js": "./dist/node.cjs.es2015.js",
-    "./dist/node.es.js": "./dist/node.es.es2015.js",
-    "./dist/browser.cjs.js": "./dist/browser.cjs.es2015.js",
-    "./dist/browser.es.js": "./dist/browser.es.es2015.js"
+    "./dist/browser.es5.cjs.js": "./dist/browser.es2015.cjs.js",
+    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
+  },
+  "es2017": {
+    "./dist/browser.es5.cjs.js": "./dist/browser.es2017.cjs.js",
+    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
+    "./dist/browser.es2015.cjs.js": "./dist/browser.es2017.cjs.js",
+    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
     "eslint-config-fusion": "^0.1.2",
-    "fusion-core": "^0.1.2",
-    "babel-eslint": "^8.0.1",
+    "fusion-core": "^0.2.3",
+    "babel-eslint": "^8.0.2",
     "babel-plugin-istanbul": "^4.1.5",
-    "create-universal-package": "^1.0.0-rc.18",
-    "eslint": "^4.10.0",
-    "eslint-plugin-cup": "^1.0.0-rc.4",
+    "create-universal-package": "^2.1.1",
+    "eslint": "^4.11.0",
+    "eslint-plugin-cup": "^1.0.0",
     "eslint-plugin-flowtype": "^2.39.1",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
-    "nyc": "^11.2.1",
-    "prettier": "1.7.4",
+    "nyc": "^11.3.0",
+    "prettier": "1.8.2",
     "tape-cup": "^4.7.1",
     "unitest": "^1.1.0"
   },
@@ -50,7 +54,7 @@
     "@uber/node-m3-client-addon": "^1.4.0"
   },
   "peerDependencies": {
-    "fusion-core": "^0.1.2"
+    "fusion-core": "^0.2.3"
   },
   "engines": {
     "node": ">=8.3.0",
