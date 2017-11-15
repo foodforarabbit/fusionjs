@@ -2,8 +2,6 @@
 import {JaegerClient, initTracer} from '@uber/jaeger-client-adapter';
 import {Plugin} from 'fusion-core';
 
-const {opentracing} = JaegerClient;
-
 // eslint-disable-next-line no-unused-vars
 export default function createTracerPlugin({
   Logger,
@@ -11,6 +9,7 @@ export default function createTracerPlugin({
   options = {},
   initClient = initTracer,
 }) {
+  const {opentracing} = JaegerClient;
   const logger = Logger.of().createChild('tracer');
   options.logger = logger;
   if (config.mock) {
