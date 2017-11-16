@@ -1,12 +1,11 @@
+// @flow
 import tape from 'tape-cup';
 import M3 from '../../emitters/m3';
+import EventEmitter from 'events';
 
 tape('m3 emitter interface', t => {
   t.equal(typeof M3, 'function', 'exports a function');
-  const events = {
-    emit() {},
-  };
-  const m3 = M3({events});
+  const m3 = M3(new EventEmitter());
   t.equal(typeof m3.increment, 'function', 'exposes an increment function');
   t.equal(typeof m3.decrement, 'function', 'exposes an decrement function');
   t.equal(typeof m3.gauge, 'function', 'exposes an gauge function');
@@ -16,61 +15,69 @@ tape('m3 emitter interface', t => {
 });
 
 tape('m3 emitter increment', t => {
-  const events = {
+  class Events extends EventEmitter {
     emit(type, payload) {
       t.equal(type, 'm3:increment', 'emits increment event with correct type');
-      t.equal(payload, 'test', 'increment passes payload through');
+      t.equal(payload.key, 'test', 'increment passes payload through');
+      t.deepLooseEqual(payload.tags, {});
       t.end();
-    },
-  };
-  const m3 = M3({events});
-  m3.increment('test');
+    }
+  }
+  const m3 = M3(new Events());
+  m3.increment({key: 'test', tags: {}});
 });
 
 tape('m3 emitter decrement', t => {
-  const events = {
+  class Events extends EventEmitter {
     emit(type, payload) {
       t.equal(type, 'm3:decrement', 'emits decrement event with correct type');
-      t.equal(payload, 'test', 'decrement passes payload through');
+      t.equal(payload.key, 'test', 'decrement passes payload through');
+      t.deepLooseEqual(payload.tags, {});
       t.end();
-    },
-  };
-  const m3 = M3({events});
-  m3.decrement('test');
+    }
+  }
+  const m3 = M3(new Events());
+  m3.decrement({key: 'test', tags: {}});
 });
 
 tape('m3 emitter timing', t => {
-  const events = {
+  class Events extends EventEmitter {
     emit(type, payload) {
       t.equal(type, 'm3:timing', 'emits timing event with correct type');
-      t.equal(payload, 'test', 'timing passes payload through');
+      t.equal(payload.key, 'test', 'timing passes payload through');
+      t.deepLooseEqual(payload.tags, {});
+      t.equal(payload.value, 5);
       t.end();
-    },
-  };
-  const m3 = M3({events});
-  m3.timing('test');
+    }
+  }
+  const m3 = M3(new Events());
+  m3.timing({key: 'test', tags: {}, value: 5});
 });
 
 tape('m3 emitter counter', t => {
-  const events = {
+  class Events extends EventEmitter {
     emit(type, payload) {
       t.equal(type, 'm3:counter', 'emits counter event with correct type');
-      t.equal(payload, 'test', 'counter passes payload through');
+      t.equal(payload.key, 'test', 'counter passes payload through');
+      t.deepLooseEqual(payload.tags, {});
+      t.equal(payload.value, 5);
       t.end();
-    },
-  };
-  const m3 = M3({events});
-  m3.counter('test');
+    }
+  }
+  const m3 = M3(new Events());
+  m3.counter({key: 'test', tags: {}, value: 5});
 });
 
 tape('m3 emitter gauge', t => {
-  const events = {
+  class Events extends EventEmitter {
     emit(type, payload) {
       t.equal(type, 'm3:gauge', 'emits gauge event with correct type');
-      t.equal(payload, 'test', 'gauge passes payload through');
+      t.equal(payload.key, 'test', 'gauge passes payload through');
+      t.deepLooseEqual(payload.tags, {});
+      t.equal(payload.value, 5);
       t.end();
-    },
-  };
-  const m3 = M3({events});
-  m3.gauge('test');
+    }
+  }
+  const m3 = M3(new Events());
+  m3.gauge({key: 'test', tags: {}, value: 5});
 });

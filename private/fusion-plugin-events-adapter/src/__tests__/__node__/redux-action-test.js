@@ -1,3 +1,4 @@
+// @flow
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 
@@ -7,7 +8,7 @@ import reactAction from '../../handlers/redux-action';
 
 tape('redux-action handler', t => {
   const events = new EventEmitter();
-  const heatpipe = Heatpipe({events});
+  const heatpipe = Heatpipe({events, service: 'test'});
 
   reactAction({events, heatpipe});
 

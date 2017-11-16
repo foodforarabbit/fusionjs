@@ -293,6 +293,10 @@
   version "7.0.0-beta.32"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-dynamic-import/-/plugin-syntax-dynamic-import-7.0.0-beta.32.tgz#4601ecb1f49ab9b4b848101f5d8467630a4fa65c"
 
+"@babel/plugin-syntax-flow@7.0.0-beta.32":
+  version "7.0.0-beta.32"
+  resolved "https://unpm.uberinternal.com/@babel%2fplugin-syntax-flow/-/plugin-syntax-flow-7.0.0-beta.32.tgz#fa861f17f240ae5dac7e641a3d5aec20a102fb9e"
+
 "@babel/plugin-syntax-object-rest-spread@7.0.0-beta.31":
   version "7.0.0-beta.31"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-object-rest-spread/-/plugin-syntax-object-rest-spread-7.0.0-beta.31.tgz#bd0f67210b3022182dc50d155393ccec720ca039"
@@ -367,6 +371,12 @@
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-exponentiation-operator/-/plugin-transform-exponentiation-operator-7.0.0-beta.31.tgz#2b6090f2138e180acb3246dc1a13dd4a78600383"
   dependencies:
     "@babel/helper-builder-binary-assignment-operator-visitor" "7.0.0-beta.31"
+
+"@babel/plugin-transform-flow-strip-types@^7.0.0-beta.32":
+  version "7.0.0-beta.32"
+  resolved "https://unpm.uberinternal.com/@babel%2fplugin-transform-flow-strip-types/-/plugin-transform-flow-strip-types-7.0.0-beta.32.tgz#a0d09112ed7229dcc5265ca9e2caed5bc0ccbaeb"
+  dependencies:
+    "@babel/plugin-syntax-flow" "7.0.0-beta.32"
 
 "@babel/plugin-transform-for-of@7.0.0-beta.31":
   version "7.0.0-beta.31"
@@ -2045,6 +2055,10 @@ flat-cache@^1.2.1:
     del "^2.0.2"
     graceful-fs "^4.1.2"
     write "^0.2.1"
+
+flow-bin@^0.59.0:
+  version "0.59.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.59.0.tgz#8c151ee7f09f1deed9bf0b9d1f2e8ab9d470f1bb"
 
 for-each@~0.3.2:
   version "0.3.2"

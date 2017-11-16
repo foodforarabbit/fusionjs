@@ -1,3 +1,4 @@
+// @flow
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 
@@ -7,7 +8,7 @@ import pageViewBrowser from '../../handlers/page-view-browser';
 
 tape('page-view-browser handler', t => {
   const events = new EventEmitter();
-  const heatpipe = Heatpipe({events});
+  const heatpipe = Heatpipe({events, service: 'test'});
 
   pageViewBrowser({events, heatpipe});
 

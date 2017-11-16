@@ -1,3 +1,4 @@
+// @flow
 import tape from 'tape-cup';
 import routeTiming from '../../handlers/route-timing';
 import M3 from '../../emitters/m3';
@@ -5,7 +6,7 @@ import EventEmitter from 'events';
 
 tape('route timing - pageview:server', t => {
   const events = new EventEmitter();
-  const m3 = M3({events});
+  const m3 = M3(events);
   routeTiming({events, m3});
 
   events.on('m3:increment', ({key, tags}) => {
@@ -18,7 +19,7 @@ tape('route timing - pageview:server', t => {
 
 tape('route timing - pageview:browser', t => {
   const events = new EventEmitter();
-  const m3 = M3({events});
+  const m3 = M3(events);
   routeTiming({events, m3});
 
   events.on('m3:increment', ({key, tags}) => {
@@ -31,7 +32,7 @@ tape('route timing - pageview:browser', t => {
 
 tape('route timing - route_time', t => {
   const events = new EventEmitter();
-  const m3 = M3({events});
+  const m3 = M3(events);
   routeTiming({events, m3});
 
   events.on('m3:timing', ({key, value, tags}) => {
@@ -53,7 +54,7 @@ tape('route timing - route_time', t => {
 
 tape('route timing - downstream:server', t => {
   const events = new EventEmitter();
-  const m3 = M3({events});
+  const m3 = M3(events);
   routeTiming({events, m3});
 
   events.on('m3:timing', ({key, value, tags}) => {
@@ -75,7 +76,7 @@ tape('route timing - downstream:server', t => {
 
 tape('route timing - render:server', t => {
   const events = new EventEmitter();
-  const m3 = M3({events});
+  const m3 = M3(events);
   routeTiming({events, m3});
 
   events.on('m3:timing', ({key, value, tags}) => {
@@ -97,7 +98,7 @@ tape('route timing - render:server', t => {
 
 tape('route timing - upstream:server', t => {
   const events = new EventEmitter();
-  const m3 = M3({events});
+  const m3 = M3(events);
   routeTiming({events, m3});
 
   events.on('m3:timing', ({key, value, tags}) => {

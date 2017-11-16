@@ -1,12 +1,14 @@
+// @flow
 import tape from 'tape-cup';
 import Heatpipe, {webTopicInfo} from '../../emitters/heatpipe';
+import EventEmitter from 'events';
 
 tape('heatpipe emitter interface', t => {
   t.equal(typeof Heatpipe, 'function', 'exports a function');
-  const events = {
-    emit() {},
-  };
-  const hp = Heatpipe({events});
+  class Events extends EventEmitter {
+    emit() {}
+  }
+  const hp = Heatpipe({events: new Events(), service: 'test'});
   t.equal(typeof hp.publish, 'function', 'exposes an publish function');
   t.equal(
     typeof hp.publishWebEvents,
@@ -22,7 +24,7 @@ tape('heatpipe emitter publish', t => {
     message: {foo: 1},
   };
 
-  const events = {
+  class Events extends EventEmitter {
     emit(type, payload) {
       t.equal(
         type,
@@ -31,9 +33,9 @@ tape('heatpipe emitter publish', t => {
       );
       t.deepEqual(payload, fixturePayload, 'publish passes payload through');
       t.end();
-    },
-  };
-  const hp = Heatpipe({events});
+    }
+  }
+  const hp = Heatpipe({events: new Events(), service: 'test'});
   hp.publish(fixturePayload);
 });
 
@@ -66,8 +68,18 @@ const webEventsFixture = {
     },
   },
   webEventsMeta: {
-    dimensions: {screen_height: 900},
-    page: {hostname: 'www.uber.com'},
+    dimensions: {
+      screen_height: 900,
+      screen_width: 900,
+      viewport_height: 900,
+      viewport_width: 900,
+    },
+    page: {
+      url: 'www.uber.com',
+      hostname: 'www.uber.com',
+      pathname: '/',
+      referrer: '',
+    },
   },
   AnalyticsSession: {
     _ua: {
@@ -118,7 +130,7 @@ const webEventsFixture = {
 };
 
 tape('heatpipe emitter publishWebEvents with dependencies', t => {
-  const events = {
+  class Events extends EventEmitter {
     emit(type, payload) {
       t.equal(
         type,
@@ -139,10 +151,10 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
         'publishWebEvents message transformed correctly'
       );
       t.end();
-    },
-  };
+    }
+  }
   const hp = Heatpipe({
-    events,
+    events: new Events(),
     AnalyticsSession: webEventsFixture.AnalyticsSession,
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
@@ -156,7 +168,7 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
 });
 
 tape('heatpipe emitter publishWebEvents missing dependencies', t => {
-  const events = {
+  class Events extends EventEmitter {
     emit(type, payload) {
       t.equal(
         type,
@@ -169,9 +181,9 @@ tape('heatpipe emitter publishWebEvents missing dependencies', t => {
         'publish passes payload through and no transforms'
       );
       t.end();
-    },
-  };
-  const hp = Heatpipe({events});
+    }
+  }
+  const hp = Heatpipe({events: new Events(), service: 'test'});
   hp.publishWebEvents({
     message: webEventsFixture.eventMessage,
   });

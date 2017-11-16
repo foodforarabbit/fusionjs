@@ -1,3 +1,4 @@
+// @flow
 import plugin from '../../browser';
 import tape from 'tape-cup';
 

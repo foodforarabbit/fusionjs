@@ -1,3 +1,4 @@
+// @flow
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 
@@ -71,8 +72,8 @@ tape('browser-performance handler', t => {
   t.plan(4);
 
   const events = new EventEmitter();
-  const m3 = M3({events});
-  const heatpipe = Heatpipe({events});
+  const m3 = M3(events);
+  const heatpipe = Heatpipe({events, service: 'test'});
 
   browserPerformance({events, m3, heatpipe});
 

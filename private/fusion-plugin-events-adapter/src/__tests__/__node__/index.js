@@ -1,3 +1,4 @@
+// @flow
 import Plugin from '../../server';
 import tape from 'tape-cup';
 

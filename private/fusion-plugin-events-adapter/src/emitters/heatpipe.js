@@ -1,26 +1,53 @@
+// @flow
 export const webTopicInfo = {
   topic: 'hp-event-web',
   version: 8,
 };
 
+type HeatpipeArgs = {
+  events: EventEmitter,
+  AnalyticsSession?: AnalyticsSessionPlugin,
+  Geolocation?: GeolocationPlugin,
+  I18n?: I18nPlugin,
+  service: string,
+};
+
+type WebEventsMeta = {
+  page: {
+    url: string,
+    hostname: string,
+    pathname: string,
+    referrer: string,
+  },
+  dimensions: {
+    screen_width: number,
+    screen_height: number,
+    viewport_width: number,
+    viewport_height: number,
+  },
+};
 export default function({
   events,
   AnalyticsSession,
   Geolocation,
   I18n,
   service,
-}) {
+}: HeatpipeArgs) {
   const Heatpipe = {
-    publish: ({topicInfo, message}) => {
-      events.emit('heatpipe:publish', {topicInfo, message});
+    publish: (payload: {topicInfo: Object, message: Object}) => {
+      events.emit('heatpipe:publish', payload);
     },
-    publishWebEvents: ({message, ctx, webEventsMeta}) => {
+    publishWebEvents: (payload: {
+      message: Object,
+      ctx?: Object,
+      webEventsMeta?: WebEventsMeta,
+    }) => {
       Heatpipe.publish({
         topicInfo: webTopicInfo,
         message: {
-          ...message,
-          ...getWebEventsMetaFields(webEventsMeta),
-          ...getContextFields(ctx),
+          ...payload.message,
+          ...getWebEventsMetaFields(payload.webEventsMeta),
+          ...getContextFields(payload.ctx),
         },
       });
     },
