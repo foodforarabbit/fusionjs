@@ -1,7 +1,7 @@
 // @flow
 declare class EventEmitter {
   on(event: string, handler: (Object) => void): void;
-  emit(event: string, payload: Object): void;
+  emit(event: string, payload: any): void;
 }
 
 export type UniversalEvents = {
