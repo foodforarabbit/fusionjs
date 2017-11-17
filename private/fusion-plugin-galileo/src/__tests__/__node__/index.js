@@ -2,6 +2,13 @@ import test from 'tape-cup';
 import GalileoPlugin from '../../server';
 
 const mockLogger = {};
+const mockM3 = {};
+
+const MockM3 = {
+  of() {
+    return mockM3;
+  },
+};
 
 const MockTracer = {
   of() {
@@ -32,15 +39,17 @@ test('fusion Galileo Plugin', t => {
     galileo: {test: 'test'},
   };
 
-  function MockGalileo(cfg, tracer, format, logger) {
+  function MockGalileo(cfg, tracer, format, logger, m3) {
     t.looseEquals(cfg, config, 'config is passed down');
     t.looseEquals(tracer, 'tracer', 'tracer instance needs to be passed down');
+    t.looseEquals(m3, mockM3, 'm3 needs to be passed down');
     t.equals(logger, mockLogger, 'logger instance needs to be passed down');
     t.equals(format, 'http_headers', 'format needs to be passed down');
     return {};
   }
 
   const Galileo = GalileoPlugin({
+    M3: MockM3,
     Logger: MockLogger,
     Tracer: MockTracer,
     GalileoClient: MockGalileo,

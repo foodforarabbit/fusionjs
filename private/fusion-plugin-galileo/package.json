@@ -23,8 +23,8 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "dependencies": {
-    "@uber/galileo": "^1.0.5",
-    "jaeger-client": "^3.6.0"
+    "@uber/galileo": "^1.1.2",
+    "@uber/jaeger-client-adapter": "^3.3.0"
   },
   "peerDependencies": {
     "fusion-core": "^0.2.3"

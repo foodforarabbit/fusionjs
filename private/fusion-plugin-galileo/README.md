@@ -19,6 +19,7 @@ import galileoConfig from  'config/galileo';
 // ...
 
 const Galileo = app.plugin(GalileoPlugin, {
+  M3, // M3ServerPlugin instance 
   Logger, // UniversalLogger plugin instance
   Tracer, // Jeager plugin instance
   config: galileoConfig
