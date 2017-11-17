@@ -56,7 +56,7 @@ export default ({UniversalEvents, M3, backends = {}, team, service}) => {
       path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
       ext: '.map',
     });
-    events.on('client-logging', payload => {
+    events.on('logtron:log', payload => {
       if (validateItem(payload)) {
         const {level, message} = payload;
         let {meta} = payload;
@@ -65,9 +65,7 @@ export default ({UniversalEvents, M3, backends = {}, team, service}) => {
         }
         logger[level](message, meta);
       } else {
-        const error = new Error(
-          `Invalid data in client request for client-logging`
-        );
+        const error = new Error('Invalid data in log event');
         logger.error(error.message, error);
       }
     });

@@ -50,7 +50,7 @@ export default ({UniversalEvents}) => {
         meta.error = error;
       }
 
-      return this.emitter.emit('client-logging', {level, message, meta});
+      return this.emitter.emit('logtron:log', {level, message, meta});
     }
   }
   return new SingletonPlugin({Service: UniversalLogger});
