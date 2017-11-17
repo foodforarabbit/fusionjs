@@ -27,7 +27,5 @@ export default function routeTiming({events, m3}) {
 
   addIncrementHandler('pageview:server');
   addIncrementHandler('pageview:browser');
-  addTimingHandler('downstream:server');
   addTimingHandler('render:server');
-  addTimingHandler('upstream:server');
 }

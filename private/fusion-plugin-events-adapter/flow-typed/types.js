@@ -5,7 +5,7 @@ declare class EventEmitter {
 }
 
 export type UniversalEvents = {
-  of: () => EventEmitter,
+  of: (ctx?: Object) => EventEmitter,
 };
 
 export type SessionData = {

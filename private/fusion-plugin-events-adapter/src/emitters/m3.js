@@ -2,11 +2,11 @@
 type ValueArgs = {|
   key: string,
   value: number,
-  tags: Object,
+  tags?: Object,
 |};
 type IncrementArgs = {|
   key: string,
-  tags: Object,
+  tags?: Object,
 |};
 type M3Function = (payload: ValueArgs) => void;
 type IncrementFunction = (payload: IncrementArgs) => void;

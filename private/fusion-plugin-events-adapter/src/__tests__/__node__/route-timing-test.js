@@ -52,28 +52,6 @@ tape('route timing - route_time', t => {
   });
 });
 
-tape('route timing - downstream:server', t => {
-  const events = new EventEmitter();
-  const m3 = M3(events);
-  routeTiming({events, m3});
-
-  events.on('m3:timing', ({key, value, tags}) => {
-    t.equal(key, 'downstream:server', 'logs the correct key');
-    t.equal(value, 5, 'logs the correct value');
-    t.deepLooseEqual(
-      tags,
-      {route: 'test-route', status: 'test-status'},
-      'logs the correct tags'
-    );
-    t.end();
-  });
-  events.emit('downstream:server', {
-    title: 'test-route',
-    timing: 5,
-    status: 'test-status',
-  });
-});
-
 tape('route timing - render:server', t => {
   const events = new EventEmitter();
   const m3 = M3(events);
@@ -90,28 +68,6 @@ tape('route timing - render:server', t => {
     t.end();
   });
   events.emit('render:server', {
-    title: 'test-route',
-    timing: 5,
-    status: 'test-status',
-  });
-});
-
-tape('route timing - upstream:server', t => {
-  const events = new EventEmitter();
-  const m3 = M3(events);
-  routeTiming({events, m3});
-
-  events.on('m3:timing', ({key, value, tags}) => {
-    t.equal(key, 'upstream:server', 'logs the correct key');
-    t.equal(value, 5, 'logs the correct value');
-    t.deepLooseEqual(
-      tags,
-      {route: 'test-route', status: 'test-status'},
-      'logs the correct tags'
-    );
-    t.end();
-  });
-  events.emit('upstream:server', {
     title: 'test-route',
     timing: 5,
     status: 'test-status',
