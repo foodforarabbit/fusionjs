@@ -26,6 +26,16 @@ type WebEventsMeta = {
     viewport_height: number,
   },
 };
+
+export type HeatpipeClient = {
+  publish: (payload: {topicInfo: Object, message: Object}) => void,
+  publishWebEvents: (payload: {
+    message: Object,
+    ctx?: Object,
+    webEventsMeta?: WebEventsMeta,
+  }) => void,
+};
+
 export default function({
   events,
   AnalyticsSession,
@@ -33,7 +43,7 @@ export default function({
   I18n,
   service,
 }: HeatpipeArgs) {
-  const Heatpipe = {
+  const Heatpipe: HeatpipeClient = {
     publish: (payload: {topicInfo: Object, message: Object}) => {
       events.emit('heatpipe:publish', payload);
     },

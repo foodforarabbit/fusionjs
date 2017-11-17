@@ -45,7 +45,7 @@ export default function EventsAdapterFactory({
 
   browserPerformance({events, m3, heatpipe});
   pageViewBrowser({events, heatpipe});
-  reduxAction({events, heatpipe});
+  reduxAction(events, heatpipe, m3);
   routeTiming({events, m3});
 
   return new Plugin({
