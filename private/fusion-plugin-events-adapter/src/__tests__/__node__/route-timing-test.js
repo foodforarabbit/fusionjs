@@ -10,7 +10,7 @@ tape('route timing - pageview:server', t => {
   routeTiming({events, m3});
 
   events.on('m3:increment', ({key, tags}) => {
-    t.equal(key, 'pageview:server', 'logs the correct key');
+    t.equal(key, 'pageview_server', 'logs the correct key');
     t.deepLooseEqual(tags, {route: 'test'}, 'logs the correct tags');
     t.end();
   });
@@ -23,7 +23,7 @@ tape('route timing - pageview:browser', t => {
   routeTiming({events, m3});
 
   events.on('m3:increment', ({key, tags}) => {
-    t.equal(key, 'pageview:browser', 'logs the correct key');
+    t.equal(key, 'pageview_browser', 'logs the correct key');
     t.deepLooseEqual(tags, {route: 'test'}, 'logs the correct tags');
     t.end();
   });
@@ -58,7 +58,7 @@ tape('route timing - render:server', t => {
   routeTiming({events, m3});
 
   events.on('m3:timing', ({key, value, tags}) => {
-    t.equal(key, 'render:server', 'logs the correct key');
+    t.equal(key, 'render_server', 'logs the correct key');
     t.equal(value, 5, 'logs the correct value');
     t.deepLooseEqual(
       tags,
