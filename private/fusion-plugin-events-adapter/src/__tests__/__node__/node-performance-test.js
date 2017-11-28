@@ -5,6 +5,7 @@ import M3 from '../../emitters/m3';
 import EventEmitter from 'events';
 
 tape('node performance rss', gaugeTest('rss', 'rss'));
+tape('node performance rss', gaugeTest('externalMemory', 'external_memory'));
 tape('node performance heapTotal', gaugeTest('heapTotal', 'heaptotal'));
 tape('node performance heapUsed', gaugeTest('heapUsed', 'heapused'));
 tape(

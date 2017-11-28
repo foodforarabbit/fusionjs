@@ -6,6 +6,7 @@ export default function nodePerformance(events: EventEmitter, m3: M3) {
   // $FlowFixMe
   const gaugeWithType = key => value => m3.gauge({key, value});
   events.on(`${gaugePrefix}:rss`, gaugeWithType('rss'));
+  events.on(`${gaugePrefix}:externalMemory`, gaugeWithType('external_memory'));
   events.on(`${gaugePrefix}:heapTotal`, gaugeWithType('heaptotal'));
   events.on(`${gaugePrefix}:heapUsed`, gaugeWithType('heapused'));
   events.on(`${gaugePrefix}:event_loop_lag`, gaugeWithType('event_loop_lag'));
