@@ -14,21 +14,25 @@ export default (
   const logger = Logger.of();
   const m3 = M3.of();
 
-  const errorLog = (e, type) => {
+  const errorLog = (e, captureType) => {
     return new Promise(resolve => {
-      logger.fatal(e.message || `uncaught ${type} exception`, e, resolve);
+      logger.fatal(
+        e.message || `uncaught ${captureType} exception`,
+        e,
+        resolve
+      );
     });
   };
-  const errorIncrement = type => {
+  const errorIncrement = captureType => {
     return new Promise(resolve => {
-      m3.immediateIncrement('exception', {type}, resolve);
+      m3.immediateIncrement('exception', {captureType}, resolve);
     });
   };
   return BasePlugin({
-    onError: (e, type) => {
+    onError: (e, captureType) => {
       return Promise.all([
-        Promise.race([errorLog(e, type), delay(logTimeout)]),
-        Promise.race([errorIncrement(type), delay(m3Timeout)]),
+        Promise.race([errorLog(e, captureType), delay(logTimeout)]),
+        Promise.race([errorIncrement(captureType), delay(m3Timeout)]),
       ]);
     },
     CsrfProtection: {ignore},
