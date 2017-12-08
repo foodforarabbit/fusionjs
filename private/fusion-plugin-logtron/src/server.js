@@ -36,6 +36,11 @@ export default ({UniversalEvents, M3, backends = {}, team, service}) => {
   if (backends.console !== false) {
     backends.console = true;
   }
+  if (backends.sentry != null) {
+    if (__DEV__) {
+      delete backends.sentry;
+    }
+  }
   const statsd = M3.of();
   if (env === 'production') {
     backends.kafka = {
