@@ -15,12 +15,23 @@ export default (
   const m3 = M3.of();
 
   const errorLog = (e, captureType) => {
+    const defaultMessage = `uncaught ${captureType} exception`;
+
+    let _err = e;
+    if (typeof _err !== 'object') {
+      _err = {
+        message: (typeof e === 'string' && e) || defaultMessage,
+      };
+    } else {
+      _err.message = _err.message || defaultMessage;
+    }
+
+    _err.tags = {
+      captureType,
+    };
+
     return new Promise(resolve => {
-      logger.fatal(
-        e.message || `uncaught ${captureType} exception`,
-        e,
-        resolve
-      );
+      logger.fatal(_err.message, _err, resolve);
     });
   };
   const errorIncrement = captureType => {

@@ -12,8 +12,9 @@ test('interface', async t => {
     of() {
       return {
         fatal(message, error, cb) {
-          t.equal(message, 'uncaught server exception');
-          t.equal(error, 'error');
+          t.equal(message, 'error');
+          t.equal(error.message, 'error');
+          t.equal(error.tags.captureType, 'server', 'tags capture type');
           cb();
         },
       };
@@ -24,7 +25,7 @@ test('interface', async t => {
       return {
         immediateIncrement(name, tags, cb) {
           t.equal(name, 'exception');
-          t.equal(tags.type, 'server');
+          t.equal(tags.captureType, 'server');
           cb();
         },
       };
