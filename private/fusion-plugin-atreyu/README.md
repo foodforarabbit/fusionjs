@@ -23,6 +23,7 @@ export default {
     serviceNames: ["safari"],
   },
 }
+```
 
 #### Plugin registration
 
@@ -36,3 +37,28 @@ const Services = app.plugin(Atreyu, {config, M3, Logger, Tracer, Galileo, TChann
 - `Tracer` - tracer plugin
 - `Galileo` - galileo plugin
 - `TChannel` - tchannel plugin
+
+
+#### Atreyu Mocker
+
+```js
+// src/main.js
+import App from '@fusion/react';
+import AtreyuMockPlugin from '@uber/fusion-plugin-atreyu/mock';
+import {config} from './atreyu/config';
+
+export default () => {
+  const app = new App();
+  const AtreyuMocker = app.plugin(AtreyuMockPlugin, {config, M3, Logger, Tracer, Galileo});
+
+  // Pass AtreyuMocker in place of Atreyu plugin
+  // app.plugin(RPCPlugin, {Atreyu: AtreyuMocker, ....})
+
+  // TODO: Implement Mocks
+  const atreyuMocker = AtreyuMocker.of();
+  atreyuMocker.mockHttp();
+  atreyuMocker.mockTChannel();
+}
+```
+
+To implement mocks see docs on [atreyu-test](https://code.uberinternal.com/diffusion/WEATREYUTE/) lib readme.

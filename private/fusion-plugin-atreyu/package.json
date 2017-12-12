@@ -23,10 +23,10 @@
   },
   "peerDependencies": {
     "@uber/atreyu": "^5.4.5",
+    "@uber/atreyu-test": "^1.3.0",
     "fusion-core": "^0.2.3"
   },
   "devDependencies": {
-    "@uber/atreyu": "^5.4.5",
     "babel-eslint": "8.0.2",
     "babel-plugin-istanbul": "^4.1.5",
     "create-universal-package": "^2.1.1",
