@@ -33,10 +33,10 @@ const Services = app.plugin(Atreyu, {config, M3, Logger, Tracer, Galileo, TChann
 
 - `config: {serviceNames, services}` - an Atreyu config (see https://code.uberinternal.com/diffusion/WEATREY/)
 - `M3` - m3 plugin
-- `Logger` - logger plugin
-- `Tracer` - tracer plugin
-- `Galileo` - galileo plugin
-- `TChannel` - tchannel plugin
+- `Logger` - logger plugin (optional)
+- `Tracer` - tracer plugin (optional)
+- `Galileo` - galileo plugin (optional)
+- `TChannel` - tchannel plugin (optional)
 
 
 #### Atreyu Testing
@@ -49,7 +49,7 @@ import {config} from './atreyu/config';
 
 export default () => {
   const app = new App();
-  const AtreyuMocker = app.plugin(AtreyuMockPlugin, {config, M3, Logger, Tracer, Galileo});
+  const AtreyuMocker = app.plugin(AtreyuMockPlugin, {config, M3});
 
   // Pass AtreyuMocker in place of Atreyu plugin
   // app.plugin(RPCPlugin, {Atreyu: AtreyuMocker, ....})

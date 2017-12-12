@@ -17,11 +17,11 @@ export default (args = {}) => {
     Object.assign(
       {
         m3: M3.of(),
-        logger: Logger.of().createChild('atreyu'),
-        tracer: Tracer.of().tracer,
-        galileo: Galileo.of().galileo,
+        logger: Logger ? Logger.of().createChild('atreyu') : null,
+        tracer: Tracer ? Tracer.of().tracer : null,
+        galileo: Galileo ? Galileo.of().galileo : null,
         channelsOnInit: true,
-        hyperbahnClient: TChannel.of().hyperbahn,
+        hyperbahnClient: TChannel ? TChannel.of().hyperbahn : null,
       },
       options
     )
