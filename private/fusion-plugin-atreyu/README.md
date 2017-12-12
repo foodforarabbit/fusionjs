@@ -39,12 +39,12 @@ const Services = app.plugin(Atreyu, {config, M3, Logger, Tracer, Galileo, TChann
 - `TChannel` - tchannel plugin
 
 
-#### Atreyu Mocker
+#### Atreyu Testing
 
 ```js
 // src/main.js
 import App from '@fusion/react';
-import AtreyuMockPlugin from '@uber/fusion-plugin-atreyu/mock';
+import {AtreyuMockPlugin} from '@uber/fusion-plugin-atreyu';
 import {config} from './atreyu/config';
 
 export default () => {

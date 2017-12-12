@@ -2,9 +2,11 @@
 
 import test from 'tape-cup';
 import plugin from '../../server';
+import {AtreyuMockPlugin} from '../../index';
 
 test('interface', async t => {
   t.equals(typeof plugin, 'function');
+  t.equals(typeof AtreyuMockPlugin, 'function');
 
   let numConstructors = 0;
   class Client {
