@@ -19,8 +19,10 @@ test('Tracer Plugin Interface', t => {
 });
 
 test('Tracer Plugin', t => {
+  t.throws(TracerPlugin, 'Throws without proper config');
+
   const config = {
-    appName: 'uber',
+    serviceName: 'uber',
   };
 
   const mockTracer = {
@@ -108,7 +110,7 @@ test('Tracer Middleware', t => {
   const Tracer = TracerPlugin({
     Logger: MockLogger,
     initClient: MockInitTracer,
-    config: {},
+    config: {serviceName: 'uber'},
   });
 
   const ctx = {

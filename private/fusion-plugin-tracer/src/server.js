@@ -10,13 +10,20 @@ export default function createTracerPlugin({
   initClient = initTracer,
 }) {
   const {opentracing} = JaegerClient;
-  const logger = Logger.of().createChild('tracer');
-  options.logger = logger;
-  if (config.mock) {
+
+  options.logger = options.logger || Logger.of().createChild('tracer');
+
+  const {mock, ...tracerConfig} = config;
+
+  if (mock) {
     options.reporter = new JaegerClient.InMemoryReporter();
   }
 
-  const tracer = initClient(config, options);
+  if (!tracerConfig.serviceName) {
+    throw new Error(`Missing required configuration 'serviceName'`);
+  }
+
+  const tracer = initClient(tracerConfig, options);
 
   class TracerPlugin {
     constructor() {
