@@ -4,10 +4,7 @@ import test from 'tape-cup';
 import plugin from '../../server';
 import {AtreyuMockPlugin} from '../../index';
 
-test('interface', async t => {
-  t.equals(typeof plugin, 'function');
-  t.equals(typeof AtreyuMockPlugin, 'function');
-
+function createAtreyuPlugin(t) {
   let numConstructors = 0;
   class Client {
     constructor(config, options) {
@@ -26,15 +23,6 @@ test('interface', async t => {
       );
     }
   }
-  const Logger = {
-    of() {
-      return {
-        createChild() {
-          return 'logger';
-        },
-      };
-    },
-  };
   const M3 = {
     of() {
       return 'm3';
@@ -52,6 +40,11 @@ test('interface', async t => {
       };
     },
   };
+  const Logger = {
+    of() {
+      return 'logger';
+    },
+  };
   const TChannel = {
     of() {
       return {
@@ -59,6 +52,7 @@ test('interface', async t => {
       };
     },
   };
+
   const Atreyu = plugin({
     config: 'abc',
     options: {a: 'b'},
@@ -69,11 +63,29 @@ test('interface', async t => {
     Galileo,
     TChannel,
   });
+
   const instance = Atreyu.of();
   t.ok(instance instanceof Client, 'passes through context');
 
-  // check for singleton
-  const nextInstance = Atreyu.of();
-  t.equal(instance, nextInstance, 'uses singleton');
+  return Atreyu;
+}
+
+test('Atreyu Plugin Interface', async t => {
+  t.equals(typeof plugin, 'function');
+  createAtreyuPlugin(t, true);
+  t.end();
+});
+
+test('Atreyu Plugin Mock Interface', async t => {
+  t.equals(typeof AtreyuMockPlugin, 'function');
+
+  const Atreyu = createAtreyuPlugin(t);
+  const AtreyuMocker = AtreyuMockPlugin({Atreyu});
+  const atreyuMocker = AtreyuMocker.of();
+
+  t.ok(atreyuMocker, 'should return atreyu mock interface');
+  t.ok(atreyuMocker.mockHttp, 'should expose interface to mock http');
+  t.ok(atreyuMocker.mockTChannel, 'should expose interface to mock tchannel');
+
   t.end();
 });

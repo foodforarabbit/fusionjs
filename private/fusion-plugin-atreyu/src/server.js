@@ -17,7 +17,7 @@ export default (args = {}) => {
     Object.assign(
       {
         m3: M3.of(),
-        logger: Logger ? Logger.of().createChild('atreyu') : null,
+        logger: Logger ? Logger.of() : null,
         tracer: Tracer ? Tracer.of().tracer : null,
         galileo: Galileo ? Galileo.of().galileo : null,
         channelsOnInit: true,

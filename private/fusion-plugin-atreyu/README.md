@@ -44,20 +44,21 @@ const Services = app.plugin(Atreyu, {config, M3, Logger, Tracer, Galileo, TChann
 ```js
 // src/main.js
 import App from '@fusion/react';
-import {AtreyuMockPlugin} from '@uber/fusion-plugin-atreyu';
+import {default as AtreyuPlugin, AtreyuMockPlugin} from '@uber/fusion-plugin-atreyu';
 import {config} from './atreyu/config';
 
 export default () => {
   const app = new App();
-  const AtreyuMocker = app.plugin(AtreyuMockPlugin, {config, M3});
-
-  // Pass AtreyuMocker in place of Atreyu plugin
-  // app.plugin(RPCPlugin, {Atreyu: AtreyuMocker, ....})
+  // Create  M3, Logger, Tracer, Galileo plugins
+  const Atreyu = app.plugin(AtreyuPlugin, {config, M3, Logger, Tracer, Galileo});
+  const AtreyuMocker = app.plugin(AtreyuMockPlugin, {Atreyu});
 
   // TODO: Implement Mocks
   const atreyuMocker = AtreyuMocker.of();
   atreyuMocker.mockHttp();
   atreyuMocker.mockTChannel();
+
+  // This should automatically inject mocks into Atreyu and return responses when http/tchannel matches
 }
 ```
 
