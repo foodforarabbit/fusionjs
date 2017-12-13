@@ -24,45 +24,56 @@ export default function({
     ),
   });
   const events = UniversalEvents.of();
+  const makeValueHandler = original => ({key, value, tags}) =>
+    original(key, value, {tags});
+  const makeIncrementHandler = original => ({key, tags}) =>
+    original(key, 1, {tags});
+  const makeValueFunction = original => (key, value, tags) =>
+    original(key, value, {tags});
+  const makeIncrementFunction = original => (key, tags) =>
+    original(key, 1, {tags});
 
-  const m3Functions = {
-    counter: ({key, value, tags}) => m3.counter(key, value, {tags}),
-    increment: ({key, tags}) => m3.increment(key, 1, {tags}),
-    decrement: ({key, tags}) => m3.decrement(key, 1, {tags}),
-    timing: ({key, value, tags}) => m3.timing(key, value, {tags}),
-    gauge: ({key, value, tags}) => m3.gauge(key, value, {tags}),
+  const boundM3 = {
+    scope: m3.scope.bind(m3),
+    close: m3.close.bind(m3),
+    counter: m3.counter.bind(m3),
+    increment: m3.increment.bind(m3),
+    decrement: m3.decrement.bind(m3),
+    timing: m3.timing.bind(m3),
+    gauge: m3.gauge.bind(m3),
+    immediateCounter: m3.immediateCounter.bind(m3),
+    immediateIncrement: m3.immediateIncrement.bind(m3),
+    immediateDecrement: m3.immediateDecrement.bind(m3),
+    immediateTiming: m3.immediateTiming.bind(m3),
+    immediateGauge: m3.immediateGauge.bind(m3),
   };
 
-  for (const funcName in m3Functions) {
-    events.on(`m3:${funcName}`, m3Functions[funcName]);
+  const m3Handlers = {
+    counter: makeValueHandler(boundM3.counter),
+    increment: makeIncrementHandler(boundM3.increment),
+    decrement: makeIncrementHandler(boundM3.decrement),
+    timing: makeValueHandler(boundM3.counter),
+    gauge: makeValueHandler(boundM3.counter),
+  };
+
+  for (const funcName in m3Handlers) {
+    events.on(`m3:${funcName}`, m3Handlers[funcName]);
   }
 
   function M3ServerPlugin() {}
-
-  M3ServerPlugin.prototype.counter = (key, value, tags) =>
-    m3Functions.counter({key, value, tags});
-
-  M3ServerPlugin.prototype.increment = (key, tags) =>
-    m3Functions.increment({key, tags});
-
-  M3ServerPlugin.prototype.decrement = (key, tags) =>
-    m3Functions.decrement({key, tags});
-
-  M3ServerPlugin.prototype.timing = (key, value, tags) =>
-    m3Functions.timing({key, value, tags});
-
-  M3ServerPlugin.prototype.gauge = (key, value, tags) =>
-    m3Functions.gauge({key, value, tags});
-
-  [
-    'scope',
-    'immediateIncrement',
-    'immediateDecrement',
-    'immediateTiming',
-    'immediateGauge',
-    'close',
-  ].forEach(funcName => {
-    M3ServerPlugin.prototype[funcName] = m3[funcName].bind(m3);
+  Object.assign(M3ServerPlugin.prototype, {
+    scope: boundM3.scope,
+    close: boundM3.close,
+    counter: makeValueFunction(boundM3.counter),
+    increment: makeIncrementFunction(boundM3.increment),
+    decrement: makeIncrementFunction(boundM3.decrement),
+    timing: makeValueFunction(boundM3.timing),
+    gauge: makeValueFunction(boundM3.gauge),
+    immediateCounter: makeValueFunction(boundM3.immediateCounter),
+    immediateIncrement: makeIncrementFunction(boundM3.immediateIncrement),
+    immediateDecrement: makeIncrementFunction(boundM3.immediateDecrement),
+    immediateTiming: makeValueFunction(boundM3.immediateTiming),
+    immediateGauge: makeValueFunction(boundM3.immediateGauge),
   });
 
   return new SingletonPlugin({Service: M3ServerPlugin});

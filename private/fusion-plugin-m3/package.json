@@ -46,7 +46,7 @@
     "build-test": "rm -rf dist-tests && NODE_ENV=test cup build-tests",
     "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
     "cover": "npm run build-test && npm run just-cover",
-    "just-cover": "nyc --reporter=cobertura npm run just-test",
+    "just-cover": "nyc --reporter=cobertura --reporter=text npm run just-test",
     "test": "npm run build-test && npm run just-test",
     "prepublish": "npm run transpile"
   },
