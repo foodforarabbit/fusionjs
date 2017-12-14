@@ -10,6 +10,7 @@ tape('m3 server plugin required parameters', t => {
   }, /parameter is required/);
   t.end();
 });
+
 tape('m3 server plugin', t => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
@@ -142,17 +143,291 @@ tape('m3 server plugin', t => {
   m3.immediateTiming('key', 'value', 'tags');
   m3.immediateGauge('key', 'value', 'tags');
   m3.close('test');
-  t.ok(flags.counter);
-  t.ok(flags.increment);
-  t.ok(flags.decrement);
-  t.ok(flags.timing);
-  t.ok(flags.gauge);
-  t.ok(flags.scope);
-  t.ok(flags.immediateCounter);
-  t.ok(flags.immediateIncrement);
-  t.ok(flags.immediateDecrement);
-  t.ok(flags.immediateTiming);
-  t.ok(flags.immediateGauge);
-  t.ok(flags.close);
+  t.ok(flags.counter, 'calls counter');
+  t.ok(flags.increment, 'calls increment');
+  t.ok(flags.decrement, 'calls decrement');
+  t.ok(flags.timing, 'calls timing');
+  t.ok(flags.gauge, 'calls gauge');
+  t.ok(flags.scope, 'calls scope');
+  t.ok(flags.immediateCounter, 'calls immediateCounter');
+  t.ok(flags.immediateIncrement, 'calls immediateIncrement');
+  t.ok(flags.immediateDecrement, 'calls immediateDecrement');
+  t.ok(flags.immediateTiming, 'calls immediateTiming');
+  t.ok(flags.immediateGauge, 'calls immediateGauge');
+  t.ok(flags.close, 'calls close');
+  t.end();
+});
+
+tape('m3 server plugin - event handlers', t => {
+  const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+  let flags = {
+    counter: false,
+    increment: false,
+    decrement: false,
+    timing: false,
+    gauge: false,
+  };
+  const events = {
+    of() {
+      return {
+        on(type, handler) {
+          const m3Type = types.shift();
+          t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
+          t.equal(typeof handler, 'function', 'passes a function handler');
+          handler({
+            key: `${m3Type}-key`,
+            value: 'value',
+            tags: {something: 'value'},
+          });
+        },
+      };
+    },
+  };
+
+  class Client {
+    counter(key, value, {tags}) {
+      flags.counter = true;
+      t.equal(key, 'counter-key', 'counter passes key through');
+      t.equal(value, 'value', 'counter passes value through');
+      t.deepLooseEqual(
+        tags,
+        {something: 'value'},
+        'counter passes tags through'
+      );
+    }
+    increment(key, value, {tags}) {
+      flags.increment = true;
+      t.equal(key, 'increment-key', 'increment passes key through');
+      t.equal(value, 1, 'increment calls with value 1');
+      t.deepLooseEqual(
+        tags,
+        {something: 'value'},
+        'increment passes tags through'
+      );
+    }
+    decrement(key, value, {tags}) {
+      flags.decrement = true;
+      t.equal(key, 'decrement-key', 'decrement passes key through');
+      t.equal(value, 1, 'decrement calls with value 1');
+      t.deepLooseEqual(
+        tags,
+        {something: 'value'},
+        'decrement passes tags through'
+      );
+    }
+    timing(key, value, {tags}) {
+      flags.timing = true;
+      t.equal(key, 'timing-key', 'timing passes key through');
+      t.equal(value, 'value', 'timing passes value through');
+      t.deepLooseEqual(
+        tags,
+        {something: 'value'},
+        'timing passes tags through'
+      );
+    }
+    gauge(key, value, {tags}) {
+      flags.gauge = true;
+      t.equal(key, 'gauge-key', 'gauge passes key through');
+      t.equal(value, 'value', 'gauge passes value through');
+      t.deepLooseEqual(tags, {something: 'value'}, 'gauge passes tags through');
+    }
+    scope() {}
+    immediateCounter() {}
+    immediateIncrement() {}
+    immediateDecrement() {}
+    immediateTiming() {}
+    immediateGauge() {}
+    close() {}
+  }
+  M3Plugin({
+    UniversalEvents: events,
+    Client,
+    service: 'app-name',
+    commonTags: {a: 'a'},
+  });
+  t.ok(flags.counter, 'calls counter');
+  t.ok(flags.increment, 'calls increment');
+  t.ok(flags.decrement, 'calls decrement');
+  t.ok(flags.timing, 'calls timing');
+  t.ok(flags.gauge, 'calls gauge');
+  t.end();
+});
+
+tape('m3 server plugin - event handlers with __url__', t => {
+  const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+  let flags = {
+    counter: false,
+    increment: false,
+    decrement: false,
+    timing: false,
+    gauge: false,
+  };
+  const events = {
+    of() {
+      return {
+        on(type, handler) {
+          const m3Type = types.shift();
+          t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
+          t.equal(typeof handler, 'function', 'passes a function handler');
+          handler({
+            key: `${m3Type}-key`,
+            value: 'value',
+            tags: {something: 'value'},
+            __url__: '/test',
+          });
+        },
+      };
+    },
+  };
+
+  class Client {
+    counter(key, value, {tags}) {
+      flags.counter = true;
+      t.equal(key, 'counter-key', 'counter passes key through');
+      t.equal(value, 'value', 'counter passes value through');
+      t.deepLooseEqual(
+        tags,
+        {route: '/test', something: 'value'},
+        'counter passes tags through'
+      );
+    }
+    increment(key, value, {tags}) {
+      flags.increment = true;
+      t.equal(key, 'increment-key', 'increment passes key through');
+      t.equal(value, 1, 'increment calls with value 1');
+      t.deepLooseEqual(
+        tags,
+        {route: '/test', something: 'value'},
+        'increment passes tags through'
+      );
+    }
+    decrement(key, value, {tags}) {
+      flags.decrement = true;
+      t.equal(key, 'decrement-key', 'decrement passes key through');
+      t.equal(value, 1, 'decrement calls with value 1');
+      t.deepLooseEqual(
+        tags,
+        {route: '/test', something: 'value'},
+        'decrement passes tags through'
+      );
+    }
+    timing(key, value, {tags}) {
+      flags.timing = true;
+      t.equal(key, 'timing-key', 'timing passes key through');
+      t.equal(value, 'value', 'timing passes value through');
+      t.deepLooseEqual(
+        tags,
+        {route: '/test', something: 'value'},
+        'timing passes tags through'
+      );
+    }
+    gauge(key, value, {tags}) {
+      flags.gauge = true;
+      t.equal(key, 'gauge-key', 'gauge passes key through');
+      t.equal(value, 'value', 'gauge passes value through');
+      t.deepLooseEqual(
+        tags,
+        {route: '/test', something: 'value'},
+        'gauge passes tags through'
+      );
+    }
+    scope() {}
+    immediateCounter() {}
+    immediateIncrement() {}
+    immediateDecrement() {}
+    immediateTiming() {}
+    immediateGauge() {}
+    close() {}
+  }
+  M3Plugin({
+    UniversalEvents: events,
+    Client,
+    service: 'app-name',
+    commonTags: {a: 'a'},
+  });
+  t.ok(flags.counter, 'calls counter');
+  t.ok(flags.increment, 'calls increment');
+  t.ok(flags.decrement, 'calls decrement');
+  t.ok(flags.timing, 'calls timing');
+  t.ok(flags.gauge, 'calls gauge');
+  t.end();
+});
+
+tape('m3 server plugin - event handlers with __url__ and no tags', t => {
+  const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+  let flags = {
+    counter: false,
+    increment: false,
+    decrement: false,
+    timing: false,
+    gauge: false,
+  };
+  const events = {
+    of() {
+      return {
+        on(type, handler) {
+          const m3Type = types.shift();
+          t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
+          t.equal(typeof handler, 'function', 'passes a function handler');
+          handler({
+            key: `${m3Type}-key`,
+            value: 'value',
+            __url__: '/test',
+          });
+        },
+      };
+    },
+  };
+
+  class Client {
+    counter(key, value, {tags}) {
+      flags.counter = true;
+      t.equal(key, 'counter-key', 'counter passes key through');
+      t.equal(value, 'value', 'counter passes value through');
+      t.deepLooseEqual(tags, {route: '/test'}, 'counter passes tags through');
+    }
+    increment(key, value, {tags}) {
+      flags.increment = true;
+      t.equal(key, 'increment-key', 'increment passes key through');
+      t.equal(value, 1, 'increment calls with value 1');
+      t.deepLooseEqual(tags, {route: '/test'}, 'increment passes tags through');
+    }
+    decrement(key, value, {tags}) {
+      flags.decrement = true;
+      t.equal(key, 'decrement-key', 'decrement passes key through');
+      t.equal(value, 1, 'decrement calls with value 1');
+      t.deepLooseEqual(tags, {route: '/test'}, 'decrement passes tags through');
+    }
+    timing(key, value, {tags}) {
+      flags.timing = true;
+      t.equal(key, 'timing-key', 'timing passes key through');
+      t.equal(value, 'value', 'timing passes value through');
+      t.deepLooseEqual(tags, {route: '/test'}, 'timing passes tags through');
+    }
+    gauge(key, value, {tags}) {
+      flags.gauge = true;
+      t.equal(key, 'gauge-key', 'gauge passes key through');
+      t.equal(value, 'value', 'gauge passes value through');
+      t.deepLooseEqual(tags, {route: '/test'}, 'gauge passes tags through');
+    }
+    scope() {}
+    immediateCounter() {}
+    immediateIncrement() {}
+    immediateDecrement() {}
+    immediateTiming() {}
+    immediateGauge() {}
+    close() {}
+  }
+  M3Plugin({
+    UniversalEvents: events,
+    Client,
+    service: 'app-name',
+    commonTags: {a: 'a'},
+  });
+  t.ok(flags.counter, 'calls counter');
+  t.ok(flags.increment, 'calls increment');
+  t.ok(flags.decrement, 'calls decrement');
+  t.ok(flags.timing, 'calls timing');
+  t.ok(flags.gauge, 'calls gauge');
   t.end();
 });

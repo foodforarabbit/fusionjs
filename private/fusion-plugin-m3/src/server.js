@@ -24,10 +24,18 @@ export default function({
     ),
   });
   const events = UniversalEvents.of();
-  const makeValueHandler = original => ({key, value, tags}) =>
-    original(key, value, {tags});
-  const makeIncrementHandler = original => ({key, tags}) =>
-    original(key, 1, {tags});
+  const makeValueHandler = original => ({key, value, tags = {}, __url__}) => {
+    if (__url__) {
+      Object.assign(tags, {route: __url__});
+    }
+    return original(key, value, {tags});
+  };
+  const makeIncrementHandler = original => ({key, tags = {}, __url__}) => {
+    if (__url__) {
+      Object.assign(tags, {route: __url__});
+    }
+    return original(key, 1, {tags});
+  };
   const makeValueFunction = original => (key, value, tags) =>
     original(key, value, {tags});
   const makeIncrementFunction = original => (key, tags) =>
@@ -52,8 +60,8 @@ export default function({
     counter: makeValueHandler(boundM3.counter),
     increment: makeIncrementHandler(boundM3.increment),
     decrement: makeIncrementHandler(boundM3.decrement),
-    timing: makeValueHandler(boundM3.counter),
-    gauge: makeValueHandler(boundM3.counter),
+    timing: makeValueHandler(boundM3.timing),
+    gauge: makeValueHandler(boundM3.gauge),
   };
 
   for (const funcName in m3Handlers) {
