@@ -1,0 +1,50 @@
+{
+  "name": "@uber/fusion-plugin-auth-headers",
+  "version": "0.0.0",
+  "author": "Web Platform Team <eng-web-platform@uber.com>",
+  "license": "UNLICENSED",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/node.cjs.js",
+  "module": "./dist/node.es.js",
+  "browser": {
+    "./dist/node.cjs.js": "./dist/browser.cjs.js",
+    "./dist/node.es.js": "./dist/browser.es.js"
+  },
+  "es2015": {
+    "./dist/node.cjs.js": "./dist/node.cjs.es2015.js",
+    "./dist/node.es.js": "./dist/node.es.es2015.js",
+    "./dist/browser.cjs.js": "./dist/browser.cjs.es2015.js",
+    "./dist/browser.es.js": "./dist/browser.es.es2015.js"
+  },
+  "devDependencies": {
+    "@uber/eslint-config-graphene": "^0.1.2",
+    "babel-eslint": "^8.0.1",
+    "create-universal-package": "^1.0.0-rc.15",
+    "eslint": "^4.8.0",
+    "eslint-plugin-cup": "^1.0.0-rc.4",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "prettier": "1.7.4",
+    "tape-cup": "^4.7.1",
+    "unitest": "^1.1.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint": "eslint .",
+    "transpile": "npm run clean && cup build",
+    "build-test": "rm -rf dist-tests && cup build-tests",
+    "just-test":
+      "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
+    "test": "npm run build-test && npm run just-test",
+    "prepublish": "npm run transpile"
+  },
+  "engines": {
+    "node": ">=8.3.0",
+    "npm": ">=5.0.0",
+    "yarn": ">=1.0.0"
+  },
+  "private": true
+}
