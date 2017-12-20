@@ -5,6 +5,10 @@
   "bin": {
     "fusion-migrate": "bin/fusion-migrate.sh"
   },
+  "scripts": {
+    "clean": "cp fixtures/template.js fixtures/test.js",
+    "build": "jscodeshift fixtures/test.js --t src/codemods.js"
+  },
   "dependencies": {
     "jscodeshift": "^0.4.0"
   }
