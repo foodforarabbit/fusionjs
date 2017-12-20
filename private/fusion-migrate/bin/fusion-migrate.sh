@@ -1,0 +1,1 @@
+node_modules/.bin/jscodeshift $1 --t src/codemods.js
