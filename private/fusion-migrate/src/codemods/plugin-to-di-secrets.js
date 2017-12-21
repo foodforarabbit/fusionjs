@@ -34,8 +34,8 @@ module.exports = compose(
     ```
     becomes
     ```
-    app.register(SecretsPlugin, SecretsToken);
-    app.register(devSecretsConfig, SecretsConfigToken);
+    app.register(SecretsToken, SecretsPlugin);
+    app.register(SecretsConfigToken, devSecretsConfig);
     ```
     */
     return j(source)
@@ -55,17 +55,17 @@ module.exports = compose(
         return j.expressionStatement(
           j.callExpression(
             j.memberExpression(j.identifier('app'), j.identifier('register')),
-            [j.identifier('SecretsPlugin'), j.identifier('SecretsToken')]
+            [j.identifier('SecretsToken'), j.identifier('SecretsPlugin')]
           )
         );
       })
       .insertBefore(p => {
         return j.expressionStatement(
           j.callExpression(
-            j.memberExpression(j.identifier('app'), j.identifier('register')),
+            j.memberExpression(j.identifier('app'), j.identifier('configure')),
             [
-              j.identifier('devSecretsConfig'),
               j.identifier('SecretsConfigToken'),
+              j.identifier('devSecretsConfig'),
             ]
           )
         );

@@ -1,6 +1,6 @@
 # Setting up for development
 
-* clone the repo
+* `git clone gitolite@code.uber.internal:web/fusion-migrate && cd fusion-migrate`
 * `yarn install`
 * `yarn run clean` - resets `fixture/test.js` file
 * `yarn run build` - run all migrations scripts on `fixture/test.js`
