@@ -1,4 +1,4 @@
-const compose = require('./utils/compose');
+const compose = require('../utils/compose');
 
 const replaceCtxBody = prop => ({source}, {jscodeshift: j}) => {
   return j(source)

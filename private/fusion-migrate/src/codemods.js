@@ -4,7 +4,7 @@
 */
 const fs = require('fs');
 const path = require('path');
-const compose = require('./codemods/utils/compose');
+const compose = require('./utils/compose');
 
 module.exports = function(file, api, options) {
   const root = `${__dirname}/codemods`;

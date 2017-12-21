@@ -1,6 +1,6 @@
 /*
 usage:
-  const migrate = require('./utils/plugin-to-di-standalone');
+  const migrate = require('../utils/plugin-to-di-standalone');
 
   module.exports = compose(
     migrate('FooPlugin'), // app.plugin(FooPlugin) -> app.register(FooPlugin)

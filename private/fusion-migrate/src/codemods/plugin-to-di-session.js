@@ -1,4 +1,4 @@
-const compose = require('./utils/compose');
+const compose = require('../utils/compose');
 
 module.exports = compose(
   ({source}) => {
