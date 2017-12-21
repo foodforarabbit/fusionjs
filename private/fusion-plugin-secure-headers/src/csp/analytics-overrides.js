@@ -61,7 +61,6 @@ const analyticsOverrides = {
       '*.doubleclick.net',
       'static.ads-twitter.com',
     ],
-    imgSrc: ['*'],
   },
   mixpanel: {
     scriptSrc: ['https://*.mxpnl.com'],
@@ -71,8 +70,9 @@ const analyticsOverrides = {
     scriptSrc: [
       'https://www.google-analytics.com',
       'https://ssl.google-analytics.com',
+      'maps.googleapis.com',
+      'maps.google.com',
     ],
-    imgSrc: ['*'],
   },
   googleTagManager: {
     scriptSrc: ['https://www.googletagmanager.com'],

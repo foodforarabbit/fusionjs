@@ -1,14 +1,11 @@
 /* eslint-env node */
-import {
-  addDirectives,
-  addSourceToAssetDirectives,
-} from './policies/policy-utils';
+import {addDirectives} from './policies/policy-utils';
 import analyticsOverrides from './analytics-overrides';
 import koaHelmet from 'koa-helmet';
 import Strict from './policies/strict';
 import UberDefault from './policies/uber-default';
 
-export default function buildCSPMiddleware({ctx, config, cspFlipr}) {
+export default function buildCSPMiddleware({ctx, config}) {
   const {serviceName} = config;
   const {
     overrides,
@@ -24,10 +21,6 @@ export default function buildCSPMiddleware({ctx, config, cspFlipr}) {
   function shouldUseReportOnlyMode() {
     if (typeof intentionallyRemoveAllSecurity !== 'undefined') {
       return Boolean(intentionallyRemoveAllSecurity);
-    }
-    if (serviceName && cspFlipr) {
-      const reportOnly = cspFlipr.get(`${serviceName}.report_only`);
-      return Boolean(reportOnly);
     }
     return false;
   }
@@ -63,15 +56,6 @@ export default function buildCSPMiddleware({ctx, config, cspFlipr}) {
     policy = analyticsKeys.reduce(function perService(p, analyticsServiceName) {
       return addDirectives(p, analyticsOverrides[analyticsServiceName] || {});
     }, policy);
-
-    policy = addSourceToAssetDirectives(
-      policy,
-      'https://d3i4yxtzktqr9n.cloudfront.net'
-    );
-    policy = addSourceToAssetDirectives(
-      policy,
-      'https://d1a3f4spazzrp4.cloudfront.net'
-    );
 
     if (allowInsecureContent || allowMixedContent) {
       delete policy.blockAllMixedContent;

@@ -1,22 +1,22 @@
 /* eslint-env node */
 export default function UberDefault(nonce) {
   return {
-    defaultSrc: ["'none'"], // Default if a directive is not specified
     blockAllMixedContent: true, // Block loading of insecure resources
-    childSrc: ["'self'"], // Iframes, web workers, etc.
+    frameSrc: ["'self'"], // frame, IFrame
+    workerSrc: ["'self'"], // Worker, SharedWorker, or ServiceWorker scripts
+    childSrc: ["'self'"], // deprecated in CSP v3 in favor for frame-src and worker-src
     connectSrc: ["'self'"], // XHR, WebSockets, etc.
-    fontSrc: ["'self'", 'data:'],
+    manifestSrc: ["'self'"], // web app manifest
     formAction: ["'self'"], // Form submissions
     frameAncestors: ["'self'"], // Sources that may frame or iframe us
-    frameSrc: ["'self'"], // Older version of child-src, still needed for compatibility
-    imgSrc: ["'self'", 'data:'],
-    mediaSrc: ["'self'"], // Audio and video
     objectSrc: ["'none'"],
     scriptSrc: [
       "'self'",
       "'unsafe-inline'", // for compatibility. ignored by browsers that know about nonces
+      // Uber CDN bases
+      'https://d1a3f4spazzrp4.cloudfront.net',
+      'https://d3i4yxtzktqr9n.cloudfront.net',
       nonce,
     ],
-    styleSrc: ["'self'", "'unsafe-inline'"],
   };
 }

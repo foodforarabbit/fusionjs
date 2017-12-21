@@ -3,15 +3,12 @@ import buildCSPMiddleware from './csp/middleware';
 import compose from 'koa-compose';
 import koaHelmet from 'koa-helmet';
 
-// TODO: initiate cspFlipr implicitly instead of an explict dependency
-export default ({config, cspFlipr}) => async (ctx, next) => {
+export default ({config}) => async (ctx, next) => {
   const secureHeaderMiddlewares = [];
   secureHeaderMiddlewares.push(
     buildCSPMiddleware({
       ctx,
       config,
-      // TODO: affirm Flipr plugin interface
-      cspFlipr: (cspFlipr && cspFlipr.of().getClient()) || null,
     })
   );
   if (config.useFrameguard !== false) {
