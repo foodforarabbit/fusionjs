@@ -41,16 +41,27 @@ test('get authentication param from override', t => {
       },
     },
   };
-  const configOverride = {
+  const devOverrideConfig = {
     uuid: 'some-other-auth-uuid',
   };
 
-  const service = AuthHeadersPlugin(configOverride).of(ctx);
-  t.equal(
-    service.get('uuid'),
-    configOverride.uuid,
-    'correct orverride value associated with uuid provided by service'
-  );
+  const service = AuthHeadersPlugin(devOverrideConfig).of(ctx);
+
+  if (__DEV__) {
+    /* Check development environment */
+    t.equal(
+      service.get('uuid'),
+      devOverrideConfig.uuid,
+      'correctly applies override value associated with uuid provided by service'
+    );
+  } else {
+    /* Check production environment */
+    t.equal(
+      service.get('uuid'),
+      ctx.request.headers['x-auth-params-uuid'],
+      'correctly ignores override value associated with uuid provided by service (in production)'
+    );
+  }
   t.end();
 });
 

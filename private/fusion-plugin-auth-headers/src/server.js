@@ -1,5 +1,3 @@
-// @flow
-
 import assert from 'assert';
 
 import {Plugin} from 'fusion-core';
@@ -19,23 +17,22 @@ class MissingXAuthParamError extends Error {
   }
 }
 
-export default overrideConfig => {
+export default devOverrideConfig => {
   class AuthHeaders {
     constructor(ctx) {
       assert(ctx, `AuthHeaders requires a ctx object: ${ctx}`);
       this.ctx = ctx;
-      this.overrideConfig = overrideConfig || {};
+      this.devOverrideConfig = (__DEV__ && devOverrideConfig) || {};
     }
 
     get(key) {
       let xAuthValue =
-        this.overrideConfig[key] ||
+        this.devOverrideConfig[key] ||
         this.ctx.request.headers[`${authHeaderPrefix}${key}`];
 
       if (!xAuthValue) {
         throw new MissingXAuthParamError(this.ctx.request.url, key);
       }
-
       return xAuthValue;
     }
   }
