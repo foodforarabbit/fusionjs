@@ -4,8 +4,7 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `import GalileoPlugin from '@uber/fusion-plugin-galileo';`,
-      `import {GalileoToken} from '@uber/fusion-uber';
-import GalileoPlugin from '@uber/fusion-plugin-galileo';`
+      `import GalileoPlugin, {GalileoToken} from '@uber/fusion-plugin-galileo';`
     );
   },
   ({source}) => {

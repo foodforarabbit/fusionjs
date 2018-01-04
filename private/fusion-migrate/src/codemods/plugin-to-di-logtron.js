@@ -5,7 +5,6 @@ module.exports = compose(
     return source.replace(
       `import LoggerPlugin from '@uber/fusion-plugin-logtron';`,
       `import {LoggerToken} from 'fusion-tokens';
-  import {TeamConfigToken} from '@uber/fusion-tokens';
   import LoggerPlugin, {SentryConfigToken} from '@uber/fusion-plugin-logtron';`
     );
   },
@@ -18,8 +17,7 @@ module.exports = compose(
     service,
     backends: {sentry: sentryConfig},
   });`,
-      `app.configure(TeamConfigToken, team);
-  app.configure(SentryConfigToken, sentryConfig);
+      `app.configure(SentryConfigToken, sentryConfig);
   app.register(LoggerToken, LoggerPlugin);`
     );
   }

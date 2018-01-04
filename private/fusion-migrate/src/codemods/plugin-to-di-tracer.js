@@ -4,8 +4,7 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `import TracerPlugin from '@uber/fusion-plugin-tracer';`,
-      `import {TracerToken} from '@uber/fusion-tokens';
-import TracerPlugin, {TracerConfigToken} from '@uber/fusion-plugin-tracer';`
+      `import TracerPlugin, {TracerToken, TracerConfigToken} from '@uber/fusion-plugin-tracer';`
     );
   },
   ({source}) => {
