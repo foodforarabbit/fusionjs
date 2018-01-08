@@ -27,7 +27,7 @@ const analyticsOverrides = {
     connectSrc: [
       'events.uber.com',
       'api.mixpanel.com',
-      'd1a3f4spazzrp4.cloudfront.net',
+      'd3i4yxtzktqr9n.cloudfront.net',
       '*.optimizely.com',
       'www.google-analytics.com',
       '*.tealiumiq.com',

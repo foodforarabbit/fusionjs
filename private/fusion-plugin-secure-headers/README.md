@@ -60,8 +60,8 @@ export default () => {
 	  | (Inverted alias for `blockAllMixedContent`)
 	  */
 
-	  assetBase: "https://d1a3f4spazzrp4.cloudfront.net",
-	  cdnBase: "https://d1a3f4spazzrp4.cloudfront.net",
+	  assetBase: "https://d3i4yxtzktqr9n.cloudfront.net",
+	  cdnBase: "https://d3i4yxtzktqr9n.cloudfront.net",
 	  /* Optional:string. This adds sources to asset directives such as "imgSrc" */
 
 	  analyticsServiceNames: ["googleAnalytics", "tealium"],
