@@ -7,22 +7,6 @@ import analyticsOverrides from './analytics-overrides';
 import koaHelmet from 'koa-helmet';
 import Strict from './policies/strict';
 import UberDefault from './policies/uber-default';
-import url from 'url';
-
-function tryCleanUrl(dirtyUrl) {
-  if (!dirtyUrl) {
-    return dirtyUrl;
-  }
-  // Strip the url of any paths, etc.
-  const parsedUrl = url.parse(dirtyUrl);
-  if (!parsedUrl.host) {
-    // If there is no host, we likely have a malformed url
-    // (without a protocol) that we couldn't parse.
-    // In this case, trust that the format is correct and just return the url as given.
-    return dirtyUrl;
-  }
-  return parsedUrl.protocol + (parsedUrl.slashes ? '//' : '') + parsedUrl.host;
-}
 
 export default function buildCSPMiddleware({ctx, config, cspFlipr}) {
   const {serviceName} = config;
@@ -33,8 +17,6 @@ export default function buildCSPMiddleware({ctx, config, cspFlipr}) {
     useStrictDynamicMode,
     allowInsecureContent,
     allowMixedContent,
-    assetBase,
-    cdnBase,
     analyticsServiceNames,
   } =
     config.csp || {};
@@ -82,12 +64,14 @@ export default function buildCSPMiddleware({ctx, config, cspFlipr}) {
       return addDirectives(p, analyticsOverrides[analyticsServiceName] || {});
     }, policy);
 
-    if (assetBase) {
-      policy = addSourceToAssetDirectives(policy, tryCleanUrl(assetBase));
-    }
-    if (cdnBase && cdnBase !== assetBase) {
-      policy = addSourceToAssetDirectives(policy, tryCleanUrl(cdnBase));
-    }
+    policy = addSourceToAssetDirectives(
+      policy,
+      'https://d3i4yxtzktqr9n.cloudfront.net'
+    );
+    policy = addSourceToAssetDirectives(
+      policy,
+      'https://d1a3f4spazzrp4.cloudfront.net'
+    );
 
     if (allowInsecureContent || allowMixedContent) {
       delete policy.blockAllMixedContent;
