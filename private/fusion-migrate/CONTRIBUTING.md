@@ -59,6 +59,66 @@ foo(bar)
 
 * `p.node` has the parsed value of the AST before the transformation. This is useful for reusing values from the existing AST when building the replacement AST.
 
+### Composite codemods
+
+Sometimes you need to do many things as part of a single logical codemod. To compose multiple codemods, use `compose`:
+
+```js
+const compose = require('./utils/compose');
+
+module.exports = compose(
+  ({source}, {jscodeshift: j}) => {
+    // codemod goes here
+  },
+  ({source}, {jscodeshift: j}) => {
+    // codemod goes here
+  }
+);
+```
+
+### String codemods
+
+If you know the exact string you want to replace, you can do a simple string replacement. Be careful to not mess up indentation!
+
+```js
+module.exports = ({source}) => {
+  return source.replace(`use 'strong'`, `use 'strict'`);
+};
+```
+
+### Bumping library versions
+
+Use `bump-version` to change the version of a library in `package.json`:
+
+```js
+const compose = require('../utils/compose');
+const bump = require('../utils/bump-version');
+
+module.exports = compose(
+  bump('my-library', '^0.1.0'),
+  ({source}, {jscodeshift: j}) => {
+    // codemod goes here
+  }
+);
+```
+
+### Adding/removing libraries
+
+Use `add-package` and `remove-package` to add/remove packages in `package.json`:
+
+When adding packages, you need to specify whether the package should go in `dependencies`, `devDependencies` or `peerDependencies`.
+
+```js
+const compose = require('../utils/compose');
+const add = require('../utils/add-package');
+const remove = require('../utils/remove-package');
+
+module.exports = compose(
+  add('devDependencies', 'my-library', '^0.1.0'),
+  remove('my-old-library')
+);
+```
+
 ### Troubleshooting
 
 If you see the error `'Received an unexpected value [object Object]`, you probably forgot to call `.toSource()` at the end.
