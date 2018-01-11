@@ -1,8 +1,8 @@
-# `@uber/fusion-plugin-error-handling`
+# @uber/fusion-plugin-error-handling
 
-This is a fusion plugin uber specific error handling.
+This is a fusion plugin for uber specific error handling.
 
-## Example
+### Example
 ```js
 app.plugin(ErrorHandlingPlugin, {
   Logger, // required
