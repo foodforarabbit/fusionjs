@@ -39,6 +39,10 @@ import HeatpipePlugin from '@uber/fusion-plugin-heatpipe';
 import RosettaPlugin from '@uber/fusion-plugin-rosetta';
 import I18nPlugin from 'fusion-plugin-i18n-react';
 
+import GoogleAnalyticsPlugin from '@uber/fusion-plugin-google-analytics';
+// or if you have an external website
+// import TealiumPlugin from '@uber/fusion-plugin-tealium';
+
 import AnalyticsSessionPlugin, {
   UberWebEventCookie,
 } from '@uber/fusion-plugin-analytics-session';
@@ -74,6 +78,8 @@ export default async function start() {
     I18nPlugin,
     __NODE__ ? {TranslationsLoader: Rosetta} : {fetch}
   );
+  
+  const Analytics = app.plugin(GoogleAnalyticsPlugin);
 
   const AnalyticsSession = app.plugin(AnalyticsSessionPlugin, {
     cookieType: UberWebEventCookie,
@@ -81,6 +87,7 @@ export default async function start() {
 
   app.plugin(EventsAdapterPlugin, {
     UniversalEvents,
+    Analytics,
     AnalyticsSession,
     I18n,
     config: {service}

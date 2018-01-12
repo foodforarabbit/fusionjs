@@ -1,7 +1,8 @@
 /* eslint-env browser */
 import {Plugin} from 'fusion-core';
+import pageViewBrowser from './handlers/page-view-browser';
 
-export default function EventsAdapterFactory({UniversalEvents}) {
+export default function EventsAdapterFactory({UniversalEvents, Analytics}) {
   if (!UniversalEvents) {
     throw new Error('{UniversalEvents} dependency is required');
   }
@@ -41,6 +42,11 @@ export default function EventsAdapterFactory({UniversalEvents}) {
   events.map('pageview:browser', webEventsMetaMapper);
   events.map('redux:action', webEventsMetaMapper);
   events.map('browser-performance-emitter:stats', webEventsMetaMapper);
+
+  pageViewBrowser({
+    events,
+    analytics: Analytics && Analytics.of(),
+  });
 
   return new Plugin({
     Service: () => {
