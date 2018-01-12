@@ -79,20 +79,20 @@ tape('pageview', t => {
     page: 'test-page',
     location: 'data',
   });
+  mock.args.pop();
   let pageviewArgs = mock.args.pop();
-  t.equal(pageviewArgs[0], 'test_id.send');
-  t.equal(pageviewArgs[1], 'pageview');
-  t.deepLooseEqual(pageviewArgs[2], {
+  t.equal(pageviewArgs[0], 'test_id.set');
+  t.deepLooseEqual(pageviewArgs[1], {
     title: 'test-title',
     page: 'test-page',
     location: 'data',
   });
 
   ga.pageview({});
+  mock.args.pop();
   pageviewArgs = mock.args.pop();
-  t.equal(pageviewArgs[0], 'test_id.send');
-  t.equal(pageviewArgs[1], 'pageview');
-  t.deepLooseEqual(pageviewArgs[2], {
+  t.equal(pageviewArgs[0], 'test_id.set');
+  t.deepLooseEqual(pageviewArgs[1], {
     title: document.title,
     page: window.location.pathname,
     location: window.location.href,

@@ -60,11 +60,12 @@ export default function(options = {}) {
 
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
     pageview({title, page, location}) {
-      this.ga('.send', 'pageview', {
+      this.ga('.set', {
         title: title || document.title,
         page: page || window.location.pathname,
         location: location || window.location.href,
       });
+      this.ga('.send', 'pageview');
     }
 
     _initializeFeatures() {
