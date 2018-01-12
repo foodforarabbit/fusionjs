@@ -10,8 +10,15 @@ import {Plugin} from 'fusion-plugin';
 export default function() {
   return new Plugin({
     Service: class Tealium {
+      identify(id) {
+        this._userId = id;
+      }
+
       track(data) {
-        let payload = {...data};
+        let payload = {
+          ...data,
+          userId: data.userId || this._userId,
+        };
 
         // Tealium is async, handle the race condition
         if (!window.utag || !window.utag.link) {

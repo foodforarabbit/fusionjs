@@ -17,6 +17,7 @@
     "./dist/browser.es.js": "./dist/browser.es.es2015.js"
   },
   "devDependencies": {
+    "fusion-core": "^0.2.8",
     "eslint-config-fusion": "^0.1.0",
     "babel-eslint": "^8.0.0",
     "babel-plugin-istanbul": "^4.1.5",
@@ -48,7 +49,7 @@
     "@uber/fusion-analyticsjs-utils": "0.0.1"
   },
   "peerDependencies": {
-    "fusion-core": "^0.1.1",
+    "fusion-core": "^0.2.8",
     "fusion-plugin": "^0.1.1"
   },
   "engines": {

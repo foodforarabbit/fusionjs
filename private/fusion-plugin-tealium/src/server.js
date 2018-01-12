@@ -1,6 +1,5 @@
 /* eslint-env node */
-import {html} from 'fusion-core';
-import {Plugin} from 'fusion-plugin';
+import {Plugin, html} from 'fusion-core';
 
 const StrictGeo = ['NL', 'FR'];
 
