@@ -14,15 +14,39 @@ Exposes an API for accessing common authentication fields.
 
 ```js
 // src/main.js
-import AuthHeaders from '@uber/fusion-plugin-auth-headers';
+import AuthHeadersPlugin, {
+  AuthHeadersUUIDConfigToken,
+  AuthHeadersEmailConfigToken,
+  AuthHeadersTokenConfigToken,
+  AuthHeadersRolesConfigToken,
+  AuthHeadersGroupsConfigToken
+} from '@uber/fusion-plugin-auth-headers';
+import {AuthHeadersToken} from 'fusion-types';
+
 import authDevConfig from './config/auth.js';
 // ...
+export default () => {
+  const app = new App();
+  // ...
+  app.register(AuthHeadersToken, AuthHeadersPlugin);
+  app.configure(AuthHeadersUUIDConfigToken, authDevConfig.uuid); // optional
+  app.configure(AuthHeadersEmailConfigToken, authDevConfig.email); // optional
+  app.configure(AuthHeadersTokenConfigToken, authDevConfig.token); // optional
+  app.configure(AuthHeadersRolesConfigToken, authDevConfig.roles); // optional
+  app.configure(AuthHeadersGroupsConfigToken, authDevConfig.groups); // optional
+  // ...
+  return app;
+};
 app.plugin(AuthHeaders, authDevConfig);
 // ...
 
 // src/config/auth.js
 export default {
-  uuid: 'your uuid here',
+  uuid: 'some-uuid',
+  email: 'some-e-mail',
+  token: 'some-token',
+  roles: 'some-roles',
+  groups: 'some-groups'
 };
 ```
 

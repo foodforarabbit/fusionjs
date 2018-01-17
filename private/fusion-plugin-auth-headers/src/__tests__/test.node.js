@@ -1,30 +1,37 @@
 import test from 'tape-cup';
-import AuthHeadersPlugin from '../../server';
+import AuthHeadersPlugin from '../server';
 
-test('exported correctly', t => {
+const memoizedMock = {
+  has: () => false,
+  set: () => null,
+};
+const noContext = {
+  memoized: memoizedMock,
+};
+
+test('plugin - exported correctly', t => {
   t.ok(AuthHeadersPlugin, 'plugin exported correctly');
+  t.equal(typeof AuthHeadersPlugin, 'function');
   t.end();
 });
 
-test('missing context', t => {
-  const plugin = AuthHeadersPlugin();
-  t.throws(
-    plugin.of,
-    'should throw if context not provided during service construction'
-  );
+test('service - missing auth param', t => {
+  const service = AuthHeadersPlugin({}).from(noContext);
+  t.throws(() => service.get('uuid'), 'should throw if missing auth key');
   t.end();
 });
 
-test('get authentication param from context', t => {
+test('service - get authentication param from context', t => {
   const ctx = {
     request: {
       headers: {
         'x-auth-params-uuid': 'some-auth-uuid',
       },
     },
+    memoized: memoizedMock,
   };
 
-  const service = AuthHeadersPlugin().of(ctx);
+  const service = AuthHeadersPlugin({}).from(ctx);
   t.equal(
     service.get('uuid'),
     ctx.request.headers['x-auth-params-uuid'],
@@ -33,25 +40,26 @@ test('get authentication param from context', t => {
   t.end();
 });
 
-test('get authentication param from override', t => {
+test('service - get authentication param from override', t => {
   const ctx = {
     request: {
       headers: {
         'x-auth-params-uuid': 'some-auth-uuid',
       },
     },
+    memoized: memoizedMock,
   };
-  const devOverrideConfig = {
-    uuid: 'some-other-auth-uuid',
-  };
+  const uuidOverride = 'some-other-auth-uuid';
 
-  const service = AuthHeadersPlugin(devOverrideConfig).of(ctx);
+  const service = AuthHeadersPlugin({
+    uuid: uuidOverride,
+  }).from(ctx);
 
   if (__DEV__) {
     /* Check development environment */
     t.equal(
       service.get('uuid'),
-      devOverrideConfig.uuid,
+      uuidOverride,
       'correctly applies override value associated with uuid provided by service'
     );
   } else {
@@ -62,11 +70,5 @@ test('get authentication param from override', t => {
       'correctly ignores override value associated with uuid provided by service (in production)'
     );
   }
-  t.end();
-});
-
-test('missing auth param', t => {
-  const service = AuthHeadersPlugin().of({});
-  t.throws(() => service.get('uuid'), 'should throw if missing auth key');
   t.end();
 });
