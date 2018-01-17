@@ -4,30 +4,30 @@
 import assert from 'assert';
 
 import {createOptionalToken} from 'fusion-tokens';
-import {withDependencies, memoize} from 'fusion-core';
+import {createPlugin, memoize} from 'fusion-core';
 import type {Context, FusionPlugin} from 'fusion-core';
 
 declare var __DEV__: boolean;
 
-export const AuthHeadersUUIDConfigToken: ?string = createOptionalToken(
+export const AuthHeadersUUIDConfigToken: string = createOptionalToken(
   'AuthHeadersUUIDConfigToken',
-  null
+  ''
 );
-export const AuthHeadersEmailConfigToken: ?string = createOptionalToken(
+export const AuthHeadersEmailConfigToken: string = createOptionalToken(
   'AuthHeadersUUIDConfigToken',
-  null
+  ''
 );
-export const AuthHeadersTokenConfigToken: ?string = createOptionalToken(
+export const AuthHeadersTokenConfigToken: string = createOptionalToken(
   'AuthHeadersTokenConfigToken',
-  null
+  ''
 );
-export const AuthHeadersRolesConfigToken: ?string = createOptionalToken(
+export const AuthHeadersRolesConfigToken: string = createOptionalToken(
   'AuthHeadersRolesConfigToken',
-  null
+  ''
 );
-export const AuthHeadersGroupsConfigToken: ?string = createOptionalToken(
+export const AuthHeadersGroupsConfigToken: string = createOptionalToken(
   'AuthHeadersGroupsConfig',
-  {}
+  ''
 );
 
 const authHeaderPrefix = 'x-auth-params-';
@@ -46,11 +46,11 @@ class MissingXAuthParamError extends Error {
 }
 
 type AuthHeadersConfig = {
-  uuid: ?string,
-  email: ?string,
-  token: ?string,
-  roles: ?string,
-  groups: ?string,
+  uuid: string,
+  email: string,
+  token: string,
+  roles: string,
+  groups: string,
 };
 type AuthHeaderKey = $Keys<AuthHeadersConfig>;
 
@@ -80,20 +80,22 @@ class AuthHeaders {
 
 type SessionService = {from: (ctx: Context) => AuthHeaders};
 type SessionPluginType = FusionPlugin<*, SessionService>;
-const plugin: SessionPluginType = withDependencies({
-  uuid: AuthHeadersUUIDConfigToken,
-  email: AuthHeadersEmailConfigToken,
-  token: AuthHeadersTokenConfigToken,
-  roles: AuthHeadersRolesConfigToken,
-  groups: AuthHeadersGroupsConfigToken,
-})(deps => {
-  // const {authHeadersConfig} = deps;
-  const service: SessionService = {
-    from: memoize((ctx: Context) => {
-      return new AuthHeaders(ctx, deps);
-    }),
-  };
-  return service;
+const plugin: SessionPluginType = createPlugin({
+  deps: {
+    uuid: AuthHeadersUUIDConfigToken,
+    email: AuthHeadersEmailConfigToken,
+    token: AuthHeadersTokenConfigToken,
+    roles: AuthHeadersRolesConfigToken,
+    groups: AuthHeadersGroupsConfigToken,
+  },
+  provides: deps => {
+    const service: SessionService = {
+      from: memoize((ctx: Context) => {
+        return new AuthHeaders(ctx, deps);
+      }),
+    };
+    return service;
+  },
 });
 
 export default plugin;

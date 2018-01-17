@@ -29,11 +29,11 @@ export default () => {
   const app = new App();
   // ...
   app.register(AuthHeadersToken, AuthHeadersPlugin);
-  app.configure(AuthHeadersUUIDConfigToken, authDevConfig.uuid); // optional
-  app.configure(AuthHeadersEmailConfigToken, authDevConfig.email); // optional
-  app.configure(AuthHeadersTokenConfigToken, authDevConfig.token); // optional
-  app.configure(AuthHeadersRolesConfigToken, authDevConfig.roles); // optional
-  app.configure(AuthHeadersGroupsConfigToken, authDevConfig.groups); // optional
+  app.register(AuthHeadersUUIDConfigToken, authDevConfig.uuid); // optional
+  app.register(AuthHeadersEmailConfigToken, authDevConfig.email); // optional
+  app.register(AuthHeadersTokenConfigToken, authDevConfig.token); // optional
+  app.register(AuthHeadersRolesConfigToken, authDevConfig.roles); // optional
+  app.register(AuthHeadersGroupsConfigToken, authDevConfig.groups); // optional
   // ...
   return app;
 };
