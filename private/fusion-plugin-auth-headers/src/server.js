@@ -3,32 +3,18 @@
 
 import assert from 'assert';
 
-import {createOptionalToken} from 'fusion-tokens';
 import {createPlugin, memoize} from 'fusion-core';
 import type {Context, FusionPlugin} from 'fusion-core';
 
-declare var __DEV__: boolean;
+import {
+  AuthHeadersUUIDConfigToken,
+  AuthHeadersEmailConfigToken,
+  AuthHeadersTokenConfigToken,
+  AuthHeadersRolesConfigToken,
+  AuthHeadersGroupsConfigToken,
+} from './tokens';
 
-export const AuthHeadersUUIDConfigToken: string = createOptionalToken(
-  'AuthHeadersUUIDConfigToken',
-  ''
-);
-export const AuthHeadersEmailConfigToken: string = createOptionalToken(
-  'AuthHeadersUUIDConfigToken',
-  ''
-);
-export const AuthHeadersTokenConfigToken: string = createOptionalToken(
-  'AuthHeadersTokenConfigToken',
-  ''
-);
-export const AuthHeadersRolesConfigToken: string = createOptionalToken(
-  'AuthHeadersRolesConfigToken',
-  ''
-);
-export const AuthHeadersGroupsConfigToken: string = createOptionalToken(
-  'AuthHeadersGroupsConfig',
-  ''
-);
+declare var __DEV__: boolean;
 
 const authHeaderPrefix = 'x-auth-params-';
 

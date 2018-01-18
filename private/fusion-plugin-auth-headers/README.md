@@ -15,14 +15,13 @@ Exposes an API for accessing common authentication fields.
 ```js
 // src/main.js
 import AuthHeadersPlugin, {
+  AuthHeadersToken,
   AuthHeadersUUIDConfigToken,
   AuthHeadersEmailConfigToken,
   AuthHeadersTokenConfigToken,
   AuthHeadersRolesConfigToken,
   AuthHeadersGroupsConfigToken
 } from '@uber/fusion-plugin-auth-headers';
-import {AuthHeadersToken} from 'fusion-types';
-
 import authDevConfig from './config/auth.js';
 // ...
 export default () => {

@@ -1,20 +1,19 @@
 import test from 'tape-cup';
 
 import App, {createPlugin} from 'fusion-core';
-import {createToken} from 'fusion-tokens';
 import {getSimulator} from 'fusion-test-utils';
 
-import AuthHeadersPlugin, {AuthHeadersUUIDConfigToken} from '../server';
+import AuthHeadersPlugin from '../server';
+import {AuthHeadersToken, AuthHeadersUUIDConfigToken} from '../tokens';
 
 const memoizedMock = {
   has: () => false,
   set: () => null,
 };
 
-const MockPluginToken = createToken('test-plugin-token');
 function createTestFixture() {
   const app = new App('content', el => el);
-  app.register(MockPluginToken, AuthHeadersPlugin);
+  app.register(AuthHeadersToken, AuthHeadersPlugin);
   return app;
 }
 
@@ -31,7 +30,7 @@ test('auth headers plugin resolved in test plugin', t => {
   getSimulator(
     app,
     createPlugin({
-      deps: {authHeaders: MockPluginToken},
+      deps: {authHeaders: AuthHeadersToken},
       provides: deps => {
         const {authHeaders} = deps;
         t.ok(authHeaders, 'plugin defined as expected');
@@ -49,7 +48,7 @@ test('missing auth param', t => {
   getSimulator(
     app,
     createPlugin({
-      deps: {authHeaders: MockPluginToken},
+      deps: {authHeaders: AuthHeadersToken},
       provides: deps => {
         const {authHeaders} = deps;
         t.throws(
@@ -79,7 +78,7 @@ test('service - get authentication param from context', t => {
   getSimulator(
     app,
     createPlugin({
-      deps: {authHeaders: MockPluginToken},
+      deps: {authHeaders: AuthHeadersToken},
       provides: deps => {
         const {authHeaders} = deps;
         const service = authHeaders.from(mockContext);
@@ -113,7 +112,7 @@ test('get authentication param from override', t => {
   getSimulator(
     app,
     createPlugin({
-      deps: {authHeaders: MockPluginToken},
+      deps: {authHeaders: AuthHeadersToken},
       provides: deps => {
         const {authHeaders} = deps;
         const service = authHeaders.from(mockContext);
