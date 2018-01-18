@@ -40,6 +40,17 @@ app.plugin(AuthHeaders, authDevConfig);
 // ...
 
 // src/config/auth.js
+/*
+ * WARNING
+ *
+ * Changes to this file that include sensitive materials should not be committed
+ * to the repository.  If you decide to make changes, consider using the 'skip-worktree'
+ * flag in git:
+ *
+ * e.g. 'git update-index --skip-worktree src/config/auth-headers.js'
+ *
+ * More details: https://git-scm.com/docs/git-update-index#git-update-index---no-skip-worktree
+ */
 export default {
   uuid: 'some-uuid',
   email: 'some-e-mail',
@@ -47,11 +58,6 @@ export default {
   roles: 'some-roles',
   groups: 'some-groups'
 };
-```
-
-```
-# .gitignore
-src/config/auth.js
 ```
 
 ### Config

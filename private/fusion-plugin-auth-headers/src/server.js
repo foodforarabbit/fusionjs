@@ -64,9 +64,9 @@ class AuthHeaders {
   }
 }
 
-type SessionService = {from: (ctx: Context) => AuthHeaders};
-type SessionPluginType = FusionPlugin<*, SessionService>;
-const plugin: SessionPluginType = createPlugin({
+type AuthHeadersService = {from: (ctx: Context) => AuthHeaders};
+type AuthHeadersPluginType = FusionPlugin<*, AuthHeadersService>;
+const plugin: AuthHeadersPluginType = createPlugin({
   deps: {
     uuid: AuthHeadersUUIDConfigToken,
     email: AuthHeadersEmailConfigToken,
@@ -75,7 +75,7 @@ const plugin: SessionPluginType = createPlugin({
     groups: AuthHeadersGroupsConfigToken,
   },
   provides: deps => {
-    const service: SessionService = {
+    const service: AuthHeadersService = {
       from: memoize((ctx: Context) => {
         return new AuthHeaders(ctx, deps);
       }),
