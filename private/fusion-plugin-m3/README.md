@@ -16,34 +16,18 @@ npm install @uber/fusion-plugin-m3
 ## Usage
 ```js
 // main.js
-import m3Config from 'config/m3';
-const service = 'service-name';
+import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events;'
+import M3Plugin, {M3Token, CommonTagsToken} from 'fusion-plugin-m3';
 
-const UniversalEvents = app.plugin(UniversalEvents, {fetch});
-const M3Service = app.plugin(M3Plugin, {UniversalEvents, m3Config, service});
+app.register(UniversalEventsToken, UniversalEvents); // required
+app.register(CommonTagsToken, {some: 'tags'}); // optional
+app.register(M3Token, M3Plugin);
 
-// increments on server
-if (__NODE__) {
-  M3Service.of().increment('server.stats.awesomeness', {route: 'happy'});
-}
-
-// increments on browser
-if (__BROWSER__) {
-  M3Service.of().increment('mysterious_button.click', {color: 'rainbow'});
-}
-```
-
-## Config
-// TODO: Finalize the statement below
-```
-Note: The config should be produced by app/src/config/m3.js which is scaffolded with your application.
-```
-
-```js
-commonTags: {
-  dc: 'sjc1', // Data center name
-  env: 'production', // Environmental value
-  deployment: 'production', // uDeploy deployment group
-  service: 'awesome-frontend' // Service name
-}
+app.middleware({m3: M3Token}, ({m3}) => {
+  m3.increment('increment-key', {someTag: 'here'});
+  m3.timing('timing-key', new Date(), {someTag: 'here'});
+  m3.gauge('gauge-key', 500, {someTag: 'here'});
+  // etc
+  return (ctx, next) => next();
+});
 ```

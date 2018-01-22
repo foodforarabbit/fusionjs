@@ -1,15 +1,9 @@
 import tape from 'tape-cup';
-import M3Plugin from '../../server';
-
-tape('m3 server plugin required parameters', t => {
-  t.throws(() => {
-    M3Plugin({UniversalEvents: {}});
-  }, /parameter is required/);
-  t.throws(() => {
-    M3Plugin({service: ''});
-  }, /parameter is required/);
-  t.end();
-});
+import App from 'fusion-core';
+import {getSimulator} from 'fusion-test-utils';
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+import {M3Token, M3ClientToken, CommonTagsToken} from '../index';
+import M3Plugin from '../server';
 
 tape('m3 server plugin', t => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
@@ -28,12 +22,8 @@ tape('m3 server plugin', t => {
     close: false,
   };
   const events = {
-    of() {
-      return {
-        on(type) {
-          t.equal(type, `m3:${types.shift()}`, 'adds event handler correctly');
-        },
-      };
+    on(type) {
+      t.equal(type, `m3:${types.shift()}`, 'adds event handler correctly');
     },
   };
   class Client {
@@ -46,7 +36,7 @@ tape('m3 server plugin', t => {
       );
       t.equal(
         config.commonTags.service,
-        'app-name',
+        'dev-service',
         'passes in common tag service'
       );
       t.equal(
@@ -125,24 +115,27 @@ tape('m3 server plugin', t => {
       t.equal(arg, 'test', 'close passes through arguments');
     }
   }
-  const m3 = M3Plugin({
-    UniversalEvents: events,
-    Client,
-    service: 'app-name',
-    commonTags: {a: 'a'},
-  }).of();
-  m3.counter('key', 'value', 'tags');
-  m3.increment('key', 'tags');
-  m3.decrement('key', 'tags');
-  m3.timing('key', 'value', 'tags');
-  m3.gauge('key', 'value', 'tags');
-  m3.scope('test');
-  m3.immediateCounter('key', 'value', 'tags');
-  m3.immediateIncrement('key', 'tags');
-  m3.immediateDecrement('key', 'tags');
-  m3.immediateTiming('key', 'value', 'tags');
-  m3.immediateGauge('key', 'value', 'tags');
-  m3.close('test');
+  const app = new App('el', el => el);
+  app.register(M3ClientToken, Client);
+  app.register(M3Token, M3Plugin);
+  app.register(UniversalEventsToken, events);
+  app.register(CommonTagsToken, {a: 'a'});
+  app.middleware({m3: M3Token}, ({m3}) => {
+    m3.counter('key', 'value', 'tags');
+    m3.increment('key', 'tags');
+    m3.decrement('key', 'tags');
+    m3.timing('key', 'value', 'tags');
+    m3.gauge('key', 'value', 'tags');
+    m3.scope('test');
+    m3.immediateCounter('key', 'value', 'tags');
+    m3.immediateIncrement('key', 'tags');
+    m3.immediateDecrement('key', 'tags');
+    m3.immediateTiming('key', 'value', 'tags');
+    m3.immediateGauge('key', 'value', 'tags');
+    m3.close('test');
+    return (ctx, next) => next();
+  });
+  getSimulator(app);
   t.ok(flags.counter, 'calls counter');
   t.ok(flags.increment, 'calls increment');
   t.ok(flags.decrement, 'calls decrement');
@@ -168,19 +161,15 @@ tape('m3 server plugin - event handlers', t => {
     gauge: false,
   };
   const events = {
-    of() {
-      return {
-        on(type, handler) {
-          const m3Type = types.shift();
-          t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
-          t.equal(typeof handler, 'function', 'passes a function handler');
-          handler({
-            key: `${m3Type}-key`,
-            value: 'value',
-            tags: {something: 'value'},
-          });
-        },
-      };
+    on(type, handler) {
+      const m3Type = types.shift();
+      t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
+      t.equal(typeof handler, 'function', 'passes a function handler');
+      handler({
+        key: `${m3Type}-key`,
+        value: 'value',
+        tags: {something: 'value'},
+      });
     },
   };
 
@@ -239,12 +228,12 @@ tape('m3 server plugin - event handlers', t => {
     immediateGauge() {}
     close() {}
   }
-  M3Plugin({
-    UniversalEvents: events,
-    Client,
-    service: 'app-name',
-    commonTags: {a: 'a'},
-  });
+  const app = new App('el', el => el);
+  app.register(M3ClientToken, Client);
+  app.register(M3Token, M3Plugin);
+  app.register(UniversalEventsToken, events);
+  app.register(CommonTagsToken, {a: 'a'});
+  getSimulator(app);
   t.ok(flags.counter, 'calls counter');
   t.ok(flags.increment, 'calls increment');
   t.ok(flags.decrement, 'calls decrement');
@@ -263,20 +252,16 @@ tape('m3 server plugin - event handlers with __url__', t => {
     gauge: false,
   };
   const events = {
-    of() {
-      return {
-        on(type, handler) {
-          const m3Type = types.shift();
-          t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
-          t.equal(typeof handler, 'function', 'passes a function handler');
-          handler({
-            key: `${m3Type}-key`,
-            value: 'value',
-            tags: {something: 'value'},
-            __url__: '/test',
-          });
-        },
-      };
+    on(type, handler) {
+      const m3Type = types.shift();
+      t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
+      t.equal(typeof handler, 'function', 'passes a function handler');
+      handler({
+        key: `${m3Type}-key`,
+        value: 'value',
+        tags: {something: 'value'},
+        __url__: '/test',
+      });
     },
   };
 
@@ -339,12 +324,12 @@ tape('m3 server plugin - event handlers with __url__', t => {
     immediateGauge() {}
     close() {}
   }
-  M3Plugin({
-    UniversalEvents: events,
-    Client,
-    service: 'app-name',
-    commonTags: {a: 'a'},
-  });
+  const app = new App('el', el => el);
+  app.register(M3ClientToken, Client);
+  app.register(M3Token, M3Plugin);
+  app.register(UniversalEventsToken, events);
+  app.register(CommonTagsToken, {a: 'a'});
+  getSimulator(app);
   t.ok(flags.counter, 'calls counter');
   t.ok(flags.increment, 'calls increment');
   t.ok(flags.decrement, 'calls decrement');
@@ -363,19 +348,15 @@ tape('m3 server plugin - event handlers with __url__ and no tags', t => {
     gauge: false,
   };
   const events = {
-    of() {
-      return {
-        on(type, handler) {
-          const m3Type = types.shift();
-          t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
-          t.equal(typeof handler, 'function', 'passes a function handler');
-          handler({
-            key: `${m3Type}-key`,
-            value: 'value',
-            __url__: '/test',
-          });
-        },
-      };
+    on(type, handler) {
+      const m3Type = types.shift();
+      t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
+      t.equal(typeof handler, 'function', 'passes a function handler');
+      handler({
+        key: `${m3Type}-key`,
+        value: 'value',
+        __url__: '/test',
+      });
     },
   };
 
@@ -418,12 +399,12 @@ tape('m3 server plugin - event handlers with __url__ and no tags', t => {
     immediateGauge() {}
     close() {}
   }
-  M3Plugin({
-    UniversalEvents: events,
-    Client,
-    service: 'app-name',
-    commonTags: {a: 'a'},
-  });
+  const app = new App('el', el => el);
+  app.register(M3ClientToken, Client);
+  app.register(M3Token, M3Plugin);
+  app.register(UniversalEventsToken, events);
+  app.register(CommonTagsToken, {a: 'a'});
+  getSimulator(app);
   t.ok(flags.counter, 'calls counter');
   t.ok(flags.increment, 'calls increment');
   t.ok(flags.decrement, 'calls decrement');

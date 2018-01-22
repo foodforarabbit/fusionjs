@@ -5,39 +5,39 @@
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
-  "main": "./dist/node.cjs.js",
-  "module": "./dist/node.es.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.es.js",
   "browser": {
-    "./dist/node.cjs.js": "./dist/browser.es5.cjs.js",
-    "./dist/node.es.js": "./dist/browser.es5.es.js"
+    "./dist/index.js": "./dist/browser.es5.js",
+    "./dist/index.es.js": "./dist/browser.es5.es.js"
   },
   "es2015": {
-    "./dist/browser.es5.cjs.js": "./dist/browser.es2015.cjs.js",
     "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
   },
   "es2017": {
-    "./dist/browser.es5.cjs.js": "./dist/browser.es2017.cjs.js",
     "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.cjs.js": "./dist/browser.es2017.cjs.js",
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
-    "eslint-config-fusion": "^0.1.2",
-    "fusion-core": "^0.2.3",
-    "babel-eslint": "^8.0.2",
+    "babel-eslint": "^8.2.1",
     "babel-plugin-istanbul": "^4.1.5",
-    "create-universal-package": "^2.1.1",
-    "eslint": "^4.11.0",
+    "create-universal-package": "^3.2.6",
+    "eslint": "^4.16.0",
+    "eslint-config-fusion": "^0.2.1",
     "eslint-plugin-cup": "^1.0.0",
-    "eslint-plugin-flowtype": "^2.39.1",
-    "eslint-plugin-prettier": "^2.3.1",
-    "eslint-plugin-react": "^7.4.0",
-    "nyc": "^11.3.0",
-    "prettier": "1.8.2",
+    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.5.0",
+    "eslint-plugin-react": "^7.5.1",
+    "fusion-core": "^0.3.0-5",
+    "fusion-test-utils": "^0.4.0",
+    "nyc": "^11.4.1",
+    "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
-    "unitest": "^1.1.0"
+    "unitest": "^2.1.1"
   },
   "scripts": {
     "clean": "rm -rf dist",
@@ -51,10 +51,12 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/node-m3-client-addon": "^1.4.0"
+    "@uber/node-m3-client-addon": "^1.4.0",
+    "fusion-plugin-universal-events": "^0.3.0",
+    "fusion-tokens": "^0.0.5"
   },
   "peerDependencies": {
-    "fusion-core": "^0.2.3"
+    "fusion-core": "^0.3.0-5"
   },
   "engines": {
     "node": ">=8.3.0",
