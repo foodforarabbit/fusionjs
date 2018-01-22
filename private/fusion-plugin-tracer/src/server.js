@@ -1,67 +1,83 @@
 /* eslint-env node */
+import {LoggerToken, createOptionalToken} from 'fusion-tokens';
 import {JaegerClient, initTracer} from '@uber/jaeger-client-adapter';
-import {Plugin} from 'fusion-core';
+import {createPlugin, memoize} from 'fusion-core';
+
+export const TracerConfigToken = createOptionalToken('TracerConfig', {});
+export const TracerOptionsToken = createOptionalToken('TracerOptions', {});
+export const InitTracerToken = createOptionalToken(
+  'InitTracerToken',
+  initTracer
+);
 
 // eslint-disable-next-line no-unused-vars
-export default function createTracerPlugin({
-  Logger,
-  config = {},
-  options = {},
-  initClient = initTracer,
-}) {
-  const {opentracing} = JaegerClient;
+export default createPlugin({
+  deps: {
+    logger: LoggerToken,
+    config: TracerConfigToken,
+    options: TracerOptionsToken,
+    initClient: InitTracerToken,
+  },
+  provides: ({logger, config, options, initClient}) => {
+    options.logger = options.logger || logger.createChild('tracer');
 
-  options.logger = options.logger || Logger.of().createChild('tracer');
+    const {mock, ...tracerConfig} = config;
 
-  const {mock, ...tracerConfig} = config;
-
-  if (mock) {
-    options.reporter = new JaegerClient.InMemoryReporter();
-  }
-
-  if (!tracerConfig.serviceName) {
-    throw new Error(`Missing required configuration 'serviceName'`);
-  }
-
-  const tracer = initClient(tracerConfig, options);
-
-  class TracerPlugin {
-    constructor() {
-      this.span = null;
-      this.tracer = tracer;
+    if (mock) {
+      options.reporter = new JaegerClient.InMemoryReporter();
     }
 
-    destroy() {
-      this.tracer.close();
-      return true;
+    if (!tracerConfig.serviceName) {
+      tracerConfig.serviceName = process.env.SVC_ID || 'dev-service';
     }
-  }
 
-  async function middleware(ctx, next) {
-    const {request} = ctx;
-    const context = tracer.extract(
-      opentracing.FORMAT_HTTP_HEADERS,
-      request.headers
-    );
+    const tracer = initClient(tracerConfig, options);
 
-    const tags = {};
-    tags[opentracing.Tags.COMPONENT] = 'fusion';
-    tags[opentracing.Tags.SPAN_KIND] = opentracing.Tags.SPAN_KIND_RPC_SERVER;
-    tags[opentracing.Tags.HTTP_URL] = request.path;
-    tags[opentracing.Tags.HTTP_METHOD] = request.method;
+    class TracerPlugin {
+      constructor() {
+        this.span = null;
+        this.tracer = tracer;
+      }
+    }
 
-    const span = tracer.startSpan(`${request.method}_${request.path}`, {
-      childOf: context,
-      tags: tags,
-    });
+    return {
+      tracer,
+      from: memoize(() => {
+        return new TracerPlugin();
+      }),
+      destroy() {
+        tracer.close();
+        return true;
+      },
+    };
+  },
+  middleware: (deps, tracerContainer) => {
+    const {opentracing} = JaegerClient;
+    const {tracer} = tracerContainer;
+    return async function middleware(ctx, next) {
+      const {request} = ctx;
+      const context = tracer.extract(
+        opentracing.FORMAT_HTTP_HEADERS,
+        request.headers
+      );
 
-    this.of(ctx).span = span;
+      const tags = {};
+      tags[opentracing.Tags.COMPONENT] = 'fusion';
+      tags[opentracing.Tags.SPAN_KIND] = opentracing.Tags.SPAN_KIND_RPC_SERVER;
+      tags[opentracing.Tags.HTTP_URL] = request.path;
+      tags[opentracing.Tags.HTTP_METHOD] = request.method;
 
-    await next();
+      const span = tracer.startSpan(`${request.method}_${request.path}`, {
+        childOf: context,
+        tags: tags,
+      });
 
-    span.setTag(opentracing.Tags.HTTP_STATUS_CODE, ctx.response.status);
-    span.finish();
-  }
+      tracerContainer.from(ctx).span = span;
 
-  return new Plugin({middleware, Service: TracerPlugin});
-}
+      await next();
+
+      span.setTag(opentracing.Tags.HTTP_STATUS_CODE, ctx.response.status);
+      span.finish();
+    };
+  },
+});

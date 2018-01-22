@@ -1,15 +1,16 @@
 import test from 'tape-cup';
-import TracerPlugin from '../../server';
+import {LoggerToken, createToken} from 'fusion-tokens';
+import App from 'fusion-core';
+import {getSimulator} from 'fusion-test-utils';
+import TracerPlugin, {TracerConfigToken, InitTracerToken} from '../server';
+
+const TracerToken = createToken('Tracer');
 
 const mockLogger = {};
 
 const MockLogger = {
-  of() {
-    return {
-      createChild() {
-        return mockLogger;
-      },
-    };
+  createChild() {
+    return mockLogger;
   },
 };
 
@@ -18,9 +19,7 @@ test('Tracer Plugin Interface', t => {
   t.end();
 });
 
-test('Tracer Plugin', t => {
-  t.throws(TracerPlugin, 'Throws without proper config');
-
+test('Tracer Plugin', async t => {
   const config = {
     serviceName: 'uber',
   };
@@ -41,24 +40,21 @@ test('Tracer Plugin', t => {
     return mockTracer;
   }
 
-  const Tracer = TracerPlugin({
-    Logger: MockLogger,
-    initClient: MockInitTracer,
-    config,
+  const app = new App('el', el => el);
+  app.register(LoggerToken, MockLogger);
+  app.register(TracerToken, TracerPlugin);
+  app.register(InitTracerToken, MockInitTracer);
+  app.register(TracerConfigToken, config);
+  app.middleware({Tracer: TracerToken}, ({Tracer}) => {
+    t.equals(Tracer.tracer, mockTracer, 'should have tracer instance created');
+    t.ok(Tracer.destroy(), 'should destroy the tracer instance');
+    return (ctx, next) => next();
   });
-
-  t.ok(typeof Tracer, 'function', 'exposes a function');
-  t.equals(
-    Tracer.of().tracer,
-    mockTracer,
-    'should have tracer instance created'
-  );
-  t.ok(Tracer.of().destroy(), 'should destroy the tracer instance');
-
+  getSimulator(app);
   t.end();
 });
 
-test('Tracer Middleware', t => {
+test('Tracer Middleware', async t => {
   const mockSpan = {
     setTag(key, value) {
       t.equals(key, 'http.status_code', 'should set status code');
@@ -107,29 +103,22 @@ test('Tracer Middleware', t => {
     return mockTracer;
   }
 
-  const Tracer = TracerPlugin({
-    Logger: MockLogger,
-    initClient: MockInitTracer,
-    config: {serviceName: 'uber'},
+  const app = new App('el', el => el);
+  app.register(LoggerToken, MockLogger);
+  app.register(TracerToken, TracerPlugin);
+  app.register(InitTracerToken, MockInitTracer);
+  app.middleware({Tracer: TracerToken}, ({Tracer}) => {
+    return (ctx, next) => {
+      t.ok(true, 'Next is called');
+      t.equals(Tracer.from(ctx).span, mockSpan, 'span should be defined');
+      t.equals(
+        Tracer.from(ctx).tracer,
+        Tracer.tracer,
+        'tracer should be defined'
+      );
+      return next();
+    };
   });
-
-  const ctx = {
-    request: {
-      path: '/path',
-      headers: {'x-uber-source': 'fusion'},
-      method: 'GET',
-    },
-    response: {status: 200},
-  };
-
-  Tracer.middleware.call(Tracer, ctx, () => {
-    t.ok(true, 'Next is called');
-    t.equals(Tracer.of(ctx).span, mockSpan, 'span should be defined');
-    t.equals(
-      Tracer.of(ctx).tracer,
-      Tracer.of().tracer,
-      'tracer should be defined'
-    );
-    t.notOk(Tracer.of().span, 'global tracer should not have span');
-  });
+  const sim = getSimulator(app);
+  await sim.request('/path', {headers: {'x-uber-source': 'fusion'}});
 });

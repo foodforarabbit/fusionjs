@@ -14,24 +14,29 @@ npm install @uber/@uber/fusion-plugin-tracer
 
 ```js
 // ...
-import TracerPlugin from  '@uber/@uber/fusion-plugin-tracer';
-import tracerConfig from  'config/tracer';
-// ...
+import {LoggerToken} from 'fusion-tokens';
+import TracerPlugin, {
+  TracerConfigToken, 
+  TracerOptionsToken, 
+  TracerToken
+} from  '@uber/@uber/fusion-plugin-tracer';
 
-const Tracer = app.plugin(TracerPlugin, {
-  Logger, // UniversalLogger plugin instance
-  config: tracerConfig,
-  options: {}   //optional
+app.register(LoggerToken, /* some logger plugin */);
+app.register(TracerToken, TracerPlugin);
+app.register(TracerConfigToken, /* tracer config */});
+app.register(TracerOptionsToken, /* tracer options */});
+app.middleware({Tracer: TracerToken}, ({Tracer}) => {
+  // Access tracer client
+  Tracer.tracer
+  // Cleanup tracer client
+  Tracer.destory()
+  return (ctx, next) => {
+    // Access tracer span
+    Tracer.from(ctx).span
+    return next();
+  }
 });
 
-// Access tracer client
-Tracer.of().tracer
-
-// Access tracer span
-Tracer.of(ctx).span
-
-// Cleanup tracer client
-Tracer.destory()
 ```
 
 ## Config
