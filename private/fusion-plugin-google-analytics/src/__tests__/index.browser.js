@@ -1,6 +1,6 @@
 /* eslint-env browser */
 import tape from 'tape-cup';
-import Plugin from '../../browser';
+import Plugin from '../browser';
 
 const loadGA = () => {};
 
@@ -14,12 +14,13 @@ function createMock() {
 
 tape('ga plugin browser', t => {
   const mock = createMock();
-  t.throws(() => Plugin(), /Tracking id required/, 'trackingId is required');
-  const PluginClass = Plugin({loadGA, mock, trackingId: 'test-id'});
-  t.ok(PluginClass, 'returns a plugin class');
-  t.equal(typeof PluginClass.of, 'function', 'exposes an of function');
-  const ga = PluginClass.of();
-  t.ok(ga, 'returns a service from of');
+  t.throws(
+    () => Plugin.provides({options: {}}),
+    /Tracking id required/,
+    'trackingId is required'
+  );
+  const ga = Plugin.provides({options: {loadGA, mock, trackingId: 'test-id'}});
+  t.ok(ga, 'returns a service from provides');
   t.equal(mock.args[0][0], 'create', 'calls create');
   t.equal(mock.args[0][1], 'test-id', 'users correct trackingId');
   t.equal(mock.args[0][2], 'auto', 'defaults cookie domain to auto');
@@ -30,16 +31,18 @@ tape('ga plugin browser', t => {
 
 tape('initializeFeatures', t => {
   const mock = createMock();
-  const PluginClass = Plugin({
-    loadGA,
-    mock,
-    trackingId: 'test-id',
-    advertiserFeatures: true,
-    anonymizeIp: true,
-    linkAttribution: true,
-    trackPage: true,
+  const ga = Plugin.provides({
+    options: {
+      loadGA,
+      mock,
+      trackingId: 'test-id',
+      advertiserFeatures: true,
+      anonymizeIp: true,
+      linkAttribution: true,
+      trackPage: true,
+    },
   });
-  PluginClass.of();
+  t.ok(ga);
   t.equal(mock.args[1][0], 'test_id.require');
   t.equal(mock.args[1][1], 'displayfeatures');
 
@@ -58,8 +61,7 @@ tape('initializeFeatures', t => {
 
 tape('identify', t => {
   const mock = createMock();
-  const PluginClass = Plugin({loadGA, mock, trackingId: 'test-id'});
-  const ga = PluginClass.of();
+  const ga = Plugin.provides({options: {loadGA, mock, trackingId: 'test-id'}});
   t.equal(typeof ga.identify, 'function', 'exposes an identify function');
   ga.identify('test-id');
   const userIdArgs = mock.args.pop();
@@ -71,8 +73,7 @@ tape('identify', t => {
 
 tape('pageview', t => {
   const mock = createMock();
-  const PluginClass = Plugin({loadGA, mock, trackingId: 'test-id'});
-  const ga = PluginClass.of();
+  const ga = Plugin.provides({options: {loadGA, mock, trackingId: 'test-id'}});
   t.equal(typeof ga.pageview, 'function', 'exposes an pageview function');
   ga.pageview({
     title: 'test-title',
@@ -102,8 +103,7 @@ tape('pageview', t => {
 
 tape('track', t => {
   const mock = createMock();
-  const PluginClass = Plugin({loadGA, mock, trackingId: 'test-id'});
-  const ga = PluginClass.of();
+  const ga = Plugin.provides({options: {loadGA, mock, trackingId: 'test-id'}});
   t.equal(typeof ga.track, 'function', 'exposes an track function');
   ga.track({
     eventCategory: 'test-name',

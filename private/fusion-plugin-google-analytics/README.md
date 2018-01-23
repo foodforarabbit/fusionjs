@@ -15,9 +15,13 @@ npm install @uber/fusion-plugin-google-analytics
 ## Usage
 ```js
 // main.js
-import GoogleAnalyticsPlugin from '@uber/fusion-plugin-google-analytics';
+import GoogleAnalyticsPlugin, {
+  GoogleAnalyticsConfigToken, 
+  GoogleAnalyticsToken
+} from '@uber/fusion-plugin-google-analytics';
 
-const GA = app.plugin(GoogleAnalyticsPlugin, {
+app.register(GoogleAnalyticsToken, GoogleAnalyticsPlugin);
+app.register(GoogleAnalyticsConfigToken, {
   trackingId: '' // required
   advertiserFeatures: false, // optional
   anonymizeIp: false, // optional
@@ -28,22 +32,27 @@ const GA = app.plugin(GoogleAnalyticsPlugin, {
 
 // use in the browser
 if (__BROWSER__) {
-  // see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
-  GA.of().identify('user-id');
+  app.middleware({ ga: GoogleAnalyticsToken }, ({ga}) => {
+    return (ctx, next) => {
+      // see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
+      ga.identify('user-id');
 
-  // see https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
-  GA.of().pageview({
-    title: document.title,  // optional
-    page: window.location.pathname,  // optional
-    location: window.location.href, // optional
-  });
+      // see https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
+      ga.pageview({
+        title: document.title,  // optional
+        page: window.location.pathname,  // optional
+        location: window.location.href, // optional
+      });
 
-  // see https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
-  GA.of().track({
-    eventCategory: '', // required
-    eventAction: '', // required
-    eventLabel: '', // optional
-    eventValue: 0 // optional
-  });
+      // see https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
+      ga.track({
+        eventCategory: '', // required
+        eventAction: '', // required
+        eventLabel: '', // optional
+        eventValue: 0 // optional
+      });
+      return next();
+    }
+  })
 }
 ```
