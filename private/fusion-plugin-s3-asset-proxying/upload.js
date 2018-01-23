@@ -8,12 +8,10 @@ const mimeDb = require('mime-db');
 const AWS = require('aws-sdk');
 const loadConfig = require('./s3-config');
 
-module.exports = async (
-  {
-    directory = path.join(process.cwd(), '.fusion/dist/production/client'),
-    s3Config,
-  } = {}
-) => {
+module.exports = async ({
+  directory = path.join(process.cwd(), '.fusion/dist/production/client'),
+  s3Config,
+} = {}) => {
   const files = await util.promisify(fs.readdir)(directory);
 
   const {

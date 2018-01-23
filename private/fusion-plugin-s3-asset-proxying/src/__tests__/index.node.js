@@ -6,9 +6,14 @@ import tmp from 'tmp';
 import path from 'path';
 import util from 'util';
 import zlib from 'zlib';
+import App from 'fusion-core';
+import {getSimulator} from 'fusion-test-utils';
+import AssetProxyingPlugin, {S3ConfigToken} from '../server.js';
+
 const AWS = require('aws-sdk');
-import AssetProxyingPlugin from '../../index.js';
+
 // weird path because things are built to 'dist-test'
+// eslint-disable-next-line import/no-unresolved
 const upload = require('../upload.js');
 
 test('Server Client', t => {
@@ -53,18 +58,17 @@ test('Server Client', t => {
     const s3 = new AWS.S3(s3Config);
     await util.promisify(s3.createBucket.bind(s3))({Bucket: s3Config.bucket});
 
-    const plugin = AssetProxyingPlugin({
-      config: s3Config,
-    });
+    const app = new App('el', el => el);
+    app.register(S3ConfigToken, s3Config);
+    app.register(AssetProxyingPlugin);
 
     await upload({
       directory: path.join(process.cwd(), 'src/__tests__/fixture-files'),
       s3Config,
     });
 
-    const ctx = {status: 404, path: 'test.txt', method: 'GET', set: () => {}};
-    const next = () => {};
-    await plugin.middleware(ctx, next);
+    const sim = getSimulator(app);
+    const ctx = await sim.request('test.txt');
 
     t.equal(ctx.status, 200, 'fetch test file 200');
     const respBody = await util.promisify(zlib.gunzip)(ctx.body);
