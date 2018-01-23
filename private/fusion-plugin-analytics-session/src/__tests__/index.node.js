@@ -1,7 +1,8 @@
 /* eslint-env node */
 import tape from 'tape-cup';
-import plugin from '../../server';
-import {UUID, TIME_STAMP} from '../../cookie-types/index';
+
+import plugin from '../server';
+import {UUID, TIME_STAMP} from '../cookie-types/index';
 
 const FixtureCookieType = {
   name: 'foo',
@@ -13,11 +14,6 @@ const FixtureCookieType = {
     time: TIME_STAMP,
   },
 };
-
-tape('AnalyticsSessions server plugin - deps check', t => {
-  t.throws(() => plugin({}), 'Should throw without cookieType');
-  t.end();
-});
 
 tape('AnalyticsSessions server plugin - middleware', t => {
   const ctx = {
@@ -47,22 +43,9 @@ tape('AnalyticsSessions server plugin - middleware', t => {
   };
   const next = () => t.pass('called next()');
 
-  const {middleware} = plugin({cookieType: FixtureCookieType});
+  const middleware = plugin.middleware({cookieType: FixtureCookieType});
   middleware(ctx, next);
 
-  t.end();
-});
-
-tape('AnalyticsSessions browser plugin - service - ctx required', t => {
-  const fixtureCookieType = {
-    name: 'foo',
-  };
-
-  const service = plugin({
-    cookieType: fixtureCookieType,
-  });
-
-  t.throws(() => service.of(), 'Server plugin requires ctx to instantiate');
   t.end();
 });
 
@@ -74,6 +57,7 @@ tape('AnalyticsSessions browser plugin - service - basics', t => {
   const cookieValue = {a: 1, b: {c: 2}};
 
   const ctx = {
+    memoized: new Map(),
     cookies: {
       get: name => {
         t.pass('gets cookie');
@@ -87,11 +71,11 @@ tape('AnalyticsSessions browser plugin - service - basics', t => {
     },
   };
 
-  const service = plugin({
+  const service = plugin.provides({
     cookieType: fixtureCookieType,
   });
 
-  t.deepEqual(service.of(ctx), cookieValue);
+  t.deepEqual(service.from(ctx), cookieValue);
   t.end();
 });
 
@@ -103,6 +87,7 @@ tape(
     };
 
     const ctx = {
+      memoized: new Map(),
       cookies: {
         get: name => {
           t.pass('gets cookie');
@@ -116,12 +101,12 @@ tape(
       },
     };
 
-    const service = plugin({
+    const service = plugin.provides({
       cookieType: fixtureCookieType,
     });
 
-    t.doesNotThrow(() => service.of(ctx), 'safely parses cookie values');
-    t.deepEqual(service.of(ctx), {}, 'returns an empty object');
+    t.doesNotThrow(() => service.from(ctx), 'safely parses cookie values');
+    t.deepEqual(service.from(ctx), {}, 'returns an empty object');
     t.end();
   }
 );

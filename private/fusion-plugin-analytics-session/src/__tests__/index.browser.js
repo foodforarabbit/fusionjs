@@ -1,11 +1,6 @@
 /* eslint-env browser */
 import tape from 'tape-cup';
-import plugin from '../../browser';
-
-tape('AnalyticsSessions browser plugin - deps check', t => {
-  t.throws(() => plugin({}), 'Should throw without cookieType');
-  t.end();
-});
+import plugin from '../browser';
 
 tape('AnalyticsSessions browser plugin - basics', t => {
   const fixtureCookieType = {
@@ -26,12 +21,12 @@ tape('AnalyticsSessions browser plugin - basics', t => {
     },
   };
 
-  const service = plugin({
+  const service = plugin.provides({
     cookieType: fixtureCookieType,
     Cookies: fixtureCookies,
   });
 
-  t.deepEqual(service.of(), cookieValue);
+  t.deepEqual(service, cookieValue);
   t.end();
 });
 
@@ -52,12 +47,11 @@ tape('AnalyticsSessions browser plugin - invalid JSON in cookies', t => {
     },
   };
 
-  const service = plugin({
+  const service = plugin.provides({
     cookieType: fixtureCookieType,
     Cookies: fixtureCookies,
   });
 
-  t.doesNotThrow(() => service.of(), 'safely parses cookie values');
-  t.deepEqual(service.of(), {}, 'returns an empty object');
+  t.deepEqual(service, {}, 'returns an empty object');
   t.end();
 });

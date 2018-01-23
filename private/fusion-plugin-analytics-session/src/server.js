@@ -1,7 +1,7 @@
 /* eslint-env node */
-import assert from 'assert';
-import {Plugin} from 'fusion-core';
+import {createPlugin, memoize} from 'fusion-core';
 import {generateCookieData} from './cookie-types/index';
+import {AnalyticsCookieTypeToken} from './tokens';
 
 function safeJSONParse(str) {
   try {
@@ -11,22 +11,19 @@ function safeJSONParse(str) {
   }
 }
 
-export default ({cookieType}) => {
-  assert(
-    cookieType,
-    `AnalyticsSessionPlugin requires a valid cookieType. E.g. \`import {UberWebEventCookie} from 'fusion-plugin-analytics-session/cookie-types';\``
-  );
-  return new Plugin({
-    Service: class AnalyticsSession {
-      constructor(ctx) {
-        assert(
-          ctx,
-          'AnalyticsSession service need to be instantiated with valid context. `AnalyticsSession.of(ctx)`'
-        );
+export default createPlugin({
+  deps: {
+    cookieType: AnalyticsCookieTypeToken,
+  },
+  provides: ({cookieType}) => {
+    return {
+      from: memoize(ctx => {
         return safeJSONParse(ctx.cookies.get(cookieType.name));
-      }
-    },
-    middleware(ctx, next) {
+      }),
+    };
+  },
+  middleware: ({cookieType}) => {
+    return (ctx, next) => {
       // TODO: only set cookie on certain requests
       if (!ctx.cookies.get(cookieType.name)) {
         ctx.cookies.set(
@@ -39,6 +36,6 @@ export default ({cookieType}) => {
         );
       }
       return next();
-    },
-  });
-};
+    };
+  },
+});

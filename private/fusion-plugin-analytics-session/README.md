@@ -24,30 +24,25 @@ yarn add @uber/fusion-plugin-analytics-session
 
 ```js
 // main.js
-import AnalyticsSessionPlugin, {UberWebEventCookie} from 'fusion-plugin-analytics-session';
+import AnalyticsSessionPlugin, {UberWebEventCookie, AnalyticsCookieTypeToken, AnalyticsSessionToken} from 'fusion-plugin-analytics-session';
 import App from 'fusion-react';
 import MyPlugin from './plugins/my-plugin';
 
 export default function start() {
   const app = new App(root);
+  app.register(AnalyticsSessionToken, AnalyticsSessionPlugin);
+  app.register(AnalyticsCookieTypeToken, UberWebEventCookie);
   const AnalyticsSession = app.plugin(AnalyticsSessionPlugin, {
     cookieType: UberWebEventsCookie
   });
   
   // consumption
-  app.plugin(MyPlugin, {AnalyticsSession});
-  
+  app.middleware({session: AnalyticsSessionToken}, ({session}) => {
+    return (ctx, next) => {
+      const {session_id, session_time_ms} = session.from(ctx);
+      return next();
+    }
+  });
   return app;
 }
-
-// plugins/my-plugin.js
-export default ({AnalyticsSession}) => (ctx, next) => {
-  const {session_id, session_time_ms} = AnalyticsSession.of(ctx);
-  logData({
-    // ...
-    sess_id: session_id,
-    sess_time: session_time_ms
-  });
-  return next();
-};
 ```
