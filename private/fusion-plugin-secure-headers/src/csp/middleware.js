@@ -1,12 +1,12 @@
 /* eslint-env node */
+import koaHelmet from 'koa-helmet';
+
 import {addDirectives} from './policies/policy-utils';
 import analyticsOverrides from './analytics-overrides';
-import koaHelmet from 'koa-helmet';
 import Strict from './policies/strict';
 import UberDefault from './policies/uber-default';
 
-export default function buildCSPMiddleware({ctx, config}) {
-  const {serviceName} = config;
+export default function buildCSPMiddleware({ctx, serviceName, cspConfig}) {
   const {
     overrides,
     reportUri,
@@ -16,7 +16,7 @@ export default function buildCSPMiddleware({ctx, config}) {
     allowMixedContent,
     analyticsServiceNames,
   } =
-    config.csp || {};
+    cspConfig || {};
 
   function shouldUseReportOnlyMode() {
     if (typeof intentionallyRemoveAllSecurity !== 'undefined') {
@@ -33,9 +33,7 @@ export default function buildCSPMiddleware({ctx, config}) {
       );
     }
     if (serviceName) {
-      return `https://csp.uber.com/csp?a=${
-        serviceName
-      }&ro=${shouldUseReportOnlyMode()}`;
+      return `https://csp.uber.com/csp?a=${serviceName}&ro=${shouldUseReportOnlyMode()}`;
     }
     return `https://csp.uber.com/csp?a=unknown&ro=${shouldUseReportOnlyMode()}`;
   }

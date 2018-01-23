@@ -1,35 +1,48 @@
 /* eslint-env node */
-import buildCSPMiddleware from './csp/middleware';
+import {createPlugin} from 'fusion-core';
 import compose from 'koa-compose';
 import koaHelmet from 'koa-helmet';
 
-export default ({config}) => async (ctx, next) => {
-  const secureHeaderMiddlewares = [];
-  secureHeaderMiddlewares.push(
-    buildCSPMiddleware({
-      ctx,
-      config,
-    })
-  );
-  if (config.useFrameguard !== false) {
-    secureHeaderMiddlewares.push(koaHelmet.frameguard({action: 'sameorigin'}));
-  }
-  secureHeaderMiddlewares.push(koaHelmet.xssFilter());
+import {
+  SecureHeadersServiceNameConfigToken,
+  SecureHeadersUseFrameguardConfigToken,
+  SecureHeadersCSPConfigToken,
+} from './tokens.js';
+import buildCSPMiddleware from './csp/middleware.js';
 
-  await compose(secureHeaderMiddlewares)(ctx, next);
+import {REQUIRED_CSP_CONTENT_TYPES, CSP_HEADERS} from './constants.js';
 
-  // TODO: move everything to post-render since it depends on content-type
-  // If the content type does not require CSP headers then remove them
-  const RequiredCSPContentTypes = ['text/html', 'image/svg'];
-  const CSPHeaders = [
-    'Content-Security-Policy',
-    'Content-Security-Policy-Report-Only',
-    'X-Content-Security-Policy',
-    'X-Content-Security-Policy-Report-Only',
-    'X-WebKit-CSP',
-    'X-WebKit-CSP-Report-Only',
-  ];
-  if (!RequiredCSPContentTypes.includes(ctx.type)) {
-    CSPHeaders.forEach(h => ctx.remove(h));
-  }
-};
+export default createPlugin({
+  deps: {
+    serviceName: SecureHeadersServiceNameConfigToken,
+    useFrameGuard: SecureHeadersUseFrameguardConfigToken,
+    cspConfig: SecureHeadersCSPConfigToken,
+  },
+  middleware: ({serviceName, useFrameguard, cspConfig}) => async (
+    ctx,
+    next
+  ) => {
+    const secureHeaderMiddlewares = [];
+    secureHeaderMiddlewares.push(
+      buildCSPMiddleware({
+        ctx,
+        serviceName,
+        cspConfig,
+      })
+    );
+    if (useFrameguard !== false) {
+      secureHeaderMiddlewares.push(
+        koaHelmet.frameguard({action: 'sameorigin'})
+      );
+    }
+    secureHeaderMiddlewares.push(koaHelmet.xssFilter());
+
+    await compose(secureHeaderMiddlewares)(ctx, next);
+
+    // TODO: move everything to post-render since it depends on content-type
+    // If the content type does not require CSP headers then remove them
+    if (!REQUIRED_CSP_CONTENT_TYPES.includes(ctx.type)) {
+      CSP_HEADERS.forEach(h => ctx.remove(h));
+    }
+  },
+});

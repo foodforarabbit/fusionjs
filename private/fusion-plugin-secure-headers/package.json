@@ -5,44 +5,48 @@
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
-  "main": "./dist/node.cjs.js",
-  "module": "./dist/node.es.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.es.js",
   "browser": {
-    "./dist/node.cjs.js": "./dist/browser.es5.cjs.js",
-    "./dist/node.es.js": "./dist/browser.es5.es.js"
+    "./dist/index.js": "./dist/browser.es5.js",
+    "./dist/index.es.js": "./dist/browser.es5.es.js"
   },
   "es2015": {
-    "./dist/browser.es5.cjs.js": "./dist/browser.es2015.cjs.js",
     "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
   },
   "es2017": {
-    "./dist/browser.es5.cjs.js": "./dist/browser.es2017.cjs.js",
     "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.cjs.js": "./dist/browser.es2017.cjs.js",
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.2",
-    "create-universal-package": "^2.1.1",
-    "eslint": "^4.11.0",
-    "eslint-config-fusion": "^0.1.2",
+    "@uber/eslint-config-graphene": "^0.2.1",
+    "babel-eslint": "^8.2.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "create-universal-package": "^3.2.5",
+    "eslint": "^4.15.0",
+    "eslint-config-fusion": "^0.2.1",
     "eslint-plugin-cup": "^1.0.0",
-    "eslint-plugin-flowtype": "^2.39.1",
-    "eslint-plugin-prettier": "^2.3.1",
-    "eslint-plugin-react": "^7.4.0",
-    "nyc": "^11.3.0",
-    "prettier": "1.8.2",
+    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.5.0",
+    "eslint-plugin-react": "^7.5.1",
+    "fusion-core": "^0.3.0-5",
+    "fusion-test-utils": "^0.4.0",
+    "fusion-tokens": "^0.0.4",
+    "nyc": "^11.4.1",
+    "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
-    "unitest": "^1.1.0"
+    "unitest": "^2.1.1"
   },
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "eslint src",
     "transpile": "npm run clean && cup build",
     "build-test": "rm -rf dist-tests && cup build-tests",
-    "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js && node dist-tests/node.js",
+    "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
     "test": "npm run build-test && npm run just-test",
     "cover": "npm run build-test && npm run just-cover",
     "just-cover": "nyc --reporter=cobertura npm run just-test",
@@ -53,8 +57,12 @@
     "koa-compose": "^4.0.0",
     "koa-helmet": "^3.3.0"
   },
+  "peerDependencies": {
+    "fusion-core": "^0.3.0-5",
+    "fusion-tokens": "^0.0.4"
+  },
   "engines": {
-    "node": ">=8.3.0",
+    "node": ">=8.9.0",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   }
