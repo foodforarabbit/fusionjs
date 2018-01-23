@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-tchannel",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "fusion plugin for tchannel",
   "files": [
     "dist",
