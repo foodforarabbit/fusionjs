@@ -1,45 +1,52 @@
 /* eslint-env node */
 import Galileo from '@uber/galileo';
 import {JaegerClient} from '@uber/jaeger-client-adapter';
-import {SingletonPlugin} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
+import {LoggerToken, createOptionalToken} from 'fusion-tokens';
+import {M3Token} from '@uber/fusion-plugin-m3';
+import {TracerToken} from '@uber/fusion-plugin-tracer';
+
+export const ConfigToken = createOptionalToken('GalileoConfig', {});
+export const ClientToken = createOptionalToken('GalileoClient', Galileo);
 
 // eslint-disable-next-line no-unused-vars
-export default function createGalileoPlugin({
-  M3,
-  Logger,
-  Tracer,
-  config = {},
-  GalileoClient = Galileo,
-}) {
-  const logger = Logger.of().createChild('galileo');
-  const tracer = Tracer.of().tracer;
-  const m3 = M3.of();
-  const galileoConfig = {
-    appName: config.appName,
-    galileo: config.galileo || {},
-  };
+export default createPlugin({
+  deps: {
+    logger: LoggerToken,
+    m3: M3Token,
+    Tracer: TracerToken,
+    config: ConfigToken,
+    Client: ClientToken,
+  },
+  provides: ({m3, logger, Tracer, config, Client}) => {
+    logger = logger.createChild('galileo');
+    const tracer = Tracer.tracer;
+    const galileoConfig = {
+      appName: process.env.SVC_ID || 'dev-service',
+      galileo: config,
+    };
 
-  const galileo = new GalileoClient(
-    galileoConfig,
-    tracer,
-    JaegerClient.opentracing.FORMAT_HTTP_HEADERS,
-    logger,
-    m3
-  );
+    const galileo = new Client(
+      galileoConfig,
+      tracer,
+      JaegerClient.opentracing.FORMAT_HTTP_HEADERS,
+      logger,
+      m3
+    );
 
-  class GalileoPlugin {
-    constructor() {
-      this.galileo = galileo;
-    }
-
-    destroy() {
-      const {wonkaClient} = galileo;
-      if (wonkaClient) {
-        wonkaClient.destroy();
+    class GalileoPlugin {
+      constructor() {
+        this.galileo = galileo;
       }
-      return true;
-    }
-  }
 
-  return new SingletonPlugin({Service: GalileoPlugin});
-}
+      destroy() {
+        const {wonkaClient} = galileo;
+        if (wonkaClient) {
+          wonkaClient.destroy();
+        }
+        return true;
+      }
+    }
+    return new GalileoPlugin();
+  },
+});

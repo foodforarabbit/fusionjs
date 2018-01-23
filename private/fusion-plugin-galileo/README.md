@@ -1,6 +1,6 @@
 # fusion-plugin-galileo
 
-galileo client plugin for granphene
+galileo client plugin for fusion 
 
 ## Installation
 
@@ -14,33 +14,20 @@ npm install @uber/fusion-plugin-galileo
 
 ```js
 // ...
-import GalileoPlugin from  '@uber/fusion-plugin-galileo';
-import galileoConfig from  'config/galileo';
-// ...
+import GalileoPlugin, {GalileoToken, GalileoConfigToken} from  '@uber/fusion-plugin-galileo';
 
-const Galileo = app.plugin(GalileoPlugin, {
-  M3, // M3ServerPlugin instance 
-  Logger, // UniversalLogger plugin instance
-  Tracer, // Jeager plugin instance
-  config: galileoConfig
+app.register(GalileoToken, GalileoPlugin);
+app.register(GalileoConfigToken, {
+  // optional galileo config
+  // see https://code.uberinternal.com/diffusion/ENGALWP/
 });
 
-// Access galileo client
-Galileo.of().galileo;
+app.middleware({Galileo: GalileoToken}, ({Galileo}) => {
+  // Access galileo client
+  Galileo.galileo;
+  // Cleanup Galileo
+  Galileo.destroy()
+  return (ctx, next) => next(); 
+});
 
-// Cleanup Galileo
-Galileo.destroy()
-```
-
-## Config
-
-Config should be added to app/src/config/galileo.js to the scaffolded application
-
-```
-export default {
-    appName: '<if you want to overwrite>',
-    galileo: {
-      /* custom config if any*/
-    }
-}
 ```
