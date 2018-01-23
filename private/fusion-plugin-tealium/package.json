@@ -1,37 +1,45 @@
 {
   "name": "@uber/fusion-plugin-tealium",
   "description": "Tealium plugin for Fusion",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
-  "main": "./dist/node.cjs.js",
-  "module": "./dist/node.es.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.es.js",
   "browser": {
-    "./dist/node.cjs.js": "./dist/browser.cjs.js",
-    "./dist/node.es.js": "./dist/browser.es.js"
+    "./dist/index.js": "./dist/browser.es5.js",
+    "./dist/index.es.js": "./dist/browser.es5.es.js"
   },
   "es2015": {
-    "./dist/node.cjs.js": "./dist/node.cjs.es2015.js",
-    "./dist/node.es.js": "./dist/node.es.es2015.js",
-    "./dist/browser.cjs.js": "./dist/browser.cjs.es2015.js",
-    "./dist/browser.es.js": "./dist/browser.es.es2015.js"
+    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
+  },
+  "es2017": {
+    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
+    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.0",
+    "babel-eslint": "^8.2.1",
     "babel-plugin-istanbul": "^4.1.5",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "create-universal-package": "^1.0.0-rc.14",
-    "eslint": "^4.2.0",
-    "eslint-config-fusion": "^0.1.0",
-    "eslint-plugin-cup": "^1.0.0-rc.4",
-    "eslint-plugin-flowtype": "^2.35.0",
-    "eslint-plugin-prettier": "^2.1.2",
-    "eslint-plugin-react": "^7.1.0",
-    "fusion-core": "^0.2.8",
-    "nyc": "^11.2.1",
-    "prettier": "1.4.2",
+    "create-universal-package": "^3.2.6",
+    "eslint": "^4.16.0",
+    "eslint-config-fusion": "^0.2.1",
+    "eslint-plugin-cup": "^1.0.0",
+    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-prettier": "^2.5.0",
+    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-import": "^2.8.0",
+    "fusion-core": "^0.3.0-5",
+    "fusion-tokens": "^0.0.5",
+    "fusion-test-utils": "^0.4.0",
+    "nyc": "^11.4.1",
+    "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
-    "unitest": "^1.1.0"
+    "unitest": "^2.1.1"
   },
   "scripts": {
     "lint": "eslint src/",
@@ -49,8 +57,8 @@
     "@uber/fusion-analyticsjs-utils": "0.0.1"
   },
   "peerDependencies": {
-    "fusion-core": "^0.2.8",
-    "fusion-plugin": "^0.1.1"
+    "fusion-core": "^0.3.0-5",
+    "fusion-tokens": "^0.0.5"
   },
   "engines": {
     "node": ">=8.6.0",

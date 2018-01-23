@@ -1,19 +1,24 @@
 /* eslint-env node */
 import test from 'tape-cup';
-import plugin from '../../server';
 import {consumeSanitizedHTML} from 'fusion-core';
 
-test('Tealium plugin - server init', t => {
-  const tealium = plugin({
-    config: {
-      account: 'foo',
-      profile: 'main',
-      env: 'prod',
-      geo: 'NL',
-    },
-  });
+import TealiumPlugin from '../server';
 
-  const ctx = {
+test('plugin - exported as expected', t => {
+  t.ok(TealiumPlugin, 'plugin defined as expected');
+  t.equal(typeof TealiumPlugin, 'object', 'plugin is an object');
+  t.end();
+});
+
+test('plugin - server init', t => {
+  const mockConfig = {
+    account: 'foo',
+    profile: 'main',
+    env: 'prod',
+    geo: 'NL',
+  };
+
+  const mockCtx = {
     element: {},
     nonce: 'abc123',
     body: {
@@ -29,9 +34,12 @@ test('Tealium plugin - server init', t => {
       },
     },
   };
+  const mockNext = () => t.pass('next() called');
 
-  const next = () => t.pass('next() called');
+  t.plan(3);
+  TealiumPlugin.middleware({
+    config: mockConfig,
+  })(mockCtx, mockNext);
 
-  tealium.middleware(ctx, next);
   t.end();
 });

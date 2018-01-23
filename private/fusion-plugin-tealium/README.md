@@ -2,15 +2,39 @@
 
 Tealium plugin for Fusion
 
-## Overview
+---
 
-## Installation
+### Installation
 
-```
+```sh
 npm install @uber/fusion-tealium
 ```
 
-## Usage
+---
+
+### Example
+
+```js
+// src/main.js
+import App from 'fusion-react';
+import TealiumPlugin, {
+    TealiumToken,
+    TealiumConfigToken
+} from '@uber/fusion-plugin-tealium';
+
+export default () => {
+  const app = new App();
+  // ...
+  app.register(TealiumToken, TealiumPlugin);
+  app.register(TealiumConfigToken, {/*some config*/});
+  // ...
+  return app;
+}
+```
+
+---
+
+### API
 
 ## Development
 If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com).
