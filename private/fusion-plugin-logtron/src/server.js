@@ -1,10 +1,14 @@
 /* eslint-env node */
-import assert from 'assert';
 import path from 'path';
 import Logtron from '@uber/logtron';
-import {SingletonPlugin} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
+import {createToken, createOptionalToken} from 'fusion-tokens';
+import {M3Token} from '@uber/fusion-plugin-m3';
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import createErrorTransform from './create-error-transform';
 
+export const BackendsToken = createOptionalToken('LogtronBackends', {});
+export const TeamToken = createToken('LogtronTeam');
 const supportedLevels = [
   'trace',
   'debug',
@@ -27,61 +31,59 @@ function validateItem(item) {
   return true;
 }
 
-export default ({UniversalEvents, M3, backends = {}, team, service}) => {
-  assert.ok(team, '{team} parameter is required');
-  assert.ok(service, '{service} parameter is required');
-  assert.ok(UniversalEvents, '{UniversalEvents} parameter is required');
-  assert.ok(M3, '{M3} parameter is required');
-  const env = __DEV__ ? 'dev' : process.env.NODE_ENV;
-  if (backends.console !== false) {
-    backends.console = true;
-  }
-  if (backends.sentry != null) {
-    if (__DEV__) {
-      delete backends.sentry;
+export default createPlugin({
+  deps: {
+    events: UniversalEventsToken,
+    m3: M3Token,
+    backends: BackendsToken,
+    team: TeamToken,
+  },
+  provides: ({events, m3, backends, team}) => {
+    const env = __DEV__ ? 'dev' : process.env.NODE_ENV;
+    const service = process.env.SVC_ID || 'dev-service';
+    if (backends.console !== false) {
+      backends.console = true;
     }
-  }
-  const statsd = M3.of();
-  if (env === 'production') {
-    backends.kafka = {
-      proxyHost: 'localhost',
-      proxyPort: 18084,
-    };
-  }
-  const logger = Logtron({
-    meta: {team, project: service},
-    statsd,
-    backends: Logtron.defaultBackends(backends),
-  });
-
-  // in dev we don't send client errors to the server
-  if (env === 'production') {
-    const events = UniversalEvents.of();
-    const transformError = createErrorTransform({
-      path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
-      ext: '.map',
-    });
-    events.on('logtron:log', payload => {
-      if (validateItem(payload)) {
-        const {level, message} = payload;
-        let {meta} = payload;
-        if (isErrorMeta(meta)) {
-          meta = transformError(meta);
-        }
-        logger[level](message, meta);
-      } else {
-        const error = new Error('Invalid data in log event');
-        logger.error(error.message, error);
+    if (backends.sentry != null) {
+      if (__DEV__) {
+        delete backends.sentry;
       }
+    }
+    if (env === 'production') {
+      backends.kafka = {
+        proxyHost: 'localhost',
+        proxyPort: 18084,
+      };
+    }
+    const logger = Logtron({
+      meta: {team, project: service},
+      statsd: m3,
+      backends: Logtron.defaultBackends(backends),
     });
-  }
 
-  return new SingletonPlugin({
-    Service: function() {
-      return logger;
-    },
-  });
-};
+    // in dev we don't send client errors to the server
+    if (env === 'production') {
+      const transformError = createErrorTransform({
+        path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
+        ext: '.map',
+      });
+      events.on('logtron:log', payload => {
+        if (validateItem(payload)) {
+          const {level, message} = payload;
+          let {meta} = payload;
+          if (isErrorMeta(meta)) {
+            meta = transformError(meta);
+          }
+          logger[level](message, meta);
+        } else {
+          const error = new Error('Invalid data in log event');
+          logger.error(error.message, error);
+        }
+      });
+    }
+    return logger;
+  },
+});
 
 function isErrorMeta(meta) {
   if (!meta) {
