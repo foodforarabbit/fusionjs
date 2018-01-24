@@ -1,14 +1,10 @@
 import {AtreyuMocker} from '@uber/atreyu-test';
-import {SingletonPlugin} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
+import {AtreyuToken} from './server';
 
-export default (args = {}) => {
-  const {Atreyu} = args;
-  const atreyu = Atreyu.of();
-  const atreyuMocker = new AtreyuMocker(atreyu);
-
-  return new SingletonPlugin({
-    Service: function AtreyuPlugin() {
-      return atreyuMocker;
-    },
-  });
-};
+export default createPlugin({
+  deps: {atreyu: AtreyuToken},
+  provides({atreyu}) {
+    return new AtreyuMocker(atreyu);
+  },
+});

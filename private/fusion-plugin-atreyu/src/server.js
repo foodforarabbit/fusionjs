@@ -1,34 +1,45 @@
 import Atreyu from '@uber/atreyu';
-import {SingletonPlugin} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
+import {createToken, createOptionalToken} from 'fusion-tokens';
+import {M3Token} from '@uber/fusion-plugin-m3';
+import {LoggerToken} from 'fusion-tokens';
+import {TracerToken} from '@uber/fusion-plugin-tracer';
+import {GalileoToken} from '@uber/fusion-plugin-galileo';
+import {TChannelToken} from '@uber/fusion-plugin-tchannel';
 
-export default (args = {}) => {
-  const {
-    config,
-    options,
-    M3,
-    TChannel,
-    Tracer,
-    Galileo,
-    Logger,
-    Client = Atreyu,
-  } = args;
-  const atreyu = new Client(
-    config,
-    Object.assign(
-      {
-        m3: M3.of(),
-        logger: Logger ? Logger.of() : null,
-        tracer: Tracer ? Tracer.of().tracer : null,
-        galileo: Galileo ? Galileo.of().galileo : null,
-        channelsOnInit: true,
-        hyperbahnClient: TChannel ? TChannel.of().hyperbahn : null,
-      },
-      options
-    )
-  );
-  return new SingletonPlugin({
-    Service: function AtreyuPlugin() {
-      return atreyu;
-    },
-  });
-};
+export const AtreyuToken = createToken('AtreyuToken');
+export const AtreyuConfigToken = createOptionalToken('AtreyuConfigToken', {});
+export const AtreyuOptionsToken = createOptionalToken('AtreyuOptionsToken', {});
+export const AtreyuClientToken = createOptionalToken(
+  'AtreyuClientToken',
+  Atreyu
+);
+
+export default createPlugin({
+  deps: {
+    config: AtreyuConfigToken,
+    m3: M3Token,
+    logger: LoggerToken,
+    tracer: TracerToken,
+    galileo: GalileoToken,
+    tchannel: TChannelToken,
+    options: AtreyuOptionsToken,
+    Client: AtreyuClientToken,
+  },
+  provides({config, m3, logger, tracer, galileo, tchannel, options, Client}) {
+    return new Client(
+      config,
+      Object.assign(
+        {
+          m3,
+          logger,
+          tracer,
+          galileo,
+          channelsOnInit: true,
+          hyperbahnClient: tchannel ? tchannel.hyperbahn : null,
+        },
+        options
+      )
+    );
+  },
+});

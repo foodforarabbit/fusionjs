@@ -23,65 +23,39 @@ function createAtreyuPlugin(t) {
       );
     }
   }
-  const M3 = {
-    of() {
-      return 'm3';
-    },
-  };
-  const Tracer = {
-    of() {
-      return {tracer: 'tracer'};
-    },
-  };
-  const Galileo = {
-    of() {
-      return {
-        galileo: 'galileo',
-      };
-    },
-  };
-  const Logger = {
-    of() {
-      return 'logger';
-    },
-  };
-  const TChannel = {
-    of() {
-      return {
-        hyperbahn: 'hyperbahn',
-      };
-    },
-  };
+  const m3 = 'm3';
+  const logger = 'logger';
+  const tracer = 'tracer';
+  const galileo = 'galileo';
+  const tchannel = {hyperbahn: 'hyperbahn'};
 
-  const Atreyu = plugin({
+  const atreyu = plugin.provides({
     config: 'abc',
+    m3,
+    logger,
+    tracer,
+    galileo,
+    tchannel,
     options: {a: 'b'},
     Client,
-    Logger,
-    M3,
-    Tracer,
-    Galileo,
-    TChannel,
   });
 
-  const instance = Atreyu.of();
-  t.ok(instance instanceof Client, 'passes through context');
+  t.ok(atreyu instanceof Client, 'passes through context');
 
-  return Atreyu;
+  return atreyu;
 }
 
-test('Atreyu Plugin Interface', async t => {
-  t.equals(typeof plugin, 'function');
-  createAtreyuPlugin(t, true);
+test('Atreyu Plugin Interface', t => {
+  t.equals(typeof plugin, 'object');
+  createAtreyuPlugin(t);
   t.end();
 });
 
-test('Atreyu Plugin Mock Interface', async t => {
-  t.equals(typeof AtreyuMockPlugin, 'function');
+test('Atreyu Plugin Mock Interface', t => {
+  t.equals(typeof AtreyuMockPlugin.provides, 'function');
 
-  const Atreyu = createAtreyuPlugin(t);
-  const AtreyuMocker = AtreyuMockPlugin({Atreyu});
-  const atreyuMocker = AtreyuMocker.of();
+  const atreyu = createAtreyuPlugin(t);
+  const atreyuMocker = AtreyuMockPlugin.provides({atreyu});
 
   t.ok(atreyuMocker, 'should return atreyu mock interface');
   t.ok(atreyuMocker.mockHttp, 'should expose interface to mock http');

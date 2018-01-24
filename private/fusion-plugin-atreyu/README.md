@@ -7,14 +7,16 @@ Atreyu is data querying/aggregation library similar to GraphQL, but designed to 
 ```js
 // src/main.js
 import App from '@fusion/react';
-import Atreyu from '@uber/fusion-plugin-atreyu';
+import Atreyu, {AtreyuToken, AtreyuConfigToken} from '@uber/fusion-plugin-atreyu';
 import {config} from './atreyu/config';
 
 export default () => {
   const app = new App();
-  const Atreyu = app.plugin(AtreyuPlugin, {config, M3, Logger, Tracer, Galileo})
-  // atreyu client
-  const atreyu = Atreyu.of();
+
+  app.register(AtreyuToken, AtreyuPlugin);
+  app.register(AtreyuConfigToken, config);
+
+  return app;
 }
 
 // src/atreyu/config.js
@@ -25,18 +27,35 @@ export default {
 }
 ```
 
-#### Plugin registration
+### API
 
-```
-const Services = app.plugin(Atreyu, {config, M3, Logger, Tracer, Galileo, TChannel})
+#### Dependency resolution
+
+```js
+import {M3Token} from '@uber/fusion-plugin-m3';
+import {LoggerToken} from 'fusion-tokens';
+import {TracerToken} from '@uber/fusion-plugin-tracer';
+import {GalileoToken} from '@uber/fusion-plugin-galileo';
+import {TChannelToken} from '@uber/fusion-plugin-tchannel';
+import Atreyu, {AtreyuToken, AtreyuConfigToken, AtreyuOptionsToken} from 'fusion-plugin-atreyu';
+
+app.register(AtreyuToken, Atreyu);
+app.register(AtreyuConfigToken, config);
+app.register(M3Token, M3);
+app.register(LoggerToken, Logger);
+app.register(TracerToken, Tracer);
+app.register(GalileoToken, Galileo);
+app.register(TChannelToken, TChannel);
+app.register(AtreyuOptionsToken, options);
 ```
 
 - `config: {serviceNames, services}` - an Atreyu config (see https://code.uberinternal.com/diffusion/WEATREY/)
 - `M3` - m3 plugin
-- `Logger` - logger plugin (optional)
-- `Tracer` - tracer plugin (optional)
-- `Galileo` - galileo plugin (optional)
-- `TChannel` - tchannel plugin (optional)
+- `Logger` - logger plugin
+- `Tracer` - tracer plugin
+- `Galileo` - galileo plugin
+- `TChannel` - tchannel plugin
+- `options: object` - Atreyu options (optional)
 
 
 #### Atreyu Testing
