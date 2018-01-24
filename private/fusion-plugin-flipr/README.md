@@ -1,6 +1,7 @@
 # @uber/fusion-plugin-flipr
 
 ## Overview
+
 Flipr client for fusion
 
 ## Installation
@@ -13,30 +14,46 @@ npm install @uber/fusion-plugin-flipr
 
 ```js
 // src/main.js
-
 import React from 'react';
-import FliprPlugin from '@uber/fusion-plugin-flipr';
+export FliprPlugin, {
+  FliprToken,
+  FliprClientToken,
+  FliprConfigToken
+} from '@uber/fusion-plugin-flipr';
+import {LoggerToken} from 'fusion-tokens';
+
 import MyPlugin from './myplugin';
 
 export default () => {
   const app = new App(<Home />);
-  const Flipr = app.plugin(FliprPlugin, {
-    config: {
-      defaultNamespace: 'awesome-frontend'
-    }
+  // ...
+  app.register(FliprToken, FliprPlugin);
+  app.register(FliprClientToken, /*some flipr client*/);
+  app.register(FliprConfigToken, {
+    defaultNamespace: 'awesome-frontend'
   });
-  app.plugin(MyPlugin, {Flipr});
-  
+  app.register(LoggerToken, /*some logger*/);
+
+  app.plugin(MyPlugin);
+  // ...
   return app;
 }
 
 // myPlugin.js
-export default ({Flipr}) => (ctx, next) => {
-  if (Flipr.of().get('be.awesome')) {
-    // make awesome
+import {createPlugin} from 'fusion-core';
+import {FliprToken} from '@uber/fusion-plugin-flipr';
+
+export default createPlugin({
+  deps: {
+    flipr: FliprToken
+  },
+  middleware: ({flipr}) => (ctx, next) => {
+    if (flipr.from().get('be.awesome')) {
+      // make awesome
+    }
+    return next();
   }
-  return next();
-}
+});
 ```
 
 ## Config
@@ -44,7 +61,7 @@ export default ({Flipr}) => (ctx, next) => {
 ### Config properties from @uber/fusion-plugin-flipr
 + `defaultNamespace`: string
 
-Equivalent to 
+Equivalent to
 
 ```js
 propertiesNamespaces: [
@@ -56,7 +73,7 @@ propertiesNamespaces: [
 + `dataCenter`: string
 + `overrides`: object
 
-Properties from this object will finally override the config initializing `@uber/flipr-client` 
+Properties from this object will finally override the config initializing `@uber/flipr-client`
 
 ### Config properties referenced from @uber/flipr-client
 See [@uber/flipr-client](https://code.uberinternal.com/diffusion/RTFLIP/repository/master/) for more information on the following config properties

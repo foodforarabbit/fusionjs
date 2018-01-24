@@ -1,5 +1,6 @@
-/* eslint-env browser */
 import server from './server';
-import client from './client';
+import browser from './browser';
 
-export default (__NODE__ ? server : client);
+export {FliprToken, FliprClientToken, FliprConfigToken} from './tokens';
+
+export default (__NODE__ ? server : browser);

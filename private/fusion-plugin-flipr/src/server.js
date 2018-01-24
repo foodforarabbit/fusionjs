@@ -1,9 +1,13 @@
 /* eslint-env node */
-import assert from 'assert';
-import Flipr from '@uber/flipr-client';
 import os from 'os';
 import path from 'path';
-import {SingletonPlugin} from 'fusion-core';
+import assert from 'assert';
+
+import Flipr from '@uber/flipr-client';
+import {createPlugin} from 'fusion-core';
+import {LoggerToken} from 'fusion-tokens';
+
+import {FliprClientToken, FliprConfigToken} from './tokens';
 
 function getFliprPropertiesNamespaces({rootNamespace, dataCenter}) {
   return [
@@ -22,63 +26,73 @@ function getFliprDiskCachePath() {
 }
 
 export const DEFAULT_UPDATE_INTERVAL = 5000;
-export default ({config, Logger, Client = Flipr}) => {
-  const {
-    // Plugin config properties
-    defaultNamespace,
-    dataCenter,
-    overrides,
-    // @uber/flipr-client config properties
-    propertiesNamespaces,
-    updateInterval,
-    defaultProperties,
-    diskCachePath,
-  } = config;
 
-  assert(
-    defaultNamespace || propertiesNamespaces,
-    'Specify your namespaces with either `defaultNamespace` or `propertiesNamespaces`'
-  );
+class FliprService {
+  constructor(config, logger, Client) {
+    const {
+      // Plugin config properties
+      defaultNamespace,
+      dataCenter,
+      overrides,
+      // @uber/flipr-client config properties
+      propertiesNamespaces,
+      updateInterval,
+      defaultProperties,
+      diskCachePath,
+    } = config;
 
-  assert(
-    !Logger || (Logger && Logger.of),
-    'Provided Logger plugin interface unknown'
-  );
-  const logger = (Logger && Logger.of()) || null;
+    const flipr = new Client({
+      propertiesNamespaces:
+        (defaultNamespace &&
+          getFliprPropertiesNamespaces({
+            rootNamespace: defaultNamespace,
+            dataCenter,
+          })) ||
+        propertiesNamespaces,
+      logger,
+      dcPath: getFliprDatacenterPath(),
+      updateInterval: updateInterval || DEFAULT_UPDATE_INTERVAL,
+      defaultProperties,
+      diskCachePath: diskCachePath || getFliprDiskCachePath(),
+      ...overrides,
+    });
 
-  return new SingletonPlugin({
-    Service: class FliprService {
-      constructor() {
-        const flipr = new Client({
-          propertiesNamespaces:
-            (defaultNamespace &&
-              getFliprPropertiesNamespaces({
-                rootNamespace: defaultNamespace,
-                dataCenter,
-              })) ||
-            propertiesNamespaces,
-          logger,
-          dcPath: getFliprDatacenterPath(),
-          updateInterval: updateInterval || DEFAULT_UPDATE_INTERVAL,
-          defaultProperties,
-          diskCachePath: diskCachePath || getFliprDiskCachePath(),
-          ...overrides,
-        });
-
-        for (const key in flipr) {
-          if (typeof flipr[key] === 'function') {
-            Object.defineProperty(this, key, {
-              value: (...args) => flipr[key](...args),
-            });
-          }
-        }
-
-        flipr.startUpdating(function onUpdating(err) {
-          if (err) {
-            throw err;
-          }
+    for (const key in flipr) {
+      if (typeof flipr[key] === 'function') {
+        Object.defineProperty(this, key, {
+          value: (...args) => flipr[key](...args),
         });
       }
-    },
-  });
-};
+    }
+
+    flipr.startUpdating(function onUpdating(err) {
+      if (err) {
+        throw err;
+      }
+    });
+  }
+}
+
+const plugin = createPlugin({
+  deps: {
+    config: FliprConfigToken,
+    Logger: LoggerToken,
+    Client: FliprClientToken,
+  },
+  provides: ({config, Logger, Client = Flipr}) => {
+    assert(
+      config.defaultNamespace || config.propertiesNamespaces,
+      'Specify your namespaces with either `defaultNamespace` or `propertiesNamespaces`'
+    );
+
+    assert(
+      !Logger || (Logger && Logger.from),
+      'Provided Logger plugin interface unknown'
+    );
+    const logger = (Logger && Logger.from()) || null;
+
+    return new FliprService(config, logger, Client);
+  },
+});
+
+export default plugin;
