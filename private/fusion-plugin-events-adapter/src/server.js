@@ -1,6 +1,15 @@
 // @flow
 /* eslint-env node */
+import type {FusionPlugin} from 'fusion-core';
+
 import assert from 'assert';
+
+import {createPlugin} from 'fusion-core';
+// $FlowFixMe
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
+// $FlowFixMe
+import {I18nLoaderToken} from 'fusion-plugin-i18n';
 
 import M3 from './emitters/m3';
 import Logger from './emitters/logger';
@@ -13,54 +22,60 @@ import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
 
+import {EventsAdapterServiceNameToken} from './tokens';
+
 type EventsAdapterDeps = {
   UniversalEvents: UniversalEvents,
   AnalyticsSession: AnalyticsSessionPlugin,
-  Geolocation: GeolocationPlugin,
   I18n: I18nPlugin,
-  config: {
-    service: string,
-  },
+  serviceName: string,
 };
-export default function EventsAdapterFactory({
-  UniversalEvents,
-  AnalyticsSession,
-  Geolocation,
-  I18n,
-  config: {service},
-}: EventsAdapterDeps) {
-  assert.ok(UniversalEvents, '{UniversalEvents} dependency is required');
-  const events = UniversalEvents.of();
-  assert.ok(
-    events,
-    '{UniversalEvents.of()} must return an instance of UniversalEvents'
-  );
 
-  const m3 = M3(events);
-  const log = Logger(events);
-  const heatpipe = Heatpipe({
-    events,
-    AnalyticsSession,
-    Geolocation,
-    I18n,
-    service,
-  });
+const plugin: FusionPlugin<EventsAdapterDeps, *> = createPlugin({
+  deps: {
+    UniversalEvents: UniversalEventsToken,
+    AnalyticsSession: AnalyticsSessionToken,
+    I18n: I18nLoaderToken,
+    serviceName: EventsAdapterServiceNameToken,
+  },
+  provides: ({UniversalEvents, AnalyticsSession, I18n, serviceName}) => {
+    const events = UniversalEvents.from();
+    assert.ok(
+      events,
+      '{UniversalEvents.from()} must return an instance of UniversalEvents'
+    );
 
-  nodePerformance(events, m3);
-  rpc(events, m3, log);
-  browserPerformance({events, m3, heatpipe});
-  pageViewBrowser({events, heatpipe});
-  reduxAction(events, heatpipe, m3);
-  routeTiming({events, m3});
+    const m3 = M3(events);
+    const log = Logger(events);
+    const heatpipe = Heatpipe({
+      events,
+      AnalyticsSession,
+      I18n,
+      serviceName,
+    });
 
-  function logTiming(m3, key, tags) {
-    return value => {
-      m3.timing({key, value, tags});
+    nodePerformance(events, m3);
+    rpc(events, m3, log);
+    browserPerformance({events, m3, heatpipe});
+    pageViewBrowser({events, heatpipe});
+    reduxAction(events, heatpipe, m3);
+    routeTiming({events, m3});
+
+    return {
+      logTiming(m3, key, tags) {
+        return value => {
+          m3.timing({key, value, tags});
+        };
+      },
     };
-  }
+  },
+  middleware: ({UniversalEvents}: EventsAdapterDeps, service) => async (
+    ctx: Object,
+    next: () => Promise<void>
+  ) => {
+    const {logTiming} = service;
 
-  return async function middleware(ctx: Object, next: () => Promise<void>) {
-    const reqEvents = UniversalEvents.of(ctx);
+    const reqEvents = UniversalEvents.from(ctx);
     const reqM3 = M3(reqEvents);
     return next().then(() => {
       const tags = ctx.status < 300 ? {route: ctx.path} : {};
@@ -72,5 +87,7 @@ export default function EventsAdapterFactory({
         ctx.timing.end.then(logTiming(reqM3, 'request', tags));
       }
     });
-  };
-}
+  },
+});
+
+export default plugin;

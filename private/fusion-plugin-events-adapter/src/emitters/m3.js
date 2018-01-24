@@ -11,7 +11,7 @@ type IncrementArgs = {|
 type M3Function = (payload: ValueArgs) => void;
 type IncrementFunction = (payload: IncrementArgs) => void;
 
-export type M3 = {|
+export type M3Emitter = {|
   counter: M3Function,
   increment: IncrementFunction,
   decrement: IncrementFunction,
@@ -19,7 +19,7 @@ export type M3 = {|
   gauge: M3Function,
 |};
 
-export default function(events: EventEmitter): M3 {
+export default function(events: EventEmitter): M3Emitter {
   return {
     counter(payload) {
       events.emit('m3:counter', payload);

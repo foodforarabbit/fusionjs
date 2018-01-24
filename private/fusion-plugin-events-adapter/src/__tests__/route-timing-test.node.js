@@ -1,8 +1,8 @@
 // @flow
-import tape from 'tape-cup';
-import routeTiming from '../../handlers/route-timing';
-import M3 from '../../emitters/m3';
 import EventEmitter from 'events';
+import tape from 'tape-cup';
+import routeTiming from '../handlers/route-timing';
+import M3 from '../emitters/m3';
 
 tape('route timing - pageview:server', t => {
   const events = new EventEmitter();

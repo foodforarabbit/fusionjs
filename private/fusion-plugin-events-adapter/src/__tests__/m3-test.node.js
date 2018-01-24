@@ -1,7 +1,7 @@
 // @flow
-import tape from 'tape-cup';
-import M3 from '../../emitters/m3';
 import EventEmitter from 'events';
+import tape from 'tape-cup';
+import M3 from '../emitters/m3';
 
 tape('m3 emitter interface', t => {
   t.equal(typeof M3, 'function', 'exports a function');

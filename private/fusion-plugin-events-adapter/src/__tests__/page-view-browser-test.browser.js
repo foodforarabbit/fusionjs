@@ -2,7 +2,7 @@
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 
-import pageViewBrowser from '../../handlers/page-view-browser';
+import pageViewBrowser from '../handlers/page-view-browser';
 
 tape('[Browser] page-view-browser handler', t => {
   const events = new EventEmitter();

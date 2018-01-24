@@ -1,13 +1,14 @@
 // @flow
-import tape from 'tape-cup';
-import Heatpipe, {webTopicInfo} from '../../emitters/heatpipe';
 import EventEmitter from 'events';
+import tape from 'tape-cup';
+import Heatpipe, {webTopicInfo} from '../emitters/heatpipe';
 
 tape('heatpipe emitter interface', t => {
   t.equal(typeof Heatpipe, 'function', 'exports a function');
   class Events extends EventEmitter {
     emit() {}
   }
+  // $FlowFixMe
   const hp = Heatpipe({events: new Events(), service: 'test'});
   t.equal(typeof hp.publish, 'function', 'exposes an publish function');
   t.equal(
@@ -35,12 +36,12 @@ tape('heatpipe emitter publish', t => {
       t.end();
     }
   }
-  const hp = Heatpipe({events: new Events(), service: 'test'});
+  const hp = Heatpipe({events: new Events(), serviceName: 'test'});
   hp.publish(fixturePayload);
 });
 
 const webEventsFixture = {
-  service: 'awesome-frontend',
+  serviceName: 'awesome-frontend',
   eventMessage: {
     type: 'stat',
     name: 'need_for_speed',
@@ -86,11 +87,11 @@ const webEventsFixture = {
       session_id: '05fec7ce-21c5-4d6f-9a60-e0346e9d68ab',
       session_time_ms: 1509116637127,
     },
-    of: () => webEventsFixture.AnalyticsSession._ua,
+    from: () => webEventsFixture.AnalyticsSession._ua,
   },
   I18n: {
     _localeString: 'zh-TW',
-    of: () => ({
+    from: () => ({
       locale: {
         toString: () => webEventsFixture.I18n._localeString,
       },
@@ -101,7 +102,7 @@ const webEventsFixture = {
       latitude: 23.6978,
       longitude: 120.9605,
     },
-    of: () => ({
+    from: () => ({
       lookup: () => webEventsFixture.Geolocation._geoObject,
     }),
   },
@@ -120,7 +121,7 @@ const webEventsFixture = {
       user_agent: webEventsFixture.ctx.useragent.ua,
       locale: webEventsFixture.I18n._localeString,
     },
-    app_name: webEventsFixture.service,
+    app_name: webEventsFixture.serviceName,
     user_id: webEventsFixture.ctx.headers['x-auth-params-user-uuid'],
     session_id: webEventsFixture.AnalyticsSession._ua.session_id,
     session_time_ms: webEventsFixture.AnalyticsSession._ua.session_time_ms,
@@ -158,7 +159,7 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
     AnalyticsSession: webEventsFixture.AnalyticsSession,
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
-    service: webEventsFixture.service,
+    serviceName: webEventsFixture.serviceName,
   });
   hp.publishWebEvents({
     message: webEventsFixture.eventMessage,
@@ -183,6 +184,7 @@ tape('heatpipe emitter publishWebEvents missing dependencies', t => {
       t.end();
     }
   }
+  // $FlowFixMe
   const hp = Heatpipe({events: new Events(), service: 'test'});
   hp.publishWebEvents({
     message: webEventsFixture.eventMessage,

@@ -9,7 +9,7 @@ type HeatpipeArgs = {
   AnalyticsSession?: AnalyticsSessionPlugin,
   Geolocation?: GeolocationPlugin,
   I18n?: I18nPlugin,
-  service: string,
+  serviceName: string,
 };
 
 type WebEventsMeta = {
@@ -41,7 +41,7 @@ export default function({
   AnalyticsSession,
   Geolocation,
   I18n,
-  service,
+  serviceName,
 }: HeatpipeArgs) {
   const Heatpipe: HeatpipeClient = {
     publish: (payload: {topicInfo: Object, message: Object}) => {
@@ -90,15 +90,15 @@ export default function({
         }) ||
         {};
       const {session_id = 'unknown', session_time_ms = 0} =
-        (AnalyticsSession && AnalyticsSession.of(ctx)) || {};
-      const geolocation = (Geolocation && Geolocation.of(ctx).lookup()) || {};
+        (AnalyticsSession && AnalyticsSession.from(ctx)) || {};
+      const geolocation = (Geolocation && Geolocation.from(ctx).lookup()) || {};
 
       return {
         browser: {
           ...uaInfo,
-          locale: (I18n && I18n.of(ctx).locale.toString()) || '',
+          locale: (I18n && I18n.from(ctx).locale.toString()) || '',
         },
-        app_name: service,
+        app_name: serviceName,
         user_id: ctx.headers['x-auth-params-user-uuid'] || 'unknown',
         session_id,
         session_time_ms,

@@ -1,9 +1,9 @@
 // @flow
-import tape from 'tape-cup';
-import rpc from '../../handlers/rpc';
-import M3 from '../../emitters/m3';
-import Logger from '../../emitters/logger';
 import EventEmitter from 'events';
+import tape from 'tape-cup';
+import rpc from '../handlers/rpc';
+import M3 from '../emitters/m3';
+import Logger from '../emitters/logger';
 
 tape('rpc error handlers', t => {
   const events = new EventEmitter();

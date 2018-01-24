@@ -2,10 +2,10 @@
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 
-import Heatpipe, {webTopicInfo} from '../../emitters/heatpipe';
-import M3 from '../../emitters/m3';
+import Heatpipe, {webTopicInfo} from '../emitters/heatpipe';
+import M3 from '../emitters/m3';
 
-import browserPerformance from '../../handlers/browser-performance';
+import browserPerformance from '../handlers/browser-performance';
 
 const browserPerformanceEventFixture = {
   calculatedStats: {
@@ -73,6 +73,7 @@ tape('browser-performance handler', t => {
 
   const events = new EventEmitter();
   const m3 = M3(events);
+  // $FlowFixMe
   const heatpipe = Heatpipe({events, service: 'test'});
 
   browserPerformance({events, m3, heatpipe});

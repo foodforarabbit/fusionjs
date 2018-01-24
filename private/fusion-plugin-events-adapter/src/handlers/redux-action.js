@@ -1,11 +1,11 @@
 // @flow
 import type {HeatpipeClient} from '../emitters/heatpipe';
-import type {M3} from '../emitters/m3';
+import type {M3Emitter} from '../emitters/m3';
 
 export default function reduxAction(
   events: EventEmitter,
   heatpipe: HeatpipeClient,
-  m3: M3
+  m3: M3Emitter
 ) {
   events.on('redux-action-emitter:action', (payload, ctx) => {
     const {type, webEventsMeta} = payload;

@@ -5,7 +5,7 @@ declare class EventEmitter {
 }
 
 export type UniversalEvents = {
-  of: (ctx?: Object) => EventEmitter,
+  from: (ctx?: Object) => EventEmitter,
 };
 
 export type SessionData = {
@@ -14,7 +14,7 @@ export type SessionData = {
 };
 
 export type AnalyticsSessionPlugin = {
-  of: (ctx: Object) => ?SessionData,
+  from: (ctx: Object) => ?SessionData,
 };
 
 export type GeolocationData = {
@@ -23,7 +23,7 @@ export type GeolocationData = {
 };
 
 export type GeolocationPlugin = {
-  of: (
+  from: (
     ctx: Object
   ) => {
     lookup: () => GeolocationData,
@@ -31,7 +31,7 @@ export type GeolocationPlugin = {
 };
 
 export type I18nPlugin = {
-  of: (
+  from: (
     ctx: Object
   ) => {
     locale: {

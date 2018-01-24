@@ -16,82 +16,101 @@ yarn-add @uber/fusion-plugin-events-adapter
 ```
 
 ## Dependencies
-[Universal Events](https://github.com/fusionjs/fusion-plugin-universal-events) for listening to universal events
-[Analytics Session Plugin](https://code.uberinternal.com/diffusion/WEFUSYW/) for generating and accessing visitor browser session cookie
-[I18n Plugin](https://github.com/fusionjs/fusion-plugin-i18n) for knowing the user locale
++ [Universal Events](https://github.com/fusionjs/fusion-plugin-universal-events) for listening to universal events
++ [Analytics Session Plugin](https://code.uberinternal.com/diffusion/WEFUSYW/) for generating and accessing visitor browser session cookie
++ [I18n Plugin](https://github.com/fusionjs/fusion-plugin-i18n) to determine the resolved user locale
 
 `// TODO: Geolocation`
 
 ## Usage
+`// TODO: verify README usage`
+
 ```js// main.js
 import App from 'fusion-react';
-import root from './components/root';
+import {
+  FetchToken,
+  LoggerToken,
+  SessionToken,
+  createToken
+} from 'fusion-tokens';
 
-import SecretsPlugin from '@uber/fusion-plugin-secrets';
-import JWTSessionPlugin from 'fusion-plugin-jwt';
+import SecretsPlugin, {
+  DevSecretsToken,
+  SecretsToken,
+} from '@uber/fusion-plugin-secrets';
+
+import JWTSessionfrom, {
+  SessionSecretToken
+  SessionCookieNameToken
+} from 'fusion-plugin-jwt';
+
 import CsrfProtectionPlugin from 'fusion-plugin-csrf-protection-react';
-import UniversalEventsPlugin from 'fusion-plugin-universal-events-react';
+import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-import M3Plugin from '@uber/fusion-plugin-m3';
-import LoggerPlugin from '@uber/fusion-plugin-logtron';
-import HeatpipePlugin from '@uber/fusion-plugin-heatpipe';
+import M3Plugin, {M3Token} from 'fusion-plugin-m3';
+import FusionLogger, {LogtronBackendsToken, LogtronTeamToken} from '@uber/fusion-plugin-logtron';
+import HeatpipePlugin, {HeatpipeToken, HeatpipeConfigToken} from '@uber/fusion-plugin-heatpipe';
 
-import RosettaPlugin from '@uber/fusion-plugin-rosetta';
-import I18nPlugin from 'fusion-plugin-i18n-react';
+import FusionRosetta from '@uber/fusion-plugin-rosetta';
+import {I18nLoaderToken} from 'fusion-plugin-i18n-react';
 
-import GoogleAnalyticsPlugin from '@uber/fusion-plugin-google-analytics';
+import GoogleAnalyticsPlugin, {
+  GoogleAnalyticsConfigToken, 
+  GoogleAnalyticsToken
+} from '@uber/fusion-plugin-google-analytics';
 // or if you have an external website
 // import TealiumPlugin from '@uber/fusion-plugin-tealium';
 
-import AnalyticsSessionPlugin, {
-  UberWebEventCookie,
-} from '@uber/fusion-plugin-analytics-session';
+import AnalyticsSessionPlugin, {UberWebEventCookie, AnalyticsCookieTypeToken, AnalyticsSessionToken} from 'fusion-plugin-analytics-session';
 
-import EventsAdapterPlugin from '@uber/events-adapter';
+import EventsAdapterPlugin, {
+  EventsAdapterToken,
+  EventsAdapterServiceNameToken,
+} from '@uber/fusion-plugin-events-adapter';
+
+import root from './components/root';
 
 // ...importing configs
 
-const team = 'awesome-team';
-const service = 'awesome-frontend';
+const teamName = 'awesome-team';
+const serviceName = 'awesome-frontend';
+
+const BaseFetchToken = createToken('BaseFetch');
 
 export default async function start() {
   const app = new App(root);
-  const Secrets = app.plugin(SecretsPlugin, secretsConfig);
-  const Session = app.plugin(JWTSessionPlugin, getSessionConfig({Secrets}));
-  const CsrfProtection = app.plugin(CsrfProtectionPlugin, {
-    Session,
-    fetch: unfetch,
-  });
-  const {fetch, ignore} = CsrfProtection.of();
-  const UniversalEvents = app.plugin(UniversalEvents, {fetch});
-  const M3 = app.plugin(M3Plugin, {UniversalEvents, service});
-  const Logger = app.plugin(LoggerPlugin, {UniversalEvents, M3, team, service});
-  app.plugin(HeatpipePlugin, {
-    M3,
-    Logger,
-    UniversalEvents,
-    heatpipeConfig,
-  });
   
-  const Rosetta = app.plugin(RosettaPlugin, __NODE__ && {service, Logger});
-  const I18n = app.plugin(
-    I18nPlugin,
-    __NODE__ ? {TranslationsLoader: Rosetta} : {fetch}
-  );
-  
-  const Analytics = app.plugin(GoogleAnalyticsPlugin);
+  app.register(SecretsToken, SecretsPlugin);
+  __DEV__ && app.register(DevSecretsToken, {dev: 'values'});
 
-  const AnalyticsSession = app.plugin(AnalyticsSessionPlugin, {
-    cookieType: UberWebEventCookie,
-  });
+  app.register(SessionToken, JWTSession);
+  app.register(SessionSecretToken, 'some-secret');
+  app.register(SessionCookieNameToken, 'some-cookie-name');
 
-  app.plugin(EventsAdapterPlugin, {
-    UniversalEvents,
-    Analytics,
-    AnalyticsSession,
-    I18n,
-    config: {service}
-  });
+  app.register(FetchToken, CsrfProtection).alias(FetchToken, BaseFetchToken);
+  __BROWSER__ && app.register(BaseFetchToken, window.fetch);
+
+  app.register(UniversalEventsToken, UniversalEvents).alias(FetchToken, BaseFetchToken);
+
+  app.register(M3Token, M3Plugin);
+  app.register(LoggerToken, FusionLogger);
+  app.register(LogtronTeamToken, teamName);
+  app.register(HeatpipeToken, HeatpipePlugin);
+  app.register(HeatpipeConfigToken, heatpipeConfig);
+
+  app.register(I18nLoaderToken, FusionRosetta);  
+
+  app.register(GoogleAnalyticsToken, GoogleAnalyticsPlugin);
+  app.register(GoogleAnalyticsConfigToken, {
+    trackingId: 'your-tracking-id',
+  };
+
+  app.register(AnalyticsSessionToken, AnalyticsSessionPlugin);
+  app.register(AnalyticsCookieTypeToken, UberWebEventCookie);
+
+  app.register(EventsAdapterToken, EventsAdapterPlugin)
+      .alias(EventsAdapterAnalyticsToken, GoogleAnalyticsToken);
+  app.register(EventsAdapterServiceNameToken, serviceName);
   
   return app;
 }

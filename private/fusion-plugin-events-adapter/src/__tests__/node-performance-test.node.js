@@ -1,8 +1,8 @@
 // @flow
-import tape from 'tape-cup';
-import perf from '../../handlers/node-performance';
-import M3 from '../../emitters/m3';
 import EventEmitter from 'events';
+import tape from 'tape-cup';
+import perf from '../handlers/node-performance';
+import M3 from '../emitters/m3';
 
 tape('node performance rss', gaugeTest('rss', 'rss'));
 tape('node performance rss', gaugeTest('externalMemory', 'external_memory'));

@@ -1,56 +1,62 @@
 /* eslint-env browser */
-import {Plugin} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+
 import pageViewBrowser from './handlers/page-view-browser';
 
-export default function EventsAdapterFactory({UniversalEvents, Analytics}) {
-  if (!UniversalEvents) {
-    throw new Error('{UniversalEvents} dependency is required');
-  }
+import {EventsAdapterAnalyticsToken} from './tokens';
 
-  const events = UniversalEvents.of();
-  if (!events) {
-    throw new Error(
-      '{UniversalEvents.of()} must return an instance of UniversalEvents'
-    );
-  }
+export default createPlugin({
+  deps: {
+    UniversalEvents: UniversalEventsToken,
+    Analytics: EventsAdapterAnalyticsToken,
+  },
+  provides({UniversalEvents, Analytics}) {
+    const events = UniversalEvents.from();
+    if (!events) {
+      throw new Error(
+        'UniversalEvents.from() must return an instance of UniversalEvents'
+      );
+    }
 
-  function webEventsMetaMapper(payload) {
-    const location = window.location || {};
+    function webEventsMetaMapper(payload) {
+      const location = window.location || {};
+
+      return {
+        ...payload,
+        webEventsMeta: {
+          dimensions: {
+            viewport_height: window.innerHeight,
+            viewport_width: window.innerWidth,
+            screen_height: window.screen ? window.screen.height : null,
+            screen_width: window.screen ? window.screen.width : null,
+          },
+          // TODO: this should probably come from react router, because the router
+          // knows the matched path/trackingId
+          page: {
+            hostname: location.hostname,
+            pathname: location.pathname,
+            referrer: document.referrer,
+            url: location.href,
+          },
+          time_ms: Date.now(),
+        },
+      };
+    }
+
+    events.map('pageview:browser', webEventsMetaMapper);
+    events.map('redux:action', webEventsMetaMapper);
+    events.map('browser-performance-emitter:stats', webEventsMetaMapper);
+
+    pageViewBrowser({
+      events,
+      analytics: Analytics && Analytics.from(),
+    });
 
     return {
-      ...payload,
-      webEventsMeta: {
-        dimensions: {
-          viewport_height: window.innerHeight,
-          viewport_width: window.innerWidth,
-          screen_height: window.screen ? window.screen.height : null,
-          screen_width: window.screen ? window.screen.width : null,
-        },
-        // TODO: this should probably come from react router, because the router
-        // knows the matched path/trackingId
-        page: {
-          hostname: location.hostname,
-          pathname: location.pathname,
-          referrer: document.referrer,
-          url: location.href,
-        },
-        time_ms: Date.now(),
+      from() {
+        throw new Error('No available service for EventsAdapter in browser');
       },
     };
-  }
-
-  events.map('pageview:browser', webEventsMetaMapper);
-  events.map('redux:action', webEventsMetaMapper);
-  events.map('browser-performance-emitter:stats', webEventsMetaMapper);
-
-  pageViewBrowser({
-    events,
-    analytics: Analytics && Analytics.of(),
-  });
-
-  return new Plugin({
-    Service: () => {
-      throw new Error('No available service for EventsAdapter');
-    },
-  });
-}
+  },
+});

@@ -1,6 +1,7 @@
 // @flow
-import type {M3} from '../emitters/m3';
-export default function nodePerformance(events: EventEmitter, m3: M3) {
+import type {M3Emitter} from '../emitters/m3';
+
+export default function nodePerformance(events: EventEmitter, m3: M3Emitter) {
   const prefix = 'node-performance-emitter';
   const gaugePrefix = `${prefix}:gauge`;
   // $FlowFixMe

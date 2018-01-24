@@ -2,12 +2,13 @@
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 
-import Heatpipe, {webTopicInfo} from '../../emitters/heatpipe';
+import Heatpipe, {webTopicInfo} from '../emitters/heatpipe';
 
-import pageViewBrowser from '../../handlers/page-view-browser';
+import pageViewBrowser from '../handlers/page-view-browser';
 
 tape('page-view-browser handler', t => {
   const events = new EventEmitter();
+  // $FlowFixMe
   const heatpipe = Heatpipe({events, service: 'test'});
 
   pageViewBrowser({events, heatpipe});
