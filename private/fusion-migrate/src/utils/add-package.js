@@ -9,7 +9,7 @@ module.exports = (name, version) => ({source}) => {
     const files = find.fileSync(/package\.json/, process.cwd());
     files.forEach(file => {
       const meta = JSON.parse(fs.readFileSync(file, 'utf-8'));
-      if (meta.name.match(/^fusion-|^uber\/fusion-/)) {
+      if (meta.name && meta.name.match(/^fusion-|^uber\/fusion-/)) {
         if (!meta.devDependencies) meta.devDependencies = {};
         meta.devDependencies[name] = version;
         if (!meta.peerDependencies) meta.peerDependencies = {};
