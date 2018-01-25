@@ -6,8 +6,7 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `import RPC from 'fusion-plugin-rpc-redux-react';`,
-      `import RPC, {RPCToken, RPCConfigToken} from 'fusion-plugin-rpc-redux-react';
-      `
+      `import RPC, {RPCToken, RPCConfigToken} from 'fusion-plugin-rpc-redux-react';`
     );
   },
   ({source}) => {

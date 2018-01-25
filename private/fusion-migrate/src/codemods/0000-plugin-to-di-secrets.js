@@ -6,7 +6,10 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `import SecretsPlugin from '@uber/fusion-plugin-secrets';`,
-      `import SecretsPlugin, {SecretsToken, SecretsConfigToken} from '@uber/fusion-plugin-secrets';`
+      `import SecretsPlugin, {
+  SecretsToken,
+  SecretsConfigToken,
+} from '@uber/fusion-plugin-secrets';`
     );
   },
   ({source}) => {

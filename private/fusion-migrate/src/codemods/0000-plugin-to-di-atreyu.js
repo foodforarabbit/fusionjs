@@ -6,7 +6,10 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `import AtreyuPlugin from '@uber/fusion-plugin-atreyu';`,
-      `import AtreyuPlugin, {AtreyuToken, AtreyuConfigToken} from '@uber/fusion-plugin-atreyu';`
+      `import AtreyuPlugin, {
+  AtreyuToken,
+  AtreyuConfigToken,
+} from '@uber/fusion-plugin-atreyu';`
     );
   },
   ({source}) => {

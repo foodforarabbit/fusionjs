@@ -6,7 +6,9 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `import UniversalEventsPlugin from 'fusion-plugin-universal-events-react';`,
-      `import UniversalEventsPlugin, {UniversalEventsToken} from 'fusion-plugin-universal-events-react';`
+      `import UniversalEvents, {
+  UniversalEventsToken,
+} from 'fusion-plugin-universal-events-react';`
     );
   },
   ({source}) => {
