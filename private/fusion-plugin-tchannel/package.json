@@ -21,7 +21,8 @@
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "^0.3.0",
-    "fusion-core": "^0.3.0-5"
+    "fusion-core": "^0.3.0-5",
+    "fusion-tokens": "^0.0.5"
   },
   "devDependencies": {
     "@uber/fusion-plugin-m3": "^0.3.0",
@@ -36,6 +37,7 @@
     "eslint-plugin-react": "^7.5.1",
     "fusion-core": "^0.3.0-5",
     "fusion-test-utils": "^0.4.0",
+    "fusion-tokens": "^0.0.5",
     "idl": "^3.1.10",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
@@ -60,7 +62,6 @@
     "yarn": ">=1.0.0"
   },
   "dependencies": {
-    "fusion-tokens": "^0.0.5",
     "my-local-ip": "^1.0.0",
     "tchannel": "^3.9.12"
   }
