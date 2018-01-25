@@ -29,7 +29,7 @@ import JWTSessionPlugin, {JWTSessionConfigToken} from 'fusion-plugin-jwt';`
   return __NODE__ && {secret: Secrets.of().get('server.session.secret')};
 };`,
       `import {createPlugin} from 'fusion-core';
-import {SecretsToken} from '@uber/fusion-plugin-secrets;'
+import {SecretsToken} from '@uber/fusion-plugin-secrets';
 
 export default createPlugin({
   deps: {Secrets: SecretsToken},
