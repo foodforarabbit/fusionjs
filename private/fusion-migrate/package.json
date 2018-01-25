@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "find": "^0.2.8",
-    "jscodeshift": "^0.4.0",
-    "lockfile": "^1.0.3"
+    "jscodeshift": "^0.4.0"
   },
   "repository": "https://code.uberinternal.com/diffusion/WEFUSGK/"
 }

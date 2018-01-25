@@ -1,5 +1,4 @@
 const find = require('find');
-const lockfile = require('lockfile');
 const fs = require('fs');
 
 const cache = {};
@@ -20,9 +19,7 @@ module.exports = (name, version) => ({source}) => {
         if (meta.peerDependencies && meta.peerDependencies[name]) {
           meta.peerDependencies[name] = version;
         }
-        lockfile.lockSync(file);
         fs.writeFileSync(file, JSON.stringify(meta, null, 2), 'utf8');
-        lockfile.unlockSync(file);
       }
     });
   }
