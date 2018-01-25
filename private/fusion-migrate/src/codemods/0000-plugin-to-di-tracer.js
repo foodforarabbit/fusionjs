@@ -1,6 +1,8 @@
 const compose = require('../utils/compose');
+const bump = require('../utils/bump-version');
 
 module.exports = compose(
+  bump('@uber/fusion-plugin-tracer', '0.2.0'),
   ({source}) => {
     return source.replace(
       `import TracerPlugin from '@uber/fusion-plugin-tracer';`,

@@ -1,6 +1,8 @@
 const compose = require('../utils/compose');
+const bump = require('../utils/bump-version');
 
 module.exports = compose(
+  bump('@uber/fusion-plugin-tchannel', '0.3.0'),
   ({source}) => {
     return source.replace(
       `import TChannelPlugin from '@uber/fusion-plugin-tchannel';`,

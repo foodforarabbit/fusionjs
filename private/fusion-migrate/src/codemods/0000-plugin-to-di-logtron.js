@@ -1,6 +1,8 @@
 const compose = require('../utils/compose');
+const bump = require('../utils/bump-version');
 
 module.exports = compose(
+  bump('@uber/fusion-plugin-logtron', '0.3.0'),
   ({source}) => {
     return source.replace(
       `import LoggerPlugin from '@uber/fusion-plugin-logtron';`,
@@ -17,8 +19,8 @@ module.exports = compose(
     service,
     backends: {sentry: sentryConfig},
   });`,
-      `app.configure(SentryConfigToken, sentryConfig);
-  app.register(LoggerToken, LoggerPlugin);`
+      `app.register(LoggerToken, LoggerPlugin);
+  app.register(SentryConfigToken, sentryConfig);`
     );
   }
 );

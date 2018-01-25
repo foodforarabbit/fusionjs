@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('fusion-plugin-jwt', '^0.3.0'),
+  bump('fusion-plugin-jwt', '0.3.0'),
   ({source}) => {
     return source.replace(
       `import JWTSessionPlugin from 'fusion-plugin-jwt';`,
@@ -28,12 +28,15 @@ import JWTSessionPlugin, {JWTSessionConfigToken} from 'fusion-plugin-jwt';`
       `export default ({Secrets}) => {
   return __NODE__ && {secret: Secrets.of().get('server.session.secret')};
 };`,
-      `import {withDependencies} from 'fusion-core';
-import {SecretsToken as Secrets} from '@uber/fusion-plugin-secrets'
+      `import {createPlugin} from 'fusion-core';
+import {SecretsToken} from '@uber/fusion-plugin-secrets;'
 
-export default withDependencies({Secrets}, ({Secrets}) => {
-  return __NODE__ && {secrets: Secrets.get('server.session.secret')}
-})`
+export default createPlugin({
+  deps: {Secrets: SecretsToken},
+  provides({Secrets}) {
+    return __NODE__ && {secrets: Secrets.get('server.session.secret')}
+  },
+});`
     );
   }
 );

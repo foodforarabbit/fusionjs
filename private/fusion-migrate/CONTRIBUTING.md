@@ -119,6 +119,10 @@ module.exports = compose(
 );
 ```
 
+### Order of codemods
+
+Codemods run in alphabetical order of their file names. The easiest way to make a set of codemods run after another set of codemods is to increment the number at the beginning of the filename for the codemods that needs to be run last.
+
 ### Troubleshooting
 
 If you see the error `'Received an unexpected value [object Object]`, you probably forgot to call `.toSource()` at the end.

@@ -1,6 +1,8 @@
 const compose = require('../utils/compose');
+const bump = require('../utils/bump');
 
 module.exports = compose(
+  bump('fusion-plugin-csrf-protection', '0.3.0'),
   ({source}) => {
     return source.replace(
       `import CsrfProtectionPlugin from 'fusion-plugin-csrf-protection-react';`,
@@ -14,7 +16,7 @@ import CsrfProtectionPlugin, {FetchToken as BaseFetchToken} from 'fusion-plugin-
     Session,
     fetch: unfetch,
   });`,
-      `app.configure(BaseFetchToken, unfetch);
+      `app.register(BaseFetchToken, unfetch);
   app.register(FetchToken, CsrfProtectionPlugin).alias(FetchToken, BaseFetchToken);`
     );
   }

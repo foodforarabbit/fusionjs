@@ -1,3 +1,6 @@
+import compose from './compose';
+import bump from './bump-version';
+
 // migrates plugins with no dependencies and no return value
 // app.plugin(Foo) -> app.register(Foo)
 module.exports = name => ({source}, {jscodeshift: j}) => {

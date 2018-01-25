@@ -3,7 +3,7 @@ const fs = require('fs');
 const cache = {};
 
 module.exports = (name, version) => source => {
-  if (!cache[name]) {
+  if (name && version && !cache[name]) {
     cache[name] = true;
     const meta = fs.readFileSync('package.json', 'utf8');
     if (meta.dependencies[name]) meta.dependencies[name] = version;
