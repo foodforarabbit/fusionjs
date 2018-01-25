@@ -1,15 +1,18 @@
 /* eslint-env browser */
-import {SingletonPlugin} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-export default function({UniversalEvents}) {
-  class HeatpipeBrowserPlugin {
-    constructor() {
-      const emitter = UniversalEvents.of();
-      this.emit = emitter.emit.bind(emitter);
-    }
-    publish(topicInfo, message) {
-      this.emit('heatpipe:publish', {topicInfo, message});
-    }
-  }
-  return new SingletonPlugin({Service: HeatpipeBrowserPlugin});
-}
+export default createPlugin({
+  deps: {
+    UniversalEvents: UniversalEventsToken,
+  },
+  provides({UniversalEvents}) {
+    const emitter = UniversalEvents.from();
+
+    return {
+      publish(topicInfo, message) {
+        emitter.emit('heatpipe:publish', {topicInfo, message});
+      },
+    };
+  },
+});

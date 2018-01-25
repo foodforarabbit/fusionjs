@@ -10,37 +10,51 @@ npm install @uber/fusion-plugin-heatpipe
 
 ## Usage
 ```js
+// main.js
 // ...
-import HeatpipePlugin from  '@uber/fusion-plugin-heatpipe';
+import HeatpipePlugin, {
+  HeatpipeToken,
+  HeatpipeConfigToken
+} from '@uber/fusion-plugin-heatpipe';
 import heatpipeConfig from  'config/heatpipe';
+
 // ...
-const Heatpipe = app.plugin(HeatpipePlugin, {
-  M3,
-  Logger,
-  UniversalEvents,
-  heatpipeConfig
-});
+app.register(HeatpipeToken, HeatpipePlugin);
+app.register(HeatpipeConfigToken, heatpipeConfig);
 
+// User-land
 if (__NODE__) {
-// Sync API
-Heatpipe.of().publish(
-  {topic: 'awesome-topic', version: 1},
-  {stringField: 'hello!'},
-  (err, res) => {
-    if (err) {
-      // error handling
-    }
-  }
-);
+  app.register(
+    createPlugin({
+      deps: {
+        Heatpipe: HeatpipeToken,
+      },
+      provides({Heatpipe}) {
+        // Sync API
+        Heatpipe.publish(
+          {topic: 'awesome-topic', version: 1},
+          {stringField: 'hello!'},
+          (err, res) => {
+            if (err) {
+              // error handling
+            }
+          }
+        );
 
-// Async API
-try {
-  const asyncRes = await Heatpipe.of().asyncPublish(
-    {topic: 'hp-athena-test_topic', version: 1},
-    {stringField: 'hello!'}
+        // Async API
+        Heatpipe.asyncPublish(
+          {topic: 'hp-athena-test_topic', version: 1},
+          {stringField: 'hello!'}
+        )
+          .then(res => {
+            /* published successfully */
+          })
+          .catch(err => {
+            /* error handling */
+          });
+      },
+    })
   );
-} catch(err) {
-  // error handling
 }
 ```
 

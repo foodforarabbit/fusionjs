@@ -1,44 +1,47 @@
 /* eslint-env node */
-import assert from 'assert';
+import {createPlugin} from 'fusion-core';
 import util from 'util';
 
 import HeatpipePublisher from '@uber/node-heatpipe-publisher';
-import {SingletonPlugin} from 'fusion-core';
 
-export default function({
-  heatpipeConfig,
-  M3,
-  Logger,
-  UniversalEvents,
-  Client = HeatpipePublisher,
-}) {
-  const m3 = M3 && M3.of();
-  const logger = Logger && Logger.of();
+import {createOptionalToken, LoggerToken} from 'fusion-tokens';
+import {M3Token} from '@uber/fusion-plugin-m3';
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-  assert(m3, '{M3} is a required dependency of Heatpipe Plugin');
-  assert(logger, '{Logger} is a required dependency of Heatpipe Plugin');
+import {HeatpipeConfigToken} from './tokens';
 
-  const heatpipe = new Client({
-    statsd: m3,
-    m3Client: m3,
-    logger,
-    ...heatpipeConfig,
-  });
+export const HeatpipeClientToken = createOptionalToken(
+  'HeatpipeClientToken',
+  HeatpipePublisher
+);
 
-  heatpipe.connect();
+export default createPlugin({
+  deps: {
+    heatpipeConfig: HeatpipeConfigToken,
+    M3: M3Token,
+    Logger: LoggerToken,
+    UniversalEvents: UniversalEventsToken,
+    Client: HeatpipeClientToken,
+  },
+  provides({heatpipeConfig, M3, Logger, UniversalEvents, Client}) {
+    const heatpipe = new Client({
+      statsd: M3,
+      m3Client: M3,
+      logger: Logger,
+      ...heatpipeConfig,
+    });
 
-  const events = UniversalEvents.of();
-  events.on('heatpipe:publish', ({topicInfo, message}) =>
-    heatpipe.publish(topicInfo, message)
-  );
+    heatpipe.connect();
 
-  function HeatpipeServerPlugin() {}
+    const events = UniversalEvents.from();
+    events.on('heatpipe:publish', ({topicInfo, message}) =>
+      heatpipe.publish(topicInfo, message)
+    );
 
-  HeatpipeServerPlugin.prototype.asyncPublish = util.promisify(
-    heatpipe.publish.bind(heatpipe)
-  );
-  HeatpipeServerPlugin.prototype.publish = heatpipe.publish.bind(heatpipe);
-  HeatpipeServerPlugin.prototype.destroy = heatpipe.destroy.bind(heatpipe);
-
-  return new SingletonPlugin({Service: HeatpipeServerPlugin});
-}
+    return {
+      asyncPublish: util.promisify(heatpipe.publish.bind(heatpipe)),
+      publish: heatpipe.publish.bind(heatpipe),
+      destroy: heatpipe.destroy.bind(heatpipe),
+    };
+  },
+});
