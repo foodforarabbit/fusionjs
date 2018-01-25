@@ -1,5 +1,5 @@
-import compose from './compose';
-import bump from './bump-version';
+const compose = require('./compose');
+const bump = require('./bump-version');
 
 // migrates plugins with no dependencies and no return value
 // app.plugin(Foo) -> app.register(Foo)
