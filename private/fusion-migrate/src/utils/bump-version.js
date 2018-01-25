@@ -8,7 +8,7 @@ module.exports = (name, version) => ({source}) => {
     cache[name] = true;
     const files = find.fileSync(/package\.json/, process.cwd());
     files.forEach(file => {
-      const meta = require(file);
+      const meta = JSON.parse(fs.readFileSync(file, 'utf-8'));
       if (meta) {
         if (meta.dependencies && meta.dependencies[name]) {
           meta.dependencies[name] = version;
