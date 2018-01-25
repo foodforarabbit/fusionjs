@@ -22,14 +22,14 @@
   "dependencies": {
     "@uber/logtron": "^9.0.5",
     "error-stack-parser": "^2.0.1",
-    "fusion-tokens": "^0.0.5",
     "koa-bodyparser": "4.2.0",
     "source-map": "^0.7.0"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "^0.3.0",
+    "fusion-core": "^0.3.0-5",
     "fusion-plugin-universal-events": "^0.3.0",
-    "fusion-core": "^0.3.0-5"
+    "fusion-tokens": "^0.0.5"
   },
   "devDependencies": {
     "@uber/fusion-plugin-m3": "^0.3.0",
@@ -45,6 +45,7 @@
     "fusion-core": "^0.3.0-5",
     "fusion-plugin-universal-events": "^0.3.0",
     "fusion-test-utils": "^0.4.1",
+    "fusion-tokens": "^0.0.5",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
