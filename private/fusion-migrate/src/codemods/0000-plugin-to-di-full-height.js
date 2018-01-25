@@ -28,7 +28,7 @@ export default (__NODE__ ?
   </style>\`;
       return (ctx, next) => {
         if (ctx.element) {
-          ctx.body.head.push(escaped);
+          ctx.template.head.push(escaped);
         }
         return next();
       };

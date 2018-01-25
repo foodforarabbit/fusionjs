@@ -42,7 +42,7 @@ input::-webkit-inner-spin-button,input::-webkit-outer-spin-button,input::-webkit
 </style>\`;
       return (ctx, next) => {
         if (ctx.element) {
-          ctx.body.head.push(escaped);
+          ctx.template.head.push(escaped);
         }
         return next();
       };

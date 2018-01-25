@@ -1,3 +1,5 @@
+// must run this after migrations for css-reset, favicon, full-height, superfine-fonts
+
 const compose = require('../utils/compose');
 
 const replaceCtxBody = prop => ({source}, {jscodeshift: j}) => {

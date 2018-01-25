@@ -32,7 +32,7 @@ export default (__NODE__
       const escaped = html\`<link href="https://d1a3f4spazzrp4.cloudfront.net/uber-fonts/4.0.0/superfine.css" rel="stylesheet">\`;
       return (ctx, next) => {
         if (ctx.element) {
-          ctx.body.head.push(escaped);
+          ctx.template.head.push(escaped);
         }
         return next();
       };

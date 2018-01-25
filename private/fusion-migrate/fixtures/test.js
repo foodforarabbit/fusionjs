@@ -7,34 +7,24 @@
 import App from 'fusion-react';
 import SecureHeaders from '@uber/fusion-plugin-secure-headers';
 import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying';
-import SecretsPlugin, {SecretsToken, SecretsConfigToken} from '@uber/fusion-plugin-secrets';
-import {SessionToken} from 'fusion-tokens';
-import JWTSessionPlugin, {JWTSessionConfigToken} from 'fusion-plugin-jwt';
-import {FetchToken} from 'fusion-tokens';
-import CsrfProtectionPlugin, {FetchToken as BaseFetchToken} from 'fusion-plugin-csrf-protection-react';
-import UniversalEventsPlugin, {UniversalEventsToken} from 'fusion-plugin-universal-events-react';
-import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3';
-import {LoggerToken} from 'fusion-tokens';
-import LoggerPlugin, {SentryConfigToken} from '@uber/fusion-plugin-logtron';
+import SecretsPlugin from '@uber/fusion-plugin-secrets';
+import JWTSessionPlugin from 'fusion-plugin-jwt';
+import CsrfProtectionPlugin from 'fusion-plugin-csrf-protection-react';
+import UniversalEventsPlugin from 'fusion-plugin-universal-events-react';
+import M3Plugin from '@uber/fusion-plugin-m3';
+import LoggerPlugin from '@uber/fusion-plugin-logtron';
 import Router from 'fusion-plugin-react-router';
-import I18n, {I18nToken, I18nLoaderToken} from 'fusion-plugin-i18n-react';
-import TracerPlugin, {TracerToken, TracerConfigToken} from '@uber/fusion-plugin-tracer';
-import GalileoPlugin, {GalileoToken} from '@uber/fusion-plugin-galileo';
-import TChannelToken from '@uber/fusion-tokens';
+import I18n from 'fusion-plugin-i18n-react';
+import TracerPlugin from '@uber/fusion-plugin-tracer';
+import GalileoPlugin from '@uber/fusion-plugin-galileo';
 import TChannelPlugin from '@uber/fusion-plugin-tchannel';
 import Styletron from 'fusion-plugin-styletron-react';
-import AtreyuPlugin, {AtreyuToken, AtreyuConfigToken} from '@uber/fusion-plugin-atreyu';
-import {I18nConfigToken} from 'fusion-plugin-i18n-react';
+import AtreyuPlugin from '@uber/fusion-plugin-atreyu';
 import RosettaPlugin from '@uber/fusion-plugin-rosetta';
 import BrowserPerformanceEmitterPlugin from 'fusion-plugin-browser-performance-emitter';
 import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';
-import RPC, {RPCToken, RPCConfigToken} from 'fusion-plugin-rpc-redux-react';
-      
-import ReactReduxPlugin, {
-  ReduxToken,
-  ReducerToken,
-  EnhancerToken,
-} from 'fusion-plugin-react-redux';
+import RPC from 'fusion-plugin-rpc-redux-react';
+import ReactReduxPlugin from 'fusion-plugin-react-redux';
 import reduxActionEnhancerFactory from 'fusion-redux-action-emitter-enhancer';
 import ErrorHandlingPlugin from '@uber/fusion-plugin-error-handling';
 import NodePerfEmitterPlugin from 'fusion-plugin-node-performance-emitter';
@@ -52,7 +42,7 @@ import HealthPlugin from './plugins/health.js';
 import metaConfig from './config/meta';
 import atreyuConfig from './config/atreyu';
 import devSecretsConfig from './config/dev-sec.js';
-import jwtSessionConfig from './config/session.js';
+import getSessionConfig from './config/session.js';
 import secureHeadersConfig from './config/secure-headers';
 import sentryConfig from './config/sentry.js';
 import tracerConfig from './config/tracer.js';
@@ -67,59 +57,76 @@ const {team, service} = metaConfig;
 export default async function start() {
   const app = new App(root);
   // Universal Plugins
-  !__DEV__ && app.register(AssetProxyingPlugin);
-  app.register(SecretsToken, SecretsPlugin);
-  app.register(SecretsConfigToken, devSecretsConfig);
-  app.register(SessionToken, JWTSessionPlugin);
-  app.register(JWTSessionConfigToken, jwtSessionConfig);
-  app.register(BaseFetchToken, unfetch);
-  app
-    .register(FetchToken, CsrfProtectionPlugin)
-    .alias(FetchToken, BaseFetchToken);
-  app.register(UniversalEventsToken, UniversalEvents);
-  app.register(M3Token, M3Plugin);
-  app.register(LoggerToken, LoggerPlugin);
-  app.register(SentryConfigToken, sentryConfig);
-  app.register(ErrorHandlingPlugin);
-  app.register(ReduxToken, ReactReduxPlugin);
-  app.register(ReducerToken, reduxOptions.reducer);
-  app.register(
-    EnhancerToken,
-    compose(
+  !__DEV__ && app.plugin(AssetProxyingPlugin);
+  const Secrets = app.plugin(SecretsPlugin, devSecretsConfig);
+  const Session = app.plugin(JWTSessionPlugin, getSessionConfig({Secrets}));
+  const CsrfProtection = app.plugin(CsrfProtectionPlugin, {
+    Session,
+    fetch: unfetch,
+  });
+  const {fetch, ignore} = CsrfProtection.of();
+  const UniversalEvents = app.plugin(UniversalEventsPlugin, {fetch});
+  const M3 = app.plugin(M3Plugin, {UniversalEvents, service});
+  const Logger = app.plugin(LoggerPlugin, {
+    UniversalEvents,
+    M3,
+    team,
+    service,
+    backends: {sentry: sentryConfig},
+  });
+  app.plugin(ErrorHandlingPlugin, {
+    Logger,
+    M3,
+    CsrfProtection: {
+      ignore,
+    },
+  });
+  app.plugin(ReactReduxPlugin, {
+    ...reduxOptions,
+    enhancer: compose(
       ...[
         reduxActionEnhancerFactory(UniversalEvents),
         reduxOptions.enhancer,
       ].filter(Boolean)
-    )
-  );
-  app.register(SecureHeaders);
-  app.register(Router);
-  app.register(BrowserPerformanceEmitterPlugin);
-  app.register(EventsAdapterPlugin);
-  app.register(Styletron);
-  app.register(FaviconPlugin);
-  app.register(CssResetPlugin);
-  app.register(FullHeightPlugin);
-  app.register(SuperfineFontsPlugin);
-  app.register(HealthPlugin);
+    ),
+  });
+  app.plugin(SecureHeaders, {config: secureHeadersConfig});
+  app.plugin(Router, {UniversalEvents});
+  app.plugin(BrowserPerformanceEmitterPlugin, {EventEmitter: UniversalEvents});
+  app.plugin(EventsAdapterPlugin, {UniversalEvents, config: {service}});
+  app.plugin(Styletron);
+  app.plugin(FaviconPlugin);
+  app.plugin(CssResetPlugin);
+  app.plugin(FullHeightPlugin);
+  app.plugin(SuperfineFontsPlugin);
+  app.plugin(HealthPlugin);
   if (__NODE__) {
     // node specific plugins
-    app.register(NodePerfEmitterPlugin);
-    app.register(I18nConfigToken, RosettaPlugin);
-    app.register(TracerToken, TracerPlugin);
-    app.register(TracerConfigToken, tracerConfig);
-    app.register(GalileoToken, GalileoPlugin);
-    app.register(TChannelToken, TChannelPlugin);
-    app.register(AtreyuToken, AtreyuPlugin);
-    app.register(AtreyuConfigToken, atreyuConfig);
-    app.register(RPCToken, RPC);
-    app.register(RPCConfigToken, getRPCHandlers);
-    app.register(I18nToken, I18n);
-    app.register(I18nLoaderToken, Rosetta);
+    app.plugin(NodePerfEmitterPlugin, {EventEmitter: UniversalEvents});
+    const Rosetta = app.plugin(RosettaPlugin, {service, Logger});
+    const Tracer = app.plugin(TracerPlugin, {Logger, config: tracerConfig});
+    const Galileo = app.plugin(GalileoPlugin, {Logger, Tracer, M3});
+    const TChannel = app.plugin(TChannelPlugin, {service, Logger, M3});
+    const Atreyu = app.plugin(AtreyuPlugin, {
+      Logger,
+      M3,
+      Tracer,
+      Galileo,
+      TChannel,
+      config: atreyuConfig,
+    });
+    app.plugin(RPC, {
+      handlers: getRPCHandlers({Atreyu, Logger, M3}),
+      EventEmitter: UniversalEvents,
+    });
+    app.plugin(I18n, {TranslationsLoader: Rosetta});
   } else {
     // browser specific plugins
-    app.register(RPCToken, RPC);
-    app.register(I18nToken, I18n);
+    app.plugin(RPC, {
+      EventEmitter: UniversalEvents,
+      fetch,
+    });
+    app.plugin(I18n, {fetch});
   }
 
   return app;
