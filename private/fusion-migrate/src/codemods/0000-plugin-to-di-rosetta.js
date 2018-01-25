@@ -12,7 +12,7 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `const Rosetta = app.plugin(RosettaPlugin, {service, Logger});`,
-      `app.register(I18nConfigToken, Rosetta);`
+      `app.register(I18nLoaderToken, Rosetta);`
     );
   }
 );
