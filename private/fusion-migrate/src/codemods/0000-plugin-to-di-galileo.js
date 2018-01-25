@@ -1,5 +1,5 @@
 const compose = require('../utils/compose');
-const bump = require('../utils/bump');
+const bump = require('../utils/bump-version');
 
 module.exports = compose(
   bump('@uber/fusion-plugin-galileo', '0.2.1'),

@@ -6,21 +6,16 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `import ReactReduxPlugin from 'fusion-plugin-react-redux';`,
-      `import ReactReduxPlugin, {ReduxToken, ReduxConfigToken} from 'fusion-plugin-react-redux';`
+      `import ReactReduxPlugin, {
+  ReduxToken,
+  ReducerToken,
+  EnhancerToken,
+} from 'fusion-plugin-react-redux';`
     );
   },
   ({source}) => {
     return source.replace(
       `app.plugin(ReactReduxPlugin, {
-  ...reduxOptions,
-  enhancer: compose(
-    ...[
-      reduxActionEnhancerFactory(UniversalEvents),
-      reduxOptions.enhancer,
-    ].filter(Boolean)
-  ),
-});`,
-      `app.register(ReduxConfigToken, {
     ...reduxOptions,
     enhancer: compose(
       ...[
@@ -28,8 +23,18 @@ module.exports = compose(
         reduxOptions.enhancer,
       ].filter(Boolean)
     ),
-  });
-  app.register(ReduxToken, ReactReduxPlugin);`
+  })`,
+      `app.register(ReduxToken, ReactReduxPlugin);
+  app.register(ReducerToken, reduxOptions.reducer);
+  app.register(
+    EnhancerToken,
+    compose(
+      ...[
+        reduxActionEnhancerFactory(UniversalEvents),
+        reduxOptions.enhancer,
+      ].filter(Boolean)
+    )
+  )`
     );
   }
 );

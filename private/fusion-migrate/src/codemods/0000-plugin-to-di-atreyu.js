@@ -1,5 +1,5 @@
 const compose = require('../utils/compose');
-const bump = require('../utils/bump');
+const bump = require('../utils/bump-version');
 
 module.exports = compose(
   bump('@uber/fusion-plugin-atreyu', '0.2.0'),
@@ -12,15 +12,15 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `const Atreyu = app.plugin(AtreyuPlugin, {
-    Logger,
-    M3,
-    Tracer,
-    Galileo,
-    TChannel,
-    config: atreyuConfig,
-  });`,
+      Logger,
+      M3,
+      Tracer,
+      Galileo,
+      TChannel,
+      config: atreyuConfig,
+    });`,
       `app.register(AtreyuToken, AtreyuPlugin);
-  app.register(AtreyuConfigToken, atreyuConfig);`
+    app.register(AtreyuConfigToken, atreyuConfig);`
     );
   }
 );

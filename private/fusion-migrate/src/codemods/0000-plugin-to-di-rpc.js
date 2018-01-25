@@ -13,19 +13,19 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `app.plugin(RPC, {
-    handlers: getRPCHandlers({Atreyu, Logger, M3}),
-    EventEmitter: UniversalEvents,
-  });`,
+      handlers: getRPCHandlers({Atreyu, Logger, M3}),
+      EventEmitter: UniversalEvents,
+    });`,
       `app.register(RPCToken, RPC);
-  app.register(RPCConfigToken, getRPCHandlers);`
+    app.register(RPCConfigToken, getRPCHandlers);`
     );
   },
   ({source}) => {
     return source.replace(
       `app.plugin(RPC, {
-    EventEmitter: UniversalEvents,
-    fetch,
-  });`,
+      EventEmitter: UniversalEvents,
+      fetch,
+    });`,
       `app.register(RPCToken, RPC);`
     );
   }

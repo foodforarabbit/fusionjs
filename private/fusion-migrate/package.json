@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-migrate",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Migration scripts for FusionJS",
   "bin": {
     "fusion-migrate": "bin/fusion-migrate.sh"
@@ -10,6 +10,7 @@
     "build": "jscodeshift fixtures/test.js --t src/codemods.js"
   },
   "dependencies": {
+    "find": "^0.2.8",
     "jscodeshift": "^0.4.0"
   },
   "repository": "https://code.uberinternal.com/diffusion/WEFUSGK/"

@@ -729,6 +729,12 @@ fill-range@^2.1.0:
     repeat-element "^1.1.2"
     repeat-string "^1.5.2"
 
+find@^0.2.8:
+  version "0.2.8"
+  resolved "https://unpm.uberinternal.com/find/-/find-0.2.8.tgz#7440e9faf53cec3256e2641aa1ebce183bc59050"
+  dependencies:
+    traverse-chain "~0.1.0"
+
 flow-parser@^0.*:
   version "0.61.0"
   resolved "https://unpm.uberinternal.com/flow-parser/-/flow-parser-0.61.0.tgz#57d1d33bbc8fb1b9341984464ac032e054ee1084"
@@ -1133,6 +1139,10 @@ temp@^0.8.1:
 to-fast-properties@^1.0.3:
   version "1.0.3"
   resolved "https://unpm.uberinternal.com/to-fast-properties/-/to-fast-properties-1.0.3.tgz#b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
+
+traverse-chain@~0.1.0:
+  version "0.1.0"
+  resolved "https://unpm.uberinternal.com/traverse-chain/-/traverse-chain-0.1.0.tgz#61dbc2d53b69ff6091a12a168fd7d433107e40f1"
 
 trim-right@^1.0.1:
   version "1.0.1"

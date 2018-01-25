@@ -7,7 +7,7 @@ module.exports = compose(
     return source.replace(
       `import RosettaPlugin from '@uber/fusion-plugin-rosetta';`,
       `import {I18nConfigToken} from 'fusion-plugin-i18n-react';
-  import RosettaPlugin from '@uber/fusion-plugin-rosetta';`
+import RosettaPlugin from '@uber/fusion-plugin-rosetta';`
     );
   },
   ({source}) => {

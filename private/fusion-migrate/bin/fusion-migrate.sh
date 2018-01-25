@@ -1,1 +1,1 @@
-node_modules/.bin/jscodeshift src --t node_modules/@uber/fusion-migrate/src/codemods.js
+node_modules/.bin/jscodeshift . --t node_modules/@uber/fusion-migrate/src/codemods.js --ignore-pattern node_modules

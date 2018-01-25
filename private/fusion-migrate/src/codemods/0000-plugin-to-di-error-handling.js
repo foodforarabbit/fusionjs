@@ -1,4 +1,5 @@
 const compose = require('../utils/compose');
+const bump = require('../utils/bump-version');
 
 module.exports = compose(
   bump('@uber/fusion-plugin-error-handling', '0.2.0'),

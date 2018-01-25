@@ -14,7 +14,7 @@ module.exports = compose(
     return source.replace(
       `app.plugin(I18n, {TranslationsLoader: Rosetta});`,
       `app.register(I18nToken, I18n);
-  app.register(I18nLoaderToken, Rosetta);`
+    app.register(I18nLoaderToken, Rosetta);`
     );
   },
   ({source}) => {

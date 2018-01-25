@@ -1,4 +1,4 @@
-const comopse = require('../utils/compose');
+const compose = require('../utils/compose');
 const migrate = require('../utils/plugin-to-di-standalone');
 
 module.exports = compose(migrate('HealthPlugin'), ({source}) =>
