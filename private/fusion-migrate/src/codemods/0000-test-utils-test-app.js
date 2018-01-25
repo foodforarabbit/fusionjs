@@ -14,7 +14,7 @@ export default function start(options = {}) {
   const defaultRender = mount;
   const render = options.render || defaultRender;
   const app = new App(options.root || DefaultRoot, render);
-  app.plugin(Styletron);
+  app.register(Styletron);
   app.plugin(RouterPlugin);
 
   return app;
