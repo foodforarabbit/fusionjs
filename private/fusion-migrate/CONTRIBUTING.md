@@ -106,17 +106,12 @@ module.exports = compose(
 
 Use `add-package` and `remove-package` to add/remove packages in `package.json`:
 
-When adding packages, you need to specify whether the package should go in `dependencies`, `devDependencies` or `peerDependencies`.
-
 ```js
 const compose = require('../utils/compose');
 const add = require('../utils/add-package');
 const remove = require('../utils/remove-package');
 
-module.exports = compose(
-  add('devDependencies', 'my-library', '^0.1.0'),
-  remove('my-old-library')
-);
+module.exports = compose(add('my-library', '^0.1.0'), remove('my-old-library'));
 ```
 
 ### Order of codemods
