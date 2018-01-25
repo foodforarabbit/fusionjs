@@ -1,4 +1,5 @@
 const find = require('find');
+const lockfile = require('lockfile');
 const fs = require('fs');
 
 const cache = {};
@@ -18,7 +19,9 @@ module.exports = name => ({source}) => {
       if (meta.peerDependencies && meta.peerDependencies[name]) {
         delete meta.peerDependencies[name];
       }
+      lockfile.lockSync(file);
       fs.writeFileSync(file, JSON.stringify(meta, null, 2), 'utf8');
+      lockfile.unlockSync(file);
     });
   }
   return source;

@@ -909,6 +909,10 @@ kind-of@^4.0.0:
   dependencies:
     is-buffer "^1.1.5"
 
+lockfile@^1.0.3:
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/lockfile/-/lockfile-1.0.3.tgz#2638fc39a0331e9cac1a04b71799931c9c50df79"
+
 lodash@^4.13.1, lodash@^4.17.4:
   version "4.17.4"
   resolved "https://unpm.uberinternal.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
