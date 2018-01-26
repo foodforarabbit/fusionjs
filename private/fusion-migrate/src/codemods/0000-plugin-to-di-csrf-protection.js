@@ -3,6 +3,7 @@ const bump = require('../utils/bump-version');
 
 module.exports = compose(
   bump('fusion-plugin-csrf-protection', '0.3.0'),
+  bump('fusion-plugin-csrf-protection-react', '0.3.1'),
   ({source}) => {
     return source.replace(
       `import CsrfProtectionPlugin from 'fusion-plugin-csrf-protection-react';`,
