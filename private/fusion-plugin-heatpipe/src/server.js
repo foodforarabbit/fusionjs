@@ -15,33 +15,34 @@ export const HeatpipeClientToken = createOptionalToken(
   HeatpipePublisher
 );
 
-export default createPlugin({
-  deps: {
-    heatpipeConfig: HeatpipeConfigToken,
-    M3: M3Token,
-    Logger: LoggerToken,
-    UniversalEvents: UniversalEventsToken,
-    Client: HeatpipeClientToken,
-  },
-  provides({heatpipeConfig, M3, Logger, UniversalEvents, Client}) {
-    const heatpipe = new Client({
-      statsd: M3,
-      m3Client: M3,
-      logger: Logger,
-      ...heatpipeConfig,
-    });
+export default __NODE__ &&
+  createPlugin({
+    deps: {
+      heatpipeConfig: HeatpipeConfigToken,
+      M3: M3Token,
+      Logger: LoggerToken,
+      UniversalEvents: UniversalEventsToken,
+      Client: HeatpipeClientToken,
+    },
+    provides({heatpipeConfig, M3, Logger, UniversalEvents, Client}) {
+      const heatpipe = new Client({
+        statsd: M3,
+        m3Client: M3,
+        logger: Logger,
+        ...heatpipeConfig,
+      });
 
-    heatpipe.connect();
+      heatpipe.connect();
 
-    const events = UniversalEvents.from();
-    events.on('heatpipe:publish', ({topicInfo, message}) =>
-      heatpipe.publish(topicInfo, message)
-    );
+      const events = UniversalEvents.from();
+      events.on('heatpipe:publish', ({topicInfo, message}) =>
+        heatpipe.publish(topicInfo, message)
+      );
 
-    return {
-      asyncPublish: util.promisify(heatpipe.publish.bind(heatpipe)),
-      publish: heatpipe.publish.bind(heatpipe),
-      destroy: heatpipe.destroy.bind(heatpipe),
-    };
-  },
-});
+      return {
+        asyncPublish: util.promisify(heatpipe.publish.bind(heatpipe)),
+        publish: heatpipe.publish.bind(heatpipe),
+        destroy: heatpipe.destroy.bind(heatpipe),
+      };
+    },
+  });
