@@ -53,4 +53,4 @@ class Tealium {
   }
 }
 
-export default createPlugin({provides: () => new Tealium()});
+export default __BROWSER__ && createPlugin({provides: () => new Tealium()});
