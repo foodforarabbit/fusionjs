@@ -73,26 +73,28 @@ class FliprService {
   }
 }
 
-const plugin = createPlugin({
-  deps: {
-    config: FliprConfigToken,
-    Logger: LoggerToken,
-    Client: FliprClientToken,
-  },
-  provides: ({config, Logger, Client = Flipr}) => {
-    assert(
-      config.defaultNamespace || config.propertiesNamespaces,
-      'Specify your namespaces with either `defaultNamespace` or `propertiesNamespaces`'
-    );
+const plugin =
+  __NODE__ &&
+  createPlugin({
+    deps: {
+      config: FliprConfigToken,
+      Logger: LoggerToken,
+      Client: FliprClientToken,
+    },
+    provides: ({config, Logger, Client = Flipr}) => {
+      assert(
+        config.defaultNamespace || config.propertiesNamespaces,
+        'Specify your namespaces with either `defaultNamespace` or `propertiesNamespaces`'
+      );
 
-    assert(
-      !Logger || (Logger && Logger.from),
-      'Provided Logger plugin interface unknown'
-    );
-    const logger = (Logger && Logger.from()) || null;
+      assert(
+        !Logger || (Logger && Logger.from),
+        'Provided Logger plugin interface unknown'
+      );
+      const logger = (Logger && Logger.from()) || null;
 
-    return new FliprService(config, logger, Client);
-  },
-});
+      return new FliprService(config, logger, Client);
+    },
+  });
 
 export default plugin;
