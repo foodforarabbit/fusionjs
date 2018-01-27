@@ -1,8 +1,8 @@
 /* eslint-env node */
 
 import test from 'tape-cup';
-import plugin from '../../server';
-import {AtreyuMockPlugin} from '../../index';
+import plugin from '../server';
+import {AtreyuMockPlugin} from '../index';
 
 function createAtreyuPlugin(t) {
   let numConstructors = 0;
