@@ -7,7 +7,10 @@ module.exports = compose(
     return source.replace(
       `import JWTSessionPlugin from 'fusion-plugin-jwt';`,
       `import {SessionToken} from 'fusion-tokens';
-import JWTSessionPlugin, {JWTSessionConfigToken} from 'fusion-plugin-jwt';`
+import Session, {
+  SessionSecretToken,
+  SessionCookieNameToken,
+} from 'fusion-plugin-jwt';`
     );
   },
   ({source}) => {
@@ -19,8 +22,9 @@ import JWTSessionPlugin, {JWTSessionConfigToken} from 'fusion-plugin-jwt';`
   ({source}) => {
     return source.replace(
       `const Session = app.plugin(JWTSessionPlugin, getSessionConfig({Secrets}));`,
-      `app.register(SessionToken, JWTSessionPlugin);
-  app.register(JWTSessionConfigToken, jwtSessionConfig);`
+      `app.register(SessionToken, Session);
+  app.register(SessionSecretToken, jwtSessionConfig);
+  app.register(SessionCookieNameToken, 'jwt-session');`
     );
   },
   ({source}) => {
@@ -34,7 +38,7 @@ import {SecretsToken} from '@uber/fusion-plugin-secrets';
 export default createPlugin({
   deps: {Secrets: SecretsToken},
   provides({Secrets}) {
-    return __NODE__ && {secrets: Secrets.get('server.session.secret')}
+    return __NODE__ && Secrets.get('server.session.secret')
   },
 });`
     );
