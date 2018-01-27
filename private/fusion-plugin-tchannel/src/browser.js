@@ -1,3 +1,3 @@
 import {createPlugin} from 'fusion-core';
 
-export default createPlugin({provides: () => {}});
+export default __BROWSER__ && createPlugin({provides: () => {}});
