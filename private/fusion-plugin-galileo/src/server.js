@@ -10,43 +10,44 @@ export const ConfigToken = createOptionalToken('GalileoConfig', {});
 export const ClientToken = createOptionalToken('GalileoClient', Galileo);
 
 // eslint-disable-next-line no-unused-vars
-export default createPlugin({
-  deps: {
-    logger: LoggerToken,
-    m3: M3Token,
-    Tracer: TracerToken,
-    config: ConfigToken,
-    Client: ClientToken,
-  },
-  provides: ({m3, logger, Tracer, config, Client}) => {
-    logger = logger.createChild('galileo');
-    const tracer = Tracer.tracer;
-    const galileoConfig = {
-      appName: process.env.SVC_ID || 'dev-service',
-      galileo: config,
-    };
+export default __NODE__ &&
+  createPlugin({
+    deps: {
+      logger: LoggerToken,
+      m3: M3Token,
+      Tracer: TracerToken,
+      config: ConfigToken,
+      Client: ClientToken,
+    },
+    provides: ({m3, logger, Tracer, config, Client}) => {
+      logger = logger.createChild('galileo');
+      const tracer = Tracer.tracer;
+      const galileoConfig = {
+        appName: process.env.SVC_ID || 'dev-service',
+        galileo: config,
+      };
 
-    const galileo = new Client(
-      galileoConfig,
-      tracer,
-      JaegerClient.opentracing.FORMAT_HTTP_HEADERS,
-      logger,
-      m3
-    );
+      const galileo = new Client(
+        galileoConfig,
+        tracer,
+        JaegerClient.opentracing.FORMAT_HTTP_HEADERS,
+        logger,
+        m3
+      );
 
-    class GalileoPlugin {
-      constructor() {
-        this.galileo = galileo;
-      }
-
-      destroy() {
-        const {wonkaClient} = galileo;
-        if (wonkaClient) {
-          wonkaClient.destroy();
+      class GalileoPlugin {
+        constructor() {
+          this.galileo = galileo;
         }
-        return true;
+
+        destroy() {
+          const {wonkaClient} = galileo;
+          if (wonkaClient) {
+            wonkaClient.destroy();
+          }
+          return true;
+        }
       }
-    }
-    return new GalileoPlugin();
-  },
-});
+      return new GalileoPlugin();
+    },
+  });
