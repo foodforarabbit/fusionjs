@@ -1,7 +1,5 @@
 // @flow
 /* eslint-env node */
-import type {FusionPlugin} from 'fusion-core';
-
 import assert from 'assert';
 
 import {createPlugin} from 'fusion-core';
@@ -31,63 +29,63 @@ type EventsAdapterDeps = {
   serviceName: string,
 };
 
-const plugin: FusionPlugin<EventsAdapterDeps, *> = createPlugin({
-  deps: {
-    UniversalEvents: UniversalEventsToken,
-    AnalyticsSession: AnalyticsSessionToken,
-    I18n: I18nLoaderToken,
-    serviceName: EventsAdapterServiceNameToken,
-  },
-  provides: ({UniversalEvents, AnalyticsSession, I18n, serviceName}) => {
-    const events = UniversalEvents.from();
-    assert.ok(
-      events,
-      '{UniversalEvents.from()} must return an instance of UniversalEvents'
-    );
+// $FlowFixMe
+export default __NODE__ &&
+  createPlugin({
+    deps: {
+      UniversalEvents: UniversalEventsToken,
+      AnalyticsSession: AnalyticsSessionToken,
+      I18n: I18nLoaderToken,
+      serviceName: EventsAdapterServiceNameToken,
+    },
+    provides: ({UniversalEvents, AnalyticsSession, I18n, serviceName}) => {
+      const events = UniversalEvents.from();
+      assert.ok(
+        events,
+        '{UniversalEvents.from()} must return an instance of UniversalEvents'
+      );
 
-    const m3 = M3(events);
-    const log = Logger(events);
-    const heatpipe = Heatpipe({
-      events,
-      AnalyticsSession,
-      I18n,
-      serviceName,
-    });
+      const m3 = M3(events);
+      const log = Logger(events);
+      const heatpipe = Heatpipe({
+        events,
+        AnalyticsSession,
+        I18n,
+        serviceName,
+      });
 
-    nodePerformance(events, m3);
-    rpc(events, m3, log);
-    browserPerformance({events, m3, heatpipe});
-    pageViewBrowser({events, heatpipe});
-    reduxAction(events, heatpipe, m3);
-    routeTiming({events, m3});
+      nodePerformance(events, m3);
+      rpc(events, m3, log);
+      browserPerformance({events, m3, heatpipe});
+      pageViewBrowser({events, heatpipe});
+      reduxAction(events, heatpipe, m3);
+      routeTiming({events, m3});
 
-    return {
-      logTiming(m3, key, tags) {
-        return value => {
-          m3.timing({key, value, tags});
-        };
-      },
-    };
-  },
-  middleware: ({UniversalEvents}: EventsAdapterDeps, service) => async (
-    ctx: Object,
-    next: () => Promise<void>
-  ) => {
-    const {logTiming} = service;
+      return {
+        logTiming(m3, key, tags) {
+          return value => {
+            m3.timing({key, value, tags});
+          };
+        },
+      };
+    },
+    middleware: ({UniversalEvents}: EventsAdapterDeps, service) => async (
+      ctx: Object,
+      next: () => Promise<void>
+    ) => {
+      const {logTiming} = service;
 
-    const reqEvents = UniversalEvents.from(ctx);
-    const reqM3 = M3(reqEvents);
-    return next().then(() => {
-      const tags = ctx.status < 300 ? {route: ctx.path} : {};
-      ctx.timing.downstream.then(logTiming(reqM3, 'downstream', tags));
-      ctx.timing.upstream.then(logTiming(reqM3, 'upstream', tags));
-      // only log requests that are not server side renders
-      // server side renders are tracked separately as pageviews
-      if (!ctx.element) {
-        ctx.timing.end.then(logTiming(reqM3, 'request', tags));
-      }
-    });
-  },
-});
-
-export default plugin;
+      const reqEvents = UniversalEvents.from(ctx);
+      const reqM3 = M3(reqEvents);
+      return next().then(() => {
+        const tags = ctx.status < 300 ? {route: ctx.path} : {};
+        ctx.timing.downstream.then(logTiming(reqM3, 'downstream', tags));
+        ctx.timing.upstream.then(logTiming(reqM3, 'upstream', tags));
+        // only log requests that are not server side renders
+        // server side renders are tracked separately as pageviews
+        if (!ctx.element) {
+          ctx.timing.end.then(logTiming(reqM3, 'request', tags));
+        }
+      });
+    },
+  });
