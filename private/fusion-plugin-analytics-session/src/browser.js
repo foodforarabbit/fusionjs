@@ -10,12 +10,13 @@ function safeJSONParse(str) {
   }
 }
 
-export default createPlugin({
-  deps: {
-    cookieType: AnalyticsCookieTypeToken,
-    Cookies: AnalyticsCookieModuleToken,
-  },
-  provides: ({cookieType, Cookies}) => {
-    return safeJSONParse(Cookies.get(cookieType.name));
-  },
-});
+export default __BROWSER__ &&
+  createPlugin({
+    deps: {
+      cookieType: AnalyticsCookieTypeToken,
+      Cookies: AnalyticsCookieModuleToken,
+    },
+    provides: ({cookieType, Cookies}) => {
+      return safeJSONParse(Cookies.get(cookieType.name));
+    },
+  });

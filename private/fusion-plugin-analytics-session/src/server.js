@@ -11,31 +11,32 @@ function safeJSONParse(str) {
   }
 }
 
-export default createPlugin({
-  deps: {
-    cookieType: AnalyticsCookieTypeToken,
-  },
-  provides: ({cookieType}) => {
-    return {
-      from: memoize(ctx => {
-        return safeJSONParse(ctx.cookies.get(cookieType.name));
-      }),
-    };
-  },
-  middleware: ({cookieType}) => {
-    return (ctx, next) => {
-      // TODO: only set cookie on certain requests
-      if (!ctx.cookies.get(cookieType.name)) {
-        ctx.cookies.set(
-          cookieType.name,
-          JSON.stringify(generateCookieData(cookieType)),
-          {
-            overwrite: false,
-            ...cookieType.options,
-          }
-        );
-      }
-      return next();
-    };
-  },
-});
+export default __NODE__ &&
+  createPlugin({
+    deps: {
+      cookieType: AnalyticsCookieTypeToken,
+    },
+    provides: ({cookieType}) => {
+      return {
+        from: memoize(ctx => {
+          return safeJSONParse(ctx.cookies.get(cookieType.name));
+        }),
+      };
+    },
+    middleware: ({cookieType}) => {
+      return (ctx, next) => {
+        // TODO: only set cookie on certain requests
+        if (!ctx.cookies.get(cookieType.name)) {
+          ctx.cookies.set(
+            cookieType.name,
+            JSON.stringify(generateCookieData(cookieType)),
+            {
+              overwrite: false,
+              ...cookieType.options,
+            }
+          );
+        }
+        return next();
+      };
+    },
+  });
