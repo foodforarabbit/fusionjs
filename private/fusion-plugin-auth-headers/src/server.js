@@ -66,7 +66,10 @@ class AuthHeaders {
 
 type AuthHeadersService = {from: (ctx: Context) => AuthHeaders};
 type AuthHeadersPluginType = FusionPlugin<*, AuthHeadersService>;
-const plugin: AuthHeadersPluginType = createPlugin({
+const plugin: AuthHeadersPluginType =
+  // $FlowFixMe
+  __NODE__ &&
+  createPlugin({
   deps: {
     uuid: AuthHeadersUUIDConfigToken,
     email: AuthHeadersEmailConfigToken,

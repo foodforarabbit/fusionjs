@@ -12,8 +12,11 @@ const service: AuthHeadersService = {
 };
 
 type AuthHeadersPluginType = FusionPlugin<*, AuthHeadersService>;
-const plugin: AuthHeadersPluginType = createPlugin({
-  provides: () => service,
-});
+const plugin: AuthHeadersPluginType =
+  // $FlowFixMe
+  __BROWSER__ &&
+  createPlugin({
+    provides: () => service,
+  });
 
 export default plugin;
