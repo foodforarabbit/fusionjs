@@ -6,7 +6,7 @@ const cache = {};
 module.exports = name => ({source}) => {
   if (!cache[name]) {
     cache[name] = true;
-    const files = find.fileSync(/package\.json/, process.cwd());
+    const files = find.fileSync(/(^(?!.*(node_modules))).*(package.json)$/, process.cwd());
     files.forEach(file => {
       const meta = JSON.parse(fs.readFileSync(file, 'utf-8'));
       if (meta.dependencies && meta.dependencies[name]) {
