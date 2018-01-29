@@ -29,27 +29,27 @@
     "upload-assets": "cli.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.186.0",
+    "aws-sdk": "^2.188.0",
     "lru-cache": "^4.1.1",
     "mime": "^2.2.0",
     "mime-db": "^1.32.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
-    "create-universal-package": "^3.2.6",
+    "create-universal-package": "^3.3.0",
     "eslint": "^4.16.0",
     "eslint-config-fusion": "^0.2.1",
     "eslint-plugin-cup": "^1.0.0",
-    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-flowtype": "^2.42.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.5.0",
-    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-react": "^7.6.0",
     "fusion-core": "^0.3.0-5",
-    "fusion-test-utils": "^0.4.1",
+    "fusion-test-utils": "^0.4.2",
     "fusion-tokens": "^0.0.5",
     "get-port": "^3.2.0",
     "prettier": "1.10.2",
-    "s3rver": "^1.0.3",
+    "s3rver": "^1.0.0",
     "tape-cup": "^4.7.1",
     "tmp": "^0.0.33",
     "unitest": "^2.1.1"

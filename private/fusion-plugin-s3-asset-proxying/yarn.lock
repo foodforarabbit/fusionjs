@@ -904,9 +904,9 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://unpm.uberinternal.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-aws-sdk@^2.186.0:
-  version "2.186.0"
-  resolved "https://unpm.uberinternal.com/aws-sdk/-/aws-sdk-2.186.0.tgz#64eccea5bf0449810323c313d9cb41c2a4a2850d"
+aws-sdk@^2.188.0:
+  version "2.188.0"
+  resolved "https://unpm.uberinternal.com/aws-sdk/-/aws-sdk-2.188.0.tgz#9062abc7dba6393459fa2f3423cf5d294f004611"
   dependencies:
     buffer "4.9.1"
     events "^1.1.1"
@@ -1452,9 +1452,9 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-universal-package@^3.2.6:
-  version "3.2.6"
-  resolved "https://unpm.uberinternal.com/create-universal-package/-/create-universal-package-3.2.6.tgz#8269a7ac8ad5d1e13139a36f18d139fb48000483"
+create-universal-package@^3.3.0:
+  version "3.3.0"
+  resolved "https://unpm.uberinternal.com/create-universal-package/-/create-universal-package-3.3.0.tgz#69c31d117705f72b8c418c1140e4cf051160ef9d"
   dependencies:
     "@babel/core" "^7.0.0-beta.36"
     "@babel/plugin-transform-flow-strip-types" "^7.0.0-beta.36"
@@ -1626,14 +1626,7 @@ doctrine@1.5.0:
     esutils "^2.0.2"
     isarray "^1.0.0"
 
-doctrine@^2.0.0:
-  version "2.0.0"
-  resolved "https://unpm.uberinternal.com/doctrine/-/doctrine-2.0.0.tgz#c73d8d2909d22291e1a007a395804da8b665fe63"
-  dependencies:
-    esutils "^2.0.2"
-    isarray "^1.0.0"
-
-doctrine@^2.1.0:
+doctrine@^2.0.2, doctrine@^2.1.0:
   version "2.1.0"
   resolved "https://unpm.uberinternal.com/doctrine/-/doctrine-2.1.0.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
   dependencies:
@@ -1854,9 +1847,9 @@ eslint-plugin-cup@^1.0.0:
   dependencies:
     globals "^10.0.0"
 
-eslint-plugin-flowtype@^2.41.0:
-  version "2.41.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.41.0.tgz#fd5221c60ba917c059d7ef69686a99cca09fd871"
+eslint-plugin-flowtype@^2.42.0:
+  version "2.42.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.42.0.tgz#7fcc98df4ed9482a22ac10ba4ca48d649c4c733a"
   dependencies:
     lodash "^4.15.0"
 
@@ -1882,13 +1875,13 @@ eslint-plugin-prettier@^2.5.0:
     fast-diff "^1.1.1"
     jest-docblock "^21.0.0"
 
-eslint-plugin-react@^7.5.1:
-  version "7.5.1"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-react/-/eslint-plugin-react-7.5.1.tgz#52e56e8d80c810de158859ef07b880d2f56ee30b"
+eslint-plugin-react@^7.6.0:
+  version "7.6.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-react/-/eslint-plugin-react-7.6.0.tgz#351651188c74c5b2fecc2717e3936b7207baa728"
   dependencies:
-    doctrine "^2.0.0"
+    doctrine "^2.0.2"
     has "^1.0.1"
-    jsx-ast-utils "^2.0.0"
+    jsx-ast-utils "^2.0.1"
     prop-types "^15.6.0"
 
 eslint-scope@^3.7.1, eslint-scope@~3.7.1:
@@ -2294,9 +2287,9 @@ fusion-core@^0.3.0-5:
     node-mocks-http "^1.6.6"
     toposort "^1.0.6"
 
-fusion-test-utils@^0.4.1:
-  version "0.4.1"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-0.4.1.tgz#c834945eb0bdecc6f56993c4daaf4f4e13416029"
+fusion-test-utils@^0.4.2:
+  version "0.4.2"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-0.4.2.tgz#a8cc45eea3c6943cb41ba4b61f699adb126ef531"
   dependencies:
     assert "^1.4.1"
     koa "^2.4.1"
@@ -2926,7 +2919,7 @@ jstoxml@^0.2.2:
   version "0.2.4"
   resolved "https://unpm.uberinternal.com/jstoxml/-/jstoxml-0.2.4.tgz#ff3fb67856883a032953c7ce8ce7486210f48447"
 
-jsx-ast-utils@^2.0.0:
+jsx-ast-utils@^2.0.1:
   version "2.0.1"
   resolved "https://unpm.uberinternal.com/jsx-ast-utils/-/jsx-ast-utils-2.0.1.tgz#e801b1b39985e20fffc87b40e3748080e2dcac7f"
   dependencies:
@@ -4056,7 +4049,7 @@ rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://unpm.uberinternal.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
 
-s3rver@^1.0.3:
+s3rver@^1.0.0:
   version "1.0.3"
   resolved "https://unpm.uberinternal.com/s3rver/-/s3rver-1.0.3.tgz#468c23d97746d092367efbcafba2a39f76d76b9f"
   dependencies:

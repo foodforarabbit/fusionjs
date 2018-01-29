@@ -8,7 +8,8 @@ import util from 'util';
 import zlib from 'zlib';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import AssetProxyingPlugin, {S3ConfigToken} from '../server.js';
+import {S3ConfigToken} from '../tokens';
+import AssetProxyingPlugin from '../server.js';
 
 const AWS = require('aws-sdk');
 
