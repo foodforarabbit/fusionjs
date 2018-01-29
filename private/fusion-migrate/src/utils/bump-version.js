@@ -7,7 +7,7 @@ module.exports = (name, version) => ({source}) => {
   if (name && version && !cache[name]) {
     cache[name] = true;
     const files = find.fileSync(
-      /(^(?!.*(node_modules))).*(package.json)$/,
+      /(^(?!.*(node_modules))).*(package.json)/,
       process.cwd()
     );
     files.forEach(file => {
