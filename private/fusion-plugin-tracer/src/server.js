@@ -5,10 +5,7 @@ import {createPlugin, memoize} from 'fusion-core';
 
 export const TracerConfigToken = createOptionalToken('TracerConfig', {});
 export const TracerOptionsToken = createOptionalToken('TracerOptions', {});
-export const InitTracerToken = createOptionalToken(
-  'InitTracerToken',
-  initTracer
-);
+export const InitTracerToken = createOptionalToken('InitTracerToken', null);
 
 // eslint-disable-next-line no-unused-vars
 export default __NODE__ &&
@@ -20,6 +17,7 @@ export default __NODE__ &&
       initClient: InitTracerToken,
     },
     provides: ({logger, config, options, initClient}) => {
+      initClient = initClient || initTracer;
       options.logger = options.logger || logger.createChild('tracer');
 
       const {mock, ...tracerConfig} = config;
