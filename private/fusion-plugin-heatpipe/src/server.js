@@ -12,7 +12,7 @@ import {HeatpipeConfigToken} from './tokens';
 
 export const HeatpipeClientToken = createOptionalToken(
   'HeatpipeClientToken',
-  HeatpipePublisher
+  null
 );
 
 export default __NODE__ &&
@@ -25,6 +25,7 @@ export default __NODE__ &&
       Client: HeatpipeClientToken,
     },
     provides({heatpipeConfig, M3, Logger, UniversalEvents, Client}) {
+      Client = Client || HeatpipePublisher;
       const heatpipe = new Client({
         statsd: M3,
         m3Client: M3,
