@@ -4,7 +4,7 @@ import {LoggerToken, createOptionalToken} from 'fusion-tokens';
 import {Locales} from 'locale';
 import Genghis from '@uber/node-genghis';
 
-export const ClientToken = createOptionalToken('RosettaClient', Genghis);
+export const ClientToken = createOptionalToken('RosettaClient', null);
 export const ConfigToken = createOptionalToken('RosettaConfig', {});
 
 export default __NODE__ &&
@@ -14,8 +14,8 @@ export default __NODE__ &&
       Client: ClientToken,
       config: ConfigToken,
     },
-    provides: deps => {
-      const {logger, Client, config} = deps;
+    provides: ({logger, Client, config}) => {
+      Client = Client || Genghis;
       config.service = config.service || process.env.SVC_ID || 'dev-service';
       const client = new Client({logger, ...config});
       client.load();
