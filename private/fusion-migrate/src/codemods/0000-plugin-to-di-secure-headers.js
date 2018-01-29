@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-secure-headers', '2.0.0'),
+  bump('@uber/fusion-plugin-secure-headers', '2.0.1'),
   ({source}) =>
     source.replace(
       `import SecureHeaders from '@uber/fusion-plugin-secure-headers';`,

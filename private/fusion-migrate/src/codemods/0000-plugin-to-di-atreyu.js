@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-atreyu', '0.2.0'),
+  bump('@uber/fusion-plugin-atreyu', '0.2.1'),
   ({source}) => {
     return source.replace(
       `import AtreyuPlugin from '@uber/fusion-plugin-atreyu';`,

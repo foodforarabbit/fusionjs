@@ -8,8 +8,8 @@ module.exports = compose(
     return source.replace(
       `import CsrfProtectionPlugin from 'fusion-plugin-csrf-protection-react';`,
       `import {FetchToken} from 'fusion-tokens';
-import CsrfProtectionPlugin, {
-  FetchToken as BaseFetchToken,
+import CsrfProtection, {
+  FetchForCsrfToken,
 } from 'fusion-plugin-csrf-protection-react';`
     );
   },
@@ -20,10 +20,8 @@ import CsrfProtectionPlugin, {
     fetch: unfetch,
   });
   const {fetch, ignore} = CsrfProtection.of();`,
-      `app.register(BaseFetchToken, unfetch);
-  app
-    .register(FetchToken, CsrfProtectionPlugin)
-    .alias(FetchToken, BaseFetchToken);`
+      `app.register(FetchForCsrfToken, unfetch);
+  app.register(FetchToken, CsrfProtection);`
     );
   }
 );

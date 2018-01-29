@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('fusion-plugin-universal-events-react', '0.3.0'),
+  bump('fusion-plugin-universal-events-react', '0.3.1'),
   ({source}) => {
     return source.replace(
       `import UniversalEventsPlugin from 'fusion-plugin-universal-events-react';`,
