@@ -4,11 +4,8 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import test from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import plugin, {
-  HyperbahnConfigToken,
-  HyperbahnClientToken,
-  TChannelClientToken,
-} from '../server';
+import plugin, {HyperbahnClientToken, TChannelClientToken} from '../server';
+import {HyperbahnConfigToken} from '../tokens';
 import {TChannelToken} from '../index';
 
 test('interface', async t => {

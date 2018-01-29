@@ -2,21 +2,17 @@
 import {createPlugin} from 'fusion-core';
 import {LoggerToken, createOptionalToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
-
 import TChannel from 'tchannel';
 import Hyperbahn from 'tchannel/hyperbahn';
 import path from 'path';
 import fs from 'fs';
 import myLocalIp from 'my-local-ip';
+import {HyperbahnConfigToken} from './tokens';
 
-export const HyperbahnConfigToken = createOptionalToken('HyperbahnConfig', {});
-export const TChannelClientToken = createOptionalToken(
-  'TChannelClient',
-  TChannel
-);
+export const TChannelClientToken = createOptionalToken('TChannelClient', null);
 export const HyperbahnClientToken = createOptionalToken(
   'HyperbahnClient',
-  Hyperbahn
+  null
 );
 
 export default __NODE__ &&
@@ -29,13 +25,9 @@ export default __NODE__ &&
       HyperbahnClient: HyperbahnClientToken,
     },
     provides: deps => {
-      const {
-        logger,
-        m3,
-        hyperbahnConfig,
-        TChannelClient,
-        HyperbahnClient,
-      } = deps;
+      const {logger, m3, hyperbahnConfig} = deps;
+      const TChannelClient = deps.TChannelClient || TChannel;
+      const HyperbahnClient = deps.HyperbahnClient || Hyperbahn;
       const dc = process.env.UBER_DATACENTER || 'sjc';
       const service = process.env.SVC_ID || 'dev-service';
       // eslint-disable-next-line import/no-dynamic-require
