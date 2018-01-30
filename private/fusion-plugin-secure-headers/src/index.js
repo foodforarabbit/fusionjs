@@ -4,7 +4,6 @@ import browser from './browser';
 
 export {
   SecureHeadersToken,
-  SecureHeadersServiceNameConfigToken,
   SecureHeadersUseFrameguardConfigToken,
   SecureHeadersCSPConfigToken,
 } from './tokens.js';

@@ -17,14 +17,12 @@ npm install @uber/fusion-plugin-secure-headers
 
 import React from 'react';
 import SecureHeaders, {
-  SecureHeadersToken,
-  SecureHeadersServiceNameConfigToken,
+  SecureHeadersToken
 } from '@uber/fusion-plugin-secure-headers';
 
 export default () => {
   const app = new App(<Home />);
   app.register(SecureHeadersToken, SecureHeaders);
-  app.register(SecureHeadersServiceNameConfigToken, 'awesome-frontend');
   return app;
 }
 ```
@@ -32,13 +30,6 @@ export default () => {
 ---
 
 ### Config Tokens
-`SecureHeadersServiceNameConfigToken`
-
-```js
-'awesome-frontend'
-/* Required:string */
-```
-
 `SecureHeadersUseFrameguardConfigToken`
 
 ```js
