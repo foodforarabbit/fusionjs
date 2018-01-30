@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('fusion-plugin-jwt', '0.3.3'),
+  bump('fusion-plugin-jwt', '0.3.4'),
   ({source}) => {
     return source.replace(
       `import JWTSessionPlugin from 'fusion-plugin-jwt';`,
