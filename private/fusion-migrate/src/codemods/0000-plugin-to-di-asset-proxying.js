@@ -3,6 +3,6 @@ const bump = require('../utils/bump-version');
 const migrate = require('../utils/plugin-to-di-standalone');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-s3-asset-proxying', '0.3.1'),
+  bump('@uber/fusion-plugin-s3-asset-proxying', '0.3.2'),
   migrate('AssetProxyingPlugin')
 );

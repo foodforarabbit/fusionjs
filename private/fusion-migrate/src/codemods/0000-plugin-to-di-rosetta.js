@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-rosetta', '0.2.0'),
+  bump('@uber/fusion-plugin-rosetta', '0.2.3'),
   ({source}) => {
     return source.replace(
       `import RosettaPlugin from '@uber/fusion-plugin-rosetta';`,
