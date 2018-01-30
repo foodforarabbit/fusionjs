@@ -6,6 +6,7 @@
 // ------------------------------------------------
 import App from 'fusion-react';
 import SecureHeaders from '@uber/fusion-plugin-secure-headers';
+import AuthHeadersPlugin from '@uber/fusion-plugin-auth-headers';
 import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying';
 import SecretsPlugin from '@uber/fusion-plugin-secrets';
 import JWTSessionPlugin from 'fusion-plugin-jwt';
@@ -44,6 +45,7 @@ import atreyuConfig from './config/atreyu';
 import devSecretsConfig from './config/dev-sec.js';
 import getSessionConfig from './config/session.js';
 import secureHeadersConfig from './config/secure-headers';
+import authHeadersDevConfig from './config/auth-headers';
 import sentryConfig from './config/sentry.js';
 import tracerConfig from './config/tracer.js';
 
@@ -54,7 +56,7 @@ import getRPCHandlers from './rpc/handlers.js';
 
 const {team, service} = metaConfig;
 
-export default async function start() {
+export default (async function start() {
   const app = new App(root);
   // Universal Plugins
   !__DEV__ && app.plugin(AssetProxyingPlugin);
@@ -65,6 +67,8 @@ export default async function start() {
     fetch: unfetch,
   });
   const {fetch, ignore} = CsrfProtection.of();
+  // eslint-disable-next-line no-unused-vars
+  const AuthHeaders = app.plugin(AuthHeadersPlugin, authHeadersDevConfig);
   const UniversalEvents = app.plugin(UniversalEventsPlugin, {fetch});
   const M3 = app.plugin(M3Plugin, {UniversalEvents, service});
   const Logger = app.plugin(LoggerPlugin, {
@@ -81,7 +85,7 @@ export default async function start() {
       ignore,
     },
   });
-  app.plugin(ReactReduxPlugin, {
+  const ReduxReact = app.plugin(ReactReduxPlugin, {
     ...reduxOptions,
     enhancer: compose(
       ...[
@@ -90,6 +94,25 @@ export default async function start() {
       ].filter(Boolean)
     ),
   });
+
+  // Handle redux hot reloading.
+  // This needs to exist in main.js to prevent main.js from reloading.
+  __DEV__ &&
+    __BROWSER__ &&
+    app.plugin(() => {
+      return (ctx, next) => {
+        /* global module */
+        if (module.hot) {
+          module.hot.accept('./redux', () => {
+            // eslint-disable-next-line cup/no-undef
+            const nextReducer = require('./redux').default.reducer;
+            ReduxReact.of(ctx).store.replaceReducer(nextReducer);
+          });
+        }
+        return next();
+      };
+    });
+
   app.plugin(SecureHeaders, {config: secureHeadersConfig});
   app.plugin(Router, {UniversalEvents});
   app.plugin(BrowserPerformanceEmitterPlugin, {EventEmitter: UniversalEvents});
@@ -130,4 +153,4 @@ export default async function start() {
   }
 
   return app;
-}
+});
