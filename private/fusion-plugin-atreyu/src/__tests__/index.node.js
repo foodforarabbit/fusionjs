@@ -10,7 +10,7 @@ function createAtreyuPlugin(t) {
     constructor(config, options) {
       numConstructors++;
       t.equal(numConstructors, 1, 'only calls constructor once');
-      t.equal(config, 'abc');
+      t.deepLooseEqual(config, {a: true, appName: 'dev-service'});
       t.equal(options.a, 'b', 'extends options');
       t.equal(options.m3, 'm3', 'passes through m3 client');
       t.equal(options.logger, 'logger', 'passes through logger client');
@@ -30,7 +30,7 @@ function createAtreyuPlugin(t) {
   const tchannel = {hyperbahn: 'hyperbahn'};
 
   const atreyu = plugin.provides({
-    config: 'abc',
+    config: {a: true},
     m3,
     logger,
     tracer,

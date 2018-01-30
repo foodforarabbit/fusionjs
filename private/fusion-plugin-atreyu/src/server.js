@@ -1,3 +1,4 @@
+/* eslint-env node */
 import Atreyu from '@uber/atreyu';
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
@@ -25,6 +26,13 @@ export default __NODE__ &&
     },
     provides({config, m3, logger, tracer, galileo, tchannel, options, Client}) {
       Client = Client || Atreyu;
+      config = Object.assign(
+        {},
+        {
+          appName: process.env.SVC_ID || 'dev-service',
+        },
+        config
+      );
       return new Client(config, {
         m3,
         logger,
