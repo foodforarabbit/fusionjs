@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('fusion-plugin-react-redux', '0.2.1'),
+  bump('fusion-plugin-react-redux', '0.2.2'),
   ({source}) => {
     return source.replace(
       `import ReactReduxPlugin from 'fusion-plugin-react-redux';`,
