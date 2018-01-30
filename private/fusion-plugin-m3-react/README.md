@@ -10,14 +10,14 @@ This plugin exports a very similar interface to [node-m3-client-addon](https://c
 ## Installation
 
 ```
-npm install @uber/fusion-plugin-m3
+yarn add @uber/fusion-plugin-m3-react
 ```
 
 ## Usage
 ```js
 // main.js
 import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events;'
-import M3Plugin, {M3Token, CommonTagsToken} from 'fusion-plugin-m3';
+import M3Plugin, {M3Token, CommonTagsToken} from 'fusion-plugin-m3-react';
 
 app.register(UniversalEventsToken, UniversalEvents); // required
 app.register(CommonTagsToken, {some: 'tags'}); // optional
@@ -30,4 +30,25 @@ app.middleware({m3: M3Token}, ({m3}) => {
   // etc
   return (ctx, next) => next();
 });
+```
+
+#### Higher order component
+
+```js
+import React from 'react';
+import {withM3} from 'fusion-plugin-m3-react';
+
+class M3Tester extends React.Component {
+  render() {
+    const {m3} = this.props;
+    return (
+      <button onClick={e => {
+        e.preventDefault();
+        m3.increment('some-button.click')
+      }}>Click me!</button>
+    );
+  }
+}
+
+export default withM3(M3Tester);
 ```
