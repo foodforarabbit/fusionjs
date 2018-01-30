@@ -8,7 +8,7 @@ module.exports = compose(
       `import SecretsPlugin from '@uber/fusion-plugin-secrets';`,
       `import SecretsPlugin, {
   SecretsToken,
-  SecretsConfigToken,
+  DevSecretsToken,
 } from '@uber/fusion-plugin-secrets';`
     );
   },
@@ -16,7 +16,7 @@ module.exports = compose(
     return source.replace(
       `const Secrets = app.plugin(SecretsPlugin, devSecretsConfig);`,
       `app.register(SecretsToken, SecretsPlugin);
-  app.register(SecretsConfigToken, devSecretsConfig);`
+  app.register(DevSecretsToken, devSecretsConfig);`
     );
   }
 );
