@@ -41,7 +41,7 @@ tape('heatpipe emitter publish', t => {
 });
 
 const webEventsFixture = {
-  serviceName: 'awesome-frontend',
+  serviceName: 'dev-service',
   eventMessage: {
     type: 'stat',
     name: 'need_for_speed',

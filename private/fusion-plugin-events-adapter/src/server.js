@@ -20,8 +20,6 @@ import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
 
-import {EventsAdapterServiceNameToken} from './tokens';
-
 type EventsAdapterDeps = {
   UniversalEvents: UniversalEvents,
   AnalyticsSession: AnalyticsSessionPlugin,
@@ -36,10 +34,10 @@ export default __NODE__ &&
       UniversalEvents: UniversalEventsToken,
       AnalyticsSession: AnalyticsSessionToken,
       I18n: I18nLoaderToken,
-      serviceName: EventsAdapterServiceNameToken,
     },
-    provides: ({UniversalEvents, AnalyticsSession, I18n, serviceName}) => {
+    provides: ({UniversalEvents, AnalyticsSession, I18n}) => {
       const events = UniversalEvents.from();
+      const serviceName = process.env.SVC_ID || 'dev-service';
       assert.ok(
         events,
         '{UniversalEvents.from()} must return an instance of UniversalEvents'

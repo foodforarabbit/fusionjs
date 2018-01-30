@@ -65,7 +65,6 @@ import AnalyticsSessionPlugin, {UberWebEventCookie, AnalyticsCookieTypeToken, An
 
 import EventsAdapterPlugin, {
   EventsAdapterToken,
-  EventsAdapterServiceNameToken,
 } from '@uber/fusion-plugin-events-adapter';
 
 import root from './components/root';
@@ -73,7 +72,6 @@ import root from './components/root';
 // ...importing configs
 
 const teamName = 'awesome-team';
-const serviceName = 'awesome-frontend';
 
 const BaseFetchToken = createToken('BaseFetch');
 
@@ -110,7 +108,6 @@ export default async function start() {
 
   app.register(EventsAdapterToken, EventsAdapterPlugin)
       .alias(EventsAdapterAnalyticsToken, GoogleAnalyticsToken);
-  app.register(EventsAdapterServiceNameToken, serviceName);
   
   return app;
 }

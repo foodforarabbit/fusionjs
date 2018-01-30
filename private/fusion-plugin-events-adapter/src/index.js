@@ -2,10 +2,6 @@
 import server from './server';
 import browser from './browser';
 
-export {
-  EventsAdapterToken,
-  EventsAdapterServiceNameToken,
-  EventsAdapterAnalyticsToken,
-} from './tokens';
+export {EventsAdapterToken, EventsAdapterAnalyticsToken} from './tokens';
 
 export default (__NODE__ ? server : browser);

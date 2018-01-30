@@ -8,7 +8,7 @@ import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 // $FlowFixMe
 import {I18nLoaderToken} from 'fusion-plugin-i18n';
 import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
-import {EventsAdapterToken, EventsAdapterServiceNameToken} from '../tokens';
+import {EventsAdapterToken} from '../tokens';
 
 import ServerPlugin from '../server';
 
@@ -27,7 +27,6 @@ function createMockPlugin(service) {
 tape('Server plugin', t => {
   const app = new App('content', el => el);
   app.register(EventsAdapterToken, ServerPlugin);
-  app.register(EventsAdapterServiceNameToken, 'awesome-frontend');
   app.register(
     UniversalEventsToken,
     createMockPlugin({
