@@ -7,7 +7,7 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
 
 export const ConfigToken = createOptionalToken('GalileoConfig', {});
-export const ClientToken = createOptionalToken('GalileoClient', Galileo);
+export const ClientToken = createOptionalToken('GalileoClient', null);
 
 // eslint-disable-next-line no-unused-vars
 export default __NODE__ &&
@@ -20,6 +20,7 @@ export default __NODE__ &&
       Client: ClientToken,
     },
     provides: ({m3, logger, Tracer, config, Client}) => {
+      Client = Client || Galileo;
       logger = logger.createChild('galileo');
       const tracer = Tracer.tracer;
       const galileoConfig = {
