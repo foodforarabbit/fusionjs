@@ -53,9 +53,6 @@
     "test": "npm run build-test && npm run just-test",
     "prepublish": "npm run transpile"
   },
-  "dependencies": {
-    "@uber/heatpipe-web-performance-logger": "link:../heatpipe-web-performance-logger"
-  },
   "peerDependencies": {
     "fusion-core": "^0.2.3"
   },
