@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-heatpipe-performance-logger",
   "description": "publish web performance data to heatpipe ",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "files": [
     "dist"
