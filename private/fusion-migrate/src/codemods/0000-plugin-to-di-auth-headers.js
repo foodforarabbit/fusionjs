@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-tracer', '0.2.2'),
+  bump('@uber/fusion-plugin-auth-headers', '0.2.2'),
   ({source}) => {
     return source.replace(
       `import AuthHeadersPlugin from '@uber/fusion-plugin-auth-headers';`,
