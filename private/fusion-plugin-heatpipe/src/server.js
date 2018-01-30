@@ -26,10 +26,28 @@ export default __NODE__ &&
     },
     provides({heatpipeConfig, M3, Logger, UniversalEvents, Client}) {
       Client = Client || HeatpipePublisher;
+
+      const defaultHeatpipeConfig = {
+        appId: process.env.SVC_ID || 'dev-service',
+        schemaService: {
+          host: 'localhost',
+          port: 14040,
+        },
+        kafka: {
+          proxyHost: 'localhost',
+          proxyPort: 18084,
+          maxRetries: 3,
+        },
+        exact: false,
+        debugMode: __DEV__,
+        publishToKafka: true,
+      };
+
       const heatpipe = new Client({
         statsd: M3,
         m3Client: M3,
         logger: Logger,
+        ...defaultHeatpipeConfig,
         ...heatpipeConfig,
       });
 

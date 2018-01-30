@@ -1,6 +1,6 @@
 # fusion-plugin-heatpipe
 
-Heatpipe publisher plugin for fusion
+Heatpipe publisher plugin for FusionJS
 
 ## Installation
 
@@ -20,7 +20,7 @@ import heatpipeConfig from  'config/heatpipe';
 
 // ...
 app.register(HeatpipeToken, HeatpipePlugin);
-app.register(HeatpipeConfigToken, heatpipeConfig);
+app.register(HeatpipeConfigToken, heatpipeConfig);  // optional
 
 // User-land
 if (__NODE__) {
@@ -58,10 +58,19 @@ if (__NODE__) {
 }
 ```
 
-## Config
-// TODO: Finalize the statement below
-```
-Note: The config should be produced by app/src/config/heatpipe.js which is scaffolded with your application.
+## API
+
+### Dependency registration
+
+```js
+import HeatpipePlugin, {
+  HeatpipeToken,
+  HeatpipeConfigToken
+} from '@uber/fusion-plugin-heatpipe';
+import heatpipeConfig from  'config/heatpipe';
+
+app.register(HeatpipeToken, HeatpipePlugin);
+app.register(HeatpipeConfigToken, heatpipeConfig);  // optional
 ```
 
-Please refer to [@uber/node-heatpipe-publisher](https://code.uberinternal.com/diffusion/MENODE/repository/master/)
+- `heatpipeConfig`(Optional) - Config overrides for [@uber/node-heatpipe-publisher](https://code.uberinternal.com/diffusion/MENODE/repository/master/). HeatpipePlugin provides a common default if unset. Please refer to [@uber/node-heatpipe-publisher](https://code.uberinternal.com/diffusion/MENODE/repository/master/) for configuration setups.
