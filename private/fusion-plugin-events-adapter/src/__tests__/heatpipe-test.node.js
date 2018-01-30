@@ -6,6 +6,9 @@ import Heatpipe, {webTopicInfo} from '../emitters/heatpipe';
 tape('heatpipe emitter interface', t => {
   t.equal(typeof Heatpipe, 'function', 'exports a function');
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit() {}
   }
   // $FlowFixMe
@@ -26,6 +29,9 @@ tape('heatpipe emitter publish', t => {
   };
 
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit(type, payload) {
       t.equal(
         type,
@@ -36,7 +42,13 @@ tape('heatpipe emitter publish', t => {
       t.end();
     }
   }
-  const hp = Heatpipe({events: new Events(), serviceName: 'test'});
+  const hp = Heatpipe({
+    events: new Events(),
+    serviceName: 'test',
+    AnalyticsSession: {
+      from() {},
+    },
+  });
   hp.publish(fixturePayload);
 });
 
@@ -132,6 +144,9 @@ const webEventsFixture = {
 
 tape('heatpipe emitter publishWebEvents with dependencies', t => {
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit(type, payload) {
       t.equal(
         type,
@@ -170,6 +185,9 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
 
 tape('heatpipe emitter publishWebEvents missing dependencies', t => {
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit(type, payload) {
       t.equal(
         type,

@@ -16,6 +16,9 @@ tape('m3 emitter interface', t => {
 
 tape('m3 emitter increment', t => {
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit(type, payload) {
       t.equal(type, 'm3:increment', 'emits increment event with correct type');
       t.equal(payload.key, 'test', 'increment passes payload through');
@@ -29,6 +32,9 @@ tape('m3 emitter increment', t => {
 
 tape('m3 emitter decrement', t => {
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit(type, payload) {
       t.equal(type, 'm3:decrement', 'emits decrement event with correct type');
       t.equal(payload.key, 'test', 'decrement passes payload through');
@@ -42,6 +48,9 @@ tape('m3 emitter decrement', t => {
 
 tape('m3 emitter timing', t => {
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit(type, payload) {
       t.equal(type, 'm3:timing', 'emits timing event with correct type');
       t.equal(payload.key, 'test', 'timing passes payload through');
@@ -56,6 +65,9 @@ tape('m3 emitter timing', t => {
 
 tape('m3 emitter counter', t => {
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit(type, payload) {
       t.equal(type, 'm3:counter', 'emits counter event with correct type');
       t.equal(payload.key, 'test', 'counter passes payload through');
@@ -70,6 +82,9 @@ tape('m3 emitter counter', t => {
 
 tape('m3 emitter gauge', t => {
   class Events extends EventEmitter {
+    from() {
+      return this;
+    }
     emit(type, payload) {
       t.equal(type, 'm3:gauge', 'emits gauge event with correct type');
       t.equal(payload.key, 'test', 'gauge passes payload through');

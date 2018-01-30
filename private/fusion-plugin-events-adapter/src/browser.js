@@ -9,17 +9,10 @@ import {EventsAdapterAnalyticsToken} from './tokens';
 export default __BROWSER__ &&
   createPlugin({
     deps: {
-      UniversalEvents: UniversalEventsToken,
+      events: UniversalEventsToken,
       Analytics: EventsAdapterAnalyticsToken,
     },
-    provides({UniversalEvents, Analytics}) {
-      const events = UniversalEvents.from();
-      if (!events) {
-        throw new Error(
-          'UniversalEvents.from() must return an instance of UniversalEvents'
-        );
-      }
-
+    middleware({events, Analytics}) {
       function webEventsMetaMapper(payload) {
         const location = window.location || {};
 
@@ -45,15 +38,19 @@ export default __BROWSER__ &&
         };
       }
 
-      events.map('pageview:browser', webEventsMetaMapper);
-      events.map('redux:action', webEventsMetaMapper);
-      events.map('browser-performance-emitter:stats', webEventsMetaMapper);
-
-      pageViewBrowser({
-        events,
-        analytics: Analytics && Analytics.from(),
-      });
-
+      return (ctx, next) => {
+        const ctxEvents = events.from(ctx);
+        ctxEvents.map('pageview:browser', webEventsMetaMapper);
+        ctxEvents.map('redux:action', webEventsMetaMapper);
+        ctxEvents.map('browser-performance-emitter:stats', webEventsMetaMapper);
+        pageViewBrowser({
+          events,
+          analytics: Analytics.from(ctx),
+        });
+        return next();
+      };
+    },
+    provides: () => {
       return {
         from() {
           throw new Error('No available service for EventsAdapter in browser');

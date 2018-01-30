@@ -1,7 +1,5 @@
 // @flow
 /* eslint-env node */
-import assert from 'assert';
-
 import {createPlugin} from 'fusion-core';
 // $FlowFixMe
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
@@ -21,7 +19,7 @@ import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
 
 type EventsAdapterDeps = {
-  UniversalEvents: UniversalEvents,
+  events: UniversalEvents,
   AnalyticsSession: AnalyticsSessionPlugin,
   I18n: I18nPlugin,
   serviceName: string,
@@ -31,17 +29,12 @@ type EventsAdapterDeps = {
 export default __NODE__ &&
   createPlugin({
     deps: {
-      UniversalEvents: UniversalEventsToken,
+      events: UniversalEventsToken,
       AnalyticsSession: AnalyticsSessionToken,
       I18n: I18nLoaderToken,
     },
-    provides: ({UniversalEvents, AnalyticsSession, I18n}) => {
-      const events = UniversalEvents.from();
+    provides: ({events, AnalyticsSession, I18n}) => {
       const serviceName = process.env.SVC_ID || 'dev-service';
-      assert.ok(
-        events,
-        '{UniversalEvents.from()} must return an instance of UniversalEvents'
-      );
 
       const m3 = M3(events);
       const log = Logger(events);
@@ -67,13 +60,13 @@ export default __NODE__ &&
         },
       };
     },
-    middleware: ({UniversalEvents}: EventsAdapterDeps, service) => async (
+    middleware: ({events}: EventsAdapterDeps, service) => async (
       ctx: Object,
       next: () => Promise<void>
     ) => {
       const {logTiming} = service;
 
-      const reqEvents = UniversalEvents.from(ctx);
+      const reqEvents = events.from(ctx);
       const reqM3 = M3(reqEvents);
       return next().then(() => {
         const tags = ctx.status < 300 ? {route: ctx.path} : {};

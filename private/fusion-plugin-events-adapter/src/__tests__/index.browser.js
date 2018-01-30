@@ -1,5 +1,6 @@
 // @flow
 import tape from 'tape-cup';
+import EventEmitter from 'events';
 import {getSimulator} from 'fusion-test-utils';
 import App, {createPlugin} from 'fusion-core';
 
@@ -27,23 +28,23 @@ function createMockPlugin(service) {
   });
 }
 
-tape('Browser plugin', t => {
+tape('Browser plugin', async t => {
   const mapped = [];
 
+  class Events extends EventEmitter {
+    from() {
+      return this;
+    }
+    map(type) {
+      mapped.push(type);
+    }
+  }
   const app = new App('content', el => el);
   app.register(EventsAdapterToken, BrowserPlugin);
   app.register(EventsAdapterAnalyticsToken, createMockPlugin({}));
-  app.register(
-    UniversalEventsToken,
-    createMockPlugin({
-      on() {},
-      map(type) {
-        mapped.push(type);
-      },
-    })
-  );
+  app.register(UniversalEventsToken, new Events());
 
-  getSimulator(
+  const sim = getSimulator(
     app,
     createPlugin({
       deps: {
@@ -55,6 +56,7 @@ tape('Browser plugin', t => {
       },
     })
   );
+  await sim.render('/');
   t.deepEqual(mapped, EventTypesShouldBeMapped, 'event types correctly mapped');
 
   t.end();

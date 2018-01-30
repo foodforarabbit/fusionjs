@@ -1,4 +1,5 @@
 // @flow
+import EventEmitter from 'events';
 import tape from 'tape-cup';
 import {getSimulator} from 'fusion-test-utils';
 import App, {createPlugin} from 'fusion-core';
@@ -26,13 +27,13 @@ function createMockPlugin(service) {
 
 tape('Server plugin', t => {
   const app = new App('content', el => el);
+  class Events extends EventEmitter {
+    from() {
+      return this;
+    }
+  }
   app.register(EventsAdapterToken, ServerPlugin);
-  app.register(
-    UniversalEventsToken,
-    createMockPlugin({
-      on() {},
-    })
-  );
+  app.register(UniversalEventsToken, new Events());
   app.register(
     I18nLoaderToken,
     createMockPlugin({

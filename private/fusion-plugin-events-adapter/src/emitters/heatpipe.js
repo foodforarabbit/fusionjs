@@ -6,7 +6,7 @@ export const webTopicInfo = {
 
 type HeatpipeArgs = {
   events: EventEmitter,
-  AnalyticsSession?: AnalyticsSessionPlugin,
+  AnalyticsSession: AnalyticsSessionPlugin,
   Geolocation?: GeolocationPlugin,
   I18n?: I18nPlugin,
   serviceName: string,
@@ -90,7 +90,7 @@ export default function({
         }) ||
         {};
       const {session_id = 'unknown', session_time_ms = 0} =
-        (AnalyticsSession && AnalyticsSession.from(ctx)) || {};
+        AnalyticsSession.from(ctx) || {};
       const geolocation = (Geolocation && Geolocation.from(ctx).lookup()) || {};
 
       return {
