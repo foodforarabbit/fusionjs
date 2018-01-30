@@ -3,7 +3,7 @@ const bump = require('../utils/bump-version');
 
 module.exports = compose(
   bump('fusion-plugin-i18n', '^0.4.2'),
-  bump('fusion-plugin-i18n-react', '^0.3.2'),
+  bump('fusion-plugin-i18n-react', '^0.3.3'),
   ({source}) => {
     return source.replace(
       `import I18n from 'fusion-plugin-i18n-react';`,
