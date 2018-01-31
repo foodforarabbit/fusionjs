@@ -3,7 +3,7 @@ const compose = require('../utils/compose');
 module.exports = compose(
   ({source}) =>
     source.replace(
-      `import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying`,
+      `import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying'`,
       `import AuthHeadersPlugin, {
   AuthHeadersToken,
   AuthHeadersUUIDConfigToken,

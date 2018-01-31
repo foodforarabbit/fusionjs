@@ -18,10 +18,6 @@ module.exports = compose(
     );
   },
   ({source}) => {
-    return source.replace(
-      `import tracerConfig from './config/tracer.js'
-;`,
-      ``
-    );
+    return source.replace(`import tracerConfig from './config/tracer.js';`, ``);
   }
 );
