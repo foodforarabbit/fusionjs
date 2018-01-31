@@ -12,7 +12,7 @@ import AnalyticsSessionPlugin, {
   UberWebEventCookie,
   AnalyticsCookieTypeToken,
   AnalyticsSessionToken
-} from 'fusion-plugin-analytics-session';`
+} from '@uber/fusion-plugin-analytics-session';`
     ),
   ({source}) =>
     source.replace(
