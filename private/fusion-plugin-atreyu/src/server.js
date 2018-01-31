@@ -36,8 +36,8 @@ export default __NODE__ &&
       return new Client(config, {
         m3,
         logger,
-        tracer,
-        galileo,
+        tracer: tracer.tracer,
+        galileo: galileo.galileo,
         channelsOnInit: true,
         hyperbahnClient: tchannel ? tchannel.hyperbahn : null,
         ...options,

@@ -25,8 +25,8 @@ function createAtreyuPlugin(t) {
   }
   const m3 = 'm3';
   const logger = 'logger';
-  const tracer = 'tracer';
-  const galileo = 'galileo';
+  const tracer = {tracer: 'tracer'};
+  const galileo = {galileo: 'galileo'};
   const tchannel = {hyperbahn: 'hyperbahn'};
 
   const atreyu = plugin.provides({
