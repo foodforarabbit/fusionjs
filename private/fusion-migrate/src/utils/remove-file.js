@@ -11,4 +11,5 @@ module.exports = file => ({source}) => {
       .filter(f => !f.match(/node_modules/));
     files.forEach(f => fs.unlinkSync(f));
   }
+  return source;
 };
