@@ -1,5 +1,7 @@
 const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
+const add = require('../utils/add-package');
+const remove = require('../utils/remove-package');
 
 module.exports = compose(
   bump('fusion-plugin-react-redux', '0.2.2'),
