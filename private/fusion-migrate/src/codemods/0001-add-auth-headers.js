@@ -1,7 +1,7 @@
 const compose = require('../utils/compose');
 
 module.exports = compose(
-  add('@uber/fusion-plugin-auth-headers', '0.2.2', true),
+  add('@uber/fusion-plugin-auth-headers', '0.2.2'),
   ({source}) =>
     source.replace(
       `import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying'`,

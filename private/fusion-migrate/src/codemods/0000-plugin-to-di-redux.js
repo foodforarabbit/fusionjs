@@ -1,12 +1,11 @@
 const compose = require('../utils/compose');
-const bump = require('../utils/bump-version');
 const add = require('../utils/add-package');
 const remove = require('../utils/remove-package');
 
 module.exports = compose(
-  bump('fusion-plugin-react-redux', '0.2.2'),
+  add('fusion-plugin-react-redux', '0.2.2'),
   remove('fusion-plugin-react-redux'),
-  add('fusion-plugin-redux-action-emitter-enhancer', '0.2.2', true),
+  add('fusion-plugin-redux-action-emitter-enhancer', '0.2.2'),
   ({source}) => {
     return source.replace(
       `import ReactReduxPlugin from 'fusion-plugin-react-redux';
