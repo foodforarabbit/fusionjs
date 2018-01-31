@@ -42,6 +42,9 @@
     "tape-cup": "^4.7.1",
     "unitest": "^1.1.0"
   },
+  "dependencies": {
+    "request": "^2.83.0"
+  },
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "eslint src/",
