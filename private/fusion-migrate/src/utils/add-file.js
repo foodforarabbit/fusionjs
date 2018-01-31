@@ -9,10 +9,12 @@ module.exports = (file, data) => ({source}) => {
     const files = find
       .dirSync(/src/, process.cwd())
       .filter(f => !f.match(/node_modules/));
-    const meta = JSON.parse(fs.readFileSync(f + '/../package.json', 'utf-8'));
-    if (!(meta.name && meta.name.match(/^fusion-|^uber\/fusion-/))) {
-      files.forEach(f => fs.writeFileSync(f + '/../' + file, data, 'utf-8'));
-    }
+    files.forEach(f => {
+      const meta = JSON.parse(fs.readFileSync(f + '/../package.json', 'utf-8'));
+      if (!(meta.name && meta.name.match(/^fusion-|^uber\/fusion-/))) {
+        fs.writeFileSync(f + '/../' + file, data, 'utf-8');
+      }
+    });
   }
   return source;
 };
