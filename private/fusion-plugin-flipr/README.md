@@ -2,13 +2,40 @@
 
 ## Overview
 
-Flipr client for fusion
+[Flipr](https://engdocs.uberinternal.com/fliprdocs/index.html) plugin for FusionJS apps
 
 ## Installation
 
 ```
 npm install @uber/fusion-plugin-flipr
 ```
+
+## Setup
+
+When Flipr client starts, it finds cache files and loads into memory, this process is called [bootstrapping](https://engdocs.uberinternal.com/fliprdocs/head_flipr_clients/cflipr_client-bootstrap.html). The cache files live on production hosts and the easiest way to retrieve them is through [Boxer - the virtual machine toolbox at Uber](https://engdocs.uberinternal.com/boxer/docker.html#setup-flipr).
+
+To simplify the process fetching the caches for local development, this plugin provides a helper script: `update-flipr-bootstrap [your-flipr-namespace]`
+
+You can add this to the `"scripts"` property in `"package.json"` of your Fusion app, such as:
+
+```js
+{
+  "name": "lovely-frontend",
+  "description": "An example application with FusionJS",
+  "version": "1.0.0",
+  
+  ...
+  
+  "scripts": {
+    ...
+    "dev-update-flipr": "update-flipr-bootstrap lovely-frontend"
+  },
+  
+  ...
+  
+}
+```
+
 
 ## Usage Example
 
