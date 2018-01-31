@@ -1,6 +1,6 @@
 const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
-const unlink = require('../utils/remove-file');
+const remove = require('../utils/remove-file');
 
 module.exports = compose(
   bump('@uber/fusion-plugin-tracer', '0.2.3'),
