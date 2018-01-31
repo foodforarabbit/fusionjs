@@ -1,7 +1,10 @@
 /* eslint-env browser */
-import {createToken} from 'fusion-tokens';
+import {createToken, createOptionalToken} from 'fusion-tokens';
 
 const EventsAdapterToken = createToken('EventAdapterToken');
-const EventsAdapterAnalyticsToken = createToken('EventsAdapterAnalyticsToken');
+const EventsAdapterAnalyticsToken = createOptionalToken(
+  'EventsAdapterAnalyticsToken',
+  null
+);
 
 export {EventsAdapterToken, EventsAdapterAnalyticsToken};

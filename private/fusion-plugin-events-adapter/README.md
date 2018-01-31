@@ -25,7 +25,8 @@ yarn-add @uber/fusion-plugin-events-adapter
 ## Usage
 `// TODO: verify README usage`
 
-```js// main.js
+```js
+// main.js
 import App from 'fusion-react';
 import {
   FetchToken,

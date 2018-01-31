@@ -45,7 +45,7 @@ export default __BROWSER__ &&
         ctxEvents.map('browser-performance-emitter:stats', webEventsMetaMapper);
         pageViewBrowser({
           events,
-          analytics: Analytics.from(ctx),
+          analytics: Analytics && Analytics.from(ctx),
         });
         return next();
       };
