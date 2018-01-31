@@ -1,23 +1,37 @@
 const compose = require('../utils/compose');
-const bump = require('../utils/bump-version');
+const add = require('../utils/add-package');
+const write = require('../utils/add-file');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-auth-headers', '0.2.2'),
+  add('@uber/fusion-plugin-auth-headers', '0.2.2'),
+  write(
+    'src/config/auth-headers',
+    `/* This file should NOT be committed to your repository */
+export default {
+  uuid: '00000000-0000-0000-0000-000000000000',
+};`
+  ),
   ({source}) => {
     return source.replace(
-      `import AuthHeadersPlugin from '@uber/fusion-plugin-auth-headers';`,
+      `import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying';`,
       `import AuthHeadersPlugin, {
   AuthHeadersToken,
   AuthHeadersUUIDConfigToken,
-} from '@uber/fusion-plugin-auth-headers';`
+} from '@uber/fusion-plugin-auth-headers';
+import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying';`
     );
   },
+  ({source}) =>
+    source.replace(
+      `import secureHeadersConfig from './config/secure-headers';`,
+      `import secureHeadersConfig from './config/secure-headers';
+import authHeadersDevConfig from './config/auth-headers';`
+    ),
   ({source}) => {
     return source.replace(
-      `// eslint-disable-next-line no-unused-vars
-  const AuthHeaders = app.plugin(AuthHeadersPlugin, autoHeadersDevConfig);`,
-      `app.register(AuthHeadersToken, AuthHeadersPlugin);
-  app.register(AuthHeadersUUIDConfigToken, authHeadersDevConfig.uuid);`
+      `// node specific plugins`,
+      `// node specific plugins
+    app.register(AuthHeadersUUIDConfigToken, authHeadersDevConfig.uuid);`
     );
   }
 );

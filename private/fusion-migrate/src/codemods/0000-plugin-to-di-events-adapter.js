@@ -3,7 +3,7 @@ const bump = require('../utils/bump-version');
 const migrate = require('../utils/plugin-to-di-standalone');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-events-adapter', '0.4.1'),
+  bump('@uber/fusion-plugin-events-adapter', '0.4.2'),
   ({source}) =>
     source.replace(
       `import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';`,
