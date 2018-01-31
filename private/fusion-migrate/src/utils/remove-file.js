@@ -4,8 +4,8 @@ const fs = require('fs');
 const cache = {};
 
 module.exports = file => ({source}) => {
-  if (!cache[name]) {
-    cache[name] = true;
+  if (!cache[file]) {
+    cache[file] = true;
     const files = find
       .fileSync(new RegExp(file), process.cwd())
       .filter(f => !f.match(/node_modules/));
