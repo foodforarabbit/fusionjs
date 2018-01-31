@@ -16,7 +16,7 @@ module.exports = (file, data) => ({source}) => {
   if (!cache[file]) {
     cache[file] = true;
     const files = find
-      .dirSync(/src/, process.cwd())
+      .dirSync(/src$/, process.cwd())
       .filter(f => !f.match(/node_modules/));
     files.forEach(f => {
       const meta = JSON.parse(readPackageJson(f));
