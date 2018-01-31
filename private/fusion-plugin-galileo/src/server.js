@@ -25,7 +25,10 @@ export default __NODE__ &&
       const tracer = Tracer.tracer;
       const galileoConfig = {
         appName: process.env.SVC_ID || 'dev-service',
-        galileo: config,
+        galileo: {
+          enabled: true,
+          ...config,
+        },
       };
 
       const galileo = new Client(

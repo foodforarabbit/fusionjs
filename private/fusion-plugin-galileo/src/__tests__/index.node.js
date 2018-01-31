@@ -25,7 +25,13 @@ test('fusion Galileo Plugin', t => {
   function MockGalileo(cfg, tracer, format, logger, m3) {
     t.looseEquals(
       cfg,
-      {appName: 'dev-service', galileo: config},
+      {
+        appName: 'dev-service',
+        galileo: {
+          enabled: true,
+          test: 'test',
+        },
+      },
       'config is passed down'
     );
     t.equal(tracer, 'tracer', 'tracer instance needs to be passed down');
