@@ -7,7 +7,9 @@ module.exports = compose(
   ({source}) =>
     source.replace(
       `import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';`,
-      `import EventsAdapter, {EventsAdapterToken} from '@uber/fusion-plugin-events-adapter';
+      `import EventsAdapter, {
+  EventsAdapterToken
+} from '@uber/fusion-plugin-events-adapter';
 import AnalyticsSessionPlugin, {
   UberWebEventCookie,
   AnalyticsCookieTypeToken,

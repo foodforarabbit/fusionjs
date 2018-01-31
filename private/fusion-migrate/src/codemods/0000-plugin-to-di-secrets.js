@@ -15,8 +15,34 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `const Secrets = app.plugin(SecretsPlugin, devSecretsConfig);`,
-      `app.register(SecretsToken, SecretsPlugin);
-  app.register(DevSecretsToken, devSecretsConfig);`
+      `app.register(SecretsToken, SecretsPlugin);`
+    );
+  },
+  ({source}) => {
+    return source.replace(
+      `// node specific plugins`,
+      `// node specific plugins
+    __DEV__ && app.register(DevSecretsToken, devSecretsConfig);`
+    );
+  },
+  ({source}) => {
+    return source.replace(
+      `export default __NODE__ && {
+  devValues: {
+    server: {
+      session: {
+        secret: 'development-session-secret',
+      },
+    },
+  },
+};`,
+      `export default {
+  server: {
+    session: {
+      secret: 'development-session-secret',
+    },
+  },
+};`
     );
   }
 );

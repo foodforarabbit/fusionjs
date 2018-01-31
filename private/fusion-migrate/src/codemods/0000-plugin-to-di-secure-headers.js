@@ -8,7 +8,6 @@ module.exports = compose(
       `import SecureHeaders from '@uber/fusion-plugin-secure-headers';`,
       `import SecureHeaders, {
   SecureHeadersToken,
-  SecureHeadersServiceNameConfigToken,
   SecureHeadersCSPConfigToken,
 } from '@uber/fusion-plugin-secure-headers';`
     ),
@@ -21,10 +20,6 @@ module.exports = compose(
     source.replace(
       `app.plugin(SecureHeaders, {config: secureHeadersConfig});`,
       `app.register(SecureHeadersToken, SecureHeaders);
-  app.register(
-    SecureHeadersServiceNameConfigToken,
-    secureHeadersConfig.service
-  );
   app.register(SecureHeadersCSPConfigToken, secureHeadersConfig.csp);`
     )
 );

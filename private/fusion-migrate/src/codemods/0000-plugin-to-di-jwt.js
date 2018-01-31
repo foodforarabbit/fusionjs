@@ -38,7 +38,7 @@ import {SecretsToken} from '@uber/fusion-plugin-secrets';
 export default createPlugin({
   deps: {Secrets: SecretsToken},
   provides({Secrets}) {
-    return __NODE__ && Secrets.get('server.session.secret')
+    return __NODE__ && Secrets.get('server.session.secret');
   },
 });`
     );

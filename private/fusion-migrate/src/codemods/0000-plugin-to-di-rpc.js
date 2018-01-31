@@ -6,7 +6,7 @@ module.exports = compose(
   ({source}) => {
     return source.replace(
       `import RPC from 'fusion-plugin-rpc-redux-react';`,
-      `import RPC, {RPCToken, RPCConfigToken} from 'fusion-plugin-rpc-redux-react';`
+      `import RPC, {RPCToken, RPCHandlersToken} from 'fusion-plugin-rpc-redux-react';`
     );
   },
   ({source}) => {
@@ -16,7 +16,7 @@ module.exports = compose(
       EventEmitter: UniversalEvents,
     });`,
       `app.register(RPCToken, RPC);
-    app.register(RPCConfigToken, getRPCHandlers);`
+    app.register(RPCHandlersToken, getRPCHandlers);`
     );
   },
   ({source}) => {

@@ -3,6 +3,6 @@ const bump = require('../utils/bump-version');
 const migrate = require('../utils/plugin-to-di-standalone');
 
 module.exports = compose(
-  bump('fusion-plugin-node-performance-emitter', '0.3.1'),
+  bump('fusion-plugin-node-performance-emitter', '0.3.3'),
   migrate('NodePerfEmitterPlugin')
 );

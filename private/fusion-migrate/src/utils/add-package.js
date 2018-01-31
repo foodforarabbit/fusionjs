@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const cache = {};
 
-module.exports = (name, version) => ({source}) => {
+module.exports = (name, version, isAppOnlyDep = false) => ({source}) => {
   if (!cache[name]) {
     cache[name] = true;
     const files = find.fileSync(
@@ -17,7 +17,7 @@ module.exports = (name, version) => ({source}) => {
         meta.devDependencies[name] = version;
         if (!meta.peerDependencies) meta.peerDependencies = {};
         meta.peerDependencies[name] = version;
-      } else {
+      } else if (!isAppOnlyDep) {
         if (!meta.dependencies) meta.dependencies = {};
         meta.dependencies[name] = version;
       }

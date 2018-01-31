@@ -20,8 +20,13 @@ import CsrfProtection, {
     fetch: unfetch,
   });
   const {fetch, ignore} = CsrfProtection.of();`,
-      `app.register(FetchForCsrfToken, unfetch);
-  app.register(FetchToken, CsrfProtection);`
+      `app.register(FetchToken, CsrfProtection);`
     );
-  }
+  },
+  ({source}) =>
+    source.replace(
+      `// browser specific plugins`,
+      `// browser specific plugins
+    app.register(FetchForCsrfToken, unfetch);`
+    )
 );
