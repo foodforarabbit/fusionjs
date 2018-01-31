@@ -15,7 +15,7 @@ npm install @uber/fusion-plugin-flipr
 ```js
 // src/main.js
 import React from 'react';
-export FliprPlugin, {
+import FliprPlugin, {
   FliprToken,
   FliprClientToken,
   FliprConfigToken
@@ -28,10 +28,6 @@ export default () => {
   const app = new App(<Home />);
   // ...
   app.register(FliprToken, FliprPlugin);
-  app.register(FliprClientToken, /*some flipr client*/);
-  app.register(FliprConfigToken, {
-    defaultNamespace: 'awesome-frontend'
-  });
   app.register(LoggerToken, /*some logger*/);
 
   app.plugin(MyPlugin);
@@ -56,10 +52,37 @@ export default createPlugin({
 });
 ```
 
+---
+## API
+
+### Dependency registration
+```js
+import FliprPlugin, {
+  FliprToken,
+  FliprClientToken,
+  FliprConfigToken
+} from '@uber/fusion-plugin-flipr';
+import {LoggerToken} from 'fusion-tokens';
+
+// ...
+app.register(FliprToken, FliprPlugin);
+app.register(LoggerToken, Logger); // Required
+app.register(FliprClientToken, FliprClient); // Optional
+app.register(FliprConfigToken, fliprConfig); // Optional
+```
+
+- FliprPlugin - The plugin
+- Logger - (Required) - A [type-compliant logger](https://github.com/fusionjs/fusion-tokens/blob/d285746961b490ec3906c34349d261e90affbc6c/src/index.js#L36-L45). We use [Logtron](https://code.uberinternal.com/diffusion/WEFUSTX/) at Uber for most of the occassions.
+- FliprClient - (Optional) - The Flipr native client. This is largely for testing with registered mocks. 
+- fliprConfig - (Optional) - See the following section.
+
+---
+
 ## Config
 
 ### Config properties from @uber/fusion-plugin-flipr
-+ `defaultNamespace`: string
+
+- `defaultNamespace`: string
 
 Equivalent to
 
@@ -70,18 +93,18 @@ propertiesNamespaces: [
   `defaultNamespace.${__HOST_NAME__}`,
 ]
 ```
-+ `dataCenter`: string
-+ `overrides`: object
+- `dataCenter`: string
+- `overrides`: object
 
 Properties from this object will finally override the config initializing `@uber/flipr-client`
 
 ### Config properties referenced from @uber/flipr-client
 See [@uber/flipr-client](https://code.uberinternal.com/diffusion/RTFLIP/repository/master/) for more information on the following config properties
 
-+ `propertiesNamespaces`
-+ `updateInterval`
-+ `defaultProperties`
-+ `diskCachePath`
+- `propertiesNamespaces`
+- `updateInterval`
+- `defaultProperties`
+- `diskCachePath`
 
 ## Logger
 `uber/fusion-plugin-flipr` has an optional dependency on a Logger [plugin](https://github.com/uber-web/fusion/blob/master/packages/plugin/docs/index.md) which constructs a logger with [Winston](https://github.com/winstonjs/winston#using-logging-levels)-like interface.

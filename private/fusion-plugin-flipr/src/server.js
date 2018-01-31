@@ -3,7 +3,7 @@ import os from 'os';
 import path from 'path';
 import assert from 'assert';
 
-import Flipr from '@uber/flipr-client';
+import FliprClient from '@uber/flipr-client';
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 
@@ -81,11 +81,13 @@ const plugin =
       Logger: LoggerToken,
       Client: FliprClientToken,
     },
-    provides: ({config, Logger, Client = Flipr}) => {
-      assert(
-        config.defaultNamespace || config.propertiesNamespaces,
-        'Specify your namespaces with either `defaultNamespace` or `propertiesNamespaces`'
-      );
+    provides: ({config, Logger, Client}) => {
+      Client = Client || FliprClient;
+      const fliprClientConfig = {
+        defaultNamespace: process.env.SVC_ID,
+        diskCachePath: __DEV__ && 'flipr',
+        ...config,
+      };
 
       assert(
         !Logger || (Logger && Logger.from),
@@ -93,7 +95,7 @@ const plugin =
       );
       const logger = (Logger && Logger.from()) || null;
 
-      return new FliprService(config, logger, Client);
+      return new FliprService(fliprClientConfig, logger, Client);
     },
   });
 

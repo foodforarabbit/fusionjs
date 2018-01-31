@@ -80,14 +80,6 @@ test('plugin - service resolved as expected', t => {
 
 test('plugin - initialization', t => {
   let app = createTestFixture();
-  app.register(FliprConfigToken, {});
-  t.throws(
-    () => getSimulator(app),
-    /namespace/g,
-    'Throws without `defaultNamespace` or `propertiesNamespaces`'
-  );
-
-  app = createTestFixture();
   app.register(LoggerToken, {});
   t.throws(
     () => getSimulator(app),
