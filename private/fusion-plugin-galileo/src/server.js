@@ -1,5 +1,5 @@
 /* eslint-env node */
-import Galileo from '@uber/galileo';
+import Galileo from '@uber/unpm-galileo';
 import {JaegerClient} from '@uber/jaeger-client-adapter';
 import {createPlugin} from 'fusion-core';
 import {LoggerToken, createOptionalToken} from 'fusion-tokens';

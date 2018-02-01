@@ -689,14 +689,6 @@
     "@uber/jaeger-client-adapter" "^3.3.0"
     fusion-tokens "^0.0.5"
 
-"@uber/galileo@^1.1.8":
-  version "1.1.8"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fgalileo/-/private/%40uber%2Fgalileo-1.1.8.tgz#a330c51493cd342d6121fd38c8c55184625bb64d"
-  dependencies:
-    "@uber/wonka" "git+ssh://gitolite@code.uber.internal:engsec/wonka-node#v2.1.9"
-    lru-cache "^4.1.1"
-    moment "^2.18.1"
-
 "@uber/jaeger-client-adapter@^3.3.0":
   version "3.3.0"
   resolved "https://unpm.uberinternal.com/%40uber%2Fjaeger-client-adapter/-/private/%40uber%2Fjaeger-client-adapter-3.3.0.tgz#ce1cc832c353d281ce87578b5e45a82e8446fa8f"
@@ -704,9 +696,9 @@
     jaeger-client "^3.5.1"
     tchannel "^3.5.19"
 
-"@uber/libwonka@git+ssh://gitolite@code.uber.internal:engsec/libwonka#v0.11.0":
+"@uber/libwonka@^0.11.0":
   version "0.11.0"
-  resolved "git+ssh://gitolite@code.uber.internal:engsec/libwonka#84f0a3f894999665ff93aa413540439a1cdb70f6"
+  resolved "https://unpm.uberinternal.com/%40uber%2Flibwonka/-/private/%40uber%2Flibwonka-0.11.0.tgz#8342efa37d0be58a46df841d2c2f463197f31709"
 
 "@uber/node-m3-client-addon@^1.4.0":
   version "1.4.0"
@@ -715,11 +707,19 @@
     nan "^2.2.0"
     xtend "^4.0.1"
 
-"@uber/wonka@git+ssh://gitolite@code.uber.internal:engsec/wonka-node#v2.1.9":
-  version "2.1.9"
-  resolved "git+ssh://gitolite@code.uber.internal:engsec/wonka-node#9a91d4ce09bc38def3bcd60809c35446015202ec"
+"@uber/unpm-galileo@^1.1.11":
+  version "1.1.11"
+  resolved "https://unpm.uberinternal.com/%40uber%2Funpm-galileo/-/private/%40uber%2Funpm-galileo-1.1.11.tgz#67b54bced57bdd716f087e88a58f7a8f7a89b19b"
   dependencies:
-    "@uber/libwonka" "git+ssh://gitolite@code.uber.internal:engsec/libwonka#v0.11.0"
+    "@uber/unpm-wonka" "^2.1.9-2"
+    lru-cache "^4.1.1"
+    moment "^2.18.1"
+
+"@uber/unpm-wonka@^2.1.9-2":
+  version "2.1.9-2"
+  resolved "https://unpm.uberinternal.com/%40uber%2Funpm-wonka/-/private/%40uber%2Funpm-wonka-2.1.9-2.tgz#beb64f3fa4148fab122a4d6290d015ba9b0a9641"
+  dependencies:
+    "@uber/libwonka" "^0.11.0"
     es6-promise "^3.0.2"
     ffi "^2.2.0"
     ref "^1.3.4"

@@ -21,8 +21,8 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "dependencies": {
-    "@uber/galileo": "^1.1.8",
-    "@uber/jaeger-client-adapter": "^3.3.0"
+    "@uber/jaeger-client-adapter": "^3.3.0",
+    "@uber/unpm-galileo": "^1.1.11"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "^0.3.0",
