@@ -4,13 +4,12 @@ const migrate = require('../utils/plugin-to-di-standalone');
 
 module.exports = compose(
   bump('@uber/fusion-plugin-events-adapter', '0.4.2'),
+  add('@uber/fusion-plugin-analytics-session', '0.2.0'),
   ({source}) =>
     source.replace(
       `import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';`,
-      `import EventsAdapter, {
-  EventsAdapterToken
-} from '@uber/fusion-plugin-events-adapter';
-import AnalyticsSessionPlugin, {
+      `import EventsAdapter from '@uber/fusion-plugin-events-adapter';
+import AnalyticsSession, {
   UberWebEventCookie,
   AnalyticsCookieTypeToken,
   AnalyticsSessionToken
@@ -19,8 +18,8 @@ import AnalyticsSessionPlugin, {
   ({source}) =>
     source.replace(
       `app.plugin(EventsAdapterPlugin, {UniversalEvents, config: {service}});`,
-      `app.register(EventsAdapterToken, EventsAdapter);
-  app.register(AnalyticsSessionToken, AnalyticsSessionPlugin);
+      `app.register(EventsAdapter);
+  app.register(AnalyticsSessionToken, AnalyticsSession);
   app.register(AnalyticsCookieTypeToken, UberWebEventCookie);`
     )
 );

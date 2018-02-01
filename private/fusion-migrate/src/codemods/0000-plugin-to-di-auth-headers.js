@@ -14,7 +14,7 @@ export default {
   ({source}) => {
     return source.replace(
       `import AssetProxyingPlugin from '@uber/fusion-plugin-s3-asset-proxying';`,
-      `import AuthHeadersPlugin, {
+      `import AuthHeaders, {
   AuthHeadersToken,
   AuthHeadersUUIDConfigToken,
 } from '@uber/fusion-plugin-auth-headers';
@@ -31,6 +31,7 @@ import authHeadersDevConfig from './config/auth-headers';`
     return source.replace(
       `// node specific plugins`,
       `// node specific plugins
+    app.register(AuthHeadersToken, AuthHeaders);
     app.register(AuthHeadersUUIDConfigToken, authHeadersDevConfig.uuid);`
     );
   }
