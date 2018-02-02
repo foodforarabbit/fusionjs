@@ -10,7 +10,7 @@ export default __BROWSER__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
-      Analytics: EventsAdapterAnalyticsToken,
+      Analytics: EventsAdapterAnalyticsToken.optional,
     },
     middleware({events, Analytics}) {
       function webEventsMetaMapper(payload) {
