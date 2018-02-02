@@ -9,7 +9,7 @@ export default __NODE__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
-      Client: M3ClientToken,
+      Client: M3ClientToken.optional,
       commonTags: CommonTagsToken.optional,
     },
     provides: ({events, Client, commonTags}) => {
