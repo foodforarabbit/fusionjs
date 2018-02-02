@@ -1,18 +1,18 @@
 /* eslint-env node */
-import {createPlugin, memoize} from 'fusion-core';
-import {LoggerToken, createOptionalToken} from 'fusion-tokens';
+import {createPlugin, memoize, createToken} from 'fusion-core';
+import {LoggerToken} from 'fusion-tokens';
 import {Locales} from 'locale';
 import Genghis from '@uber/node-genghis';
 
-export const ClientToken = createOptionalToken('RosettaClient', null);
-export const ConfigToken = createOptionalToken('RosettaConfig', {});
+export const ClientToken = createToken('RosettaClient');
+export const ConfigToken = createToken('RosettaConfig');
 
 export default __NODE__ &&
   createPlugin({
     deps: {
       logger: LoggerToken,
-      Client: ClientToken,
-      config: ConfigToken,
+      Client: ClientToken.optional,
+      config: ConfigToken.optional,
     },
     provides: ({logger, Client, config}) => {
       Client = Client || Genghis;

@@ -1,7 +1,7 @@
 import tape from 'tape-cup';
-import App from 'fusion-core';
+import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import {LoggerToken, createToken} from 'fusion-tokens';
+import {LoggerToken} from 'fusion-tokens';
 import plugin, {ClientToken, ConfigToken} from '../server';
 
 const RosettaToken = createToken('RosettaToken');
