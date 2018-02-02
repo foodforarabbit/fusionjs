@@ -1,13 +1,12 @@
 /* eslint-env node */
 import path from 'path';
 import Logtron from '@uber/logtron';
-import {createPlugin} from 'fusion-core';
-import {createToken, createOptionalToken} from 'fusion-tokens';
+import {createPlugin, createToken} from 'fusion-core';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import createErrorTransform from './create-error-transform';
 
-export const BackendsToken = createOptionalToken('LogtronBackends', {});
+export const BackendsToken = createToken('LogtronBackends');
 export const TeamToken = createToken('LogtronTeam');
 const supportedLevels = [
   'trace',
@@ -36,10 +35,10 @@ export default __NODE__ &&
     deps: {
       events: UniversalEventsToken,
       m3: M3Token,
-      backends: BackendsToken,
+      backends: BackendsToken.optional,
       team: TeamToken,
     },
-    provides: ({events, m3, backends, team}) => {
+    provides: ({events, m3, backends = {}, team}) => {
       const env = __DEV__ ? 'dev' : process.env.NODE_ENV;
       const service = process.env.SVC_ID || 'dev-service';
       if (backends.console !== false) {
