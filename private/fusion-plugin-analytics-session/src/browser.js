@@ -1,4 +1,5 @@
 /* eslint-env browser */
+import jsCookie from 'js-cookie';
 import {createPlugin} from 'fusion-core';
 import {AnalyticsCookieModuleToken, AnalyticsCookieTypeToken} from './tokens';
 
@@ -14,9 +15,9 @@ export default __BROWSER__ &&
   createPlugin({
     deps: {
       cookieType: AnalyticsCookieTypeToken,
-      Cookies: AnalyticsCookieModuleToken,
+      Cookies: AnalyticsCookieModuleToken.optional,
     },
-    provides: ({cookieType, Cookies}) => {
+    provides: ({cookieType, Cookies = jsCookie}) => {
       return safeJSONParse(Cookies.get(cookieType.name));
     },
   });

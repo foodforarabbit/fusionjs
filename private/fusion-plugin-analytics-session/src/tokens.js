@@ -1,11 +1,7 @@
-import {createToken, createOptionalToken} from 'fusion-tokens';
-import jsCookie from 'js-cookie';
+import {createToken} from 'fusion-core';
 
 export const AnalyticsCookieTypeToken = createToken(
   'AnalyticsSessionCookieType'
 );
-export const AnalyticsCookieModuleToken = createOptionalToken(
-  'AnalyticsCookieModule',
-  jsCookie
-);
+export const AnalyticsCookieModuleToken = createToken('AnalyticsCookieModule');
 export const AnalyticsSessionToken = createToken('AnalyticsSession');
