@@ -1,4 +1,4 @@
-import {createToken, createOptionalToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 
 export const TChannelToken = createToken('TChannelToken');
-export const HyperbahnConfigToken = createOptionalToken('HyperbahnConfig', {});
+export const HyperbahnConfigToken = createToken('HyperbahnConfig');

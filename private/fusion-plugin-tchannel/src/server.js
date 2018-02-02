@@ -1,6 +1,6 @@
 /* eslint-env node */
-import {createPlugin} from 'fusion-core';
-import {LoggerToken, createOptionalToken} from 'fusion-tokens';
+import {createPlugin, createToken} from 'fusion-core';
+import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import TChannel from 'tchannel';
 import Hyperbahn from 'tchannel/hyperbahn';
@@ -9,23 +9,20 @@ import fs from 'fs';
 import myLocalIp from 'my-local-ip';
 import {HyperbahnConfigToken} from './tokens';
 
-export const TChannelClientToken = createOptionalToken('TChannelClient', null);
-export const HyperbahnClientToken = createOptionalToken(
-  'HyperbahnClient',
-  null
-);
+export const TChannelClientToken = createToken('TChannelClient');
+export const HyperbahnClientToken = createToken('HyperbahnClient');
 
 export default __NODE__ &&
   createPlugin({
     deps: {
       logger: LoggerToken,
       m3: M3Token,
-      hyperbahnConfig: HyperbahnConfigToken,
-      TChannelClient: TChannelClientToken,
-      HyperbahnClient: HyperbahnClientToken,
+      hyperbahnConfig: HyperbahnConfigToken.optional,
+      TChannelClient: TChannelClientToken.optional,
+      HyperbahnClient: HyperbahnClientToken.optional,
     },
     provides: deps => {
-      const {logger, m3, hyperbahnConfig} = deps;
+      const {logger, m3, hyperbahnConfig = {}} = deps;
       const TChannelClient = deps.TChannelClient || TChannel;
       const HyperbahnClient = deps.HyperbahnClient || Hyperbahn;
       const dc = process.env.UBER_DATACENTER || 'sjc';
