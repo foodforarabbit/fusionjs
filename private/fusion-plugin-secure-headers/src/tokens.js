@@ -1,12 +1,10 @@
-import {createToken, createOptionalToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 
 export const SecureHeadersToken = createToken('SecureHeadersToken');
 
-export const SecureHeadersUseFrameguardConfigToken = createOptionalToken(
-  'SecureHeadersUseFrameguardConfigToken',
-  ''
+export const SecureHeadersUseFrameguardConfigToken = createToken(
+  'SecureHeadersUseFrameguardConfigToken'
 );
-export const SecureHeadersCSPConfigToken = createOptionalToken(
-  'SecureHeadersCSPConfigToken',
-  ''
+export const SecureHeadersCSPConfigToken = createToken(
+  'SecureHeadersCSPConfigToken'
 );

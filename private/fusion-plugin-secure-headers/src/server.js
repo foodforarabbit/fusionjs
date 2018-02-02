@@ -14,10 +14,10 @@ import {REQUIRED_CSP_CONTENT_TYPES, CSP_HEADERS} from './constants.js';
 export default __NODE__ &&
   createPlugin({
     deps: {
-      useFrameGuard: SecureHeadersUseFrameguardConfigToken,
-      cspConfig: SecureHeadersCSPConfigToken,
+      useFrameGuard: SecureHeadersUseFrameguardConfigToken.optional,
+      espConfig: SecureHeadersCSPConfigToken.optional,
     },
-    middleware: ({useFrameguard, cspConfig}) => {
+    middleware: ({useFrameguard = true, cspConfig}) => {
       const serviceName = process.env.SVC_ID;
       return async (ctx, next) => {
         const secureHeaderMiddlewares = [];
