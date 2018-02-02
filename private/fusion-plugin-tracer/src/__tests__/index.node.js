@@ -1,6 +1,6 @@
 import test from 'tape-cup';
-import {LoggerToken, createToken} from 'fusion-tokens';
-import App from 'fusion-core';
+import {LoggerToken} from 'fusion-tokens';
+import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import TracerPlugin, {TracerConfigToken, InitTracerToken} from '../server';
 
@@ -116,6 +116,7 @@ test('Tracer Middleware', async t => {
         Tracer.tracer,
         'tracer should be defined'
       );
+      ctx.body = 'Hello world';
       return next();
     };
   });

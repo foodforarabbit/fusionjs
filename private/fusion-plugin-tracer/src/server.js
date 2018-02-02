@@ -1,23 +1,27 @@
 /* eslint-env node */
-import {LoggerToken, createOptionalToken} from 'fusion-tokens';
+import {LoggerToken} from 'fusion-tokens';
 import {JaegerClient, initTracer} from '@uber/jaeger-client-adapter';
-import {createPlugin, memoize} from 'fusion-core';
+import {createPlugin, memoize, createToken} from 'fusion-core';
 
-export const TracerConfigToken = createOptionalToken('TracerConfig', {});
-export const TracerOptionsToken = createOptionalToken('TracerOptions', {});
-export const InitTracerToken = createOptionalToken('InitTracerToken', null);
+export const TracerConfigToken = createToken('TracerConfig');
+export const TracerOptionsToken = createToken('TracerOptions');
+export const InitTracerToken = createToken('InitTracerToken');
 
 // eslint-disable-next-line no-unused-vars
 export default __NODE__ &&
   createPlugin({
     deps: {
       logger: LoggerToken,
-      config: TracerConfigToken,
-      options: TracerOptionsToken,
-      initClient: InitTracerToken,
+      config: TracerConfigToken.optional,
+      options: TracerOptionsToken.optional,
+      initClient: InitTracerToken.optional,
     },
-    provides: ({logger, config, options, initClient}) => {
-      initClient = initClient || initTracer;
+    provides: ({
+      logger,
+      config = {},
+      options = {},
+      initClient = initTracer,
+    }) => {
       options.logger = options.logger || logger.createChild('tracer');
 
       const {mock, ...tracerConfig} = config;

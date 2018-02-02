@@ -1,5 +1,5 @@
 // Main export file
-import {createToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 import browser from './browser';
 import server, {
   TracerOptionsToken as OptionsToken,
