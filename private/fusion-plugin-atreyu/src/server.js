@@ -15,17 +15,25 @@ import {
 export default __NODE__ &&
   createPlugin({
     deps: {
-      config: AtreyuConfigToken,
+      config: AtreyuConfigToken.optional,
+      options: AtreyuOptionsToken.optional,
+      Client: AtreyuClientToken.optional,
       m3: M3Token,
       logger: LoggerToken,
       tracer: TracerToken,
       galileo: GalileoToken,
       tchannel: TChannelToken,
-      options: AtreyuOptionsToken,
-      Client: AtreyuClientToken,
     },
-    provides({config, m3, logger, tracer, galileo, tchannel, options, Client}) {
-      Client = Client || Atreyu;
+    provides({
+      config = {},
+      options = {},
+      m3,
+      logger,
+      tracer,
+      galileo,
+      tchannel,
+      Client = Atreyu,
+    }) {
       config = Object.assign(
         {},
         {

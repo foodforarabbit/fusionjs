@@ -1,6 +1,6 @@
-import {createToken, createOptionalToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 
 export const AtreyuToken = createToken('AtreyuToken');
-export const AtreyuConfigToken = createOptionalToken('AtreyuConfigToken', {});
-export const AtreyuOptionsToken = createOptionalToken('AtreyuOptionsToken', {});
-export const AtreyuClientToken = createOptionalToken('AtreyuClientToken', null);
+export const AtreyuConfigToken = createToken('AtreyuConfigToken');
+export const AtreyuOptionsToken = createToken('AtreyuOptionsToken');
+export const AtreyuClientToken = createToken('AtreyuClientToken');
