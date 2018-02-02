@@ -8,11 +8,11 @@ import {DevSecretsToken, SecretsLocationToken} from './tokens';
 export default __NODE__ &&
   createPlugin({
     deps: {
-      devValues: DevSecretsToken,
-      secretsPath: SecretsLocationToken,
+      devValues: DevSecretsToken.optional,
+      secretsPath: SecretsLocationToken.optional,
     },
     provides: deps => {
-      const {devValues, secretsPath} = deps;
+      const {devValues, secretsPath = 'config/secrets/secrets.json'} = deps;
       if (__DEV__ && !devValues) {
         throw new Error('devValues are required in development');
       }

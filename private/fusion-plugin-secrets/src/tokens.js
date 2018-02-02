@@ -1,8 +1,5 @@
-import {createToken, createOptionalToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 
 export const SecretsToken = createToken('Secrets');
-export const DevSecretsToken = createOptionalToken('DevSecrets', null);
-export const SecretsLocationToken = createOptionalToken(
-  'SecretsLocation',
-  'config/secrets/secrets.json'
-);
+export const DevSecretsToken = createToken('DevSecrets');
+export const SecretsLocationToken = createToken('SecretsLocation');
