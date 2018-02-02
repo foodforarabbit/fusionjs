@@ -6,7 +6,7 @@ import {S3ConfigToken} from './tokens';
 
 export default __NODE__ &&
   createPlugin({
-    deps: {config: S3ConfigToken},
+    deps: {config: S3ConfigToken.optional},
     provides: ({config}) => {
       const aws = require('aws-sdk');
       const loadConfig = require('../s3-config');

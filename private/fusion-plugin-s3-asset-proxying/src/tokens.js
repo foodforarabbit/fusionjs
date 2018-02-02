@@ -1,3 +1,3 @@
-import {createOptionalToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 
-export const S3ConfigToken = createOptionalToken('S3Config', null);
+export const S3ConfigToken = createToken('S3Config');
