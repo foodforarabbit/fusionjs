@@ -52,8 +52,8 @@ import M3Plugin, {M3Token} from 'fusion-plugin-m3';
 import FusionLogger, {LogtronBackendsToken, LogtronTeamToken} from '@uber/fusion-plugin-logtron';
 import HeatpipePlugin, {HeatpipeToken, HeatpipeConfigToken} from '@uber/fusion-plugin-heatpipe';
 
+import {I18n, I18nLoaderToken} from 'fusion-plugin-i18n-react';
 import FusionRosetta from '@uber/fusion-plugin-rosetta';
-import {I18nLoaderToken} from 'fusion-plugin-i18n-react';
 
 import GoogleAnalyticsPlugin, {
   GoogleAnalyticsConfigToken, 
@@ -97,6 +97,7 @@ export default async function start() {
   app.register(HeatpipeToken, HeatpipePlugin);
   app.register(HeatpipeConfigToken, heatpipeConfig);
 
+  app.register(I18nToken, I18n);
   app.register(I18nLoaderToken, FusionRosetta);  
 
   app.register(GoogleAnalyticsToken, GoogleAnalyticsPlugin);

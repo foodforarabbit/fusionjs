@@ -5,7 +5,7 @@ import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 // $FlowFixMe
-import {I18nLoaderToken} from 'fusion-plugin-i18n';
+import {I18nToken} from 'fusion-plugin-i18n';
 
 import M3 from './emitters/m3';
 import Logger from './emitters/logger';
@@ -31,7 +31,7 @@ export default __NODE__ &&
     deps: {
       events: UniversalEventsToken,
       AnalyticsSession: AnalyticsSessionToken,
-      I18n: I18nLoaderToken,
+      I18n: I18nToken,
     },
     provides: ({events, AnalyticsSession, I18n}) => {
       const serviceName = process.env.SVC_ID || 'dev-service';

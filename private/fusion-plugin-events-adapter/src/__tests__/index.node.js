@@ -7,7 +7,7 @@ import App, {createPlugin} from 'fusion-core';
 // $FlowFixMe
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 // $FlowFixMe
-import {I18nLoaderToken} from 'fusion-plugin-i18n';
+import {I18nToken} from 'fusion-plugin-i18n';
 import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 import {EventsAdapterToken} from '../tokens';
 
@@ -35,7 +35,7 @@ tape('Server plugin', t => {
   app.register(EventsAdapterToken, ServerPlugin);
   app.register(UniversalEventsToken, new Events());
   app.register(
-    I18nLoaderToken,
+    I18nToken,
     createMockPlugin({
       locale: 'zh-TW',
     })
