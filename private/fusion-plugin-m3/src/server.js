@@ -1,17 +1,16 @@
 /* eslint-env node */
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
-import {createPlugin} from 'fusion-core';
-import {createOptionalToken} from 'fusion-tokens';
+import {createPlugin, createToken} from 'fusion-core';
 
-export const M3ClientToken = createOptionalToken('M3Client', null);
-export const CommonTagsToken = createOptionalToken('commonTags', {});
+export const M3ClientToken = createToken('M3Client');
+export const CommonTagsToken = createToken('commonTags');
 
 export default __NODE__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
       Client: M3ClientToken,
-      commonTags: CommonTagsToken,
+      commonTags: CommonTagsToken.optional,
     },
     provides: ({events, Client, commonTags}) => {
       Client = Client || require('@uber/node-m3-client-addon');

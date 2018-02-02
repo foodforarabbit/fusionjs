@@ -24,17 +24,17 @@
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "babel-plugin-istanbul": "^4.1.5",
-    "create-universal-package": "^3.2.6",
+    "create-universal-package": "^3.4.0",
     "eslint": "^4.16.0",
     "eslint-config-fusion": "^0.2.1",
     "eslint-plugin-cup": "^1.0.0",
-    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-flowtype": "^2.42.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-prettier": "^2.5.0",
-    "eslint-plugin-react": "^7.5.1",
-    "fusion-core": "^0.3.0-5",
-    "fusion-test-utils": "^0.4.0",
-    "fusion-tokens": "^0.0.5",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.6.1",
+    "fusion-core": "^0.3.3",
+    "fusion-test-utils": "^0.4.2",
+    "fusion-tokens": "^0.0.6",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
@@ -53,11 +53,11 @@
   },
   "dependencies": {
     "@uber/node-m3-client-addon": "^1.4.0",
-    "fusion-plugin-universal-events": "^0.3.0"
+    "fusion-plugin-universal-events": "^0.3.3"
   },
   "peerDependencies": {
-    "fusion-core": "^0.3.0-5",
-    "fusion-tokens": "^0.0.5"
+    "fusion-core": "^0.3.3",
+    "fusion-tokens": "^0.0.6"
   },
   "engines": {
     "node": ">=8.3.0",
