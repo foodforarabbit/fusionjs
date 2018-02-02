@@ -70,21 +70,27 @@ const plugin: AuthHeadersPluginType =
   // $FlowFixMe
   __NODE__ &&
   createPlugin({
-  deps: {
-    uuid: AuthHeadersUUIDConfigToken,
-    email: AuthHeadersEmailConfigToken,
-    token: AuthHeadersTokenConfigToken,
-    roles: AuthHeadersRolesConfigToken,
-    groups: AuthHeadersGroupsConfigToken,
-  },
-  provides: deps => {
-    const service: AuthHeadersService = {
-      from: memoize((ctx: Context) => {
-        return new AuthHeaders(ctx, deps);
-      }),
-    };
-    return service;
-  },
-});
+    deps: {
+      uuid: AuthHeadersUUIDConfigToken.optional,
+      email: AuthHeadersEmailConfigToken.optional,
+      token: AuthHeadersTokenConfigToken.optional,
+      roles: AuthHeadersRolesConfigToken.optional,
+      groups: AuthHeadersGroupsConfigToken.optional,
+    },
+    provides: deps => {
+      const service: AuthHeadersService = {
+        from: memoize((ctx: Context) => {
+          return new AuthHeaders(ctx, {
+            uuid: deps.uuid || '',
+            email: deps.email || '',
+            token: deps.token || '',
+            roles: deps.roles || '',
+            groups: deps.groups || '',
+          });
+        }),
+      };
+      return service;
+    },
+  });
 
 export default plugin;

@@ -1,26 +1,22 @@
 // @flow
 
-import {createToken, createOptionalToken} from 'fusion-tokens';
+import type {Token} from 'fusion-core';
+import {createToken} from 'fusion-core';
 
-export const AuthHeadersToken: string = createToken('AuthHeadersToken');
+export const AuthHeadersToken: Token<string> = createToken('AuthHeadersToken');
 
-export const AuthHeadersUUIDConfigToken: string = createOptionalToken(
-  'AuthHeadersUUIDConfigToken',
-  ''
+export const AuthHeadersUUIDConfigToken: Token<string> = createToken(
+  'AuthHeadersUUIDConfigToken'
 );
-export const AuthHeadersEmailConfigToken: string = createOptionalToken(
-  'AuthHeadersUUIDConfigToken',
-  ''
+export const AuthHeadersEmailConfigToken: Token<string> = createToken(
+  'AuthHeadersUUIDConfigToken'
 );
-export const AuthHeadersTokenConfigToken: string = createOptionalToken(
-  'AuthHeadersTokenConfigToken',
-  ''
+export const AuthHeadersTokenConfigToken: Token<string> = createToken(
+  'AuthHeadersTokenConfigToken'
 );
-export const AuthHeadersRolesConfigToken: string = createOptionalToken(
-  'AuthHeadersRolesConfigToken',
-  ''
+export const AuthHeadersRolesConfigToken: Token<string> = createToken(
+  'AuthHeadersRolesConfigToken'
 );
-export const AuthHeadersGroupsConfigToken: string = createOptionalToken(
-  'AuthHeadersGroupsConfig',
-  ''
+export const AuthHeadersGroupsConfigToken: Token<string> = createToken(
+  'AuthHeadersGroupsConfig'
 );
