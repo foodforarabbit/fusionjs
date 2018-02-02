@@ -23,16 +23,17 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
-    "create-universal-package": "^3.3.0",
+    "create-universal-package": "^3.4.0",
     "eslint": "^4.16.0",
     "eslint-config-fusion": "^0.2.1",
     "eslint-plugin-cup": "^1.0.0",
     "eslint-plugin-flowtype": "^2.42.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-prettier": "^2.5.0",
-    "eslint-plugin-react": "^7.6.0",
-    "fusion-core": "^0.3.0-5",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.6.1",
+    "fusion-core": "^0.3.3",
     "fusion-test-utils": "^0.4.2",
+    "fusion-tokens": "^0.0.6",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
@@ -58,10 +59,10 @@
   "dependencies": {
     "@uber/fusion-plugin-m3": "^0.3.0",
     "@uber/node-heatpipe-publisher": "^1.4.2",
-    "fusion-plugin-universal-events": "^0.3.0",
-    "fusion-tokens": "^0.0.5"
+    "fusion-plugin-universal-events": "^0.3.3"
   },
   "peerDependencies": {
-    "fusion-core": "^0.3.0-5"
+    "fusion-core": "^0.3.3",
+    "fusion-tokens": "^0.0.6"
   }
 }

@@ -1,30 +1,27 @@
 /* eslint-env node */
-import {createPlugin} from 'fusion-core';
+import {createPlugin, createToken} from 'fusion-core';
 import util from 'util';
 
 import HeatpipePublisher from '@uber/node-heatpipe-publisher';
 
-import {createOptionalToken, LoggerToken} from 'fusion-tokens';
+import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import {HeatpipeConfigToken} from './tokens';
 
-export const HeatpipeClientToken = createOptionalToken(
-  'HeatpipeClientToken',
-  null
-);
+export const HeatpipeClientToken = createToken('HeatpipeClientToken');
 
 export default __NODE__ &&
   createPlugin({
     deps: {
-      heatpipeConfig: HeatpipeConfigToken,
+      heatpipeConfig: HeatpipeConfigToken.optional,
       M3: M3Token,
       Logger: LoggerToken,
       UniversalEvents: UniversalEventsToken,
-      Client: HeatpipeClientToken,
+      Client: HeatpipeClientToken.optional,
     },
-    provides({heatpipeConfig, M3, Logger, UniversalEvents, Client}) {
+    provides({heatpipeConfig = {}, M3, Logger, UniversalEvents, Client}) {
       Client = Client || HeatpipePublisher;
 
       const defaultHeatpipeConfig = {

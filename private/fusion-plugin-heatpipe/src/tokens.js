@@ -1,6 +1,6 @@
-import {createToken, createOptionalToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 
 const HeatpipeToken = createToken('HeatpipeToken');
-const HeatpipeConfigToken = createOptionalToken('HeatpipeConfigToken', {});
+const HeatpipeConfigToken = createToken('HeatpipeConfigToken');
 
 export {HeatpipeToken, HeatpipeConfigToken};
