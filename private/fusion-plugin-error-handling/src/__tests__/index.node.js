@@ -1,8 +1,8 @@
 /* eslint-env node */
 
 import test from 'tape-cup';
-import App from 'fusion-core';
-import {LoggerToken, createToken} from 'fusion-tokens';
+import App, {createToken} from 'fusion-core';
+import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {getSimulator} from 'fusion-test-utils';
 import plugin from '../server';
