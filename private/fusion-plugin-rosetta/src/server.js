@@ -14,8 +14,7 @@ export default __NODE__ &&
       Client: ClientToken.optional,
       config: ConfigToken.optional,
     },
-    provides: ({logger, Client, config}) => {
-      Client = Client || Genghis;
+    provides: ({logger, Client = Genghis, config = {}}) => {
       config.service = config.service || process.env.SVC_ID || 'dev-service';
       const client = new Client({logger, ...config});
       client.load();
