@@ -71,7 +71,7 @@ export default createPlugin({
     flipr: FliprToken
   },
   middleware: ({flipr}) => (ctx, next) => {
-    if (flipr.from().get('be.awesome')) {
+    if (flipr.get('be.awesome')) {
       // make awesome
     }
     return next();

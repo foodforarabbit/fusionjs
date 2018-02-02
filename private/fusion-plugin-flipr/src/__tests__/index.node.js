@@ -9,9 +9,6 @@ import {FliprToken, FliprClientToken, FliprConfigToken} from '../tokens';
 
 function createTestFixture(t) {
   const mockLogger = () => {};
-  const mockLoggerPlugin = {
-    from: () => mockLogger,
-  };
   const mockFliprClient = function(config) {
     const {
       propertiesNamespaces,
@@ -48,7 +45,7 @@ function createTestFixture(t) {
   app.register(FliprToken, FliprPlugin);
   app.register(FliprClientToken, mockFliprClient);
   app.register(FliprConfigToken, mockConfig);
-  app.register(LoggerToken, mockLoggerPlugin);
+  app.register(LoggerToken, mockLogger);
   return app;
 }
 
@@ -80,14 +77,6 @@ test('plugin - service resolved as expected', t => {
 
 test('plugin - initialization', t => {
   let app = createTestFixture();
-  app.register(LoggerToken, {});
-  t.throws(
-    () => getSimulator(app),
-    /Logger/g,
-    'Throws when providing an invalid Logger'
-  );
-
-  app = createTestFixture();
   getSimulator(
     app,
     createPlugin({
@@ -118,7 +107,7 @@ test('service - initialization with client error', t => {
           defaultNamespace: 'foo',
         },
         Client: MockGrumpyFliprClient,
-      }).from(),
+      }),
     /unhappy/g,
     're-throws on startUpdating()'
   );

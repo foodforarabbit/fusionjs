@@ -1,7 +1,6 @@
 /* eslint-env node */
 import os from 'os';
 import path from 'path';
-import assert from 'assert';
 
 import FliprClient from '@uber/flipr-client';
 import {createPlugin} from 'fusion-core';
@@ -77,23 +76,17 @@ const plugin =
   __NODE__ &&
   createPlugin({
     deps: {
-      config: FliprConfigToken,
-      Logger: LoggerToken,
-      Client: FliprClientToken,
+      config: FliprConfigToken.optional,
+      logger: LoggerToken,
+      Client: FliprClientToken.optional,
     },
-    provides: ({config, Logger, Client}) => {
+    provides: ({config = {}, logger, Client}) => {
       Client = Client || FliprClient;
       const fliprClientConfig = {
         defaultNamespace: process.env.SVC_ID,
         diskCachePath: __DEV__ && 'flipr',
         ...config,
       };
-
-      assert(
-        !Logger || (Logger && Logger.from),
-        'Provided Logger plugin interface unknown'
-      );
-      const logger = (Logger && Logger.from()) || null;
 
       return new FliprService(fliprClientConfig, logger, Client);
     },

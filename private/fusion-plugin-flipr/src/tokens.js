@@ -1,6 +1,6 @@
-import {createToken, createOptionalToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 
 export const FliprToken = createToken('FliprToken');
 
-export const FliprClientToken = createOptionalToken('FliprClientToken', null);
-export const FliprConfigToken = createOptionalToken('FliprConfigToken', {});
+export const FliprClientToken = createToken('FliprClientToken');
+export const FliprConfigToken = createToken('FliprConfigToken');
