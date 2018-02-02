@@ -1,7 +1,7 @@
 import test from 'tape-cup';
-import App from 'fusion-core';
+import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import {LoggerToken, createToken} from 'fusion-tokens';
+import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
 import GalileoPlugin, {ClientToken, ConfigToken} from '../server';

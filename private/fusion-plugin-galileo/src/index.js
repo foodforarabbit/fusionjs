@@ -1,5 +1,5 @@
 // Main export file
-import {createToken} from 'fusion-tokens';
+import {createToken} from 'fusion-core';
 import server, {ConfigToken} from './server';
 import browser from './browser';
 

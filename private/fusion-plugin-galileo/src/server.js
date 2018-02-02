@@ -1,13 +1,13 @@
 /* eslint-env node */
 import Galileo from '@uber/unpm-galileo';
 import {JaegerClient} from '@uber/jaeger-client-adapter';
-import {createPlugin} from 'fusion-core';
-import {LoggerToken, createOptionalToken} from 'fusion-tokens';
+import {createPlugin, createToken} from 'fusion-core';
+import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
 
-export const ConfigToken = createOptionalToken('GalileoConfig', {});
-export const ClientToken = createOptionalToken('GalileoClient', null);
+export const ConfigToken = createToken('GalileoConfig');
+export const ClientToken = createToken('GalileoClient');
 
 // eslint-disable-next-line no-unused-vars
 export default __NODE__ &&
@@ -16,10 +16,10 @@ export default __NODE__ &&
       logger: LoggerToken,
       m3: M3Token,
       Tracer: TracerToken,
-      config: ConfigToken,
-      Client: ClientToken,
+      config: ConfigToken.optional,
+      Client: ClientToken.optional,
     },
-    provides: ({m3, logger, Tracer, config, Client}) => {
+    provides: ({m3, logger, Tracer, config = {}, Client}) => {
       Client = Client || Galileo;
       logger = logger.createChild('galileo');
       const tracer = Tracer.tracer;
