@@ -2,7 +2,8 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-error-handling', '0.2.3'),
+  bump('fusion-plugin-error-handling', '0.2.3'),
+  bump('@uber/fusion-plugin-error-handling', '0.2.2'),
   ({source}) => {
     return source.replace(
       `app.plugin(ErrorHandlingPlugin, {
