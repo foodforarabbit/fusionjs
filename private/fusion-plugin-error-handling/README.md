@@ -3,6 +3,7 @@
 This is a fusion plugin for uber specific error handling.
 
 ### Example
+
 ```js
 import {LoggerToken} from 'fusion-tokens';
 import LoggerPlugin from '@uber/fusion-plugin-logtron';
@@ -14,5 +15,5 @@ app.register(ErrorHandling);
 app.register(LoggerToken, LoggerPlugin);
 app.register(M3Token, M3Plugin);
 // register handler
-app.register(ErrorHandlerToken, UberErrorHandling);
+__NODE__ && app.register(ErrorHandlerToken, UberErrorHandling);
 ```

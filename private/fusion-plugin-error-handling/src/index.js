@@ -1,4 +1,4 @@
-import ServerLogger from './server';
-import BrowserLogger from './browser';
+import UberServerErrorHandler from './server';
+import UberBrowserErrorHandler from './browser';
 
-export default (__NODE__ ? ServerLogger : BrowserLogger);
+export default (__NODE__ ? UberServerErrorHandler : UberBrowserErrorHandler);
