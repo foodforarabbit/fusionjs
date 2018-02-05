@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-migrate",
-  "version": "0.0.73",
+  "version": "0.0.74",
   "description": "Migration scripts for FusionJS",
   "bin": {
     "fusion-migrate": "bin/fusion-migrate.sh"
