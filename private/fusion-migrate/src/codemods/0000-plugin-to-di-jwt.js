@@ -22,9 +22,15 @@ import Session, {
   ({source}) => {
     return source.replace(
       `const Session = app.plugin(JWTSessionPlugin, getSessionConfig({Secrets}));`,
-      `app.register(SessionToken, Session);
-  app.register(SessionSecretToken, jwtSessionConfig);
+      `app.register(SessionSecretToken, jwtSessionConfig);
   app.register(SessionCookieNameToken, 'jwt-session');`
+    );
+  },
+  ({source}) => {
+    return source.replace(
+      `// node specific plugins`,
+      `// node specific plugins
+    app.register(SessionToken, Session);`
     );
   },
   ({source}) => {
