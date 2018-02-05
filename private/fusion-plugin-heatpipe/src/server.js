@@ -61,4 +61,5 @@ export default __NODE__ &&
         destroy: heatpipe.destroy.bind(heatpipe),
       };
     },
+    cleanup: hp => new Promise(resolve => hp.destroy(resolve)),
   });
