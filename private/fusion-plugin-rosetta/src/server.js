@@ -30,4 +30,5 @@ export default __NODE__ &&
       client.from = memoize(ctx => new TranslationsLoader(ctx));
       return client;
     },
+    cleanup: client => client.clearInterval(),
   });
