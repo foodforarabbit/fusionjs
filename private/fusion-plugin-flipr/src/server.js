@@ -90,6 +90,7 @@ const plugin =
 
       return new FliprService(fliprClientConfig, logger, Client);
     },
+    cleanup: flipr => flipr.destroy(),
   });
 
 export default plugin;
