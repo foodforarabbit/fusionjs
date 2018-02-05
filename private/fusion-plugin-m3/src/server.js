@@ -90,4 +90,5 @@ export default __NODE__ &&
         immediateGauge: makeValueFunction(boundM3.immediateGauge),
       };
     },
+    cleanup: m3 => m3.close(),
   });
