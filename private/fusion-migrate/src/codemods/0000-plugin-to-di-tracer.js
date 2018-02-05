@@ -3,7 +3,7 @@ const bump = require('../utils/bump-version');
 const remove = require('../utils/remove-file');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-tracer', '0.2.3'),
+  bump('@uber/fusion-plugin-tracer', '0.2.4'),
   remove('src/config/tracer.js'),
   ({source}) => {
     return source.replace(

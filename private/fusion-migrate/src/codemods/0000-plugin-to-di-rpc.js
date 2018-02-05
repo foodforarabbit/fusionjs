@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('fusion-plugin-rpc', '0.6.2'),
+  bump('fusion-plugin-rpc', '0.6.3'),
   bump('fusion-plugin-rpc-redux-react', '0.3.2'),
   ({source}) => {
     return source.replace(

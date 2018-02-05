@@ -3,8 +3,8 @@ const add = require('../utils/add-package');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-events-adapter', '0.4.2'),
-  add('@uber/fusion-plugin-analytics-session', '0.2.0'),
+  bump('@uber/fusion-plugin-events-adapter', '0.4.3'),
+  add('@uber/fusion-plugin-analytics-session', '0.2.2'),
   ({source}) =>
     source.replace(
       `import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';`,

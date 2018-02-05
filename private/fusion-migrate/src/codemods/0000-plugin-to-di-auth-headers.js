@@ -3,7 +3,7 @@ const add = require('../utils/add-package');
 const write = require('../utils/add-file');
 
 module.exports = compose(
-  add('@uber/fusion-plugin-auth-headers', '0.2.2'),
+  add('@uber/fusion-plugin-auth-headers', '0.2.3'),
   write(
     'src/config/auth-headers',
     `/* This file should NOT be committed to your repository */

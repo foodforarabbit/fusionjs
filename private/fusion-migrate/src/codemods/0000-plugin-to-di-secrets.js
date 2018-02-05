@@ -2,7 +2,7 @@ const compose = require('../utils/compose');
 const bump = require('../utils/bump-version');
 
 module.exports = compose(
-  bump('@uber/fusion-plugin-secrets', '0.3.2'),
+  bump('@uber/fusion-plugin-secrets', '0.3.3'),
   ({source}) => {
     return source.replace(
       `import SecretsPlugin from '@uber/fusion-plugin-secrets';`,
