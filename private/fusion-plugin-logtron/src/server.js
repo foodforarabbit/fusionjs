@@ -83,6 +83,7 @@ export default __NODE__ &&
       }
       return logger;
     },
+    cleanup: logger => logger.destroy(),
   });
 
 function isErrorMeta(meta) {
