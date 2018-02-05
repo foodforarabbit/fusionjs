@@ -54,4 +54,5 @@ export default __NODE__ &&
       }
       return new GalileoPlugin();
     },
+    cleanup: galileoPlugin => galileoPlugin.destroy(),
   });
