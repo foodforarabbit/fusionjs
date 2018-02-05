@@ -47,7 +47,6 @@ test('Tracer Plugin', async t => {
   app.register(TracerConfigToken, config);
   app.middleware({Tracer: TracerToken}, ({Tracer}) => {
     t.equals(Tracer.tracer, mockTracer, 'should have tracer instance created');
-    t.ok(Tracer.destroy(), 'should destroy the tracer instance');
     return (ctx, next) => next();
   });
   getSimulator(app);

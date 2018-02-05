@@ -28,8 +28,6 @@ app.register(TracerOptionsToken, /* tracer options */});
 app.middleware({Tracer: TracerToken}, ({Tracer}) => {
   // Access tracer client
   Tracer.tracer
-  // Cleanup tracer client
-  Tracer.destory()
   return (ctx, next) => {
     // Access tracer span
     Tracer.from(ctx).span

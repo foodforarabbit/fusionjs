@@ -48,10 +48,6 @@ export default __NODE__ &&
         from: memoize(() => {
           return new TracerPlugin();
         }),
-        destroy() {
-          tracer.close();
-          return true;
-        },
       };
     },
     middleware: (deps, tracerContainer) => {
@@ -84,4 +80,5 @@ export default __NODE__ &&
         span.finish();
       };
     },
+    cleanup: tracer => new Promise(resolve => tracer.close(resolve)),
   });
