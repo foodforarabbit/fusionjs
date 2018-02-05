@@ -80,5 +80,5 @@ export default __NODE__ &&
         span.finish();
       };
     },
-    cleanup: tracer => new Promise(resolve => tracer.close(resolve)),
+    cleanup: tracer => new Promise(resolve => tracer.tracer.close(resolve)),
   });
