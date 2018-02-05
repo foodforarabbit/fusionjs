@@ -117,10 +117,11 @@ export default __NODE__ &&
           this.hyperbahn = hyperbahn;
         }
         cleanup() {
-          this.tchannel.close();
           this.hyperbahn.destroy();
+          return new Promise(resolve => this.tchannel.close(resolve));
         }
       }
       return new TchannelService();
     },
+    cleanup: tchannel => tchannel.cleanup(),
   });
