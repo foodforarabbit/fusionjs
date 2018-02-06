@@ -28,5 +28,28 @@ module.exports = compose(
     });`,
       `app.register(RPCToken, RPC);`
     );
+  },
+  ({source, path}, {jscodeshift: j}) => {
+    if (path === 'src/rpc/handler.js') {
+      return j(source)
+        .find(j.ExportDefaultDeclaration)
+        .replaceWith(p => {
+          const tpl = `import {createPlugin} from 'fusion-core';
+import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
+import {LoggerToken} from 'fusion-tokens';
+import {M3Token} from '@uber/fusion-plugin-m3';
+
+export default __NODE__ &&
+  createPlugin({
+    deps: {atreyu: AtreyuToken, logger: LoggerToken, m3: M3Token},
+    provides: PROVIDES,
+  });`;
+          return j(tpl)
+            .find(j.Identifier, {name: 'PROVIDES'})
+            .replaceWith(p.value.declaration)
+            .toSource();
+        })
+        .toSource();
+    } else return source;
   }
 );

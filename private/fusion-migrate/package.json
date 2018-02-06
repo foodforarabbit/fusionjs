@@ -11,7 +11,11 @@
   },
   "dependencies": {
     "find": "^0.2.8",
-    "jscodeshift": "^0.4.0"
+    "jscodeshift": "^0.4.0",
+    "fusion-tokens": "^0.0.6",
+    "@uber/fusion-plugin-auth-headers": "0.2.3",
+    "@uber/fusion-plugin-analytics-session": "0.2.2",
+    "fusion-plugin-redux-action-emitter-enhancer": "0.2.2"
   },
   "repository": "https://code.uberinternal.com/diffusion/WEFUSGK/"
 }

@@ -1,6 +1,7 @@
 const find = require('find');
 const fs = require('fs');
 const path = require('path');
+const {execSync} = require('child_process');
 
 const cache = {};
 
@@ -21,7 +22,10 @@ module.exports = (file, data) => ({source}) => {
     files.forEach(f => {
       const meta = JSON.parse(readPackageJson(f));
       if (!(meta.name && meta.name.match(/^fusion-|^uber\/fusion-/))) {
-        fs.writeFileSync(path.resolve(f + '/../' + file), data, 'utf-8');
+        if (meta.name.match(/migrate/)) return;
+        const filename = path.resolve(f + '/../' + file);
+        execSync(`touch ${filename}`);
+        fs.writeFileSync(filename, data, 'utf-8');
       }
     });
   }

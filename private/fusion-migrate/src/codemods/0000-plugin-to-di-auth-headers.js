@@ -5,7 +5,7 @@ const write = require('../utils/add-file');
 module.exports = compose(
   add('@uber/fusion-plugin-auth-headers', '0.2.3'),
   write(
-    'src/config/auth-headers',
+    'src/config/auth-headers.js',
     `/* This file should NOT be committed to your repository */
 export default {
   uuid: '00000000-0000-0000-0000-000000000000',
