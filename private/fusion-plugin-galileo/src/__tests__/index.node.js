@@ -57,3 +57,29 @@ test('fusion Galileo Plugin', t => {
   getSimulator(app);
   t.end();
 });
+
+test('fusion Galileo Plugin disabled', t => {
+  const config = {
+    enabled: false,
+  };
+
+  function MockGalileo() {
+    t.fail('should not instantiate galileo client');
+  }
+
+  const gToken = createToken('Galileo');
+  const app = new App('el', el => el);
+  app.register(LoggerToken, mockLogger);
+  app.register(M3Token, mockM3);
+  app.register(TracerToken, mockTracer);
+  app.register(ClientToken, MockGalileo);
+  app.register(ConfigToken, config);
+  app.register(gToken, GalileoPlugin);
+  app.middleware({Galileo: gToken}, ({Galileo}) => {
+    t.equal(Galileo.galileo, null, 'should have null galileo client');
+    t.doesNotThrow(() => Galileo.destroy(), 'should have destroy function');
+    return (ctx, next) => next();
+  });
+  getSimulator(app);
+  t.end();
+});

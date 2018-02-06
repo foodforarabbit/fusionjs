@@ -1,5 +1,4 @@
 /* eslint-env node */
-import Galileo from '@uber/unpm-galileo';
 import {JaegerClient} from '@uber/jaeger-client-adapter';
 import {createPlugin, createToken} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
@@ -20,7 +19,6 @@ export default __NODE__ &&
       Client: ClientToken.optional,
     },
     provides: ({m3, logger, Tracer, config = {}, Client}) => {
-      Client = Client || Galileo;
       logger = logger.createChild('galileo');
       const tracer = Tracer.tracer;
       const galileoConfig = {
@@ -30,7 +28,10 @@ export default __NODE__ &&
           ...config,
         },
       };
-
+      if (!galileoConfig.galileo.enabled) {
+        return {galileo: null, destroy() {}};
+      }
+      Client = Client || require('@uber/unpm-galileo');
       const galileo = new Client(
         galileoConfig,
         tracer,
