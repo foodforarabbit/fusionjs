@@ -183,6 +183,58 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
   });
 });
 
+tape('heatpipe emitter publishWebEvents with no useragent', t => {
+  class Events extends EventEmitter {
+    from() {
+      return this;
+    }
+    emit(type, payload) {
+      t.equal(
+        type,
+        'heatpipe:publish',
+        'emits publish event with correct type'
+      );
+      t.deepEqual(
+        payload.topicInfo,
+        webTopicInfo,
+        'publishWebEvents sets correct topic information'
+      );
+
+      const expectedResult = {
+        ...webEventsFixture.getResult(),
+        time_ms: payload.message.time_ms, // no test on Date.now()
+      };
+      Object.keys(expectedResult.browser).forEach(key => {
+        if (key !== 'locale') {
+          expectedResult.browser[key] = undefined;
+        }
+      });
+      t.deepEqual(
+        payload.message,
+        expectedResult,
+        'publishWebEvents message transformed correctly'
+      );
+      t.end();
+    }
+  }
+  const hp = Heatpipe({
+    events: new Events(),
+    AnalyticsSession: webEventsFixture.AnalyticsSession,
+    I18n: webEventsFixture.I18n,
+    Geolocation: webEventsFixture.Geolocation,
+    serviceName: webEventsFixture.serviceName,
+  });
+  const ctx = {
+    ...webEventsFixture.ctx,
+    useragent: null,
+  };
+  hp.publishWebEvents({
+    message: webEventsFixture.eventMessage,
+    ctx,
+    webEventsMeta: webEventsFixture.webEventsMeta,
+  });
+});
+
 tape('heatpipe emitter publishWebEvents missing dependencies', t => {
   class Events extends EventEmitter {
     from() {

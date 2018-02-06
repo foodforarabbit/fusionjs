@@ -77,7 +77,12 @@ export default function({
     if (ctx) {
       // TODO: Should we do more validation here? heatpipe will do validation
       // against the schema, but it can be difficult to surface that to the user
-      const userAgent = ctx.useragent || {};
+      const userAgent = ctx.useragent || {
+        browser: {},
+        engine: {},
+        os: {},
+        ua: undefined,
+      };
       // TODO: Should we add more information here about the device/cpu archictecture?
       const uaInfo =
         (userAgent && {
