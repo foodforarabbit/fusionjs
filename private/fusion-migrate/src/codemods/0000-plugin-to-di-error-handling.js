@@ -3,7 +3,7 @@ const bump = require('../utils/bump-version');
 
 module.exports = compose(
   bump('fusion-plugin-error-handling', '0.2.3'),
-  bump('@uber/fusion-plugin-error-handling', '0.2.2'),
+  bump('@uber/fusion-plugin-error-handling', '0.2.4'),
   ({source}) => {
     return source.replace(
       `import ErrorHandlingPlugin from '@uber/fusion-plugin-error-handling';`,
