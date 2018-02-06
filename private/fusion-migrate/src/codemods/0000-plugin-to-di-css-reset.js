@@ -1,9 +1,16 @@
 const compose = require('../utils/compose');
-const migrate = require('../utils/plugin-to-di-standalone');
 
-module.exports = compose(migrate('CssResetPlugin'), ({source}) =>
-  source.replace(
-    `/*
+module.exports = compose(
+  ({source}) => source.replace(`app.plugin(CssResetPlugin);`, ``),
+  ({source}) =>
+    source.replace(
+      `// node specific plugins`,
+      `// node specific plugins
+app.register(CssResetPlugin);`
+    ),
+  ({source}) =>
+    source.replace(
+      `/*
 NOTE: A better solution for template styles will be coming in a future release and
 this plugin will be completely removed in favor of a better interface
 */
@@ -25,7 +32,7 @@ input::-webkit-inner-spin-button,input::-webkit-outer-spin-button,input::-webkit
       };
     }
   : () => {});`,
-    `/*
+      `/*
 NOTE: A better solution for template styles will be coming in a future release and
 this plugin will be completely removed in favor of a better interface
 */
@@ -48,5 +55,5 @@ input::-webkit-inner-spin-button,input::-webkit-outer-spin-button,input::-webkit
       };
     }
   }) : null);`
-  )
+    )
 );

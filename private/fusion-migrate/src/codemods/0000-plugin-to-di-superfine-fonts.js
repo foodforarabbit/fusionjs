@@ -1,9 +1,16 @@
 const compose = require('../utils/compose');
-const migrate = require('../utils/plugin-to-di-standalone');
 
-module.exports = compose(migrate('SuperfineFontsPlugin'), ({source}) =>
-  source.replace(
-    `/*
+module.exports = compose(
+  ({source}) => source.replace(`app.plugin(SuperfineFontsPlugin);`, ``),
+  ({source}) =>
+    source.replace(
+      `// node specific plugins`,
+      `// node specific plugins
+app.register(SuperfineFontsPlugin);`
+    ),
+  ({source}) =>
+    source.replace(
+      `/*
 NOTE: A better solution for font loading will be coming in a future release and
 this plugin will be completely removed in favor of a better interface
 */
@@ -20,7 +27,7 @@ export default (__NODE__
       };
     }
   : () => {});`,
-    `/*
+      `/*
 NOTE: A better solution for font loading will be coming in a future release and
 this plugin will be completely removed in favor of a better interface
 */
@@ -38,5 +45,5 @@ export default (__NODE__
       };
     }
   }) : null);`
-  )
+    )
 );

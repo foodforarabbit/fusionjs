@@ -1,9 +1,16 @@
 const compose = require('../utils/compose');
-const migrate = require('../utils/plugin-to-di-standalone');
 
-module.exports = compose(migrate('FullHeightPlugin'), ({source}) =>
-  source.replace(
-    `import {html} from 'fusion-core';
+module.exports = compose(
+  ({source}) => source.replace(`app.plugin(FullHeightPlugin);`, ``),
+  ({source}) =>
+    source.replace(
+      `// node specific plugins`,
+      `// node specific plugins
+app.register(FullHeightPlugin);`
+    ),
+  ({source}) =>
+    source.replace(
+      `import {html} from 'fusion-core';
 
 export default (__NODE__
   ? () => {
@@ -18,7 +25,7 @@ html,body,#root{height:100%;}
       };
     }
   : () => {});`,
-    `import {createPlugin, html} from 'fusion-core';
+      `import {createPlugin, html} from 'fusion-core';
 
 export default (__NODE__ ?
   createPlugin({
@@ -34,5 +41,5 @@ export default (__NODE__ ?
       };
     }
   }) : null);`
-  )
+    )
 );

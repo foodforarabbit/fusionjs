@@ -19,7 +19,13 @@ module.exports = compose(
   ({source}) =>
     source.replace(
       `app.plugin(SecureHeaders, {config: secureHeadersConfig});`,
-      `app.register(SecureHeadersToken, SecureHeaders);
-  app.register(SecureHeadersCSPConfigToken, secureHeadersConfig.csp);`
+      ``
+    ),
+  ({source}) =>
+    source.replace(
+      `// node specific plugins`,
+      `// node specific plugins
+    app.register(SecureHeadersToken, SecureHeaders);
+    app.register(SecureHeadersCSPConfigToken, secureHeadersConfig.csp);`
     )
 );

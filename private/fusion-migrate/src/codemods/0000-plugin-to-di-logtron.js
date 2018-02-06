@@ -23,8 +23,15 @@ import LoggerPlugin, {
     backends: {sentry: sentryConfig},
   });`,
       `app.register(LoggerToken, LoggerPlugin);
-  app.register(LogtronTeamToken, team);
-  app.register(LogtronBackendsToken, {backends: {sentry: sentryConfig}});`
+  `
+    );
+  },
+  ({source}) => {
+    return source.replace(
+      `// node specific plugins`,
+      `// node specific plugins
+    app.register(LogtronTeamToken, team);
+    app.register(LogtronBackendsToken, {backends: {sentry: sentryConfig}});`
     );
   }
 );

@@ -1,9 +1,16 @@
 const compose = require('../utils/compose');
-const migrate = require('../utils/plugin-to-di-standalone');
 
-module.exports = compose(migrate('HealthPlugin'), ({source}) =>
-  source.replace(
-    `export default (__NODE__
+module.exports = compose(
+  ({source}) => source.replace(`app.plugin(HealthPlugin);`, ``),
+  ({source}) =>
+    source.replace(
+      `// node specific plugins`,
+      `// node specific plugins
+app.register(HealthPlugin);`
+    ),
+  ({source}) =>
+    source.replace(
+      `export default (__NODE__
   ? () => {
       return (ctx, next) => {
         if (!ctx.element && ctx.url === '/health') {
@@ -14,7 +21,7 @@ module.exports = compose(migrate('HealthPlugin'), ({source}) =>
       };
     }
   : () => {});`,
-    `import {createPlugin} from 'fusion-core';
+      `import {createPlugin} from 'fusion-core';
 
 export default (__NODE__ ?
   createPlugin({
@@ -28,5 +35,5 @@ export default (__NODE__ ?
       };
     }
   }) : null);`
-  )
+    )
 );

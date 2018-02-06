@@ -37,5 +37,16 @@ import ActionEmitterEnhancer from 'fusion-plugin-redux-action-emitter-enhancer';
     compose(...[ActionEmitterEnhancer, reduxOptions.enhancer].filter(Boolean))
   )`
     );
+  },
+  ({source}) => {
+    return source.replace(
+      `export default {
+  reducer: state => state,
+  preloadedState: {},
+};`,
+      `export default {
+  reducer: state => state || {},
+};`
+    );
   }
 );
