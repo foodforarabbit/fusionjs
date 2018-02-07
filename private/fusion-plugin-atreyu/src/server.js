@@ -51,4 +51,5 @@ export default __NODE__ &&
         ...options,
       });
     },
+    cleanup: atreyu => atreyu.cleanup(),
   });
