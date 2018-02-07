@@ -18,10 +18,10 @@ export default __NODE__ &&
       heatpipeConfig: HeatpipeConfigToken.optional,
       M3: M3Token,
       Logger: LoggerToken,
-      UniversalEvents: UniversalEventsToken,
+      events: UniversalEventsToken,
       Client: HeatpipeClientToken.optional,
     },
-    provides({heatpipeConfig = {}, M3, Logger, UniversalEvents, Client}) {
+    provides({heatpipeConfig = {}, M3, Logger, events, Client}) {
       Client = Client || HeatpipePublisher;
 
       const defaultHeatpipeConfig = {
@@ -50,7 +50,6 @@ export default __NODE__ &&
 
       heatpipe.connect();
 
-      const events = UniversalEvents.from();
       events.on('heatpipe:publish', ({topicInfo, message}) =>
         heatpipe.publish(topicInfo, message)
       );

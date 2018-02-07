@@ -27,16 +27,12 @@ tape('[fusion] heatpipe-plugin', async t => {
 
   const types = ['publish'];
   const events = {
-    from() {
-      return {
-        on(type) {
-          t.equal(
-            type,
-            `heatpipe:${types.shift()}`,
-            'adds event handler correctly'
-          );
-        },
-      };
+    on(type) {
+      t.equal(
+        type,
+        `heatpipe:${types.shift()}`,
+        'adds event handler correctly'
+      );
     },
   };
 
