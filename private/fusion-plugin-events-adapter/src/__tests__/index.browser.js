@@ -16,18 +16,6 @@ const EventTypesShouldBeMapped = [
   'browser-performance-emitter:stats',
 ];
 
-function createMockPlugin(service) {
-  return createPlugin({
-    provides() {
-      return {
-        from() {
-          return service;
-        },
-      };
-    },
-  });
-}
-
 tape('Browser plugin', async t => {
   const mapped = [];
 
@@ -41,7 +29,11 @@ tape('Browser plugin', async t => {
   }
   const app = new App('content', el => el);
   app.register(EventsAdapterToken, BrowserPlugin);
-  app.register(EventsAdapterAnalyticsToken, createMockPlugin({}));
+  app.register(EventsAdapterAnalyticsToken, {
+    from() {
+      return {};
+    },
+  });
   app.register(UniversalEventsToken, new Events());
 
   const sim = getSimulator(

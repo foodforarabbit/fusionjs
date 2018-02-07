@@ -1,8 +1,8 @@
-export default function pageViewBrowser({events, heatpipe, analytics}) {
+export default function pageViewBrowser({events, heatpipeEmitter, analytics}) {
   if (__NODE__) {
     events.on('pageview:browser', (payload, ctx) => {
       const {page, title, webEventsMeta} = payload;
-      heatpipe.publishWebEvents({
+      heatpipeEmitter.publishWebEvents({
         message: {
           type: 'view',
           name: title,

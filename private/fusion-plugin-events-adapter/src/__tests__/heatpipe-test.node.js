@@ -1,10 +1,10 @@
 // @flow
 import EventEmitter from 'events';
 import tape from 'tape-cup';
-import Heatpipe, {webTopicInfo} from '../emitters/heatpipe';
+import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
 
 tape('heatpipe emitter interface', t => {
-  t.equal(typeof Heatpipe, 'function', 'exports a function');
+  t.equal(typeof HeatpipeEmitter, 'function', 'exports a function');
   class Events extends EventEmitter {
     from() {
       return this;
@@ -12,7 +12,7 @@ tape('heatpipe emitter interface', t => {
     emit() {}
   }
   // $FlowFixMe
-  const hp = Heatpipe({events: new Events(), service: 'test'});
+  const hp = HeatpipeEmitter({events: new Events(), service: 'test'});
   t.equal(typeof hp.publish, 'function', 'exposes an publish function');
   t.equal(
     typeof hp.publishWebEvents,
@@ -28,22 +28,19 @@ tape('heatpipe emitter publish', t => {
     message: {foo: 1},
   };
 
-  class Events extends EventEmitter {
-    from() {
-      return this;
-    }
-    emit(type, payload) {
-      t.equal(
-        type,
-        'heatpipe:publish',
-        'emits publish event with correct type'
+  const mockHeatpipe = {
+    publish(topicInfo, message) {
+      t.deepEqual(
+        {topicInfo, message},
+        fixturePayload,
+        'publish passes payload through'
       );
-      t.deepEqual(payload, fixturePayload, 'publish passes payload through');
       t.end();
-    }
-  }
-  const hp = Heatpipe({
-    events: new Events(),
+    },
+  };
+
+  const hp = HeatpipeEmitter({
+    heatpipe: mockHeatpipe,
     serviceName: 'test',
     AnalyticsSession: {
       from() {},
@@ -143,34 +140,27 @@ const webEventsFixture = {
 };
 
 tape('heatpipe emitter publishWebEvents with dependencies', t => {
-  class Events extends EventEmitter {
-    from() {
-      return this;
-    }
-    emit(type, payload) {
-      t.equal(
-        type,
-        'heatpipe:publish',
-        'emits publish event with correct type'
-      );
+  const mockHeatpipe = {
+    publish(topicInfo, message) {
       t.deepEqual(
-        payload.topicInfo,
+        topicInfo,
         webTopicInfo,
         'publishWebEvents sets correct topic information'
       );
       t.deepEqual(
-        payload.message,
+        message,
         {
           ...webEventsFixture.getResult(),
-          time_ms: payload.message.time_ms, // no test on Date.now()
+          time_ms: message.time_ms, // no test on Date.now()
         },
         'publishWebEvents message transformed correctly'
       );
       t.end();
-    }
-  }
-  const hp = Heatpipe({
-    events: new Events(),
+    },
+  };
+
+  const hp = HeatpipeEmitter({
+    heatpipe: mockHeatpipe,
     AnalyticsSession: webEventsFixture.AnalyticsSession,
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
@@ -184,25 +174,17 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
 });
 
 tape('heatpipe emitter publishWebEvents with no useragent', t => {
-  class Events extends EventEmitter {
-    from() {
-      return this;
-    }
-    emit(type, payload) {
-      t.equal(
-        type,
-        'heatpipe:publish',
-        'emits publish event with correct type'
-      );
+  const mockHeatpipe = {
+    publish(topicInfo, message) {
       t.deepEqual(
-        payload.topicInfo,
+        topicInfo,
         webTopicInfo,
         'publishWebEvents sets correct topic information'
       );
 
       const expectedResult = {
         ...webEventsFixture.getResult(),
-        time_ms: payload.message.time_ms, // no test on Date.now()
+        time_ms: message.time_ms, // no test on Date.now()
       };
       Object.keys(expectedResult.browser).forEach(key => {
         if (key !== 'locale') {
@@ -210,15 +192,16 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
         }
       });
       t.deepEqual(
-        payload.message,
+        message,
         expectedResult,
         'publishWebEvents message transformed correctly'
       );
       t.end();
-    }
-  }
-  const hp = Heatpipe({
-    events: new Events(),
+    },
+  };
+
+  const hp = HeatpipeEmitter({
+    heatpipe: mockHeatpipe,
     AnalyticsSession: webEventsFixture.AnalyticsSession,
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
@@ -236,26 +219,19 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
 });
 
 tape('heatpipe emitter publishWebEvents missing dependencies', t => {
-  class Events extends EventEmitter {
-    from() {
-      return this;
-    }
-    emit(type, payload) {
-      t.equal(
-        type,
-        'heatpipe:publish',
-        'emits publish event with correct type'
-      );
+  const mockHeatpipe = {
+    publish(topicInfo, message) {
       t.deepEqual(
-        payload.message,
+        message,
         webEventsFixture.eventMessage,
         'publish passes payload through and no transforms'
       );
       t.end();
-    }
-  }
+    },
+  };
+
   // $FlowFixMe
-  const hp = Heatpipe({events: new Events(), service: 'test'});
+  const hp = HeatpipeEmitter({heatpipe: mockHeatpipe, service: 'test'});
   hp.publishWebEvents({
     message: webEventsFixture.eventMessage,
   });

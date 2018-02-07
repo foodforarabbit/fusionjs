@@ -1,6 +1,6 @@
 const STAT_EVENT = 'stat';
 
-export default function browserPerformance({events, m3, heatpipe}) {
+export default function browserPerformance({events, m3, heatpipeEmitter}) {
   events.on('browser-performance-emitter:stats', (payload, ctx) => {
     const {webEventsMeta, calculatedStats, resourceEntries} = payload;
 
@@ -8,7 +8,7 @@ export default function browserPerformance({events, m3, heatpipe}) {
       Object.keys(calculatedStats).forEach(key => {
         const statValue = calculatedStats[key];
         if (typeof statValue === 'number') {
-          heatpipe.publishWebEvents({
+          heatpipeEmitter.publishWebEvents({
             message: {
               type: STAT_EVENT,
               name: key,
@@ -18,7 +18,7 @@ export default function browserPerformance({events, m3, heatpipe}) {
             webEventsMeta,
           });
 
-          m3.timing({key, value: statValue});
+          m3.timing(key, statValue);
         }
       });
     }
@@ -26,7 +26,7 @@ export default function browserPerformance({events, m3, heatpipe}) {
     const resourceLoadTimes = calculatedStats.resources_avg_load_time;
     if (resourceLoadTimes) {
       Object.keys(resourceLoadTimes).forEach(resourceType => {
-        heatpipe.publishWebEvents({
+        heatpipeEmitter.publishWebEvents({
           message: {
             type: STAT_EVENT,
             name: 'resources_avg_load_time',
@@ -41,7 +41,7 @@ export default function browserPerformance({events, m3, heatpipe}) {
 
     if (!isEmpty(resourceEntries)) {
       resourceEntries.forEach(entry => {
-        heatpipe.publishWebEvents({
+        heatpipeEmitter.publishWebEvents({
           message: {
             type: STAT_EVENT,
             name: 'resource_load_time',

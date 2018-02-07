@@ -1,19 +1,12 @@
 export default function routeTiming({events, m3}) {
   // increment handlers
   const incrementHandler = key => ({title}) => {
-    m3.increment({
-      key,
-      tags: {route: title},
-    });
+    m3.increment(key, {route: title});
   };
 
   // timing handlers
   const timingHandler = key => ({title, timing, status}) => {
-    m3.timing({
-      key,
-      value: timing,
-      tags: {route: title, status},
-    });
+    m3.timing(key, timing, {route: title, status});
   };
 
   // use route_time here to be consistent

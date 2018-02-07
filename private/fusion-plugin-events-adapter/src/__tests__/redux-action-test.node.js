@@ -2,43 +2,45 @@
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 
-import M3 from '../emitters/m3';
-import Heatpipe, {webTopicInfo} from '../emitters/heatpipe';
+import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
 
 import reactAction from '../handlers/redux-action';
 
 tape('redux-action handler', t => {
   const events = new EventEmitter();
-  // $FlowFixMe
-  const heatpipe = Heatpipe({events, service: 'test'});
-  const m3 = M3(events);
 
-  reactAction(events, heatpipe, m3);
-  let emittedHp = false;
-  let emittedIncrement = false;
-  events.on('heatpipe:publish', payload => {
-    emittedHp = true;
-    t.deepEqual(
-      payload,
-      {
-        topicInfo: webTopicInfo,
-        message: {
-          type: 'action',
-          name: 'foo',
+  const mockM3 = {
+    increment(key, tags) {
+      t.equal(key, 'action');
+      t.deepLooseEqual(tags, {action_type: 'foo'});
+      t.pass('m3 incremented');
+    },
+  };
+
+  const mockHeatpipe = {
+    publish(topicInfo, message) {
+      t.deepEqual(
+        {topicInfo, message},
+        {
+          topicInfo: webTopicInfo,
+          message: {
+            type: 'action',
+            name: 'foo',
+          },
         },
-      },
-      `Heatpipe event published`
-    );
+        `Heatpipe event published`
+      );
+    },
+  };
+
+  // $FlowFixMe
+  const heatpipeEmitter = HeatpipeEmitter({
+    heatpipe: mockHeatpipe,
+    service: 'test',
   });
 
-  events.on('m3:increment', payload => {
-    emittedIncrement = true;
-    t.equal(payload.key, 'action');
-    t.deepLooseEqual(payload.tags, {action_type: 'foo'});
-  });
+  reactAction({events, heatpipeEmitter, m3: mockM3});
 
   events.emit('redux-action-emitter:action', {type: 'foo'});
-  t.ok(emittedHp, 'emits heatpipe event');
-  t.ok(emittedIncrement, 'emits increment event');
   t.end();
 });

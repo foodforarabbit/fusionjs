@@ -5,7 +5,8 @@ export const webTopicInfo = {
 };
 
 type HeatpipeArgs = {
-  events: EventEmitter,
+  // TODO: HeatpipeEmitter Plugin typing
+  heatpipe: *,
   AnalyticsSession: AnalyticsSessionPlugin,
   Geolocation?: GeolocationPlugin,
   I18n?: I18nPlugin,
@@ -27,38 +28,26 @@ type WebEventsMeta = {
   },
 };
 
-export type HeatpipeClient = {
-  publish: (payload: {topicInfo: Object, message: Object}) => void,
-  publishWebEvents: (payload: {
-    message: Object,
-    ctx?: Object,
-    webEventsMeta?: WebEventsMeta,
-  }) => void,
-};
-
 export default function({
-  events,
+  heatpipe,
   AnalyticsSession,
   Geolocation,
   I18n,
   serviceName,
 }: HeatpipeArgs) {
-  const Heatpipe: HeatpipeClient = {
+  const HeatpipeEmitter: HeatpipeEmitter = {
     publish: (payload: {topicInfo: Object, message: Object}) => {
-      events.emit('heatpipe:publish', payload);
+      heatpipe.publish(payload.topicInfo, payload.message);
     },
     publishWebEvents: (payload: {
       message: Object,
       ctx?: Object,
       webEventsMeta?: WebEventsMeta,
     }) => {
-      Heatpipe.publish({
-        topicInfo: webTopicInfo,
-        message: {
-          ...payload.message,
-          ...getWebEventsMetaFields(payload.webEventsMeta),
-          ...getContextFields(payload.ctx),
-        },
+      heatpipe.publish(webTopicInfo, {
+        ...payload.message,
+        ...getWebEventsMetaFields(payload.webEventsMeta),
+        ...getContextFields(payload.ctx),
       });
     },
   };
@@ -114,5 +103,5 @@ export default function({
     return {};
   }
 
-  return Heatpipe;
+  return HeatpipeEmitter;
 }

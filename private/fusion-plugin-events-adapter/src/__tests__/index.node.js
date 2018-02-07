@@ -8,22 +8,14 @@ import App, {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 // $FlowFixMe
 import {I18nToken} from 'fusion-plugin-i18n';
+import {M3Token} from '@uber/fusion-plugin-m3';
+import {LoggerToken} from 'fusion-tokens';
+import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+
 import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 import {EventsAdapterToken} from '../tokens';
 
 import ServerPlugin from '../server';
-
-function createMockPlugin(service) {
-  return createPlugin({
-    provides() {
-      return {
-        from() {
-          return service;
-        },
-      };
-    },
-  });
-}
 
 tape('Server plugin', t => {
   const app = new App('content', el => el);
@@ -34,13 +26,22 @@ tape('Server plugin', t => {
   }
   app.register(EventsAdapterToken, ServerPlugin);
   app.register(UniversalEventsToken, new Events());
-  app.register(
-    I18nToken,
-    createMockPlugin({
-      locale: 'zh-TW',
-    })
-  );
-  app.register(AnalyticsSessionToken, createMockPlugin({}));
+  app.register(M3Token, {});
+  app.register(LoggerToken, {});
+  app.register(HeatpipeToken, {});
+
+  app.register(I18nToken, {
+    from() {
+      return {
+        locale: 'zh-TW',
+      };
+    },
+  });
+  app.register(AnalyticsSessionToken, {
+    from() {
+      return {};
+    },
+  });
 
   getSimulator(
     app,

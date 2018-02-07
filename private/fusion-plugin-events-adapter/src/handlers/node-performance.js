@@ -1,11 +1,7 @@
-// @flow
-import type {M3Emitter} from '../emitters/m3';
-
-export default function nodePerformance(events: EventEmitter, m3: M3Emitter) {
+export default function nodePerformance({events, m3}) {
   const prefix = 'node-performance-emitter';
   const gaugePrefix = `${prefix}:gauge`;
-  // $FlowFixMe
-  const gaugeWithType = key => value => m3.gauge({key, value});
+  const gaugeWithType = key => value => m3.gauge(key, value);
   events.on(`${gaugePrefix}:rss`, gaugeWithType('rss'));
   events.on(`${gaugePrefix}:externalMemory`, gaugeWithType('external_memory'));
   events.on(`${gaugePrefix}:heapTotal`, gaugeWithType('heaptotal'));
@@ -24,6 +20,6 @@ export default function nodePerformance(events: EventEmitter, m3: M3Emitter) {
     gaugeWithType('globalagentfreesockets')
   );
   events.on(`${prefix}:timing:gc`, ({duration, type}) => {
-    m3.timing({key: 'gc', value: duration, tags: {gctype: type}});
+    m3.timing('gc', duration, {gctype: type});
   });
 }

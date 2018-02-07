@@ -2,8 +2,7 @@
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 
-import Heatpipe, {webTopicInfo} from '../emitters/heatpipe';
-import M3 from '../emitters/m3';
+import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
 
 import browserPerformance from '../handlers/browser-performance';
 
@@ -72,32 +71,40 @@ tape('browser-performance handler', t => {
   t.plan(4);
 
   const events = new EventEmitter();
-  const m3 = M3(events);
-  // $FlowFixMe
-  const heatpipe = Heatpipe({events, service: 'test'});
-
-  browserPerformance({events, m3, heatpipe});
 
   let _heatpipeEventsCount = 0;
   let _m3EventsCount = 0;
 
-  events.on('heatpipe:publish', payload => {
-    const currentExpected = expectedEvents.heatpipe[_heatpipeEventsCount++];
-    t.deepEqual(
-      payload,
-      currentExpected,
-      `Heatpipe event published - ${currentExpected.message.name}`
-    );
+  const mockM3 = {
+    timing(key, value) {
+      const currentExpected = expectedEvents.m3[_m3EventsCount++];
+      t.deepEqual(
+        {key, value},
+        currentExpected,
+        `M3 stat emitted - ${currentExpected.key}`
+      );
+    },
+  };
+
+  const mockHeatpipe = {
+    publish(topicInfo, message) {
+      const currentExpected = expectedEvents.heatpipe[_heatpipeEventsCount++];
+      t.deepEqual(
+        {topicInfo, message},
+        currentExpected,
+        `Heatpipe event published - ${currentExpected.message.name}`
+      );
+    },
+  };
+
+  // $FlowFixMe
+  const heatpipeEmitter = HeatpipeEmitter({
+    heatpipe: mockHeatpipe,
+    events,
+    serviceName: 'test',
   });
 
-  events.on('m3:timing', payload => {
-    const currentExpected = expectedEvents.m3[_m3EventsCount++];
-    t.deepEqual(
-      payload,
-      currentExpected,
-      `M3 stat emitted - ${currentExpected.key}`
-    );
-  });
+  browserPerformance({events, m3: mockM3, heatpipeEmitter});
 
   events.emit(
     'browser-performance-emitter:stats',

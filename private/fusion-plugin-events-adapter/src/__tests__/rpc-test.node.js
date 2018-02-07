@@ -2,84 +2,86 @@
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 import rpc from '../handlers/rpc';
-import M3 from '../emitters/m3';
-import Logger from '../emitters/logger';
 
 tape('rpc error handlers', t => {
   const events = new EventEmitter();
-  const m3 = M3(events);
-  const log = Logger(events);
   const e = new Error('fail');
-  rpc(events, m3, log);
-  let emittedIncrement = false;
-  let emittedLog = false;
-  events.on('m3:increment', args => {
-    t.equal(args.key, 'rpc_missing_handler');
-    t.deepLooseEqual(args.tags, {origin: 'server'});
-    emittedIncrement = true;
-  });
-  events.on('logtron:log', payload => {
-    emittedLog = true;
-    t.equal(payload.level, 'error');
-    t.equal(payload.message, e.message);
-    t.equal(payload.meta, e);
-  });
+
+  const mockM3 = {
+    increment(key, tags) {
+      t.equal(key, 'rpc_missing_handler');
+      t.deepLooseEqual(tags, {origin: 'server'});
+      t.pass('m3 incremented');
+    },
+  };
+
+  const mockLogger = {
+    error(message, meta) {
+      t.pass('logger.error()');
+      t.equal(message, e.message);
+      t.equal(meta, e);
+    },
+  };
+
+  rpc({events, m3: mockM3, logger: mockLogger});
   events.emit('rpc:error', {origin: 'server', error: e});
-  t.ok(emittedIncrement, 'emits stat');
-  t.ok(emittedLog, 'emits log');
   t.end();
 });
 
 tape('rpc method success', t => {
   const events = new EventEmitter();
-  const m3 = M3(events);
-  const log = Logger(events);
-  rpc(events, m3, log);
-  let emittedIncrement = false;
-  events.on('m3:timing', args => {
-    t.equal(args.key, 'web_rpc_method');
-    t.equal(args.value, 5);
-    t.deepLooseEqual(args.tags, {
-      origin: 'server',
-      rpc_id: 'test',
-      status: 'success',
-    });
-    emittedIncrement = true;
-  });
+
+  const mockM3 = {
+    timing(key, value, tags) {
+      t.pass('m3.timing()');
+      t.equal(key, 'web_rpc_method');
+      t.equal(value, 5);
+      t.deepLooseEqual(tags, {
+        origin: 'server',
+        rpc_id: 'test',
+        status: 'success',
+      });
+    },
+  };
+
+  const mockLogger = {};
+
+  rpc({events, m3: mockM3, logger: mockLogger});
   events.emit('rpc:method', {
     method: 'test',
     origin: 'server',
     timing: 5,
     status: 'success',
   });
-  t.ok(emittedIncrement, 'emits stat');
   t.end();
 });
 
 tape('rpc method failure', t => {
   const events = new EventEmitter();
-  const m3 = M3(events);
-  const log = Logger(events);
-  rpc(events, m3, log);
-  let emittedIncrement = false;
-  let emittedLog = false;
   const e = new Error('fail');
-  events.on('m3:timing', args => {
-    t.equal(args.key, 'web_rpc_method');
-    t.equal(args.value, 5);
-    t.deepLooseEqual(args.tags, {
-      origin: 'server',
-      rpc_id: 'test',
-      status: 'failure',
-    });
-    emittedIncrement = true;
-  });
-  events.on('logtron:log', payload => {
-    emittedLog = true;
-    t.equal(payload.level, 'error');
-    t.equal(payload.message, e.message);
-    t.equal(payload.meta, e);
-  });
+
+  const mockM3 = {
+    timing(key, value, tags) {
+      t.pass('m3.timing()');
+      t.equal(key, 'web_rpc_method');
+      t.equal(value, 5);
+      t.deepLooseEqual(tags, {
+        origin: 'server',
+        rpc_id: 'test',
+        status: 'failure',
+      });
+    },
+  };
+
+  const mockLogger = {
+    error(message, meta) {
+      t.pass('logger.error()');
+      t.equal(message, e.message);
+      t.equal(meta, e);
+    },
+  };
+
+  rpc({events, m3: mockM3, logger: mockLogger});
   events.emit('rpc:method', {
     method: 'test',
     origin: 'server',
@@ -87,7 +89,5 @@ tape('rpc method failure', t => {
     status: 'failure',
     error: e,
   });
-  t.ok(emittedIncrement, 'emits stat');
-  t.ok(emittedLog, 'emits log');
   t.end();
 });

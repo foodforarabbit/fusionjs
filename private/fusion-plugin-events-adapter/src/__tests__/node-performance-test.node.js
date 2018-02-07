@@ -2,7 +2,6 @@
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 import perf from '../handlers/node-performance';
-import M3 from '../emitters/m3';
 
 tape('node performance rss', gaugeTest('rss', 'rss'));
 tape('node performance rss', gaugeTest('externalMemory', 'external_memory'));
@@ -28,27 +27,33 @@ tape(
 function gaugeTest(emitKey, expectKey) {
   return t => {
     const events = new EventEmitter();
-    const m3 = M3(events);
-    perf(events, m3);
-    events.on('m3:gauge', ({key, value}) => {
-      t.equal(key, expectKey);
-      t.equal(value, 10);
-      t.end();
-    });
+
+    const mockM3 = {
+      gauge(key, value) {
+        t.equal(key, expectKey);
+        t.equal(value, 10);
+        t.end();
+      },
+    };
+
+    perf({events, m3: mockM3});
     events.emit(`node-performance-emitter:gauge:${emitKey}`, 10);
   };
 }
 
 tape('node performance gc timing', t => {
   const events = new EventEmitter();
-  const m3 = M3(events);
-  perf(events, m3);
-  events.on('m3:timing', payload => {
-    t.equal(payload.key, 'gc');
-    t.equal(payload.value, 5);
-    t.deepLooseEqual(payload.tags, {gctype: 'test'});
-    t.end();
-  });
+
+  const mockM3 = {
+    timing(key, value, tags) {
+      t.equal(key, 'gc');
+      t.equal(value, 5);
+      t.deepLooseEqual(tags, {gctype: 'test'});
+      t.end();
+    },
+  };
+
+  perf({events, m3: mockM3});
   events.emit('node-performance-emitter:timing:gc', {
     duration: 5,
     type: 'test',
