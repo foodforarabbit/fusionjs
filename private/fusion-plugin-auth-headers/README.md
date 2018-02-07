@@ -8,7 +8,8 @@ Exposes an API for accessing common authentication fields.
 
 ### API
 
-* `get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Throws `MissingXAuthParamError` otherwise.
+* `from(ctx) => instance`
+* `instance.get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Throws `MissingXAuthParamError` otherwise.
 
 ### Usage Example
 
@@ -34,10 +35,20 @@ export default () => {
   app.register(AuthHeadersRolesConfigToken, authDevConfig.roles); // optional
   app.register(AuthHeadersGroupsConfigToken, authDevConfig.groups); // optional
   // ...
+  
+  // Using auth headers
+  app.middleware({Headers: AuthHeadersToken}, ({Headers}) => {
+    return (ctx, next) => {
+      const headers = Headers.from(ctx);
+      const uuid = headers.get('uuid');
+      const email = headers.get('email');
+      const token = headers.get('token');
+      const roles = headers.get('roles');
+      const groups = headers.get('groups');
+    }
+  });
   return app;
 };
-app.plugin(AuthHeaders, authDevConfig);
-// ...
 
 // src/config/auth.js
 /*
