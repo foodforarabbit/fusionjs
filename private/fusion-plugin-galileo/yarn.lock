@@ -674,6 +674,10 @@
   version "0.0.28"
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
 
+"@uber/fusion-plugin-auth-headers@^0.2.3":
+  version "0.2.3"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-auth-headers/-/private/%40uber%2Ffusion-plugin-auth-headers-0.2.3.tgz#4621d8368ea9326087b7d7a6c794943312365cc3"
+
 "@uber/fusion-plugin-m3@^0.3.3":
   version "0.3.3"
   resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-0.3.3.tgz#8572bcb23e169db2293dc291b41268ab7c6366c8"

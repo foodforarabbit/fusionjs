@@ -1,3 +1,4 @@
+/* eslint-env node */
 import test from 'tape-cup';
 import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
@@ -26,10 +27,13 @@ test('fusion Galileo Plugin', t => {
     t.looseEquals(
       cfg,
       {
-        appName: 'dev-service',
+        appName: process.env.UBER_OWNER,
         galileo: {
           enabled: true,
           test: 'test',
+          allowedEntities: ['EVERYONE'],
+          enforcePercentage: 0.0,
+          wonkamasterUrl: 'https://wonkabar.uberinternal.com',
         },
       },
       'config is passed down'

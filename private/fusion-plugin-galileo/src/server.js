@@ -21,10 +21,14 @@ export default __NODE__ &&
     provides: ({m3, logger, Tracer, config = {}, Client}) => {
       logger = logger.createChild('galileo');
       const tracer = Tracer.tracer;
+      let appName = __DEV__ ? process.env.UBER_OWNER : process.env.SVC_ID;
       const galileoConfig = {
-        appName: process.env.SVC_ID || 'dev-service',
+        appName,
         galileo: {
           enabled: true,
+          allowedEntities: ['EVERYONE'],
+          enforcePercentage: 0.0,
+          wonkamasterUrl: __DEV__ && 'https://wonkabar.uberinternal.com',
           ...config,
         },
       };
