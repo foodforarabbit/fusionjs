@@ -1,22 +1,22 @@
 # @uber/fusion-plugin-google-analytics
 
-Google analytics plugin for fusion.
+This plugin provides a minimal API on top of Google Analytics.
 
-## Overview
+---
 
-This plugin provides a minimal api on top of google analytics exposed via a plugin api.
+### Installation
 
-## Installation
-
-```
-npm install @uber/fusion-plugin-google-analytics
+```sh
+yarn add @uber/fusion-plugin-google-analytics
 ```
 
-## Usage
+---
+
+### Example
 ```js
 // main.js
 import GoogleAnalyticsPlugin, {
-  GoogleAnalyticsConfigToken, 
+  GoogleAnalyticsConfigToken,
   GoogleAnalyticsToken
 } from '@uber/fusion-plugin-google-analytics';
 
@@ -54,5 +54,50 @@ if (__BROWSER__) {
       return next();
     }
   })
+}
+```
+
+---
+
+### API
+
+```js
+// main.js
+import {GoogleAnalyticsConfigToken} from '@uber/fusion-plugin-google-analytics';
+
+app.register(GoogleAnalyticsConfigToken, /*some config*/);
+```
+
+#### Dependency registration
+
+##### Required dependencies
+
+Name | Type | Description
+-|-|-|-
+`GoogleAnalyticsConfigToken` | `GoogleAnalyticsConfig` | Configuration object for Google Analytics.  See below for more information.
+
+#### Service API
+
+`identify(id: string): void` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id)
+`track(data: any): void)` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/events)
+`pageview({title: string, page: string, location: string}): void)` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/pages)
+
+---
+
+### Configuration
+
+The following options may be provided to this plugin.  Note that not all of them are required, and some have defaults:
+
+```js
+type GoogleAnalyticsConfig = {
+  trackingId: number, // required
+  name: string, // optional, defaults to trackingId.replace(/-/g, '_');
+  advertiserFeatures: boolean, // optional, defaults to 'false'
+  anonymizeIp: boolean, // optional, defaults to 'false'
+  cookieDomain: string, // optional, defaults to 'auto'
+  linkAttribution: boolean, // optional, defaults to 'false'
+  trackPage: boolean, // optional, defaults to 'false'
+  loadGA: Function, // optional, defaults to https://code.uberinternal.com/diffusion/WEFUSBE/browse/master/src/load-ga.js,
+  mock: GoogleAnalytics // optional, defaults to 'undefined'
 }
 ```
