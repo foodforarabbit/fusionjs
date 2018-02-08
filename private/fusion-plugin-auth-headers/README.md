@@ -1,17 +1,18 @@
 # @uber/fusion-plugin-auth-headers
 
----
-
-### Overview
-
 Exposes an API for accessing common authentication fields.
 
-### API
+---
 
-* `from(ctx) => instance`
-* `instance.get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Throws `MissingXAuthParamError` otherwise.
+### Installation
 
-### Usage Example
+```sh
+yarn add @uber/fusion-plugin-auth-headers
+```
+
+---
+
+### Example
 
 ```js
 // src/main.js
@@ -35,7 +36,7 @@ export default () => {
   app.register(AuthHeadersRolesConfigToken, authDevConfig.roles); // optional
   app.register(AuthHeadersGroupsConfigToken, authDevConfig.groups); // optional
   // ...
-  
+
   // Using auth headers
   app.middleware({Headers: AuthHeadersToken}, ({Headers}) => {
     return (ctx, next) => {
@@ -71,7 +72,46 @@ export default {
 };
 ```
 
-### Config
+---
+
+### API
+
+#### Dependency registration
+
+```js
+import {
+  AuthHeadersUUIDConfigToken,
+  AuthHeadersEmailConfigToken,
+  AuthHeadersTokenConfigToken,
+  AuthHeadersRolesConfigToken,
+  AuthHeadersGroupsConfigToken
+} from '@uber/fusion-plugin-auth-headers';
+
+app.register(AuthHeadersUUIDConfigToken, /*some uuid)*/;
+app.register(AuthHeadersEmailConfigToken, /*some email*/);
+app.register(AuthHeadersTokenConfigToken, /*some token*/);
+app.register(AuthHeadersRolesConfigToken, /*some roles*/);
+app.register(AuthHeadersGroupsConfigToken, /*some group*/s);
+```
+
+##### Optional dependencies
+
+Name | Type | Default | Description
+-|-|-|-
+`AuthHeadersUUIDConfigToken` | `string` | `undefined` | Development override value for a user's UUID.
+`AuthHeadersEmailConfigToken` | `string` | `undefined` | Development override value for a user's e-mail address.
+`AuthHeadersTokenConfigToken` | `string` | `undefined` | Development override value for a user's token.
+`AuthHeadersRolesConfigToken` | `string` | `undefined` | Development override value for a user's roles.
+`AuthHeadersGroupsConfigToken` | `string` | `undefined` | Development override value for a user's groups.
+
+#### Service API
+
+* `from(ctx) => instance`
+* `instance.get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Throws `MissingXAuthParamError` otherwise.
+
+---
+
+### Configuration
 
 As shown above, an optional configuration may be supplied which provides overrides that can be used in development environments only.  Note that in production, the configuration overrides are ignored by the plugin.
 
