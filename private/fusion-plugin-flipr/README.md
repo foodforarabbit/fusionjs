@@ -1,43 +1,18 @@
 # @uber/fusion-plugin-flipr
 
-## Overview
-
 [Flipr](https://engdocs.uberinternal.com/fliprdocs/index.html) plugin for FusionJS apps
 
-## Installation
+---
 
-```
-npm install @uber/fusion-plugin-flipr
-```
+### Installation
 
-## Setup
-
-When Flipr client starts, it finds cache files and loads into memory, this process is called [bootstrapping](https://engdocs.uberinternal.com/fliprdocs/head_flipr_clients/cflipr_client-bootstrap.html). The cache files live on production hosts and the easiest way to retrieve them is through [Boxer - the virtual machine toolbox at Uber](https://engdocs.uberinternal.com/boxer/docker.html#setup-flipr).
-
-To simplify the process fetching the caches for local development, this plugin provides a helper script: `update-flipr-bootstrap [your-flipr-namespace]`
-
-You can add this to the `"scripts"` property in `"package.json"` of your Fusion app, such as:
-
-```js
-{
-  "name": "lovely-frontend",
-  "description": "An example application with FusionJS",
-  "version": "1.0.0",
-  
-  ...
-  
-  "scripts": {
-    ...
-    "dev-update-flipr": "update-flipr-bootstrap lovely-frontend"
-  },
-  
-  ...
-  
-}
+```sh
+yarn add @uber/fusion-plugin-flipr
 ```
 
+---
 
-## Usage Example
+### Example
 
 ```js
 // src/main.js
@@ -80,34 +55,66 @@ export default createPlugin({
 ```
 
 ---
-## API
 
-### Dependency registration
+### Setup
+
+When Flipr client starts, it finds cache files and loads into memory, this process is called [bootstrapping](https://engdocs.uberinternal.com/fliprdocs/head_flipr_clients/cflipr_client-bootstrap.html). The cache files live on production hosts and the easiest way to retrieve them is through [Boxer - the virtual machine toolbox at Uber](https://engdocs.uberinternal.com/boxer/docker.html#setup-flipr).
+
+To simplify the process fetching the caches for local development, this plugin provides a helper script: `update-flipr-bootstrap [your-flipr-namespace]`
+
+You can add this to the `"scripts"` property in `"package.json"` of your Fusion app, such as:
+
 ```js
-import FliprPlugin, {
-  FliprToken,
-  FliprClientToken,
-  FliprConfigToken
-} from '@uber/fusion-plugin-flipr';
+{
+  "name": "lovely-frontend",
+  "description": "An example application with FusionJS",
+  "version": "1.0.0",
+
+  ...
+
+  "scripts": {
+    ...
+    "dev-update-flipr": "update-flipr-bootstrap lovely-frontend"
+  },
+
+  ...
+
+}
+```
+
+---
+
+### API
+
+#### Dependency registration
+```js
+import {FliprClientToken, FliprConfigToken} from '@uber/fusion-plugin-flipr';
 import {LoggerToken} from 'fusion-tokens';
 
 // ...
-app.register(FliprToken, FliprPlugin);
 app.register(LoggerToken, Logger); // Required
 app.register(FliprClientToken, FliprClient); // Optional
 app.register(FliprConfigToken, fliprConfig); // Optional
 ```
 
-- FliprPlugin - The plugin
-- Logger - (Required) - A [type-compliant logger](https://github.com/fusionjs/fusion-tokens/blob/d285746961b490ec3906c34349d261e90affbc6c/src/index.js#L36-L45). We use [Logtron](https://code.uberinternal.com/diffusion/WEFUSTX/) at Uber for most of the occassions.
-- FliprClient - (Optional) - The Flipr native client. This is largely for testing with registered mocks. 
-- fliprConfig - (Optional) - See the following section.
+##### Required dependencies
+
+Name | Type | Description
+-|-|-
+`LoggerToken` | `Logger` | A [type-compliant logger](https://github.com/fusionjs/fusion-tokens/blob/master/src/index.js#L23-L32). We use [Logtron](https://code.uberinternal.com/diffusion/WEFUSTX/) at Uber for most of the occassions.
+
+##### Optional dependencies
+
+Name | Type | Default | Description
+-|-|-|-
+`FliprClientToken` | `FliprClient` | `@uber/flipr-client` | The Flipr native client. This is largely for testing with registered mocks.
+`FliprConfigToken` | `FliprConfig` | `{defaultNamespace: process.env.SVC_ID, diskCachePath: __DEV__ && 'flipr'}` | See the following section.
 
 ---
 
-## Config
+### Configuration
 
-### Config properties from @uber/fusion-plugin-flipr
+#### Config properties from @uber/fusion-plugin-flipr
 
 - `defaultNamespace`: string
 
@@ -125,13 +132,10 @@ propertiesNamespaces: [
 
 Properties from this object will finally override the config initializing `@uber/flipr-client`
 
-### Config properties referenced from @uber/flipr-client
+#### Config properties referenced from @uber/flipr-client
 See [@uber/flipr-client](https://code.uberinternal.com/diffusion/RTFLIP/repository/master/) for more information on the following config properties
 
 - `propertiesNamespaces`
 - `updateInterval`
 - `defaultProperties`
 - `diskCachePath`
-
-## Logger
-`uber/fusion-plugin-flipr` has an optional dependency on a Logger [plugin](https://github.com/uber-web/fusion/blob/master/packages/plugin/docs/index.md) which constructs a logger with [Winston](https://github.com/winstonjs/winston#using-logging-levels)-like interface.
