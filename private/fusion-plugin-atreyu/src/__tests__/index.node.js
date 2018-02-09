@@ -2,7 +2,6 @@
 
 import test from 'tape-cup';
 import plugin from '../server';
-import {AtreyuMockPlugin} from '../index';
 
 function createAtreyuPlugin(t) {
   let numConstructors = 0;
@@ -21,6 +20,26 @@ function createAtreyuPlugin(t) {
         'hyperbahn',
         'passes through hyperbahn client'
       );
+    }
+    createGraph(arg, arg2) {
+      t.equal(arg, 'graph-arg');
+      t.equal(arg2, 'graph-arg2');
+      return {
+        resolve: (resolveArg1, cb) => {
+          t.equal(resolveArg1, 'graph-resolve-arg');
+          cb(null, 'graph-result');
+        },
+      };
+    }
+    createRequest(arg, arg2) {
+      t.equal(arg, 'req-arg');
+      t.equal(arg2, 'req-arg2');
+      return {
+        resolve: (resolveArg1, cb) => {
+          t.equal(resolveArg1, 'req-resolve-arg');
+          cb(null, 'req-result');
+        },
+      };
     }
   }
   const m3 = 'm3';
@@ -45,21 +64,18 @@ function createAtreyuPlugin(t) {
   return atreyu;
 }
 
-test('Atreyu Plugin Interface', t => {
+test('Atreyu Plugin Interface', async t => {
   t.equals(typeof plugin, 'object');
-  createAtreyuPlugin(t);
-  t.end();
-});
-
-test('Atreyu Plugin Mock Interface', t => {
-  t.equals(typeof AtreyuMockPlugin.provides, 'function');
-
   const atreyu = createAtreyuPlugin(t);
-  const atreyuMocker = AtreyuMockPlugin.provides({atreyu});
-
-  t.ok(atreyuMocker, 'should return atreyu mock interface');
-  t.ok(atreyuMocker.mockHttp, 'should expose interface to mock http');
-  t.ok(atreyuMocker.mockTChannel, 'should expose interface to mock tchannel');
-
+  t.equals(
+    await atreyu.createAsyncGraph('graph-arg', 'graph-arg2')(
+      'graph-resolve-arg'
+    ),
+    'graph-result'
+  );
+  t.equals(
+    await atreyu.createAsyncRequest('req-arg', 'req-arg2')('req-resolve-arg'),
+    'req-result'
+  );
   t.end();
 });

@@ -6,6 +6,7 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
 import {GalileoToken} from '@uber/fusion-plugin-galileo';
 import {TChannelToken} from '@uber/fusion-plugin-tchannel';
+import {promisify} from 'util';
 import {
   AtreyuClientToken,
   AtreyuConfigToken,
@@ -41,7 +42,7 @@ export default __NODE__ &&
         },
         config
       );
-      return new Client(config, {
+      const client = new Client(config, {
         m3,
         logger,
         tracer: tracer.tracer,
@@ -50,6 +51,15 @@ export default __NODE__ &&
         hyperbahnClient: tchannel ? tchannel.hyperbahn : null,
         ...options,
       });
+      client.createAsyncGraph = (...args) => {
+        const graph = client.createGraph(...args);
+        return promisify(graph.resolve.bind(graph));
+      };
+      client.createAsyncRequest = (...args) => {
+        const request = client.createRequest(...args);
+        return promisify(request.resolve.bind(request));
+      };
+      return client;
     },
     cleanup: atreyu => atreyu.cleanup(),
   });

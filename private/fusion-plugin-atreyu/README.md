@@ -29,6 +29,44 @@ export default {
 
 ### API
 
+#### Instance API
+
+##### `atreyu.createAsyncRequest(requestDefinition): (seed) => Promise<response>`
+
+Returns a promisified version of `atreyu.createRequest`. See https://engdocs.uberinternal.com/atreyu/graphs.html#simple-request
+
+```js
+const requestDefinition = {
+    service: 'populous',
+    method: 'UserService::getUser',
+    args: { uuid: '{data.myUUID}' }
+}
+const userRequest = atreyu.createAsyncRequest(requestDefinition)
+const response = await userRequest({myUUID: 'abcd'});
+```
+
+##### `atreyu.createAsyncGraph(graphDef): (seed) => Promise<response>`
+
+Returns a promisified version of `atreyu.createGraph`. See https://engdocs.uberinternal.com/atreyu/graphs.html#create-graph
+
+```js
+const graphDefinition = {
+    user: {
+        service: 'populous',
+        method: 'UserService::getUser',
+        args: {uuid: '{data.myUUID}'}
+    },
+    invited_by: {
+        service: 'populous',
+        method: 'UserService::getUser',
+        args: {uuid: '{user.inviterUuid}'},
+        dependencies: ['user']
+    }
+}
+const userGraph = atreyu.createAsyncGraph(graphDefinition);
+const response = await userGraph.resolve({myUUID: 'abcd'});
+```
+
 #### Dependency resolution
 
 ```js
@@ -60,25 +98,35 @@ app.register(AtreyuOptionsToken, options);
 
 #### Atreyu Testing
 
+You can use the `@uber/atreyu-test` module to help with mocking responses from atreyu. For example:
+
 ```js
 // src/main.js
-import App from '@fusion/react';
-import {default as AtreyuPlugin, AtreyuMockPlugin} from '@uber/fusion-plugin-atreyu';
-import {config} from './atreyu/config';
+import {test, getSimulator} from 'fusion-test-utils';
+import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
+import {AtreyuMocker} from '@uber/atreyu-test';
+import loadApp from './main';
 
-export default () => {
-  const app = new App();
-  // Create  M3, Logger, Tracer, Galileo plugins
-  const Atreyu = app.plugin(AtreyuPlugin, {config, M3, Logger, Tracer, Galileo});
-  const AtreyuMocker = app.plugin(AtreyuMockPlugin, {Atreyu});
-
-  // TODO: Implement Mocks
-  const atreyuMocker = AtreyuMocker.of();
-  atreyuMocker.mockHttp();
-  atreyuMocker.mockTChannel();
-
-  // This should automatically inject mocks into Atreyu and return responses when http/tchannel matches
-}
+test('example atreyu test', t => {
+  const app = await loadApp();
+  app.enhance(AtreyuToken, (atreyu) => {
+    const mocker = new AtreyuMocker(atreyu);
+    mocker.mockTChannel(
+      'service',
+      'method',
+      function respond(headers, args, cb) {
+        cb(null, {
+          ok: true,
+          body: {}
+        });
+      }
+    );
+    return mocker;
+  });
+  const sim = getSimulator(app);
+  const ctx = await sim.render('/');
+  // ... assertions ...
+});
 ```
 
 To implement mocks see docs on [atreyu-test](https://code.uberinternal.com/diffusion/WEATREYUTE/) lib readme.
