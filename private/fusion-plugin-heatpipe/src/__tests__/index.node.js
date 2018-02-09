@@ -10,6 +10,38 @@ import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {HeatpipeToken, HeatpipeConfigToken} from '../tokens';
 import HeatpipePlugin, {HeatpipeClientToken} from '../server';
 
+tape('heatpipe-plugin in __DEV__', async t => {
+  const mockM3ServiceInstance = {};
+  const mockLoggerServiceInstance = {};
+  const app = new App('content', el => el);
+  const events = {
+    on(type) {
+      t.equal(type, `heatpipe:publish`, 'adds event handler correctly');
+    },
+  };
+  app.register(HeatpipeToken, HeatpipePlugin);
+  app.register(LoggerToken, mockLoggerServiceInstance);
+  app.register(M3Token, mockM3ServiceInstance);
+  app.register(UniversalEventsToken, events);
+  app.register(
+    createPlugin({
+      deps: {
+        hp: HeatpipeToken,
+      },
+      provides: ({hp}) => {
+        t.doesNotThrow(hp.publish, 'publish does not throw');
+        t.doesNotThrow(hp.destroy, 'destroy does not throw');
+        hp
+          .asyncPublish('data', 'thing')
+          .then(() => t.pass('asyncPublish works'))
+          .catch(t.ifError)
+          .then(() => t.end());
+      },
+    })
+  );
+  getSimulator(app);
+});
+
 tape('[fusion] heatpipe-plugin', async t => {
   const fixture = {
     heatpipeConfig: {foo: 'bar'},
@@ -25,14 +57,9 @@ tape('[fusion] heatpipe-plugin', async t => {
     },
   };
 
-  const types = ['publish'];
   const events = {
     on(type) {
-      t.equal(
-        type,
-        `heatpipe:${types.shift()}`,
-        'adds event handler correctly'
-      );
+      t.equal(type, `heatpipe:publish`, 'adds event handler correctly');
     },
   };
 

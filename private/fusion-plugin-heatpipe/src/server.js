@@ -12,6 +12,16 @@ import {HeatpipeConfigToken} from './tokens';
 
 export const HeatpipeClientToken = createToken('HeatpipeClientToken');
 
+class NoopClient {
+  connect() {}
+  publish(info, message, cb) {
+    cb && cb(null);
+  }
+  destroy(cb) {
+    cb && cb(null);
+  }
+}
+
 export default __NODE__ &&
   createPlugin({
     deps: {
@@ -22,7 +32,8 @@ export default __NODE__ &&
       Client: HeatpipeClientToken.optional,
     },
     provides({heatpipeConfig = {}, M3, Logger, events, Client}) {
-      Client = Client || HeatpipePublisher;
+      const defaultClient = __DEV__ ? NoopClient : HeatpipePublisher;
+      Client = Client || defaultClient;
 
       const defaultHeatpipeConfig = {
         appId: process.env.SVC_ID || 'dev-service',
