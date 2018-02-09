@@ -1,45 +1,68 @@
 # @uber/fusion-plugin-secure-headers
 
-## Overview
+A FusionJS plugin to improve the web application security by setting headers, such as Content Security Policy, X-Frame-Options, etc.
 
-A fusion plugin to improve the web application security by setting headers, such as Content Security Policy, X-Frame-Options...etc.
+---
 
-## Installation
+### Installation
 
+```sh
+yarn add @uber/fusion-plugin-secure-headers
 ```
-npm install @uber/fusion-plugin-secure-headers
-```
 
-## Usage Example
+---
+
+### Example
 
 ```js
 // src/main.js
-
 import React from 'react';
 import SecureHeaders, {
-  SecureHeadersToken
+  SecureHeadersToken,
+  SecureHeadersUseFrameguardConfigToken,
+  SecureHeadersCSPConfigToken,
 } from '@uber/fusion-plugin-secure-headers';
 
 export default () => {
   const app = new App(<Home />);
+  // ...
   app.register(SecureHeadersToken, SecureHeaders);
+  app.register(SecureHeadersUseFrameguardConfigToken, true); // optional
+  app.register(SecureHeadersCSPConfigToken, {}); // optional
+  // ...
   return app;
 }
 ```
 
 ---
 
-### Config Tokens
-`SecureHeadersUseFrameguardConfigToken`
+### API
+
+#### Dependency registration
 
 ```js
-true
-/* Optional:boolean. Default to true unless explictly specified as false.
-|  See https://github.com/helmetjs/frameguard for more info.
-*/
+// src/main.js
+import {
+  SecureHeadersUseFrameguardConfigToken,
+  SecureHeadersCSPConfigToken,
+} from '@uber/fusion-plugin-secure-headers';
+
+app.register(SecureHeadersUseFrameguardConfigToken, /*true | false*/);
+app.register(SecureHeadersCSPConfigToken, /*some config*/);
 ```
 
-`SecureHeadersCSPConfigToken`
+##### Optional dependencies
+
+Name | Type | Default | Description
+-|-|-|-
+`SecureHeadersUseFrameguardConfigToken` | `boolean` | `true` | Whether or not to use [Frameguard](https://github.com/helmetjs/frameguard).
+`SecureHeadersCSPConfigToken` | `SecureHeadersCSPConfig` | See below | Content Security Policy configuration.  See below for more details.
+
+---
+
+### Configuration
+
+Content Security Policy configuration options are as follows:
 
 ```js
 {
@@ -71,7 +94,7 @@ true
 ```
 ---
 
-## Resources
+### Resources
 
 + [Google CSP Guide](https://csp.withgoogle.com/docs/index.html)
 + [MDN docs on CSP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
