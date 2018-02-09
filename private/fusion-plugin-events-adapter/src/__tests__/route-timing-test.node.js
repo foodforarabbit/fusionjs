@@ -8,7 +8,7 @@ tape('route timing - pageview:server', t => {
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_server', 'logs the correct key');
-      t.deepLooseEqual(tags, {route: 'test'}, 'logs the correct tags');
+      t.deepLooseEqual(tags, {route: 'test', status: 200}, 'logs the correct tags');
       t.end();
     },
     timing() {},
@@ -16,7 +16,7 @@ tape('route timing - pageview:server', t => {
 
   routeTiming({events, m3: mockM3});
 
-  events.emit('pageview:server', {title: 'test'});
+  events.emit('pageview:server', {title: 'test', status: 200});
 });
 
 tape('route timing - pageview:browser', t => {
@@ -24,7 +24,7 @@ tape('route timing - pageview:browser', t => {
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_browser', 'logs the correct key');
-      t.deepLooseEqual(tags, {route: 'test'}, 'logs the correct tags');
+      t.deepLooseEqual(tags, {route: 'test', status: 200}, 'logs the correct tags');
       t.end();
     },
     timing() {},
@@ -32,7 +32,39 @@ tape('route timing - pageview:browser', t => {
 
   routeTiming({events, m3: mockM3});
 
-  events.emit('pageview:browser', {title: 'test'});
+  events.emit('pageview:browser', {title: 'test', status: 200});
+});
+
+tape('route timing - pageview:server - 404 not found', t => {
+  const events = new EventEmitter();
+  const mockM3 = {
+    increment(key, tags) {
+      t.equal(key, 'pageview_server', 'logs the correct key');
+      t.deepLooseEqual(tags, {route: 'not-found', status: 404}, 'logs the correct tags');
+      t.end();
+    },
+    timing() {},
+  };
+
+  routeTiming({events, m3: mockM3});
+
+  events.emit('pageview:server', {title: 'test', status: 404});
+});
+
+tape('route timing - pageview:browser - 404 not found', t => {
+  const events = new EventEmitter();
+  const mockM3 = {
+    increment(key, tags) {
+      t.equal(key, 'pageview_browser', 'logs the correct key');
+      t.deepLooseEqual(tags, {route: 'not-found', status: 404}, 'logs the correct tags');
+      t.end();
+    },
+    timing() {},
+  };
+
+  routeTiming({events, m3: mockM3});
+
+  events.emit('pageview:browser', {title: 'test', status: 404});
 });
 
 tape('route timing - route_time', t => {

@@ -62,14 +62,30 @@ export default __NODE__ &&
     ) => {
       const {logTiming} = service;
 
+      const createTags = ({route, status}) => {
+        const t = {};
+        if (route) {
+          t.route = ctx.status === 404 ? 'not-found' : ctx.path;
+        }
+        if (status) {
+          t.status = ctx.status;
+        }
+        return t;
+      };
+
       return next().then(() => {
-        const tags = ctx.status < 300 ? {route: ctx.path} : {};
-        ctx.timing.downstream.then(logTiming('downstream', tags));
-        ctx.timing.upstream.then(logTiming('upstream', tags));
+        ctx.timing.downstream.then(
+          logTiming('downstream', createTags({route: true}))
+        );
+        ctx.timing.upstream.then(
+          logTiming('upstream', createTags({route: true, status: true}))
+        );
         // only log requests that are not server side renders
         // server side renders are tracked separately as pageviews
         if (!ctx.element) {
-          ctx.timing.end.then(logTiming('request', tags));
+          ctx.timing.end.then(
+            logTiming('request', createTags({route: true, status: true}))
+          );
         }
       });
     },
