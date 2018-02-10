@@ -752,30 +752,30 @@
     "@uber/atreyu-transport" "^4.6.7"
     inherits "^2.0.1"
 
-"@uber/fusion-plugin-galileo@0.2.6":
-  version "0.2.6"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-galileo/-/private/%40uber%2Ffusion-plugin-galileo-0.2.6.tgz#8298aa1df8f2abe19358897e95da97ca5a37a418"
+"@uber/fusion-plugin-galileo@^1.0.0":
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-galileo/-/private/%40uber%2Ffusion-plugin-galileo-1.0.0.tgz#589189dc2b78bbac24acbb250aff9e34b202b52e"
   dependencies:
     "@uber/jaeger-client-adapter" "^3.3.0"
     "@uber/unpm-galileo" "^1.1.11"
 
-"@uber/fusion-plugin-m3@0.3.3":
-  version "0.3.3"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-0.3.3.tgz#8572bcb23e169db2293dc291b41268ab7c6366c8"
+"@uber/fusion-plugin-m3@^1.0.0":
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.0.0.tgz#2727af885289c4c0f1bc73985ffc4804dc70f148"
   dependencies:
     "@uber/node-m3-client-addon" "^1.4.0"
-    fusion-plugin-universal-events "^0.3.3"
+    fusion-plugin-universal-events "^1.0.0"
 
-"@uber/fusion-plugin-tchannel@0.3.4":
-  version "0.3.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-tchannel/-/private/%40uber%2Ffusion-plugin-tchannel-0.3.4.tgz#954db233e70ac897751e8acc164ef93e6e6854ce"
+"@uber/fusion-plugin-tchannel@^1.0.0":
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-tchannel/-/private/%40uber%2Ffusion-plugin-tchannel-1.0.0.tgz#919929c50ff58b1c4ba68b85050e21f1e85aef62"
   dependencies:
     my-local-ip "^1.0.0"
     tchannel "^3.9.12"
 
-"@uber/fusion-plugin-tracer@0.2.4":
-  version "0.2.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-tracer/-/private/%40uber%2Ffusion-plugin-tracer-0.2.4.tgz#ac632c864685551ad1373c963812578e1e41686c"
+"@uber/fusion-plugin-tracer@^1.0.0":
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-tracer/-/private/%40uber%2Ffusion-plugin-tracer-1.0.0.tgz#f0f39f9369f4ac3dca952d7b56682f3b23f65217"
   dependencies:
     "@uber/jaeger-client-adapter" "^3.3.0"
 
@@ -2116,9 +2116,9 @@ eslint-config-cup@^1.0.0-rc.4:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/eslint-config-cup/-/eslint-config-cup-1.0.0.tgz#0fcdb787fe254fc9458ec5258143cb0d47052896"
 
-eslint-config-fusion@^0.2.1:
-  version "0.2.1"
-  resolved "https://unpm.uberinternal.com/eslint-config-fusion/-/eslint-config-fusion-0.2.1.tgz#39db6979719dab00953e561b2ff0af66981397bb"
+eslint-config-fusion@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/eslint-config-fusion/-/eslint-config-fusion-1.0.0.tgz#161df9de6660d8b6172e4a8a2a8c1a196d6bbf67"
   dependencies:
     eslint-config-uber-universal-stage-3 "^1.0.0-rc.7"
 
@@ -2580,24 +2580,24 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-core@^0.3.3:
-  version "0.3.3"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-0.3.3.tgz#2be141a18afe93963469998c3076ac9ed99f798a"
+fusion-core@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.0.0.tgz#7be714926ead57cdfeaf467b90bb794c9eb46d67"
   dependencies:
-    koa "^2.3.0"
+    koa "^2.4.1"
     koa-compose "^4.0.0"
     node-mocks-http "^1.6.6"
     toposort "^1.0.6"
 
-fusion-plugin-universal-events@^0.3.3:
-  version "0.3.3"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-0.3.3.tgz#54f3a24778498f4dfe31f0a585fc4289fd43fdcb"
+fusion-plugin-universal-events@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.0.0.tgz#5f2a058078f7a3ab7c9eb7feb1d588fc4f2cbfb4"
   dependencies:
     koa-bodyparser "4.2.0"
 
-fusion-tokens@^0.0.6:
-  version "0.0.6"
-  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-0.0.6.tgz#71606a0109918dc098eb43cc0a3b877beb111d4d"
+fusion-tokens@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.0.0.tgz#84ce2755ef444259a63b6287d6b279c48e5f4f62"
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -3439,7 +3439,7 @@ koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
 
-koa@^2.3.0:
+koa@^2.4.1:
   version "2.4.1"
   resolved "https://unpm.uberinternal.com/koa/-/koa-2.4.1.tgz#d449cfb970a7e9da571f699eda40bb9e32eb1484"
   dependencies:
