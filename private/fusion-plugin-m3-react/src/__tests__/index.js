@@ -4,7 +4,6 @@ import {getSimulator} from 'fusion-test-utils';
 import {mock as mockM3Plugin} from '@uber/fusion-plugin-m3';
 import React from 'react';
 import test from 'tape-cup';
-import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import {M3Token} from '../index';
 import withM3 from '../hoc';
@@ -27,9 +26,6 @@ test('HOC', async t => {
   const Root = withM3(Test);
   const app = new App(React.createElement(Root));
   app.register(M3Token, ProviderPlugin.create('m3', mockM3Plugin));
-  app.register(UniversalEventsToken, {
-    on: () => {},
-  });
   const sim = getSimulator(app);
   const res = await sim.render('/');
   t.ok(
