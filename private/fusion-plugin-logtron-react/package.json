@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-logtron-react",
   "description": "Logtron plugin for FusionJS app with React",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
