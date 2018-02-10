@@ -6,7 +6,6 @@ import React from 'react';
 import test from 'tape-cup';
 
 import {LoggerToken} from 'fusion-tokens';
-import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import withLogtron from '../hoc';
 
@@ -32,9 +31,6 @@ test('HOC', async t => {
   const Root = withLogtron(Test);
   const app = new App(React.createElement(Root));
   app.register(LoggerToken, ProviderPlugin.create('logger', mockLogtronPlugin));
-  app.register(UniversalEventsToken, {
-    on: () => {},
-  });
   const sim = getSimulator(app);
   const res = await sim.render('/');
   t.ok(
