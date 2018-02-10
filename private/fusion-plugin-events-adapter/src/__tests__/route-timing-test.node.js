@@ -8,7 +8,11 @@ tape('route timing - pageview:server', t => {
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_server', 'logs the correct key');
-      t.deepLooseEqual(tags, {route: 'test', status: 200}, 'logs the correct tags');
+      t.deepLooseEqual(
+        tags,
+        {route: 'test', status: 200},
+        'logs the correct tags'
+      );
       t.end();
     },
     timing() {},
@@ -24,7 +28,11 @@ tape('route timing - pageview:browser', t => {
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_browser', 'logs the correct key');
-      t.deepLooseEqual(tags, {route: 'test', status: 200}, 'logs the correct tags');
+      t.deepLooseEqual(
+        tags,
+        {route: 'test', status: 200},
+        'logs the correct tags'
+      );
       t.end();
     },
     timing() {},
@@ -40,7 +48,11 @@ tape('route timing - pageview:server - 404 not found', t => {
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_server', 'logs the correct key');
-      t.deepLooseEqual(tags, {route: 'not-found', status: 404}, 'logs the correct tags');
+      t.deepLooseEqual(
+        tags,
+        {route: 'not-found', status: 404},
+        'logs the correct tags'
+      );
       t.end();
     },
     timing() {},
@@ -56,7 +68,11 @@ tape('route timing - pageview:browser - 404 not found', t => {
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_browser', 'logs the correct key');
-      t.deepLooseEqual(tags, {route: 'not-found', status: 404}, 'logs the correct tags');
+      t.deepLooseEqual(
+        tags,
+        {route: 'not-found', status: 404},
+        'logs the correct tags'
+      );
       t.end();
     },
     timing() {},

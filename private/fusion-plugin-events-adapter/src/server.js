@@ -75,7 +75,7 @@ export default __NODE__ &&
 
       return next().then(() => {
         ctx.timing.downstream.then(
-          logTiming('downstream', createTags({route: true}))
+          logTiming('downstream', createTags({route: true, status: false}))
         );
         ctx.timing.upstream.then(
           logTiming('upstream', createTags({route: true, status: true}))
