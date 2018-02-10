@@ -1,6 +1,6 @@
 /* eslint-env browser */
-import test from "tape-cup";
+import test from 'tape-cup';
 
-test("noop", t => {
+test('noop', t => {
   t.end();
 });
