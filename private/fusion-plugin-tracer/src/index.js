@@ -1,3 +1,4 @@
+// @flow
 // Main export file
 import {createToken} from 'fusion-core';
 import browser from './browser';
@@ -8,6 +9,7 @@ import server, {
 
 export const TracerToken = createToken('Tracer');
 
+declare var __NODE__: Boolean;
 export default (__NODE__ ? server : browser);
 
 export const TracerOptionsToken = __NODE__ && OptionsToken;
