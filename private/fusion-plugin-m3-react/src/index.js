@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 import plugin from './plugin';
 import withM3 from './hoc';
