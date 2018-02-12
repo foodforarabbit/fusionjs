@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-m3",
   "description": "M3 plugin for fusion",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -28,7 +28,7 @@
     "eslint": "^4.16.0",
     "eslint-config-fusion": "^1.0.0",
     "eslint-plugin-cup": "^1.0.0",
-    "eslint-plugin-flowtype": "^2.42.0", 
+    "eslint-plugin-flowtype": "^2.42.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
