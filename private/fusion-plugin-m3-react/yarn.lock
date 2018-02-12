@@ -674,12 +674,11 @@
   version "0.0.28"
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
 
-"@uber/fusion-plugin-m3@^1.0.0":
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.0.0.tgz#2727af885289c4c0f1bc73985ffc4804dc70f148"
+"@uber/fusion-plugin-m3@^1.0.1":
+  version "1.0.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.0.1.tgz#437b5de5403a9da8bd1d26609432e8cf2799ca73"
   dependencies:
     "@uber/node-m3-client-addon" "^1.4.0"
-    fusion-plugin-universal-events "^1.0.0"
 
 "@uber/node-m3-client-addon@^1.4.0":
   version "1.4.0"
