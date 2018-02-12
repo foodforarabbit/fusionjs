@@ -1,4 +1,3 @@
-// @flow
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';

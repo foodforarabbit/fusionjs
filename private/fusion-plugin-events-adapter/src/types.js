@@ -1,7 +1,7 @@
 // @flow
-declare class EventEmitter {
-  on(event: string, handler: (Object) => void): void;
-  emit(event: string, payload: any): void;
+export interface EventEmitter {
+  on(event: string, handler: (Object) => any): any;
+  emit(event: string, payload: any): any;
 }
 
 export type UniversalEvents = {

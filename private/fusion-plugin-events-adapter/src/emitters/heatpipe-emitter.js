@@ -1,4 +1,10 @@
 // @flow
+import type {
+  AnalyticsSessionPlugin,
+  GeolocationPlugin,
+  I18nPlugin,
+} from '../types';
+
 export const webTopicInfo = {
   topic: 'hp-event-web',
   version: 8,
