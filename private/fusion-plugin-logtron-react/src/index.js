@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 
 // import to re-export preventing Rollup issues
