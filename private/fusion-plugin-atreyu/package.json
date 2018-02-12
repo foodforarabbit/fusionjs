@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-atreyu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A fusion plugin for atreyu",
   "files": [
     "dist",
