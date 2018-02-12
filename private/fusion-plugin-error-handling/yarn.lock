@@ -2325,12 +2325,6 @@ fusion-core@^1.0.0:
     node-mocks-http "^1.6.6"
     toposort "^1.0.6"
 
-fusion-plugin-error-handling@^1.0.0:
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-error-handling/-/fusion-plugin-error-handling-1.0.0.tgz#082617d8ea2c1788c77ac574f9dd1884927f3884"
-  dependencies:
-    koa-bodyparser "4.2.0"
-
 fusion-plugin-universal-events@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.0.0.tgz#5f2a058078f7a3ab7c9eb7feb1d588fc4f2cbfb4"
