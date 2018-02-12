@@ -52,7 +52,7 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/node-genghis": "^2.0.7",
+    "@uber/node-genghis": "^2.0.8",
     "locale": "^0.1.0"
   },
   "peerDependencies": {
