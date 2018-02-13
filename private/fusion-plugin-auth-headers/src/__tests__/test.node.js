@@ -1,3 +1,5 @@
+// @flow
+
 import test from 'tape-cup';
 
 import App, {createPlugin} from 'fusion-core';
@@ -5,6 +7,8 @@ import {getSimulator} from 'fusion-test-utils';
 
 import AuthHeadersPlugin from '../server';
 import {AuthHeadersToken, AuthHeadersUUIDConfigToken} from '../tokens';
+
+declare var __DEV__: boolean;
 
 const memoizedMock = {
   has: () => false,
@@ -24,45 +28,45 @@ test('exported as expected', t => {
 });
 
 test('auth headers plugin resolved in test plugin', t => {
-  const app = createTestFixture();
-
   t.plan(1);
-  getSimulator(
-    app,
-    createPlugin({
-      deps: {authHeaders: AuthHeadersToken},
-      provides: deps => {
-        const {authHeaders} = deps;
-        t.ok(authHeaders, 'plugin defined as expected');
-      },
-    })
-  );
 
+  const app = createTestFixture();
+  const testPlugin = createPlugin({
+    deps: {authHeaders: AuthHeadersToken},
+    provides: deps => {
+      const {authHeaders} = deps;
+      t.ok(authHeaders, 'plugin defined as expected');
+    },
+  });
+  app.register(testPlugin);
+
+  getSimulator(app);
   t.end();
 });
 
 test('missing auth param', t => {
-  const app = createTestFixture();
-
   t.plan(1);
-  getSimulator(
-    app,
-    createPlugin({
-      deps: {authHeaders: AuthHeadersToken},
-      provides: deps => {
-        const {authHeaders} = deps;
-        t.throws(
-          () => authHeaders.get('uuid'),
-          'should throw if missing auth key'
-        );
-      },
-    })
-  );
 
+  const app = createTestFixture();
+  const testPlugin = createPlugin({
+    deps: {authHeaders: AuthHeadersToken},
+    provides: deps => {
+      const {authHeaders} = deps;
+      t.throws(
+        () => authHeaders.from().get('uuid'),
+        'should throw if missing auth key'
+      );
+    },
+  });
+  app.register(testPlugin);
+
+  getSimulator(app);
   t.end();
 });
 
 test('service - get authentication param from context', t => {
+  t.plan(1);
+
   const mockContext = {
     request: {
       headers: {
@@ -73,28 +77,27 @@ test('service - get authentication param from context', t => {
   };
 
   const app = createTestFixture();
+  const testPlugin = createPlugin({
+    deps: {authHeaders: AuthHeadersToken},
+    provides: deps => {
+      const {authHeaders} = deps;
+      const service = authHeaders.from(mockContext);
+      t.equal(
+        service.get('uuid'),
+        mockContext.request.headers['x-auth-params-uuid'],
+        'correct value associated with uuid provided by service.'
+      );
+    },
+  });
+  app.register(testPlugin);
 
-  t.plan(1);
-  getSimulator(
-    app,
-    createPlugin({
-      deps: {authHeaders: AuthHeadersToken},
-      provides: deps => {
-        const {authHeaders} = deps;
-        const service = authHeaders.from(mockContext);
-        t.equal(
-          service.get('uuid'),
-          mockContext.request.headers['x-auth-params-uuid'],
-          'correct value associated with uuid provided by service.'
-        );
-      },
-    })
-  );
-
+  getSimulator(app);
   t.end();
 });
 
 test('get authentication param from override', t => {
+  t.plan(1);
+
   const mockContext = {
     request: {
       headers: {
@@ -107,33 +110,30 @@ test('get authentication param from override', t => {
 
   const app = createTestFixture();
   app.register(AuthHeadersUUIDConfigToken, uuidOverride);
+  const testPlugin = createPlugin({
+    deps: {authHeaders: AuthHeadersToken},
+    provides: deps => {
+      const {authHeaders} = deps;
+      const service = authHeaders.from(mockContext);
+      if (__DEV__) {
+        /* Check development environment */
+        t.equal(
+          service.get('uuid'),
+          uuidOverride,
+          'correctly applies override value associated with uuid provided by service'
+        );
+      } else {
+        /* Check production environment */
+        t.equal(
+          service.get('uuid'),
+          mockContext.request.headers['x-auth-params-uuid'],
+          'correctly ignores override value associated with uuid provided by service (in production)'
+        );
+      }
+    },
+  });
+  app.register(testPlugin);
 
-  t.plan(1);
-  getSimulator(
-    app,
-    createPlugin({
-      deps: {authHeaders: AuthHeadersToken},
-      provides: deps => {
-        const {authHeaders} = deps;
-        const service = authHeaders.from(mockContext);
-        if (__DEV__) {
-          /* Check development environment */
-          t.equal(
-            service.get('uuid'),
-            uuidOverride,
-            'correctly applies override value associated with uuid provided by service'
-          );
-        } else {
-          /* Check production environment */
-          t.equal(
-            service.get('uuid'),
-            mockContext.request.headers['x-auth-params-uuid'],
-            'correctly ignores override value associated with uuid provided by service (in production)'
-          );
-        }
-      },
-    })
-  );
-
+  getSimulator(app);
   t.end();
 });

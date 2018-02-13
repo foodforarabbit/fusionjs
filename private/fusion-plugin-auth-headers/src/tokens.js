@@ -3,7 +3,11 @@
 import type {Token} from 'fusion-core';
 import {createToken} from 'fusion-core';
 
-export const AuthHeadersToken: Token<string> = createToken('AuthHeadersToken');
+import type {AuthHeadersService} from './server';
+
+export const AuthHeadersToken: Token<AuthHeadersService> = createToken(
+  'AuthHeadersToken'
+);
 
 export const AuthHeadersUUIDConfigToken: Token<string> = createToken(
   'AuthHeadersUUIDConfigToken'

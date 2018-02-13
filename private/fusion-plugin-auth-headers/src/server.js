@@ -64,7 +64,7 @@ class AuthHeaders {
   }
 }
 
-type AuthHeadersService = {from: (ctx: Context) => AuthHeaders};
+export type AuthHeadersService = {from: (ctx: Context) => AuthHeaders};
 type AuthHeadersPluginType = FusionPlugin<*, AuthHeadersService>;
 const plugin: AuthHeadersPluginType =
   // $FlowFixMe
