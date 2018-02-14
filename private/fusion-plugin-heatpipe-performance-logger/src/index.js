@@ -11,7 +11,7 @@ module.exports = ({EventEmitter, config}) => {
 
     const emitter = EventEmitter.of();
     emitter.on('browser-performance-emitter:stats', (event, ctx) => {
-      request.post('https://m2a.uber.com/perf',{
+      request.post('https://web-logging.uber.com/perf',{
           json: mapPerformanceDataToSchema(event)
         }, (err, resp) => {
           if (err) {
