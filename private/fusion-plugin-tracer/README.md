@@ -1,23 +1,25 @@
-# fusion-tracer
+# @uber/fusion-plugin-tracer
 
 A fusion plugin for jaeger tracing
 
-## Installation
+---
+
+### Installation
 
 ```
-npm install @uber/@uber/fusion-plugin-tracer
+npm install @uber/fusion-plugin-tracer
 ```
 
-## fusion
+---
 
-## Usage
+### Example
 
 ```js
 // ...
 import {LoggerToken} from 'fusion-tokens';
 import TracerPlugin, {
-  TracerConfigToken, 
-  TracerOptionsToken, 
+  TracerConfigToken,
+  TracerOptionsToken,
   TracerToken
 } from  '@uber/@uber/fusion-plugin-tracer';
 
@@ -37,7 +39,9 @@ app.middleware({Tracer: TracerToken}, ({Tracer}) => {
 
 ```
 
-## Config
+---
+
+### Config
 
 Config should be added to app/src/config/tracer.js to the scaffolded application
 
