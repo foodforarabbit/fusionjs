@@ -1,4 +1,4 @@
-# fusion-tealium
+# @uber/fusion-plugin-tealium
 
 Tealium plugin for Fusion
 
@@ -7,7 +7,7 @@ Tealium plugin for Fusion
 ### Installation
 
 ```sh
-npm install @uber/fusion-tealium
+npm install @uber/fusion-plugin-tealium
 ```
 
 ---
@@ -31,10 +31,3 @@ export default () => {
   return app;
 }
 ```
-
----
-
-### API
-
-## Development
-If this section is empty, please contact [Dennis Lin](dennis.lin@uber.com).
