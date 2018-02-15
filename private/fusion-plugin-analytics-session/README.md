@@ -1,8 +1,10 @@
-# fusion-plugin-analytics-session
+# @uber/fusion-plugin-analytics-session
 
 Plugin for generating and providing analytics sessions data - such as id, timestamp - in the cookie
 
-## Installation
+---
+
+### Installation
 
 ```
 yarn add @uber/fusion-plugin-analytics-session
@@ -20,7 +22,9 @@ yarn add @uber/fusion-plugin-analytics-session
 
 // TODO: Custom cookie types
 
-## Usage
+---
+
+### Example
 
 ```js
 // main.js
@@ -35,7 +39,7 @@ export default function start() {
   const AnalyticsSession = app.plugin(AnalyticsSessionPlugin, {
     cookieType: UberWebEventsCookie
   });
-  
+
   // consumption
   app.middleware({session: AnalyticsSessionToken}, ({session}) => {
     return (ctx, next) => {
