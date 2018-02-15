@@ -1,9 +1,10 @@
-# fusion-analyticsjs-utils
-## Overview
+# @uber/fusion-analyticsjs-utils
 
 Misc utils for Fusion analytics plugins
 
-## Installation
+---
+
+### Installation
 
 ```
 npm install @uber/fusion-analyticsjs-utils
