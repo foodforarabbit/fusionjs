@@ -26,7 +26,7 @@ export default __NODE__ &&
     deps: {
       events: UniversalEventsToken,
       AnalyticsSession: AnalyticsSessionToken,
-      I18n: I18nToken,
+      I18n: I18nToken.optional,
       m3: M3Token,
       heatpipe: HeatpipeToken,
       logger: LoggerToken,
