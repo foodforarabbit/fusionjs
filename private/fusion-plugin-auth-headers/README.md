@@ -1,6 +1,28 @@
 # @uber/fusion-plugin-auth-headers
 
-Exposes an API for accessing common authentication fields.
+Provides a plugin that exposes a programmatic interface for accessing common Uber-specific authentication fields.
+
+At Uber, applications often need to know information about the authenticated user.  This server-side plugin provides a programatic interface that allows for accessing Uber-specific authentication fields.
+
+In production, these are populated at the nginx layer for both internal and external apps.  As the development environment is not behind _uber.onelogin.com_, an optional development override may be provided to supply configurable values to your app.
+
+---
+
+### Table of contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Simple middleware](#simple-middleware)
+* [Setup](#setup)
+* [API](#api)
+  * [Registration API](#registration-api)
+    * [`AuthHeadersUUIDConfigToken`](#authheadersuuidconfigtoken)
+    * [`AuthHeadersEmailConfigToken`](#authheadersemailconfigtoken)
+    * [`AuthHeadersTokenConfigToken`](#authheaderstokenconfigtoken)
+    * [`AuthHeadersRolesConfigToken`](#authheadersrolesconfigtoken)
+    * [`AuthHeadersGroupsConfigToken`](#authheadersgroupsconfigtoken)
+  * [Service API](#service-api)
+* [Configuration](#configuration)
 
 ---
 
@@ -12,7 +34,35 @@ yarn add @uber/fusion-plugin-auth-headers
 
 ---
 
-### Example
+### Usage
+
+#### Simple middleware
+
+The plugin provides a request-scoped programmatic interface which allows for accessing information about the authenticated user.
+
+```js
+// src/some-middleware-plugin.js
+import {createPlugin} from 'fusion-core';
+export default createPlugin({
+  deps: {authHeaders: AuthHeadersToken},
+  middleware: ({authHeaders}) => {
+    return (ctx, next) => {
+      if(__NODE__) {
+        const instance = authHeaders.from(ctx);
+        const uuid = instance.get('uuid');
+        ctx.body = {
+          message: `User UUID is: ${uuid}`
+        };
+      }
+      return next();
+    }
+  }
+});
+```
+
+---
+
+### Setup
 
 ```js
 // src/main.js
@@ -37,17 +87,6 @@ export default () => {
   app.register(AuthHeadersGroupsConfigToken, authDevConfig.groups); // optional
   // ...
 
-  // Using auth headers
-  app.middleware({Headers: AuthHeadersToken}, ({Headers}) => {
-    return (ctx, next) => {
-      const headers = Headers.from(ctx);
-      const uuid = headers.get('uuid');
-      const email = headers.get('email');
-      const token = headers.get('token');
-      const roles = headers.get('roles');
-      const groups = headers.get('groups');
-    }
-  });
   return app;
 };
 
@@ -76,7 +115,7 @@ export default {
 
 ### API
 
-#### Dependency registration
+#### Registration API
 
 ```js
 import {
@@ -86,28 +125,66 @@ import {
   AuthHeadersRolesConfigToken,
   AuthHeadersGroupsConfigToken
 } from '@uber/fusion-plugin-auth-headers';
-
-app.register(AuthHeadersUUIDConfigToken, /*some uuid)*/;
-app.register(AuthHeadersEmailConfigToken, /*some email*/);
-app.register(AuthHeadersTokenConfigToken, /*some token*/);
-app.register(AuthHeadersRolesConfigToken, /*some roles*/);
-app.register(AuthHeadersGroupsConfigToken, /*some group*/s);
 ```
 
-##### Optional dependencies
+##### `AuthHeadersUUIDConfigToken`
+```js
+import {AuthHeadersUUIDConfigToken} from '@uber/fusion-plugin-auth-headers';
+```
 
-Name | Type | Default | Description
--|-|-|-
-`AuthHeadersUUIDConfigToken` | `string` | `undefined` | Development override value for a user's UUID.
-`AuthHeadersEmailConfigToken` | `string` | `undefined` | Development override value for a user's e-mail address.
-`AuthHeadersTokenConfigToken` | `string` | `undefined` | Development override value for a user's token.
-`AuthHeadersRolesConfigToken` | `string` | `undefined` | Development override value for a user's roles.
-`AuthHeadersGroupsConfigToken` | `string` | `undefined` | Development override value for a user's groups.
+Allows for overriding the user's UUID in development environments only.  Optional.  Server-side only.
+
+Expects a `string`, otherwise no override is used.
+
+##### `AuthHeadersEmailConfigToken`
+```js
+import {AuthHeadersEmailConfigToken} from '@uber/fusion-plugin-auth-headers';
+```
+
+Allows for overriding the user's e-mail in development environments only.  Optional.  Server-side only.
+
+Expects a `string`, otherwise no override is used.
+
+##### `AuthHeadersTokenConfigToken`
+```js
+import {AuthHeadersTokenConfigToken} from '@uber/fusion-plugin-auth-headers';
+```
+
+Allows for overriding the user's token in development environments only.  Optional.  Server-side only.
+
+Expects a `string`, otherwise no override is used.
+
+##### `AuthHeadersRolesConfigToken`
+```js
+import {AuthHeadersRolesConfigToken} from '@uber/fusion-plugin-auth-headers';
+```
+
+Allows for overriding the user's roles in development environments only.  Optional.  Server-side only.
+
+Expects a `string`, otherwise no override is used.
+
+##### `AuthHeadersGroupsConfigToken`
+```js
+import {AuthHeadersGroupsConfigToken} from '@uber/fusion-plugin-auth-headers';
+```
+
+Allows for overriding the user's groups in development environments only.  Optional.  Server-side only.
+
+Expects a `string`, otherwise no override is used.
 
 #### Service API
 
-* `from(ctx) => instance`
-* `instance.get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Throws `MissingXAuthParamError` otherwise.
+```js
+class AuthHeaders {
+  constructor(ctx: Context, devOverrideConfig: AuthHeadersConfig): AuthHeaders
+  get(key: AuthHeaderKey): string
+}
+type AuthHeadersService = {from: (ctx: Context) => AuthHeaders};
+```
+
+* `service.from(ctx: Context) => AuthHeaders` - provides a `Context`-scoped instance of `AuthHeaders`.
+  * `ctx: FusionContext` - Required. A [FusionJS context](https://github.com/fusionjs/fusion-core#context) object.
+  * `instance.get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Throws `MissingXAuthParamError` otherwise.
 
 ---
 
