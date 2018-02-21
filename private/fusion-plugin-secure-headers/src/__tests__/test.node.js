@@ -4,7 +4,7 @@ import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 
 import SecureHeadersPlugin from '../server';
-import {SecureHeadersToken} from '../tokens';
+import {SecureHeadersToken, SecureHeadersCSPConfigToken} from '../tokens';
 
 const fixtureHeaders = {
   'Content-Type': 'text/html',
@@ -13,6 +13,8 @@ const fixtureHeaders = {
 const fixtureCSP =
   "block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-undefined' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; report-uri https://csp.uber.com/csp?a=unknown&ro=false";
 
+const fixtureCSPWithOverrides =
+  "block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self' test.uber.com; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-undefined' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; report-uri https://csp.uber.com/csp?a=unknown&ro=false";
 function createTestFixture() {
   const app = new App('content', el => el);
   app.register(SecureHeadersToken, SecureHeadersPlugin);
@@ -50,6 +52,25 @@ test('basics - default CSP headers', async t => {
   const simulator = getSimulator(app);
   const ctx = await simulator.render('/test-url', fixtureHeaders);
   t.equal(ctx.response.header['content-security-policy'], fixtureCSP);
+  t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
+  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
+  t.end();
+});
+
+test('basics - csp override', async t => {
+  const app = createTestFixture();
+  app.register(SecureHeadersCSPConfigToken, {
+    overrides: {
+      connectSrc: ['test.uber.com'],
+    },
+  });
+  t.plan(3);
+  const simulator = getSimulator(app);
+  const ctx = await simulator.render('/test-url', fixtureHeaders);
+  t.equal(
+    ctx.response.header['content-security-policy'],
+    fixtureCSPWithOverrides
+  );
   t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
   t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
   t.end();

@@ -15,7 +15,7 @@ export default __NODE__ &&
   createPlugin({
     deps: {
       useFrameGuard: SecureHeadersUseFrameguardConfigToken.optional,
-      espConfig: SecureHeadersCSPConfigToken.optional,
+      cspConfig: SecureHeadersCSPConfigToken.optional,
     },
     middleware: ({useFrameguard = true, cspConfig}) => {
       const serviceName = process.env.SVC_ID;
