@@ -66,6 +66,7 @@ export default __NODE__ &&
           opentracing.Tags.SPAN_KIND_RPC_SERVER;
         tags[opentracing.Tags.HTTP_URL] = request.path;
         tags[opentracing.Tags.HTTP_METHOD] = request.method;
+        tags[opentracing.Tags.PEER_SERVICE] = 'web_client';
 
         const span = tracer.startSpan(`${request.method}_${request.path}`, {
           childOf: context,

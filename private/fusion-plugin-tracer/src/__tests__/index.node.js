@@ -88,6 +88,7 @@ test('Tracer Middleware', async t => {
           'span.kind': 'server',
           'http.url': '/path',
           'http.method': 'GET',
+          'peer.service': 'web_client',
         },
         'span options should match'
       );
