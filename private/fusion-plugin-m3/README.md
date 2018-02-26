@@ -2,7 +2,28 @@
 
 An M3 plugin for FusionJS.
 
-This plugin is a wrapper ontop of [node-m3-client-addon](https://code.uberinternal.com/diffusion/INNODEM/).  As such, it exports a similar API with the major difference being that 'increment' does not accept a value and it defaults to 1.
+M3 is Uber's internal metrics system.  Leverage this plugin to emit metrics to M3 for storage and later querying.  See [M3 documentation](https://engdocs.uberinternal.com/m3_and_umonitor/what_is_m3.html) for more details.
+
+This plugin is primarily a wrapper on top of [node-m3-client-addon](https://code.uberinternal.com/diffusion/INNODEM/).
+
+If you're using React, you should use [fusion-plugin-m3-react](https://code.uberinternal.com/diffusion/WEFUSVD/) instead of this package.
+
+---
+
+### Table of contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Timing a service request](#timing-a-service-request)
+- [Setup](#setup)
+- [API](#api)
+  - [Registration API](#registration-api)
+    - [`M3`](#m3)
+    - [`M3ClientToken`](#m3clienttoken)
+- [Dependencies](#dependencies)
+    - [`UniversalEventsToken`](#universaleventstoken)
+    - [`CommonTagsToken`](#commontagstoken)
+  - [Service API](#service-api)
 
 ---
 
@@ -14,7 +35,27 @@ yarn add @uber/fusion-plugin-m3
 
 ---
 
-### Example
+### Usage
+
+#### Timing a service request
+
+```js
+export default createPlugin({
+  deps: {m3: M3Token},
+  provides: ({m3}) => {
+    someMethod: function() {
+      const startTime = new Date();
+      // do some work
+      m3.timing('someMethod', startTime);
+    }
+  }
+})
+```
+
+---
+
+### Setup
+
 ```js
 // src/main.js
 import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
@@ -29,7 +70,7 @@ export default () => {
 
   app.middleware({m3: M3Token}, ({m3}) => {
     m3.increment('increment-key', {someTag: 'here'});
-    m3.timing('timing-key', new Date(), {someTag: 'here'});
+    m3.timing('timing-key', 300, {someTag: 'here'});
     m3.gauge('gauge-key', 500, {someTag: 'here'});
     // etc
     return (ctx, next) => next();
@@ -43,41 +84,89 @@ export default () => {
 
 ### API
 
-#### Dependency registration
+#### Registration API
+
+##### `M3`
 
 ```js
-import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
-import {CommonTagsToken} from 'fusion-plugin-m3';
-
-app.register(UniversalEventsToken, UniversalEvents);
-app.register(CommonTagsToken, {some: 'tags'});
+import M3 fom 'fusion-plugin-m3';
 ```
 
-##### Required dependencies
+The M3 plugin. Typically, it should be registered to [`M3ClientToken`](#M3ClientToken). Provides the [M3 service](#service-api)
 
-Name | Type | Description
--|-|-
-`UniversalEventsToken` | `UniversalEvents` | An event emitter plugin to emit stats to, such as the one provided by [`fusion-plugin-universal-events`](https://github.com/fusionjs/fusion-plugin-universal-events).
+##### `M3ClientToken`
 
-##### Optional dependencies
+```js
+import M3ClientToken from 'fusion-plugin-m3';
+```
 
-Name | Type | Default | Description
--|-|-|-
-`CommonTagsToken` | `Object` | See [defaults](https://code.uberinternal.com/diffusion/WEFUSHE/browse/master/src/server.js;223268cf27b346ef192a7c656c5d22dfdac16bf0$19) | Tags to provide to the M3 Client.
+The canonical token for the M3 plugin. Typically, it should be registered with the [`M3`](#m3) plugin.
+
+### Dependencies
+
+##### `UniversalEventsToken`
+
+Required. See https://github.com/fusionjs/fusion-plugin-universal-events
+
+##### `CommonTagsToken`
+
+```js
+import {CommonTagsToken} from 'fusion-plugin-m3';
+```
+
+Optional.  Common tags that can be provided to the M3 client.
+
+###### Default values
+
+If no common tags are provided, or values are missing for some expected keys, defaults will be supplied.  See [`src/server.js`](https://code.uberinternal.com/diffusion/WEFUSHE/browse/master/src/server.js;223268cf27b346ef192a7c656c5d22dfdac16bf0$19) for more details.
 
 #### Service API
 
-`.scope(tags: Object) => M3Client` - Provides a new client with additional common tags supplied.
-`.close() => void` - Writes queued messages and closes the socket.
-`.counter(key: string, value: number, tags?: Object) => void` - Sets count for provided tags.
-`.increment(key: string, tags?: Object) => void` - Increments value for provided tags.
-`.decrement(key: string, tags?: Object) => void` - Decrements value for provided tags.
-`.timing(key: string, duration: number, tags?: Object) => void` - Time something, in milliseconds.
-`.gauge(key: string, value: number, tags?: Object) => void` - Take a gauge reading of something.
-`.immediateCounter(key: string, value: number, tags?: Object) => void` - Similar to counter, but with an immediate flush.
-`.immediateIncrement(key: string, tags?: Object) => void` - Similar to increment, but with an immediate flush.
-`.immediateDecrement(key: string, tags?: Object) => void` - Similar to decrement, but with an immediate flush.
-`.immediateTiming(key: string, value: number, tags?: Object) => void` - Similar with timing, but with an immediate flush.
-`.immediateGauge(key: string, value: number, tags?: Object) => void` - Similar to gauge, but with an immediate flush.
+This plugin is a wrapper on top of [node-m3-client-addon](https://code.uberinternal.com/diffusion/INNODEM/).  As such, this plugin exports a very similar API.
 
+```js
+M3.scope(tags: Object) => M3Client
+```
+Provides a new client with additional common tags supplied.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$135) for more details.
 
+```js
+M3.close() => void
+```
+Writes queued messages and closes the socket.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$261) for more details.
+
+```js
+M3.counter(key: string, value: number, tags?: Object) => void
+```
+Sets count for provided tags.  A [counter](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#counter) should be a cumulative metric that repesents an ever increasing value (e.g. requests served) during a certain time frame.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$153) for more details.
+
+```js
+M3.increment(key: string, tags?: Object) => void
+```
+Increments value for provided tags.  Unlike the [`node-m3-client-addon`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$160) client API, `increment` does not allow for incrementing by values other than 1.
+
+```js
+M3.decrement(key: string, tags?: Object) => void
+```
+Decrements value for provided tags.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$167) for more details.
+
+```js
+M3.timing(key: string, duration: number, tags?: Object) => void
+```
+Time something, in milliseconds.  A [timer](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#timer) represents a group of measures summarizing the duration of an event.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$174) for more details.
+
+```js
+M3.gauge(key: string, value: number, tags?: Object) => void
+```
+Take a gauge reading of something.  A [gauge](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#gauge) value represents a single numerical value at the time of reading that can go up or down (e.g. current memory usage).  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$146) for more details.
+
+###### Immediate flush
+
+Each of the measurment functions above also come with an `immediate*` version which will flush the interval immediately.  Aside from the name, the function signatures are the same:
+
+```js
+M3.immediateCounter(key: string, value: number, tags?: Object) => void
+M3.immediateIncrement(key: string, tags?: Object) => void
+M3.immediateDecrement(key: string, tags?: Object) => void
+M3.immediateTiming(key: string, value: number, tags?: Object) => void
+M3.immediateGauge(key: string, value: number, tags?: Object) => void
+```
