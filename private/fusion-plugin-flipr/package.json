@@ -9,7 +9,8 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "flipr"
   ],
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
