@@ -1,13 +1,85 @@
 # Atreyu plugin for fusion
 
-This is a fusion plugin for [Atreyu](https://code.uberinternal.com/diffusion/WEATREY/browse/master/#what-is-atreyu)
+Provides [Atreyu](https://code.uberinternal.com/diffusion/WEATREY/browse/master/#what-is-atreyu) to a Fusion.js app.
 
 Atreyu is data querying/aggregation library similar to GraphQL, but designed to be used with Uber's micro-service infrastructure.
+
+---
+
+### Table of contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Setup](#setup)
+* [API](#api)
+  * [Registration API](#registration-api)
+    * [`Atreyu`](#atreyu)
+    * [`AtreyuToken`](#atreyutoken)
+  * [Dependencies](#dependencies)
+    * [`M3Token`](#m3token)
+    * [`UniversalEventsToken`](#universaleventstoken)
+    * [`LoggerToken`](#loggertoken)
+    * [`TracerToken`](#tracertoken)
+    * [`GalileoToken`](#galileotoken)
+    * [`TChannelToken`](#tchanneltoken)
+    * [`AtreyuConfigToken`](#atreyuconfigtoken)
+    * [`AtreyuOptionsToken`](#atreyuoptionstoken)
+  * [Service API](#service-api)
+    * [`createAsyncRequest`](#createAsyncRequest)
+    * [`createAsyncGraph`](#createAsyncGraph)
+* [Other examples](#other-examples)
+  * [Making a request](#making-a-request)
+  * [Defining a graph](#defining-a-graph)
+  * [Testing](#testing)
+
+---
+
+### Installation
+
+```sh
+yarn add @uber/fusion-plugin-atreyu
+```
+
+---
+
+### Usage
+
+```js
+// src/rpc/handlers.js
+import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
+
+export default createPlugin({
+  deps: {atreyu: AtreyuToken},
+  provides() {
+    const getCountries = atreyu.createGraph({
+      all: {
+        service: 'safari',
+        method: 'Safari::searchCountries',
+        args: {
+          request: {},
+        },
+      },
+    });
+    return {
+      async getCountries() {
+        return getCountries();
+      },
+    };
+  },
+});
+```
+
+---
+
+### Setup
 
 ```js
 // src/main.js
 import App from '@fusion/react';
-import Atreyu, {AtreyuToken, AtreyuConfigToken} from '@uber/fusion-plugin-atreyu';
+import Atreyu, {
+  AtreyuToken,
+  AtreyuConfigToken,
+} from '@uber/fusion-plugin-atreyu';
 import {config} from './atreyu/config';
 
 export default () => {
@@ -17,86 +89,194 @@ export default () => {
   app.register(AtreyuConfigToken, config);
 
   return app;
-}
+};
+```
 
+You also need to setup the Atreyu config appropriately. See [https://engdocs.uberinternal.com/atreyu/configuration.html](https://engdocs.uberinternal.com/atreyu/configuration.html)
+
+Below is an example configuration to allow requests to be made to the Safari service.
+
+```js
 // src/atreyu/config.js
 export default {
   config: {
-    serviceNames: ["safari"],
+    serviceNames: ['safari'],
   },
-}
+};
 ```
 
 ### API
 
-#### Instance API
+#### Registration API
 
-##### `atreyu.createAsyncRequest(requestDefinition): (seed) => Promise<response>`
-
-Returns a promisified version of `atreyu.createRequest`. See https://engdocs.uberinternal.com/atreyu/graphs.html#simple-request
+##### `Atreyu`
 
 ```js
-const requestDefinition = {
-    service: 'populous',
-    method: 'UserService::getUser',
-    args: { uuid: '{data.myUUID}' }
-}
-const userRequest = atreyu.createAsyncRequest(requestDefinition)
-const response = await userRequest({myUUID: 'abcd'});
+import Atreyu from '@uber/fusion-plugin-atreyu';
 ```
 
-##### `atreyu.createAsyncGraph(graphDef): (seed) => Promise<response>`
+The plugin. Typically, it should be registered to [`AtreyuToken`](#atreyutoken)
 
-Returns a promisified version of `atreyu.createGraph`. See https://engdocs.uberinternal.com/atreyu/graphs.html#create-graph
+##### `AtreyuToken`
 
 ```js
-const graphDefinition = {
-    user: {
-        service: 'populous',
-        method: 'UserService::getUser',
-        args: {uuid: '{data.myUUID}'}
-    },
-    invited_by: {
-        service: 'populous',
-        method: 'UserService::getUser',
-        args: {uuid: '{user.inviterUuid}'},
-        dependencies: ['user']
-    }
-}
-const userGraph = atreyu.createAsyncGraph(graphDefinition);
-const response = await userGraph.resolve({myUUID: 'abcd'});
+import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 ```
 
-#### Dependency resolution
+Typically, should be registered with [`Atreyu`](#atreyu)
+
+#### Dependencies
+
+##### `M3Token`
 
 ```js
-import {M3Token} from '@uber/fusion-plugin-m3';
+import {M3Token} from 'fusion-plugin-m3';
+```
+
+The M3 client plugin, which is used to collect statistics. Server-only. Required. See [https://code.uberinternal.com/diffusion/WEFUSHE/](https://code.uberinternal.com/diffusion/WEFUSHE/)
+
+##### `UniversalEventsToken`
+
+```js
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+```
+
+The universal events plugin, which is used as an event bus. Required for `@uber/fusion-plugin-logtron`. See [https://github.com/fusionjs/fusion-plugin-universal-events](https://github.com/fusionjs/fusion-plugin-universal-events)
+
+##### `LoggerToken`
+
+```js
 import {LoggerToken} from 'fusion-tokens';
-import {TracerToken} from '@uber/fusion-plugin-tracer';
-import {GalileoToken} from '@uber/fusion-plugin-galileo';
-import {TChannelToken} from '@uber/fusion-plugin-tchannel';
-import Atreyu, {AtreyuToken, AtreyuConfigToken, AtreyuOptionsToken} from 'fusion-plugin-atreyu';
+```
 
-app.register(AtreyuToken, Atreyu);
-app.register(AtreyuConfigToken, config);
-app.register(M3Token, M3);
-app.register(LoggerToken, Logger);
-app.register(TracerToken, Tracer);
-app.register(GalileoToken, Galileo);
+A logger plugin. Typically, it should be registered with `@uber/fusion-plugin-logtron`.
+
+##### `TracerToken`
+
+```js
+import {TracerToken} from '@uber/fusion-plugin-tracer';
+```
+
+The tracer plugin. Required. Server-only.
+
+##### `GalileoToken`
+
+```js
+import {GalileoToken} from '@uber/fusion-plugin-galileo';
+```
+
+The Galileo plugin. Required. Server-only.
+
+##### `TChannelToken`
+
+```js
 app.register(TChannelToken, TChannel);
+```
+
+The TChannel plugin. Required. Server-only.
+
+##### `AtreyuConfigToken`
+
+```js
+app.register(AtreyuConfigToken, config);
+```
+
+Optional. Server-only. See [https://engdocs.uberinternal.com/atreyu/configuration.html](https://engdocs.uberinternal.com/atreyu/configuration.html)
+
+##### `AtreyuOptionsToken`
+
+```js
 app.register(AtreyuOptionsToken, options);
 ```
 
-- `config: {serviceNames, services}` - an Atreyu config (see https://code.uberinternal.com/diffusion/WEATREY/)
-- `M3` - m3 plugin
-- `Logger` - logger plugin
-- `Tracer` - tracer plugin
-- `Galileo` - galileo plugin
-- `TChannel` - tchannel plugin
-- `options: object` - Atreyu options (optional)
+Optional. Server-only. See [https://engdocs.uberinternal.com/atreyu/configuration.html#other-configs](https://engdocs.uberinternal.com/atreyu/configuration.html#other-configs)
 
+#### Service API
 
-#### Atreyu Testing
+##### `createAsyncRequest`
+
+Returns a promisified version of `atreyu.createRequest`. See [https://engdocs.uberinternal.com/atreyu/graphs.html#simple-request](https://engdocs.uberinternal.com/atreyu/graphs.html#simple-request)
+
+```flow
+const request:Function = atreyu.createAsyncRequest(definition: Object);
+```
+
+* `definition: Object` - an atreyu request definition. See [https://engdocs.uberinternal.com/atreyu/graphs.html#simple-request](https://engdocs.uberinternal.com/atreyu/graphs.html#simple-request)
+* returns `request: () => Promise<any>`
+
+##### `createAsyncGraph`
+
+Returns a promisified version of `atreyu.createGraph`. See [https://engdocs.uberinternal.com/atreyu/graphs.html#create-graph](https://engdocs.uberinternal.com/atreyu/graphs.html#create-graph)
+
+```js
+const graph: Function = atreyu.createAsyncGraph((definition: Object));
+```
+
+* `definition: Object` - an atreyu request definition. See [https://engdocs.uberinternal.com/atreyu/graphs.html#create-graph](https://engdocs.uberinternal.com/atreyu/graphs.html#create-graph)
+* returns `request: () => Promise<any>`
+
+---
+
+### Other examples
+
+#### Making a request
+
+```js
+// src/rpc/handlers.js
+import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
+import {createPlugin} from 'fusion-core';
+
+export default createPlugin({
+  deps: {atreyu: AtreyuToken},
+  provides() {
+    const requestDefinition = {
+      service: 'populous',
+      method: 'UserService::getUser',
+      args: {uuid: '{data.myUUID}'},
+    };
+    const getUser = atreyu.createAsyncRequest(requestDefinition);
+    return {
+      async getUser() {
+        return await getUser({myUUID: 'abcd'});
+      },
+    };
+  },
+});
+```
+
+#### Defining a graph
+
+```js
+import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
+import {createPlugin} from 'fusion-core';
+
+export default createPlugin({
+  deps: {atreyu: AtreyuToken},
+  provides() {
+    const graphDefinition = {
+      user: {
+        service: 'populous',
+        method: 'UserService::getUser',
+        args: {uuid: '{data.myUUID}'},
+      },
+      invited_by: {
+        service: 'populous',
+        method: 'UserService::getUser',
+        args: {uuid: '{user.inviterUuid}'},
+        dependencies: ['user'],
+      },
+    };
+    const getInviter = atreyu.createAsyncGraph(graphDefinition);
+    return {
+      async getInviter() {
+        return await getInviter({myUUID: 'abcd'});
+      },
+    };
+  },
+});
+```
+
+#### Testing
 
 You can use the `@uber/atreyu-test` module to help with mocking responses from atreyu. For example:
 
