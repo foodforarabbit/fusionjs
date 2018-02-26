@@ -1,16 +1,46 @@
 # @uber/fusion-plugin-s3-asset-proxying
 
-Cli and fusion plugin to upload and proxy assets to/from S3.
+Provides a CLI tool to upload assets to S3 (which is currently required to keep assets from 404ing during deployments on Uber infrastructure). The plugin proxies asset requests to S3.
 
 ---
 
-### Examples
+### Table of contents
 
-Upload cli:
+* [Installation](#installation)
+* [Usage](#usage)
+* [Setup](#setup)
+* [API](#api)
+  * [Registration API](#registration-api)
+    * [`AssetProxying`](#assetproxying)
+  * [Dependencies](#dependencies)
+    * [`S3ConfigToken`](#s3configtoken)
+  * [CLI](#cli)
+
+### Installation
+
+```sh
+yarn add @uber/fusion-plugin-s3-assset-proxying
+```
+
+---
+
+### Usage
+
+Once the plugin is installed, run the CLI command to upload assets to S3. From your terminal:
+
+```sh
+upload-assets-to-s3
+```
+
+### Setup
+
+The `uber-web` scaffold runs the CLI command on build:
 
 ```
 "build-production": "fusion build --production && upload-assets-to-s3"
 ```
+
+The plugin proxies asset requests:
 
 ```js
 // main.js
@@ -30,30 +60,36 @@ export default function() {
 
 ### API
 
-#### Dependency registration
+#### Registration API
 
 ```js
-app.register(AssetProxying);
-app.register(S3ConfigToken, config);
+import AssetProxying from '@uber/fusion-plugin-s3-asset-proxying';
 ```
 
-| Name            | Type            | Required | Description                  |
-| --------------- | --------------- | -------- | ---------------------------- |
-| -               | `AssetProxying` | yes      | The S3 asset proxying plugin |
-| `S3ConfigToken` | `S3Config`      | no       | See [S3Config](#s3config)    |
+The plugin. Typically does not require a token.
 
-#### S3Config
+#### Dependencies
+
+##### `S3ConfigToken`
 
 ```js
-{
-  bucket: String,
-  prefix: String,
-  accessKeyId: String,
-  secretAccessKey: String,
+import {S3ConfigToken} from '@uber/fusion-plugin-s3-asset-proxying';
+```
+
+An S3 configuration object.
+
+###### Types
+
+```js
+type S3Config = {
+  bucket: string,
+  prefix: string,
+  accessKeyId: string,
+  secretAccessKey: string,
 };
 ```
 
-#### Upload CLI
+#### CLI
 
 ```sh
 upload-assets-to-s3
