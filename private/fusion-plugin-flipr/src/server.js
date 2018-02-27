@@ -2,7 +2,6 @@
 import os from 'os';
 import path from 'path';
 
-import FliprClient from '@uber/flipr-client';
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 
@@ -81,7 +80,9 @@ const plugin =
       Client: FliprClientToken.optional,
     },
     provides: ({config = {}, logger, Client}) => {
-      Client = Client || FliprClient;
+      // The flipr client pulls in bignum which causes some problems
+      // when used with jest. To resolve this, we can lazy load the flipr client
+      Client = Client || require('@uber/flipr-client');
       const fliprClientConfig = {
         defaultNamespace: process.env.SVC_ID,
         diskCachePath: __DEV__ && 'flipr',
