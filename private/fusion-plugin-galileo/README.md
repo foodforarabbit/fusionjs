@@ -1,6 +1,34 @@
 # @uber/fusion-plugin-galileo
 
-Galileo client plugin for FusionJS apps.
+Sets up Galileo, a mechanism to authorize RPC services at Uber. It helps enforce [Gold Star](https://engdocs.uberinternal.com/goldstar/index.html) compliance to ensure end-to-end security and privacy of data as it flows throughout the Uber stack.
+
+Galileo is a framework for presenting access controls to Uber applications. Galileo uses Wonka under the hood for personnel and service authentication and most applications and services will interact through Galileo li`aries rather than with Wonka directly. Galileo relies on [Jaeger](http://jaeger.readthedocs.io/en/latest/), Uber’s distributed context propagation system, for passing Wonka claims from service/personnel to service.
+
+Wonka provides secure, authenticated access by extending the trust of uSSH up to the instances of Uber services running on a given host. Wonkamaster is an enrollment service and claims provider for Wonka claims, verifiable assertion of facts such as an identity or group membership. Wonka claims ensure the entities you’re communicating with are who they say they are.
+
+The Galileo plugin comes pre-configured in the `uber-web` scaffold. Do not remove it.
+
+---
+
+### Table of contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Setup](#setup)
+* [API](#api)
+  * [Registration API](#registration-api)
+    * [`Galileo`](#galileo-plugin)
+    * [`GalileoToken`](#galileotoken)
+  * [Dependencies](#dependencies)
+    * [`LoggerToken`](#loggertoken)
+    * [`M3Token`](#m3token)
+    * [`TracerToken`](#tracertoken)
+    * [`ConfigToken`](#configtoken)
+    * [`ClientToken`](#clienttoken)
+  * [Service API](#service-api)
+    * [`galileo`](#galileo)
+      * [`galileo.AuthenticateOut`](#galileoauthenticateout)
+      * [`galileo.AuthenticateIn`](#galileoauthenticatein)
 
 ---
 
@@ -12,25 +40,23 @@ yarn add @uber/fusion-plugin-galileo
 
 ---
 
-### Example
+### Usage
+
+Typically, you don't need to directly do anything with this plugin. It's a required dependency of `@uber/fusion-plugin-atreyu`.
+
+### Setup
 
 ```js
 // main.js
-import GalileoPlugin, {GalileoToken, GalileoConfigToken} from  '@uber/fusion-plugin-galileo';
+import Galileo, {
+  GalileoToken,
+  GalileoConfigToken,
+} from '@uber/fusion-plugin-galileo';
 
-app.register(GalileoToken, GalileoPlugin);
+app.register(GalileoToken, Galileo);
 app.register(GalileoConfigToken, {
   // optional galileo config
   // see https://code.uberinternal.com/diffusion/ENGALWP/
-});
-// ...
-
-app.middleware({Galileo: GalileoToken}, ({Galileo}) => {
-  // Access galileo client
-  Galileo.galileo;
-  // Cleanup Galileo
-  Galileo.destroy()
-  return (ctx, next) => next();
 });
 ```
 
@@ -38,43 +64,57 @@ app.middleware({Galileo: GalileoToken}, ({Galileo}) => {
 
 ### API
 
-#### Dependency registration
+#### Registration API
+
+##### `Galileo` plugin
 
 ```js
-import {GalileoConfigToken} from  '@uber/fusion-plugin-galileo';
-import {LoggerToken} from 'fusion-tokens';
-import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3';
-import TracerPlugin, {TracerToken} from '@uber/fusion-plugin-tracer';
-
-app.register(GalileoConfigToken, /*some config*/);
-app.register(LoggerToken, /*some Logger*/);
-app.register(M3Token, M3Plugin);
-app.register(TracerToken, TracerPlugin);
+import Galileo from '@uber/fusion-plufin-galileo';
 ```
 
-##### Required dependencies
+The plugin. Typically, it should be registered to [`GalileoToken`](#galileotoken)
 
-Name | Type | Description
--|-|-
-`LoggerToken` | `Logger` | A [type-compliant logger](https://github.com/fusionjs/fusion-tokens/blob/master/src/index.js#L23-L32). Using [Logtron](https://code.uberinternal.com/diffusion/WEFUSTX/) is recommended for most cases at Uber.
-`M3Token` | `M3Plugin` | An M3 plugin for FusionJS.  Using [@uber/fusion-plugin-m3](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-m3) is recommended for most cases at Uber.
-`TracerToken` | `TracerPlugin` | A Tracer plugin for FusionJS.  Using [@uber/fusion-plugin-tracer](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-tracer) is recommended for most cases at Uber.
+##### `GalileoToken`
 
-##### Optional dependencies
+```js
+import {GalileoToken} from '@uber/fusion-plugin-galileo';
+```
 
-Name | Type | Default | Description
--|-|-|-
-`GalileoConfigToken` | `GalileoConfig` | See below | Configuration object for the Galileo client.
+#### Dependencies
 
-#### Instance API
+##### `LoggerToken`
 
-See [web/unpm-galileo](https://code.uberinternal.com/diffusion/WEUNPGJ/) for more information.
+```js
+import {LoggerToken} from 'fusion-tokens';
+```
 
----
+Required. Server-only. Typically it should be registered with `@uber/fusion-plugin-logtron`.
 
-### Configuration
+##### `M3Token`
 
-If no configuration is provided, the default is:
+```js
+import {M3Token} from '@uber/fusion-plugin-m3';
+```
+
+Required. Server-only. Typically it should be registered with `@uber/fusion-plugin-m3`.
+
+##### `TracerToken`
+
+```js
+import {TracerToken} from '@uber/fusion-plugin-tracer';
+```
+
+Required. Server-only. Typically it should be registered with `@uber/fusion-plugin-tracer`.
+
+##### `ConfigToken`
+
+```js
+import {ConfigToken} from '@uber/fusion-plugin-galileo';
+```
+
+Server-only. Optional. Configuration object for Galileo.
+
+###### Default values
 
 ```js
 {
@@ -86,3 +126,70 @@ If no configuration is provided, the default is:
 ```
 
 See [engsec/galileo-node](https://code.uberinternal.com/diffusion/ENGALWP/) for more information.
+
+##### `ClientToken`
+
+```js
+import {ClientToken} from '@uber/fusion-plugin-galileo';
+```
+
+Server-only. Optional. Useful for mocking the Galileo client in tests.
+
+#### Service API
+
+See [https://engdocs.uberinternal.com/goldstar/how_to_items/service_access/galileo_node.html](https://engdocs.uberinternal.com/goldstar/how_to_items/service_access/galileo_node.html) for more information.
+
+##### `galileo`
+
+The service exposes the galileo client in a property called `galileo`:
+
+```js
+createPlugin({
+  deps: {Galileo: GalileoToken},
+  provides({Galileo}) {
+    const client = Galileo.galileo;
+    // figaro magnifico
+  },
+});
+```
+
+##### `galileo.AuthenticateOut`
+
+Authenticates an outbound request
+
+```js
+galileo.AuthenticateOut(
+  outboundServiceName,
+  serviceType,
+  span,
+  galileoCallback
+);
+```
+
+* `outboundServiceName: string` - the name of the service that you want to communicate with
+* `serviceType: string` - either `'tchannel'` or `'http'`
+* `span` - a Jaeger span from the Tracer plugin.
+* `galileoCallback: (err: string, galileoHeaders: Object) => void` - a callback that gets called on completion
+
+##### `galileo.AuthenticateIn`
+
+```js
+galileo.AuthenticateIn(options, galileoCallback);
+```
+
+* `options: Options` - options object
+* `galileoCallback: (err: string, isAuthed: boolean) => void` - a callback that gets called on completion
+
+###### Types
+
+```flow
+type Options = {
+  span: Span // a Jaeger span,
+  allowedEntities: ?[string] // ['someServiceName', 'EVERYONE'],
+  callerName: string // headers['rpc-caller'] || headers['x-uber-source']
+};
+```
+
+* `span: Span` - Span in the request context or trace
+* `allowedEntities` - Optional. A list of services or groups you want to whitelist
+* `callerName` - the name of the caller that can be extracted from 'rpc-caller' or 'x-uber-source' or any other way.
