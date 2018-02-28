@@ -8,7 +8,7 @@ async function run() {
   if (!isRunning) {
     if (!await promptForCerberus()) {
       return;
-    }    
+    }
   }
   return proxy();
 }
@@ -22,11 +22,11 @@ async function promptForCerberus() {
     console.log('Starting up cerberus...');
     runCerberus();
     delay(2000);
-  } 
+  }
   let isRunning = await isCerberusRunning()
   let numTries = 0;
   const ms = 1000;
-  while (!isRunning && numTries < 5) {
+  while (!isRunning && numTries < 30) {
     await delay(ms)
     isRunning = await isCerberusRunning();
     numTries++;
@@ -46,7 +46,7 @@ function runCerberus() {
   cp.spawn('cerberus', {
     stdio: ['inherit', 'ignore', 'ignore']
   });
-  
+
 }
 
 function isCerberusRunning() {
