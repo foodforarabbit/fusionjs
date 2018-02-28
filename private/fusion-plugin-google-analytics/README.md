@@ -1,6 +1,24 @@
 # @uber/fusion-plugin-google-analytics
 
-This plugin provides a minimal API on top of Google Analytics.
+This plugin provides a minimal wrapper on top of Google Analytics. Google Analytics are useful for understanding traffic volume and patterns.
+
+---
+
+### Table of contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Setup](#setup)
+* [API](#api)
+  * [Registration API](#registration-api)
+    * [`GoogleAnalytics`](#googleanalytics)
+    * [`GoogleAnalyticsToken`](#googleanalyticstoken)
+  * [Dependencies](#dependencies)
+    * [`GoogleAnalyticsConfigToken`](#googleanalyticsconfigtoken)
+  * [Service API](#service-api)
+    * [`identify`](#identify)
+    * [`track`](#track)
+    * [`pageview`](#pageview)
 
 ---
 
@@ -12,35 +30,19 @@ yarn add @uber/fusion-plugin-google-analytics
 
 ---
 
-### Example
+### Usage
+
 ```js
-// main.js
-import GoogleAnalyticsPlugin, {
-  GoogleAnalyticsConfigToken,
-  GoogleAnalyticsToken
-} from '@uber/fusion-plugin-google-analytics';
-
-app.register(GoogleAnalyticsToken, GoogleAnalyticsPlugin);
-app.register(GoogleAnalyticsConfigToken, {
-  trackingId: '' // required
-  advertiserFeatures: false, // optional
-  anonymizeIp: false, // optional
-  cookieDomain: 'auto', // optional
-  linkAttribution: false, // optional
-  trackPage: false, // optional
-});
-
-// use in the browser
 if (__BROWSER__) {
-  app.middleware({ ga: GoogleAnalyticsToken }, ({ga}) => {
+  app.middleware({ga: GoogleAnalyticsToken}, ({ga}) => {
     return (ctx, next) => {
       // see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
       ga.identify('user-id');
 
       // see https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
       ga.pageview({
-        title: document.title,  // optional
-        page: window.location.pathname,  // optional
+        title: document.title, // optional
+        page: window.location.pathname, // optional
         location: window.location.href, // optional
       });
 
@@ -49,44 +51,57 @@ if (__BROWSER__) {
         eventCategory: '', // required
         eventAction: '', // required
         eventLabel: '', // optional
-        eventValue: 0 // optional
+        eventValue: 0, // optional
       });
       return next();
-    }
-  })
+    };
+  });
 }
+```
+
+---
+
+### Setup
+
+```js
+// main.js
+import GoogleAnalytics, {
+  GoogleAnalyticsConfigToken,
+  GoogleAnalyticsToken
+} from '@uber/fusion-plugin-google-analytics';
+
+app.register(GoogleAnalyticsToken, GoogleAnalytics);
+app.register(GoogleAnalyticsConfigToken, {
+  trackingId: '' // required
+  advertiserFeatures: false, // optional
+  anonymizeIp: false, // optional
+  cookieDomain: 'auto', // optional
+  linkAttribution: false, // optional
+  trackPage: false, // optional
+});
 ```
 
 ---
 
 ### API
 
-```js
-// main.js
-import {GoogleAnalyticsConfigToken} from '@uber/fusion-plugin-google-analytics';
+#### Registration API
 
-app.register(GoogleAnalyticsConfigToken, /*some config*/);
-```
+##### `GoogleAnalytics`
 
-#### Dependency registration
+The plugin. Should be registered to [`GoogleAnalyticsToken`](#googleanalyticstoken)
 
-##### Required dependencies
+##### `GoogleAnalyticsToken`
 
-Name | Type | Description
--|-|-|-
-`GoogleAnalyticsConfigToken` | `GoogleAnalyticsConfig` | Configuration object for Google Analytics.  See below for more information.
+Should be registered with the [`GoogleAnalytics`](#googleanalytics) plugin
 
-#### Service API
+#### Dependencies
 
-`identify(id: string): void` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id)
-`track(data: any): void)` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/events)
-`pageview({title: string, page: string, location: string}): void)` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/pages)
+##### `GoogleAnalyticsConfigToken`
 
----
+Configuration for Google Analytics
 
-### Configuration
-
-The following options may be provided to this plugin.  Note that not all of them are required, and some have defaults:
+###### Types
 
 ```js
 type GoogleAnalyticsConfig = {
@@ -98,6 +113,20 @@ type GoogleAnalyticsConfig = {
   linkAttribution: boolean, // optional, defaults to 'false'
   trackPage: boolean, // optional, defaults to 'false'
   loadGA: Function, // optional, defaults to https://code.uberinternal.com/diffusion/WEFUSBE/browse/master/src/load-ga.js,
-  mock: GoogleAnalytics // optional, defaults to 'undefined'
-}
+  mock: GoogleAnalytics, // optional, defaults to 'undefined'
+};
 ```
+
+#### Service API
+
+##### `identify`
+
+`ga.identify(id: string): void` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id)
+
+##### `track`
+
+`ga.track(data: any): void)` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/events)
+
+##### `pageview`
+
+`pageview({title: string, page: string, location: string}): void)` - See [documentation](https://developers.google.com/analytics/devguides/collection/analyticsjs/pages)
