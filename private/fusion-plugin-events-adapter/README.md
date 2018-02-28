@@ -1,117 +1,132 @@
 # @uber/fusion-plugin-events-adapter
 
-An adapter for uber specific events to their logging destinations.
-
-## Overview
+Pipes [universal events](https://github.com/fusionjs/fusion-plugin-universal-events) to Uber monitoring infrastructure.
 
 At Uber, we log several useful metrics/stats to M3 or Heapipe/Kafka for monitoring and further analysis.
-Plugins such as [fusion-plugin-browser-performance-emitter](https://github.com/fusionjs/fusion-plugin-browser-performance-emitter) produces the data and emits via [Universal Events](https://github.com/fusionjs/fusion-plugin-universal-events).
-`EventsAdapter` implements the consumption of these different events in one place, in other words, logging these data to multiple destinations such as M3 and Heatpipe/Kafka.
+Plugins such as [fusion-plugin-browser-performance-emitter](https://github.com/fusionjs/fusion-plugin-browser-performance-emitter) produces the data and emits via [Universal Events](https://github.com/fusionjs/fusion-plugin-universal-events). The `EventsAdapter` plugin creates the event listeners that handle dispatching of data from those plugins to their appropriate destinations (i.e. M3 and Heatpipe/Kafka).
 
+Many Fusion.js plugins emit data to the universal events bus, for example `fusion-plugin-react-router` and `fusion-plugin-i18n-react`.
 
-## Installation
+---
+
+### Table of contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Setup](#setup)
+* [API](#api)
+  * [Registration API](#registration-api)
+    * [`EventsAdapter`](#eventsadapter)
+    * [`EventsAdapterToken`](#eventsadaptertoken)
+  * [Dependencies](#dependencies)
+    * [`AnalyticsSessionToken`](#analyticssessiontoken)
+    * [`M3Token`](#m3token)
+    * [`HeatpipeToken`](#heatpipetoken)
+    * [`LoggerToken`](#loggertoken)
+
+---
+
+### Installation
 
 ```
 yarn-add @uber/fusion-plugin-events-adapter
 ```
 
-## Dependencies
-+ [Universal Events](https://github.com/fusionjs/fusion-plugin-universal-events) for listening to universal events
-+ [Analytics Session Plugin](https://code.uberinternal.com/diffusion/WEFUSYW/) for generating and accessing visitor browser session cookie
-+ [I18n Plugin](https://github.com/fusionjs/fusion-plugin-i18n) to determine the resolved user locale
+---
 
-`// TODO: Geolocation`
+### Usage
 
-## Usage
-`// TODO: verify README usage`
+This plugin is pre-configured in the `uber-web` scaffold. Its service isn't meant to be used programmatically by application developers.
+
+---
+
+### Setup
 
 ```js
-// main.js
 import App from 'fusion-react';
-import {
-  FetchToken,
-  LoggerToken,
-  SessionToken,
-  createToken
-} from 'fusion-tokens';
-
-import SecretsPlugin, {
-  DevSecretsToken,
-  SecretsToken,
-} from '@uber/fusion-plugin-secrets';
-
-import JWTSessionfrom, {
-  SessionSecretToken
-  SessionCookieNameToken
-} from 'fusion-plugin-jwt';
-
-import CsrfProtectionPlugin from 'fusion-plugin-csrf-protection-react';
-import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
-
-import M3Plugin, {M3Token} from 'fusion-plugin-m3';
-import FusionLogger, {LogtronBackendsToken, LogtronTeamToken} from '@uber/fusion-plugin-logtron';
-import HeatpipePlugin, {HeatpipeToken, HeatpipeConfigToken} from '@uber/fusion-plugin-heatpipe';
-
-import {I18n, I18nLoaderToken} from 'fusion-plugin-i18n-react';
-import FusionRosetta from '@uber/fusion-plugin-rosetta';
-
-import GoogleAnalyticsPlugin, {
-  GoogleAnalyticsConfigToken, 
-  GoogleAnalyticsToken
-} from '@uber/fusion-plugin-google-analytics';
-// or if you have an external website
-// import TealiumPlugin from '@uber/fusion-plugin-tealium';
-
-import AnalyticsSessionPlugin, {UberWebEventCookie, AnalyticsCookieTypeToken, AnalyticsSessionToken} from 'fusion-plugin-analytics-session';
-
-import EventsAdapterPlugin, {
+import React from 'react';
+import UniversalEvents, {
+  UniversalEventsToken,
+} from 'fusion-plugin-universal-events';
+import EventsAdapter, {
   EventsAdapterToken,
 } from '@uber/fusion-plugin-events-adapter';
-
-import root from './components/root';
-
-// ...importing configs
-
-const teamName = 'awesome-team';
-
-const BaseFetchToken = createToken('BaseFetch');
+import AnalyticsSession, {
+  UberWebEventCookie,
+  AnalyticsCookieTypeToken,
+  AnalyticsSessionToken,
+} from '@uber/fusion-plugin-analytics-session';
+import M3, {M3Token} from '@uber/fusion-plugin-m3';
+import Heatpipe, {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+import {LoggerToken} from 'fusion-tokens';
+import Logger, {LogtronTeamToken} from '@uber/fusion-plugin-logtron';
 
 export default async function start() {
-  const app = new App(root);
-  
-  app.register(SecretsToken, SecretsPlugin);
-  __DEV__ && app.register(DevSecretsToken, {dev: 'values'});
-
-  app.register(SessionToken, JWTSession);
-  app.register(SessionSecretToken, 'some-secret');
-  app.register(SessionCookieNameToken, 'some-cookie-name');
-
-  app.register(FetchToken, CsrfProtection).alias(FetchToken, BaseFetchToken);
-  __BROWSER__ && app.register(BaseFetchToken, window.fetch);
-
-  app.register(UniversalEventsToken, UniversalEvents).alias(FetchToken, BaseFetchToken);
-
-  app.register(M3Token, M3Plugin);
-  app.register(LoggerToken, FusionLogger);
-  app.register(LogtronTeamToken, teamName);
-  app.register(HeatpipeToken, HeatpipePlugin);
-  app.register(HeatpipeConfigToken, heatpipeConfig);
-
-  app.register(I18nToken, I18n);
-  app.register(I18nLoaderToken, FusionRosetta);  
-
-  app.register(GoogleAnalyticsToken, GoogleAnalyticsPlugin);
-  app.register(GoogleAnalyticsConfigToken, {
-    trackingId: 'your-tracking-id',
-  };
-
-  app.register(AnalyticsSessionToken, AnalyticsSessionPlugin);
+  const app = new App(<div>hello</div>);
+  app.register(EventsAdapterToken, EventsAdapter);
+  app.register(UniversalEventsToken, UniversalEvents);
+  app.register(AnalyticsSessionToken, AnalyticsSession);
   app.register(AnalyticsCookieTypeToken, UberWebEventCookie);
-
-  app.register(EventsAdapterToken, EventsAdapterPlugin)
-      .alias(EventsAdapterAnalyticsToken, GoogleAnalyticsToken);
-  
+  app.register(M3Token, M3);
+  app.register(HeatpipeToken, Heatpipe);
+  app.register(LoggerToken, Logger);
+  app.register(LogtronTeamToken, team);
   return app;
 }
 ```
 
+---
+
+### API
+
+#### Registration API
+
+##### `EventsAdapter`
+
+```js
+import EventsAdapter from '@uber/fusion-plugin-events-adapter';
+```
+
+The plugin. Should be registered to [`EventsAdapterToken`](#eventsadaptertoken).
+
+##### `EventsAdapterToken`
+
+```js
+import {EventsAdapterToken} from '@uber/fusion-plugin-events-adapter';
+```
+
+Should be registered with [`EventsAdapter`](#eventsadapter)
+
+#### Dependencies
+
+##### `AnalyticsSessionToken`
+
+```js
+import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
+```
+
+Gets cookies for analytics events. Typically, it should be registered with [`AnalyticsSession`](https://code.uberinternal.com/diffusion/WEFUSYW/#analyticssession) from `@uber/fusion-plugin-analytics-session`.
+
+##### `M3Token`
+
+```js
+import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
+```
+
+Sink for metrics. Typically should be registered with `M3` from [`@uber/fusion-plugin-m3`](https://code.uberinternal.com/diffusion/WEFUSHE/#m3)
+
+##### `HeatpipeToken`
+
+```js
+import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+```
+
+Sink for Kafka logging. Typically, should be registered with `Heatpipe` from [`@uber/fusion-plugin-heatpipe`](https://code.uberinternal.com/diffusion/WEFUSVQ/)
+
+##### `LoggerToken`
+
+```js
+import {LoggerToken} from 'fusion-tokens';
+```
+
+Typically should be registered with `@uber/fusion-plugin-logtron`
