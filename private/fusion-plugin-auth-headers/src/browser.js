@@ -1,4 +1,6 @@
 // @flow
 /* eslint-env browser */
 
-export default null;
+import type {FusionPlugin} from 'fusion-core';
+
+export default ((null: any): FusionPlugin<*, *>);

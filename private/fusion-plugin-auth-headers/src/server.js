@@ -64,19 +64,21 @@ class AuthHeaders {
   }
 }
 
+const deps = {
+  uuid: AuthHeadersUUIDConfigToken.optional,
+  email: AuthHeadersEmailConfigToken.optional,
+  token: AuthHeadersTokenConfigToken.optional,
+  roles: AuthHeadersRolesConfigToken.optional,
+  groups: AuthHeadersGroupsConfigToken.optional,
+};
+
 export type AuthHeadersService = {from: (ctx: Context) => AuthHeaders};
 type AuthHeadersPluginType = FusionPlugin<*, AuthHeadersService>;
 const plugin: AuthHeadersPluginType =
   // $FlowFixMe
   __NODE__ &&
   createPlugin({
-    deps: {
-      uuid: AuthHeadersUUIDConfigToken.optional,
-      email: AuthHeadersEmailConfigToken.optional,
-      token: AuthHeadersTokenConfigToken.optional,
-      roles: AuthHeadersRolesConfigToken.optional,
-      groups: AuthHeadersGroupsConfigToken.optional,
-    },
+    deps,
     provides: deps => {
       const service: AuthHeadersService = {
         from: memoize((ctx: Context) => {
