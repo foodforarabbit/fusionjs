@@ -18,5 +18,12 @@ export default function UberDefault(nonce) {
       'https://d3i4yxtzktqr9n.cloudfront.net',
       nonce,
     ],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      // Uber CDN bases
+      'https://d1a3f4spazzrp4.cloudfront.net',
+      'https://d3i4yxtzktqr9n.cloudfront.net',
+    ],
   };
 }

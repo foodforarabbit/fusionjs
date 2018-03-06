@@ -11,10 +11,11 @@ const fixtureHeaders = {
 };
 
 const fixtureCSP =
-  "block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-undefined' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; report-uri https://csp.uber.com/csp?a=unknown&ro=false";
+  "block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-undefined' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; style-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net; report-uri https://csp.uber.com/csp?a=unknown&ro=false";
 
 const fixtureCSPWithOverrides =
-  "block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self' test.uber.com; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-undefined' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; report-uri https://csp.uber.com/csp?a=unknown&ro=false";
+  "block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self' test.uber.com; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-undefined' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; style-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net; report-uri https://csp.uber.com/csp?a=unknown&ro=false";
+
 function createTestFixture() {
   const app = new App('content', el => el);
   app.register(SecureHeadersToken, SecureHeadersPlugin);

@@ -45,7 +45,7 @@ export default function buildCSPMiddleware({ctx, serviceName, cspConfig}) {
   } else {
     policy = UberDefault(`'nonce-${ctx.nonce}'`);
 
-    // We are adding google analytics by default now
+    // We are adding Google Analytics by default now
     const analyticsKeys = analyticsServiceNames || [];
     if (!analyticsKeys.includes('googleAnalytics')) {
       analyticsKeys.push('googleAnalytics');

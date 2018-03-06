@@ -37,7 +37,6 @@ export default __NODE__ &&
 
         await compose(secureHeaderMiddlewares)(ctx, next);
 
-        // TODO: move everything to post-render since it depends on content-type
         // If the content type does not require CSP headers then remove them
         if (!REQUIRED_CSP_CONTENT_TYPES.includes(ctx.type)) {
           CSP_HEADERS.forEach(h => ctx.remove(h));
