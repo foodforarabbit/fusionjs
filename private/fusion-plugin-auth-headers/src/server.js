@@ -21,11 +21,14 @@ const authHeaderPrefix = 'x-auth-params-';
 class MissingXAuthParamError extends Error {
   constructor(url: string, param: AuthHeaderKey) {
     const message =
-      `Unable to resolve the ${authHeaderPrefix}${param} parameter for the ` +
-      `incoming request to ${url || 'unknown path'}. ` +
-      'Please either provide an override for this parameter or ensure that it is ' +
-      'being injected into request headers.';
-    super(message);
+      `Unable to resolve the ${authHeaderPrefix}${param} HTTP header for the ` +
+      `incoming request to ${url || 'unknown path'}. `;
+
+    const devMessage =
+      'Please either provide an override with "AuthHeaders*ConfigToken" for this parameter' +
+      'or ensure that it is being injected into request headers.';
+
+    super(message + (__DEV__ ? devMessage : ''));
 
     this.name = 'MissingXAuthParamError';
   }
