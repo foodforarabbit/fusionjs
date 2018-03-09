@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-events-adapter",
   "description": "An adapter for all uber specific events",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -22,6 +22,9 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
+    "@uber/fusion-plugin-analytics-session": "^1.0.0",
+    "@uber/fusion-plugin-heatpipe": "^1.0.0",
+    "@uber/fusion-plugin-m3": "^1.0.0",
     "babel-eslint": "^8.2.1",
     "create-universal-package": "^3.4.0",
     "eslint": "^4.16.0",
@@ -33,17 +36,14 @@
     "eslint-plugin-react": "^7.6.1",
     "flow-bin": "^0.64.0",
     "fusion-core": "^1.0.0",
+    "fusion-plugin-i18n": "^1.0.0",
+    "fusion-plugin-universal-events": "^1.0.0",
     "fusion-test-utils": "^1.0.0",
     "fusion-tokens": "^1.0.0",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
-    "unitest": "^2.1.1",
-    "@uber/fusion-plugin-analytics-session": "^1.0.0",
-    "@uber/fusion-plugin-heatpipe": "^1.0.0",
-    "@uber/fusion-plugin-m3": "^1.0.0",
-    "fusion-plugin-i18n": "^1.0.0",
-    "fusion-plugin-universal-events": "^1.0.0"
+    "unitest": "^2.1.1"
   },
   "scripts": {
     "clean": "rm -rf dist",
@@ -57,13 +57,13 @@
     "prepublish": "npm run transpile"
   },
   "peerDependencies": {
-    "fusion-core": "^1.0.0",
-    "fusion-tokens": "^1.0.0",
     "@uber/fusion-plugin-analytics-session": "^1.0.0",
     "@uber/fusion-plugin-heatpipe": "^1.0.0",
     "@uber/fusion-plugin-m3": "^1.0.0",
+    "fusion-core": "^1.0.0",
     "fusion-plugin-i18n": "^1.0.0",
-    "fusion-plugin-universal-events": "^1.0.0"
+    "fusion-plugin-universal-events": "^1.0.0",
+    "fusion-tokens": "^1.0.0"
   },
   "engines": {
     "node": ">=8.3.0",
