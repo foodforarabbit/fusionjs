@@ -12,8 +12,8 @@ import BrowserPlugin from '../browser';
 
 const EventTypesShouldBeMapped = [
   'pageview:browser',
-  'redux:action',
-  'browser-performance-emitter:stats',
+  'redux-action-emitter:action',
+  'browser-performance-emitter:stats:browser-only',
 ];
 
 tape('Browser plugin', async t => {
