@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-web-rpc-compat",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "A fusion plugin for making old web-rpc code compatible with fusion",
   "files": [
     "dist",
