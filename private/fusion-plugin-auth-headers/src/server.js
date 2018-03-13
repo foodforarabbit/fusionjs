@@ -18,6 +18,11 @@ declare var __DEV__: boolean;
 
 const authHeaderPrefix = 'x-auth-params-';
 
+const breezeHeaderMapping = {
+  uuid: 'x-auth-params-user-uuid',
+  token: 'x-uber-breeze-rtapi-token',
+};
+
 class MissingXAuthParamError extends Error {
   constructor(url: string, param: AuthHeaderKey) {
     const message =
@@ -58,6 +63,7 @@ class AuthHeaders {
     let xAuthValue =
       //$FlowFixMe
       this.devOverrideConfig[key] ||
+      this.ctx.request.headers[breezeHeaderMapping[key]] ||
       this.ctx.request.headers[`${authHeaderPrefix}${key}`];
 
     if (!xAuthValue) {

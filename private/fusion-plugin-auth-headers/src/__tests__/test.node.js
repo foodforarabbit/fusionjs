@@ -95,6 +95,43 @@ test('service - get authentication param from context', t => {
   t.end();
 });
 
+test('service - get authentication param from context (breeze)', t => {
+  t.plan(2);
+
+  const mockContext = {
+    request: {
+      headers: {
+        'x-uber-breeze-rtapi-token': 'some-auth-token',
+        'x-auth-params-user-uuid': 'some-auth-uuid',
+      },
+    },
+    memoized: memoizedMock,
+  };
+
+  const app = createTestFixture();
+  const testPlugin = createPlugin({
+    deps: {authHeaders: AuthHeadersToken},
+    provides: deps => {
+      const {authHeaders} = deps;
+      const service = authHeaders.from(mockContext);
+      t.equal(
+        service.get('uuid'),
+        mockContext.request.headers['x-auth-params-user-uuid'],
+        'correct value associated with uuid provided by service.'
+      );
+      t.equal(
+        service.get('token'),
+        mockContext.request.headers['x-uber-breeze-rtapi-token'],
+        'correct value associated with token provided by service.'
+      );
+    },
+  });
+  app.register(testPlugin);
+
+  getSimulator(app);
+  t.end();
+});
+
 test('get authentication param from override', t => {
   t.plan(1);
 
