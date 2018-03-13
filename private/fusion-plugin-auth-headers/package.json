@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-auth-headers",
   "description": "A fusion plugin for leveraging authentication headers",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "files": [
     "dist",
