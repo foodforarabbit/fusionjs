@@ -18,7 +18,7 @@ declare var __DEV__: boolean;
 
 const authHeaderPrefix = 'x-auth-params-';
 
-const breezeHeaderMapping = {
+const breezeHeaderMapping: {[header: string]: string} = {
   uuid: 'x-auth-params-user-uuid',
   token: 'x-uber-breeze-rtapi-token',
 };
