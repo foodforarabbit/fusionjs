@@ -54,7 +54,7 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/fusion-analyticsjs-utils": "^1.0.0"
+    "@uber/fusion-analyticsjs-utils": "^1.0.1"
   },
   "peerDependencies": {
     "fusion-core": "^1.0.0",
