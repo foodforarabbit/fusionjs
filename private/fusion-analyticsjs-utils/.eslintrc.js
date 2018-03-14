@@ -1,5 +1,3 @@
 module.exports = {
-  extends: [
-    require.resolve('@uber/eslint-config-graphene')
-  ]
+  extends: [require.resolve('eslint-config-fusion')],
 };

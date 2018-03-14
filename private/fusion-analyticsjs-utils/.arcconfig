@@ -3,6 +3,6 @@
   "git.default-relative-commit": "origin/master",
 
   "unit.engine": "TAPTestEngine",
-  "unit.engine.tap.command": "npm run fast-test --color=always",
+  "unit.engine.tap.command": "npm run test --color=always",
   "unit.engine.tap.cover": "npm run cover --color=always"
 }
