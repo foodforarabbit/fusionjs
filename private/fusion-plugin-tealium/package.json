@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-tealium",
   "description": "Tealium plugin for Fusion",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
