@@ -21,12 +21,12 @@ test('plugin - server init', t => {
   const mockCtx = {
     element: {},
     nonce: 'abc123',
-    body: {
+    template: {
       head: {
         push: h => {
           t.equal(
             consumeSanitizedHTML(h),
-            "<script async nonce='abc123' src='https:\\u002F\\u002Ftags.tiqcdn.com\\u002Futag\\u002Ffoo\\u002Fstrict\\u002Fprod\\u002Futag.js'></script>",
+            "<script async nonce='abc123' src='https://tags.tiqcdn.com/utag/foo/strict/prod/utag.js'></script>",
             'constructs and sanitizes script tag correctly'
           );
           t.pass('script tag pushed');

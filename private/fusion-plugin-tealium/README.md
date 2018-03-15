@@ -6,6 +6,8 @@ Tealium is a tag management tool for marketers that provides control over third-
 
 This plugin adds Tealium iQ's `utag.js` to your web application and exposes a programmatic API for tracking, identifying, and logging pageviews.  For more details on `utag.js`, see the [`JavaScript (utag.js)`](https://community.tealiumiq.com/t5/JavaScript-utag-js/tkb-p/utag) documentation.
 
+If you're using React, you should use [@uber/fusion-plugin-tealium-react](https://code.uberinternal.com/diffusion/WEFUSEC/) instead of this package.
+
 ---
 
 ### Table of contents
@@ -33,7 +35,31 @@ yarn add @uber/fusion-plugin-tealium
 
 ### Usage
 
-TBD
+```js
+if (__BROWSER__) {
+  app.middleware({tealium: TealiumToken}, ({tealium}) => {
+    return (ctx, next) => {
+      tealium.identify('user-id');
+
+      // FYI: Manual page view tracking is only required for SPA pages
+      tealium.pageview({
+        title: document.title, // optional
+        page: window.location.pathname, // optional
+        location: window.location.href, // optional
+      });
+
+      // see UDO(Universal Data Object) https://docs.google.com/document/d/19uu4PFoofhryLQNQhJkG9-ClwqgPUl8m_MCTCiIgLi8
+      tealium.track({
+        eventName: '', // required
+        eventType: '', // required
+        eventLabel: '', // optional
+        eventValue: 0, // optional
+      });
+      return next();
+    };
+  });
+}
+```
 
 ---
 
@@ -51,7 +77,11 @@ export default () => {
   const app = new App();
   // ...
   app.register(TealiumToken, TealiumPlugin);
-  app.register(TealiumConfigToken, {/*some config*/});
+  if (__NODE__) {
+    // ...
+    app.register(TealiumConfigToken, {/*some config*/});
+    // ...
+  }
   // ...
   return app;
 }

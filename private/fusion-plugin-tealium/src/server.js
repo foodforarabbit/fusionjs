@@ -1,6 +1,6 @@
 /* eslint-env node */
 
-import {createPlugin, html} from 'fusion-core';
+import {createPlugin, dangerouslySetHTML} from 'fusion-core';
 import {TealiumConfigToken as ConfigToken} from './tokens';
 
 const StrictGeo = ['NL', 'FR'];
@@ -21,8 +21,10 @@ const plugin =
 
       const nonce = ctx.nonce || '';
       if (ctx.element) {
-        ctx.body.head.push(
-          html`<script async nonce='${nonce}' src='${url}'></script>`
+        ctx.template.head.push(
+          dangerouslySetHTML(
+            `<script async nonce='${nonce}' src='${url}'></script>`
+          )
         );
       }
       return next();
