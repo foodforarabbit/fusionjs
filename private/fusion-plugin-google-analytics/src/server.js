@@ -7,7 +7,7 @@ export default __NODE__ &&
       const escaped = html`<script async src='https://www.google-analytics.com/analytics.js'></script>`;
       return function middleware(ctx, next) {
         if (ctx.element) {
-          ctx.body.head.push(escaped);
+          ctx.template.head.push(escaped);
         }
         return next();
       };

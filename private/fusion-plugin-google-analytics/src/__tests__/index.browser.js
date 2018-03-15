@@ -25,7 +25,11 @@ tape('ga plugin browser', t => {
   t.equal(mock.args[0][1], 'test-id', 'users correct trackingId');
   t.equal(mock.args[0][2], 'auto', 'defaults cookie domain to auto');
   t.equal(mock.args[0][3], 'test_id', 'uses name replacing dashes');
-  t.equal(mock.args.length, 1, 'only calls ga.create by default');
+
+  t.equal(mock.args[1][0], 'test_id.send', 'calls send');
+  t.equal(mock.args[1][1], 'pageview', 'sending pageview');
+
+  t.equal(mock.args.length, 2, 'ga.create then pageview tracking by default');
   t.end();
 });
 

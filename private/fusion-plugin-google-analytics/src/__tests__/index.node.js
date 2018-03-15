@@ -15,7 +15,7 @@ tape('ga plugin server middleware with element', t => {
   t.plan(1);
   const ctx = {
     element: true,
-    body: {
+    template: {
       head: {
         push(content) {
           t.equal(typeof content, 'object', 'pushes sanitized html into head');

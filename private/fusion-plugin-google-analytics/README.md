@@ -2,6 +2,8 @@
 
 This plugin provides a minimal wrapper on top of Google Analytics. Google Analytics are useful for understanding traffic volume and patterns.
 
+If you're using React, you should use [@uber/fusion-plugin-google-analytics-react](https://code.uberinternal.com/diffusion/WEFUSKK/) instead of this package.
+
 ---
 
 ### Table of contents
@@ -71,14 +73,20 @@ import GoogleAnalytics, {
 } from '@uber/fusion-plugin-google-analytics';
 
 app.register(GoogleAnalyticsToken, GoogleAnalytics);
-app.register(GoogleAnalyticsConfigToken, {
-  trackingId: '' // required
-  advertiserFeatures: false, // optional
-  anonymizeIp: false, // optional
-  cookieDomain: 'auto', // optional
-  linkAttribution: false, // optional
-  trackPage: false, // optional
-});
+
+if (__NODE__) {
+  // ...
+} else {
+  // ...
+  app.register(GoogleAnalyticsConfigToken, {
+    trackingId: '' // required
+    advertiserFeatures: false, // optional
+    anonymizeIp: false, // optional
+    cookieDomain: 'auto', // optional
+    linkAttribution: false, // optional
+    trackPage: false, // optional
+  });   
+}
 ```
 
 ---
@@ -111,7 +119,7 @@ type GoogleAnalyticsConfig = {
   anonymizeIp: boolean, // optional, defaults to 'false'
   cookieDomain: string, // optional, defaults to 'auto'
   linkAttribution: boolean, // optional, defaults to 'false'
-  trackPage: boolean, // optional, defaults to 'false'
+  trackPage: boolean, // optional, defaults to 'true'
   loadGA: Function, // optional, defaults to https://code.uberinternal.com/diffusion/WEFUSBE/browse/master/src/load-ga.js,
   mock: GoogleAnalytics, // optional, defaults to 'undefined'
 };

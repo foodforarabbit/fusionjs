@@ -19,7 +19,7 @@ export default __BROWSER__ &&
           anonymizeIp: false,
           cookieDomain: 'auto',
           linkAttribution: false,
-          trackPage: false,
+          trackPage: true,
           loadGA: loadGoogleAnalytics,
         },
         options
