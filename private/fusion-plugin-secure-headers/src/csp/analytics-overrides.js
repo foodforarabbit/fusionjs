@@ -23,6 +23,7 @@ const analyticsOverrides = {
       '*.doubleclick.net',
       '*.tealiumiq.com',
       '*.demdex.net',
+      '*.optimizely.com',
     ],
     connectSrc: [
       'events.uber.com',
@@ -37,6 +38,7 @@ const analyticsOverrides = {
       "'unsafe-eval'",
       'script.crazyegg.com',
       'www.google-analytics.com',
+      'www.googletagmanager.com',
       'maps.googleapis.com',
       'maps.google.com',
       'tags.tiqcdn.com',
