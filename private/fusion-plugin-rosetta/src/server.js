@@ -24,7 +24,11 @@ export default __NODE__ &&
         constructor(ctx) {
           const expectedLocales = new Locales(ctx.headers['accept-language']);
           this.locale = expectedLocales.best(supportedLocales); // TODO does it need to read from cookie __LOCALE__ or from requestedLocale?
-          this.translations = client.translations[this.locale.normalized];
+
+          const normalizedLocale = this.locale.normalized;
+          this.translations =
+            client.translations[normalizedLocale] ||
+            client.translations[normalizedLocale.replace('_', '-')];
         }
       }
       client.from = memoize(ctx => new TranslationsLoader(ctx));
