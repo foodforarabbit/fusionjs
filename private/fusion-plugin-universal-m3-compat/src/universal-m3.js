@@ -1,30 +1,33 @@
-const supportedMethods = [
-  'close',
-  'counter',
-  'increment',
-  'decrement',
-  'timing',
-  'gauge',
-  'immediateCounter',
-  'immediateIncrement',
-  'immediateDecrement',
-  'immediateTiming',
-  'immediateGauge',
-];
+let supportedMethods = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+if (__NODE__) {
+  supportedMethods = supportedMethods.concat([
+    'close',
+    'immediateCounter',
+    'immediateIncrement',
+    'immediateDecrement',
+    'immediateTiming',
+    'immediateGauge',
+  ]);
+}
 
 export default class UniversalM3 {
   constructor() {
     supportedMethods.forEach(method => {
       this[method] = createBatchFn();
     });
+    this.flushed = false;
   }
   setM3(m3) {
+    if (this.flushed) return;
+    this.flushed = true;
     supportedMethods.forEach(method => {
       const m3Fn = m3[method].bind(m3);
       this[method].flush(m3Fn);
       this[method] = m3Fn;
     });
-    this.scope = m3.scope.bind(m3);
+    if (typeof m3.scope === 'function') {
+      this.scope = m3.scope.bind(m3);
+    }
   }
   scope() {
     // TODO: Potentially should implement actual scoping, but not a huge deal
