@@ -13,17 +13,22 @@ export default class UniversalLogger {
     supportedLevels.forEach(level => {
       this[level] = createBatchFn();
     });
+    this.flushed = false;
   }
   setLogger(logger) {
+    if (this.flushed) return;
+    this.flushed = true;
     supportedLevels.forEach(level => {
       const loggerFn = logger[level].bind(logger);
       this[level].flush(loggerFn);
       this[level] = loggerFn;
     });
-    this.createChild = logger.createChild.bind(logger);
+    if (typeof logger.createChild === 'function') {
+      this.createChild = logger.createChild.bind(logger);
+    }
   }
+  // TODO: Potentially should implement string prefixing, but not a huge deal
   createChild() {
-    // TODO: Potentially should implement string prefixing, but not a huge deal
     return this;
   }
 }

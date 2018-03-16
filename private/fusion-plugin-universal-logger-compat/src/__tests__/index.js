@@ -77,3 +77,43 @@ tape('universal logger log api', async t => {
 
   t.end();
 });
+
+tape('universal logger with no createChild', async t => {
+  const {plugin} = createLoggerPlugin();
+  class RealLogger {
+    trace() {}
+    debug() {}
+    info() {}
+    access() {}
+    warn() {}
+    error() {}
+    fatal() {}
+  }
+
+  t.doesNotThrow(() => {
+    plugin.provides({logger: new RealLogger()});
+  });
+
+  t.end();
+});
+
+tape('universal logger calling setLogger multiple times', async t => {
+  const {plugin} = createLoggerPlugin();
+
+  class RealLogger {
+    trace() {}
+    debug() {}
+    info() {}
+    access() {}
+    warn() {}
+    error() {}
+    fatal() {}
+  }
+
+  t.doesNotThrow(() => {
+    plugin.provides({logger: new RealLogger()});
+    plugin.provides({logger: new RealLogger()});
+  });
+
+  t.end();
+});
