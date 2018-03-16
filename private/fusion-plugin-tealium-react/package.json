@@ -1,10 +1,13 @@
 {
   "name": "@uber/fusion-plugin-tealium-react",
   "description": "Tealium plugin for FusionJS app with React",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
   "browser": {
@@ -47,8 +50,7 @@
     "lint": "eslint src/",
     "transpile": "npm run clean && cup build",
     "build-test": "rm -rf dist-tests && NODE_ENV=test cup build-tests",
-    "just-test":
-      "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
+    "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
     "cover": "npm run build-test && npm run just-cover",
     "just-cover": "nyc --reporter=cobertura --reporter=text npm run just-test",
     "test": "npm run build-test && npm run just-test",
