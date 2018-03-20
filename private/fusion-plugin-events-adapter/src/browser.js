@@ -40,12 +40,7 @@ export default __BROWSER__ &&
 
       return (ctx, next) => {
         const ctxEvents = events.from(ctx);
-        ctxEvents.map('pageview:browser', webEventsMetaMapper);
-        ctxEvents.map('redux-action-emitter:action', webEventsMetaMapper);
-        ctxEvents.map(
-          'browser-performance-emitter:stats:browser-only',
-          webEventsMetaMapper
-        );
+        ctxEvents.map('*', webEventsMetaMapper);
         pageViewBrowser({
           events,
           analytics: Analytics && Analytics.from(ctx),

@@ -10,12 +10,6 @@ import {EventsAdapterToken, EventsAdapterAnalyticsToken} from '../tokens';
 
 import BrowserPlugin from '../browser';
 
-const EventTypesShouldBeMapped = [
-  'pageview:browser',
-  'redux-action-emitter:action',
-  'browser-performance-emitter:stats:browser-only',
-];
-
 tape('Browser plugin', async t => {
   const mapped = [];
 
@@ -49,7 +43,7 @@ tape('Browser plugin', async t => {
     })
   );
   await sim.render('/');
-  t.deepEqual(mapped, EventTypesShouldBeMapped, 'event types correctly mapped');
+  t.deepEqual(mapped, ['*'], 'All event types to be mapped');
 
   t.end();
 });
