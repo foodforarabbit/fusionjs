@@ -15,6 +15,7 @@ import HeatpipeEmitter from './emitters/heatpipe-emitter';
 
 import nodePerformance from './handlers/node-performance';
 import browserPerformance from './handlers/browser-performance';
+import customEvent from './handlers/custom-event';
 import pageViewBrowser from './handlers/page-view-browser';
 import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
@@ -47,6 +48,7 @@ export default __NODE__ &&
       pageViewBrowser({events, heatpipeEmitter});
       reduxAction({events, heatpipeEmitter, m3});
       routeTiming({events, m3});
+      customEvent({events, heatpipeEmitter});
 
       return {
         logTiming(key, tags) {

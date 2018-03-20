@@ -6,6 +6,31 @@ import pageViewBrowser from './handlers/page-view-browser';
 
 import {EventsAdapterAnalyticsToken} from './tokens';
 
+export const webEventsMetaMapper = payload => {
+  const location = window.location || {};
+
+  return {
+    ...payload,
+    webEventsMeta: {
+      dimensions: {
+        viewport_height: window.innerHeight,
+        viewport_width: window.innerWidth,
+        screen_height: window.screen ? window.screen.height : null,
+        screen_width: window.screen ? window.screen.width : null,
+      },
+      // TODO: this should probably come from react router, because the router
+      // knows the matched path/trackingId
+      page: {
+        hostname: location.hostname,
+        pathname: location.pathname,
+        referrer: document.referrer,
+        url: location.href,
+      },
+      time_ms: Date.now(),
+    },
+  };
+};
+
 export default __BROWSER__ &&
   createPlugin({
     deps: {
@@ -13,31 +38,6 @@ export default __BROWSER__ &&
       Analytics: EventsAdapterAnalyticsToken.optional,
     },
     middleware({events, Analytics}) {
-      function webEventsMetaMapper(payload) {
-        const location = window.location || {};
-
-        return {
-          ...payload,
-          webEventsMeta: {
-            dimensions: {
-              viewport_height: window.innerHeight,
-              viewport_width: window.innerWidth,
-              screen_height: window.screen ? window.screen.height : null,
-              screen_width: window.screen ? window.screen.width : null,
-            },
-            // TODO: this should probably come from react router, because the router
-            // knows the matched path/trackingId
-            page: {
-              hostname: location.hostname,
-              pathname: location.pathname,
-              referrer: document.referrer,
-              url: location.href,
-            },
-            time_ms: Date.now(),
-          },
-        };
-      }
-
       return (ctx, next) => {
         const ctxEvents = events.from(ctx);
         ctxEvents.map('*', webEventsMetaMapper);
