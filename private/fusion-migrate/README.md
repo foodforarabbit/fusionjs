@@ -1,6 +1,6 @@
 # fusion-migrate
 
-This tool runs migration scripts for old versions of Fusion.js APIs to the latest version. These migrations are meant to be run on apps scaffolded from `uber-web scaffold` using the `@uber/uber-web-template-fusion-website` template, and on Fusion.js plugin repos.
+Migration scripts for migrating from `@uber/bedrock` to Fusion.js.
 
 ### How to run migrations
 
@@ -13,7 +13,5 @@ yarn fusion-migrate
 ```
 
 ### What to do if migration doesn't work
-
-If you ignored [these](https://engdocs.uberinternal.com/graphenejs-docs/docs/getting-started/project-structure#srcmainjs) [warnings](https://code.uberinternal.com/diffusion/WEUBELI/browse/master/content/src/main.js;4a5fb0c2333db695cb32cb776314256fc9da6ef1$2), you will need to take manual steps in order to fully migrate correctly.
 
 Reach out to the Web platform team on the [Fusion.js uChat](https://uchat.uberinternal.com/uber/channels/fusion-js) if you need help.

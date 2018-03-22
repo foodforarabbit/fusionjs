@@ -1,21 +1,41 @@
 {
   "name": "@uber/fusion-migrate",
   "version": "0.0.79",
-  "description": "Migration scripts for Fusion.js",
+  "description":
+    "Migration scripts for migrating from @uber/bedrock to Fusion.js",
   "bin": {
     "fusion-migrate": "bin/fusion-migrate.sh"
   },
   "scripts": {
-    "clean": "cp fixtures/template.js fixtures/test.js",
-    "build": "jscodeshift fixtures/test.js --t src/codemods.js"
+    "test": "jest",
+    "debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "lint": "eslint src/"
   },
   "dependencies": {
-    "find": "^0.2.8",
-    "jscodeshift": "^0.4.0",
-    "fusion-tokens": "^0.0.6",
-    "@uber/fusion-plugin-auth-headers": "0.2.3",
-    "@uber/fusion-plugin-analytics-session": "0.2.2",
-    "fusion-plugin-redux-action-emitter-enhancer": "0.2.2"
+    "babel-codemod": "^1.6.6",
+    "babel-types": "^6.26.0",
+    "babylon": "^6.18.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "babel-plugin-tester": "^5.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "create-universal-package": "^3.4.0",
+    "eslint": "^4.17.0",
+    "eslint-config-fusion": "^1.0.0",
+    "eslint-plugin-cup": "^1.0.0",
+    "eslint-plugin-flowtype": "^2.42.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.6.1",
+    "flow-bin": "^0.66.0",
+    "jest": "^22.4.2",
+    "prettier": "1.11.1"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0",
+    "yarn": ">=1.0.0"
   },
   "repository": "https://code.uberinternal.com/diffusion/WEFUSGK/"
 }
