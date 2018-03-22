@@ -161,6 +161,8 @@ test('upload with FUSION_UPLOAD_DIR set', t => {
       'can fetch test file contents'
     );
 
+    t.equal(ctx.response.headers['cache-control'], 'public, max-age=31536000');
+
     await util.promisify(s3.deleteObjects.bind(s3))({
       Bucket: s3Config.bucket,
       Delete: {

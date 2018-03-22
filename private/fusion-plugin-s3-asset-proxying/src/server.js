@@ -84,6 +84,7 @@ export default __NODE__ &&
           }
         } else {
           Object.keys(headers).forEach(h => ctx.set(h, headers[h]));
+          ctx.set('Cache-Control', 'public, max-age=31536000');
           ctx.status = statusCode;
           ctx.body = data.Body;
         }
