@@ -1,0 +1,17 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "dependencies": {
+    "just-map-object": "^1.1.24",
+    "just-omit": "^1.0.1"
+  },
+  "devDependencies": {
+    "just-entries": "^1.0.0",
+    "just-extend": "^1.1.27"
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0",
+    "yarn": ">=1.0.0"
+  }
+}
