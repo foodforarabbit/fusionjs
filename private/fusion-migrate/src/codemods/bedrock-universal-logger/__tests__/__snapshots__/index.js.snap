@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bedrock-universal-logger 1. bedrock-universal-logger: 1. bedrock-universal-logger 1`] = `
+"
+import Logger from '@uber/bedrock/universal-logger';
+function thing() {
+  Logger.info('hello world');
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import Logger from '@uber/fusion-plugin-universal-logger-compat';
+
+function thing() {
+  Logger.info('hello world');
+}
+"
+`;

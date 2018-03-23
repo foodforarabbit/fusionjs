@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bedrock-universal-m3 1. bedrock-universal-m3: 1. bedrock-universal-m3 1`] = `
+"
+import m3 from '@uber/bedrock/universal-m3';
+function thing() {
+  m3.increment('test');
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import m3 from '@uber/fusion-plugin-universal-m3-compat';
+
+function thing() {
+  m3.increment('test');
+}
+"
+`;

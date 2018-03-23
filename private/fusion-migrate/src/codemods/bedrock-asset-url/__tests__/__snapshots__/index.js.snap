@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bedrock-asset-url 1. bedrock-asset-url: 1. bedrock-asset-url 1`] = `
+"
+import assetUrl from '@uber/bedrock/assetUrl';
+
+export default () => {
+  return assetUrl('/static/test.png');
+};
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import { assetUrl } from 'fusion-core';
+
+
+export default (() => {
+  return assetUrl('../../client/static/test.png');
+});
+"
+`;

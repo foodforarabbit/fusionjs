@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bedrock-cdn-url 1. bedrock-cdn-url: 1. bedrock-cdn-url 1`] = `
+"
+import cdnUrl from '@uber/bedrock/cdnUrl';
+
+export default () => {
+  return cdnUrl('static/test.png');
+};
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+export default (() => {
+  return 'https://cdn.com/static/test.png';
+});
+"
+`;

@@ -1,17 +1,7 @@
-const fs = require('fs');
 const path = require('path');
-const pluginTester = require('babel-plugin-tester');
+const pluginTester = require('../../../utils/codemod-test.js');
 
-const tests = fs
-  .readdirSync(path.join(__dirname, '../__fixtures__'))
-  .map(fixture => {
-    return {
-      fixture: path.join(__dirname, '../__fixtures__', fixture, 'code.js'),
-    };
-  });
+const fixtureDir = path.join(__dirname, '../__fixtures__');
+const plugin = require('../plugin');
 
-pluginTester({
-  plugin: require('../plugin'),
-  snapshot: true,
-  tests,
-});
+pluginTester(fixtureDir, plugin);
