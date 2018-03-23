@@ -13,7 +13,6 @@ const srcFixtureDir = path.join(
 
 test('updateDeps', async () => {
   const dir = tmp.dirSync().name;
-  // const dir = path.join(__dirname, '../../../.generated/add-deps-fixture/');
   await exec.shell(`cp -R ${fixtureDir} ${dir}`);
   await updateDeps({
     srcDir: srcFixtureDir,
