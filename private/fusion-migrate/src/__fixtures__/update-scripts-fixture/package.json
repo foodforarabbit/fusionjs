@@ -1,0 +1,8 @@
+{
+  "name": "src-package-fixture",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "old test",
+    "something": "something"
+  }
+}

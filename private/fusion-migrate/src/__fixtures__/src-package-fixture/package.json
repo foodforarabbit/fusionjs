@@ -13,5 +13,9 @@
     "node": "8.0.0",
     "npm": "5.0.0",
     "yarn": "1.0.0"
+  },
+  "scripts": {
+    "test": "new test",
+    "build": "new build"
   }
 }
