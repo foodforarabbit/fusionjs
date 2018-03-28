@@ -26,6 +26,9 @@ tape('redux-action handler', t => {
           message: {
             type: 'action',
             name: 'foo',
+            meta: {s: 'str'},
+            meta_bool: {b: false},
+            meta_long: {i: 53},
           },
         },
         `Heatpipe event published`
@@ -41,6 +44,9 @@ tape('redux-action handler', t => {
 
   reactAction({events, heatpipeEmitter, m3: mockM3});
 
-  events.emit('redux-action-emitter:action', {type: 'foo'});
+  events.emit('redux-action-emitter:action', {
+    type: 'foo',
+    _trackingMeta: {s: 'str', b: false, i: 53},
+  });
   t.end();
 });
