@@ -1,0 +1,12 @@
+{
+  "a": true,
+  "b": {
+    "a": true
+  },
+  "noProduction": {
+    "a": "something"
+  },
+  "noDev": {
+    "a": "something"
+  }
+}

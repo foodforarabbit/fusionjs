@@ -66,6 +66,7 @@ function replaceExpression(path, code) {
 
 module.exports = {
   get,
+  astOf,
   matchStatement,
   matchExpression,
   clearMatchCache,

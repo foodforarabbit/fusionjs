@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "babel-codemod": "^1.6.6",
+    "babel-generator": "^6.26.1",
     "babel-types": "^6.26.0",
     "babylon": "^6.18.0",
     "execa": "^0.10.0",
+    "just-safe-get": "^1.2.1",
     "tmp": "^0.0.33"
   },
   "devDependencies": {

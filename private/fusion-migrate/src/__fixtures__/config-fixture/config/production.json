@@ -1,0 +1,12 @@
+{
+  "a": false,
+  "b": {
+    "c": true
+  },
+  "noCommon": {
+    "b": "test"
+  },
+  "noDev": {
+    "b": "lol"
+  }
+}

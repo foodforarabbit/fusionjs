@@ -1,0 +1,11 @@
+{
+  "b": {
+    "d": false
+  },
+  "noProduction": {
+    "b": "test"
+  },
+  "noCommon": {
+    "a": "test"
+  }
+}

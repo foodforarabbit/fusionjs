@@ -1405,7 +1405,7 @@ babel-eslint@^8.2.1:
     eslint-scope "~3.7.1"
     eslint-visitor-keys "^1.0.0"
 
-babel-generator@^6.18.0:
+babel-generator@^6.18.0, babel-generator@^6.26.1:
   version "6.26.1"
   resolved "https://unpm.uberinternal.com/babel-generator/-/babel-generator-6.26.1.tgz#1844408d3b8f0d35a404ea7ac180f087a601bd90"
   dependencies:
@@ -4171,6 +4171,10 @@ jsx-ast-utils@^2.0.1:
   resolved "https://unpm.uberinternal.com/jsx-ast-utils/-/jsx-ast-utils-2.0.1.tgz#e801b1b39985e20fffc87b40e3748080e2dcac7f"
   dependencies:
     array-includes "^3.0.3"
+
+just-safe-get@^1.2.1:
+  version "1.2.1"
+  resolved "https://unpm.uberinternal.com/just-safe-get/-/just-safe-get-1.2.1.tgz#b8ee4167d2e44866a1d5be3dd4b2688dd12b6c90"
 
 keyv@3.0.0:
   version "3.0.0"

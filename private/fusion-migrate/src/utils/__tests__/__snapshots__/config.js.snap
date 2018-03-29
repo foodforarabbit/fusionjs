@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getConfigDeclaration 1`] = `
+Object {
+  "code": "Object.assign({
+  \\"a\\": true
+}, __DEV__ ? {
+  \\"b\\": false
+} : {}, process.env.UBER_ENVIRONMENT === 'production' ? {
+  \\"c\\": true
+} : {})",
+  "map": null,
+  "rawMappings": null,
+}
+`;
+
+exports[`getConfigDeclaration undefined common values 1`] = `
+Object {
+  "code": "Object.assign(__DEV__ ? {
+  \\"a\\": \\"test\\"
+} : {}, process.env.UBER_ENVIRONMENT === 'production' ? {
+  \\"b\\": \\"test\\"
+} : {})",
+  "map": null,
+  "rawMappings": null,
+}
+`;
+
+exports[`getConfigDeclaration undefined dev values 1`] = `
+Object {
+  "code": "Object.assign({
+  \\"a\\": \\"something\\"
+}, process.env.UBER_ENVIRONMENT === 'production' ? {
+  \\"b\\": \\"lol\\"
+} : {})",
+  "map": null,
+  "rawMappings": null,
+}
+`;
+
+exports[`getConfigDeclaration undefined production values 1`] = `
+Object {
+  "code": "Object.assign({
+  \\"a\\": \\"something\\"
+}, __DEV__ ? {
+  \\"b\\": \\"test\\"
+} : {})",
+  "map": null,
+  "rawMappings": null,
+}
+`;
+
+exports[`loadConfig 1`] = `
+Object {
+  "a": true,
+  "b": Object {
+    "a": true,
+  },
+  "noDev": Object {
+    "a": "something",
+  },
+  "noProduction": Object {
+    "a": "something",
+  },
+}
+`;
+
+exports[`loadConfig 2`] = `
+Object {
+  "b": Object {
+    "b": false,
+  },
+  "c": true,
+  "noCommon": Object {
+    "a": "test",
+  },
+  "noProduction": Object {
+    "b": "test",
+  },
+}
+`;
+
+exports[`loadConfig 3`] = `
+Object {
+  "a": false,
+  "b": Object {
+    "c": true,
+  },
+  "noCommon": Object {
+    "b": "test",
+  },
+  "noDev": Object {
+    "b": "lol",
+  },
+}
+`;
