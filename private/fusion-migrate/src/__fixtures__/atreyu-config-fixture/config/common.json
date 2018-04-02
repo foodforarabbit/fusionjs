@@ -1,0 +1,8 @@
+{
+  "clients": {
+    "atreyu": {
+      "enabled": true,
+      "appName": "test"
+    }
+  }
+}

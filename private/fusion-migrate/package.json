@@ -1,12 +1,14 @@
 {
   "name": "@uber/fusion-migrate",
   "version": "0.1.0",
-  "description": "Migration scripts for migrating from @uber/bedrock to Fusion.js",
+  "description":
+    "Migration scripts for migrating from @uber/bedrock to Fusion.js",
   "bin": {
     "fusion-migrate": "bin/fusion-migrate.sh"
   },
   "scripts": {
     "test": "jest",
+    "cover": "jest --collectCoverage",
     "debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "lint": "eslint src/"
   },
@@ -39,6 +41,9 @@
     "node": ">=8.0.0",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
+  },
+  "jest": {
+    "coverageReporters": ["text", "cobertura"]
   },
   "repository": "https://code.uberinternal.com/diffusion/WEFUSGK/"
 }
