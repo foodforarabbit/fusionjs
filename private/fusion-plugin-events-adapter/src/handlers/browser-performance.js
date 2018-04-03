@@ -1,3 +1,5 @@
+import postToCatalyst from '../utils/post-to-catalyst';
+
 const STAT_EVENT = 'stat';
 
 export default function browserPerformance({events, m3, heatpipeEmitter}) {
@@ -55,6 +57,14 @@ export default function browserPerformance({events, m3, heatpipeEmitter}) {
       });
     }
   });
+
+  events.on(
+    'browser-performance-emitter:stats:browser-only',
+    async (payload, ctx) => {
+      // post enhanced metrics to new catalyst service (for perf dashboard etc)
+      postToCatalyst(payload, ctx);
+    }
+  );
 }
 
 function isEmpty(item) {
