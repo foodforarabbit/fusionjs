@@ -1,51 +1,92 @@
-# @uber/fusion-plugin-universal-logger-compat
+# @uber/fusion-plugin-proxy-compat
 
-Universal Logger compatability layer for bedrock 14 to fusion migration.
+Fusion plugin for bedrock proxies
 
---- 
+---
 
 ### Table of contents
 
 * [Installation](#installation)
-* [Usage](#usage)
 * [Setup](#setup)
 * [API](#api)
   * [Dependencies](#dependencies)
+    * [`ProxyConfigToken`](#proxyconfigtoken)
     * [`LoggerToken`](#loggertoken)
+    * [`TracerToken`](#tracertoken)
+    * [`GalileoToken`](#galileotoken)
 
 ---
 
 ### Installation
 
 ```
-yarn add @uber/fusion-plugin-universal-logger-compat
+yarn add @uber/fusion-plugin-proxy-compat
 ```
 
-### Usage
+---
 
-```js
-import {Logger} from '@uber/fusion-plugin-universal-logger-compat'
-Logger.info('hello world');
-```
-
-### Setup 
+### Setup
 
 ```js
 // src/main.js
-import {LoggerToken} from 'fusion-tokens';
-import UniversalLoggerPlugin from '@uber/fusion-plugin-universal-logger-compat'
+import {SSRDeciderToken} from 'fusion-core';
+import ProxyPlugin, {
+  ProxyConfigToken,
+  ProxySSRDecider,
+} from '@uber/fusion-plugin-proxy-compat';
 
 export default () => {
   const app = new App(<Home />);
-  app.register(LoggerToken, console);
-  app.register(UniversalLoggerPlugin);
-}
+  if (__NODE__) {
+    app.enhance(SSRDeciderToken, ProxySSRDecider);
+    app.register(ProxyConfigToken, {
+      test: {
+        uri: 'http://localhost:1234/',
+        routes: [
+          {
+            route: '/user/*',
+            m3Key: 'test-user',
+          },
+        ],
+      },
+    });
+    app.register(ProxyPlugin);
+  }
+};
 ```
+
+---
 
 ### API
 
 #### Dependencies
 
+##### `ProxyConfigToken`
+
+```js
+import {ProxyConfigToken} from '@uber/fusion-plugin-proxy-compat';
+__NODE__ &&
+  app.register({
+    test: {
+      uri: 'http://localhost:1234/',
+      routes: [
+        {
+          route: '/user/*',
+          m3Key: 'test-user',
+        },
+      ],
+    },
+  });
+```
+
 ##### `LoggerToken`
 
 See [`LoggerToken`](https://github.com/fusionjs/fusion-tokens#loggertoken)
+
+##### `TracerToken`
+
+See [`TracerToken`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-tracer#tracertoken)
+
+##### `GalileoToken`
+
+See [`GalileoToken`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-galileo#galileotoken)

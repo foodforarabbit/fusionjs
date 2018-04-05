@@ -20,7 +20,7 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "dependencies": {
-    "path-to-regexp": "^2.2.0",
+    "path-to-regexp": "0.1.7",
     "request": "^2.85.0"
   },
   "peerDependencies": {
