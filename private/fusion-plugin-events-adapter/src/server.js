@@ -48,7 +48,7 @@ export default __NODE__ &&
       pageViewBrowser({events, heatpipeEmitter});
       reduxAction({events, heatpipeEmitter, m3});
       routeTiming({events, m3});
-      customEvent({events, heatpipeEmitter});
+      customEvent({events, heatpipeEmitter, m3});
 
       return {
         logTiming(key, tags) {
