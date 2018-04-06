@@ -1,7 +1,8 @@
 {
   "name": "@uber/fusion-migrate",
   "version": "0.1.0",
-  "description": "Migration scripts for migrating from @uber/bedrock to Fusion.js",
+  "description":
+    "Migration scripts for migrating from @uber/bedrock to Fusion.js",
   "bin": {
     "ufusion": "bin/fusion-migrate.js"
   },
@@ -46,10 +47,7 @@
     "yarn": ">=1.0.0"
   },
   "jest": {
-    "coverageReporters": [
-      "text",
-      "cobertura"
-    ]
+    "coverageReporters": ["text", "cobertura"]
   },
   "repository": "https://code.uberinternal.com/diffusion/WEFUSGK/"
 }
