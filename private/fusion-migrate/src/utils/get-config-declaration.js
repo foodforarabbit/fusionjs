@@ -1,5 +1,5 @@
-const get = require('just-safe-get');
 const babylon = require('babylon');
+const get = require('just-safe-get');
 
 // TODO: Right now this only handles object configurations. It doesn't handle configs
 // with primitive values or explicitly setting object configs to null in either dev or prod
