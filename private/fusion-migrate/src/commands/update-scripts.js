@@ -3,9 +3,9 @@ const path = require('path');
 
 module.exports = function updateEngines({srcDir, destDir}) {
   const destPackagePath = path.join(destDir, 'package.json');
-  const destPackage = require(destPackagePath);
+  const destPackage = JSON.parse(fs.readFileSync(destPackagePath).toString());
   const srcPackagePath = path.join(srcDir, 'package.json');
-  const srcPackage = require(srcPackagePath);
+  const srcPackage = JSON.parse(fs.readFileSync(srcPackagePath).toString());
 
   Object.keys(destPackage.scripts).forEach(script => {
     destPackage.scripts['__old__' + script] = destPackage.scripts[script];

@@ -54,11 +54,15 @@ function findConfigDir(filePath) {
 }
 
 function loadCdnUrl(configDir) {
-  const common = require(path.join(configDir, 'common.json'));
+  const common = JSON.parse(
+    fs.readFileSync(path.join(configDir, 'common.json')).toString()
+  );
   if (common.assets && common.assets.cdnBase) {
     return common.assets.cdnBase;
   }
-  const prod = require(path.join(configDir, 'production.json'));
+  const prod = JSON.parse(
+    fs.readFileSync(path.join(configDir, 'production.json')).toString()
+  );
   if (prod.assets && prod.assets.cdnBase) {
     return prod.assets.cdnBase;
   }

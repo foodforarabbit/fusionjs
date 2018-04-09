@@ -3,6 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const execa = require('execa');
 const tmp = require('tmp');
+const {promisify} = require('util');
+const ncp = promisify(require('ncp'));
+
 const codemodStep = require('../codemod-step.js');
 
 const originalFixtureDir = path.join(
@@ -14,7 +17,7 @@ const simpleCodemod = babel => {
   const t = babel.types;
   return {
     visitor: {
-      ImportDeclaration(path, state) {
+      ImportDeclaration(path) {
         const sourceName = path.get('source').node.value;
         if (sourceName !== 'replaced') {
           path.replaceWith(
@@ -31,7 +34,7 @@ const simpleCodemod = babel => {
 
 test('codemod-step', async () => {
   const destDir = tmp.dirSync().name;
-  await execa.shell(`cp -R ${originalFixtureDir} ${destDir}`);
+  await ncp(originalFixtureDir, destDir);
   await execa.shell(`git init && git add .`, {cwd: destDir});
   const matchedFiles = await codemodStep({
     destDir,
@@ -44,7 +47,7 @@ test('codemod-step', async () => {
 
 test('codemod-step-filter', async () => {
   const destDir = tmp.dirSync().name;
-  await execa.shell(`cp -R ${originalFixtureDir} ${destDir}`);
+  await ncp(originalFixtureDir, destDir);
   await execa.shell(`git init && git add .`, {cwd: destDir});
   const matchedFiles = await codemodStep({
     destDir,

@@ -1,7 +1,8 @@
-const fs = require('fs');
 const assert = require('assert');
+const fs = require('fs');
 const path = require('path');
-const exec = require('execa');
+const {promisify} = require('util');
+const ncp = promisify(require('ncp'));
 const tmp = require('tmp');
 const updateDeps = require('../update-deps.js');
 
@@ -13,7 +14,7 @@ const srcFixtureDir = path.join(
 
 test('updateDeps', async () => {
   const dir = tmp.dirSync().name;
-  await exec.shell(`cp -R ${fixtureDir} ${dir}`);
+  await ncp(fixtureDir, dir);
   await updateDeps({
     srcDir: srcFixtureDir,
     destDir: dir,

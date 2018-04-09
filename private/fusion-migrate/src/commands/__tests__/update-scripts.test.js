@@ -1,7 +1,8 @@
+const {promisify} = require('util');
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const exec = require('execa');
+const ncp = promisify(require('ncp'));
 const tmp = require('tmp');
 const updateScripts = require('../update-scripts.js');
 
@@ -15,7 +16,7 @@ const srcFixtureDir = path.join(
 );
 test('updateScripts', async () => {
   const dir = tmp.dirSync().name;
-  await exec.shell(`cp -R ${fixtureDir} ${dir}`);
+  await ncp(fixtureDir, dir);
   await updateScripts({
     destDir: dir,
     srcDir: srcFixtureDir,

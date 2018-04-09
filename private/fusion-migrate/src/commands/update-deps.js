@@ -33,8 +33,12 @@ module.exports = async function updateDeps({
   modulesToAdd = defaultCompatModules,
   stdio = 'inherit',
 }) {
-  const srcPackage = require(path.join(srcDir, 'package.json'));
-  const destPackage = require(path.join(destDir, 'package.json'));
+  const srcPackage = JSON.parse(
+    fs.readFileSync(path.join(srcDir, 'package.json')).toString()
+  );
+  const destPackage = JSON.parse(
+    fs.readFileSync(path.join(destDir, 'package.json')).toString()
+  );
   const opts = {
     cwd: destDir,
     stdio,

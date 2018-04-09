@@ -3,9 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  rules: {
-    'import/no-dynamic-require': 0,
-  },
+  rules: {},
   globals: {
     test: true,
     expect: true,
