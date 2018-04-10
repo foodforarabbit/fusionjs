@@ -33,9 +33,9 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
-    "fusion-core": "^1.0.0",
-    "fusion-test-utils": "^1.0.0",
-    "fusion-tokens": "^1.0.0",
+    "fusion-core": "^1.2.2",
+    "fusion-test-utils": "^1.0.2",
+    "fusion-tokens": "^1.0.3",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
@@ -58,8 +58,8 @@
     "koa-helmet": "^3.3.0"
   },
   "peerDependencies": {
-    "fusion-core": "^1.0.0",
-    "fusion-tokens": "^1.0.0"
+    "fusion-core": "^1.2.2",
+    "fusion-tokens": "^1.0.3"
   },
   "engines": {
     "node": ">=8.9.0",

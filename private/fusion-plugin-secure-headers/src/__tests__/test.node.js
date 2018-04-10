@@ -10,11 +10,11 @@ const fixtureHeaders = {
   'Content-Type': 'text/html',
 };
 
-const fixtureCSP =
-  "block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-undefined' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; style-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net; report-uri https://csp.uber.com/csp?a=unknown&ro=false";
+const fixtureCSP = nonce =>
+  `block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-${nonce}' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; style-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net; report-uri https://csp.uber.com/csp?a=unknown&ro=false`;
 
-const fixtureCSPWithOverrides =
-  "block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self' test.uber.com; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-undefined' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; style-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net; report-uri https://csp.uber.com/csp?a=unknown&ro=false";
+const fixtureCSPWithOverrides = nonce =>
+  `block-all-mixed-content; frame-src 'self'; worker-src 'self'; child-src 'self'; connect-src 'self' test.uber.com; manifest-src 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net 'nonce-${nonce}' https://www.google-analytics.com https://ssl.google-analytics.com maps.googleapis.com maps.google.com; style-src 'self' 'unsafe-inline' https://d1a3f4spazzrp4.cloudfront.net https://d3i4yxtzktqr9n.cloudfront.net; report-uri https://csp.uber.com/csp?a=unknown&ro=false`;
 
 function createTestFixture() {
   const app = new App('content', el => el);
@@ -52,7 +52,10 @@ test('basics - default CSP headers', async t => {
   t.plan(3);
   const simulator = getSimulator(app);
   const ctx = await simulator.render('/test-url', fixtureHeaders);
-  t.equal(ctx.response.header['content-security-policy'], fixtureCSP);
+  t.equal(
+    ctx.response.header['content-security-policy'],
+    fixtureCSP(ctx.nonce)
+  );
   t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
   t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
   t.end();
@@ -70,7 +73,7 @@ test('basics - csp override', async t => {
   const ctx = await simulator.render('/test-url', fixtureHeaders);
   t.equal(
     ctx.response.header['content-security-policy'],
-    fixtureCSPWithOverrides
+    fixtureCSPWithOverrides(ctx.nonce)
   );
   t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
   t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
