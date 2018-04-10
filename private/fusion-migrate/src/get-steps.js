@@ -1,12 +1,13 @@
 const codemodStep = require('./utils/codemod-step.js');
-const updateDeps = require('./commands/update-deps.js');
-const updateEngines = require('./commands/update-engines.js');
-const updateScripts = require('./commands/update-scripts.js');
+const diffStep = require('./commands/diff-step.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
 const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
 const modRpc = require('./codemods/bedrock-rpc/plugin.js');
 const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
+const updateDeps = require('./commands/update-deps.js');
+const updateEngines = require('./commands/update-engines.js');
+const updateScripts = require('./commands/update-scripts.js');
 
 module.exports = function getSteps(options) {
   const sharedSteps = getSharedSteps(options);
@@ -16,7 +17,14 @@ module.exports = function getSteps(options) {
   } else {
     versionSpecificSteps = get13Steps(options);
   }
-  return sharedSteps.concat(versionSpecificSteps);
+  return sharedSteps.concat(versionSpecificSteps).reduce((prev, next) => {
+    prev.push(next);
+    prev.push({
+      id: `${next.id}-diff`,
+      step: diffStep.bind(null, next.id, options.destDir),
+    });
+    return prev;
+  }, []);
 };
 
 function getSharedSteps(options) {
