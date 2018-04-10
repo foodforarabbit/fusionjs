@@ -53,7 +53,7 @@ class AuthHeaders {
   devOverrideConfig: AuthHeadersConfig | {||};
 
   constructor(ctx: Context, devOverrideConfig: AuthHeadersConfig) {
-    assert(ctx, `AuthHeaders requires a ctx object: ${ctx}`);
+    assert(ctx, `AuthHeaders requires a ctx object`);
     this.ctx = ctx;
     this.devOverrideConfig =
       (__DEV__ && devOverrideConfig) || Object.freeze({});
