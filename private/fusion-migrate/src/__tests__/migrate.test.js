@@ -6,14 +6,17 @@ const migrateCommand = require('../migrate.js');
 
 const {migrate} = migrateCommand;
 
-beforeEach(() => {
-  require('../log.js').__clearLogs();
-});
+jest.mock('../get-steps.js', () => jest.fn());
+jest.mock('../commands/check-migration-version.js', () => jest.fn());
+jest.mock('../log.js', () => jest.fn());
+jest.mock('../utils/scaffold.js', () => jest.fn());
 
-jest.mock('../get-steps.js');
-jest.mock('../commands/check-migration-version.js');
-jest.mock('../log.js');
-jest.mock('../utils/scaffold.js');
+beforeEach(() => {
+  require('../commands/check-migration-version.js').mockImplementation(() => ({
+    version: 14,
+  }));
+  require('../log.js').mockClear();
+});
 
 test('migrate', async () => {
   const destDir = tmp.dirSync().name;
@@ -63,7 +66,7 @@ test('migrateCommand', async () => {
     a: false,
     b: false,
   };
-  require('../get-steps.js').__setSteps([
+  require('../get-steps.js').mockImplementationOnce(() => [
     {
       step: () => {
         flags.a = true;
@@ -94,7 +97,7 @@ test('migrateCommand failure', async () => {
     a: false,
     c: false,
   };
-  require('../get-steps.js').__setSteps([
+  require('../get-steps.js').mockImplementationOnce(() => [
     {
       step: () => {
         flags.a = true;
@@ -132,7 +135,7 @@ test('migrateCommand --steps', async () => {
     b: false,
     c: false,
   };
-  require('../get-steps.js').__setSteps([
+  require('../get-steps.js').mockImplementationOnce(() => [
     {
       step: () => {
         flags.a = true;
@@ -171,7 +174,7 @@ test('migrateCommand --skip-steps', async () => {
     b: false,
     c: false,
   };
-  require('../get-steps.js').__setSteps([
+  require('../get-steps.js').mockImplementationOnce(() => [
     {
       step: () => {
         flags.a = true;
@@ -210,9 +213,8 @@ test('migrateCommand conflict specific steps', async () => {
       skipSteps: ['anotherthing'],
     })
   ).toBeFalsy();
-  const logs = require('../log.js').__getLogs();
-  const message = logs.pop().message;
-  expect(message).toMatch('Cant specify both --steps and --skip-steps');
+  const logCalls = require('../log.js').mock.calls;
+  expect(logCalls[0][0]).toMatch('Cant specify both --steps and --skip-steps');
 });
 
 test('migrateCommand conflict report and steps', async () => {
@@ -225,9 +227,8 @@ test('migrateCommand conflict report and steps', async () => {
       skipSteps: [],
     })
   ).toBeFalsy();
-  const logs = require('../log.js').__getLogs();
-  const message = logs.pop().message;
-  expect(message).toMatch(
+  const logCalls = require('../log.js').mock.calls;
+  expect(logCalls[0][0]).toMatch(
     'Cannot run specific steps and recover from previous migration. Run `rm migration-report.json` to remove old migration report'
   );
 });
@@ -247,7 +248,7 @@ test('migrateCommand with report completedSteps', async () => {
     b: false,
     c: false,
   };
-  require('../get-steps.js').__setSteps([
+  require('../get-steps.js').mockImplementationOnce(() => [
     {
       step: () => {
         flags.a = true;
@@ -280,7 +281,11 @@ test('migrateCommand with report completedSteps', async () => {
 });
 
 test('migrateCommand with error getting version', async () => {
-  require('../commands/check-migration-version.js').__setError('Test Error');
+  require('../commands/check-migration-version.js').mockImplementationOnce(
+    () => ({
+      error: 'Test Error',
+    })
+  );
   const dir = tmp.dirSync().name;
   expect(
     await migrateCommand('', '', {
@@ -289,8 +294,6 @@ test('migrateCommand with error getting version', async () => {
       skipSteps: [],
     })
   ).toEqual(false);
-  const logs = require('../log.js').__getLogs();
-  const message = logs.pop().message;
+  const message = require('../log.js').mock.calls[0][0];
   expect(message).toMatch('Test Error');
-  require('../commands/check-migration-version.js').__setError(null);
 });
