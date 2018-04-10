@@ -23,7 +23,13 @@ module.exports = async function codemodStep({
   const results = await Promise.all(
     files.map(f => {
       const joinedPath = path.join(destDir, f);
-      return transformFile(joinedPath, {plugins}).then(({code}) => {
+      return transformFile(joinedPath, {
+        plugins,
+        babelrc: false,
+        parserOpts: {
+          plugins: ['jsx', 'flow', 'classProperties', 'objectRestSpread'],
+        },
+      }).then(({code}) => {
         return {
           file: f,
           joinedPath,

@@ -4,9 +4,17 @@ const chalk = require('chalk');
 const log = require('../log.js');
 
 module.exports = class StepRunner {
-  constructor(dir) {
-    this.completedSteps = [];
+  constructor(dir, version) {
     this.dir = dir;
+    this.version = version;
+    this.reportPath = path.join(this.dir, 'migration-report.json');
+    if (fs.existsSync(this.reportPath)) {
+      this.completedSteps = JSON.parse(
+        fs.readFileSync(this.reportPath).toString()
+      ).completedSteps;
+    } else {
+      this.completedSteps = [];
+    }
   }
   async step(fn, stepId) {
     if (!stepId)
@@ -21,6 +29,7 @@ module.exports = class StepRunner {
     } catch (error) {
       log(chalk.red(`Failed at step ${stepId}`), error);
       const report = {
+        version: this.version,
         completedSteps: this.completedSteps,
         failedStep: stepId,
         error: {
@@ -28,10 +37,7 @@ module.exports = class StepRunner {
           stack: error.stack,
         },
       };
-      fs.writeFileSync(
-        path.join(this.dir, 'migration-report.json'),
-        JSON.stringify(report, null, 2)
-      );
+      fs.writeFileSync(this.reportPath, JSON.stringify(report, null, 2));
       return false;
     }
   }

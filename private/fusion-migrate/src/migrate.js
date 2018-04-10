@@ -1,43 +1,72 @@
+const fs = require('fs');
+const path = require('path');
 const chalk = require('chalk');
 const StepRunner = require('./utils/step-runner.js');
 const checkMigrationVersion = require('./commands/check-migration-version.js');
-const codemodStep = require('./utils/codemod-step.js');
+const getSteps = require('./get-steps.js');
 const log = require('./log.js');
-const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
-const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
-const modRpc = require('./codemods/bedrock-rpc/plugin.js');
-const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
-const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
 const scaffold = require('./utils/scaffold.js');
-const updateDeps = require('./commands/update-deps.js');
-const updateEngines = require('./commands/update-engines.js');
-const updateScripts = require('./commands/update-scripts.js');
 
-module.exports = async function(/*name, sub, options*/) {
-  // TODO: add support for a --dir option
-  const destDir = process.cwd();
-  const {error, version} = checkMigrationVersion(destDir);
-  if (error) {
-    log(chalk.red(error));
-    return;
+module.exports = async function(name, sub, options) {
+  if (options.steps.length && options.skipSteps.length) {
+    log(chalk.red('Cant specify both --steps and --skip-steps'));
+    return false;
   }
-  const srcDir = await scaffold();
+  // TODO: add support for a --dir option
+  const destDir = options.dir || process.cwd();
+  const reportPath = path.join(destDir, 'migration-report.json');
+
+  let report = {};
+  if (fs.existsSync(reportPath)) {
+    if (options.steps.length) {
+      log(
+        chalk.red(
+          'Cannot run specific steps and recover from previous migration. Run `rm migration-report.json` to remove old migration report'
+        )
+      );
+      return false;
+    }
+    report = JSON.parse(fs.readFileSync(reportPath).toString());
+    if (report.completedSteps) {
+      options.skipSteps = options.skipSteps.concat(report.completedSteps);
+    }
+  }
+  let version = report.version;
+  if (!version) {
+    const result = checkMigrationVersion(destDir);
+    if (result.error) {
+      log(chalk.red(result.error));
+      return false;
+    }
+    version = result.version;
+  }
   if (version === 13) {
     log(
       chalk.red(
         'Automatic migration of bedrock 13 projects is not supported yet'
       )
     );
-    return;
+    return false;
   }
-  const steps = getSteps({destDir, srcDir, version});
-  if (await migrate({destDir, steps})) {
+  const srcDir = await scaffold();
+  const steps = getSteps({destDir, srcDir, version}).filter(step => {
+    if (options.skipSteps.length && options.skipSteps.includes(step.id)) {
+      return false;
+    }
+    if (options.steps.length && !options.steps.includes(step.id)) {
+      return false;
+    }
+    return true;
+  });
+  if (await migrate({destDir, version, steps})) {
     log(chalk.green('Successfully ran all migration steps'));
+    return true;
   }
+  return false;
 };
 
-async function migrate({destDir, steps}) {
-  const runner = new StepRunner(destDir);
+async function migrate({destDir, steps, version}) {
+  const runner = new StepRunner(destDir, version);
   let stepIndex = 0;
   let currentStep = steps[stepIndex];
   while (currentStep && (await runner.step(currentStep.step, currentStep.id))) {
@@ -51,60 +80,3 @@ async function migrate({destDir, steps}) {
 }
 
 module.exports.migrate = migrate;
-
-function getSteps(options) {
-  const sharedSteps = getSharedSteps(options);
-  let versionSpecificSteps = [];
-  if (options.version === 14) {
-    versionSpecificSteps = get14Steps(options);
-  } else {
-    versionSpecificSteps = get13Steps(options);
-  }
-  return sharedSteps.concat(versionSpecificSteps);
-}
-
-function getSharedSteps(options) {
-  return [
-    {
-      step: updateEngines.bind(null, options),
-      id: 'update-engines',
-    },
-    {
-      step: updateScripts.bind(null, options),
-      id: 'update-scripts',
-    },
-    {
-      step: updateDeps.bind(null, options),
-      id: 'update-deps',
-    },
-  ];
-}
-
-function get14Steps(options) {
-  return [
-    {
-      id: 'mod-asset-url',
-      step: () => codemodStep({...options, plugin: modAssetUrl}),
-    },
-    {
-      id: 'mod-cdn-url',
-      step: () => codemodStep({...options, plugin: modCdnUrl}),
-    },
-    {
-      id: 'mod-rpc',
-      step: () => codemodStep({...options, plugin: modRpc}),
-    },
-    {
-      id: 'mod-universal-logger',
-      step: () => codemodStep({...options, plugin: modUniversalLogger}),
-    },
-    {
-      id: 'mod-universal-m3',
-      step: () => codemodStep({...options, plugin: modUniversalM3}),
-    },
-  ];
-}
-
-function get13Steps() {
-  return [];
-}

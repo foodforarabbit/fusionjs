@@ -7,5 +7,7 @@ module.exports = {
   globals: {
     test: true,
     expect: true,
+    jest: true,
+    beforeEach: true,
   },
 };

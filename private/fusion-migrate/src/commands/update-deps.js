@@ -55,7 +55,10 @@ module.exports = async function updateDeps({
     destPackageDeps.includes(m)
   );
   // remove old modules
-  await exec.shell(`yarn remove ${filteredModulesToRemove.join(' ')}`, opts);
+  await exec.shell(
+    `yarn remove ${filteredModulesToRemove.join(' ')} --ignore-engines`,
+    opts
+  );
   // add new modules
   await exec.shell(
     `yarn add ${Object.keys(srcPackage.dependencies)

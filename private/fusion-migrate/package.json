@@ -1,7 +1,8 @@
 {
   "name": "@uber/fusion-migrate",
   "version": "0.1.0",
-  "description": "Migration scripts for migrating from @uber/bedrock to Fusion.js",
+  "description":
+    "Migration scripts for migrating from @uber/bedrock to Fusion.js",
   "bin": {
     "ufusion": "bin/fusion-migrate.js"
   },
@@ -20,6 +21,7 @@
     "babylon": "^6.18.0",
     "chalk": "^2.3.2",
     "execa": "^0.10.0",
+    "inquirer": "^5.2.0",
     "just-safe-get": "^1.2.1",
     "ncp": "^2.0.0",
     "semver": "^5.5.0",
@@ -47,10 +49,9 @@
     "yarn": ">=1.0.0"
   },
   "jest": {
-    "coverageReporters": [
-      "text",
-      "cobertura"
-    ]
+    "coverageReporters": ["text", "cobertura"],
+    "collectCoverageFrom": ["src/**/*.js"],
+    "coveragePathIgnorePatterns": ["/node_modules/", "/__fixtures__/"]
   },
   "repository": "https://code.uberinternal.com/diffusion/WEFUSGK/"
 }
