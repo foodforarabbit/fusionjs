@@ -2207,14 +2207,16 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-core@^1.0.2:
-  version "1.0.2"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.0.2.tgz#860af776a2dcab6cca4e68a4a44826ec509a58e2"
+fusion-core@^1.2.2:
+  version "1.2.2"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.2.2.tgz#bfa6bae6ee8df72db08bc1b99452e2336c317c60"
   dependencies:
     koa "^2.4.1"
     koa-compose "^4.0.0"
     node-mocks-http "^1.6.6"
     toposort "^1.0.6"
+    ua-parser-js "^0.7.17"
+    uuid "^3.2.1"
 
 fusion-plugin-universal-events@^1.0.2:
   version "1.0.2"
@@ -2222,27 +2224,28 @@ fusion-plugin-universal-events@^1.0.2:
   dependencies:
     koa-bodyparser "4.2.0"
 
-fusion-react-async@^1.1.0:
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/fusion-react-async/-/fusion-react-async-1.1.0.tgz#7a2a75e4711ee5e8a85219b3375602ba8a818af1"
+fusion-react-async@^1.2.1:
+  version "1.2.1"
+  resolved "https://unpm.uberinternal.com/fusion-react-async/-/fusion-react-async-1.2.1.tgz#4f0765da09ef4a9e9b26e18a0b092f5bafe357c9"
   dependencies:
     prop-types "^15.5.8"
+    react-is "^16.3.1"
 
-fusion-react@^1.0.2:
+fusion-react@^1.0.3:
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.0.3.tgz#2b3b8178b8a6ccc8525e03f277ba549b953a3c13"
+
+fusion-test-utils@^1.0.2:
   version "1.0.2"
-  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.0.2.tgz#65c9c433ec81bb77c5ad286ba0a3fdee40fad69c"
-
-fusion-test-utils@^1.0.1:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.0.1.tgz#9ff6b0747ddacf0b89d101b325885cd6fbecd59b"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.0.2.tgz#cd8a6a0edae8786a0a18d8f927b9e5a5e52f84b3"
   dependencies:
     assert "^1.4.1"
     koa "^2.4.1"
     node-mocks-http "^1.6.6"
 
-fusion-tokens@^1.0.1:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.0.1.tgz#b2ef62f515c1a314c7d2590a6e7caf5dca737cc4"
+fusion-tokens@^1.0.3:
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.0.3.tgz#e247a076ef145337287e103ecbc42486594e96c5"
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -3769,6 +3772,10 @@ react-dom@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-is@^16.3.1:
+  version "16.3.1"
+  resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.3.1.tgz#ee66e6d8283224a83b3030e110056798488359ba"
+
 react@^16.2.0:
   version "16.2.0"
   resolved "https://unpm.uberinternal.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
@@ -4449,7 +4456,7 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://unpm.uberinternal.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-ua-parser-js@^0.7.9:
+ua-parser-js@^0.7.17, ua-parser-js@^0.7.9:
   version "0.7.17"
   resolved "https://unpm.uberinternal.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 
@@ -4538,7 +4545,7 @@ util@0.10.3, util@^0.10.3:
   dependencies:
     inherits "2.0.1"
 
-uuid@^3.0.0:
+uuid@^3.0.0, uuid@^3.2.1:
   version "3.2.1"
   resolved "https://unpm.uberinternal.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
