@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compat-plugin-universal-m3 1. compat-plugin-universal-m3: 1. compat-plugin-universal-m3 1`] = `
+"
+import App from 'fusion-react';
+import {SomeToken, SomePlugin} from 'some-plugin';
+
+console.log(App);
+
+function thing() {
+  const app = new App();
+  app.register(SomeToken, SomePlugin);
+  return app;
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import UniversalM3CompatPlugin from '@uber/fusion-plugin-universal-m3-compat';import { SomeToken, SomePlugin } from 'some-plugin';
+
+console.log(App);
+
+function thing() {
+  const app = new App();
+  app.register(UniversalM3CompatPlugin);app.register(SomeToken, SomePlugin);
+  return app;
+}
+"
+`;
