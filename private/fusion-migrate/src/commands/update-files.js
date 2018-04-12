@@ -8,7 +8,7 @@ const unlink = util.promisify(fs.unlink);
 const defaultFilesToAdd = [
   'src/main.js',
   '.eslintrc.js',
-  'flow-typed/globals.js',
+  'flow-typed',
   'src/config',
   'src/static',
   'src/plugins',
