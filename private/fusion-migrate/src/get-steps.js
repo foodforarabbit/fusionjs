@@ -7,7 +7,9 @@ const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.j
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
 const updateDeps = require('./commands/update-deps.js');
 const updateEngines = require('./commands/update-engines.js');
+const updateFiles = require('./commands/update-files.js');
 const updateScripts = require('./commands/update-scripts.js');
+const getConfigCodemod = require('./codemods/config/plugin.js');
 
 module.exports = function getSteps(options) {
   const sharedSteps = getSharedSteps(options);
@@ -30,6 +32,10 @@ module.exports = function getSteps(options) {
 function getSharedSteps(options) {
   return [
     {
+      step: updateFiles.bind(null, options),
+      id: 'update-files',
+    },
+    {
       step: updateEngines.bind(null, options),
       id: 'update-engines',
     },
@@ -46,6 +52,7 @@ function getSharedSteps(options) {
 
 function get14Steps(options) {
   return [
+    getConfigCodemodStep(options, 'clients.atreyu', 'src/config/atreyu.js'),
     {
       id: 'mod-asset-url',
       step: codemodStep.bind(null, {...options, plugin: modAssetUrl}),
@@ -71,4 +78,25 @@ function get14Steps(options) {
 
 function get13Steps() {
   return [];
+}
+
+function getConfigCodemodStep(options, keyPath, file) {
+  const mod = getConfigCodemod({
+    dir: options.destDir,
+    keyPath,
+  });
+  return {
+    id: `mod-${keyPath}-config`,
+    step: codemodStep.bind(null, {
+      ...options,
+      plugin: mod,
+      filter: filterMatchFile(file),
+    }),
+  };
+}
+
+function filterMatchFile(expected) {
+  return function _filterMatchFile(f) {
+    return f === expected;
+  };
 }
