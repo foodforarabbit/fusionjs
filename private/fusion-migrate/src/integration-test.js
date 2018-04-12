@@ -14,6 +14,7 @@ async function run() {
     cwd: tripsViewerDir,
     stdio: 'inherit',
   });
+  await execa.shell(`git diff`, {cwd: tripsViewerDir, stdio: 'inherit'});
   await execa.shell(`yarn dev`, {cwd: tripsViewerDir, stdio: 'inherit'});
 }
 
