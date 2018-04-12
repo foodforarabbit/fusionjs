@@ -19,12 +19,14 @@ test('updateFiles', async () => {
   await updateFiles({
     srcDir,
     destDir,
-    add: ['src/main.js', '.eslintrc.js'],
+    add: ['src/main.js', '.eslintrc.js', 'src/config'],
     remove: ['src/something.js', 'gulpfile.js'],
   });
 
   expect(fs.existsSync(path.join(destDir, 'src/main.js'))).toEqual(true);
   expect(fs.existsSync(path.join(destDir, '.eslintrc.js'))).toEqual(true);
+  expect(fs.existsSync(path.join(destDir, 'src/config/a.js'))).toEqual(true);
+  expect(fs.existsSync(path.join(destDir, 'src/config/b.js'))).toEqual(true);
   expect(fs.existsSync(path.join(destDir, 'src/something.js'))).toEqual(false);
   expect(fs.existsSync(path.join(destDir, 'gulpfile.js'))).toEqual(false);
 });

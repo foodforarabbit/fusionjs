@@ -1,11 +1,19 @@
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
+const ncp = util.promisify(require('ncp'));
 
-const copyFile = util.promisify(fs.copyFile);
 const unlink = util.promisify(fs.unlink);
 
-const defaultFilesToAdd = ['src/main.js', '.eslintrc.js'];
+const defaultFilesToAdd = [
+  'src/main.js',
+  '.eslintrc.js',
+  'flow-typed/globals.js',
+  'src/config',
+  'src/static',
+  'src/plugins',
+  'src/test-utils',
+];
 const defaultFilesToRemove = ['.eslintrc', 'gulpfile.js', 'gulpfile-dev.js'];
 
 module.exports = async function updateFiles({
@@ -18,10 +26,7 @@ module.exports = async function updateFiles({
     .map(r => path.join(destDir, r))
     .map(r => unlink(r));
   const addFiles = add.map(fileToAdd => {
-    return copyFile(
-      path.join(srcDir, fileToAdd),
-      path.join(destDir, fileToAdd)
-    );
+    return ncp(path.join(srcDir, fileToAdd), path.join(destDir, fileToAdd));
   });
   return Promise.all(removeFiles.concat(addFiles));
 };
