@@ -8,3 +8,12 @@ const thing = {
 };
 "
 `;
+
+exports[`format changedOnly 1`] = `
+"import a from 'b';
+import c from 'd';
+const thing = {
+  a: 'hello',
+};
+"
+`;
