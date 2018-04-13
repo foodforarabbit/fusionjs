@@ -51,6 +51,15 @@ test('diffStep quit', async () => {
   expect(commit.stdout).toMatch('Initial commit');
 });
 
+test('diffStep with no changes', async () => {
+  const dir = tmp.dirSync().name;
+  fs.writeFileSync(path.join(dir, 'test.json'), '{}');
+  await execa.shell('git init && git add . && git commit -m "Initial commit"', {
+    cwd: dir,
+  });
+  expect(await diffStep('test', dir)).toEqual(false);
+});
+
 async function setup() {
   const dir = tmp.dirSync().name;
   fs.writeFileSync(path.join(dir, 'test.json'), '{}');

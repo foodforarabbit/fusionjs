@@ -5,9 +5,14 @@ const log = require('../log.js');
 
 async function diffStep(name, dir) {
   await execa.shell('git add .', {cwd: dir});
-  await promptStep(name, dir);
-  await execa.shell(`git commit -m 'Step "${name}"'`, {cwd: dir});
-  return true;
+  try {
+    await execa.shell('git diff-index --quiet HEAD', {cwd: dir});
+  } catch (e) {
+    await promptStep(name, dir);
+    await execa.shell(`git commit -m 'Step "${name}"'`, {cwd: dir});
+    return true;
+  }
+  return false;
 }
 
 async function promptStep(name, dir) {
