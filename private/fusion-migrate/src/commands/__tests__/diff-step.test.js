@@ -10,41 +10,35 @@ jest.mock('inquirer', () => {
   };
 });
 
+jest.mock('../../log.js', () => jest.fn());
+
 test('diffStep continue', async () => {
   require('inquirer').prompt.mockImplementation(opts => {
-    expect(opts.type).toEqual('list');
-    expect(opts.message).toEqual('Finished running test');
-    expect(opts.choices).toMatchObject(['Continue', 'Show Diff', 'Quit']);
-    return {[opts.name]: 'Continue'};
+    expect(opts.type).toEqual('confirm');
+    expect(
+      require('../../log.js')
+        .mock.calls.pop()
+        .pop()
+    ).toMatch('Finished running step test. Diff shown above');
+    expect(opts.message).toMatch('Continue?');
+    return {[opts.name]: true};
   });
   const dir = await setup();
   expect(await diffStep('test', dir)).toEqual(true);
-  const commit = await execa.shell(`git log -1 --pretty=%B`, {cwd: dir});
-  expect(commit.stdout).toMatch('Step "test"');
-});
-
-test('diffStep Show Diff', async () => {
-  const steps = ['Show Diff', 'Continue'];
-  require('inquirer').prompt.mockImplementation(opts => {
-    expect(opts.type).toEqual('list');
-    expect(opts.message).toEqual('Finished running test');
-    expect(opts.choices).toMatchObject(['Continue', 'Show Diff', 'Quit']);
-    return {[opts.name]: steps.shift()};
-  });
-  const dir = await setup();
-  expect(await diffStep('test', dir)).toEqual(true);
-  expect(steps.length).toEqual(0);
   const commit = await execa.shell(`git log -1 --pretty=%B`, {cwd: dir});
   expect(commit.stdout).toMatch('Step "test"');
 });
 
 test('diffStep quit', async () => {
-  const steps = ['Quit'];
   require('inquirer').prompt.mockImplementation(opts => {
-    expect(opts.type).toEqual('list');
-    expect(opts.message).toEqual('Finished running test');
-    expect(opts.choices).toMatchObject(['Continue', 'Show Diff', 'Quit']);
-    return {[opts.name]: steps.shift()};
+    expect(opts.type).toEqual('confirm');
+    expect(
+      require('../../log.js')
+        .mock.calls.pop()
+        .pop()
+    ).toMatch('Finished running step test. Diff shown above');
+    expect(opts.message).toEqual('Continue?');
+    return {[opts.name]: false};
   });
   const dir = await setup();
   try {
@@ -53,7 +47,6 @@ test('diffStep quit', async () => {
   } catch (e) {
     expect(e.message).toMatch('User quit after running step: test');
   }
-  expect(steps.length).toEqual(0);
   const commit = await execa.shell(`git log -1 --pretty=%B`, {cwd: dir});
   expect(commit.stdout).toMatch('Initial commit');
 });
