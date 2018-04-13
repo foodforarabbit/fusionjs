@@ -1,5 +1,6 @@
 const codemodStep = require('./utils/codemod-step.js');
 const diffStep = require('./commands/diff-step.js');
+const format = require('./utils/format.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
 const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
@@ -27,6 +28,10 @@ module.exports = function getSteps(options) {
       step: updateScripts.bind(null, options),
       id: 'update-scripts',
     },
+    {
+      step: format.bind(null, options.destDir),
+      id: 'prettier',
+    },
   ];
   let versionSpecificSteps = [];
   if (options.version === 14) {
@@ -42,6 +47,14 @@ module.exports = function getSteps(options) {
     })
     .reduce((prev, next) => {
       prev.push(next);
+      // run prettier on changed files after every step, other than the prettier step
+      if (next.id !== 'prettier') {
+        prev.push({
+          id: `${next.id}-prettier`,
+          step: format.bind(null, options.destDir, {changedOnly: true}),
+        });
+      }
+      // pause and show diff after every step
       prev.push({
         id: `${next.id}-diff`,
         step: diffStep.bind(null, next.id, options.destDir),
