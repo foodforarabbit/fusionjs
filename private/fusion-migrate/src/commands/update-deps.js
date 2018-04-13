@@ -36,40 +36,36 @@ module.exports = async function updateDeps({
   const srcPackage = JSON.parse(
     fs.readFileSync(path.join(srcDir, 'package.json')).toString()
   );
-  const destPackage = JSON.parse(
-    fs.readFileSync(path.join(destDir, 'package.json')).toString()
-  );
+  const destPackagePath = path.join(destDir, 'package.json');
+  const destPackage = JSON.parse(fs.readFileSync(destPackagePath).toString());
   const opts = {
     cwd: destDir,
     stdio,
   };
-  if (!fs.existsSync(path.join(destDir, 'yarn.lock'))) {
-    // generate lockfile
-    await exec.shell('yarn --ignore-engines', opts);
-  }
 
-  const destPackageDeps = Object.keys(destPackage.dependencies).concat(
-    Object.keys(destPackage.devDependencies)
+  modulesToRemove.forEach(r => {
+    delete destPackage.dependencies[r];
+    delete destPackage.devDependencies[r];
+  });
+
+  await Promise.all(
+    modulesToAdd.map(module => {
+      return getVersion(module).then(version => {
+        destPackage.dependencies[module] = `^${version}`;
+      });
+    })
   );
-  const filteredModulesToRemove = modulesToRemove.filter(m =>
-    destPackageDeps.includes(m)
-  );
-  // remove old modules
-  await exec.shell(
-    `yarn remove ${filteredModulesToRemove.join(' ')} --ignore-engines`,
-    opts
-  );
-  // add new modules
-  await exec.shell(
-    `yarn add ${Object.keys(srcPackage.dependencies)
-      .concat(modulesToAdd)
-      .join(' ')} --ignore-engines`,
-    opts
-  );
-  await exec.shell(
-    `yarn add ${Object.keys(srcPackage.devDependencies).join(
-      ' '
-    )} -D --ignore-engines`,
-    opts
-  );
+
+  Object.assign(destPackage.dependencies, srcPackage.dependencies);
+  Object.assign(destPackage.devDependencies, srcPackage.devDependencies);
+
+  fs.writeFileSync(destPackagePath, JSON.stringify(destPackage, null, 2));
+
+  // generate lockfile
+  await exec.shell(`yarn --ignore-engines`, opts);
 };
+
+async function getVersion(module) {
+  const {stdout} = await exec.shell(`yarn info ${module} version --json`);
+  return JSON.parse(stdout).data;
+}

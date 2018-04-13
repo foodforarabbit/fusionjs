@@ -3,6 +3,8 @@ const fs = require('fs');
 const assert = require('assert');
 const scaffold = require('../scaffold.js');
 
+jest.setTimeout(10000);
+
 test('generating a scaffold works', async () => {
   const dir = await scaffold();
   assert.ok(fs.existsSync(path.join(dir, 'src/main.js')));
