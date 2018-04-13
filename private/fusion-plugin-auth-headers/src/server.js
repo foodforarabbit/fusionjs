@@ -23,22 +23,6 @@ const breezeHeaderMapping: {[header: string]: string} = {
   token: 'x-uber-breeze-rtapi-token',
 };
 
-class MissingXAuthParamError extends Error {
-  constructor(url: string, param: AuthHeaderKey) {
-    const message =
-      `Unable to resolve the ${authHeaderPrefix}${param} HTTP header for the ` +
-      `incoming request to ${url || 'unknown path'}. `;
-
-    const devMessage =
-      'Please either provide an override with "AuthHeaders*ConfigToken" for this parameter' +
-      'or ensure that it is being injected into request headers.';
-
-    super(message + (__DEV__ ? devMessage : ''));
-
-    this.name = 'MissingXAuthParamError';
-  }
-}
-
 type AuthHeadersConfig = {
   uuid: string,
   email: string,
@@ -66,9 +50,6 @@ class AuthHeaders {
       this.ctx.request.headers[breezeHeaderMapping[key]] ||
       this.ctx.request.headers[`${authHeaderPrefix}${key}`];
 
-    if (!xAuthValue) {
-      throw new MissingXAuthParamError(this.ctx.request.url, key);
-    }
     return xAuthValue;
   }
 }

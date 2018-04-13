@@ -47,15 +47,19 @@ test('auth headers plugin resolved in test plugin', t => {
 test('missing auth param', t => {
   t.plan(1);
 
+  const mockContext = {
+    request: {
+      headers: {},
+    },
+    memoized: memoizedMock,
+  };
+
   const app = createTestFixture();
   const testPlugin = createPlugin({
     deps: {authHeaders: AuthHeadersToken},
     provides: deps => {
       const {authHeaders} = deps;
-      t.throws(
-        () => authHeaders.from().get('uuid'),
-        'should throw if missing auth key'
-      );
+      t.notok(authHeaders.from(mockContext).get('uuid'));
     },
   });
   app.register(testPlugin);
