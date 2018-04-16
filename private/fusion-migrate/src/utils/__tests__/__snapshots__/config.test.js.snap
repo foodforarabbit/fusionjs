@@ -14,6 +14,36 @@ Object {
 }
 `;
 
+exports[`getConfigDeclaration onlyCommon 1`] = `
+Object {
+  "code": "{
+  \\"a\\": \\"something\\"
+}",
+  "map": null,
+  "rawMappings": null,
+}
+`;
+
+exports[`getConfigDeclaration onlyDev 1`] = `
+Object {
+  "code": "__DEV__ ? {
+  \\"a\\": \\"test\\"
+} : {}",
+  "map": null,
+  "rawMappings": null,
+}
+`;
+
+exports[`getConfigDeclaration onlyProduction 1`] = `
+Object {
+  "code": "process.env.UBER_ENVIRONMENT === 'production' ? {
+  \\"b\\": \\"lol\\"
+} : {}",
+  "map": null,
+  "rawMappings": null,
+}
+`;
+
 exports[`getConfigDeclaration undefined common values 1`] = `
 Object {
   "code": "Object.assign(__DEV__ ? {
@@ -62,6 +92,9 @@ Object {
   "noProduction": Object {
     "a": "something",
   },
+  "onlyCommon": Object {
+    "a": "something",
+  },
 }
 `;
 
@@ -77,6 +110,9 @@ Object {
   "noProduction": Object {
     "b": "test",
   },
+  "onlyDev": Object {
+    "a": "test",
+  },
 }
 `;
 
@@ -90,6 +126,9 @@ Object {
     "b": "test",
   },
   "noDev": Object {
+    "b": "lol",
+  },
+  "onlyProduction": Object {
     "b": "lol",
   },
 }

@@ -8,5 +8,8 @@
   },
   "noDev": {
     "a": "something"
+  },
+  "onlyCommon": {
+    "a": "something"
   }
 }

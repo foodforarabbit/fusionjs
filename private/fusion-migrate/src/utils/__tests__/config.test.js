@@ -38,3 +38,24 @@ test('getConfigDeclaration undefined common values', () => {
   const source = generate(declaration);
   expect(source).toMatchSnapshot();
 });
+
+test('getConfigDeclaration onlyCommon', () => {
+  const config = loadConfig(fixtureDir);
+  const declaration = getConfigDeclaration(config, 'onlyCommon');
+  const source = generate(declaration);
+  expect(source).toMatchSnapshot();
+});
+
+test('getConfigDeclaration onlyDev', () => {
+  const config = loadConfig(fixtureDir);
+  const declaration = getConfigDeclaration(config, 'onlyDev');
+  const source = generate(declaration);
+  expect(source).toMatchSnapshot();
+});
+
+test('getConfigDeclaration onlyProduction', () => {
+  const config = loadConfig(fixtureDir);
+  const declaration = getConfigDeclaration(config, 'onlyProduction');
+  const source = generate(declaration);
+  expect(source).toMatchSnapshot();
+});

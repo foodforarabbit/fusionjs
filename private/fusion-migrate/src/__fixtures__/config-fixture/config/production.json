@@ -8,5 +8,8 @@
   },
   "noDev": {
     "b": "lol"
+  },
+  "onlyProduction": {
+    "b": "lol"
   }
 }

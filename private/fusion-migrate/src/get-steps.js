@@ -2,6 +2,7 @@ const codemodStep = require('./utils/codemod-step.js');
 const diffStep = require('./commands/diff-step.js');
 const format = require('./utils/format.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
+const loadConfig = require('./utils/load-config.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
 const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
 const modCompatUniversalLogger = require('./codemods/compat-plugin-universal-logger/plugin.js');
@@ -15,6 +16,7 @@ const updateFiles = require('./commands/update-files.js');
 const updateScripts = require('./commands/update-scripts.js');
 
 module.exports = function getSteps(options) {
+  options.config = loadConfig(options.destDir);
   const sharedSteps = [
     {
       step: updateFiles.bind(null, options),
@@ -67,11 +69,6 @@ function get14Steps(options) {
   return [
     getConfigCodemodStep(options, 'clients.atreyu', 'src/config/atreyu.js'),
     getConfigCodemodStep(options, 'server.csp', 'src/config/secure-headers.js'),
-    getConfigCodemodStep(
-      options,
-      'clients.logtron.sentry',
-      'src/config/sentry.js'
-    ),
     {
       id: 'mod-asset-url',
       step: codemodStep.bind(null, {...options, plugin: modAssetUrl}),
@@ -115,7 +112,7 @@ function get13Steps() {
 
 function getConfigCodemodStep(options, keyPath, file) {
   const mod = getConfigCodemod({
-    dir: options.destDir,
+    config: options.config,
     keyPath,
   });
   return {

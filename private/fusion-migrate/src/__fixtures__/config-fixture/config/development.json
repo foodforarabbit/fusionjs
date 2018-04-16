@@ -7,5 +7,8 @@
   },
   "noCommon": {
     "a": "test"
+  },
+  "onlyDev": {
+    "a": "test"
   }
 }
