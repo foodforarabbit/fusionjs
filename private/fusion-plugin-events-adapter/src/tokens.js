@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 import {createToken} from 'fusion-core';
 

@@ -1,12 +1,15 @@
+// @flow
 /* eslint-env browser */
 import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+
+import type {FusionPlugin} from 'fusion-core';
 
 import pageViewBrowser from './handlers/page-view-browser';
 
 import {EventsAdapterAnalyticsToken} from './tokens';
 
-export const webEventsMetaMapper = payload => {
+export const webEventsMetaMapper = (payload: *) => {
   const location = window.location || {};
 
   return {
@@ -31,7 +34,9 @@ export const webEventsMetaMapper = payload => {
   };
 };
 
-export default __BROWSER__ &&
+const p =
+  // $FlowFixMe
+  __BROWSER__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
@@ -56,3 +61,5 @@ export default __BROWSER__ &&
       };
     },
   });
+
+export default ((p: any): FusionPlugin<*, *>);

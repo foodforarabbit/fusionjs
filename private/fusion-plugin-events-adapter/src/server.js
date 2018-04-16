@@ -11,6 +11,8 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import {LoggerToken} from 'fusion-tokens';
 import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
 
+import type {FusionPlugin} from 'fusion-core';
+
 import HeatpipeEmitter from './emitters/heatpipe-emitter';
 
 import nodePerformance from './handlers/node-performance';
@@ -21,8 +23,9 @@ import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
 
-// $FlowFixMe
-export default __NODE__ &&
+const p =
+  // $FlowFixMe
+  __NODE__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
@@ -83,3 +86,5 @@ export default __NODE__ &&
       return next();
     },
   });
+
+export default ((p: any): FusionPlugin<*, *>);

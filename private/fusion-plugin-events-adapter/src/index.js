@@ -7,4 +7,5 @@ export {EventsAdapterToken, EventsAdapterAnalyticsToken} from './tokens';
 export {webEventsMetaMapper} from './browser';
 
 declare var __NODE__: Boolean;
-export default (__NODE__ ? server : browser);
+const plugin = __NODE__ ? server : browser;
+export default plugin;
