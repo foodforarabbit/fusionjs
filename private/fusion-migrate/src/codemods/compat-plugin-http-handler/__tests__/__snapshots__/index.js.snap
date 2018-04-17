@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compat-plugin-http-handler 1. compat-plugin-http-handler: 1. compat-plugin-http-handler 1`] = `
+"
+import App from 'fusion-react';
+import {createPlugin} from 'fusion-core';
+import {SomeToken, SomePlugin} from 'some-plugin';
+import {OtherToken, OtherPlugin} from 'other-plugin';
+
+console.log(App);
+
+function thing() {
+  const app = new App();
+  if (__BROWSER__) {
+    app.register(OtherToken, OtherPlugin);
+  }
+  if (__NODE__) {
+    app.register(SomeToken, SomePlugin);
+  }
+  return app;
+}
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import { createPlugin } from 'fusion-core';
+import createServer from './server/index.js';import HttpHandlerPlugin, { HttpHandlerToken } from 'fusion-plugin-http-handler';import { SomeToken, SomePlugin } from 'some-plugin';
+import { OtherToken, OtherPlugin } from 'other-plugin';
+
+console.log(App);
+
+function thing() {
+  const app = new App();
+  if (__BROWSER__) {
+    app.register(OtherToken, OtherPlugin);
+  }
+  if (__NODE__) {
+    app.register(SomeToken, SomePlugin);
+    app.register(createServer(), HttpHandlerToken);app.register(HttpHandlerPlugin);
+  }
+  return app;
+}
+"
+`;
