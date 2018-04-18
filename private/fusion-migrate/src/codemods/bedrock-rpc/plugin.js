@@ -14,11 +14,7 @@ module.exports = babel => {
       }
       const refPath = refPaths[0];
       if (refPath.parentPath.parent.type !== 'CallExpression') {
-        throw new Error(
-          `Could not codemod web-rpc - expected call expression RPC.init. Instead got ${
-            refPath.parentPath.type
-          }`
-        );
+        return;
       }
       const methodsName = refPath.parentPath.parent.arguments[0].name;
       replaceExpression(

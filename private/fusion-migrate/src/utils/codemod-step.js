@@ -27,7 +27,17 @@ module.exports = async function codemodStep({
         plugins,
         babelrc: false,
         parserOpts: {
-          plugins: ['jsx', 'flow', 'classProperties', 'objectRestSpread'],
+          plugins: [
+            'jsx',
+            'flow',
+            'classProperties',
+            'objectRestSpread',
+            'decorators',
+            'asyncGenerators',
+            'functionBind',
+            'functionSent',
+            'dynamicImport',
+          ],
         },
       }).then(({code}) => {
         return {
