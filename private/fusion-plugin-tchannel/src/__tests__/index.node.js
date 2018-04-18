@@ -26,6 +26,9 @@ test('interface', async t => {
     constructor(options) {
       t.ok(options, 'passes options to hyperbahn client');
     }
+    advertise() {
+      t.fail('hyperbahn should not advertise');
+    }
     destroy() {
       t.pass('calls destroy');
     }

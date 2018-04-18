@@ -48,7 +48,7 @@ export default __NODE__ &&
           isHealthy: defaultHealthCheck,
           statsd: m3,
           hardFail: true,
-          advertise: true,
+          advertise: false,
         },
         hyperbahnConfig
       );
