@@ -20,7 +20,7 @@ test('updateFiles', async () => {
     srcDir,
     destDir,
     add: ['src/main.js', '.eslintrc.js', 'src/config'],
-    remove: ['src/something.js', 'gulpfile.js'],
+    remove: ['src/something.js', 'gulpfile.js', 'fake.js'],
   });
 
   expect(fs.existsSync(path.join(destDir, 'src/main.js'))).toEqual(true);

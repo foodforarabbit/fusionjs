@@ -7,6 +7,7 @@ const unlink = util.promisify(fs.unlink);
 
 const defaultFilesToAdd = [
   'src/main.js',
+  'src/app.js',
   '.eslintrc.js',
   'flow-typed',
   'src/config',
@@ -22,9 +23,13 @@ module.exports = async function updateFiles({
   srcDir,
   destDir,
 }) {
-  const removeFiles = remove
-    .map(r => path.join(destDir, r))
-    .map(r => unlink(r));
+  const removeFiles = remove.map(r => path.join(destDir, r)).map(async r => {
+    return unlink(r).catch(e => {
+      if (e.code !== 'ENOENT') {
+        throw e;
+      }
+    });
+  });
   const addFiles = add.map(fileToAdd => {
     return ncp(path.join(srcDir, fileToAdd), path.join(destDir, fileToAdd));
   });
