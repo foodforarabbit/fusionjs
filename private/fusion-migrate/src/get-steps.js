@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+const get = require('just-safe-get');
 const codemodStep = require('./utils/codemod-step.js');
 const composeSteps = require('./utils/compose-steps.js');
 const diffStep = require('./commands/diff-step.js');
@@ -10,7 +13,10 @@ const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
 const modCompatHttpHandler = require('./codemods/compat-plugin-http-handler/plugin.js');
 const modCompatUniversalLogger = require('./codemods/compat-plugin-universal-logger/plugin.js');
 const modCompatUniversalM3 = require('./codemods/compat-plugin-universal-m3/plugin.js');
+const modIsorender = require('./codemods/bedrock-isorender/plugin.js');
+const modProxies = require('./codemods/compat-plugin-proxies/plugin.js');
 const modRpc = require('./codemods/bedrock-rpc/plugin.js');
+const modSentryConfig = require('./codemods/sentry-config/plugin.js');
 const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
 const updateDeps = require('./commands/update-deps.js');
@@ -54,6 +60,11 @@ module.exports = function getSteps(options) {
 };
 
 function get14Steps(options) {
+  const {config} = options;
+  const hasProxies =
+    get(config, 'dev.server.proxies') ||
+    get(config, 'common.server.proxies') ||
+    get(config, 'prod.server.proxies');
   return [
     getConfigCodemodStep(options, 'clients.atreyu', 'src/config/atreyu.js'),
     getConfigCodemodStep(options, 'server.csp', 'src/config/secure-headers.js'),
@@ -73,15 +84,13 @@ function get14Steps(options) {
     ),
     getStep(
       'mod-bedrock-compat',
-      composeSteps(
-        () => codemodStep({...options, plugin: modBedrockCompat(14)}),
-        () =>
-          codemodStep({
-            ...options,
-            plugin: modCompatHttpHandler,
-            filter: filterMatchFile('src/main.js'),
-          })
-      )
+      () => codemodStep({...options, plugin: modBedrockCompat(14)}),
+      () =>
+        codemodStep({
+          ...options,
+          plugin: modCompatHttpHandler,
+          filter: filterMatchFile('src/main.js'),
+        })
     ),
     getStep('mod-universal-m3', () =>
       codemodStep({...options, plugin: modUniversalM3})
@@ -92,18 +101,48 @@ function get14Steps(options) {
         plugin: modCompatUniversalM3,
       })
     ),
-  ];
+    getStep('mod-sentry-config', () =>
+      codemodStep({
+        ...options,
+        plugin: modSentryConfig,
+        filter: filterMatchFile('src/config/sentry.js'),
+      })
+    ),
+    getStep('mod-isorender', () =>
+      codemodStep({...options, plugin: modIsorender})
+    ),
+    hasProxies &&
+      getStep(
+        'mod-compat-proxies',
+        addFileStep(options, 'src/config/proxies.js'),
+        getConfigCodemodStep(
+          options,
+          'server.proxies',
+          'src/config/proxies.js'
+        ),
+        () =>
+          codemodStep({
+            ...options,
+            plugin: modProxies,
+          })
+      ),
+  ].filter(Boolean);
 }
 
 function get13Steps() {
   return [];
 }
 
-function getStep(id, step) {
+function getStep(id, ...steps) {
+  let step = steps.length > 1 ? composeSteps(...steps) : steps[0];
   return {
     id,
     step,
   };
+}
+
+function addFileStep(options, file) {
+  return () => fs.writeFileSync(path.join(options.destDir, file), '');
 }
 
 function getConfigCodemodStep(options, keyPath, file) {
@@ -113,11 +152,12 @@ function getConfigCodemodStep(options, keyPath, file) {
   });
   return {
     id: `mod-${keyPath}-config`,
-    step: codemodStep.bind(null, {
-      ...options,
-      plugin: mod,
-      filter: filterMatchFile(file),
-    }),
+    step: () =>
+      codemodStep({
+        ...options,
+        plugin: mod,
+        filter: filterMatchFile(file),
+      }),
   };
 }
 
