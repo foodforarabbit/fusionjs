@@ -21,22 +21,10 @@ const updateScripts = require('./commands/update-scripts.js');
 module.exports = function getSteps(options) {
   options.config = loadConfig(options.destDir);
   const sharedSteps = [
-    {
-      step: updateFiles.bind(null, options),
-      id: 'update-files',
-    },
-    {
-      step: updateEngines.bind(null, options),
-      id: 'update-engines',
-    },
-    {
-      step: updateScripts.bind(null, options),
-      id: 'update-scripts',
-    },
-    {
-      step: format.bind(null, options.destDir),
-      id: 'prettier',
-    },
+    getStep('update-files', () => updateFiles(options)),
+    getStep('update-engines', () => updateEngines(options)),
+    getStep('update-scripts', () => updateScripts(options)),
+    getStep('prettier', () => format(options.destDir)),
   ];
   let versionSpecificSteps = [];
   if (options.version === 14) {
@@ -46,24 +34,21 @@ module.exports = function getSteps(options) {
   }
   return sharedSteps
     .concat(versionSpecificSteps)
-    .concat({
-      step: updateDeps.bind(null, options),
-      id: 'update-deps',
-    })
+    .concat(getStep('update-deps', () => updateDeps(options)))
     .reduce((prev, next) => {
       prev.push(next);
       // run prettier on changed files after every step, other than the prettier step
       if (next.id !== 'prettier') {
-        prev.push({
-          id: `${next.id}-prettier`,
-          step: format.bind(null, options.destDir, {changedOnly: true}),
-        });
+        prev.push(
+          getStep(`${next.id}-prettier`, () =>
+            format(options.destDir, {changedOnly: true})
+          )
+        );
       }
       // pause and show diff after every step
-      prev.push({
-        id: `${next.id}-diff`,
-        step: diffStep.bind(null, next.id, options.destDir),
-      });
+      prev.push(
+        getStep(`${next.id}-diff`, () => diffStep(next.id, options.destDir))
+      );
       return prev;
     }, []);
 };
@@ -72,32 +57,23 @@ function get14Steps(options) {
   return [
     getConfigCodemodStep(options, 'clients.atreyu', 'src/config/atreyu.js'),
     getConfigCodemodStep(options, 'server.csp', 'src/config/secure-headers.js'),
-    {
-      id: 'mod-asset-url',
-      step: codemodStep.bind(null, {...options, plugin: modAssetUrl}),
-    },
-    {
-      id: 'mod-cdn-url',
-      step: codemodStep.bind(null, {...options, plugin: modCdnUrl}),
-    },
-    {
-      id: 'mod-rpc',
-      step: codemodStep.bind(null, {...options, plugin: modRpc}),
-    },
-    {
-      id: 'mod-universal-logger',
-      step: codemodStep.bind(null, {...options, plugin: modUniversalLogger}),
-    },
-    {
-      id: 'mod-compat-universal-logger',
-      step: codemodStep.bind(null, {
+    getStep('mod-asset-url', () =>
+      codemodStep({...options, plugin: modAssetUrl})
+    ),
+    getStep('mod-cdn-url', () => codemodStep({...options, plugin: modCdnUrl})),
+    getStep('mod-rpc', () => codemodStep({...options, plugin: modRpc})),
+    getStep('mod-universal-logger', () =>
+      codemodStep({...options, plugin: modUniversalLogger})
+    ),
+    getStep('mod-compat-universal-logger', () =>
+      codemodStep({
         ...options,
         plugin: modCompatUniversalLogger,
-      }),
-    },
-    {
-      id: 'mod-bedrock-compat',
-      step: composeSteps(
+      })
+    ),
+    getStep(
+      'mod-bedrock-compat',
+      composeSteps(
         () => codemodStep({...options, plugin: modBedrockCompat(14)}),
         () =>
           codemodStep({
@@ -105,24 +81,29 @@ function get14Steps(options) {
             plugin: modCompatHttpHandler,
             filter: filterMatchFile('src/main.js'),
           })
-      ),
-    },
-    {
-      id: 'mod-universal-m3',
-      step: codemodStep.bind(null, {...options, plugin: modUniversalM3}),
-    },
-    {
-      id: 'mod-compat-universal-m3',
-      step: codemodStep.bind(null, {
+      )
+    ),
+    getStep('mod-universal-m3', () =>
+      codemodStep({...options, plugin: modUniversalM3})
+    ),
+    getStep('mod-compat-universal-m3', () =>
+      codemodStep({
         ...options,
         plugin: modCompatUniversalM3,
-      }),
-    },
+      })
+    ),
   ];
 }
 
 function get13Steps() {
   return [];
+}
+
+function getStep(id, step) {
+  return {
+    id,
+    step,
+  };
 }
 
 function getConfigCodemodStep(options, keyPath, file) {
