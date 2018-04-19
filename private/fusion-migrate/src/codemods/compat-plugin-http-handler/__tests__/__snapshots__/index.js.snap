@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`compat-plugin-http-handler 1. compat-plugin-http-handler: 1. compat-plugin-http-handler 1`] = `
-"
-import App from 'fusion-react';
+exports[`compat-plugin-http-handler positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
 import {createPlugin} from 'fusion-core';
 import {SomeToken, SomePlugin} from 'some-plugin';
 import {OtherToken, OtherPlugin} from 'other-plugin';
@@ -20,12 +19,15 @@ function thing() {
   return app;
 }
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import App from 'fusion-react';
-import { createPlugin } from 'fusion-core';
-import createServer from './server/index.js';import HttpHandlerPlugin, { HttpHandlerToken } from 'fusion-plugin-http-handler';import { SomeToken, SomePlugin } from 'some-plugin';
-import { OtherToken, OtherPlugin } from 'other-plugin';
+import {createPlugin} from 'fusion-core';
+import createServer from './server/index.js';
+import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';
+import {SomeToken, SomePlugin} from 'some-plugin';
+import {OtherToken, OtherPlugin} from 'other-plugin';
 
 console.log(App);
 
@@ -36,7 +38,8 @@ function thing() {
   }
   if (__NODE__) {
     app.register(SomeToken, SomePlugin);
-    app.register(createServer(), HttpHandlerToken);app.register(HttpHandlerPlugin);
+    app.register(createServer(), HttpHandlerToken);
+    app.register(HttpHandlerPlugin);
   }
   return app;
 }

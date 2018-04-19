@@ -1,5 +1,6 @@
 const babylon = require('babylon');
 const t = require('babel-types');
+const parserOpts = require('../parser-opts.js');
 
 let cache = {};
 
@@ -47,7 +48,10 @@ function clearMatchCache() {
 
 function astOf(code) {
   if (cache[code]) return cache[code];
-  cache[code] = babylon.parse(code, {sourceType: 'module'}).program.body[0];
+  cache[code] = babylon.parse(code, {
+    sourceType: 'module',
+    ...parserOpts,
+  }).program.body[0];
   return cache[code];
 }
 

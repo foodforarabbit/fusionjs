@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bedrock-14-compat 1. bedrock-14-compat: 1. bedrock-14-compat 1`] = `
-"
-import m3 from '@uber/bedrock/universal-m3';
+exports[`bedrock-14-compat positive-match: positive-match 1`] = `
+"import m3 from '@uber/bedrock/universal-m3';
 import createServer from '@uber/bedrock';
 function thing() {
   m3.increment('test');
   createServer();
 }
+
 
       ↓ ↓ ↓ ↓ ↓ ↓
 

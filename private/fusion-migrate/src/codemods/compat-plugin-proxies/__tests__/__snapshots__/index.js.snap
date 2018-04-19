@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`compat-plugin-proxies 1. compat-plugin-proxies: 1. compat-plugin-proxies 1`] = `
-"
-import App from 'fusion-react';
+exports[`compat-plugin-proxies positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
 import {createPlugin} from 'fusion-core';
 import {SomeToken, SomePlugin} from 'some-plugin';
 import {OtherToken, OtherPlugin} from 'other-plugin';
@@ -20,12 +19,18 @@ function thing() {
   return app;
 }
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import App from 'fusion-react';
-import { createPlugin, SSRDeciderToken } from 'fusion-core';
-import proxyConfig from './config/proxies.js';import ProxyPlugin, { ProxyConfigToken, ProxySSRDecider } from '@uber/fusion-plugin-proxy-compat';import { SomeToken, SomePlugin } from 'some-plugin';
-import { OtherToken, OtherPlugin } from 'other-plugin';
+import {createPlugin, SSRDeciderToken} from 'fusion-core';
+import proxyConfig from './config/proxies.js';
+import ProxyPlugin, {
+  ProxyConfigToken,
+  ProxySSRDecider,
+} from '@uber/fusion-plugin-proxy-compat';
+import {SomeToken, SomePlugin} from 'some-plugin';
+import {OtherToken, OtherPlugin} from 'other-plugin';
 
 console.log(App);
 
@@ -36,7 +41,8 @@ function thing() {
   }
   if (__NODE__) {
     app.register(SomeToken, SomePlugin);
-    app.enhance(SSRDeciderToken, ProxySSRDecider);app.register(ProxyConfigToken, proxyConfig);
+    app.enhance(SSRDeciderToken, ProxySSRDecider);
+    app.register(ProxyConfigToken, proxyConfig);
   }
   return app;
 }

@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bedrock-universal-logger 1. bedrock-universal-logger: 1. bedrock-universal-logger 1`] = `
-"
-import Logger from '@uber/bedrock/universal-logger';
+exports[`bedrock-universal-logger positive-match: positive-match 1`] = `
+"import Logger from '@uber/bedrock/universal-logger';
 function thing() {
   Logger.info('hello world');
 }
+
 
       ↓ ↓ ↓ ↓ ↓ ↓
 

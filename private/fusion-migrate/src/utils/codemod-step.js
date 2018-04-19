@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const babel = require('babel-core');
 const getJSFiles = require('./get-js-files.js');
+const parserOpts = require('../parser-opts.js');
 
 const transformFile = promisify(babel.transformFile);
 const writeFile = promisify(fs.writeFile);
@@ -26,19 +27,7 @@ module.exports = async function codemodStep({
       return transformFile(joinedPath, {
         plugins,
         babelrc: false,
-        parserOpts: {
-          plugins: [
-            'jsx',
-            'flow',
-            'classProperties',
-            'objectRestSpread',
-            'decorators',
-            'asyncGenerators',
-            'functionBind',
-            'functionSent',
-            'dynamicImport',
-          ],
-        },
+        parserOpts,
       }).then(({code}) => {
         return {
           file: f,

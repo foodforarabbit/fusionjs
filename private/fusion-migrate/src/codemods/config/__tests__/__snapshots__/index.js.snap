@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`update clients.atreyu config 1. update clients.atreyu config: 1. update clients.atreyu config 1`] = `
-"
-/* Fetch the IDL files when you add new services t.uber.com/idl */
+exports[`update clients.atreyu config positive-match: positive-match 1`] = `
+"/* Fetch the IDL files when you add new services t.uber.com/idl */
 
 export default {
   // Enumerate what backend services you are communicating with.
@@ -11,10 +10,15 @@ export default {
   serviceNames: ['populous'], // list of downstream service names
 };
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
 /* Fetch the IDL files when you add new services t.uber.com/idl */
 
-export default Object.assign({ \\"enabled\\": true, \\"appName\\": \\"test\\" }, __DEV__ ? { \\"development\\": true } : {}, process.env.UBER_ENVIRONMENT === 'production' ? { \\"production\\": true } : {});
+export default Object.assign(
+  {enabled: true, appName: 'test'},
+  __DEV__ ? {development: true} : {},
+  process.env.UBER_ENVIRONMENT === 'production' ? {production: true} : {}
+);
 "
 `;

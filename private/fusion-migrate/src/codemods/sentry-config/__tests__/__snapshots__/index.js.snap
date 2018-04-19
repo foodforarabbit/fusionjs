@@ -1,61 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`sentry-config 1. sentry-config: 1. sentry-config 1`] = `
-"
-export default {
+exports[`sentry-config positive-match: positive-match 1`] = `
+"export default {
   id: 'test',
 };
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default { id: 'http://test:test@sentry.local.uber.internal/1234' };
+export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
 "
 `;
 
-exports[`sentry-config 1. sentry-config: 1. sentry-config 2`] = `
-"
-export default {
+exports[`sentry-config positive-match: positive-match 2`] = `
+"export default {
   id: 'test',
 };
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default { id: 'http://test:test@sentry.local.uber.internal/1234' };
+export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
 "
 `;
 
-exports[`sentry-config 1. sentry-config: 1. sentry-config 3`] = `
-"
-export default {
+exports[`sentry-config positive-match: positive-match 3`] = `
+"export default {
   id: 'test',
 };
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default { id: 'http://test:test@sentry.local.uber.internal/1234' };
+export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
 "
 `;
 
-exports[`sentry-config 1. sentry-config: 1. sentry-config 4`] = `
-"
-export default {
+exports[`sentry-config positive-match: positive-match 4`] = `
+"export default {
   id: 'test',
 };
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default { id: 'http://test:test@sentry.local.uber.internal/1234' };
+export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
 "
 `;
 
-exports[`sentry-config 1. sentry-config: 1. sentry-config 5`] = `
-"
-export default {
+exports[`sentry-config positive-match: positive-match 5`] = `
+"export default {
   id: 'test',
 };
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default { id: 'http://test:test@sentry.local.uber.internal/1234' };
+export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
 "
 `;

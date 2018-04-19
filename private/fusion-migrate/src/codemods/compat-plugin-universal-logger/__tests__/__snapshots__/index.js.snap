@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`compat-plugin-universal-logger 1. compat-plugin-universal-logger: 1. compat-plugin-universal-logger 1`] = `
-"
-import App from 'fusion-react';
+exports[`compat-plugin-universal-logger positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
 import {SomeToken, SomePlugin} from 'some-plugin';
 
 console.log(App);
@@ -13,16 +12,19 @@ function thing() {
   return app;
 }
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import App from 'fusion-react';
-import UniversalLoggerCompatPlugin from '@uber/fusion-plugin-universal-logger-compat';import { SomeToken, SomePlugin } from 'some-plugin';
+import UniversalLoggerCompatPlugin from '@uber/fusion-plugin-universal-logger-compat';
+import {SomeToken, SomePlugin} from 'some-plugin';
 
 console.log(App);
 
 function thing() {
   const app = new App();
-  app.register(UniversalLoggerCompatPlugin);app.register(SomeToken, SomePlugin);
+  app.register(UniversalLoggerCompatPlugin);
+  app.register(SomeToken, SomePlugin);
   return app;
 }
 "

@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bedrock-isorender 1. bedrock-isorender: 1. bedrock-isorender 1`] = `
-"
-/* globals setTimeout */
+exports[`bedrock-isorender positive-match: positive-match 1`] = `
+"/* globals setTimeout */
 import IsoRender from '@uber/isorender';
 import Logger from '@uber/fusion-plugin-universal-logger-compat';
 
@@ -38,10 +37,10 @@ export default function setRoutes(server) {
   server.get('SPA', '/*', (req, res) => isorender.handleRequest(req, res));
 }
 
+
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import Logger from '@uber/fusion-plugin-universal-logger-compat'; /* globals setTimeout */
-
 
 export default function setRoutes(server) {
   server.get('health', '/health', (req, res) => res.end('OK'));
