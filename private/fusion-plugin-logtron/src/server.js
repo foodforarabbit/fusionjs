@@ -72,7 +72,7 @@ export default __NODE__ &&
             const {level, message} = payload;
             let {meta} = payload;
             if (isErrorMeta(meta)) {
-              meta = transformError(meta);
+              meta = {...meta, ...transformError(meta)};
             }
             logger[level](message, meta);
           } else {
