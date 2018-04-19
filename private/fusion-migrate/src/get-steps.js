@@ -13,6 +13,7 @@ const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
 const modCompatHttpHandler = require('./codemods/compat-plugin-http-handler/plugin.js');
 const modCompatUniversalLogger = require('./codemods/compat-plugin-universal-logger/plugin.js');
 const modCompatUniversalM3 = require('./codemods/compat-plugin-universal-m3/plugin.js');
+const modReactHead = require('./codemods/react-head/plugin.js');
 const modIsorender = require('./codemods/bedrock-isorender/plugin.js');
 const modProxies = require('./codemods/compat-plugin-proxies/plugin.js');
 const modRpc = require('./codemods/bedrock-rpc/plugin.js');
@@ -110,6 +111,9 @@ function get14Steps(options) {
     ),
     getStep('mod-isorender', () =>
       codemodStep({...options, plugin: modIsorender})
+    ),
+    getStep('mod-react-head', () =>
+      codemodStep({...options, plugin: modReactHead})
     ),
     hasProxies &&
       getStep(
