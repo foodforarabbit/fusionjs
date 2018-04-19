@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-logtron",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "fusion plugin for universal logging via logtron",
   "files": [
     "dist",
