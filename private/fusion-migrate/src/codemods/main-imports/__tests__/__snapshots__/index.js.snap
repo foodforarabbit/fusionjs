@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`main-imports positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
+import Root from './components/root.js';
+import RPCHandlers from './server/rpc.js';
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import Root from './shared/components/routes.js';
+import RPCHandlers from './server/rpc.js';
+"
+`;
