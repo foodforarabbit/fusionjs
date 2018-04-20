@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bedrock-prefix-url positive-match: positive-match 1`] = `
+"import prefixUrl from '@uber/bedrock/prefixUrl';
+
+export default () => {
+  const thing = prefixUrl('static/test.png');
+  const otherThing = prefixUrl(thing);
+};
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+export default () => {
+  const thing = 'static/test.png';
+  const otherThing = thing;
+};
+"
+`;

@@ -4,14 +4,16 @@ exports[`bedrock-cdn-url positive-match: positive-match 1`] = `
 "import cdnUrl from '@uber/bedrock/cdnUrl';
 
 export default () => {
-  return cdnUrl('static/test.png');
+  const thing = cdnUrl('static/test.png');
+  const other = cdnUrl(thing);
 };
 
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
 export default () => {
-  return 'https://cdn.com/static/test.png';
+  const thing = 'https://cdn.com/static/test.png';
+  const other = 'https://cdn.com/' + thing;
 };
 "
 `;

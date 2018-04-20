@@ -8,8 +8,9 @@ const format = require('./utils/format.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const loadConfig = require('./utils/load-config.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
-const modBedrockCompat = require('./codemods/bedrock-compat/plugin.js');
 const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
+const modPrefixUrl = require('./codemods/bedrock-prefix-url/plugin.js');
+const modBedrockCompat = require('./codemods/bedrock-compat/plugin.js');
 const modCompatHttpHandler = require('./codemods/compat-plugin-http-handler/plugin.js');
 const modCompatUniversalLogger = require('./codemods/compat-plugin-universal-logger/plugin.js');
 const modCompatUniversalM3 = require('./codemods/compat-plugin-universal-m3/plugin.js');
@@ -73,6 +74,9 @@ function get14Steps(options) {
       codemodStep({...options, plugin: modAssetUrl})
     ),
     getStep('mod-cdn-url', () => codemodStep({...options, plugin: modCdnUrl})),
+    getStep('mod-prefix-url', () =>
+      codemodStep({...options, plugin: modPrefixUrl})
+    ),
     getStep('mod-rpc', () => codemodStep({...options, plugin: modRpc})),
     getStep('mod-universal-logger', () =>
       codemodStep({...options, plugin: modUniversalLogger})
