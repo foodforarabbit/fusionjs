@@ -4,19 +4,19 @@ import sourcemap from 'source-map';
 import ErrorStackParser from 'error-stack-parser';
 
 export default function createErrorTransform(config) {
-  const mappers = loadSourceMapsSync(config);
+  const mappers = loadSourceMaps(config);
 
-  return function parseError(data) {
+  return async function parseError(data) {
     const {message, source, line, col, error} = data;
 
     let parsed;
     if (error && error.stack) {
       // Newer browsers send the error object
-      parsed = handleErrorObject(error);
+      parsed = await handleErrorObject(error);
     } else if (line) {
       if (col) {
         // Older browsers send line and column
-        parsed = handleLineAndCol(message, source, line, col);
+        parsed = await handleLineAndCol(message, source, line, col);
       } else {
         // Oldest browsers only include message, source, and line
         parsed = {
@@ -38,14 +38,14 @@ export default function createErrorTransform(config) {
     return parsed;
   };
 
-  function applySourceMap(fileName, line, column) {
-    const map = mappers[path.basename(fileName)];
+  async function applySourceMap(fileName, line, column) {
+    const map = await mappers[path.basename(fileName)];
     return map ? map.originalPositionFor({line, column}) : null;
   }
 
   // Returns log for older browsers that don't send the entire error object
-  function handleLineAndCol(message, source, line, col) {
-    const mapped = applySourceMap(source, line, col);
+  async function handleLineAndCol(message, source, line, col) {
+    const mapped = await applySourceMap(source, line, col);
 
     // Couldn't find sourcemap, using raw data instead
     if (!mapped) {
@@ -66,20 +66,20 @@ export default function createErrorTransform(config) {
   }
 
   // Returns log data for browsers that send the entire error object
-  function handleErrorObject(error) {
-    const frames = ErrorStackParser.parse(error)
-      .map(frame => {
+  async function handleErrorObject(error) {
+    const frames = (await Promise.all(
+      ErrorStackParser.parse(error).map(async frame => {
         // things that we can't resolve a stack trace to
         if (!frame.fileName || !frame.lineNumber || !frame.columnNumber) {
           return frame.source || null;
         }
 
         const mapped =
-          applySourceMap(
+          (await applySourceMap(
             frame.fileName,
             frame.lineNumber,
             frame.columnNumber
-          ) || {};
+          )) || {};
 
         const functionName = mapped.name || frame.functionName;
         const fileName = mapped.source || frame.fileName;
@@ -88,7 +88,7 @@ export default function createErrorTransform(config) {
 
         return `${functionName} at ${fileName}:${line}:${column}`;
       })
-      .filter(Boolean);
+    )).filter(Boolean);
 
     // Extra \n at the beginning lines up the stack
     const stackString = `\n${frames.join('\n    ')}`;
@@ -103,7 +103,7 @@ export default function createErrorTransform(config) {
   }
 }
 
-function loadSourceMapsSync(config) {
+function loadSourceMaps(config) {
   const mappers = {};
 
   try {

@@ -67,12 +67,12 @@ export default __NODE__ &&
           path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
           ext: '.map',
         });
-        events.on('logtron:log', payload => {
+        events.on('logtron:log', async payload => {
           if (validateItem(payload)) {
             const {level, message} = payload;
             let {meta} = payload;
             if (isErrorMeta(meta)) {
-              meta = {...meta, ...transformError(meta)};
+              meta = {...meta, ...(await transformError(meta))};
             }
             logger[level](message, meta);
           } else {
