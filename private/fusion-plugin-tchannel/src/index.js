@@ -1,4 +1,5 @@
 // @flow
+
 import ServerLogger from './server';
 import BrowserLogger from './browser';
 
