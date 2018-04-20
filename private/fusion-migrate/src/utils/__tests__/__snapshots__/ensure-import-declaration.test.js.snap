@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ensureImportDeclaration default, no existing 1`] = `
+"import Test from 'test';
+import A from 'A';
+import B, { C } from 'C';
+
+export default function test() {}"
+`;
+
+exports[`ensureImportDeclaration default, with existing 1`] = `
+"
+import A from 'A';
+import B, { C } from 'C';
+import { D, Test } from 'test';
+
+export default function test() {}"
+`;
+
+exports[`ensureImportDeclaration default, with existing exact 1`] = `
+"
+import A from 'A';
+import B, { C } from 'C';
+import Test from 'test';
+
+export default function test() {}"
+`;
+
+exports[`ensureImportDeclaration multiple 1`] = `
+"
+import A from 'A';
+import B, { C } from 'C';
+import Test, { E, F, G } from 'test';
+
+export default function test() {}"
+`;
+
+exports[`ensureImportDeclaration, specifier, no existing 1`] = `
+"import { Test } from 'test';
+import A from 'A';
+import B, { C } from 'C';
+
+export default function test() {}"
+`;
+
+exports[`ensureImportDeclaration, specifier, with existing 1`] = `
+"
+import A from 'A';
+import B, { C } from 'C';
+import D, { Test } from 'test';
+
+export default function test() {}"
+`;
+
+exports[`ensureImportDeclaration, specifier, with existing exact 1`] = `
+"
+import A from 'A';
+import B, { C } from 'C';
+import { Test } from 'test';
+
+export default function test() {}"
+`;

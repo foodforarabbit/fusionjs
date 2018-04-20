@@ -48,10 +48,7 @@ function clearMatchCache() {
 
 function astOf(code) {
   if (cache[code]) return cache[code];
-  cache[code] = babylon.parse(code, {
-    sourceType: 'module',
-    ...parserOpts,
-  }).program.body[0];
+  cache[code] = babylon.parse(code, parserOpts).program.body[0];
   return cache[code];
 }
 

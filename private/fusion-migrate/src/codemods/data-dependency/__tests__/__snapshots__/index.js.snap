@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`data-dependency export-expression: export-expression 1`] = `
+"import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import AppContainer from '../containers/app-container';
+import TripsContainer from '../containers/trips-container';
+
+export default (
+  <Route
+    path=\\"/trips-viewer\\"
+    component={AppContainer}
+    trackingId=\\"Home\\"
+    dataDependency=\\"getUser\\"
+  >
+    <IndexRedirect to=\\"trips\\" />
+    <Route
+      path=\\"trips\\"
+      component={TripsContainer}
+      trackingId=\\"Trips\\"
+      dataDependency=\\"getTrips\\"
+    >
+      <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
+    </Route>
+  </Route>
+);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {prepare} from 'fusion-react-async';
+import {connect} from 'react-redux';
+import {withRPCRedux} from 'fusion-plugin-rpc-redux-react';
+import {compose} from 'redux';
+import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import AppContainer from '../containers/app-container';
+import TripsContainer from '../containers/trips-container';
+
+const _TripsContainerWithData = compose(
+  withRPCRedux('getTrips'),
+  connect(state => {
+    // TODO: get things from state you need here
+    return {};
+  }),
+  prepare(({getTrips}) => {
+    // TODO: this should check some props from connect to see you need to execute the data fetch.
+    // Once that check is added, you can remove the __NODE__ conditional
+    // See t.uber.com/web-fetching-data
+    return __NODE__ && getTrips();
+  })
+)(TripsContainer);
+
+const _AppContainerWithData = compose(
+  withRPCRedux('getUser'),
+  connect(state => {
+    return {};
+  }),
+  prepare(({getUser}) => {
+    // TODO: this should check some props from connect to see you need to execute the data fetch.
+    // Once that check is added, you can remove the __NODE__ conditional
+    // See t.uber.com/web-fetching-data
+    return __NODE__ && getUser();
+  })
+)(AppContainer);
+
+export default (
+  <Route
+    path=\\"/trips-viewer\\"
+    component={_AppContainerWithData}
+    trackingId=\\"Home\\"
+    dataDependency=\\"getUser\\"
+  >
+    <IndexRedirect to=\\"trips\\" />
+    <Route
+      path=\\"trips\\"
+      component={_TripsContainerWithData}
+      trackingId=\\"Trips\\"
+      dataDependency=\\"getTrips\\"
+    >
+      <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
+    </Route>
+  </Route>
+);
+"
+`;
+
+exports[`data-dependency variable-declaration: variable-declaration 1`] = `
+"import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import AppContainer from '../containers/app-container';
+import TripsContainer from '../containers/trips-container';
+
+const routes = (
+  <Route
+    path=\\"/trips-viewer\\"
+    component={AppContainer}
+    trackingId=\\"Home\\"
+    dataDependency=\\"getUser\\"
+  >
+    <IndexRedirect to=\\"trips\\" />
+    <Route
+      path=\\"trips\\"
+      component={TripsContainer}
+      trackingId=\\"Trips\\"
+      dataDependency=\\"getTrips\\"
+    >
+      <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
+    </Route>
+  </Route>
+);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {prepare} from 'fusion-react-async';
+import {connect} from 'react-redux';
+import {withRPCRedux} from 'fusion-plugin-rpc-redux-react';
+import {compose} from 'redux';
+import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import AppContainer from '../containers/app-container';
+import TripsContainer from '../containers/trips-container';
+
+const _TripsContainerWithData = compose(
+  withRPCRedux('getTrips'),
+  connect(state => {
+    // TODO: get things from state you need here
+    return {};
+  }),
+  prepare(({getTrips}) => {
+    // TODO: this should check some props from connect to see you need to execute the data fetch.
+    // Once that check is added, you can remove the __NODE__ conditional
+    // See t.uber.com/web-fetching-data
+    return __NODE__ && getTrips();
+  })
+)(TripsContainer);
+
+const _AppContainerWithData = compose(
+  withRPCRedux('getUser'),
+  connect(state => {
+    return {};
+  }),
+  prepare(({getUser}) => {
+    // TODO: this should check some props from connect to see you need to execute the data fetch.
+    // Once that check is added, you can remove the __NODE__ conditional
+    // See t.uber.com/web-fetching-data
+    return __NODE__ && getUser();
+  })
+)(AppContainer);
+
+const routes = (
+  <Route
+    path=\\"/trips-viewer\\"
+    component={_AppContainerWithData}
+    trackingId=\\"Home\\"
+    dataDependency=\\"getUser\\"
+  >
+    <IndexRedirect to=\\"trips\\" />
+    <Route
+      path=\\"trips\\"
+      component={_TripsContainerWithData}
+      trackingId=\\"Trips\\"
+      dataDependency=\\"getTrips\\"
+    >
+      <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
+    </Route>
+  </Route>
+);
+"
+`;
+
+exports[`data-dependency wrapped-in-function: wrapped-in-function 1`] = `
+"import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import AppContainer from '../containers/app-container';
+import TripsContainer from '../containers/trips-container';
+
+const thing = 'test';
+
+export default function() {
+  const routes = (
+    <Route
+      path=\\"/trips-viewer\\"
+      component={AppContainer}
+      trackingId=\\"Home\\"
+      dataDependency=\\"getUser\\"
+    >
+      <IndexRedirect to=\\"trips\\" />
+      <Route
+        path=\\"trips\\"
+        component={TripsContainer}
+        trackingId=\\"Trips\\"
+        dataDependency=\\"getTrips\\"
+      >
+        <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
+      </Route>
+    </Route>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {prepare} from 'fusion-react-async';
+import {connect} from 'react-redux';
+import {withRPCRedux} from 'fusion-plugin-rpc-redux-react';
+import {compose} from 'redux';
+import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import AppContainer from '../containers/app-container';
+import TripsContainer from '../containers/trips-container';
+
+const _TripsContainerWithData = compose(
+  withRPCRedux('getTrips'),
+  connect(state => {
+    // TODO: get things from state you need here
+    return {};
+  }),
+  prepare(({getTrips}) => {
+    // TODO: this should check some props from connect to see you need to execute the data fetch.
+    // Once that check is added, you can remove the __NODE__ conditional
+    // See t.uber.com/web-fetching-data
+    return __NODE__ && getTrips();
+  })
+)(TripsContainer);
+
+const _AppContainerWithData = compose(
+  withRPCRedux('getUser'),
+  connect(state => {
+    return {};
+  }),
+  prepare(({getUser}) => {
+    // TODO: this should check some props from connect to see you need to execute the data fetch.
+    // Once that check is added, you can remove the __NODE__ conditional
+    // See t.uber.com/web-fetching-data
+    return __NODE__ && getUser();
+  })
+)(AppContainer);
+
+const thing = 'test';
+
+export default function() {
+  const routes = (
+    <Route
+      path=\\"/trips-viewer\\"
+      component={_AppContainerWithData}
+      trackingId=\\"Home\\"
+      dataDependency=\\"getUser\\"
+    >
+      <IndexRedirect to=\\"trips\\" />
+      <Route
+        path=\\"trips\\"
+        component={_TripsContainerWithData}
+        trackingId=\\"Trips\\"
+        dataDependency=\\"getTrips\\"
+      >
+        <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
+      </Route>
+    </Route>
+  );
+}
+"
+`;
