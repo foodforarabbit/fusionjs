@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compat-plugin-web-rpc positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
+import {createToken, createPlugin} from 'fusion-core';
+import {SomeToken, SomePlugin} from 'some-plugin';
+
+console.log(App);
+
+function thing() {
+  const app = new App();
+  app.register(SomeToken, SomePlugin);
+  return app;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import RPCCompatEnhancer from '@uber/fusion-plugin-web-rpc-compat';
+import {createToken, createPlugin} from 'fusion-core';
+import {SomeToken, SomePlugin} from 'some-plugin';
+
+console.log(App);
+
+function thing() {
+  const app = new App();
+  const RPCCompatEnhancerToken = createToken('RPCCompatEnhancer');
+  app.register(RPCCompatEnhancerToken, RPCCompatEnhancer);
+  app.enhance(EnhancerToken, prevEnhancer => {
+    return createPlugin({
+      deps: {rpcCompat: RPCCompatEnhancerToken},
+      provides: ({rpcCompat}) => {
+        return compose(prevEnhancer, rpcCompat);
+      },
+    });
+  });
+  app.register(SomeToken, SomePlugin);
+  return app;
+}
+"
+`;
