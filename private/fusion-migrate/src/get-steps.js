@@ -14,11 +14,14 @@ const modBedrockCompat = require('./codemods/bedrock-compat/plugin.js');
 const modCompatHttpHandler = require('./codemods/compat-plugin-http-handler/plugin.js');
 const modCompatUniversalLogger = require('./codemods/compat-plugin-universal-logger/plugin.js');
 const modCompatUniversalM3 = require('./codemods/compat-plugin-universal-m3/plugin.js');
+const modCompatRouter = require('./codemods/compat-plugin-react-router/plugin.js');
 const modDataDependency = require('./codemods/data-dependency/plugin.js');
 const modReactHead = require('./codemods/react-head/plugin.js');
 const modIsorender = require('./codemods/bedrock-isorender/plugin.js');
 const modProxies = require('./codemods/compat-plugin-proxies/plugin.js');
 const modRpc = require('./codemods/bedrock-rpc/plugin.js');
+const modHoistRoutes = require('./codemods/hoist-routes/plugin.js');
+const modMainImports = require('./codemods/main-imports/plugin.js');
 const modSentryConfig = require('./codemods/sentry-config/plugin.js');
 const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
@@ -110,7 +113,7 @@ function get14Steps(options) {
     getStep('mod-sentry-config', () =>
       codemodStep({
         ...options,
-        plugin: modSentryConfig,
+        plugin: modSentryConfig(config),
         filter: filterMatchFile('src/config/sentry.js'),
       })
     ),
@@ -118,20 +121,38 @@ function get14Steps(options) {
       codemodStep({...options, plugin: modIsorender})
     ),
     getStep('mod-data-dependency', () =>
-      codemodStep({...options, plugin: modDataDependency})
+      codemodStep({
+        ...options,
+        plugin: modDataDependency,
+        filter: filterMatchFile('src/shared/components/routes.js'),
+      })
     ),
     getStep('mod-react-head', () =>
       codemodStep({...options, plugin: modReactHead})
+    ),
+    getStep('mod-hoist-routes', () =>
+      codemodStep({
+        ...options,
+        plugin: modHoistRoutes,
+        filter: filterMatchFile('src/shared/components/routes.js'),
+      })
+    ),
+    getStep('mod-compat-router', () =>
+      codemodStep({...options, plugin: modCompatRouter})
+    ),
+    getStep('mod-main-imports', () =>
+      codemodStep({
+        ...options,
+        plugin: modMainImports,
+        filter: filterMatchFile('src/main.js'),
+      })
     ),
     hasProxies &&
       getStep(
         'mod-compat-proxies',
         addFileStep(options, 'src/config/proxies.js'),
-        getConfigCodemodStep(
-          options,
-          'server.proxies',
-          'src/config/proxies.js'
-        ),
+        getConfigCodemodStep(options, 'server.proxies', 'src/config/proxies.js')
+          .step,
         () =>
           codemodStep({
             ...options,
