@@ -2,7 +2,6 @@
 
 exports[`compat-plugin-web-rpc positive-match: positive-match 1`] = `
 "import App from 'fusion-react';
-import {createToken, createPlugin} from 'fusion-core';
 import {SomeToken, SomePlugin} from 'some-plugin';
 
 console.log(App);
@@ -16,9 +15,9 @@ function thing() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import App from 'fusion-react';
-import RPCCompatEnhancer from '@uber/fusion-plugin-web-rpc-compat';
 import {createToken, createPlugin} from 'fusion-core';
+import RPCCompatEnhancer from '@uber/fusion-plugin-web-rpc-compat';
+import App from 'fusion-react';
 import {SomeToken, SomePlugin} from 'some-plugin';
 
 console.log(App);

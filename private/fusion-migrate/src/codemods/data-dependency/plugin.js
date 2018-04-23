@@ -1,5 +1,6 @@
 const babylon = require('babylon');
 const ensureImportDeclaration = require('../../utils/ensure-import-declaration.js');
+const getProgram = require('../../utils/get-program.js');
 const log = require('../../log.js');
 
 module.exports = babel => {
@@ -70,13 +71,6 @@ module.exports = babel => {
     },
   };
 };
-
-function getProgram(path) {
-  if (!path.parentPath) {
-    return path;
-  }
-  return getProgram(path.parentPath);
-}
 
 function insertAfterLastImport(body, node) {
   for (let i = body.length - 1; i >= 0; i--) {
