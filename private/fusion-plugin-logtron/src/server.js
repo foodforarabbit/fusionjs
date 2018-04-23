@@ -8,6 +8,8 @@ import createErrorTransform from './create-error-transform';
 
 export const BackendsToken = createToken('LogtronBackends');
 export const TeamToken = createToken('LogtronTeam');
+export const TransformsToken = createToken('LogtronTransform');
+
 const supportedLevels = [
   'trace',
   'debug',
@@ -37,8 +39,9 @@ export default __NODE__ &&
       m3: M3Token,
       backends: BackendsToken.optional,
       team: TeamToken,
+      transforms: TransformsToken.optional,
     },
-    provides: ({events, m3, backends = {}, team}) => {
+    provides: ({events, m3, backends = {}, team, transforms}) => {
       const env = __DEV__ ? 'dev' : process.env.NODE_ENV;
       const service = process.env.SVC_ID || 'dev-service';
       if (backends.console !== false) {
@@ -59,6 +62,7 @@ export default __NODE__ &&
         meta: {team, project: service},
         statsd: m3,
         backends: Logtron.defaultBackends(backends),
+        transforms,
       });
 
       // in dev we don't send client errors to the server

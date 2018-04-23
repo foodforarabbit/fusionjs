@@ -121,3 +121,11 @@ import {LogtronBackendsToken} from '@uber/fusion-plugin-logtron-react';
 
 Backends configuration for logtron. Server-only. Optional. See [https://github.com/uber/logtron#optionsbackends](https://github.com/uber/logtron#optionsbackends)
 
+##### `LogtronTransformsToken`
+
+```js
+import {LogtronTransformsToken} from '@uber/fusion-plugin-logtron-react';
+```
+
+Array of transform functions. Server-only. Optional. See [https://github.com/uber/logtron#optionstransforms](https://github.com/uber/logtron#optionstransforms)
+
