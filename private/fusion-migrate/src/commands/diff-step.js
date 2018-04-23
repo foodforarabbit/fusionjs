@@ -3,13 +3,13 @@ const execa = require('execa');
 const inquirer = require('inquirer');
 const log = require('../log.js');
 
-async function diffStep(name, dir) {
-  await execa.shell('git add .', {cwd: dir});
+async function diffStep({name, destDir, pause}) {
+  await execa.shell('git add .', {cwd: destDir});
   try {
-    await execa.shell('git diff-index --quiet HEAD', {cwd: dir});
+    await execa.shell('git diff-index --quiet HEAD', {cwd: destDir});
   } catch (e) {
-    await promptStep(name, dir);
-    await execa.shell(`git commit -m 'Step "${name}"'`, {cwd: dir});
+    pause && (await promptStep(name, destDir));
+    await execa.shell(`git commit -m 'Step "${name}"'`, {cwd: destDir});
     return true;
   }
   return false;

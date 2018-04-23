@@ -24,7 +24,9 @@ test('diffStep continue', async () => {
     return {[opts.name]: true};
   });
   const dir = await setup();
-  expect(await diffStep('test', dir)).toEqual(true);
+  expect(await diffStep({pause: true, name: 'test', destDir: dir})).toEqual(
+    true
+  );
   const commit = await execa.shell(`git log -1 --pretty=%B`, {cwd: dir});
   expect(commit.stdout).toMatch('Step "test"');
 });
@@ -42,7 +44,7 @@ test('diffStep quit', async () => {
   });
   const dir = await setup();
   try {
-    await diffStep('test', dir);
+    await diffStep({pause: true, name: 'test', destDir: dir});
     throw new Error('ensure catch');
   } catch (e) {
     expect(e.message).toMatch('User quit after running step: test');
@@ -57,7 +59,21 @@ test('diffStep with no changes', async () => {
   await execa.shell('git init && git add . && git commit -m "Initial commit"', {
     cwd: dir,
   });
-  expect(await diffStep('test', dir)).toEqual(false);
+  expect(await diffStep({pause: true, name: 'test', destDir: dir})).toEqual(
+    false
+  );
+});
+
+test('diffStep with no pause', async () => {
+  require('inquirer').prompt.mockImplementation(() => {
+    throw new Error('FAIL - should not call inquirer');
+  });
+  const dir = await setup();
+  expect(await diffStep({pause: false, name: 'test', destDir: dir})).toEqual(
+    true
+  );
+  const commit = await execa.shell(`git log -1 --pretty=%B`, {cwd: dir});
+  expect(commit.stdout).toMatch('Step "test"');
 });
 
 async function setup() {

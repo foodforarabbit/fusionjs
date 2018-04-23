@@ -60,7 +60,7 @@ module.exports = function getSteps(options) {
       }
       // pause and show diff after every step
       prev.push(
-        getStep(`${next.id}-diff`, () => diffStep(next.id, options.destDir))
+        getStep(`${next.id}-diff`, () => diffStep({name: next.id, ...options}))
       );
       return prev;
     }, []);
