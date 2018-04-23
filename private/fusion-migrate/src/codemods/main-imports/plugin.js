@@ -1,6 +1,7 @@
 const rewrites = {
   './components/root.js': './shared/components/routes.js',
   './rpc/handlers.js': './server/rpc.js',
+  './redux.js': './shared/store.js',
 };
 
 module.exports = (/*babel*/) => {

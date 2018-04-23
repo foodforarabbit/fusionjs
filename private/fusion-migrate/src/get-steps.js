@@ -25,6 +25,7 @@ const modMainImports = require('./codemods/main-imports/plugin.js');
 const modSentryConfig = require('./codemods/sentry-config/plugin.js');
 const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
+const modRedux = require('./codemods/redux/plugin.js');
 const updateDeps = require('./commands/update-deps.js');
 const updateEngines = require('./commands/update-engines.js');
 const updateFiles = require('./commands/update-files.js');
@@ -145,6 +146,13 @@ function get14Steps(options) {
         ...options,
         plugin: modMainImports,
         filter: filterMatchFile('src/main.js'),
+      })
+    ),
+    getStep('mod-redux', () =>
+      codemodStep({
+        ...options,
+        plugin: modRedux,
+        filter: filterMatchFile('src/shared/store.js'),
       })
     ),
     hasProxies &&
