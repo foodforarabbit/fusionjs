@@ -6,7 +6,7 @@ module.exports = babel => {
   const appVisitor = visitNewAppExpression(t, (t, state, refPath, path) => {
     addStatementAfter(
       path,
-      `import RouterV3Compat from 'fusion-plugin-react-router-v3-compat';`
+      `import RouterV3Compat from '@uber/fusion-plugin-react-router-v3-compat';`
     );
     addStatementAfter(
       refPath.parentPath.parentPath.parentPath,

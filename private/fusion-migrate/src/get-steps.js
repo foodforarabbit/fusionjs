@@ -15,6 +15,7 @@ const modCompatHttpHandler = require('./codemods/compat-plugin-http-handler/plug
 const modCompatUniversalLogger = require('./codemods/compat-plugin-universal-logger/plugin.js');
 const modCompatUniversalM3 = require('./codemods/compat-plugin-universal-m3/plugin.js');
 const modCompatRouter = require('./codemods/compat-plugin-react-router/plugin.js');
+const modCompatRPC = require('./codemods/compat-plugin-rpc/plugin.js');
 const modDataDependency = require('./codemods/data-dependency/plugin.js');
 const modReactHead = require('./codemods/react-head/plugin.js');
 const modIsorender = require('./codemods/bedrock-isorender/plugin.js');
@@ -90,6 +91,7 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modCompatUniversalLogger,
+        filter: filterMatchFile('src/main.js'),
       })
     ),
     getStep(
@@ -109,6 +111,7 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modCompatUniversalM3,
+        filter: filterMatchFile('src/main.js'),
       })
     ),
     getStep('mod-sentry-config', () =>
@@ -139,7 +142,18 @@ function get14Steps(options) {
       })
     ),
     getStep('mod-compat-router', () =>
-      codemodStep({...options, plugin: modCompatRouter})
+      codemodStep({
+        ...options,
+        plugin: modCompatRouter,
+        filter: filterMatchFile('src/main.js'),
+      })
+    ),
+    getStep('mod-compat-rpc', () =>
+      codemodStep({
+        ...options,
+        plugin: modCompatRPC,
+        filter: filterMatchFile('src/main.js'),
+      })
     ),
     getStep('mod-main-imports', () =>
       codemodStep({
@@ -157,15 +171,18 @@ function get14Steps(options) {
     ),
     hasProxies &&
       getStep(
-        'mod-compat-proxies',
-        addFileStep(options, 'src/config/proxies.js'),
-        getConfigCodemodStep(options, 'server.proxies', 'src/config/proxies.js')
-          .step,
-        () =>
-          codemodStep({
-            ...options,
-            plugin: modProxies,
-          })
+        'add-proxy-config',
+        addFileStep(options, 'src/config/proxies.js')
+      ),
+    hasProxies &&
+      getConfigCodemodStep(options, 'server.proxies', 'src/config/proxies.js'),
+    hasProxies &&
+      getStep('mod-compat-proxies', () =>
+        codemodStep({
+          ...options,
+          plugin: modProxies,
+          filter: filterMatchFile('src/main.js'),
+        })
       ),
   ].filter(Boolean);
 }

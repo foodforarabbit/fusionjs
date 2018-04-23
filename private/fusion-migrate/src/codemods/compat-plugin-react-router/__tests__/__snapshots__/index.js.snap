@@ -16,7 +16,7 @@ function thing() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import App from 'fusion-react';
-import RouterV3Compat from 'fusion-plugin-react-router-v3-compat';
+import RouterV3Compat from '@uber/fusion-plugin-react-router-v3-compat';
 import {SomeToken, SomePlugin} from 'some-plugin';
 
 console.log(App);

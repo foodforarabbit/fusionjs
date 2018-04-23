@@ -23,6 +23,8 @@ const defaultCompatModules = [
   '@uber/fusion-plugin-universal-logger-compat',
   '@uber/fusion-plugin-universal-m3-compat',
   '@uber/fusion-plugin-web-rpc-compat',
+  '@uber/fusion-plugin-proxy-compat',
+  '@uber/fusion-plugin-react-router-v3-compat',
   'fusion-plugin-http-handler',
 ];
 
