@@ -674,9 +674,9 @@
   version "0.0.28"
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
 
-"@uber/fusion-plugin-logtron@^1.0.0":
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-logtron/-/private/%40uber%2Ffusion-plugin-logtron-1.0.0.tgz#56167cca4757c308bc159f916fb6bb70b5c8eef8"
+"@uber/fusion-plugin-logtron@^1.2.0":
+  version "1.2.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-logtron/-/private/%40uber%2Ffusion-plugin-logtron-1.2.0.tgz#13c52b422d9fc88caa5af24b4c9c255a2816735d"
   dependencies:
     "@uber/logtron" "^9.0.5"
     error-stack-parser "^2.0.1"
