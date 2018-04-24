@@ -1,14 +1,51 @@
-const fs = require('fs');
 const {promisify} = require('util');
+const fs = require('fs');
+
+var execSync = require('child_process').execSync;
 
 const writeFile = promisify(fs.writeFile);
 const path = require('path');
 
-module.exports = function updateEngines({destDir, srcDir}) {
+module.exports = function updateEngines({destDir}) {
   const destPackagePath = path.join(destDir, 'package.json');
-  const srcPackagePath = path.join(srcDir, 'package.json');
   const destPackage = JSON.parse(fs.readFileSync(destPackagePath).toString());
-  const srcPackage = JSON.parse(fs.readFileSync(srcPackagePath).toString());
-  destPackage.engines = srcPackage.engines;
+  destPackage.engines = {
+    node: fetchRequiredNodeVersion(),
+    npm: '5.8.0',
+    yarn: fetchRequiredYarnVersion(),
+  };
   return writeFile(destPackagePath, JSON.stringify(destPackage, null, 2));
 };
+
+function fetchRequiredNodeVersion() {
+  // Borrowed from: https://github.com/tj/n/blob/master/bin/n#L715
+  var latestLTSName = execSync(
+    'curl https://nodejs.org/dist/ ' +
+      '| egrep "</a>" ' +
+      "| egrep -o 'latest-[a-z]{2,}' " +
+      '| sort ' +
+      '| tail -n1'
+  )
+    .toString()
+    .trim();
+
+  var ltsVersion = execSync(
+    'curl https://nodejs.org/dist/' +
+      latestLTSName +
+      '/ ' +
+      '| egrep "</a>" ' +
+      "| egrep -o '[0-9]+\\.[0-9]+\\.[0-9]+' " +
+      '| head -n1'
+  )
+    .toString()
+    .trim();
+
+  return ltsVersion;
+}
+
+function fetchRequiredYarnVersion() {
+  var latestYarnVersion = JSON.parse(execSync('npm info yarn --json'))[
+    'dist-tags'
+  ].latest;
+  return latestYarnVersion;
+}

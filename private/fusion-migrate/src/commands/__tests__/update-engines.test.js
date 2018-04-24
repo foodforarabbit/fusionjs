@@ -10,22 +10,17 @@ const fixtureDir = path.join(
   __dirname,
   '../../__fixtures__/update-engines-fixture/'
 );
-const srcFixtureDir = path.join(
-  __dirname,
-  '../../__fixtures__/src-package-fixture/'
-);
 
 test('updateEngines', async () => {
   const dir = tmp.dirSync().name;
   await ncp(fixtureDir, dir);
   await updateEngines({
     destDir: dir,
-    srcDir: srcFixtureDir,
   });
   const finalPackage = JSON.parse(
     fs.readFileSync(path.join(dir, 'package.json'))
   );
-  assert.equal(finalPackage.engines.node, '8.0.0');
-  assert.equal(finalPackage.engines.npm, '5.0.0');
-  assert.equal(finalPackage.engines.yarn, '1.0.0');
+  assert.equal(typeof finalPackage.engines.node, 'string');
+  assert.equal(typeof finalPackage.engines.npm, 'string');
+  assert.equal(typeof finalPackage.engines.yarn, 'string');
 });
