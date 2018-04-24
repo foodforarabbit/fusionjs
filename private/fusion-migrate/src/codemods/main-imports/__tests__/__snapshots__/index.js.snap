@@ -35,13 +35,13 @@ import App from 'fusion-react';
 import Root from './shared/components/routes.js';
 import RPCHandlers from './server/rpc.js';
 import ReduxOptions from './shared/store.js';
-
 __DEV__ &&
   app.enhance(ReduxToken, redux => {
     return createPlugin({
       provides() {
         return redux;
       },
+
       middleware: () => {
         return (ctx, next) => {
           /* global module */
@@ -49,9 +49,11 @@ __DEV__ &&
             module.hot.accept('./shared/store.js', () => {
               // eslint-disable-next-line cup/no-undef
               const nextReducer = require('./shared/store.js').default.reducer;
+
               redux.from(ctx).store.replaceReducer(nextReducer);
             });
           }
+
           return next();
         };
       },

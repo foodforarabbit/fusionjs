@@ -33,7 +33,8 @@ export default function createAppStore(initialState) {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import rootReducer from './reducers/index';
-
-export default {reducer: rootReducer};
+export default {
+  reducer: rootReducer,
+};
 "
 `;

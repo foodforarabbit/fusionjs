@@ -8,7 +8,9 @@ exports[`sentry-config positive-match: positive-match 1`] = `
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
+export default {
+  id: 'http://test:test@sentry.local.uber.internal/1234',
+};
 "
 `;
 
@@ -20,7 +22,9 @@ exports[`sentry-config positive-match: positive-match 2`] = `
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
+export default {
+  id: 'http://test:test@sentry.local.uber.internal/1234',
+};
 "
 `;
 
@@ -32,7 +36,9 @@ exports[`sentry-config positive-match: positive-match 3`] = `
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
+export default {
+  id: 'http://test:test@sentry.local.uber.internal/1234',
+};
 "
 `;
 
@@ -44,7 +50,9 @@ exports[`sentry-config positive-match: positive-match 4`] = `
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
+export default {
+  id: 'http://test:test@sentry.local.uber.internal/1234',
+};
 "
 `;
 
@@ -56,6 +64,8 @@ exports[`sentry-config positive-match: positive-match 5`] = `
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-export default {id: 'http://test:test@sentry.local.uber.internal/1234'};
+export default {
+  id: 'http://test:test@sentry.local.uber.internal/1234',
+};
 "
 `;

@@ -1,8 +1,7 @@
 {
   "name": "@uber/fusion-migrate",
   "version": "0.1.0",
-  "description":
-    "Migration scripts for migrating from @uber/bedrock to Fusion.js",
+  "description": "Migration scripts for migrating from @uber/bedrock to Fusion.js",
   "bin": {
     "ufusion": "bin/fusion-migrate.js"
   },
@@ -14,20 +13,20 @@
     "lint": "eslint src/"
   },
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/generator": "^7.0.0-beta.46",
+    "@babel/types": "^7.0.0-beta.46",
     "@uber/uber-web-remote-template": "^1.7.0",
     "args": "^3.0.8",
-    "babel-core": "^6.26.0",
-    "babel-generator": "^6.26.1",
-    "babel-types": "^6.26.0",
-    "babylon": "^6.18.0",
+    "babylon": "^7.0.0-beta.46",
     "chalk": "^2.3.2",
     "execa": "^0.10.0",
     "inquirer": "^5.2.0",
     "just-safe-get": "^1.2.1",
     "ncp": "^2.0.0",
+    "prettier": "1.12.0",
     "semver": "^5.5.0",
-    "tmp": "^0.0.33",
-    "prettier": "1.12.0"
+    "tmp": "^0.0.33"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
@@ -50,9 +49,17 @@
     "yarn": ">=1.0.0"
   },
   "jest": {
-    "coverageReporters": ["text", "cobertura"],
-    "collectCoverageFrom": ["src/**/*.js"],
-    "coveragePathIgnorePatterns": ["/node_modules/", "/__fixtures__/"]
+    "coverageReporters": [
+      "text",
+      "cobertura"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/__fixtures__/"
+    ]
   },
   "repository": "https://code.uberinternal.com/diffusion/WEFUSGK/"
 }

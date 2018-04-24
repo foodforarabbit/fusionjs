@@ -1,7 +1,7 @@
 const {promisify} = require('util');
 const fs = require('fs');
 const path = require('path');
-const babel = require('babel-core');
+const babel = require('@babel/core');
 const getJSFiles = require('./get-js-files.js');
 const parserOpts = require('../parser-opts.js');
 

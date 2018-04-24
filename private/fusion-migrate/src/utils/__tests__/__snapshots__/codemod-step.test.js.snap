@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`codemod-step 1`] = `"import replaced from 'replaced';"`;
+exports[`codemod-step 1`] = `"import replaced from \\"replaced\\";"`;
 
-exports[`codemod-step 2`] = `"import replaced from 'replaced';"`;
+exports[`codemod-step 2`] = `"import replaced from \\"replaced\\";"`;
 
-exports[`codemod-step-filter 1`] = `"import replaced from 'replaced';"`;
+exports[`codemod-step-filter 1`] = `"import replaced from \\"replaced\\";"`;

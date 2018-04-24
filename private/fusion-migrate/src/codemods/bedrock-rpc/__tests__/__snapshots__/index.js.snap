@@ -39,13 +39,11 @@ import {rpcIds} from '../shared/rpc-constants';
 import atreyuGraphs from './atreyu/graphs';
 import atreyuSeeds from './atreyu/seeds';
 import atreyuTransforms from './atreyu/transforms';
-
 export default function rpc(server) {
   const webRpcAtreyu = new WebRpcAtreyu(
     server.clients.atreyu,
     server.config.webRpcAtreyu
   );
-
   const methods = {
     [rpcIds.getUser]: webRpcAtreyu({
       graphDef: atreyuGraphs.user,
@@ -53,9 +51,9 @@ export default function rpc(server) {
       transform: atreyuTransforms.user,
     }),
   };
-
   Object.keys(methods).forEach(method => {
     const oldMethod = methods[method];
+
     methods[method] = (args, ctx) => {
       const req = ctx.req;
       req.body = args;

@@ -19,7 +19,6 @@ import {createToken, createPlugin} from 'fusion-core';
 import RPCCompatEnhancer from '@uber/fusion-plugin-web-rpc-compat';
 import App from 'fusion-react';
 import {SomeToken, SomePlugin} from 'some-plugin';
-
 console.log(App);
 
 function thing() {
@@ -28,7 +27,9 @@ function thing() {
   app.register(RPCCompatEnhancerToken, RPCCompatEnhancer);
   app.enhance(EnhancerToken, prevEnhancer => {
     return createPlugin({
-      deps: {rpcCompat: RPCCompatEnhancerToken},
+      deps: {
+        rpcCompat: RPCCompatEnhancerToken,
+      },
       provides: ({rpcCompat}) => {
         return compose(prevEnhancer, rpcCompat);
       },

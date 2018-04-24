@@ -18,7 +18,6 @@ function thing() {
 import App from 'fusion-react';
 import UniversalLoggerCompatPlugin from '@uber/fusion-plugin-universal-logger-compat';
 import {SomeToken, SomePlugin} from 'some-plugin';
-
 console.log(App);
 
 function thing() {

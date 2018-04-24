@@ -1,4 +1,4 @@
-const generate = require('babel-generator').default;
+const generate = require('@babel/generator').default;
 const path = require('path');
 const loadConfig = require('../load-config.js');
 const getConfigDeclaration = require('../get-config-declaration.js');

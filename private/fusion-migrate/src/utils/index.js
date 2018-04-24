@@ -1,5 +1,5 @@
 const babylon = require('babylon');
-const t = require('babel-types');
+const t = require('@babel/types');
 const parserOpts = require('../parser-opts.js');
 
 let cache = {};

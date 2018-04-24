@@ -31,7 +31,6 @@ import AppContainer from '../containers/app-container';
 import TagsEditorContainer from '../containers/tags-editor-container';
 import CounterContainer from '../containers/counter-container';
 import ExampleErrorContainer from '../containers/example-error-container';
-
 const test = 'hello';
 export default (
   <Route component={AppContainer}>

@@ -28,19 +28,21 @@ import createServer from './server/index.js';
 import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';
 import {SomeToken, SomePlugin} from 'some-plugin';
 import {OtherToken, OtherPlugin} from 'other-plugin';
-
 console.log(App);
 
 function thing() {
   const app = new App();
+
   if (__BROWSER__) {
     app.register(OtherToken, OtherPlugin);
   }
+
   if (__NODE__) {
     app.register(SomeToken, SomePlugin);
     app.register(HttpHandlerToken, createServer());
     app.register(HttpHandlerPlugin);
   }
+
   return app;
 }
 "

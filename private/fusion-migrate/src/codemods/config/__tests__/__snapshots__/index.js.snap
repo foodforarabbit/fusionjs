@@ -14,11 +14,21 @@ export default {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 /* Fetch the IDL files when you add new services t.uber.com/idl */
-
 export default Object.assign(
-  {enabled: true, appName: 'test'},
-  __DEV__ ? {development: true} : {},
-  process.env.UBER_ENVIRONMENT === 'production' ? {production: true} : {}
+  {
+    enabled: true,
+    appName: 'test',
+  },
+  __DEV__
+    ? {
+        development: true,
+      }
+    : {},
+  process.env.UBER_ENVIRONMENT === 'production'
+    ? {
+        production: true,
+      }
+    : {}
 );
 "
 `;

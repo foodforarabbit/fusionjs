@@ -40,16 +40,14 @@ export default function setRoutes(server) {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import Logger from '@uber/fusion-plugin-universal-logger-compat'; /* globals setTimeout */
-
+/* globals setTimeout */
+import Logger from '@uber/fusion-plugin-universal-logger-compat';
 export default function setRoutes(server) {
   server.get('health', '/health', (req, res) => res.end('OK'));
-
   server.get('trigger-error', '/trigger-error', (req, res) => {
     server.clients.logger.error('Testing an error');
     res.end();
   });
-
   server.get('SPA', '/*', (req, res) => res.fusionRender());
 }
 "

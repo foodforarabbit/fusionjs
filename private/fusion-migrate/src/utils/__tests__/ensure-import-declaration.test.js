@@ -1,5 +1,5 @@
 const babylon = require('babylon');
-const generate = require('babel-generator').default;
+const generate = require('@babel/generator').default;
 const ensureImportDeclaration = require('../ensure-import-declaration.js');
 
 test('ensureImportDeclaration, specifier, no existing', async () => {

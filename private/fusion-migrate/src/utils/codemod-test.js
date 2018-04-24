@@ -2,7 +2,7 @@
 const {promisify} = require('util');
 const fs = require('fs');
 const path = require('path');
-const babel = require('babel-core');
+const babel = require('@babel/core');
 const prettier = require('prettier');
 
 const readFile = promisify(fs.readFile);
@@ -32,7 +32,7 @@ function pluginTester({plugin, tests, babelOptions}) {
       it(fixtureName, async () => {
         const fileContents = (await readFile(t.fixture)).toString();
         const {code} = babel.transform(fileContents, {
-          plugins: plugin,
+          plugins: [plugin],
           filename: t.fixture,
           ...babelOptions,
         });

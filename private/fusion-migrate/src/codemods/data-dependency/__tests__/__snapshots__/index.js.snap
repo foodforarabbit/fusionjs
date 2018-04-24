@@ -239,7 +239,6 @@ const _AppContainerWithData = compose(
 )(AppContainer);
 
 const thing = 'test';
-
 export default function() {
   const routes = (
     <Route

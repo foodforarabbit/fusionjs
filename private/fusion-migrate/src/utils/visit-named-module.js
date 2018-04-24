@@ -27,7 +27,8 @@ function createNamedModuleVisitor({t, moduleName, packageName, refsHandler}) {
       path.get('specifiers').forEach(specifier => {
         const localPath = specifier.get('local');
         const localName = localPath.node.name;
-        const refPaths = localPath.scope.bindings[localName].referencePaths;
+        const binding = path.scope.bindings[localName];
+        const refPaths = binding ? binding.referencePaths : [];
         if (t.isImportSpecifier(specifier) && moduleName) {
           // import {moduleName} from 'packageName';
           const specifierName = specifier.get('imported').node.name;
