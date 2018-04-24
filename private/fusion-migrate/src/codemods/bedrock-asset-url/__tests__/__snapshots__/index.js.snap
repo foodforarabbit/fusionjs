@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bedrock-asset-url positive-match: positive-match 1`] = `
-"import assetUrl from '@uber/bedrock/assetUrl';
+"import assetUrl from '@uber/bedrock/asset-url';
 
 export default () => {
   return assetUrl('/static/test.png');

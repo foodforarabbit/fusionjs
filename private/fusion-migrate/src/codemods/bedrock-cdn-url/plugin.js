@@ -6,7 +6,7 @@ module.exports = babel => {
   const t = babel.types;
   const namedModuleVisitor = visitNamedModule({
     t,
-    packageName: '@uber/bedrock/cdnUrl',
+    packageName: '@uber/bedrock/cdn-url',
     refsHandler: (t, state, refPaths, importPath) => {
       const configDir = findConfigDir(state.file.opts.filename);
       let cdnUrl = loadCdnUrl(configDir);

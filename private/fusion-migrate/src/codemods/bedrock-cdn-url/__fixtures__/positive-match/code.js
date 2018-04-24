@@ -1,4 +1,4 @@
-import cdnUrl from '@uber/bedrock/cdnUrl';
+import cdnUrl from '@uber/bedrock/cdn-url';
 
 export default () => {
   const thing = cdnUrl('static/test.png');

@@ -6,14 +6,14 @@ const fs = require('fs');
 module.exports = babel => {
   const renameVisitor = replaceImportDeclaration(
     babel.types,
-    '@uber/bedrock/assetUrl',
+    '@uber/bedrock/asset-url',
     'fusion-core',
     'assetUrl'
   );
 
   const namedModuleVisitor = visitNamedModule({
     t: babel.types,
-    packageName: '@uber/bedrock/assetUrl',
+    packageName: '@uber/bedrock/asset-url',
     refsHandler: (t, state, refPaths) => {
       refPaths.forEach(refPath => {
         if (refPath.parent.arguments[0].type !== 'StringLiteral') {

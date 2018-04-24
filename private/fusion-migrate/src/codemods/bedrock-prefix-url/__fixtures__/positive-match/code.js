@@ -1,4 +1,4 @@
-import prefixUrl from '@uber/bedrock/prefixUrl';
+import prefixUrl from '@uber/bedrock/prefix-url';
 
 export default () => {
   const thing = prefixUrl('static/test.png');
