@@ -38,7 +38,7 @@ function thing() {
   }
   if (__NODE__) {
     app.register(SomeToken, SomePlugin);
-    app.register(createServer(), HttpHandlerToken);
+    app.register(HttpHandlerToken, createServer());
     app.register(HttpHandlerPlugin);
   }
   return app;
