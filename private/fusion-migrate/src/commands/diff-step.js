@@ -9,7 +9,9 @@ async function diffStep({name, destDir, pause}) {
     await execa.shell('git diff-index --quiet HEAD', {cwd: destDir});
   } catch (e) {
     pause && (await promptStep(name, destDir));
-    await execa.shell(`git commit -m 'Step "${name}"'`, {cwd: destDir});
+    await execa.shell(`git commit --no-verify -m 'Step "${name}"'`, {
+      cwd: destDir,
+    });
     return true;
   }
   return false;

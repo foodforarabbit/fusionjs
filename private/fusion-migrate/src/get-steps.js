@@ -67,6 +67,14 @@ module.exports = function getSteps(options) {
     }, []);
 };
 
+// TODO: Find a more robust way of doing this
+const filterMatchRoutes = filterMatchFile(
+  'src/shared/root/routes.js',
+  'src/shared/components/routes.js'
+);
+
+const filterMatchMain = filterMatchFile('src/main.js');
+
 function get14Steps(options) {
   const {config} = options;
   const hasProxies =
@@ -91,7 +99,7 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modCompatUniversalLogger,
-        filter: filterMatchFile('src/main.js'),
+        filter: filterMatchMain,
       })
     ),
     getStep(
@@ -101,7 +109,7 @@ function get14Steps(options) {
         codemodStep({
           ...options,
           plugin: modCompatHttpHandler,
-          filter: filterMatchFile('src/main.js'),
+          filter: filterMatchMain,
         })
     ),
     getStep('mod-universal-m3', () =>
@@ -111,7 +119,7 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modCompatUniversalM3,
-        filter: filterMatchFile('src/main.js'),
+        filter: filterMatchMain,
       })
     ),
     getStep('mod-sentry-config', () =>
@@ -128,7 +136,7 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modDataDependency,
-        filter: filterMatchFile('src/shared/components/routes.js'),
+        filter: filterMatchRoutes,
       })
     ),
     getStep('mod-react-head', () =>
@@ -138,28 +146,28 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modHoistRoutes,
-        filter: filterMatchFile('src/shared/components/routes.js'),
+        filter: filterMatchRoutes,
       })
     ),
     getStep('mod-compat-router', () =>
       codemodStep({
         ...options,
         plugin: modCompatRouter,
-        filter: filterMatchFile('src/main.js'),
+        filter: filterMatchMain,
       })
     ),
     getStep('mod-compat-rpc', () =>
       codemodStep({
         ...options,
         plugin: modCompatRPC,
-        filter: filterMatchFile('src/main.js'),
+        filter: filterMatchMain,
       })
     ),
     getStep('mod-main-imports', () =>
       codemodStep({
         ...options,
         plugin: modMainImports,
-        filter: filterMatchFile('src/main.js'),
+        filter: filterMatchMain,
       })
     ),
     getStep('mod-redux', () =>
@@ -181,7 +189,7 @@ function get14Steps(options) {
         codemodStep({
           ...options,
           plugin: modProxies,
-          filter: filterMatchFile('src/main.js'),
+          filter: filterMatchMain,
         })
       ),
   ].filter(Boolean);
@@ -219,8 +227,8 @@ function getConfigCodemodStep(options, keyPath, file) {
   };
 }
 
-function filterMatchFile(expected) {
+function filterMatchFile(...files) {
   return function _filterMatchFile(f) {
-    return f === expected;
+    return files.includes(f);
   };
 }
