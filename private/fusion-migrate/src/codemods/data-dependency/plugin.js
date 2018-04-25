@@ -1,7 +1,6 @@
-const babylon = require('babylon');
+const addComment = require('../../utils/add-comment.js');
 const ensureImportDeclaration = require('../../utils/ensure-import-declaration.js');
 const getProgram = require('../../utils/get-program.js');
-const log = require('../../log.js');
 
 module.exports = babel => {
   const t = babel.types;
@@ -15,9 +14,9 @@ module.exports = babel => {
           return obj;
         }, {});
         if (component && dataDependency) {
+          let dependencyExpression = dataDependency.value;
           if (dataDependency.value.type !== 'StringLiteral') {
-            log('WARNING: Unable to codemod a data dependency');
-            return;
+            dependencyExpression = dataDependency.value.expression;
           }
           const componentOldIdentifier = component.value.expression;
           const newIdentifier = path.scope.generateUidIdentifier(
@@ -31,24 +30,10 @@ module.exports = babel => {
               t.CallExpression(
                 t.CallExpression(t.identifier('compose'), [
                   t.CallExpression(t.identifier('withRPCRedux'), [
-                    dataDependency.value,
+                    dependencyExpression,
                   ]),
-                  t.CallExpression(t.identifier('connect'), [
-                    babylon.parseExpression(`(state) => {
-                        // TODO: get things from state you need here
-                        return {};
-                      }`),
-                  ]),
-                  t.CallExpression(t.identifier('prepare'), [
-                    babylon.parseExpression(`({${
-                      dataDependency.value.value
-                    }}) => {
-                        // TODO: this should check some props from connect to see you need to execute the data fetch.
-                        // Once that check is added, you can remove the __NODE__ conditional
-                        // See t.uber.com/web-fetching-data
-                        return __NODE__ && ${dataDependency.value.value}();
-                      }`),
-                  ]),
+                  getConnectFunction(t),
+                  getPrepareFunction(t, dataDependency),
                 ]),
                 [componentOldIdentifier]
               )
@@ -71,6 +56,46 @@ module.exports = babel => {
     },
   };
 };
+
+function getConnectFunction(t) {
+  const returnStatement = t.returnStatement(t.objectExpression([]));
+  addComment(returnStatement, 'TODO: get things from state you need here');
+  return t.CallExpression(t.identifier('connect'), [
+    t.arrowFunctionExpression(
+      [t.identifier('state')],
+      t.blockStatement([returnStatement])
+    ),
+  ]);
+}
+
+function getPrepareFunction(t, dataDependency) {
+  // TODO: figure out how to add comments
+  const returnStatement = t.returnStatement(
+    t.callExpression(
+      t.memberExpression(
+        t.identifier('props'),
+        dataDependency.value.expression ||
+          t.identifier(dataDependency.value.value),
+        dataDependency.value.type !== 'StringLiteral'
+      ),
+      []
+    )
+  );
+  addComment(
+    returnStatement,
+    'TODO: You probably want to add a check to see if the data exists, or is loading.'
+  );
+  addComment(
+    returnStatement,
+    'See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component'
+  );
+  return t.CallExpression(t.identifier('prepare'), [
+    t.arrowFunctionExpression(
+      [t.identifier('props')],
+      t.blockStatement([returnStatement])
+    ),
+  ]);
+}
 
 function insertAfterLastImport(body, node) {
   for (let i = body.length - 1; i >= 0; i--) {
