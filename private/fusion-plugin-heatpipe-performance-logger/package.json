@@ -9,26 +9,23 @@
     "url":
       "gitolite@code.uber.internal:web/fusion-plugin-heatpipe-performance-logger.git"
   },
-  "main": "./dist/node.cjs.js",
-  "module": "./dist/node.es.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.es.js",
   "browser": {
-    "./dist/node.cjs.js": "./dist/browser.es5.cjs.js",
-    "./dist/node.es.js": "./dist/browser.es5.es.js"
+    "./dist/index.js": "./dist/browser.es5.js",
+    "./dist/index.es.js": "./dist/browser.es5.es.js"
   },
   "es2015": {
-    "./dist/browser.es5.cjs.js": "./dist/browser.es2015.cjs.js",
     "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
   },
   "es2017": {
-    "./dist/browser.es5.cjs.js": "./dist/browser.es2017.cjs.js",
     "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.cjs.js": "./dist/browser.es2017.cjs.js",
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
     "babel-plugin-istanbul": "^4.1.5",
-    "create-universal-package": "^2.1.1",
+    "create-universal-package": "^3.4.1",
     "eslint": "^4.11.0",
     "eslint-config-fusion": "^0.1.2",
     "eslint-plugin-cup": "^1.0.0",
