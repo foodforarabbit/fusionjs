@@ -9,7 +9,7 @@ module.exports = babel => {
       IfStatement(path) {
         if (path.node.test.name === '__NODE__') {
           path.node.consequent.body.push(
-            astOf(`app.register(HttpHandlerToken, createServer());`)
+            astOf(`app.register(HttpHandlerToken, createServer().app);`)
           );
           path.node.consequent.body.push(
             astOf(`app.register(HttpHandlerPlugin);`)

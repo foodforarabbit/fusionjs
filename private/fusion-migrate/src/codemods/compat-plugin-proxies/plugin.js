@@ -18,6 +18,7 @@ module.exports = babel => {
           path.node.consequent.body.push(
             astOf(`app.register(ProxyConfigToken, proxyConfig)`)
           );
+          path.node.consequent.body.push(astOf(`app.register(ProxyPlugin)`));
         }
       },
     });

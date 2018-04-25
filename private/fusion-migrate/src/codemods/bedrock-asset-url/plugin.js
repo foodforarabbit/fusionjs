@@ -42,7 +42,8 @@ module.exports = babel => {
 function getLocalPathToAsset(staticPath, fileName) {
   const staticDir = findAssetDir(fileName, staticPath);
   if (!staticDir) {
-    throw new Error('Could not find static dir');
+    // fallback to static path
+    return staticPath;
   }
   return path.relative(
     path.dirname(fileName),

@@ -208,7 +208,8 @@ function getStep(id, ...steps) {
 }
 
 function addFileStep(options, file) {
-  return () => fs.writeFileSync(path.join(options.destDir, file), '');
+  return () =>
+    fs.writeFileSync(path.join(options.destDir, file), 'export default {}');
 }
 
 function getConfigCodemodStep(options, keyPath, file) {
