@@ -6,11 +6,24 @@ const prompt = require('promptly');
 async function run() {
   const isRunning = await isCerberusRunning();
   if (!isRunning) {
+    await ussh();
     if (!await promptForCerberus()) {
       return;
     }
   }
   return proxy();
+}
+
+function ussh() {
+  return new Promise((resolve, reject) => {
+    const child = cp.spawn('ussh', {
+      stdio: 'inherit',
+    });
+    child.on('exit', (code) => {
+      if (code === 0) return resolve();
+      return reject(new Error('failed to get ussh cert'));
+    });
+  });
 }
 
 async function promptForCerberus() {
