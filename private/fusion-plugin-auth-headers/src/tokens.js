@@ -13,7 +13,7 @@ export const AuthHeadersUUIDConfigToken: Token<string> = createToken(
   'AuthHeadersUUIDConfigToken'
 );
 export const AuthHeadersEmailConfigToken: Token<string> = createToken(
-  'AuthHeadersUUIDConfigToken'
+  'AuthHeadersEmailConfigToken'
 );
 export const AuthHeadersTokenConfigToken: Token<string> = createToken(
   'AuthHeadersTokenConfigToken'
