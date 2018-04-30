@@ -6,6 +6,7 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import {GalileoToken} from '@uber/fusion-plugin-galileo';
 
 export const InitializeServerToken = createToken('InitializeServer');
+export const BedrockCompatToken = createToken('BedrockCompat');
 
 export default __NODE__ &&
   createPlugin({
