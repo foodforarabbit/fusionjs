@@ -20,6 +20,7 @@ const defaultModulesToRemove = [
 
 const defaultCompatModules = [
   '@uber/bedrock-14-compat',
+  '@uber/fusion-plugin-bedrock-compat',
   '@uber/fusion-plugin-universal-logger-compat',
   '@uber/fusion-plugin-universal-m3-compat',
   '@uber/fusion-plugin-web-rpc-compat',
@@ -57,6 +58,10 @@ module.exports = async function updateDeps({
       });
     })
   );
+
+  // Don't upgrade react during migration
+  delete srcPackage.react;
+  delete srcPackage['react-dom'];
 
   Object.assign(destPackage.dependencies, srcPackage.dependencies);
   Object.assign(destPackage.devDependencies, srcPackage.devDependencies);

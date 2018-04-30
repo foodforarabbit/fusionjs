@@ -24,6 +24,11 @@ module.exports = function getConfigDeclaration(config, keyPath) {
       }
     })
     .filter(Boolean);
-  const code = args.length === 1 ? args[0] : `Object.assign(${args.join(',')})`;
+  let code = `{}`;
+  if (args.length === 1) {
+    code = args[0];
+  } else if (args.length > 1) {
+    code = `Object.assign(${args.join(',')})`;
+  }
   return babylon.parseExpression(code);
 };
