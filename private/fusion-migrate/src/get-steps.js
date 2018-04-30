@@ -31,10 +31,12 @@ const updateDeps = require('./commands/update-deps.js');
 const updateEngines = require('./commands/update-engines.js');
 const updateFiles = require('./commands/update-files.js');
 const updateScripts = require('./commands/update-scripts.js');
+const updateGitignore = require('./commands/update-gitignore.js');
 
 module.exports = function getSteps(options) {
   options.config = loadConfig(options.destDir);
   const sharedSteps = [
+    getStep('update-gitignore', () => updateGitignore(options)),
     getStep('update-files', () => updateFiles(options)),
     getStep('update-engines', () => updateEngines(options)),
     getStep('update-scripts', () => updateScripts(options)),
@@ -104,7 +106,7 @@ function get14Steps(options) {
     ),
     getStep(
       'mod-bedrock-compat',
-      () => codemodStep({...options, plugin: modBedrockCompat(14)}),
+      () => codemodStep({...options, plugin: modBedrockCompat}),
       () =>
         codemodStep({
           ...options,
