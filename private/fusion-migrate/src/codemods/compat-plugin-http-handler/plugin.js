@@ -9,7 +9,16 @@ module.exports = babel => {
       IfStatement(path) {
         if (path.node.test.name === '__NODE__') {
           path.node.consequent.body.push(
-            astOf(`app.register(HttpHandlerToken, createServer().app);`)
+            astOf(`app.register(BedrockCompatToken, BedrockCompatPlugin);`)
+          );
+          path.node.consequent.body.push(
+            astOf(`app.register(InitializeServerToken, createServer);`)
+          );
+          path.node.consequent.body.push(
+            astOf(`app.register(HttpHandlerToken, createPlugin({
+              deps: {server: BedrockCompatToken},
+              provides: ({server}) => server.app,
+            }))`)
           );
           path.node.consequent.body.push(
             astOf(`app.register(HttpHandlerPlugin);`)
@@ -26,6 +35,10 @@ module.exports = babel => {
         addStatementAfter(
           path,
           `import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';`
+        );
+        addStatementAfter(
+          path,
+          `import BedrockCompatPlugin, {InitializeServerToken, BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';`
         );
         addStatementAfter(
           path,

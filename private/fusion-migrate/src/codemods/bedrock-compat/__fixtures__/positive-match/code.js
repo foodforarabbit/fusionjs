@@ -1,6 +1,11 @@
-import m3 from '@uber/bedrock/universal-m3';
-import createServer from '@uber/bedrock';
-function thing() {
-  m3.increment('test');
-  createServer();
+import bedrock from '@uber/bedrock';
+import middleware from './middleware';
+import routes from './routes'; // -----------------
+
+export default function startServer(options = {}, cb) {
+  const server = bedrock.createServer(options);
+  middleware(server);
+  routes(server);
+  server.listen(cb);
+  return server;
 }
