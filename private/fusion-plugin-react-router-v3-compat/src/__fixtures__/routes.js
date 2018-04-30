@@ -1,5 +1,5 @@
 import React from 'react';
-import {IndexRoute, Redirect, Route} from '../index';
+import {IndexRouteV3, RedirectV3, RouteV3} from '../index';
 
 const App = props => <div>{props.children}</div>;
 const Main = () => <div>Main</div>;
@@ -8,15 +8,15 @@ const Stuff = () => <div>Stuff</div>;
 
 export default {
   normal: (
-    <Route path="/" component={App}>
-      <IndexRoute component={Main} />
-      <Route path="fancy" component={Fancy} />
-      <Route path="stuff" component={Stuff} />
-    </Route>
+    <RouteV3 path="/" component={App}>
+      <IndexRouteV3 component={Main} />
+      <RouteV3 path="fancy" component={Fancy} />
+      <RouteV3 path="stuff" component={Stuff} />
+    </RouteV3>
   ),
   redirect: (
-    <Route path="/" component={App}>
-      <Redirect from="nowhere" to="somewhere" />
-    </Route>
+    <RouteV3 path="/" component={App}>
+      <RedirectV3 from="nowhere" to="somewhere" />
+    </RouteV3>
   ),
 };

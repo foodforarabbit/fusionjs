@@ -3,7 +3,9 @@
 exports[`Normal route config 1`] = `
 <div>
   <div>
-    Main
+    <div>
+      Main
+    </div>
   </div>
 </div>
 `;
@@ -11,7 +13,9 @@ exports[`Normal route config 1`] = `
 exports[`Normal route config 2`] = `
 <div>
   <div>
-    Fancy
+    <div>
+      Fancy
+    </div>
   </div>
 </div>
 `;
@@ -19,7 +23,9 @@ exports[`Normal route config 2`] = `
 exports[`Normal route config 3`] = `
 <div>
   <div>
-    Stuff
+    <div>
+      Stuff
+    </div>
   </div>
 </div>
 `;
