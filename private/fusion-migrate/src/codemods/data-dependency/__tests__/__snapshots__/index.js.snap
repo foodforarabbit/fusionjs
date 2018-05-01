@@ -28,35 +28,51 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {prepare} from 'fusion-react-async';
+import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
-import {withRPCRedux} from 'fusion-plugin-rpc-redux-react';
+import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
 import TripsContainer from '../containers/trips-container';
 
+const getTrips = () => {
+  return createRPCPromise('getTrips');
+};
+
 const _TripsContainerWithData = compose(
-  withRPCRedux('getTrips'),
-  connect(state => {
-    // TODO: get things from state you need here
-    return {};
-  }),
-  prepare(props => {
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getTrips,
+    }
+  ),
+  prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
     return props.getTrips();
   })
 )(TripsContainer);
 
+const getUser = () => {
+  return createRPCPromise('getUser');
+};
+
 const _AppContainerWithData = compose(
-  withRPCRedux('getUser'),
-  connect(state => {
-    // TODO: get things from state you need here
-    return {};
-  }),
-  prepare(props => {
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getUser,
+    }
+  ),
+  prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
     return props.getUser();
@@ -120,35 +136,51 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {prepare} from 'fusion-react-async';
+import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
-import {withRPCRedux} from 'fusion-plugin-rpc-redux-react';
+import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
 import TripsContainer from '../containers/trips-container';
 
+const getTrips = () => {
+  return createRPCPromise(rpcIds.getTrips);
+};
+
 const _TripsContainerWithData = compose(
-  withRPCRedux(rpcIds.getTrips),
-  connect(state => {
-    // TODO: get things from state you need here
-    return {};
-  }),
-  prepare(props => {
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getTrips,
+    }
+  ),
+  prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
     return props[rpcIds.getTrips]();
   })
 )(TripsContainer);
 
+const getUser = () => {
+  return createRPCPromise(rpcIds.getUser);
+};
+
 const _AppContainerWithData = compose(
-  withRPCRedux(rpcIds.getUser),
-  connect(state => {
-    // TODO: get things from state you need here
-    return {};
-  }),
-  prepare(props => {
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getUser,
+    }
+  ),
+  prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
     return props[rpcIds.getUser]();
@@ -211,35 +243,51 @@ const routes = (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {prepare} from 'fusion-react-async';
+import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
-import {withRPCRedux} from 'fusion-plugin-rpc-redux-react';
+import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
 import TripsContainer from '../containers/trips-container';
 
+const getTrips = () => {
+  return createRPCPromise('getTrips');
+};
+
 const _TripsContainerWithData = compose(
-  withRPCRedux('getTrips'),
-  connect(state => {
-    // TODO: get things from state you need here
-    return {};
-  }),
-  prepare(props => {
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getTrips,
+    }
+  ),
+  prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
     return props.getTrips();
   })
 )(TripsContainer);
 
+const getUser = () => {
+  return createRPCPromise('getUser');
+};
+
 const _AppContainerWithData = compose(
-  withRPCRedux('getUser'),
-  connect(state => {
-    // TODO: get things from state you need here
-    return {};
-  }),
-  prepare(props => {
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getUser,
+    }
+  ),
+  prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
     return props.getUser();
@@ -299,35 +347,51 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {prepare} from 'fusion-react-async';
+import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
-import {withRPCRedux} from 'fusion-plugin-rpc-redux-react';
+import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
 import TripsContainer from '../containers/trips-container';
 
+const getTrips = () => {
+  return createRPCPromise('getTrips');
+};
+
 const _TripsContainerWithData = compose(
-  withRPCRedux('getTrips'),
-  connect(state => {
-    // TODO: get things from state you need here
-    return {};
-  }),
-  prepare(props => {
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getTrips,
+    }
+  ),
+  prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
     return props.getTrips();
   })
 )(TripsContainer);
 
+const getUser = () => {
+  return createRPCPromise('getUser');
+};
+
 const _AppContainerWithData = compose(
-  withRPCRedux('getUser'),
-  connect(state => {
-    // TODO: get things from state you need here
-    return {};
-  }),
-  prepare(props => {
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getUser,
+    }
+  ),
+  prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
     return props.getUser();

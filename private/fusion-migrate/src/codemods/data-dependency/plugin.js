@@ -1,3 +1,4 @@
+const babylon = require('babylon');
 const addComment = require('../../utils/add-comment.js');
 const ensureImportDeclaration = require('../../utils/ensure-import-declaration.js');
 const getProgram = require('../../utils/get-program.js');
@@ -15,8 +16,20 @@ module.exports = babel => {
         }, {});
         if (component && dataDependency) {
           let dependencyExpression = dataDependency.value;
+          let dependencyName;
           if (dataDependency.value.type !== 'StringLiteral') {
             dependencyExpression = dataDependency.value.expression;
+            if (dependencyExpression.type === 'MemberExpression') {
+              dependencyName = dependencyExpression.property.name;
+            } else {
+              throw new Error(
+                `Unsupported dependencyExpression type: ${
+                  dependencyExpression.type
+                }`
+              );
+            }
+          } else {
+            dependencyName = dataDependency.value.value;
           }
           const componentOldIdentifier = component.value.expression;
           const newIdentifier = path.scope.generateUidIdentifier(
@@ -24,15 +37,27 @@ module.exports = babel => {
           );
           component.value.expression = newIdentifier;
           const body = getProgram(path).node.body;
+          const rpcPromiseDeclaration = t.VariableDeclaration('const', [
+            t.VariableDeclarator(
+              t.identifier(dependencyName),
+              t.arrowFunctionExpression(
+                [],
+                t.blockStatement([
+                  t.returnStatement(
+                    t.callExpression(t.identifier('createRPCPromise'), [
+                      dependencyExpression,
+                    ])
+                  ),
+                ])
+              )
+            ),
+          ]);
           const declaration = t.VariableDeclaration('const', [
             t.VariableDeclarator(
               newIdentifier,
               t.CallExpression(
                 t.CallExpression(t.identifier('compose'), [
-                  t.CallExpression(t.identifier('withRPCRedux'), [
-                    dependencyExpression,
-                  ]),
-                  getConnectFunction(t),
+                  getConnectFunction(t, dependencyName),
                   getPrepareFunction(t, dataDependency),
                 ]),
                 [componentOldIdentifier]
@@ -40,24 +65,24 @@ module.exports = babel => {
             ),
           ]);
           insertAfterLastImport(body, declaration);
+          insertAfterLastImport(body, rpcPromiseDeclaration);
           ensureImportDeclaration(body, `import {compose} from 'redux';`);
           ensureImportDeclaration(
             body,
-            `import {withRPCRedux} from 'fusion-plugin-rpc-redux-react';`
+            `import {createRPCPromise} from '@uber/web-rpc-redux';`
           );
           ensureImportDeclaration(body, `import {connect} from 'react-redux';`);
           ensureImportDeclaration(
             body,
-            `import {prepare} from 'fusion-react-async';`
+            `import {prepared} from 'fusion-react-async';`
           );
-          return;
         }
       },
     },
   };
 };
 
-function getConnectFunction(t) {
+function getConnectFunction(t, dependencyName) {
   const returnStatement = t.returnStatement(t.objectExpression([]));
   addComment(returnStatement, 'TODO: get things from state you need here');
   return t.CallExpression(t.identifier('connect'), [
@@ -65,6 +90,7 @@ function getConnectFunction(t) {
       [t.identifier('state')],
       t.blockStatement([returnStatement])
     ),
+    babylon.parseExpression(`{${dependencyName}}`),
   ]);
 }
 
@@ -89,7 +115,7 @@ function getPrepareFunction(t, dataDependency) {
     returnStatement,
     'See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component'
   );
-  return t.CallExpression(t.identifier('prepare'), [
+  return t.CallExpression(t.identifier('prepared'), [
     t.arrowFunctionExpression(
       [t.identifier('props')],
       t.blockStatement([returnStatement])
