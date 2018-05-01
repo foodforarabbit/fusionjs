@@ -20,10 +20,17 @@ module.exports = babel => {
           // TODO: Add comment or throw error or something
           return;
         }
-        refPath.parent.arguments[0].value = getLocalPathToAsset(
-          refPath.parent.arguments[0].value,
-          state.file.opts.filename
-        );
+        const oldValue = refPath.parent.arguments[0].value;
+        const fileName = state.file.opts.filename;
+        let newValue = getLocalPathToAsset(oldValue, fileName);
+        if (path.isAbsolute(newValue) && newValue.endsWith('.css')) {
+          const gitDir = findGitDir(fileName);
+          newValue = path.relative(
+            path.dirname(fileName),
+            path.join(gitDir, 'dist-client', path.basename(newValue))
+          );
+        }
+        refPath.parent.arguments[0].value = newValue;
       });
     },
   });
@@ -66,4 +73,13 @@ function findAssetDir(filePath, asset) {
     }
   }
   return null;
+}
+
+function findGitDir(filePath) {
+  while (filePath !== '/' && filePath !== '.' && filePath !== '') {
+    if (fs.existsSync(path.join(filePath, '.git'))) {
+      return filePath;
+    }
+    filePath = path.dirname(filePath);
+  }
 }

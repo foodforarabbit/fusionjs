@@ -4,7 +4,9 @@ exports[`bedrock-asset-url positive-match: positive-match 1`] = `
 "import assetUrl from '@uber/bedrock/asset-url';
 
 export default () => {
-  return assetUrl('/static/test.png');
+  const a = assetUrl('/static/test.png');
+  const b = assetUrl('/stylesheets/main.css');
+  const c = assetUrl('/stylesheets/test.css');
 };
 
 
@@ -12,7 +14,9 @@ export default () => {
 
 import {assetUrl} from 'fusion-core';
 export default () => {
-  return assetUrl('../../client/static/test.png');
+  const a = assetUrl('../../client/static/test.png');
+  const b = assetUrl('../../../../../dist-client/main.css');
+  const c = assetUrl('../../client/stylesheets/test.css');
 };
 "
 `;

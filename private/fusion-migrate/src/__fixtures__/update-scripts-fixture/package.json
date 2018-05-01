@@ -4,5 +4,7 @@
   "scripts": {
     "test": "old test",
     "something": "something"
-  }
+  },
+  "dependencies": {},
+  "devDependencies": {}
 }

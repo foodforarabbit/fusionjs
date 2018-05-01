@@ -1,7 +1,8 @@
 const {promisify} = require('util');
-const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
+const execa = require('execa');
+
 const ncp = promisify(require('ncp'));
 const tmp = require('tmp');
 const updateScripts = require('../update-scripts.js');
@@ -17,6 +18,7 @@ const srcFixtureDir = path.join(
 test('updateScripts', async () => {
   const dir = tmp.dirSync().name;
   await ncp(fixtureDir, dir);
+  await execa.shell('git init && git add .', {cwd: dir});
   await updateScripts({
     destDir: dir,
     srcDir: srcFixtureDir,
@@ -24,8 +26,35 @@ test('updateScripts', async () => {
   const finalPackage = JSON.parse(
     fs.readFileSync(path.join(dir, 'package.json'))
   );
-  assert.equal(finalPackage.scripts.test, 'new test');
-  assert.equal(finalPackage.scripts.build, 'new build');
-  assert.equal(finalPackage.scripts['__old__test'], 'old test');
-  assert.equal(finalPackage.scripts['__old__something'], 'something');
+  expect(finalPackage.scripts.test).toEqual('new test');
+  expect(finalPackage.scripts.build).toEqual('new build');
+  expect(finalPackage.scripts['__old__test']).toEqual('old test');
+  expect(finalPackage.scripts['__old__something']).toEqual('something');
+});
+
+test('updateScripts with scss files', async () => {
+  const dir = tmp.dirSync().name;
+  await ncp(fixtureDir, dir);
+  await execa.shell(
+    'mkdir -p src/client/stylesheets && touch src/client/stylesheets/main.scss',
+    {cwd: dir}
+  );
+  await execa.shell('git init && git add .', {cwd: dir});
+  await updateScripts({
+    destDir: dir,
+    srcDir: srcFixtureDir,
+  });
+  const finalPackage = JSON.parse(
+    fs.readFileSync(path.join(dir, 'package.json'))
+  );
+  expect(finalPackage.scripts['compile-sass']).toMatch('node-sass');
+  expect(finalPackage.scripts['predev']).toEqual('yarn compile-sass');
+  expect(finalPackage.scripts['prebuild']).toEqual('yarn compile-sass');
+  expect(finalPackage.scripts['prebuild-production']).toEqual(
+    'yarn compile-sass'
+  );
+  expect(finalPackage.scripts.test).toEqual('new test');
+  expect(finalPackage.scripts.build).toEqual('new build');
+  expect(finalPackage.scripts['__old__test']).toEqual('old test');
+  expect(finalPackage.scripts['__old__something']).toEqual('something');
 });
