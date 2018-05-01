@@ -1,8 +1,10 @@
 {
   "name": "@uber/fusion-plugin-proxy-compat",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "fusion plugin for bedrock proxies",
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "main": "src/index.js",
   "browser": "src/browser.js",
   "dependencies": {
