@@ -60,8 +60,8 @@ module.exports = async function updateDeps({
   );
 
   // Don't upgrade react during migration
-  delete srcPackage.react;
-  delete srcPackage['react-dom'];
+  delete srcPackage.dependencies.react;
+  delete srcPackage.dependencies['react-dom'];
 
   Object.assign(destPackage.dependencies, srcPackage.dependencies);
   Object.assign(destPackage.devDependencies, srcPackage.devDependencies);

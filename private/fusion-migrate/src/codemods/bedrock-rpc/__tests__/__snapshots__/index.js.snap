@@ -1,6 +1,160 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bedrock-rpc positive-match: positive-match 1`] = `
+exports[`bedrock-rpc anonymous-function: anonymous-function 1`] = `
+"import RPC from '@uber/bedrock/web-rpc';
+import M3 from '@uber/bedrock/universal-m3';
+import Logger from '@uber/bedrock/universal-logger';
+import WebRpcAtreyu from '@uber/web-rpc-atreyu';
+import getAuthParams from '@uber/get-auth-params';
+import {rpcIds} from '../shared/rpc-constants';
+import atreyuGraphs from './atreyu/graphs';
+import atreyuSeeds from './atreyu/seeds';
+import atreyuTransforms from './atreyu/transforms';
+
+export default function(server) {
+  const webRpcAtreyu = new WebRpcAtreyu(
+    server.clients.atreyu,
+    server.config.webRpcAtreyu
+  );
+
+  const methods = {
+    [rpcIds.getUser]: webRpcAtreyu({
+      graphDef: atreyuGraphs.user,
+      seed: atreyuSeeds.user,
+      transform: atreyuTransforms.user,
+    }),
+  };
+
+  return RPC.init(methods, M3, Logger.createChild('web-rpc'));
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
+import {createPlugin} from 'fusion-core';
+import M3 from '@uber/bedrock/universal-m3';
+import Logger from '@uber/bedrock/universal-logger';
+import WebRpcAtreyu from '@uber/web-rpc-atreyu';
+import getAuthParams from '@uber/get-auth-params';
+import {rpcIds} from '../shared/rpc-constants';
+import atreyuGraphs from './atreyu/graphs';
+import atreyuSeeds from './atreyu/seeds';
+import atreyuTransforms from './atreyu/transforms';
+
+function getRPCHandlers(server) {
+  const webRpcAtreyu = new WebRpcAtreyu(
+    server.clients.atreyu,
+    server.config.webRpcAtreyu
+  );
+  const methods = {
+    [rpcIds.getUser]: webRpcAtreyu({
+      graphDef: atreyuGraphs.user,
+      seed: atreyuSeeds.user,
+      transform: atreyuTransforms.user,
+    }),
+  };
+  Object.keys(methods).forEach(method => {
+    const oldMethod = methods[method];
+
+    methods[method] = (args, ctx) => {
+      const req = ctx.req;
+      req.body = args;
+      return new Promise((resolve, reject) => {
+        return oldMethod(req, resolve, reject);
+      });
+    };
+  });
+  return methods;
+}
+
+export default createPlugin({
+  deps: {
+    server: BedrockCompatToken,
+  },
+  provides: ({server}) => getRPCHandlers(server),
+});
+"
+`;
+
+exports[`bedrock-rpc arrow-function: arrow-function 1`] = `
+"import RPC from '@uber/bedrock/web-rpc';
+import M3 from '@uber/bedrock/universal-m3';
+import Logger from '@uber/bedrock/universal-logger';
+import WebRpcAtreyu from '@uber/web-rpc-atreyu';
+import getAuthParams from '@uber/get-auth-params';
+import {rpcIds} from '../shared/rpc-constants';
+import atreyuGraphs from './atreyu/graphs';
+import atreyuSeeds from './atreyu/seeds';
+import atreyuTransforms from './atreyu/transforms';
+
+export default server => {
+  const webRpcAtreyu = new WebRpcAtreyu(
+    server.clients.atreyu,
+    server.config.webRpcAtreyu
+  );
+
+  const methods = {
+    [rpcIds.getUser]: webRpcAtreyu({
+      graphDef: atreyuGraphs.user,
+      seed: atreyuSeeds.user,
+      transform: atreyuTransforms.user,
+    }),
+  };
+
+  return RPC.init(methods, M3, Logger.createChild('web-rpc'));
+};
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
+import {createPlugin} from 'fusion-core';
+import M3 from '@uber/bedrock/universal-m3';
+import Logger from '@uber/bedrock/universal-logger';
+import WebRpcAtreyu from '@uber/web-rpc-atreyu';
+import getAuthParams from '@uber/get-auth-params';
+import {rpcIds} from '../shared/rpc-constants';
+import atreyuGraphs from './atreyu/graphs';
+import atreyuSeeds from './atreyu/seeds';
+import atreyuTransforms from './atreyu/transforms';
+
+const getRPCHandlers = server => {
+  const webRpcAtreyu = new WebRpcAtreyu(
+    server.clients.atreyu,
+    server.config.webRpcAtreyu
+  );
+  const methods = {
+    [rpcIds.getUser]: webRpcAtreyu({
+      graphDef: atreyuGraphs.user,
+      seed: atreyuSeeds.user,
+      transform: atreyuTransforms.user,
+    }),
+  };
+  Object.keys(methods).forEach(method => {
+    const oldMethod = methods[method];
+
+    methods[method] = (args, ctx) => {
+      const req = ctx.req;
+      req.body = args;
+      return new Promise((resolve, reject) => {
+        return oldMethod(req, resolve, reject);
+      });
+    };
+  });
+  return methods;
+};
+
+export default createPlugin({
+  deps: {
+    server: BedrockCompatToken,
+  },
+  provides: ({server}) => getRPCHandlers(server),
+});
+"
+`;
+
+exports[`bedrock-rpc function-declaration: function-declaration 1`] = `
 "import RPC from '@uber/bedrock/web-rpc';
 import M3 from '@uber/bedrock/universal-m3';
 import Logger from '@uber/bedrock/universal-logger';
@@ -31,6 +185,8 @@ export default function rpc(server) {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
+import {createPlugin} from 'fusion-core';
 import M3 from '@uber/bedrock/universal-m3';
 import Logger from '@uber/bedrock/universal-logger';
 import WebRpcAtreyu from '@uber/web-rpc-atreyu';
@@ -39,7 +195,8 @@ import {rpcIds} from '../shared/rpc-constants';
 import atreyuGraphs from './atreyu/graphs';
 import atreyuSeeds from './atreyu/seeds';
 import atreyuTransforms from './atreyu/transforms';
-export default function rpc(server) {
+
+function rpc(server) {
   const webRpcAtreyu = new WebRpcAtreyu(
     server.clients.atreyu,
     server.config.webRpcAtreyu
@@ -64,5 +221,12 @@ export default function rpc(server) {
   });
   return methods;
 }
+
+export default createPlugin({
+  deps: {
+    server: BedrockCompatToken,
+  },
+  provides: ({server}) => rpc(server),
+});
 "
 `;
