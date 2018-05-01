@@ -1,6 +1,7 @@
-import plugin, {ProxyConfigToken} from './plugin.js';
-import decider from './decider.js';
+const plugin = require('./plugin.js');
+const decider = require('./decider.js');
+const {ProxyConfigToken} = require('./tokens.js');
 
-export default __NODE__ && plugin;
-export const ProxySSRDecider = __NODE__ && decider;
-export {ProxyConfigToken};
+module.exports = plugin;
+module.exports.ProxySSRDecider = decider;
+module.exports.ProxyConfigToken = ProxyConfigToken;

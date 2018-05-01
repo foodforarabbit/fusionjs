@@ -1,14 +1,19 @@
-import tape from 'tape-cup';
-import http from 'http';
-import getPort from 'get-port';
-import {LoggerToken} from 'fusion-tokens';
-import {TracerToken} from '@uber/fusion-plugin-tracer';
-import {GalileoToken} from '@uber/fusion-plugin-galileo';
-import App, {SSRDeciderToken} from 'fusion-core';
-import request from 'request-promise';
-import {getSimulator} from 'fusion-test-utils';
-import ProxyPlugin, {ProxyConfigToken, getProxyHeaders} from '../plugin.js';
-import ProxyDecider from '../decider.js';
+const {GalileoToken} = require('@uber/fusion-plugin-galileo');
+const {LoggerToken} = require('fusion-tokens');
+const {TracerToken} = require('@uber/fusion-plugin-tracer');
+const App = require('fusion-core').default;
+const {SSRDeciderToken} = require('fusion-core');
+
+const {getSimulator} = require('fusion-test-utils');
+const getPort = require('get-port');
+const http = require('http');
+const request = require('request-promise');
+const tape = require('tape-cup');
+
+const {ProxyConfigToken} = require('../tokens');
+const ProxyDecider = require('../decider.js');
+const ProxyPlugin = require('../plugin.js');
+const {getProxyHeaders} = require('../plugin.js');
 
 function getMockTracer(t) {
   return {

@@ -1,7 +1,8 @@
-import {createPlugin} from 'fusion-core';
-import {ProxyConfigToken, getMatchFn} from './plugin.js';
+const {createPlugin} = require('fusion-core');
+const {getMatchFn} = require('./plugin.js');
+const {ProxyConfigToken} = require('./tokens.js');
 
-export default decide => {
+module.exports = decide => {
   return createPlugin({
     deps: {
       config: ProxyConfigToken,

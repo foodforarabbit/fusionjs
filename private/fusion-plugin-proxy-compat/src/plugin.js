@@ -1,62 +1,63 @@
 /* eslint-env node */
-import {LoggerToken} from 'fusion-tokens';
-import {createPlugin, createToken} from 'fusion-core';
-import pathToRegexp from 'path-to-regexp';
-import {TracerToken} from '@uber/fusion-plugin-tracer';
-import {GalileoToken} from '@uber/fusion-plugin-galileo';
-import request from 'request';
-import url from 'url';
-import path from 'path';
+const {GalileoToken} = require('@uber/fusion-plugin-galileo');
+const {LoggerToken} = require('fusion-tokens');
+const {TracerToken} = require('@uber/fusion-plugin-tracer');
+const {createPlugin} = require('fusion-core');
+const pathToRegexp = require('path-to-regexp');
+const request = require('request');
 
-export const ProxyConfigToken = createToken('ProxyConfig');
+const path = require('path');
+const url = require('url');
+
+const {ProxyConfigToken} = require('./tokens');
+
 const appName = process.env.SVC_ID || 'unknown-service';
 
-export default __NODE__ &&
-  createPlugin({
-    deps: {
-      config: ProxyConfigToken,
-      logger: LoggerToken,
-      Tracer: TracerToken,
-      Galileo: GalileoToken,
-    },
-    middleware: ({config, logger, Tracer, Galileo}) => {
-      const {galileo} = Galileo;
-      const matchFn = getMatchFn(config);
-      return async (ctx, next) => {
-        await next();
-        if (ctx.element || ctx.body) return;
-        const match = matchFn(ctx);
-        if (!match) return;
-        const {proxyConfig} = match;
-        const {span} = Tracer.from(ctx);
-        const proxyHeaders = getProxyHeaders(ctx);
-        await new Promise(resolve => {
-          galileo.AuthenticateOut(
-            proxyConfig.name,
-            'http',
-            span,
-            function onHeaders(err, headers) {
-              if (err) {
-                logger.error(
-                  err.message || 'Failed to get galileo auth ( outbound )',
-                  {
-                    path: ctx.path,
-                  }
-                );
-              }
-              if (headers) {
-                Object.assign(proxyHeaders, headers);
-              }
-              resolve();
+module.exports = createPlugin({
+  deps: {
+    config: ProxyConfigToken,
+    logger: LoggerToken,
+    Tracer: TracerToken,
+    Galileo: GalileoToken,
+  },
+  middleware: ({config, logger, Tracer, Galileo}) => {
+    const {galileo} = Galileo;
+    const matchFn = getMatchFn(config);
+    return async (ctx, next) => {
+      await next();
+      if (ctx.element || ctx.body) return;
+      const match = matchFn(ctx);
+      if (!match) return;
+      const {proxyConfig} = match;
+      const {span} = Tracer.from(ctx);
+      const proxyHeaders = getProxyHeaders(ctx);
+      await new Promise(resolve => {
+        galileo.AuthenticateOut(
+          proxyConfig.name,
+          'http',
+          span,
+          function onHeaders(err, headers) {
+            if (err) {
+              logger.error(
+                err.message || 'Failed to get galileo auth ( outbound )',
+                {
+                  path: ctx.path,
+                }
+              );
             }
-          );
-        });
-        ctx.body = ctx.req.pipe(
-          request(getProxyUrl(proxyConfig, ctx), {headers: proxyHeaders})
+            if (headers) {
+              Object.assign(proxyHeaders, headers);
+            }
+            resolve();
+          }
         );
-      };
-    },
-  });
+      });
+      ctx.body = ctx.req.pipe(
+        request(getProxyUrl(proxyConfig, ctx), {headers: proxyHeaders})
+      );
+    };
+  },
+});
 
 function getProxyUrl(proxyConfig, ctx) {
   const resultingUrl = url.resolve(
@@ -66,7 +67,7 @@ function getProxyUrl(proxyConfig, ctx) {
   return resultingUrl;
 }
 
-export function getProxyHeaders(ctx) {
+function getProxyHeaders(ctx) {
   var headers = Object.assign(ctx.headers, {
     'x-uber-source': appName,
     'x-uber-app': appName,
@@ -94,7 +95,7 @@ export function getProxyHeaders(ctx) {
   return headers;
 }
 
-export function getMatchFn(config) {
+function getMatchFn(config) {
   let matchers = [];
   Object.keys(config).forEach(key => {
     const proxyConfig = config[key];
@@ -116,3 +117,5 @@ export function getMatchFn(config) {
     return match;
   };
 }
+module.exports.getMatchFn = getMatchFn;
+module.exports.getProxyHeaders = getProxyHeaders;
