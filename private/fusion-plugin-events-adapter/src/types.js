@@ -1,4 +1,7 @@
 // @flow
+
+import type {I18nServiceType} from 'fusion-plugin-i18n';
+
 export interface EventEmitter {
   on(event: string, handler: (Object) => any): any;
   emit(event: string, payload: any): any;
@@ -30,12 +33,4 @@ export type GeolocationPlugin = {
   },
 };
 
-export type I18nPlugin = {
-  from: (
-    ctx: Object
-  ) => {
-    locale: {
-      toString: () => string,
-    },
-  },
-};
+export type {I18nServiceType};

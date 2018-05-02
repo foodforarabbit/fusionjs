@@ -2,7 +2,7 @@
 import type {
   AnalyticsSessionPlugin,
   GeolocationPlugin,
-  I18nPlugin,
+  I18nServiceType,
 } from '../types';
 
 export const webTopicInfo = {
@@ -15,7 +15,7 @@ type HeatpipeArgs = {
   heatpipe: *,
   AnalyticsSession: AnalyticsSessionPlugin,
   Geolocation?: GeolocationPlugin,
-  I18n?: I18nPlugin,
+  I18n?: I18nServiceType,
   serviceName: string,
 };
 
@@ -93,10 +93,12 @@ export default function({
         AnalyticsSession.from(ctx) || {};
       const geolocation = (Geolocation && Geolocation.from(ctx).lookup()) || {};
 
+      const locale = I18n && I18n.from(ctx).locale;
+
       return {
         browser: {
           ...uaInfo,
-          locale: (I18n && I18n.from(ctx).locale.toString()) || '',
+          locale: (locale && locale.toString()) || '',
         },
         app_name: serviceName,
         user_id: ctx.headers['x-auth-params-user-uuid'] || 'unknown',

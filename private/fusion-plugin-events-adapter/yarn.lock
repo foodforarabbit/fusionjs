@@ -662,9 +662,17 @@
   version "0.9.46"
   resolved "https://unpm.uberinternal.com/@types%2fcore-js/-/core-js-0.9.46.tgz#ea701ee34cbb6dfe6d100f1530319547c93c8d79"
 
+"@types/estree@0.0.38":
+  version "0.0.38"
+  resolved "https://unpm.uberinternal.com/@types%2festree/-/estree-0.0.38.tgz#c1be40aa933723c608820a99a373a16d215a1ca2"
+
 "@types/mkdirp@^0.3.29":
   version "0.3.29"
   resolved "https://unpm.uberinternal.com/@types%2fmkdirp/-/mkdirp-0.3.29.tgz#7f2ad7ec55f914482fc9b1ec4bb1ae6028d46066"
+
+"@types/node@*":
+  version "10.0.3"
+  resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-10.0.3.tgz#1f89840c7aac2406cc43a2ecad98fc02a8e130e4"
 
 "@types/node@^9.3.0":
   version "9.4.0"
@@ -732,9 +740,9 @@
     nan "^2.2.0"
     xtend "^4.0.1"
 
-"@uber/web-perf-collector@^0.3.0":
-  version "0.3.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fweb-perf-collector/-/private/%40uber%2Fweb-perf-collector-0.3.0.tgz#1bd8aee731a898b2a03d4c5fe6a96a43bb8677e9"
+"@uber/web-perf-collector@^0.3.1":
+  version "0.3.2"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fweb-perf-collector/-/private/%40uber%2Fweb-perf-collector-0.3.2.tgz#395462ba47b17e722868f123eefa6e561a0de42a"
 
 abbrev@1:
   version "1.1.1"
@@ -2298,9 +2306,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@^0.64.0:
-  version "0.64.0"
-  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.64.0.tgz#ddd3fb3b183ab1ab35a5d5dec9caf5ebbcded167"
+flow-bin@^0.71.0:
+  version "0.71.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.71.0.tgz#fd1b27a6458c3ebaa5cb811853182ed631918b70"
 
 for-each@~0.3.2:
   version "0.3.2"
@@ -2404,12 +2412,12 @@ fusion-core@^1.2.2:
     ua-parser-js "^0.7.17"
     uuid "^3.2.1"
 
-fusion-plugin-i18n@^1.0.0:
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n/-/fusion-plugin-i18n-1.0.0.tgz#fae312e71c093e6171745e5bdb75831c849738cf"
+fusion-plugin-i18n@^1.0.5:
+  version "1.0.5"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n/-/fusion-plugin-i18n-1.0.5.tgz#b194c288b754433fa484bd90a0399a1fb921a829"
   dependencies:
     locale "^0.1.0"
-    rollup "^0.55.1"
+    rollup "^0.58.1"
 
 fusion-plugin-universal-events@^1.0.0:
   version "1.0.0"
@@ -2423,9 +2431,9 @@ fusion-plugin-universal-events@^1.0.2:
   dependencies:
     koa-bodyparser "4.2.0"
 
-fusion-test-utils@^1.0.3:
-  version "1.0.3"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.0.3.tgz#83036e264e20647fbd8bce06bf56ee3b1d223487"
+fusion-test-utils@^1.0.5:
+  version "1.0.5"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.0.5.tgz#6ac2d2af57e7201b4c6e3e13ac2524d423e8e4c7"
   dependencies:
     assert "^1.4.1"
     koa "^2.4.1"
@@ -4408,6 +4416,13 @@ rollup-pluginutils@^2.0.1:
 rollup@^0.55.1:
   version "0.55.3"
   resolved "https://unpm.uberinternal.com/rollup/-/rollup-0.55.3.tgz#0af082a766d51c3058430c8372442ff5207d8736"
+
+rollup@^0.58.1:
+  version "0.58.2"
+  resolved "https://unpm.uberinternal.com/rollup/-/rollup-0.58.2.tgz#2feddea8c0c022f3e74b35c48e3c21b3433803ce"
+  dependencies:
+    "@types/estree" "0.0.38"
+    "@types/node" "*"
 
 run-async@^2.2.0:
   version "2.3.0"
