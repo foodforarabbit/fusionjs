@@ -1,0 +1,1 @@
+app.register(LogtronBackendsToken, {backends: { foo: bar }});

@@ -13,21 +13,36 @@ function get(obj, fn, val) {
 }
 
 function matchStatement(path, code, matchingOptions) {
+  if (!path.node) throw new Error(`path should have node property`);
+  if (typeof code !== 'string') throw new Error(`code should be string`);
   return matchTree(path.node, astOf(code), matchingOptions);
 }
 function matchExpression(path, code, matchingOptions) {
+  if (!path.node) throw new Error(`path should have node property`);
+  if (typeof code !== 'string') throw new Error(`code should be string`);
   return matchTree(path.node, astOf(code).expression, matchingOptions);
 }
 function matchTree(a, b, matchingOptions) {
   const {shallow} = matchingOptions || {};
+  if (!a && b) {
+    return shallow;
+  }
   if (!b) {
     if (shallow) return true;
     else return false;
   }
   if (a.type !== b.type) return false;
   for (const key in a) {
-    if (key.match(/start|end|loc|importKind|comment/i)) continue;
-    else if (Array.isArray(a[key])) {
+    if (a.type === 'ArrowFunctionExpression' && key === 'expression') continue;
+    else if (
+      a.type === 'JSXText' &&
+      key === 'value' &&
+      a.value.trim() === b.value.trim()
+    ) {
+      continue;
+    } else if (key.match(/start|end|loc|importKind|comment|lines|raw|extra/i)) {
+      continue;
+    } else if (Array.isArray(a[key])) {
       if (!Array.isArray(b[key])) return false;
       for (let i = 0; i < a[key].length; i++) {
         const matched = matchTree(a[key][i], b[key][i], matchingOptions);
@@ -61,8 +76,15 @@ function addImportSpecifier(path, local, imported = local) {
 function addStatementAfter(path, code) {
   path.insertAfter(astOf(code));
 }
+function replaceStatement(path, code) {
+  path.replaceWith(astOf(code));
+}
 function replaceExpression(path, code) {
   path.replaceWith(astOf(code).expression);
+}
+
+function isMain(state) {
+  return state.file.opts.filename.includes('src/main.js');
 }
 
 module.exports = {
@@ -73,5 +95,7 @@ module.exports = {
   clearMatchCache,
   addImportSpecifier,
   addStatementAfter,
+  replaceStatement,
   replaceExpression,
+  isMain,
 };
