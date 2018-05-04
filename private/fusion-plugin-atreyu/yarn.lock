@@ -674,9 +674,9 @@
   version "0.0.28"
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
 
-"@uber/atreyu-graph@^4.12.1":
-  version "4.12.2"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-graph/-/private/%40uber%2Fatreyu-graph-4.12.2.tgz#19bfdb05b1b21d0b07a6678f4547a2880bd7fc66"
+"@uber/atreyu-graph@^4.14.0":
+  version "4.14.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-graph/-/private/%40uber%2Fatreyu-graph-4.14.0.tgz#beec8a2a09891033b20bd54f8ab9225e62110198"
   dependencies:
     "@uber/node-uber-context" "^1.6.1"
     async "^1.5.0"
@@ -744,11 +744,11 @@
     thrift "^0.9.2"
     xtend "^4.0.0"
 
-"@uber/atreyu@^5.4.5":
-  version "5.4.5"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-5.4.5.tgz#f6cabe0c1f8361672ab1e8392e18a5035c557ada"
+"@uber/atreyu@^5.5.0":
+  version "5.5.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-5.5.0.tgz#257a9344c66934a00dd5b50662209b656d8266aa"
   dependencies:
-    "@uber/atreyu-graph" "^4.12.1"
+    "@uber/atreyu-graph" "^4.14.0"
     "@uber/atreyu-transport" "^4.6.7"
     inherits "^2.0.1"
 
