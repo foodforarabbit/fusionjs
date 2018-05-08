@@ -1591,6 +1591,10 @@ camelcase@^1.0.2:
   version "1.2.1"
   resolved "https://unpm.uberinternal.com/camelcase/-/camelcase-1.2.1.tgz#9bb5304d2e0b56698b2c758b08a3eaa9daa58a39"
 
+camelize@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/camelize/-/camelize-1.0.0.tgz#164a5483e630fa4321e5af07020e531831b2609b"
+
 caniuse-lite@^1.0.30000792:
   version "1.0.30000832"
   resolved "https://unpm.uberinternal.com/caniuse-lite/-/caniuse-lite-1.0.30000832.tgz#22a277f1d623774cc9aea2f7c1a65cb1603c63b8"
@@ -1732,6 +1736,10 @@ cliui@^4.0.0:
     strip-ansi "^4.0.0"
     wrap-ansi "^2.0.0"
 
+clone@~0.2.0:
+  version "0.2.0"
+  resolved "https://unpm.uberinternal.com/clone/-/clone-0.2.0.tgz#c6126a90ad4f72dbf5acdb243cc37724fe93fc1f"
+
 co-body@^5.1.0:
   version "5.1.1"
   resolved "https://unpm.uberinternal.com/co-body/-/co-body-5.1.1.tgz#d97781d1e3344ba4a820fd1806bddf8341505236"
@@ -1800,6 +1808,13 @@ concat-stream@^1.6.0:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
+
+config-chain@^1.1.8:
+  version "1.1.11"
+  resolved "https://unpm.uberinternal.com/config-chain/-/config-chain-1.1.11.tgz#aba09747dfbe4c3e70e766a6e41586e1859fc6f2"
+  dependencies:
+    ini "^1.3.4"
+    proto-list "~1.2.1"
 
 console-browserify@^1.1.0:
   version "1.1.0"
@@ -2015,6 +2030,12 @@ deep-is@~0.1.3:
   version "0.1.3"
   resolved "https://unpm.uberinternal.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
 
+deep-merge@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/deep-merge/-/deep-merge-1.0.0.tgz#0906cc56c3a93099ae093fe995589eefe38a0e95"
+  dependencies:
+    xtend "~1.0.3"
+
 default-require-extensions@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/default-require-extensions/-/default-require-extensions-1.0.0.tgz#f37ea15d3e13ffd9b437d33e1a75b5fb97874cb8"
@@ -2210,6 +2231,14 @@ error@7.0.2, error@^7.0.0, error@^7.0.1, error@^7.0.2:
   resolved "https://unpm.uberinternal.com/error/-/error-7.0.2.tgz#a5f75fff4d9926126ddac0ea5dc38e689153cb02"
   dependencies:
     string-template "~0.2.1"
+    xtend "~4.0.0"
+
+error@^4.1.1:
+  version "4.4.0"
+  resolved "https://unpm.uberinternal.com/error/-/error-4.4.0.tgz#bf69ff251fb4a279c19adccdaa6b61e90d9bf12a"
+  dependencies:
+    camelize "^1.0.0"
+    string-template "~0.2.0"
     xtend "~4.0.0"
 
 es-abstract@^1.5.0, es-abstract@^1.7.0:
@@ -2772,6 +2801,13 @@ flat-cache@^1.2.1:
     del "^2.0.2"
     graceful-fs "^4.1.2"
     write "^0.2.1"
+
+flatten-prototypes@^4.0.0:
+  version "4.0.0"
+  resolved "https://unpm.uberinternal.com/flatten-prototypes/-/flatten-prototypes-4.0.0.tgz#52c4dddbd303b0e409f71d0a14680badeebe9d44"
+  dependencies:
+    deep-extend "^0.4.0"
+    deep-merge "^1.0.0"
 
 flatten@0.0.1:
   version "0.0.1"
@@ -4733,6 +4769,10 @@ process@^0.11.10, process@^0.11.2:
   version "0.11.10"
   resolved "https://unpm.uberinternal.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
 
+process@^0.7.0:
+  version "0.7.0"
+  resolved "https://unpm.uberinternal.com/process/-/process-0.7.0.tgz#c52208161a34adf3812344ae85d3e6150469389d"
+
 progress@^2.0.0:
   version "2.0.0"
   resolved "https://unpm.uberinternal.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
@@ -4750,6 +4790,10 @@ prop-types@^15.6.0:
     fbjs "^0.8.16"
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
+
+proto-list@~1.2.1:
+  version "1.2.4"
+  resolved "https://unpm.uberinternal.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
 
 proxy-addr@~2.0.3:
   version "2.0.3"
@@ -4836,6 +4880,12 @@ raw-body@2.3.2, raw-body@^2.1.2, raw-body@^2.2.0:
     http-errors "1.6.2"
     iconv-lite "0.4.19"
     unpipe "1.0.0"
+
+raynos-rust-result@0.1.0-improvement3:
+  version "0.1.0-improvement3"
+  resolved "https://unpm.uberinternal.com/raynos-rust-result/-/raynos-rust-result-0.1.0-improvement3.tgz#3b377930b83619e136b168305eb4cf7797c44400"
+  dependencies:
+    individual "^2.0.0"
 
 rc@^1.1.7:
   version "1.2.7"
@@ -5478,7 +5528,7 @@ string-similarity@1.2.0:
   dependencies:
     lodash "^4.13.1"
 
-string-template@~0.2.1:
+string-template@~0.2.0, string-template@~0.2.1:
   version "0.2.1"
   resolved "https://unpm.uberinternal.com/string-template/-/string-template-0.2.1.tgz#42932e598a352d01fc22ec3367d9d84eec6c9add"
 
@@ -6093,6 +6143,10 @@ xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0:
   version "4.0.1"
   resolved "https://unpm.uberinternal.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
+xtend@~1.0.3:
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/xtend/-/xtend-1.0.3.tgz#3f5d937353cced8e085399a563fdb22541c2960a"
+
 y18n@^3.2.1:
   version "3.2.1"
   resolved "https://unpm.uberinternal.com/y18n/-/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
@@ -6166,3 +6220,17 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+zero-config@^7.1.1:
+  version "7.1.1"
+  resolved "https://unpm.uberinternal.com/zero-config/-/zero-config-7.1.1.tgz#0d6bf3f2f31ab410d1dbf1f169385f3f8afe8eaa"
+  dependencies:
+    clone "~0.2.0"
+    config-chain "^1.1.8"
+    deep-extend "^0.4.0"
+    dotty "0.0.2"
+    error "^4.1.1"
+    flatten-prototypes "^4.0.0"
+    minimist "^1.1.0"
+    process "^0.7.0"
+    raynos-rust-result "0.1.0-improvement3"
