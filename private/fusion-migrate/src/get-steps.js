@@ -16,6 +16,7 @@ const modCompatUniversalLogger = require('./codemods/compat-plugin-universal-log
 const modCompatUniversalM3 = require('./codemods/compat-plugin-universal-m3/plugin.js');
 const modCompatRouter = require('./codemods/compat-plugin-react-router/plugin.js');
 const modCompatRPC = require('./codemods/compat-plugin-rpc/plugin.js');
+const modCspExport = require('./codemods/csp-export/plugin.js');
 const modDataDependency = require('./codemods/data-dependency/plugin.js');
 const modReactHead = require('./codemods/react-head/plugin.js');
 const modIsorender = require('./codemods/bedrock-isorender/plugin.js');
@@ -86,6 +87,9 @@ function get14Steps(options) {
   return [
     getConfigCodemodStep(options, 'clients.atreyu', 'src/config/atreyu.js'),
     getConfigCodemodStep(options, 'server.csp', 'src/config/secure-headers.js'),
+    getStep('mod-csp-export', () =>
+      codemodStep({...options, plugin: modCspExport})
+    ),
     getStep('mod-asset-url', () =>
       codemodStep({...options, plugin: modAssetUrl})
     ),
