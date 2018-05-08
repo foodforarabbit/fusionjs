@@ -1,18 +1,27 @@
+const {relative, dirname} = require('path');
+
 const rewrites = {
-  './components/root.js': './shared/components/routes.js',
+  './components/root.js': state => state.routesFile,
   './rpc/handlers.js': './server/rpc.js',
   './redux.js': './shared/store.js',
   './redux': './shared/store.js',
 };
 
-module.exports = (/*babel*/) => {
+module.exports = state => (/*babel*/) => {
   return {
     name: 'main-imports',
     visitor: {
-      ImportDeclaration(path) {
+      ImportDeclaration(path, s) {
         const sourceName = path.node.source.value;
         if (rewrites[sourceName]) {
-          path.node.source.value = rewrites[sourceName];
+          let rewrite = rewrites[sourceName];
+          if (typeof rewrite === 'function') {
+            rewrite = relative(dirname(s.file.opts.filename), rewrite(state));
+            if (!rewrite.startsWith('.')) {
+              rewrite = './' + rewrite;
+            }
+          }
+          path.node.source.value = rewrite;
         }
       },
       CallExpression(path) {

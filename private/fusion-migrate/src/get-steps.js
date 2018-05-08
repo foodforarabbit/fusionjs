@@ -7,6 +7,7 @@ const diffStep = require('./commands/diff-step.js');
 const format = require('./utils/format.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const loadConfig = require('./utils/load-config.js');
+const routesMatcher = require('./matchers/match-routes/match-routes.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
 const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
 const modPrefixUrl = require('./codemods/bedrock-prefix-url/plugin.js');
@@ -70,21 +71,20 @@ module.exports = function getSteps(options) {
     }, []);
 };
 
-// TODO: Find a more robust way of doing this
-const filterMatchRoutes = filterMatchFile(
-  'src/shared/root/routes.js',
-  'src/shared/components/routes.js'
-);
-
 const filterMatchMain = filterMatchFile('src/main.js');
 
 function get14Steps(options) {
   const {config} = options;
+  const state = {};
+  const filterMatchRoutes = f => state.routesFile.endsWith(f);
   const hasProxies =
     get(config, 'dev.server.proxies') ||
     get(config, 'common.server.proxies') ||
     get(config, 'prod.server.proxies');
   return [
+    getStep('match-routes-file', () =>
+      codemodStep({...options, plugin: routesMatcher(state)})
+    ),
     getConfigCodemodStep(options, 'clients.atreyu', 'src/config/atreyu.js'),
     getConfigCodemodStep(options, 'server.csp', 'src/config/secure-headers.js'),
     getStep('mod-csp-export', () =>
@@ -172,7 +172,7 @@ function get14Steps(options) {
     getStep('mod-main-imports', () =>
       codemodStep({
         ...options,
-        plugin: modMainImports,
+        plugin: modMainImports(state),
         filter: filterMatchMain,
       })
     ),

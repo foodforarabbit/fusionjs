@@ -32,7 +32,7 @@ __DEV__ &&
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import App from 'fusion-react';
-import Root from './shared/components/routes.js';
+import Root from '../../../../../shared/components/routes.js';
 import RPCHandlers from './server/rpc.js';
 import ReduxOptions from './shared/store.js';
 __DEV__ &&
