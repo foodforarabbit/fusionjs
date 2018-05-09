@@ -8,6 +8,7 @@ const format = require('./utils/format.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const loadConfig = require('./utils/load-config.js');
 const routesMatcher = require('./matchers/match-routes/match-routes.js');
+const modTeamName = require('./codemods/team-name/plugin.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
 const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
 const modPrefixUrl = require('./codemods/bedrock-prefix-url/plugin.js');
@@ -34,6 +35,8 @@ const updateEngines = require('./commands/update-engines.js');
 const updateFiles = require('./commands/update-files.js');
 const updateScripts = require('./commands/update-scripts.js');
 const updateGitignore = require('./commands/update-gitignore.js');
+const setRoutePrefix = require('./commands/route-prefix.js');
+const setServiceId = require('./commands/svc-id.js');
 
 module.exports = function getSteps(options) {
   options.config = loadConfig(options.destDir);
@@ -81,10 +84,26 @@ function get14Steps(options) {
     get(config, 'dev.server.proxies') ||
     get(config, 'common.server.proxies') ||
     get(config, 'prod.server.proxies');
+
+  const teamName = get(config, 'common.meta.team');
+  const routePrefix = get(config, 'common.server.routePrefix');
+  const svcId = get(config, 'common.meta.project');
   return [
     getStep('match-routes-file', () =>
       codemodStep({...options, plugin: routesMatcher(state)})
     ),
+    getStep('team-name', () =>
+      codemodStep({
+        ...options,
+        filter: filterMatchMain,
+        plugin: modTeamName(teamName),
+      })
+    ),
+    routePrefix &&
+      getStep('set-route-prefix', () =>
+        setRoutePrefix({...options, routePrefix})
+      ),
+    getStep('set-svc-id', () => setServiceId({...options, svcId})),
     getConfigCodemodStep(options, 'clients.atreyu', 'src/config/atreyu.js'),
     getConfigCodemodStep(options, 'server.csp', 'src/config/secure-headers.js'),
     getStep('mod-csp-export', () =>
