@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compat-plugin-redux-state positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
+import {SomeToken, SomePlugin} from 'some-plugin';
+import ReduxPlugin, {ReduxToken} from 'fusion-plugin-react-redux';
+
+console.log(App);
+
+function thing() {
+  const app = new App();
+  console.log();
+  app.register(SomeToken, SomePlugin);
+  app.register(ReduxToken, ReduxPlugin);
+  return app;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import {SomeToken, SomePlugin} from 'some-plugin';
+import ReduxPlugin, {
+  ReduxToken,
+  GetInitialStateToken,
+} from 'fusion-plugin-react-redux';
+import GetInitialStateCompat from '@uber/fusion-plugin-initial-state-compat';
+console.log(App);
+
+function thing() {
+  const app = new App();
+  console.log();
+  app.register(SomeToken, SomePlugin);
+  app.register(ReduxToken, ReduxPlugin);
+  app.register(GetInitialStateToken, GetInitialStateCompat);
+  return app;
+}
+"
+`;

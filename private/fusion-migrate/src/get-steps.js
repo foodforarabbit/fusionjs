@@ -8,6 +8,7 @@ const format = require('./utils/format.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const loadConfig = require('./utils/load-config.js');
 const routesMatcher = require('./matchers/match-routes/match-routes.js');
+const modInitialStateCompat = require('./codemods/compat-plugin-redux-state/plugin.js');
 const modTeamName = require('./codemods/team-name/plugin.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
 const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
@@ -91,6 +92,13 @@ function get14Steps(options) {
   return [
     getStep('match-routes-file', () =>
       codemodStep({...options, plugin: routesMatcher(state)})
+    ),
+    getStep('redux-state-compat', () =>
+      codemodStep({
+        ...options,
+        filter: filterMatchMain,
+        plugin: modInitialStateCompat,
+      })
     ),
     getStep('team-name', () =>
       codemodStep({

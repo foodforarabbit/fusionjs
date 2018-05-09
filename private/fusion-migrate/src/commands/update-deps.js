@@ -20,6 +20,7 @@ const defaultModulesToRemove = [
 
 const defaultCompatModules = [
   '@uber/bedrock-14-compat',
+  '@uber/fusion-plugin-initial-state-compat',
   '@uber/fusion-plugin-bedrock-compat',
   '@uber/fusion-plugin-universal-logger-compat',
   '@uber/fusion-plugin-universal-m3-compat',
