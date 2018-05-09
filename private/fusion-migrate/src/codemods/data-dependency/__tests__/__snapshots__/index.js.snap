@@ -84,15 +84,9 @@ export default (
     path=\\"/trips-viewer\\"
     component={_AppContainerWithData}
     trackingId=\\"Home\\"
-    dataDependency=\\"getUser\\"
   >
     <IndexRedirect to=\\"trips\\" />
-    <Route
-      path=\\"trips\\"
-      component={_TripsContainerWithData}
-      trackingId=\\"Trips\\"
-      dataDependency=\\"getTrips\\"
-    >
+    <Route path=\\"trips\\" component={_TripsContainerWithData} trackingId=\\"Trips\\">
       <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
     </Route>
   </Route>
@@ -198,14 +192,12 @@ export default function() {
       path=\\"/trips-viewer\\"
       component={_AppContainerWithData}
       trackingId=\\"Home\\"
-      dataDependency={rpcIds.getUser}
     >
       <IndexRedirect to=\\"trips\\" />
       <Route
         path=\\"trips\\"
         component={_TripsContainerWithData}
         trackingId=\\"Trips\\"
-        dataDependency={rpcIds.getTrips}
       >
         <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
       </Route>
@@ -299,15 +291,9 @@ const routes = (
     path=\\"/trips-viewer\\"
     component={_AppContainerWithData}
     trackingId=\\"Home\\"
-    dataDependency=\\"getUser\\"
   >
     <IndexRedirect to=\\"trips\\" />
-    <Route
-      path=\\"trips\\"
-      component={_TripsContainerWithData}
-      trackingId=\\"Trips\\"
-      dataDependency=\\"getTrips\\"
-    >
+    <Route path=\\"trips\\" component={_TripsContainerWithData} trackingId=\\"Trips\\">
       <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
     </Route>
   </Route>
@@ -405,14 +391,12 @@ export default function() {
       path=\\"/trips-viewer\\"
       component={_AppContainerWithData}
       trackingId=\\"Home\\"
-      dataDependency=\\"getUser\\"
     >
       <IndexRedirect to=\\"trips\\" />
       <Route
         path=\\"trips\\"
         component={_TripsContainerWithData}
         trackingId=\\"Trips\\"
-        dataDependency=\\"getTrips\\"
       >
         <Route path=\\":tripUUID\\" component={TripContainer} trackingId=\\"Trip\\" />
       </Route>

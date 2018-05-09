@@ -14,6 +14,12 @@ module.exports = babel => {
           obj[attr.name.name] = attr;
           return obj;
         }, {});
+        path.node.openingElement.attributes = attributes.filter(attr => {
+          if (attr.name.name === 'dataDependency') {
+            return false;
+          }
+          return true;
+        });
         if (component && dataDependency) {
           let dependencyExpression = dataDependency.value;
           let dependencyName;
