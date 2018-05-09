@@ -12,7 +12,9 @@ module.exports = babel => {
             astOf(`app.register(BedrockCompatToken, BedrockCompatPlugin);`)
           );
           path.node.consequent.body.push(
-            astOf(`app.register(InitializeServerToken, createServer);`)
+            astOf(
+              `app.register(InitializeServerToken, require('./server/index.js').default);`
+            )
           );
           path.node.consequent.body.push(
             astOf(`app.register(HttpHandlerToken, createPlugin({
@@ -39,10 +41,6 @@ module.exports = babel => {
         addStatementAfter(
           path,
           `import BedrockCompatPlugin, {InitializeServerToken, BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';`
-        );
-        addStatementAfter(
-          path,
-          `import createServer from './server/index.js';`
         );
       }
     },

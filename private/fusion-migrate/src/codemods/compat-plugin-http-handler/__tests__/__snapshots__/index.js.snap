@@ -24,7 +24,6 @@ function thing() {
 
 import App from 'fusion-react';
 import {createPlugin} from 'fusion-core';
-import createServer from './server/index.js';
 import BedrockCompatPlugin, {
   InitializeServerToken,
   BedrockCompatToken,
@@ -44,7 +43,7 @@ function thing() {
   if (__NODE__) {
     app.register(SomeToken, SomePlugin);
     app.register(BedrockCompatToken, BedrockCompatPlugin);
-    app.register(InitializeServerToken, createServer);
+    app.register(InitializeServerToken, require('./server/index.js').default);
     app.register(
       HttpHandlerToken,
       createPlugin({
