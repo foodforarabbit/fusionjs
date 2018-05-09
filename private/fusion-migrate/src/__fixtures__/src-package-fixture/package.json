@@ -15,6 +15,8 @@
     "yarn": "1.0.0"
   },
   "scripts": {
+    "dev": "SVC_ID=tmp dev",
+    "start": "start",
     "test": "new test",
     "build": "new build"
   }
