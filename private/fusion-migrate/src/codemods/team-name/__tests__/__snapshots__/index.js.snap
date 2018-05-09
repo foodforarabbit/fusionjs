@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`team-name positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
+
+const team = '';
+
+export default (async function start(options: any = {}) {
+  const root = options.root || DefaultRoot;
+  const app = new App(root, options.render);
+  return app;
+});
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+const team = 'test';
+export default (async function start(options: any = {}) {
+  const root = options.root || DefaultRoot;
+  const app = new App(root, options.render);
+  return app;
+});
+"
+`;
