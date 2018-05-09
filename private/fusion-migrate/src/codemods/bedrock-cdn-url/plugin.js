@@ -14,6 +14,9 @@ module.exports = babel => {
         cdnUrl = cdnUrl + '/';
       }
       refPaths.forEach(refPath => {
+        if (refPath.parentPath.type !== 'CallExpression') {
+          return;
+        }
         if (refPath.parent.arguments[0].type === 'StringLiteral') {
           refPath.parentPath.replaceWith(
             t.stringLiteral(cdnUrl + refPath.parent.arguments[0].value)
