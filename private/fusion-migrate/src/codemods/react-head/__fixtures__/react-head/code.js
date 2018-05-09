@@ -18,11 +18,13 @@ const Root = ({store}) => {
         link={[
           {
             rel: 'stylesheet',
+            nonBlocking: true,
             href:
               'https://d1a3f4spazzrp4.cloudfront.net/superfine/6.2.2/superfine.css',
           },
           {
             rel: 'stylesheet',
+            nonBlocking: true,
             href:
               'https://d1a3f4spazzrp4.cloudfront.net/uber-fonts/4.0.0/superfine.css',
           },
@@ -44,6 +46,7 @@ const Root = ({store}) => {
         link={[
           {
             rel: 'stylesheet',
+            nonBlocking: true,
             href:
               'https://d1a3f4spazzrp4.cloudfront.net/superfine/6.2.2/superfine.css',
           },

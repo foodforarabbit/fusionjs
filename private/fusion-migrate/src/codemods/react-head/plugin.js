@@ -14,6 +14,9 @@ module.exports = babel => {
         acc[prop.name.name] = prop;
         return acc;
       }, {});
+
+      props.forEach(removeNonBlocking);
+
       refPath.parentPath.parentPath.replaceWith(
         t.JSXElement(
           t.JSXOpeningElement(t.JSXIdentifier('Helmet'), [], false),
@@ -92,3 +95,24 @@ module.exports = babel => {
     visitor,
   };
 };
+
+function removeNonBlocking(item) {
+  if (item.value.type !== 'JSXExpressionContainer') {
+    return;
+  }
+  if (item.value.expression.type !== 'ArrayExpression') {
+    return;
+  }
+  const expression = item.value.expression;
+  expression.elements.forEach(el => {
+    if (el.type !== 'ObjectExpression') {
+      return;
+    }
+    el.properties = el.properties.filter(prop => {
+      if (prop.key.name === 'nonBlocking') {
+        return false;
+      }
+      return true;
+    });
+  });
+}
