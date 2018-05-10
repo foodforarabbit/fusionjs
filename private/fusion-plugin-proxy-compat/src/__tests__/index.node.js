@@ -65,6 +65,9 @@ tape('proxies GET requests', async t => {
           route: '/*',
         },
       ],
+      headers: {
+        'x-value': 'some-value',
+      },
     },
   });
 
@@ -72,6 +75,7 @@ tape('proxies GET requests', async t => {
     t.equal(req.url, '/hello?a=b');
     t.equal(req.headers['x-hello'], 'world');
     t.equal(req.headers['x-test'], 'test-value');
+    t.equal(req.headers['x-value'], 'some-value');
     t.ok(req.headers['x-uber-app']);
     t.notok(req.headers['x-csrf-token']);
     res.writeHead(200);

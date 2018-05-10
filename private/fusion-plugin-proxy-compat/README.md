@@ -69,6 +69,9 @@ __NODE__ &&
   app.register({
     test: {
       uri: 'http://localhost:1234/',
+      headers: {
+        'x-test': 'some-value',
+      },
       routes: [
         {
           route: '/user/*',

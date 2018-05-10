@@ -30,7 +30,7 @@ module.exports = createPlugin({
       if (!match) return;
       const {proxyConfig} = match;
       const {span} = Tracer.from(ctx);
-      const proxyHeaders = getProxyHeaders(ctx);
+      const proxyHeaders = getProxyHeaders(ctx, proxyConfig);
       await new Promise(resolve => {
         galileo.AuthenticateOut(
           proxyConfig.name,
@@ -67,11 +67,15 @@ function getProxyUrl(proxyConfig, ctx) {
   return resultingUrl;
 }
 
-function getProxyHeaders(ctx) {
-  var headers = Object.assign(ctx.headers, {
-    'x-uber-source': appName,
-    'x-uber-app': appName,
-  });
+function getProxyHeaders(ctx, proxyConfig = {}) {
+  var headers = Object.assign(
+    ctx.headers,
+    {
+      'x-uber-source': appName,
+      'x-uber-app': appName,
+    },
+    proxyConfig.headers || {}
+  );
 
   // x-uber-origin is a comma separated list of all the apps/clients
   // that a request has passed through. The most recent service is
