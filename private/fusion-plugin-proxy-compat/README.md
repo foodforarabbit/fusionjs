@@ -76,6 +76,9 @@ __NODE__ &&
         {
           route: '/user/*',
           m3Key: 'test-user',
+          headers: {
+            'x-route-specific': 'value',
+          },
         },
       ],
     },

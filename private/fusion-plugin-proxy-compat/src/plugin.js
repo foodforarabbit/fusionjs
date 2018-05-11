@@ -105,11 +105,18 @@ function getMatchFn(config) {
     const proxyConfig = config[key];
     proxyConfig.name = key;
     const routes = proxyConfig.routes;
-    routes.forEach(({route /*, m3Key*/}) => {
+    routes.forEach(({route, headers = {} /*, m3Key*/}) => {
       // TODO: handle m3Key
+
       matchers.push({
         regex: pathToRegexp(path.join('/', key, route)),
-        proxyConfig,
+        proxyConfig: {
+          ...proxyConfig,
+          headers: {
+            ...proxyConfig.headers,
+            ...headers,
+          },
+        },
       });
     });
   });
