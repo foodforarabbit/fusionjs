@@ -1,10 +1,25 @@
 const {addStatementAfter} = require('../../utils/index.js');
+const {astOf} = require('../../utils');
+const composeVisitors = require('../../utils/compose-visitors.js');
 const ensureImportDeclaration = require('../../utils/ensure-import-declaration.js');
 const getProgram = require('../../utils/get-program.js');
 const visitNamedModule = require('../../utils/visit-named-module.js');
+const visitNewAppExpression = require('../../utils/visit-new-app-expression.js');
 
 module.exports = babel => {
   const t = babel.types;
+
+  const appVisitor = visitNewAppExpression(t, (t, state, refPath) => {
+    refPath.parentPath.parentPath.parentPath.parentPath.traverse({
+      IfStatement(path) {
+        if (path.node.test.name === '__NODE__') {
+          path.node.consequent.body.push(
+            astOf(`app.register(GetInitialStateToken, GetInitialStateCompat)`)
+          );
+        }
+      },
+    });
+  });
   const reduxTokenVisitor = visitNamedModule({
     t,
     moduleName: 'ReduxToken',
@@ -19,24 +34,11 @@ module.exports = babel => {
         path,
         `import GetInitialStateCompat from '@uber/fusion-plugin-initial-state-compat'`
       );
-      const refPath = refPaths.find(ref => {
-        const parent = ref.parent;
-        const callee = parent.callee;
-        return (
-          parent.type === 'CallExpression' &&
-          callee.type === 'MemberExpression' &&
-          callee.property.name === 'register'
-        );
-      });
-      addStatementAfter(
-        refPath.parentPath,
-        `app.register(GetInitialStateToken, GetInitialStateCompat)`
-      );
     },
   });
 
   return {
     name: 'compat-plugin-redux-state',
-    visitor: reduxTokenVisitor,
+    visitor: composeVisitors(reduxTokenVisitor, appVisitor),
   };
 };

@@ -8,6 +8,8 @@ function thing() {
   const app = new App();
   console.log();
   app.register(SomeToken, SomePlugin);
-  app.register(ReduxToken, ReduxPlugin);
+  if (__NODE__) {
+    app.register(ReduxToken, ReduxPlugin);
+  }
   return app;
 }
