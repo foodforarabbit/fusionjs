@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`normalize-tape positive-match: positive-match 1`] = `
+"import test from 'tape';
+
+test('a', assert => {
+  assert.ok(1);
+});
+test(
+  'b',
+  withContext(t => {
+    t.ok(1);
+  })
+);
+test('c', t => {
+  t.fail('errored');
+});
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import test from 'tape';
+test('a', t => {
+  t.ok(1);
+});
+test('b', t =>
+  withContext(t => {
+    t.ok(1);
+  })());
+test('c', t => {
+  throw new Error('errored');
+});
+"
+`;

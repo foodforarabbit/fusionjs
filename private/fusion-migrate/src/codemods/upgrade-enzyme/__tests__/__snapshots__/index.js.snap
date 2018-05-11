@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`upgrade-enzyme positive-match: positive-match 1`] = `
+"expect(component.find(Component).getNode().props.value).toBe('0.50');
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+expect(component.find(Component).instance().props.value).toBe('0.50');
+"
+`;

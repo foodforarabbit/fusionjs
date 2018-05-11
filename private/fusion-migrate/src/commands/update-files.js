@@ -15,7 +15,12 @@ const defaultFilesToAdd = [
   'src/plugins',
   'src/test-utils',
 ];
-const defaultFilesToRemove = ['.eslintrc', 'gulpfile.js', 'gulpfile-dev.js'];
+const defaultFilesToRemove = [
+  '.babelrc',
+  '.eslintrc',
+  'gulpfile.js',
+  'gulpfile-dev.js',
+];
 
 module.exports = async function updateFiles({
   remove = defaultFilesToRemove,
@@ -33,5 +38,5 @@ module.exports = async function updateFiles({
   const addFiles = add.map(fileToAdd => {
     return ncp(path.join(srcDir, fileToAdd), path.join(destDir, fileToAdd));
   });
-  return Promise.all(removeFiles.concat(addFiles));
+  return Promise.all([...removeFiles, ...addFiles]);
 };

@@ -31,11 +31,18 @@ const modSentryConfig = require('./codemods/sentry-config/plugin.js');
 const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
 const modRedux = require('./codemods/redux/plugin.js');
+const modNormalizeTape = require('./codemods/normalize-tape/plugin.js');
+const modDeepLooseEqual = require('./codemods/deep-loose-equal/plugin.js');
+const modUpgradeEnzyme = require('./codemods/upgrade-enzyme/plugin.js');
+const modRemoveEnzymeAdapter = require('./codemods/remove-enzyme-adapter/plugin.js');
+const modMoveTestUtils = require('./codemods/move-test-utils/plugin.js');
 const updateDeps = require('./commands/update-deps.js');
 const updateEngines = require('./commands/update-engines.js');
 const updateFiles = require('./commands/update-files.js');
+const renameTestFiles = require('./commands/rename-test-files.js');
 const updateScripts = require('./commands/update-scripts.js');
 const updateGitignore = require('./commands/update-gitignore.js');
+const jestCodemods = require('./commands/jest-codemods.js');
 const setRoutePrefix = require('./commands/route-prefix.js');
 const setServiceId = require('./commands/svc-id.js');
 
@@ -46,6 +53,7 @@ module.exports = function getSteps(options) {
     getStep('update-files', () => updateFiles(options)),
     getStep('update-engines', () => updateEngines(options)),
     getStep('update-scripts', () => updateScripts(options)),
+    getTestCodemodStep(options),
     getStep('prettier', () => format(options.destDir)),
   ];
   let versionSpecificSteps = [];
@@ -259,6 +267,44 @@ function getConfigCodemodStep(options, keyPath, file) {
         filter: filterMatchFile(file),
       }),
   };
+}
+
+function getTestCodemodStep(options) {
+  return getStep(
+    'jest-codemods',
+    () =>
+      codemodStep({
+        ...options,
+        plugin: modNormalizeTape,
+        filter: f => f.includes('src/test'),
+      }),
+    () =>
+      codemodStep({
+        ...options,
+        plugin: modDeepLooseEqual,
+        filter: f => f.includes('src/test'),
+      }),
+    () =>
+      codemodStep({
+        ...options,
+        plugin: modUpgradeEnzyme,
+        filter: f => f.includes('src/test'),
+      }),
+    () =>
+      codemodStep({
+        ...options,
+        plugin: modRemoveEnzymeAdapter,
+        filter: f => f.includes('src/test-utils/test-app.js'),
+      }),
+    () => jestCodemods(options),
+    () =>
+      codemodStep({
+        ...options,
+        plugin: modMoveTestUtils,
+        filter: f => f.includes('src/test') && !f.includes('/util'),
+      }),
+    () => renameTestFiles()
+  );
 }
 
 function filterMatchFile(...files) {

@@ -19,6 +19,7 @@ const defaultModulesToRemove = [
 ];
 
 const defaultCompatModules = [
+  'jest-codemods',
   '@uber/bedrock-14-compat',
   '@uber/fusion-plugin-initial-state-compat',
   '@uber/fusion-plugin-bedrock-compat',
@@ -63,6 +64,7 @@ module.exports = async function updateDeps({
   // Don't upgrade react during migration
   delete srcPackage.dependencies.react;
   delete srcPackage.dependencies['react-dom'];
+  delete srcPackage.devDependencies['react-test-renderer'];
 
   Object.assign(destPackage.dependencies, srcPackage.dependencies);
   Object.assign(destPackage.devDependencies, srcPackage.devDependencies);

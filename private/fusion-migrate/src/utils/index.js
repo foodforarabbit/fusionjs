@@ -63,8 +63,11 @@ function clearMatchCache() {
 
 function astOf(code) {
   if (cache[code]) return cache[code];
-  cache[code] = babylon.parse(code, parserOpts).program.body[0];
+  cache[code] = programOf(code).body[0];
   return cache[code];
+}
+function programOf(code) {
+  return babylon.parse(code, parserOpts).program;
 }
 
 function addImportSpecifier(path, local, imported = local) {
@@ -90,6 +93,7 @@ function isMain(state) {
 module.exports = {
   get,
   astOf,
+  programOf,
   matchStatement,
   matchExpression,
   clearMatchCache,
