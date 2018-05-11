@@ -1,4 +1,3 @@
-const {astOf} = require('../../utils');
 const visitNamedModule = require('../../utils/visit-named-module.js');
 
 module.exports = babel => {
@@ -28,9 +27,7 @@ module.exports = babel => {
       const isorenderHandleRequestRef =
         refPath.scope.bindings[refPath.parentPath.parentPath.node.id.name]
           .referencePaths[0];
-      isorenderHandleRequestRef.parentPath.parentPath.parentPath.replaceWith(
-        astOf(`(req, res) => res.fusionRender()`)
-      );
+      isorenderHandleRequestRef.parentPath.parentPath.parentPath.parentPath.remove();
 
       // remove refs to all params to isorender
       props.forEach(prop => {
