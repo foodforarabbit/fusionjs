@@ -2,7 +2,7 @@
 
 exports[`hoist-routes positive-match: positive-match 1`] = `
 "import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
 import AppContainer from '../containers/app-container';
 import TagsEditorContainer from '../containers/tags-editor-container';
@@ -12,9 +12,13 @@ import ExampleErrorContainer from '../containers/example-error-container';
 export default function getRoutes() {
   const test = 'hello';
   return (
-    <Route component={AppContainer}>
+    <Route component={AppContainer} path=\\"prefix\\">
       <IndexRoute component={TagsEditorContainer} />
+      <IndexRedirect to=\\"counter\\" />
+      <Redirect from=\\"test\\" to=\\"counter\\" />
       <Route path=\\"counter\\" component={CounterContainer} />
+      <Route path=\\"prefix/test\\" component={CounterContainer} />
+      <Route path=\\"prefix\\" component={CounterContainer} />
       <Route path=\\"example-error\\" component={ExampleErrorContainer} />
       <Route path=\\"*\\" component={FourOhFour} statusCode={404} />
     </Route>
@@ -24,21 +28,206 @@ export default function getRoutes() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {
+  Router4Compat,
+  RouteV3,
+  IndexRouteV3,
+  IndexRedirectV3,
+  RedirectV3,
+} from '@uber/fusion-plugin-react-router-v3-compat';
 import React from 'react';
-import {Route, IndexRoute} from 'react-router';
 import FourOhFour from './not-found';
 import AppContainer from '../containers/app-container';
 import TagsEditorContainer from '../containers/tags-editor-container';
 import CounterContainer from '../containers/counter-container';
 import ExampleErrorContainer from '../containers/example-error-container';
 const test = 'hello';
+
+const _routes = (
+  <RouteV3 component={AppContainer} path=\\"prefix\\">
+    <IndexRouteV3 component={TagsEditorContainer} />
+    <IndexRedirectV3 to=\\"counter\\" />
+    <RedirectV3 from=\\"test\\" to=\\"counter\\" />
+    <RouteV3 path=\\"counter\\" component={CounterContainer} />
+    <RouteV3 path=\\"prefix/test\\" component={CounterContainer} />
+    <RouteV3 path=\\"prefix\\" component={CounterContainer} />
+    <RouteV3 path=\\"example-error\\" component={ExampleErrorContainer} />
+    <RouteV3 path=\\"*\\" component={FourOhFour} statusCode={404} />
+  </RouteV3>
+);
+
+export default <Router4Compat v3Routes={[_routes]} />;
+"
+`;
+
+exports[`hoist-routes positive-match: positive-match 2`] = `
+"import React from 'react';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+import TagsEditorContainer from '../containers/tags-editor-container';
+import CounterContainer from '../containers/counter-container';
+import ExampleErrorContainer from '../containers/example-error-container';
+
+export default function getRoutes() {
+  const test = 'hello';
+  return (
+    <Route component={AppContainer} path=\\"prefix\\">
+      <IndexRoute component={TagsEditorContainer} />
+      <IndexRedirect to=\\"counter\\" />
+      <Redirect from=\\"test\\" to=\\"counter\\" />
+      <Route path=\\"counter\\" component={CounterContainer} />
+      <Route path=\\"prefix/test\\" component={CounterContainer} />
+      <Route path=\\"prefix\\" component={CounterContainer} />
+      <Route path=\\"example-error\\" component={ExampleErrorContainer} />
+      <Route path=\\"*\\" component={FourOhFour} statusCode={404} />
+    </Route>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {
+  Router4Compat,
+  RouteV3,
+  IndexRouteV3,
+  IndexRedirectV3,
+  RedirectV3,
+} from '@uber/fusion-plugin-react-router-v3-compat';
+import React from 'react';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+import TagsEditorContainer from '../containers/tags-editor-container';
+import CounterContainer from '../containers/counter-container';
+import ExampleErrorContainer from '../containers/example-error-container';
+const test = 'hello';
+
+const _routes = (
+  <RouteV3 component={AppContainer} path=\\"/\\">
+    <IndexRouteV3 component={TagsEditorContainer} />
+    <IndexRedirectV3 to=\\"/prefix/counter\\" />
+    <RedirectV3 from=\\"test\\" to=\\"/prefix/counter\\" />
+    <RouteV3 path=\\"counter\\" component={CounterContainer} />
+    <RouteV3 path=\\"prefix/test\\" component={CounterContainer} />
+    <RouteV3 path=\\"prefix\\" component={CounterContainer} />
+    <RouteV3 path=\\"example-error\\" component={ExampleErrorContainer} />
+    <RouteV3 path=\\"*\\" component={FourOhFour} statusCode={404} />
+  </RouteV3>
+);
+
+export default <Router4Compat v3Routes={[_routes]} />;
+"
+`;
+
+exports[`hoist-routes unwrapped: unwrapped 1`] = `
+"import React from 'react';
+import {Route, IndexRoute, IndexRedirect, Redirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+import TagsEditorContainer from '../containers/tags-editor-container';
+import CounterContainer from '../containers/counter-container';
+import ExampleErrorContainer from '../containers/example-error-container';
+
 export default (
-  <Route component={AppContainer}>
+  <Route component={AppContainer} path=\\"prefix\\">
     <IndexRoute component={TagsEditorContainer} />
+    <IndexRedirect to=\\"counter\\" />
+    <Redirect from=\\"test\\" to=\\"counter\\" />
     <Route path=\\"counter\\" component={CounterContainer} />
+    <Route path=\\"prefix/test\\" component={CounterContainer} />
+    <Route path=\\"prefix\\" component={CounterContainer} />
     <Route path=\\"example-error\\" component={ExampleErrorContainer} />
     <Route path=\\"*\\" component={FourOhFour} statusCode={404} />
   </Route>
 );
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {
+  Router4Compat,
+  RouteV3,
+  IndexRouteV3,
+  IndexRedirectV3,
+  RedirectV3,
+} from '@uber/fusion-plugin-react-router-v3-compat';
+import React from 'react';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+import TagsEditorContainer from '../containers/tags-editor-container';
+import CounterContainer from '../containers/counter-container';
+import ExampleErrorContainer from '../containers/example-error-container';
+
+const _routes = (
+  <RouteV3 component={AppContainer} path=\\"prefix\\">
+    <IndexRouteV3 component={TagsEditorContainer} />
+    <IndexRedirectV3 to=\\"counter\\" />
+    <RedirectV3 from=\\"test\\" to=\\"counter\\" />
+    <RouteV3 path=\\"counter\\" component={CounterContainer} />
+    <RouteV3 path=\\"prefix/test\\" component={CounterContainer} />
+    <RouteV3 path=\\"prefix\\" component={CounterContainer} />
+    <RouteV3 path=\\"example-error\\" component={ExampleErrorContainer} />
+    <RouteV3 path=\\"*\\" component={FourOhFour} statusCode={404} />
+  </RouteV3>
+);
+
+export default <Router4Compat v3Routes={[_routes]} />;
+"
+`;
+
+exports[`hoist-routes unwrapped: unwrapped 2`] = `
+"import React from 'react';
+import {Route, IndexRoute, IndexRedirect, Redirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+import TagsEditorContainer from '../containers/tags-editor-container';
+import CounterContainer from '../containers/counter-container';
+import ExampleErrorContainer from '../containers/example-error-container';
+
+export default (
+  <Route component={AppContainer} path=\\"prefix\\">
+    <IndexRoute component={TagsEditorContainer} />
+    <IndexRedirect to=\\"counter\\" />
+    <Redirect from=\\"test\\" to=\\"counter\\" />
+    <Route path=\\"counter\\" component={CounterContainer} />
+    <Route path=\\"prefix/test\\" component={CounterContainer} />
+    <Route path=\\"prefix\\" component={CounterContainer} />
+    <Route path=\\"example-error\\" component={ExampleErrorContainer} />
+    <Route path=\\"*\\" component={FourOhFour} statusCode={404} />
+  </Route>
+);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {
+  Router4Compat,
+  RouteV3,
+  IndexRouteV3,
+  IndexRedirectV3,
+  RedirectV3,
+} from '@uber/fusion-plugin-react-router-v3-compat';
+import React from 'react';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+import TagsEditorContainer from '../containers/tags-editor-container';
+import CounterContainer from '../containers/counter-container';
+import ExampleErrorContainer from '../containers/example-error-container';
+
+const _routes = (
+  <RouteV3 component={AppContainer} path=\\"/\\">
+    <IndexRouteV3 component={TagsEditorContainer} />
+    <IndexRedirectV3 to=\\"/prefix/counter\\" />
+    <RedirectV3 from=\\"test\\" to=\\"/prefix/counter\\" />
+    <RouteV3 path=\\"counter\\" component={CounterContainer} />
+    <RouteV3 path=\\"prefix/test\\" component={CounterContainer} />
+    <RouteV3 path=\\"prefix\\" component={CounterContainer} />
+    <RouteV3 path=\\"example-error\\" component={ExampleErrorContainer} />
+    <RouteV3 path=\\"*\\" component={FourOhFour} statusCode={404} />
+  </RouteV3>
+);
+
+export default <Router4Compat v3Routes={[_routes]} />;
 "
 `;
