@@ -12,6 +12,7 @@ const defaultModulesToRemove = [
   '@uber/eslint-config',
   '@uber/eslint-config-es6',
   '@uber/eslint-config-jsx',
+  'react-router',
   'gulp',
   'jsonlint',
   'tape',

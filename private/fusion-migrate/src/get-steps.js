@@ -30,6 +30,7 @@ const modMainImports = require('./codemods/main-imports/plugin.js');
 const modSentryConfig = require('./codemods/sentry-config/plugin.js');
 const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
+const modRemoveMagellanReducer = require('./codemods/remove-magellan-reducer/plugin.js');
 const modRedux = require('./codemods/redux/plugin.js');
 const modNormalizeTape = require('./codemods/normalize-tape/plugin.js');
 const modDeepLooseEqual = require('./codemods/deep-loose-equal/plugin.js');
@@ -186,7 +187,7 @@ function get14Steps(options) {
     getStep('mod-hoist-routes', () =>
       codemodStep({
         ...options,
-        plugin: modHoistRoutes,
+        plugin: modHoistRoutes(routePrefix),
         filter: filterMatchRoutes,
       })
     ),
@@ -195,6 +196,9 @@ function get14Steps(options) {
         ...options,
         plugin: modReplaceRouterImports,
       })
+    ),
+    getStep('mod-remove-magellan-reducer', () =>
+      codemodStep({...options, plugin: modRemoveMagellanReducer})
     ),
     getStep('mod-compat-rpc', () =>
       codemodStep({
