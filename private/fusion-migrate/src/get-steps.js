@@ -17,7 +17,7 @@ const modBedrockCompat = require('./codemods/bedrock-compat/plugin.js');
 const modCompatHttpHandler = require('./codemods/compat-plugin-http-handler/plugin.js');
 const modCompatUniversalLogger = require('./codemods/compat-plugin-universal-logger/plugin.js');
 const modCompatUniversalM3 = require('./codemods/compat-plugin-universal-m3/plugin.js');
-const modCompatRouter = require('./codemods/compat-plugin-react-router/plugin.js');
+const modReplaceRouterImports = require('./codemods/replace-react-router-imports/plugin.js');
 const modCompatRPC = require('./codemods/compat-plugin-rpc/plugin.js');
 const modCspExport = require('./codemods/csp-export/plugin.js');
 const modDataDependency = require('./codemods/data-dependency/plugin.js');
@@ -190,11 +190,10 @@ function get14Steps(options) {
         filter: filterMatchRoutes,
       })
     ),
-    getStep('mod-compat-router', () =>
+    getStep('mod-replace-router-imports', () =>
       codemodStep({
         ...options,
-        plugin: modCompatRouter,
-        filter: filterMatchMain,
+        plugin: modReplaceRouterImports,
       })
     ),
     getStep('mod-compat-rpc', () =>

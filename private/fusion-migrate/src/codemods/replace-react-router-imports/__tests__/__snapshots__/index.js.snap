@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`replace-react-router-imports positive-match: positive-match 1`] = `
+"import {Link} from 'react-router';
+
+function thing() {
+  return (
+    <div>
+      <Link to=\\"/test\\" />
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {Link} from 'fusion-plugin-react-router';
+
+function thing() {
+  return (
+    <div>
+      <Link to=\\"/test\\" />
+    </div>
+  );
+}
+"
+`;
