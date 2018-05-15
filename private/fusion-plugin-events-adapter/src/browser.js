@@ -34,8 +34,7 @@ export const webEventsMetaMapper = (payload: *) => {
   };
 };
 
-const p =
-  // $FlowFixMe
+const plugin =
   __BROWSER__ &&
   createPlugin({
     deps: {
@@ -62,4 +61,4 @@ const p =
     },
   });
 
-export default ((p: any): FusionPlugin<*, *>);
+export default ((plugin: any): FusionPlugin<*, *>);

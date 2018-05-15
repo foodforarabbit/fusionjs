@@ -1,10 +1,8 @@
 // @flow
 /* eslint-env node */
 import {createPlugin} from 'fusion-core';
-// $FlowFixMe
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
-// $FlowFixMe
 import {I18nToken} from 'fusion-plugin-i18n';
 
 import {M3Token} from '@uber/fusion-plugin-m3';
@@ -23,8 +21,7 @@ import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
 
-const p =
-  // $FlowFixMe
+const plugin =
   __NODE__ &&
   createPlugin({
     deps: {
@@ -87,4 +84,4 @@ const p =
     },
   });
 
-export default ((p: any): FusionPlugin<*, *>);
+export default ((plugin: any): FusionPlugin<*, *>);
