@@ -1,8 +1,10 @@
+/* eslint-env node */
 const {GalileoToken} = require('@uber/fusion-plugin-galileo');
 const {LoggerToken} = require('fusion-tokens');
 const {TracerToken} = require('@uber/fusion-plugin-tracer');
+const {mock: mockM3, M3Token} = require('@uber/fusion-plugin-m3');
 const App = require('fusion-core').default;
-const {SSRDeciderToken} = require('fusion-core');
+const {createPlugin, SSRDeciderToken} = require('fusion-core');
 
 const {getSimulator} = require('fusion-test-utils');
 const getPort = require('get-port');
@@ -42,6 +44,19 @@ tape('proxies GET requests', async t => {
   const app = new App('el', el => el);
   const proxyPort = await getPort();
   const appPort = await getPort();
+
+  app.register(M3Token, mockM3);
+  let M3 = null;
+  app.register(
+    createPlugin({
+      deps: {m3: M3Token},
+      middleware: ({m3}) => async (ctx, next) => {
+        await next();
+        M3 = m3;
+      },
+    })
+  );
+
   app.register(ProxyPlugin);
   app.register(LoggerToken, console);
   app.register(TracerToken, getMockTracer(t));
@@ -66,6 +81,7 @@ tape('proxies GET requests', async t => {
           headers: {
             'x-next': 'correct',
           },
+          m3Key: 'root',
         },
       ],
       headers: {
@@ -101,6 +117,20 @@ tape('proxies GET requests', async t => {
   t.equal(res, 'OK');
   proxyConnection.close();
   connection.close();
+
+  const m3Calls = M3.getCalls();
+  t.deepEqual(m3Calls[0], [
+    'timing',
+    ['proxy_socket_time', m3Calls[0][1][1], {route: 'root'}],
+  ]);
+  t.deepEqual(m3Calls[1], [
+    'timing',
+    ['proxy_header_time', m3Calls[1][1][1], {status_code: 200, route: 'root'}],
+  ]);
+  t.deepEqual(m3Calls[2], [
+    'timing',
+    ['proxy_response_time', m3Calls[2][1][1], {route: 'root'}],
+  ]);
   t.end();
 });
 
@@ -108,6 +138,19 @@ tape('galileo error handling', async t => {
   const app = new App('el', el => el);
   const proxyPort = await getPort();
   const appPort = await getPort();
+
+  app.register(M3Token, mockM3);
+  let M3 = null;
+  app.register(
+    createPlugin({
+      deps: {m3: M3Token},
+      middleware: ({m3}) => async (ctx, next) => {
+        await next();
+        M3 = m3;
+      },
+    })
+  );
+
   app.register(ProxyPlugin);
   app.register(LoggerToken, {
     error: (message, {path}) => {
@@ -132,6 +175,7 @@ tape('galileo error handling', async t => {
       routes: [
         {
           route: '/*',
+          m3Key: 'root',
         },
       ],
     },
@@ -161,6 +205,20 @@ tape('galileo error handling', async t => {
   t.equal(res, 'OK');
   proxyConnection.close();
   connection.close();
+
+  const m3Calls = M3.getCalls();
+  t.deepEqual(m3Calls[0], [
+    'timing',
+    ['proxy_socket_time', m3Calls[0][1][1], {route: 'root'}],
+  ]);
+  t.deepEqual(m3Calls[1], [
+    'timing',
+    ['proxy_header_time', m3Calls[1][1][1], {status_code: 200, route: 'root'}],
+  ]);
+  t.deepEqual(m3Calls[2], [
+    'timing',
+    ['proxy_response_time', m3Calls[2][1][1], {route: 'root'}],
+  ]);
   t.end();
 });
 
@@ -168,6 +226,19 @@ tape('proxies POST requests', async t => {
   const app = new App('el', el => el);
   const proxyPort = await getPort();
   const appPort = await getPort();
+
+  app.register(M3Token, mockM3);
+  let M3 = null;
+  app.register(
+    createPlugin({
+      deps: {m3: M3Token},
+      middleware: ({m3}) => async (ctx, next) => {
+        await next();
+        M3 = m3;
+      },
+    })
+  );
+
   app.register(ProxyPlugin);
   app.register(LoggerToken, console);
   app.register(TracerToken, getMockTracer(t));
@@ -189,6 +260,7 @@ tape('proxies POST requests', async t => {
       routes: [
         {
           route: '/*',
+          m3Key: 'root',
         },
       ],
     },
@@ -228,6 +300,20 @@ tape('proxies POST requests', async t => {
   t.equal(res, 'OK');
   proxyConnection.close();
   connection.close();
+
+  const m3Calls = M3.getCalls();
+  t.deepEqual(m3Calls[0], [
+    'timing',
+    ['proxy_socket_time', m3Calls[0][1][1], {route: 'root'}],
+  ]);
+  t.deepEqual(m3Calls[1], [
+    'timing',
+    ['proxy_header_time', m3Calls[1][1][1], {status_code: 200, route: 'root'}],
+  ]);
+  t.deepEqual(m3Calls[2], [
+    'timing',
+    ['proxy_response_time', m3Calls[2][1][1], {route: 'root'}],
+  ]);
   t.end();
 });
 

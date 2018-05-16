@@ -1,3 +1,4 @@
+/* eslint-env node */
 const {createPlugin} = require('fusion-core');
 const {getMatchFn} = require('./plugin.js');
 const {ProxyConfigToken} = require('./tokens.js');

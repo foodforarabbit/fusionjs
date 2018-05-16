@@ -8,6 +8,7 @@
   "main": "src/index.js",
   "browser": "src/browser.js",
   "dependencies": {
+    "@uber/request-m3-events": "^2.0.0",
     "path-to-regexp": "0.1.7",
     "request": "^2.85.0"
   },

@@ -1,3 +1,4 @@
+/* eslint-env node */
 const plugin = require('./plugin.js');
 const decider = require('./decider.js');
 const {ProxyConfigToken} = require('./tokens.js');

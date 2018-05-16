@@ -2,6 +2,8 @@
 const {GalileoToken} = require('@uber/fusion-plugin-galileo');
 const {LoggerToken} = require('fusion-tokens');
 const {TracerToken} = require('@uber/fusion-plugin-tracer');
+const {M3Token} = require('@uber/fusion-plugin-m3');
+const registerM3Events = require('@uber/request-m3-events');
 const {createPlugin} = require('fusion-core');
 const pathToRegexp = require('path-to-regexp');
 const request = require('request');
@@ -17,10 +19,11 @@ module.exports = createPlugin({
   deps: {
     config: ProxyConfigToken,
     logger: LoggerToken,
+    m3Client: M3Token,
     Tracer: TracerToken,
     Galileo: GalileoToken,
   },
-  middleware: ({config, logger, Tracer, Galileo}) => {
+  middleware: ({config, logger, m3Client, Tracer, Galileo}) => {
     const {galileo} = Galileo;
     const matchFn = getMatchFn(config);
     return async (ctx, next) => {
@@ -52,9 +55,17 @@ module.exports = createPlugin({
           }
         );
       });
-      ctx.body = ctx.req.pipe(
-        request(getProxyUrl(proxyConfig, ctx), {headers: proxyHeaders})
-      );
+      const proxyReq = request(getProxyUrl(proxyConfig, ctx), {
+        headers: proxyHeaders,
+      });
+      proxyReq.on('request', req => {
+        registerM3Events(req, {
+          client: m3Client,
+          key: proxyConfig.m3Key || 'unknown_route',
+        });
+      });
+
+      ctx.body = ctx.req.pipe(proxyReq);
     };
   },
 });
@@ -105,9 +116,7 @@ function getMatchFn(config) {
     const proxyConfig = config[key];
     proxyConfig.name = key;
     const routes = proxyConfig.routes;
-    routes.forEach(({route, headers = {} /*, m3Key*/}) => {
-      // TODO: handle m3Key
-
+    routes.forEach(({route, headers = {}, m3Key}) => {
       matchers.push({
         regex: pathToRegexp(path.join('/', key, route)),
         proxyConfig: {
@@ -116,6 +125,7 @@ function getMatchFn(config) {
             ...proxyConfig.headers,
             ...headers,
           },
+          m3Key,
         },
       });
     });
