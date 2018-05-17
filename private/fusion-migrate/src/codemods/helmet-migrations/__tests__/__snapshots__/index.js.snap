@@ -26,6 +26,7 @@ export default <Root />;
 // @flow
 import React from 'react';
 import {Helmet} from 'fusion-plugin-react-helmet-async';
+import {assetUrl} from 'fusion-core';
 import {Route, Switch, NotFound} from 'fusion-plugin-react-router';
 import Welcome from './welcome.js';
 
@@ -41,12 +42,12 @@ export const Root = () => (
       <link
         rel=\\"shortcut icon\\"
         type=\\"image/x-icon\\"
-        href=\\"{assetUrl('../static/favicon.ico')}\\"
+        href={assetUrl('../static/favicon.ico')}
       />
       <link
         rel=\\"icon\\"
         type=\\"image/x-icon\\"
-        href=\\"{assetUrl('../static/favicon.ico')}\\"
+        href={assetUrl('../static/favicon.ico')}
       />
       <style>{\`
 html,body,#root,#wrapper{height:100%;}
