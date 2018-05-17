@@ -8,6 +8,7 @@
     "update-flipr-bootstrap": "bin/update-flipr-bootstrap.sh"
   },
   "files": [
+    "bin",
     "dist",
     "src",
     "flipr"
