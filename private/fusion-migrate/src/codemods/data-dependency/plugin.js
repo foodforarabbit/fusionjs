@@ -2,9 +2,9 @@ const babylon = require('babylon');
 const addComment = require('../../utils/add-comment.js');
 const ensureImportDeclaration = require('../../utils/ensure-import-declaration.js');
 const getProgram = require('../../utils/get-program.js');
+const t = require('@babel/types');
 
-module.exports = babel => {
-  const t = babel.types;
+module.exports = () => {
   const components = {};
   return {
     name: 'data-dependency',
@@ -21,109 +21,192 @@ module.exports = babel => {
           }
           return true;
         });
-        if (component && dataDependency) {
-          let dependencyExpression = dataDependency.value;
-          let dependencyName;
-          if (dataDependency.value.type !== 'StringLiteral') {
-            dependencyExpression = dataDependency.value.expression;
-            if (dependencyExpression.type === 'MemberExpression') {
-              dependencyName = dependencyExpression.property.name;
-            } else {
-              throw new Error(
-                `Unsupported dependencyExpression type: ${
-                  dependencyExpression.type
-                }`
-              );
-            }
+        if (!component || !dataDependency) {
+          return;
+        }
+
+        const program = getProgram(path);
+        const body = program.node.body;
+        ensureImportDeclaration(body, `import {compose} from 'redux';`);
+        ensureImportDeclaration(
+          body,
+          `import {createRPCPromise} from '@uber/web-rpc-redux';`
+        );
+        ensureImportDeclaration(body, `import {connect} from 'react-redux';`);
+        ensureImportDeclaration(
+          body,
+          `import {prepared} from 'fusion-react-async';`
+        );
+        const componentOldIdentifier = component.value.expression;
+        const newIdentifier = path.scope.generateUidIdentifier(
+          `${componentOldIdentifier.name}WithData`
+        );
+        let dependencyExpression = dataDependency.value;
+        let dependencyName;
+        if (dataDependency.value.type === 'StringLiteral') {
+          dependencyName = dataDependency.value.value;
+        } else {
+          dependencyExpression = dataDependency.value.expression;
+          if (dependencyExpression.type === 'MemberExpression') {
+            dependencyName = dependencyExpression.property.name;
+          } else if (dependencyExpression.type === 'ArrayExpression') {
+            // TODO Handle single element here
+            return handleArrayExpression({
+              path,
+              component,
+              components,
+              dependencyExpression,
+            });
           } else {
-            dependencyName = dataDependency.value.value;
-          }
-          if (components[dependencyName]) {
-            // Already generated a hoc in scope
-            component.value.expression = components[dependencyName];
-          } else {
-            // First time generating an hoc in scope
-            const componentOldIdentifier = component.value.expression;
-            const newIdentifier = path.scope.generateUidIdentifier(
-              `${componentOldIdentifier.name}WithData`
-            );
-            components[dependencyName] = newIdentifier;
-            component.value.expression = newIdentifier;
-            const body = getProgram(path).node.body;
-            const rpcPromiseDeclaration = t.VariableDeclaration('const', [
-              t.VariableDeclarator(
-                t.identifier(dependencyName),
-                t.arrowFunctionExpression(
-                  [],
-                  t.blockStatement([
-                    t.returnStatement(
-                      t.callExpression(t.identifier('createRPCPromise'), [
-                        dependencyExpression,
-                      ])
-                    ),
-                  ])
-                )
-              ),
-            ]);
-            const declaration = t.VariableDeclaration('const', [
-              t.VariableDeclarator(
-                newIdentifier,
-                t.CallExpression(
-                  t.CallExpression(t.identifier('compose'), [
-                    getConnectFunction(t, dependencyName),
-                    getPrepareFunction(t, dataDependency),
-                  ]),
-                  [componentOldIdentifier]
-                )
-              ),
-            ]);
-            insertAfterLastImport(body, declaration);
-            insertAfterLastImport(body, rpcPromiseDeclaration);
-            ensureImportDeclaration(body, `import {compose} from 'redux';`);
-            ensureImportDeclaration(
-              body,
-              `import {createRPCPromise} from '@uber/web-rpc-redux';`
-            );
-            ensureImportDeclaration(
-              body,
-              `import {connect} from 'react-redux';`
-            );
-            ensureImportDeclaration(
-              body,
-              `import {prepared} from 'fusion-react-async';`
+            throw new Error(
+              `Unsupported dependencyExpression type: ${
+                dependencyExpression.type
+              }`
             );
           }
+        }
+        if (components[dependencyName]) {
+          // Already generated a hoc in scope
+          component.value.expression = components[dependencyName];
+        } else {
+          components[dependencyName] = newIdentifier;
+          component.value.expression = newIdentifier;
+          const rpcPromiseDeclaration = getRPCPromiseDeclaration(
+            dependencyName,
+            dependencyExpression
+          );
+          const declaration = t.VariableDeclaration('const', [
+            t.VariableDeclarator(
+              newIdentifier,
+              t.CallExpression(
+                t.CallExpression(t.identifier('compose'), [
+                  getConnectFunction(dependencyName),
+                  getPrepareFunction(dataDependency),
+                ]),
+                [componentOldIdentifier]
+              )
+            ),
+          ]);
+          insertAfterLastImport(body, declaration);
+          insertAfterLastImport(body, rpcPromiseDeclaration);
         }
       },
     },
   };
 };
 
-function getConnectFunction(t, dependencyName) {
+function handleArrayExpression({
+  path,
+  component,
+  dependencyExpression,
+  components,
+}) {
+  const program = getProgram(path);
+  const body = program.node.body;
+  const depNames = [];
+  const rpcPromiseDeclarations = [];
+  const componentOldIdentifier = component.value.expression;
+  const newIdentifier = path.scope.generateUidIdentifier(
+    `${componentOldIdentifier.name}WithData`
+  );
+  dependencyExpression.elements.forEach(dataDependency => {
+    let dependencyName;
+    if (dataDependency.type === 'StringLiteral') {
+      dependencyName = dataDependency.value;
+    } else if (dataDependency.type === 'MemberExpression') {
+      dependencyName = dataDependency.property.name;
+    } else {
+      throw new Error(
+        'Unsupported data dependency expression type',
+        dataDependency.type
+      );
+    }
+    if (components[dependencyName]) {
+      // This is necessary to keep the order of declarations correct
+      program.traverse({
+        VariableDeclarator(declarationPath) {
+          if (declarationPath.node.id.name === dependencyName) {
+            declarationPath.remove();
+          }
+        },
+      });
+    }
+    components[dependencyName] = newIdentifier;
+    rpcPromiseDeclarations.push(
+      getRPCPromiseDeclaration(dependencyName, dataDependency)
+    );
+    depNames.push(dependencyName);
+  });
+
+  const declaration = t.VariableDeclaration('const', [
+    t.VariableDeclarator(
+      newIdentifier,
+      t.CallExpression(
+        t.CallExpression(t.identifier('compose'), [
+          getConnectFunction(depNames),
+          getPrepareFunction(dependencyExpression.elements),
+        ]),
+        [componentOldIdentifier]
+      )
+    ),
+  ]);
+  insertAfterLastImport(body, declaration);
+  rpcPromiseDeclarations.forEach(promiseDeclaration =>
+    insertAfterLastImport(body, promiseDeclaration)
+  );
+}
+
+function getConnectFunction(dependencyName) {
   const returnStatement = t.returnStatement(t.objectExpression([]));
+  const depNames = Array.isArray(dependencyName)
+    ? dependencyName.join(',')
+    : dependencyName;
   addComment(returnStatement, 'TODO: get things from state you need here');
   return t.CallExpression(t.identifier('connect'), [
     t.arrowFunctionExpression(
       [t.identifier('state')],
       t.blockStatement([returnStatement])
     ),
-    babylon.parseExpression(`{${dependencyName}}`),
+    babylon.parseExpression(`{${depNames}}`),
   ]);
 }
 
-function getPrepareFunction(t, dataDependency) {
+function getPrepareFunction(dataDependency) {
   // TODO: figure out how to add comments
-  const returnStatement = t.returnStatement(
-    t.callExpression(
-      t.memberExpression(
-        t.identifier('props'),
-        dataDependency.value.expression ||
-          t.identifier(dataDependency.value.value),
-        dataDependency.value.type !== 'StringLiteral'
-      ),
-      []
-    )
-  );
+  let returnStatement;
+  if (Array.isArray(dataDependency)) {
+    returnStatement = t.returnStatement(
+      t.callExpression(
+        t.memberExpression(t.identifier('Promise'), t.identifier('all')),
+        [
+          t.arrayExpression(
+            dataDependency.map(dep => {
+              return t.callExpression(
+                t.memberExpression(
+                  t.identifier('props'),
+                  dep.type === 'StringLiteral' ? t.identifier(dep.value) : dep,
+                  dep.type !== 'StringLiteral'
+                ),
+                []
+              );
+            })
+          ),
+        ]
+      )
+    );
+  } else {
+    returnStatement = t.returnStatement(
+      t.callExpression(
+        t.memberExpression(
+          t.identifier('props'),
+          dataDependency.value.expression ||
+            t.identifier(dataDependency.value.value),
+          dataDependency.value.type !== 'StringLiteral'
+        ),
+        []
+      )
+    );
+  }
   addComment(
     returnStatement,
     'TODO: You probably want to add a check to see if the data exists, or is loading.'
@@ -148,4 +231,22 @@ function insertAfterLastImport(body, node) {
       break;
     }
   }
+}
+
+function getRPCPromiseDeclaration(dependencyName, dependencyExpression) {
+  return t.VariableDeclaration('const', [
+    t.VariableDeclarator(
+      t.identifier(dependencyName),
+      t.arrowFunctionExpression(
+        [],
+        t.blockStatement([
+          t.returnStatement(
+            t.callExpression(t.identifier('createRPCPromise'), [
+              dependencyExpression,
+            ])
+          ),
+        ])
+      )
+    ),
+  ]);
 }

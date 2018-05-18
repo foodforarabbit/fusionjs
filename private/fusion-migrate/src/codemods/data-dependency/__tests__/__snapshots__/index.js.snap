@@ -1,5 +1,299 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`data-dependency array: array 1`] = `
+"import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import App from '../app';
+import Trips from '../trips';
+import rpcIds from './rpcids';
+
+const thing = 'test';
+
+export default function() {
+  const routes = (
+    <Route path=\\"/trips-viewer\\" component={App}>
+      <Route
+        path=\\"trips\\"
+        component={Trips}
+        dataDependency={['getTrips', 'getUser']}
+      />
+      <Route
+        path=\\"test\\"
+        component={Test}
+        dataDependency={[rpcIds.test, rpcIds.other]}
+      />
+    </Route>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {prepared} from 'fusion-react-async';
+import {connect} from 'react-redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {compose} from 'redux';
+import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import App from '../app';
+import Trips from '../trips';
+import rpcIds from './rpcids';
+
+const other = () => {
+  return createRPCPromise(rpcIds.other);
+};
+
+const test = () => {
+  return createRPCPromise(rpcIds.test);
+};
+
+const _TestWithData2 = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      test,
+      other,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return Promise.all([props[rpcIds.test](), props[rpcIds.other]()]);
+  })
+)(Test);
+
+const getUser = () => {
+  return createRPCPromise('getUser');
+};
+
+const getTrips = () => {
+  return createRPCPromise('getTrips');
+};
+
+const _TripsWithData2 = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getTrips,
+      getUser,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return Promise.all([props.getTrips(), props.getUser()]);
+  })
+)(Trips);
+
+const thing = 'test';
+export default function() {
+  const routes = (
+    <Route path=\\"/trips-viewer\\" component={App}>
+      <Route path=\\"trips\\" component={Trips} />
+      <Route path=\\"test\\" component={Test} />
+    </Route>
+  );
+}
+"
+`;
+
+exports[`data-dependency array-duplicated: array-duplicated 1`] = `
+"import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import App from '../app';
+import Trips from '../trips';
+import rpcIds from './rpcids';
+
+const thing = 'test';
+
+export default function() {
+  const routes = (
+    <Route path=\\"/trips-viewer\\" component={App}>
+      <Route path=\\"/user\\" component={User} dataDependency=\\"getUser\\" />
+      <Route
+        path=\\"trips\\"
+        component={Trips}
+        dataDependency={['getTrips', 'getUser']}
+      />
+      <Route path=\\"/trip\\" component={Trip} dataDependency=\\"getTrips\\" />
+    </Route>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {prepared} from 'fusion-react-async';
+import {connect} from 'react-redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {compose} from 'redux';
+import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import App from '../app';
+import Trips from '../trips';
+import rpcIds from './rpcids';
+
+const getUser = () => {
+  return createRPCPromise('getUser');
+};
+
+const getTrips = () => {
+  return createRPCPromise('getTrips');
+};
+
+const _TripsWithData2 = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getTrips,
+      getUser,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return Promise.all([props.getTrips(), props.getUser()]);
+  })
+)(Trips);
+
+const _UserWithData = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getUser,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return props.getUser();
+  })
+)(User);
+
+const thing = 'test';
+export default function() {
+  const routes = (
+    <Route path=\\"/trips-viewer\\" component={App}>
+      <Route path=\\"/user\\" component={_UserWithData} />
+      <Route path=\\"trips\\" component={Trips} />
+      <Route path=\\"/trip\\" component={_TripsWithData2} />
+    </Route>
+  );
+}
+"
+`;
+
+exports[`data-dependency double-array-duplicated: double-array-duplicated 1`] = `
+"import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import App from '../app';
+import Trips from '../trips';
+import rpcIds from './rpcids';
+
+const thing = 'test';
+
+export default function() {
+  const routes = (
+    <Route path=\\"/trips-viewer\\" component={App}>
+      <Route
+        path=\\"trips\\"
+        component={Trips}
+        dataDependency={['getTrips', 'getUser']}
+      />
+      <Route
+        path=\\"partners\\"
+        component={Partners}
+        dataDependency={['getUser', 'getPartners']}
+      />
+    </Route>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {prepared} from 'fusion-react-async';
+import {connect} from 'react-redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {compose} from 'redux';
+import React from 'react';
+import {Route, IndexRedirect} from 'react-router';
+import App from '../app';
+import Trips from '../trips';
+import rpcIds from './rpcids';
+
+const getPartners = () => {
+  return createRPCPromise('getPartners');
+};
+
+const getUser = () => {
+  return createRPCPromise('getUser');
+};
+
+const _PartnersWithData2 = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getUser,
+      getPartners,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return Promise.all([props.getUser(), props.getPartners()]);
+  })
+)(Partners);
+
+const getTrips = () => {
+  return createRPCPromise('getTrips');
+};
+
+const _TripsWithData2 = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getTrips,
+      getUser,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return Promise.all([props.getTrips(), props.getUser()]);
+  })
+)(Trips);
+
+const thing = 'test';
+export default function() {
+  const routes = (
+    <Route path=\\"/trips-viewer\\" component={App}>
+      <Route path=\\"trips\\" component={Trips} />
+      <Route path=\\"partners\\" component={Partners} />
+    </Route>
+  );
+}
+"
+`;
+
 exports[`data-dependency duplicated: duplicated 1`] = `
 "import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
