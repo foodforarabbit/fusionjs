@@ -5,6 +5,7 @@ const getProgram = require('../../utils/get-program.js');
 
 module.exports = babel => {
   const t = babel.types;
+  const components = {};
   return {
     name: 'data-dependency',
     visitor: {
@@ -37,51 +38,61 @@ module.exports = babel => {
           } else {
             dependencyName = dataDependency.value.value;
           }
-          const componentOldIdentifier = component.value.expression;
-          const newIdentifier = path.scope.generateUidIdentifier(
-            `${componentOldIdentifier.name}WithData`
-          );
-          component.value.expression = newIdentifier;
-          const body = getProgram(path).node.body;
-          const rpcPromiseDeclaration = t.VariableDeclaration('const', [
-            t.VariableDeclarator(
-              t.identifier(dependencyName),
-              t.arrowFunctionExpression(
-                [],
-                t.blockStatement([
-                  t.returnStatement(
-                    t.callExpression(t.identifier('createRPCPromise'), [
-                      dependencyExpression,
-                    ])
-                  ),
-                ])
-              )
-            ),
-          ]);
-          const declaration = t.VariableDeclaration('const', [
-            t.VariableDeclarator(
-              newIdentifier,
-              t.CallExpression(
-                t.CallExpression(t.identifier('compose'), [
-                  getConnectFunction(t, dependencyName),
-                  getPrepareFunction(t, dataDependency),
-                ]),
-                [componentOldIdentifier]
-              )
-            ),
-          ]);
-          insertAfterLastImport(body, declaration);
-          insertAfterLastImport(body, rpcPromiseDeclaration);
-          ensureImportDeclaration(body, `import {compose} from 'redux';`);
-          ensureImportDeclaration(
-            body,
-            `import {createRPCPromise} from '@uber/web-rpc-redux';`
-          );
-          ensureImportDeclaration(body, `import {connect} from 'react-redux';`);
-          ensureImportDeclaration(
-            body,
-            `import {prepared} from 'fusion-react-async';`
-          );
+          if (components[dependencyName]) {
+            // Already generated a hoc in scope
+            component.value.expression = components[dependencyName];
+          } else {
+            // First time generating an hoc in scope
+            const componentOldIdentifier = component.value.expression;
+            const newIdentifier = path.scope.generateUidIdentifier(
+              `${componentOldIdentifier.name}WithData`
+            );
+            components[dependencyName] = newIdentifier;
+            component.value.expression = newIdentifier;
+            const body = getProgram(path).node.body;
+            const rpcPromiseDeclaration = t.VariableDeclaration('const', [
+              t.VariableDeclarator(
+                t.identifier(dependencyName),
+                t.arrowFunctionExpression(
+                  [],
+                  t.blockStatement([
+                    t.returnStatement(
+                      t.callExpression(t.identifier('createRPCPromise'), [
+                        dependencyExpression,
+                      ])
+                    ),
+                  ])
+                )
+              ),
+            ]);
+            const declaration = t.VariableDeclaration('const', [
+              t.VariableDeclarator(
+                newIdentifier,
+                t.CallExpression(
+                  t.CallExpression(t.identifier('compose'), [
+                    getConnectFunction(t, dependencyName),
+                    getPrepareFunction(t, dataDependency),
+                  ]),
+                  [componentOldIdentifier]
+                )
+              ),
+            ]);
+            insertAfterLastImport(body, declaration);
+            insertAfterLastImport(body, rpcPromiseDeclaration);
+            ensureImportDeclaration(body, `import {compose} from 'redux';`);
+            ensureImportDeclaration(
+              body,
+              `import {createRPCPromise} from '@uber/web-rpc-redux';`
+            );
+            ensureImportDeclaration(
+              body,
+              `import {connect} from 'react-redux';`
+            );
+            ensureImportDeclaration(
+              body,
+              `import {prepared} from 'fusion-react-async';`
+            );
+          }
         }
       },
     },
