@@ -22,6 +22,7 @@ const defaultModulesToRemove = [
 const defaultCompatModules = [
   'jest-codemods',
   '@uber/bedrock-14-compat',
+  '@uber/isomorphic-i18n-compat',
   '@uber/fusion-plugin-initial-state-compat',
   '@uber/fusion-plugin-bedrock-compat',
   '@uber/fusion-plugin-universal-logger-compat',

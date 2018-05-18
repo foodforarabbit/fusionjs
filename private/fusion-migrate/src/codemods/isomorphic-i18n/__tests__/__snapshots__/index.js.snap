@@ -1,0 +1,368 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`isomorphic-i18n default-import: default-import 1`] = `
+"import i18n from '@uber/isomorphic-i18n';
+import React from 'react';
+
+function Test() {
+  const nonJSX = i18n.t('thing');
+  i18n.addLanguage('test');
+  return (
+    <div>
+      <div>
+        <div>{i18n.t('key', {a: 'lol'})}</div>
+        <div>{i18n.t('key', something)}</div>
+        <div>Hello {i18n.t('lol')}</div>
+        <Something a={i18n.t('test')} />
+        <input placeholder={i18n.t('another')} />
+      </div>
+      <div>
+        <div>{i18n.t(identifier, {test: 'args'})}</div>
+        <div>Hello {i18n.t(identifier)}</div>
+        <Something a={i18n.t(identifier)} />
+        <input placeholder={i18n.t(identifier)} />
+      </div>
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {Translate} from 'fusion-plugin-i18n-react';
+import i18n from '@uber/isomorphic-i18n-compat';
+import React from 'react';
+
+function Test() {
+  const nonJSX = <Translate id=\\"thing\\" />;
+  return (
+    <div>
+      <div>
+        <div>
+          {
+            <Translate
+              id=\\"key\\"
+              data={{
+                a: 'lol',
+              }}
+            />
+          }
+        </div>
+        <div>{<Translate id=\\"key\\" data={something} />}</div>
+        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <Something a={<Translate id=\\"test\\" />} />
+        <input placeholder={<Translate id=\\"another\\" />} />
+      </div>
+      <div>
+        <div>
+          {i18n.t(identifier, {
+            test: 'args',
+          })}
+        </div>
+        <div>Hello {i18n.t(identifier)}</div>
+        <Something a={i18n.t(identifier)} />
+        <input placeholder={i18n.t(identifier)} />
+      </div>
+    </div>
+  );
+}
+"
+`;
+
+exports[`isomorphic-i18n default-import-bedrock: default-import-bedrock 1`] = `
+"import i18n from '@uber/bedrock/isomorphic-i18n';
+import React from 'react';
+
+function Test() {
+  const nonJSX = i18n.t('thing');
+  i18n.addLanguage('test');
+  return (
+    <div>
+      <div>
+        <div>{i18n.t('key', {a: 'lol'})}</div>
+        <div>{i18n.t('key', something)}</div>
+        <div>Hello {i18n.t('lol')}</div>
+        <Something a={i18n.t('test')} />
+        <input placeholder={i18n.t('another')} />
+      </div>
+      <div>
+        <div>{i18n.t(identifier, {test: 'args'})}</div>
+        <div>Hello {i18n.t(identifier)}</div>
+        <Something a={i18n.t(identifier)} />
+        <input placeholder={i18n.t(identifier)} />
+      </div>
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {Translate} from 'fusion-plugin-i18n-react';
+import i18n from '@uber/isomorphic-i18n-compat';
+import React from 'react';
+
+function Test() {
+  const nonJSX = <Translate id=\\"thing\\" />;
+  return (
+    <div>
+      <div>
+        <div>
+          {
+            <Translate
+              id=\\"key\\"
+              data={{
+                a: 'lol',
+              }}
+            />
+          }
+        </div>
+        <div>{<Translate id=\\"key\\" data={something} />}</div>
+        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <Something a={<Translate id=\\"test\\" />} />
+        <input placeholder={<Translate id=\\"another\\" />} />
+      </div>
+      <div>
+        <div>
+          {i18n.t(identifier, {
+            test: 'args',
+          })}
+        </div>
+        <div>Hello {i18n.t(identifier)}</div>
+        <Something a={i18n.t(identifier)} />
+        <input placeholder={i18n.t(identifier)} />
+      </div>
+    </div>
+  );
+}
+"
+`;
+
+exports[`isomorphic-i18n destructured-import: destructured-import 1`] = `
+"import {t} from '@uber/isomorphic-i18n';
+import React from 'react';
+
+function Test() {
+  const nonJSX = t('thing');
+  return (
+    <div>
+      <div>
+        <div>{t('key', {a: 'lol'})}</div>
+        <div>{t('key', something)}</div>
+        <div>Hello {t('lol')}</div>
+        <Something a={t('test')} />
+        <input placeholder={t('another')} />
+      </div>
+      <div>
+        <div>{t(identifier, {test: 'args'})}</div>
+        <div>Hello {t(identifier)}</div>
+        <Something a={t(identifier)} />
+        <input placeholder={t(identifier)} />
+      </div>
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {Translate} from 'fusion-plugin-i18n-react';
+import {t} from '@uber/isomorphic-i18n-compat';
+import React from 'react';
+
+function Test() {
+  const nonJSX = <Translate id=\\"thing\\" />;
+  return (
+    <div>
+      <div>
+        <div>
+          {
+            <Translate
+              id=\\"key\\"
+              data={{
+                a: 'lol',
+              }}
+            />
+          }
+        </div>
+        <div>{<Translate id=\\"key\\" data={something} />}</div>
+        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <Something a={<Translate id=\\"test\\" />} />
+        <input placeholder={t('another')} />
+      </div>
+      <div>
+        <div>
+          {t(identifier, {
+            test: 'args',
+          })}
+        </div>
+        <div>Hello {t(identifier)}</div>
+        <Something a={t(identifier)} />
+        <input placeholder={t(identifier)} />
+      </div>
+    </div>
+  );
+}
+"
+`;
+
+exports[`isomorphic-i18n destructured-import-bedrock: destructured-import-bedrock 1`] = `
+"import {t} from '@uber/bedrock/isomorphic-i18n';
+import React from 'react';
+
+function Test() {
+  const nonJSX = t('thing');
+  return (
+    <div>
+      <div>
+        <div>{t('key', {a: 'lol'})}</div>
+        <div>{t('key', something)}</div>
+        <div>Hello {t('lol')}</div>
+        <Something a={t('test')} />
+        <input placeholder={t('another')} />
+      </div>
+      <div>
+        <div>{t(identifier, {test: 'args'})}</div>
+        <div>Hello {t(identifier)}</div>
+        <Something a={t(identifier)} />
+        <input placeholder={t(identifier)} />
+      </div>
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {Translate} from 'fusion-plugin-i18n-react';
+import {t} from '@uber/isomorphic-i18n-compat';
+import React from 'react';
+
+function Test() {
+  const nonJSX = <Translate id=\\"thing\\" />;
+  return (
+    <div>
+      <div>
+        <div>
+          {
+            <Translate
+              id=\\"key\\"
+              data={{
+                a: 'lol',
+              }}
+            />
+          }
+        </div>
+        <div>{<Translate id=\\"key\\" data={something} />}</div>
+        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <Something a={<Translate id=\\"test\\" />} />
+        <input placeholder={t('another')} />
+      </div>
+      <div>
+        <div>
+          {t(identifier, {
+            test: 'args',
+          })}
+        </div>
+        <div>Hello {t(identifier)}</div>
+        <Something a={t(identifier)} />
+        <input placeholder={t(identifier)} />
+      </div>
+    </div>
+  );
+}
+"
+`;
+
+exports[`isomorphic-i18n fully-migrated: fully-migrated 1`] = `
+"import i18n from '@uber/bedrock/isomorphic-i18n';
+import React from 'react';
+
+function Test() {
+  const nonJSX = i18n.t('thing');
+  i18n.addLanguage('test');
+  return (
+    <div>
+      <div>
+        <div>{i18n.t('key', {a: 'lol'})}</div>
+        <div>Hello {i18n.t('lol')}</div>
+        <Something a={i18n.t('test')} />
+      </div>
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {Translate} from 'fusion-plugin-i18n-react';
+import React from 'react';
+
+function Test() {
+  const nonJSX = <Translate id=\\"thing\\" />;
+  return (
+    <div>
+      <div>
+        <div>
+          {
+            <Translate
+              id=\\"key\\"
+              data={{
+                a: 'lol',
+              }}
+            />
+          }
+        </div>
+        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <Something a={<Translate id=\\"test\\" />} />
+      </div>
+    </div>
+  );
+}
+"
+`;
+
+exports[`isomorphic-i18n no-migration: no-migration 1`] = `
+"import i18n from '@uber/bedrock/isomorphic-i18n';
+import React from 'react';
+
+function Test() {
+  const nonJSX = i18n.t(identifier);
+  i18n.addLanguage('test');
+  return (
+    <div>
+      <div>
+        <div>{i18n.t(identifier, {test: 'args'})}</div>
+        <div>Hello {i18n.t(identifier)}</div>
+        <Something a={i18n.t(identifier)} />
+        <input placeholder={i18n.t(identifier)} />
+      </div>
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import i18n from '@uber/isomorphic-i18n-compat';
+import React from 'react';
+
+function Test() {
+  const nonJSX = i18n.t(identifier);
+  return (
+    <div>
+      <div>
+        <div>
+          {i18n.t(identifier, {
+            test: 'args',
+          })}
+        </div>
+        <div>Hello {i18n.t(identifier)}</div>
+        <Something a={i18n.t(identifier)} />
+        <input placeholder={i18n.t(identifier)} />
+      </div>
+    </div>
+  );
+}
+"
+`;

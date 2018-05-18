@@ -4,10 +4,19 @@ module.exports = createNamedModuleVisitor;
 /**
  * Visits all references to a given module from a given package
  */
-function createNamedModuleVisitor({t, moduleName, packageName, refsHandler}) {
+function createNamedModuleVisitor({
+  t,
+  moduleName,
+  packageName,
+  visitDefault,
+  refsHandler,
+}) {
   const compareToModuleName = Array.isArray(moduleName)
     ? s => moduleName.includes(s)
     : s => s === moduleName;
+  if (!moduleName) {
+    visitDefault = true;
+  }
   return {
     /**
      * Handle ES imports
@@ -38,7 +47,7 @@ function createNamedModuleVisitor({t, moduleName, packageName, refsHandler}) {
         } else if (t.isImportNamespaceSpecifier(specifier)) {
           // import * as pkg from 'packageName';
           // TODO(#5): Handle this case, or issue a warning because this may not be 100% robust
-        } else if (t.isImportDefaultSpecifier(specifier) && !moduleName) {
+        } else if (t.isImportDefaultSpecifier(specifier) && visitDefault) {
           refsHandler(t, state, refPaths, path);
         }
       });
