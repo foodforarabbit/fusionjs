@@ -22,5 +22,7 @@ export default function(server) {
     }),
   };
 
+  RPC.lol('test');
+
   return RPC.init(methods, M3, Logger.createChild('web-rpc'));
 }

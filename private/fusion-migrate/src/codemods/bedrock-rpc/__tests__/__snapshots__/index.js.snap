@@ -25,6 +25,8 @@ export default function(server) {
     }),
   };
 
+  RPC.lol('test');
+
   return RPC.init(methods, M3, Logger.createChild('web-rpc'));
 }
 
@@ -54,6 +56,7 @@ function getRPCHandlers(server) {
       transform: atreyuTransforms.user,
     }),
   };
+  RPC.lol('test');
   Object.keys(methods).forEach(method => {
     const oldMethod = methods[method];
 

@@ -10,13 +10,14 @@ module.exports = babel => {
     t,
     packageName: '@uber/bedrock/web-rpc',
     refsHandler: (t, state, refPaths, importPath) => {
-      if (refPaths.length !== 1) {
-        throw new Error(
-          'Could not codemod web-rpc - only expected one ref path to WebRPC'
+      const refPath = refPaths.find(ref => {
+        return (
+          ref.parentPath.parent.type === 'CallExpression' &&
+          ref.parent.type === 'MemberExpression' &&
+          ref.parent.property.name === 'init'
         );
-      }
-      const refPath = refPaths[0];
-      if (refPath.parentPath.parent.type !== 'CallExpression') {
+      });
+      if (!refPath) {
         return;
       }
       const methodsName = refPath.parentPath.parent.arguments[0].name;
