@@ -8,7 +8,7 @@ import App, {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 // $FlowFixMe
 import {I18nToken} from 'fusion-plugin-i18n';
-import {M3Token} from '@uber/fusion-plugin-m3';
+import {M3Token, mock as M3Mock} from '@uber/fusion-plugin-m3';
 import {LoggerToken} from 'fusion-tokens';
 import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
 
@@ -17,7 +17,7 @@ import {EventsAdapterToken} from '../tokens';
 
 import ServerPlugin from '../server';
 
-tape('Server plugin', t => {
+tape('Server plugin', async t => {
   const app = new App('content', el => el);
   class Events extends EventEmitter {
     from() {
@@ -26,7 +26,7 @@ tape('Server plugin', t => {
   }
   app.register(EventsAdapterToken, ServerPlugin);
   app.register(UniversalEventsToken, new Events());
-  app.register(M3Token, {});
+  app.register(M3Token, M3Mock);
   app.register(LoggerToken, {});
   app.register(HeatpipeToken, {});
 
@@ -43,7 +43,27 @@ tape('Server plugin', t => {
     },
   });
 
-  getSimulator(
+  let M3 = {};
+  app.register(
+    createPlugin({
+      deps: {m3: M3Token},
+      provides: ({m3}) => {
+        M3 = m3;
+      },
+    })
+  );
+
+  app.middleware((ctx, next) => {
+    if (ctx.path === '/test') {
+      // $FlowFixMe
+      ctx.req.m3Tags = {method: ctx.req.method.toLowerCase(), route: 'test'};
+      ctx.status = 200;
+      ctx.body = 'test';
+    }
+    return next();
+  });
+
+  const simulator = getSimulator(
     app,
     createPlugin({
       deps: {
@@ -55,6 +75,29 @@ tape('Server plugin', t => {
       },
     })
   );
+
+  const ctx = await simulator.request('/test');
+  await ctx.timing.end;
+  const m3Calls = M3.getCalls();
+
+  t.deepEqual(m3Calls[0], [
+    'timing',
+    ['request', m3Calls[0][1][1], {route: 'test', status: 200, method: 'get'}],
+  ]);
+
+  t.deepEqual(m3Calls[1], [
+    'timing',
+    [
+      'downstream',
+      m3Calls[1][1][1],
+      {route: 'test', status: 200, method: 'get'},
+    ],
+  ]);
+
+  t.deepEqual(m3Calls[2], [
+    'timing',
+    ['upstream', m3Calls[2][1][1], {route: 'test', status: 200, method: 'get'}],
+  ]);
 
   t.end();
 });

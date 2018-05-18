@@ -65,10 +65,12 @@ const plugin =
       const {logTiming} = service;
 
       ctx.timing.end.then(timing => {
-        const tags =
-          ctx.status !== 404
+        const tags = {
+          ...(ctx.status !== 404
             ? {route: ctx.path, status: ctx.status}
-            : {route: 'not-found', status: 404};
+            : {route: 'not-found', status: 404}),
+          ...ctx.req.m3Tags, // Bedrock compatability
+        };
 
         // only log requests that are not server side renders
         // server side renders are tracked separately as pageviews
