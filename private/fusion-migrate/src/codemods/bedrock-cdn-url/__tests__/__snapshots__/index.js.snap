@@ -5,6 +5,7 @@ exports[`bedrock-cdn-url positive-match: positive-match 1`] = `
 
 export default () => {
   const thing = cdnUrl('static/test.png');
+  cdnUrl.init('test');
   const other = cdnUrl(thing);
   console.log(cdnUrl);
 };

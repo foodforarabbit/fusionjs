@@ -5,6 +5,7 @@ exports[`bedrock-prefix-url positive-match: positive-match 1`] = `
 
 export default () => {
   const thing = prefixUrl('static/test.png');
+  prefixUrl.init('hello world');
   const otherThing = prefixUrl(thing);
 };
 

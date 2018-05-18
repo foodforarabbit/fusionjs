@@ -15,6 +15,7 @@ module.exports = babel => {
       }
       refPaths.forEach(refPath => {
         if (refPath.parentPath.type !== 'CallExpression') {
+          refPath.parentPath.parentPath.remove();
           return;
         }
         if (refPath.parent.arguments[0].type === 'StringLiteral') {

@@ -16,11 +16,10 @@ module.exports = babel => {
     packageName: '@uber/bedrock/asset-url',
     refsHandler: (t, state, refPaths) => {
       refPaths.forEach(refPath => {
-        if (
-          refPath.parentPath.type !== 'CallExpression' ||
-          refPath.parent.arguments[0].type !== 'StringLiteral'
-        ) {
-          // TODO: Add comment or throw error or something
+        if (refPath.parentPath.type !== 'CallExpression') {
+          refPath.parentPath.parentPath.remove();
+          return;
+        } else if (refPath.parent.arguments[0].type !== 'StringLiteral') {
           return;
         }
         const oldValue = refPath.parent.arguments[0].value;
