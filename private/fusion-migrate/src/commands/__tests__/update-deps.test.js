@@ -27,6 +27,11 @@ test('updateDeps', async () => {
       'just-compose',
     ],
     modulesToAdd: ['just-index', 'just-insert'],
+    modulesToUpgrade: {
+      a: '1.0.0',
+      'just-partition': '1.0.0',
+      'just-curry-it': '3.0.0',
+    },
     stdio: 'pipe',
   });
   const finalPackage = JSON.parse(
@@ -39,6 +44,8 @@ test('updateDeps', async () => {
   assert.ok(finalDeps.includes('just-partition'));
   assert.ok(finalDeps.includes('just-insert'));
   assert.ok(finalDeps.includes('just-index'));
+  assert.equal(finalPackage.dependencies['just-partition'], '1.0.0');
+  assert.equal(finalPackage.devDependencies['just-curry-it'], '3.0.0');
   assert.equal(finalDeps.length, 5);
   assert.ok(finalDevDeps.includes('just-curry-it'));
   assert.ok(finalDevDeps.includes('just-entries'));

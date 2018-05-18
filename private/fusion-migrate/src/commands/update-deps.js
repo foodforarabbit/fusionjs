@@ -33,11 +33,17 @@ const defaultCompatModules = [
   'fusion-plugin-http-handler',
 ];
 
+const defaultUpgradeModules = {
+  '@uber/web-rpc-redux': '^9.1.2',
+  '@uber/web-rpc-atreyu': '^5.0.12',
+};
+
 module.exports = async function updateDeps({
   srcDir,
   destDir,
   modulesToRemove = defaultModulesToRemove,
   modulesToAdd = defaultCompatModules,
+  modulesToUpgrade = defaultUpgradeModules,
   stdio = 'inherit',
 }) {
   const srcPackage = JSON.parse(
@@ -70,6 +76,14 @@ module.exports = async function updateDeps({
 
   Object.assign(destPackage.dependencies, srcPackage.dependencies);
   Object.assign(destPackage.devDependencies, srcPackage.devDependencies);
+
+  Object.keys(modulesToUpgrade).forEach(mod => {
+    if (destPackage.dependencies[mod]) {
+      destPackage.dependencies[mod] = modulesToUpgrade[mod];
+    } else if (destPackage.devDependencies[mod]) {
+      destPackage.devDependencies[mod] = modulesToUpgrade[mod];
+    }
+  });
 
   fs.writeFileSync(destPackagePath, JSON.stringify(destPackage, null, 2));
 
