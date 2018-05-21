@@ -45,6 +45,7 @@ async function renameFiles(root) {
 }
 
 async function isRedundant(path) {
+  if (!path.endsWith('.js')) return false;
   const data = await readFile(path, 'utf-8');
   const program = programOf(data);
   if (data.match(/'require-dir'/)) return true;

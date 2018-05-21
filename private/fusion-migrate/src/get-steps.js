@@ -56,7 +56,7 @@ module.exports = function getSteps(options) {
     getStep('update-files', () => updateFiles(options)),
     getStep('update-engines', () => updateEngines(options)),
     getStep('update-scripts', () => updateScripts(options)),
-    getTestCodemodStep(options),
+    ...getTestCodemodSteps(options),
     getStep('prettier', () => format(options.destDir)),
   ];
   let versionSpecificSteps = [];
@@ -280,42 +280,46 @@ function getConfigCodemodStep(options, keyPath, file) {
   };
 }
 
-function getTestCodemodStep(options) {
-  return getStep(
-    'jest-codemods',
-    () =>
+function getTestCodemodSteps(options) {
+  return [
+    getStep('normalize-tape', () =>
       codemodStep({
         ...options,
         plugin: modNormalizeTape,
         filter: f => f.includes('src/test'),
-      }),
-    () =>
+      })
+    ),
+    getStep('deep-loose-equal', () =>
       codemodStep({
         ...options,
         plugin: modDeepLooseEqual,
         filter: f => f.includes('src/test'),
-      }),
-    () =>
+      })
+    ),
+    getStep('upgrade-enzyme', () =>
       codemodStep({
         ...options,
         plugin: modUpgradeEnzyme,
         filter: f => f.includes('src/test'),
-      }),
-    () =>
+      })
+    ),
+    getStep('remove-enzyme-adapter', () =>
       codemodStep({
         ...options,
         plugin: modRemoveEnzymeAdapter,
         filter: f => f.includes('src/test-utils/test-app.js'),
-      }),
-    () => jestCodemods(options),
-    () =>
+      })
+    ),
+    getStep('jest-codemods', () => jestCodemods(options)),
+    getStep('move-test-utils', () =>
       codemodStep({
         ...options,
         plugin: modMoveTestUtils,
         filter: f => f.includes('src/test') && !f.includes('/util'),
-      }),
-    () => renameTestFiles()
-  );
+      })
+    ),
+    getStep('rename-test-files', () => renameTestFiles()),
+  ];
 }
 
 function filterMatchFile(...files) {
