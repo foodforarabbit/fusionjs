@@ -9,6 +9,7 @@ import {Component as Head} from '@uber/react-head';
 
 const Root = ({store}) => {
   const title = 'Trips Viewer';
+  console.log(Head);
   return (
     <div className={styles.container}>
       <Head

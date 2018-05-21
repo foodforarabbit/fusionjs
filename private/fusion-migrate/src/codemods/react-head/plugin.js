@@ -8,27 +8,34 @@ module.exports = babel => {
     path.replaceWith(
       astOf(`import {Helmet} from 'fusion-plugin-react-helmet-async';`)
     );
-    refPaths.forEach(refPath => {
-      const props = refPath.parentPath.node.attributes;
-      const {title, link, meta, htmlAttributes} = props.reduce((acc, prop) => {
-        acc[prop.name.name] = prop;
-        return acc;
-      }, {});
+    refPaths
+      .filter(refPath => refPath.parentPath.type === 'JSXOpeningElement')
+      .forEach(refPath => {
+        const props = refPath.parentPath.node.attributes;
+        const {title, link, meta, htmlAttributes} = props.reduce(
+          (acc, prop) => {
+            acc[prop.name.name] = prop;
+            return acc;
+          },
+          {}
+        );
 
-      props.forEach(removeNonBlocking);
+        props.forEach(removeNonBlocking);
 
-      refPath.parentPath.parentPath.replaceWith(
-        t.JSXElement(
-          t.JSXOpeningElement(t.JSXIdentifier('Helmet'), [], false),
-          t.JSXClosingElement(t.JSXIdentifier('Helmet')),
-          [title && getTitleElement(title)]
-            .concat(link && getHelmetElements('link', link))
-            .concat(meta && getHelmetElements('meta', meta))
-            .concat(htmlAttributes && getHtmlAttributeElements(htmlAttributes))
-            .filter(Boolean)
-        )
-      );
-    });
+        refPath.parentPath.parentPath.replaceWith(
+          t.JSXElement(
+            t.JSXOpeningElement(t.JSXIdentifier('Helmet'), [], false),
+            t.JSXClosingElement(t.JSXIdentifier('Helmet')),
+            [title && getTitleElement(title)]
+              .concat(link && getHelmetElements('link', link))
+              .concat(meta && getHelmetElements('meta', meta))
+              .concat(
+                htmlAttributes && getHtmlAttributeElements(htmlAttributes)
+              )
+              .filter(Boolean)
+          )
+        );
+      });
   };
 
   const visitor = visitNamedModule({
