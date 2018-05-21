@@ -1,3 +1,5 @@
+const chalk = require('chalk');
+const log = require('../../log.js');
 const visitNamedModule = require('../../utils/visit-named-module.js');
 
 module.exports = babel => {
@@ -23,11 +25,16 @@ module.exports = babel => {
       }
       const props = refPath.parent.arguments[0].properties;
 
-      // rewrite the SPA render to send the request back to fusion
-      const isorenderHandleRequestRef =
-        refPath.scope.bindings[refPath.parentPath.parentPath.node.id.name]
-          .referencePaths[0];
-      isorenderHandleRequestRef.parentPath.parentPath.parentPath.parentPath.remove();
+      if (refPath.parentPath.parentPath.type === 'VariableDeclarator') {
+        // remove catch all handler
+        const isorenderHandleRequestRef =
+          refPath.scope.bindings[refPath.parentPath.parentPath.node.id.name]
+            .referencePaths[0];
+        isorenderHandleRequestRef.parentPath.parentPath.parentPath.parentPath.remove();
+      } else {
+        // TODO: We could maybe add a codemod to look for `isorender.handleRequest` for this case
+        log(chalk.red('WARNING: Unable to successfully remove isorender'));
+      }
 
       // remove refs to all params to isorender
       props.forEach(prop => {
