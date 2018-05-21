@@ -1,11 +1,12 @@
 /* eslint-env node */
+const t = require('@babel/types');
+
 module.exports = createNamedModuleVisitor;
 
 /**
  * Visits all references to a given module from a given package
  */
 function createNamedModuleVisitor({
-  t,
   moduleName,
   packageName,
   visitDefault,

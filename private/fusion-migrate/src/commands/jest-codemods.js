@@ -5,7 +5,7 @@ const {
 module.exports = async () => {
   await executeTransformations(
     ['src/test'],
-    {force: true, dry: false, parser: 'flow'},
+    {force: true, dry: false, verbose: true, parser: 'babel'},
     ['tape']
   );
 };

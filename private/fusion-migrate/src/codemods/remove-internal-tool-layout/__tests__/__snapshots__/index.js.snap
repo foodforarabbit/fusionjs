@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`remove-internal-tool-layout positive-match: positive-match 1`] = `
+"import React, {Component} from 'react';
+import InternalToolLayout from '@uber/internal-tool-layout';
+import {SuperfineRoot} from '@uber/superfine-react';
+
+export default class App extends Component {
+  render() {
+    return (
+      <SuperfineRoot>
+        <InternalToolLayout {...bedrock} dispatch={dispatch} mock={mock}>
+          <Head />
+          <Nav routePrefix={bedrock.routePrefix} />
+        </InternalToolLayout>
+      </SuperfineRoot>
+    );
+  }
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React, {Component} from 'react';
+import {SuperfineRoot} from '@uber/superfine-react';
+export default class App extends Component {
+  render() {
+    return (
+      <SuperfineRoot>
+        <div>
+          <Head />
+          <Nav routePrefix={bedrock.routePrefix} />
+        </div>
+      </SuperfineRoot>
+    );
+  }
+}
+"
+`;

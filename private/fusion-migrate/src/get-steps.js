@@ -36,6 +36,7 @@ const modNormalizeTape = require('./codemods/normalize-tape/plugin.js');
 const modDeepLooseEqual = require('./codemods/deep-loose-equal/plugin.js');
 const modUpgradeEnzyme = require('./codemods/upgrade-enzyme/plugin.js');
 const modI18n = require('./codemods/isomorphic-i18n/plugin.js');
+const modRemoveInternalToolLayout = require('./codemods/remove-internal-tool-layout/plugin.js');
 const modRemoveEnzymeAdapter = require('./codemods/remove-enzyme-adapter/plugin.js');
 const modMoveTestUtils = require('./codemods/move-test-utils/plugin.js');
 const updateDeps = require('./commands/update-deps.js');
@@ -224,6 +225,9 @@ function get14Steps(options) {
     ),
     getStep('mod-isomorphic-i18n', () =>
       codemodStep({...options, plugin: modI18n})
+    ),
+    getStep('mod-remove-internal-tool-layout', () =>
+      codemodStep({...options, plugin: modRemoveInternalToolLayout})
     ),
     hasProxies &&
       getStep(
