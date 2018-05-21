@@ -1,11 +1,16 @@
-const {
-  executeTransformations,
-} = require('jest-codemods/dist/cli/transformers.js');
+const path = require('path');
+const execa = require('execa');
 
-module.exports = async () => {
-  await executeTransformations(
-    ['src/test'],
-    {force: true, dry: false, verbose: true, parser: 'babel'},
-    ['tape']
+module.exports = async ({destDir}) => {
+  const nodeModulePath = path.join(__dirname, '../../node_modules');
+  await execa.shell(
+    `${path.join(nodeModulePath, '.bin/jscodeshift')} -t ${path.join(
+      nodeModulePath,
+      'jest-codemods/dist/transformers/tape.js'
+    )} src/test`,
+    {
+      cwd: destDir,
+      stdio: 'pipe',
+    }
   );
 };

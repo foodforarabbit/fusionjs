@@ -6,6 +6,7 @@ const checkMigrationVersion = require('./commands/check-migration-version.js');
 const getSteps = require('./get-steps.js');
 const log = require('./log.js');
 const scaffold = require('./utils/scaffold.js');
+const progress = require('cli-progress');
 
 module.exports = async function(name, sub, options) {
   if (options.steps.length && options.skipSteps.length) {
@@ -69,10 +70,24 @@ async function migrate({destDir, steps, version}) {
   const runner = new StepRunner(destDir, version);
   let stepIndex = 0;
   let currentStep = steps[stepIndex];
+  const bar = new progress.Bar(
+    {
+      format: 'progress [{bar}] {percentage}% | {step}',
+    },
+    progress.Presets.shades_classic
+  );
+
+  bar.start(steps.length, -1, {
+    step: currentStep.id,
+  });
   while (currentStep && (await runner.step(currentStep.step, currentStep.id))) {
+    bar.increment(1, {
+      step: currentStep.id,
+    });
     stepIndex++;
     currentStep = steps[stepIndex];
   }
+  bar.stop();
   if (!currentStep) {
     return true;
   }

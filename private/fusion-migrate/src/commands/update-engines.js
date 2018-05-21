@@ -24,7 +24,8 @@ function fetchRequiredNodeVersion() {
       '| egrep "</a>" ' +
       "| egrep -o 'latest-[a-z]{2,}' " +
       '| sort ' +
-      '| tail -n1'
+      '| tail -n1',
+    {stdio: 'pipe'}
   )
     .toString()
     .trim();
@@ -35,7 +36,8 @@ function fetchRequiredNodeVersion() {
       '/ ' +
       '| egrep "</a>" ' +
       "| egrep -o '[0-9]+\\.[0-9]+\\.[0-9]+' " +
-      '| head -n1'
+      '| head -n1',
+    {stdio: 'pipe'}
   )
     .toString()
     .trim();
@@ -44,8 +46,8 @@ function fetchRequiredNodeVersion() {
 }
 
 function fetchRequiredYarnVersion() {
-  var latestYarnVersion = JSON.parse(execSync('npm info yarn --json'))[
-    'dist-tags'
-  ].latest;
+  var latestYarnVersion = JSON.parse(
+    execSync('npm info yarn --json', {stdio: 'pipe'})
+  )['dist-tags'].latest;
   return latestYarnVersion;
 }
