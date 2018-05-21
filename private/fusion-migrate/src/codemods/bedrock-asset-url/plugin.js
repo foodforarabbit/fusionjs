@@ -31,6 +31,21 @@ module.exports = babel => {
             path.dirname(fileName),
             path.join(gitDir, 'dist-client', path.basename(newValue))
           );
+        } else if (newValue.endsWith('javascripts/main.js')) {
+          let jsxPath = refPath.parentPath;
+          let parentCount = 0;
+          // Traverse up the tree until we either see a JSXElement or hit a limit of 5.
+          // 5 is the number of ast nodes between the assetUrl Identifier node and the parent JSXElement
+          // Example: <script src={assetUrl('/javascripts/main.js')} />
+          while (parentCount < 5 && jsxPath) {
+            if (jsxPath.type === 'JSXElement') {
+              jsxPath.remove();
+              parentCount = 5;
+            } else {
+              jsxPath = jsxPath.parentPath;
+              parentCount++;
+            }
+          }
         }
         refPath.parent.arguments[0].value = newValue;
       });
