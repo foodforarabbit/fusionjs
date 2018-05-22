@@ -1,10 +1,12 @@
-import App from 'fusion-core';
-import tape from 'tape-cup';
-import {getSimulator} from 'fusion-test-utils';
-import {LoggerToken} from 'fusion-tokens';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
-import {M3Token} from '@uber/fusion-plugin-m3';
 import {GalileoToken} from '@uber/fusion-plugin-galileo';
+import {LoggerToken} from 'fusion-tokens';
+import {M3Token} from '@uber/fusion-plugin-m3';
+import App, {createPlugin} from 'fusion-core';
+import getPort from 'get-port';
+import http from 'http';
+import request from 'request-promise';
+import tape from 'tape-cup';
 
 import Plugin, {InitializeServerToken, BedrockCompatToken} from '../index.js';
 
@@ -15,7 +17,7 @@ tape('exports api', t => {
   t.end();
 });
 
-tape('provides', t => {
+tape('provides', async t => {
   const app = new App('el', () => 'hello');
   app.register(BedrockCompatToken, Plugin);
   app.register(LoggerToken, 'logger');
@@ -31,8 +33,31 @@ tape('provides', t => {
     t.equal(server.clients.galileo, 'galileo');
     t.equal(server.clients.atreyu, 'atreyu');
     t.equal(typeof cb, 'function');
-    t.end();
+    server.get('/', (req, res) => {
+      res.status(200);
+      res.json(res.locals.state);
+    });
     return server;
   });
-  getSimulator(app);
+  app.register(
+    createPlugin({
+      deps: {
+        server: BedrockCompatToken,
+      },
+      middleware: ({server}) => {
+        return async (ctx, next) => {
+          await next();
+          server.app(ctx.req, ctx.res);
+        };
+      },
+    })
+  );
+  const server = http.createServer(app.callback());
+  const port = await getPort();
+  server.listen(port);
+  const res = JSON.parse(await request(`http://localhost:${port}/`));
+  t.equal(typeof res.bedrock.assets, 'object');
+  t.equal(typeof res.bedrock.auth, 'object');
+  server.close();
+  t.end();
 });

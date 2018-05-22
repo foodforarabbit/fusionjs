@@ -34,6 +34,21 @@ export default __NODE__ &&
         m3: deps.m3,
         galileo: deps.galileo.galileo,
       };
+      server.app.use((req, res, next) => {
+        res.putState('bedrock', {
+          appName: process.env.SVC_ID,
+          assets: {},
+          auth: {
+            uuid:
+              req.headers['x-auth-params-uuid'] ||
+              req.headers['x-auth-params-user-uuid'],
+            email: req.headers['x-auth-params-email'],
+            groups: req.headers['x-auth-params-groups'] || [],
+            roles: req.headers['x-auth-params-roles'] || [],
+          },
+        });
+        return next();
+      });
       return deps.initServer(server, () => {});
     },
   });
