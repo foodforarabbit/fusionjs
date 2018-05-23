@@ -1,6 +1,6 @@
 # @uber/fusion-plugin-react-router-v3-compat
 
-Fusion.js plugin to provide backward support of react-router v3.x. Read the section ["Limitations"](#limitations) to learn more.
+Fusion.js plugin to provide backward support of react-router v3.x. Read the section ["Limitations and workarounds"](#limitations) to learn more.
 
 ---
 
@@ -8,10 +8,19 @@ Fusion.js plugin to provide backward support of react-router v3.x. Read the sect
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [Limitations](#limitations)
+* [Limitations and workarounds](#limitations-and-workarounds)
 * [Setup](#setup)
 * [API](#api)
   * [Registration API](#registration-api)
+  * [Components](#components)
+    * [`<Router4Compat>`](#router4compat)
+    * [`<RouteV3>`](#routev3)
+    * [`<IndexRouteV3>`](#indexroutev3)
+    * [`<RedirectV3>`](#redirectv3)
+    * [`<IndexRedirectV3>`](#indexredirectv3)
+  * [Other API](#other-api)
+    * [`BrowserHistoryCompat`](#browserhistorycompat)
+    * [Listen to location changes](#listen-to-location-changes)
 * [Credits](#credits)
 
 ---
@@ -58,7 +67,7 @@ export default (
 
 ---
 
-### Limitations
+### Limitations and workarounds
 
 The main purpose of this package is to ease the pain migrating from an existing React Router v3 project, the main goal is to not breaking the existing routes so you can gradually migrate to [`fusion-plugin-react-router`](https://engdocs.uberinternal.com/web/api/fusion-plugin-react-router) with v4 APIs. Making v3 routing API working with v4 router is very unstable and error-prone. Below is a list of features we don't support or known issues.
 
@@ -122,13 +131,17 @@ export default (
 );
 ```
 
+#### History
+
+Onwards we recommend `context.router` for programmatic navigations. To ease the migrations, we have limited support for what `import {BrowserHistory} from 'react-router;` used to do. See [`BrowserHistoryCompat`](#browserhistorycompat).
+
 ---
 
 ### Setup
 
 #### JUST USE THE REACT COMPONENTS
 
-This is recommended. See the ["API" section](#api) for more usage information.
+This is recommended. See the ["components" section](#components) for more usage information.
 
 ```jsx
 // src/shared/components/Root.js or wherever your root component may be
@@ -161,7 +174,7 @@ export const v3Routes = (
 );
 ```
 
-#### Use the plugin (NOT RECOMMENDED)
+#### Use the plugin (⚠️NOT RECOMMENDED)
 
 Limit to how React Router v3 is configured, this plugin has to be the FIRST REGISTRATION after the App construction.
 
@@ -174,7 +187,7 @@ import routes from './shared/components/Routes';
 export default function start(App) {
   const app = new App(routes);
   app.register(RouterV3Compat);
-    
+
   return app;
 }
 ```
@@ -185,7 +198,17 @@ export default function start(App) {
 
 #### Registration API
 
-##### Router4Compat
+##### Plugin
+
+```js
+import RouterV3Compat from 'fusion-plugin-react-router';
+```
+
+The plugin. ⚠️ It's NOT recommended to use the plugin. You should use the components listed following instead.
+
+#### Components
+
+##### `<Router4Compat>`
 
 + `v3Rotues: RouteV3|Object` - Required. The v3 routes element tree or [`PlainRoute`](https://github.com/ReactTraining/react-router/blob/v3/docs/API.md#plainroute).
 
@@ -207,31 +230,45 @@ export default function start(App) {
   }
   ```
 
-  
-
-##### RouteV3
+##### `<RouteV3>`
 
 See https://github.com/ReactTraining/react-router/blob/v3/docs/API.md#route
 
-##### IndexRouteV3
+##### `<IndexRouteV3>`
 
 See https://github.com/ReactTraining/react-router/blob/v3/docs/API.md#indexroute-1
 
-##### RedirectV3
+##### `<RedirectV3>`
 
 See https://github.com/ReactTraining/react-router/blob/v3/docs/API.md#redirect
 
-##### IndexRedirectV3
+##### `<IndexRedirectV3>`
 
 See https://github.com/ReactTraining/react-router/blob/v3/docs/API.md#indexredirect
 
-##### Plugin
+#### Other API
+
+##### `BrowserHistoryCompat`
 
 ```js
-import RouterV3Compat from 'fusion-plugin-react-router';
+import {browserHistoryCompat} from '@uber/fusion-plugin-react-router-v3-compat';
 ```
 
-The plugin. It's NOT recommendedto use the plugin and you should use the components listed above instead.
+See https://github.com/ReactTraining/history/blob/v3/docs/GettingStarted.md#navigation
+
+Currently, the following methods are supported in descendant components of `<Router4Compat>`:
+
+- `browserHistoryCompat.go()`
+- `browserHistoryCompat.goBack()`
+- `browserHistoryCompat.goForward()`
+- `browserHistoryCompat.push()`
+- `browserHistoryCompat.replace()`
+
+###### Listen to location changes
+
+__`browserHistoryCompat.listen(listener: function)`__
+
+Use `browserHistoryCompat.listen()` with care, as `history` will only be available to `browserHistoryCompat` after `<Router4Compat>` is constructed. There may be undesired side-effects. Also, `unlisten()` is unsupported.
 
 ---
 

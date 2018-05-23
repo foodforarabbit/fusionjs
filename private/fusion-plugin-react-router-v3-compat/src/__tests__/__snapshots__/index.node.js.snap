@@ -29,3 +29,14 @@ exports[`Normal route config 3`] = `
   </div>
 </div>
 `;
+
+exports[`Normal route config 4`] = `
+<div>
+  <div>
+    <div>
+      browserHistoryCompat.push: 
+      function () { [native code] }
+    </div>
+  </div>
+</div>
+`;

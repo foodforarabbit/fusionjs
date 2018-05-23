@@ -1,7 +1,7 @@
 import React from 'react';
 import {createPlugin} from 'fusion-core';
 
-import {Router4Compat} from './Router4Compat';
+import {Router4Compat} from './index';
 
 /* PLUGIN NOT RECOMMENDED, USE THE COMPONENTS INSTEAD */
 // To use the plugin you have to ensure its registration order being

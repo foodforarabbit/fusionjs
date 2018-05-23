@@ -20,6 +20,7 @@ test('Normal route config', async assert => {
   simulator.render('/');
   simulator.render('/fancy');
   simulator.render('/stuff');
+  simulator.render('/history-test');
 });
 
 test('Redirection', async assert => {
