@@ -39,6 +39,7 @@ const modI18n = require('./codemods/isomorphic-i18n/plugin.js');
 const modRemoveInternalToolLayout = require('./codemods/remove-internal-tool-layout/plugin.js');
 const modRemoveEnzymeAdapter = require('./codemods/remove-enzyme-adapter/plugin.js');
 const modMoveTestUtils = require('./codemods/move-test-utils/plugin.js');
+const modServerSimulatorTests = require('./codemods/server-simulator-tests/plugin.js');
 const updateDeps = require('./commands/update-deps.js');
 const updateEngines = require('./commands/update-engines.js');
 const updateFiles = require('./commands/update-files.js');
@@ -308,6 +309,13 @@ function getTestCodemodSteps(options) {
         ...options,
         plugin: modRemoveEnzymeAdapter,
         filter: f => f.includes('src/test-utils/test-app.js'),
+      })
+    ),
+    getStep('server-simulator-tests', () =>
+      codemodStep({
+        ...options,
+        plugin: modServerSimulatorTests,
+        filter: f => f.includes('src/test'),
       })
     ),
     getStep('jest-codemods', () => jestCodemods(options)),

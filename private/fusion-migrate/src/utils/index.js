@@ -67,7 +67,11 @@ function astOf(code) {
   return cache[code];
 }
 function programOf(code) {
-  return babylon.parse(code, parserOpts).program;
+  try {
+    return babylon.parse(code, parserOpts).program;
+  } catch (e) {
+    throw new Error(e.message + '\n\n in code \n\n' + code);
+  }
 }
 
 function addImportSpecifier(path, local, imported = local) {
