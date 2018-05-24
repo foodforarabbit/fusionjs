@@ -1,5 +1,5 @@
-/* global console */
-/* eslint-disable no-console */
+/* global console,process */
+/* eslint-disable no-console,no-process-env */
 
 import request from 'request';
 import {createPlugin, createToken} from 'fusion-core';
@@ -10,10 +10,9 @@ export default __NODE__ && createPlugin({
   provides: deps => {
     const emitter = deps.emitter;
     const config = deps.config;
-    emitter.on('browser-performance-emitter:stats', e => {
-      console.log('*****************', e);
+    emitter.on('browser-performance-emitter:stats', (e, ctx) => {
       request.post('https://web-logging.uber.com/perf',{
-          json: mapPerformanceDataToSchema(e)
+          json: mapPerformanceDataToSchema(e, ctx)
       }, (err, resp) => {
         if (err) {
           console.log('Error publishing performance metrics to to heatpipe:', err);
@@ -29,44 +28,16 @@ export default __NODE__ && createPlugin({
   }
 });
 
-    // module.exports = ({EventEmitter, config}) => {
-    //   if (__NODE__) {
-    // if (!EventEmitter) {
-    //   throw new Error(`EventEmitter is required, but was: ${EventEmitter}`);
-    // }
-
-    // const emitter = EventEmitter.of();
-    // emitter.on('browser-performance-emitter:stats', (event, ctx) => {
-    //   request.post('https://m2a.uber.com/perf',{
-    //       json: mapPerformanceDataToSchema(event)
-    //     }, (err, resp) => {
-    //       if (err) {
-    //         console.log('Error publishing performance metrics to to heatpipe:', err);
-    //       } else {
-    //         if (resp.statusCode === 204) {
-    //           console.log('Succesfully published performance metrics to heatpipe!');
-    //         } else {
-    //           console.log('Unexpected response while publishing performance metrics to to heatpipe:', resp.statusCode, resp.body);
-    //         }
-    //       }
-    //     });
-    // });
-  // }
-// };
-
-function mapPerformanceDataToSchema(event) {
-    debugger;
-    const {navigation, resources: resourcesRaw, network: rawNetwork, memory, firstPaint, tags, appId} = event;
-
-    // const [url, qs] = tags.url ? tags.url.split('?') : [];
+function mapPerformanceDataToSchema(event, ctx) {
+    const {navigation, resources: resourcesRaw, network: rawNetwork, memory, firstPaint, tags, appId, external} = event;
     const navigationMeta = {
-      //   url,
-      //   qs
+      url: ctx.url,
+      qs: ctx.querystring,
     };
 
     const app = {
       name: appId,
-      external: true,
+      external: external || false,
     };
 
     navigation.redirectDuration = navigation.responseEnd - navigation.redirectStart;
@@ -83,20 +54,23 @@ function mapPerformanceDataToSchema(event) {
     });
 
     const network = {
-      // region,
-      // country,
       ...rawNetwork,
+      ipAddress: (ctx.request && ctx.request.ip) || ctx.ip,
     };
 
     const client = {
-      // locale,
-      // device,
-      // browser,
       memory,
-      // serviceWorker,
+      ua: (ctx.request && ctx.request.headers['user-agent']),
+      locale: 'en',
     };
 
-    const server = {};
+    const server = {
+      node: process.version,
+      env: process.env.UBER_RUNTIME_ENVIRONMENT || process.env.NODE_ENV,
+      dc: process.env.UBER_DATACENTER,
+      host: process.env.HOSTNAME,
+      build: process.env.GIT_DESCRIBE
+    };
 
     const result = {
       navigationMeta,
