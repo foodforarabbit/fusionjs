@@ -1,13 +1,14 @@
 {
   "name": "@uber/fusion-plugin-heatpipe-performance-logger",
   "description": "publish web performance data to heatpipe ",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
-    "url":
-      "gitolite@code.uber.internal:web/fusion-plugin-heatpipe-performance-logger.git"
+    "url": "gitolite@code.uber.internal:web/fusion-plugin-heatpipe-performance-logger.git"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
