@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-react-router-v3-compat",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Fusion.js plugin to provide backward support of react-router v3.x and features of `fusion-plugin-react-router`.",
   "files": [
     "dist",
