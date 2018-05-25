@@ -22,7 +22,7 @@ const modCompatRPC = require('./codemods/compat-plugin-rpc/plugin.js');
 const modCspExport = require('./codemods/csp-export/plugin.js');
 const modDataDependency = require('./codemods/data-dependency/plugin.js');
 const modReactHead = require('./codemods/react-head/plugin.js');
-const modIsorender = require('./codemods/bedrock-isorender/plugin.js');
+const modRemoveBedrockRenderer = require('./codemods/remove-bedrock-renderer/plugin.js');
 const modProxies = require('./codemods/compat-plugin-proxies/plugin.js');
 const modRpc = require('./codemods/bedrock-rpc/plugin.js');
 const modHoistRoutes = require('./codemods/hoist-routes/plugin.js');
@@ -174,8 +174,8 @@ function get14Steps(options) {
         filter: filterMatchFile('src/config/sentry.js'),
       })
     ),
-    getStep('mod-isorender', () =>
-      codemodStep({...options, plugin: modIsorender})
+    getStep('mod-remove-bedrock-renderer', () =>
+      codemodStep({...options, plugin: modRemoveBedrockRenderer})
     ),
     getStep('mod-data-dependency', () =>
       codemodStep({

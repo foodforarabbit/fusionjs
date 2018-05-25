@@ -25,6 +25,9 @@ function createNamedModuleVisitor({
      * import {moduleName} from 'packageName';
      */
     ImportDeclaration(path /*: Object */, state /*: Object */) {
+      if (path.removed) {
+        return;
+      }
       const sourceName = path.get('source').node.value;
       if (
         (Array.isArray(packageName) &&

@@ -35,5 +35,5 @@ export default function setRoutes(server) {
   const isorender = boostrapIsoRender(server);
 
   // rendering routes
-  server.get('SPA', '/*', (req, res) => isorender.handleRequest(req, res));
+  server.get('SPA', '/*', (req, res) => boostrapIsoRender(server));
 }

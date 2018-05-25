@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`remove-bedrock-renderer altered-isorender: altered-isorender 1`] = `
+"import IsoRender from '@uber/isorender';
+import Logger from '@uber/bedrock/universal-logger';
+import i18n from '@uber/bedrock/isomorphic-i18n';
+import M3 from '@uber/bedrock/universal-m3';
+import createStore from '../../shared/store';
+import getRoutes from '../../shared/components/routes';
+import Root from '../../shared/components/root';
+
+import initWebRpc from '../rpc';
+
+/* istanbul ignore next */
+// comes with scaffold for isomorphic rendering
+function boostrapIsoRender(server) {
+  // Initialize WebRPC, see ./rpc.js
+  const webRpc = initWebRpc(server);
+  // Initialize isomorphic rendered request handler
+  const hydrate = (...args) => webRpc.hydrate(...args);
+  const rootContainer = Root;
+  return new IsoRender({
+    routes: getRoutes(),
+    rootContainer,
+    hydrate,
+    createStore,
+    i18n,
+    logger: Logger.createChild('isorender'),
+    m3Client: M3,
+    perf: {enabled: true},
+  });
+}
+
+export default function setRoutes(server) {
+  // health check, no middlewares (check middlewares.js)
+  server.get('health', '/health', (req, res) => res.end('OK'));
+
+  const isorender = boostrapIsoRender(server);
+
+  // rendering routes
+  server.get('SPA', '/*', (req, res) => boostrapIsoRender(server));
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import Logger from '@uber/bedrock/universal-logger';
+import getRoutes from '../../shared/components/routes';
+
+/* istanbul ignore next */
+// comes with scaffold for isomorphic rendering
+function boostrapIsoRender(server) {}
+
+export default function setRoutes(server) {
+  // health check, no middlewares (check middlewares.js)
+  server.get('health', '/health', (req, res) => res.end('OK'));
+  const isorender = boostrapIsoRender(server); // rendering routes
+
+  server.get('SPA', '/*', (req, res) => boostrapIsoRender(server));
+}
+"
+`;
+
+exports[`remove-bedrock-renderer altered-page-skeleton: altered-page-skeleton 1`] = `
+"/* globals setTimeout */
+import renderPageSkeleton from '@uber/render-page-skeleton';
+
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+
+  server.get('SPA', '/*', function handler(req, res) {
+    console.log('hello');
+    return renderPageSkeleton(res, {});
+  });
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+/* globals setTimeout */
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+}
+"
+`;
+
+exports[`remove-bedrock-renderer isorender: isorender 1`] = `
+"/* globals setTimeout */
+import IsoRender from '@uber/isorender';
+import Logger from '@uber/fusion-plugin-universal-logger-compat';
+
+import M3 from '@uber/fusion-plugin-universal-m3-compat';
+
+import createStore from '../shared/store';
+import routes from '../shared/components/routes';
+import Root from '../shared/components/root';
+import initWebRpc from './rpc';
+
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+
+  const webRpc = initWebRpc(server);
+
+  const hydrate = (...args) => webRpc.hydrate(...args);
+  const rootContainer = Root;
+  const isorender = new IsoRender({
+    routes,
+    rootContainer,
+    hydrate,
+    createStore,
+    logger: Logger.createChild('isorender'),
+    m3Client: M3,
+    perf: {enabled: true},
+  });
+
+  server.get('SPA', '/*', (req, res) => isorender.handleRequest(req, res));
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+/* globals setTimeout */
+import Logger from '@uber/fusion-plugin-universal-logger-compat';
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+}
+"
+`;
+
+exports[`remove-bedrock-renderer page-skeleton: page-skeleton 1`] = `
+"/* globals setTimeout */
+import renderPageSkeleton from '@uber/render-page-skeleton';
+
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+
+  server.get('SPA', '/*', (req, res) => renderPageSkeleton(res, {}));
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+/* globals setTimeout */
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+}
+"
+`;
+
+exports[`remove-bedrock-renderer page-skeleton-arrow-declaration: page-skeleton-arrow-declaration 1`] = `
+"/* globals setTimeout */
+import renderPageSkeleton from '@uber/render-page-skeleton';
+
+const handler = (req, res) => {
+  console.log('hello');
+  return renderPageSkeleton(res, {});
+};
+
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+
+  server.get('SPA', '/*', handler);
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+/* globals setTimeout */
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+}
+"
+`;
+
+exports[`remove-bedrock-renderer page-skeleton-declaration: page-skeleton-declaration 1`] = `
+"/* globals setTimeout */
+import renderPageSkeleton from '@uber/render-page-skeleton';
+
+function handler(req, res) {
+  console.log('hello');
+  return renderPageSkeleton(res, {});
+}
+
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+
+  server.get('SPA', '/*', handler);
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+/* globals setTimeout */
+export default function setRoutes(server) {
+  server.get('health', '/health', (req, res) => res.end('OK'));
+  server.get('trigger-error', '/trigger-error', (req, res) => {
+    server.clients.logger.error('Testing an error');
+    res.end();
+  });
+}
+"
+`;

@@ -1,12 +1,11 @@
 const chalk = require('chalk');
+const composeVisitors = require('../../utils/compose-visitors.js');
+const findParent = require('../../utils/find-parent.js');
 const log = require('../../log.js');
 const visitNamedModule = require('../../utils/visit-named-module.js');
 
-module.exports = babel => {
-  const t = babel.types;
-
-  const visitor = visitNamedModule({
-    t,
+module.exports = () => {
+  const isorenderVisitor = visitNamedModule({
     packageName: '@uber/isorender',
     refsHandler: (t, state, refPaths, path) => {
       path.remove();
@@ -43,7 +42,6 @@ module.exports = babel => {
           binding.path.parentPath.remove();
         }
       });
-      refPath.parentPath.parentPath.remove();
       // This isn't super robust, but a more robust solution is pretty hard
       if (refPath.scope.bindings.webRpc) {
         const importName =
@@ -58,10 +56,52 @@ module.exports = babel => {
       ) {
         path.scope.bindings.Root.path.parentPath.remove();
       }
+      refPath.parentPath.parentPath.remove();
+    },
+  });
+
+  const pageSkeletonVisitor = visitNamedModule({
+    packageName: '@uber/render-page-skeleton',
+    refsHandler: (t, state, refPaths, path) => {
+      refPaths.forEach(refPath => {
+        removeRouteHandler(refPath, path);
+      });
+      path.remove();
     },
   });
   return {
-    name: 'bedrock-isorender',
-    visitor,
+    name: 'remove-bedrock-renderer',
+    visitor: composeVisitors(isorenderVisitor, pageSkeletonVisitor),
   };
 };
+
+function removeRouteHandler(refPath, topPath) {
+  const parentCallExpression = findParent(refPath.parentPath, 'CallExpression');
+  const parentDeclaration =
+    findParent(refPath, 'FunctionDeclaration') ||
+    findParent(refPath, 'VariableDeclarator');
+  if (parentCallExpression && isServerGet(parentCallExpression)) {
+    parentCallExpression.remove();
+  } else if (parentDeclaration) {
+    const id = parentDeclaration.node.id.name;
+    const refPaths = topPath.scope.bindings[id].referencePaths;
+    refPaths.forEach(path => {
+      if (
+        path.parentPath.type === 'CallExpression' &&
+        isServerGet(path.parentPath)
+      ) {
+        path.parentPath.remove();
+      }
+    });
+    parentDeclaration.remove();
+  }
+}
+
+function isServerGet(path) {
+  const callee = path.node.callee;
+  return (
+    callee.type === 'MemberExpression' &&
+    callee.object.name === 'server' &&
+    callee.property.name === 'get'
+  );
+}
