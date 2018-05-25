@@ -21,7 +21,7 @@ if [ -x "$(command -v cerberus)" ]; then
   cerberus --no-status-page --quiet -s flipr&
   CERBERUS_PID=$!
 else
-  echo "Cuerberus not found!"
+  echo "Cerberus not found!"
   exit 1
 fi
 sleep 15
@@ -31,8 +31,8 @@ boxer docker_flipr $1
 sleep 5
 echo -e "\nDone retrieving Flipr bootstrap files.\n"
 
-echo "Copy from the deafult path (Step 3/4)"
-cp -r $BOXER_DEFAULT_PATH/$1.json $FLIPR_BOOTSTRIP_FILE_SAVE_PATH
+echo "Copy from the default path (Step 3/4)"
+cp -r $BOXER_DEFAULT_PATH/$1.json $FLIPR_BOOTSTRIP_FILE_SAVE_PATH/$1_flipr_bootstrap.json
 
 echo "killing Cerberus... (Step 4/4)"
 kill $CERBERUS_PID
