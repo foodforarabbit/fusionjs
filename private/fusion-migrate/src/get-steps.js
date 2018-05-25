@@ -8,6 +8,8 @@ const format = require('./utils/format.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const loadConfig = require('./utils/load-config.js');
 const routesMatcher = require('./matchers/match-routes/match-routes.js');
+const matchRenderType = require('./matchers/match-render-type/match-render-type.js');
+const modRenderPageSkeletonCompat = require('./codemods/compat-plugin-render-page-skeleton/plugin.js');
 const modInitialStateCompat = require('./codemods/compat-plugin-redux-state/plugin.js');
 const modTeamName = require('./codemods/team-name/plugin.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
@@ -102,6 +104,9 @@ function get14Steps(options) {
   const routePrefix = get(config, 'common.server.routePrefix');
   const svcId = get(config, 'common.meta.project');
   return [
+    getStep('match-render-type', () =>
+      codemodStep({...options, plugin: matchRenderType(state)})
+    ),
     getStep('match-routes-file', () =>
       codemodStep({...options, plugin: routesMatcher(state)})
     ),
@@ -176,6 +181,16 @@ function get14Steps(options) {
     ),
     getStep('mod-remove-bedrock-renderer', () =>
       codemodStep({...options, plugin: modRemoveBedrockRenderer})
+    ),
+    getStep(
+      'mod-add-skeleton-render-plugin',
+      () =>
+        state.renderType === 'renderPageSkeleton' &&
+        codemodStep({
+          ...options,
+          plugin: modRenderPageSkeletonCompat(state),
+          filter: filterMatchMain,
+        })
     ),
     getStep('mod-data-dependency', () =>
       codemodStep({
