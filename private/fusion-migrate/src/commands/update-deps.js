@@ -3,6 +3,8 @@ const path = require('path');
 const exec = require('execa');
 
 const defaultModulesToRemove = [
+  '@uber/uber-xhr',
+  '@uber/render-page-skeleton',
   '@uber/bedrock',
   '@uber/internal-tool-layout',
   '@uber/isomorphic-i18n',
@@ -30,6 +32,7 @@ const defaultCompatModules = [
   '@uber/fusion-plugin-web-rpc-compat',
   '@uber/fusion-plugin-proxy-compat',
   '@uber/fusion-plugin-page-skeleton-compat',
+  '@uber/fusion-plugin-uber-xhr-compat',
   '@uber/fusion-plugin-react-router-v3-compat',
   'fusion-plugin-http-handler',
 ];
