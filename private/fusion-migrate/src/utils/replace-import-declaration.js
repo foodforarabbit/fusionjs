@@ -11,20 +11,21 @@ function replaceImportDeclaration(t, originalPackage, finalPackage, name) {
   return {
     ImportDeclaration(path /*: Object */) {
       const sourceName = path.get('source').node.value;
+      const local = path.get('specifiers')[0].node.local;
       if (sourceName !== originalPackage) {
         return;
       }
       if (!name) {
         path.replaceWith(
           t.importDeclaration(
-            [t.importDefaultSpecifier(path.get('specifiers')[0].node.local)],
+            [t.importDefaultSpecifier(local)],
             t.stringLiteral(finalPackage)
           )
         );
       } else {
         path.replaceWith(
           t.importDeclaration(
-            [t.importSpecifier(t.identifier(name), t.identifier(name))],
+            [t.importSpecifier(local, t.identifier(name))],
             t.stringLiteral(finalPackage)
           )
         );

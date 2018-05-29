@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rename-uber-xhr positive-match: positive-match 1`] = `
+"import UberXhr from '@uber/uber-xhr';
+function thing() {
+  const request = UberXhr();
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {UberXhr} from '@uber/fusion-plugin-uber-xhr-compat';
+
+function thing() {
+  const request = UberXhr();
+}
+"
+`;
+
+exports[`rename-uber-xhr renamed: renamed 1`] = `
+"import getXhr from '@uber/uber-xhr';
+function thing() {
+  const request = getXhr();
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {UberXhr as getXhr} from '@uber/fusion-plugin-uber-xhr-compat';
+
+function thing() {
+  const request = getXhr();
+}
+"
+`;
