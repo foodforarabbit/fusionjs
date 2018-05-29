@@ -14,6 +14,8 @@ const modInitialStateCompat = require('./codemods/compat-plugin-redux-state/plug
 const modTeamName = require('./codemods/team-name/plugin.js');
 const modAssetUrl = require('./codemods/bedrock-asset-url/plugin.js');
 const modCdnUrl = require('./codemods/bedrock-cdn-url/plugin.js');
+const modUberXhrCompat = require('./codemods/compat-plugin-uber-xhr/plugin.js');
+const modRenameUberXhr = require('./codemods/rename-uber-xhr/plugin.js');
 const modPrefixUrl = require('./codemods/bedrock-prefix-url/plugin.js');
 const modBedrockCompat = require('./codemods/bedrock-compat/plugin.js');
 const modCompatHttpHandler = require('./codemods/compat-plugin-http-handler/plugin.js');
@@ -244,6 +246,19 @@ function get14Steps(options) {
     ),
     getStep('mod-remove-internal-tool-layout', () =>
       codemodStep({...options, plugin: modRemoveInternalToolLayout})
+    ),
+    getStep('mod-rename-uber-xhr', () =>
+      codemodStep({
+        ...options,
+        plugin: modRenameUberXhr,
+      })
+    ),
+    getStep('mod-uber-xhr-compat', () =>
+      codemodStep({
+        ...options,
+        plugin: modUberXhrCompat,
+        filter: filterMatchMain,
+      })
     ),
     hasProxies &&
       getStep(
