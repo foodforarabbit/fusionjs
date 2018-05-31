@@ -4,7 +4,8 @@ module.exports = babel => {
   const renameVisitor = replaceImportDeclaration(
     babel.types,
     '@uber/bedrock/universal-m3',
-    '@uber/fusion-plugin-universal-m3-compat'
+    '@uber/fusion-plugin-universal-m3-compat',
+    'M3'
   );
 
   return {

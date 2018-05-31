@@ -4,7 +4,8 @@ module.exports = babel => {
   const renameVisitor = replaceImportDeclaration(
     babel.types,
     '@uber/bedrock/universal-logger',
-    '@uber/fusion-plugin-universal-logger-compat'
+    '@uber/fusion-plugin-universal-logger-compat',
+    'Logger'
   );
 
   return {

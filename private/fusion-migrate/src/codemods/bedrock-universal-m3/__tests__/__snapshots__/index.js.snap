@@ -1,18 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bedrock-universal-m3 positive-match: positive-match 1`] = `
-"import m3 from '@uber/bedrock/universal-m3';
+"import M3 from '@uber/bedrock/universal-m3';
 function thing() {
-  m3.increment('test');
+  M3.increment('test');
 }
 
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import m3 from '@uber/fusion-plugin-universal-m3-compat';
+import {M3} from '@uber/fusion-plugin-universal-m3-compat';
 
 function thing() {
-  m3.increment('test');
+  M3.increment('test');
+}
+"
+`;
+
+exports[`bedrock-universal-m3 renamed: renamed 1`] = `
+"import 'test';
+import lol from '@uber/bedrock/universal-m3';
+function thing() {
+  lol.increment('test');
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import 'test';
+import {M3 as lol} from '@uber/fusion-plugin-universal-m3-compat';
+
+function thing() {
+  lol.increment('test');
 }
 "
 `;

@@ -9,10 +9,29 @@ function thing() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import Logger from '@uber/fusion-plugin-universal-logger-compat';
+import {Logger} from '@uber/fusion-plugin-universal-logger-compat';
 
 function thing() {
   Logger.info('hello world');
+}
+"
+`;
+
+exports[`bedrock-universal-logger renamed: renamed 1`] = `
+"import 'test';
+import lol from '@uber/bedrock/universal-logger';
+function thing() {
+  lol.info('hello world');
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import 'test';
+import {Logger as lol} from '@uber/fusion-plugin-universal-logger-compat';
+
+function thing() {
+  lol.info('hello world');
 }
 "
 `;

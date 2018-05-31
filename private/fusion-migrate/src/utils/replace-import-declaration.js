@@ -10,8 +10,12 @@ module.exports = replaceImportDeclaration;
 function replaceImportDeclaration(t, originalPackage, finalPackage, name) {
   return {
     ImportDeclaration(path /*: Object */) {
+      const spec = path.get('specifiers')[0];
       const sourceName = path.get('source').node.value;
-      const local = path.get('specifiers')[0].node.local;
+      if (!spec) {
+        return;
+      }
+      const local = spec.node.local;
       if (sourceName !== originalPackage) {
         return;
       }
