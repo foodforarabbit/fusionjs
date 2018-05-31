@@ -2,5 +2,5 @@ import createLoggerPlugin from './plugin.js';
 
 const {logger, plugin} = createLoggerPlugin();
 
-export {logger};
+export const Logger = logger;
 export default plugin;
