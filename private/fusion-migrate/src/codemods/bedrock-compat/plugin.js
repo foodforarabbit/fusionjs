@@ -7,7 +7,12 @@ module.exports = babel => {
     packageName: '@uber/bedrock',
     refsHandler: (t, state, refPaths, path) => {
       refPaths.forEach(refPath => {
-        if (refPath.scope.block.type.match('Function')) {
+        if (
+          refPath.scope.block.type.match('Function') &&
+          refPath.parentPath.type === 'MemberExpression' &&
+          refPath.parent.property.name === 'createServer' &&
+          refPath.parentPath.parentPath.type === 'CallExpression'
+        ) {
           const functionNode = refPath.scope.block;
           functionNode.params[0] = t.identifier('server');
           refPath.parentPath.parentPath.parentPath.remove();

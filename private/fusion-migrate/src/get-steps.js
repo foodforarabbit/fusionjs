@@ -96,7 +96,8 @@ const filterMatchMain = filterMatchFile('src/main.js');
 function get14Steps(options) {
   const {config} = options;
   const state = {};
-  const filterMatchRoutes = f => state.routesFile.endsWith(f);
+  const filterMatchRoutes = f =>
+    state.routesFile && state.routesFile.endsWith(f);
   const hasProxies =
     get(config, 'dev.server.proxies') ||
     get(config, 'common.server.proxies') ||
