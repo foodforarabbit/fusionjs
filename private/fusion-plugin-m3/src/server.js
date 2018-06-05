@@ -21,6 +21,7 @@ export default __NODE__ &&
             dc: process.env.UBER_DATACENTER || 'local',
             deployment: process.env.UDEPLOY_DEPLOYMENT_NAME || 'production',
             env: process.env.NODE_ENV || 'production',
+            runtime: process.env.UBER_RUNTIME_ENVIRONMENT || 'production',
             service: service,
             scaffolded_web_app: true, // eslint-disable-line camelcase
           },

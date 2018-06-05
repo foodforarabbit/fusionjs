@@ -44,6 +44,11 @@ tape('m3 server plugin', t => {
         true,
         'passes in common tag scaffolded_web_app'
       );
+      t.equal(
+        typeof config.commonTags.runtime,
+        'string',
+        'passes in common tag runtime'
+      );
       t.equal(config.commonTags.a, 'a', 'allows passing in commonTags config');
     }
     counter(key, value, {tags}) {
