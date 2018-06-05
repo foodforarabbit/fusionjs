@@ -44,6 +44,7 @@ export default __NODE__ &&
     provides: ({events, m3, backends = {}, team, transforms}) => {
       const env = __DEV__ ? 'dev' : process.env.NODE_ENV;
       const service = process.env.SVC_ID || 'dev-service';
+      const runtime = process.env.UBER_RUNTIME_ENVIRONMENT || '';
       if (backends.console !== false) {
         backends.console = true;
       }
@@ -59,7 +60,7 @@ export default __NODE__ &&
         };
       }
       const logger = Logtron({
-        meta: {team, project: service},
+        meta: {team, project: service, runtime},
         statsd: m3,
         backends: Logtron.defaultBackends(backends),
         transforms,
