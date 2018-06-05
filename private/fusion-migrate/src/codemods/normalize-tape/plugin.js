@@ -33,6 +33,7 @@ module.exports = () => {
               if (
                 callee.type === 'Identifier' &&
                 callee.name === test &&
+                path.node.arguments.length > 1 &&
                 !path.node.arguments[1].type.match(/FunctionExpression/)
               ) {
                 const ast = astOf(`t => $()`).expression;
