@@ -1,15 +1,6 @@
 import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
-
-const supportedLevels = [
-  'trace',
-  'debug',
-  'info',
-  'access',
-  'warn',
-  'error',
-  'fatal',
-];
+import {supportedLevels} from './constants';
 
 export default __BROWSER__ &&
   createPlugin({

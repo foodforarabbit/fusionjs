@@ -5,20 +5,11 @@ import {createPlugin, createToken} from 'fusion-core';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import createErrorTransform from './create-error-transform';
+import {supportedLevels} from './constants';
 
 export const BackendsToken = createToken('LogtronBackends');
 export const TeamToken = createToken('LogtronTeam');
 export const TransformsToken = createToken('LogtronTransform');
-
-const supportedLevels = [
-  'trace',
-  'debug',
-  'info',
-  'access',
-  'warn',
-  'error',
-  'fatal',
-];
 
 function validateItem(item) {
   item = item || {};
@@ -66,6 +57,15 @@ export default __NODE__ &&
         transforms,
       });
 
+      // Logtron is missing LoggerToken interface methods so we need to define the custom levels
+      // Utilize pre-existing methods and assign them to matching levels in the heirarchy
+      logger.silly = logger.trace;
+      logger.verbose = logger.info;
+      // Define the log method
+      logger.log = (level, payload) => {
+        events.emit('logtron:log', payload);
+      };
+
       // in dev we don't send client errors to the server
       if (env === 'production') {
         const transformError = createErrorTransform({
@@ -73,23 +73,27 @@ export default __NODE__ &&
           ext: '.map',
         });
         events.on('logtron:log', async payload => {
-          if (validateItem(payload)) {
-            const {level, message} = payload;
-            let {meta} = payload;
-            if (isErrorMeta(meta)) {
-              meta = {...meta, ...(await transformError(meta))};
-            }
-            logger[level](message, meta);
-          } else {
-            const error = new Error('Invalid data in log event');
-            logger.error(error.message, error);
-          }
+          handleLog(logger, transformError, payload);
         });
       }
       return logger;
     },
     cleanup: logger => logger.destroy(),
   });
+
+export const handleLog = async (logger, transformError, payload) => {
+  if (validateItem(payload)) {
+    const {level, message} = payload;
+    let {meta} = payload;
+    if (isErrorMeta(meta)) {
+      meta = {...meta, ...(await transformError(meta))};
+    }
+    logger[level](message, meta);
+  } else {
+    const error = new Error('Invalid data in log event');
+    logger.error(error.message, error);
+  }
+};
 
 function isErrorMeta(meta) {
   if (!meta) {

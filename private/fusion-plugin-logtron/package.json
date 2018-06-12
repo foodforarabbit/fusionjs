@@ -48,6 +48,7 @@
     "fusion-tokens": "^1.0.0",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
+    "sinon": "^6.0.0",
     "tape-cup": "^4.7.1",
     "unitest": "^2.1.1"
   },
@@ -59,7 +60,7 @@
     "just-test": "unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
     "test": "npm run build-test && npm run just-test",
     "cover": "npm run build-test && npm run just-cover",
-    "just-cover": "nyc --reporter=cobertura npm run just-test",
+    "just-cover": "nyc --reporter=cobertura npm run just-test && nyc report",
     "prepublish": "npm run transpile"
   },
   "engines": {
