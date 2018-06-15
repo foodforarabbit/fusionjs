@@ -61,7 +61,7 @@
     "fusion-plugin-universal-events": "^1.0.2"
   },
   "engines": {
-    "node": "8.11.2",
+    "node": "^8.11.3",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
