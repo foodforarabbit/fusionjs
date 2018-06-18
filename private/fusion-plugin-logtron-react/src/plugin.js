@@ -1,3 +1,5 @@
+// @flow
+
 import LogtronPlugin from '@uber/fusion-plugin-logtron';
 import {ProviderPlugin} from 'fusion-react';
 

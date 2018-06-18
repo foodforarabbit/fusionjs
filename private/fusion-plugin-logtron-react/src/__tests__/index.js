@@ -1,3 +1,5 @@
+// @flow
+
 /* eslint-env browser */
 import App, {ProviderPlugin} from 'fusion-react';
 import {getSimulator} from 'fusion-test-utils';
@@ -12,12 +14,17 @@ import withLogtron from '../hoc';
 if (__BROWSER__) {
   const root = document.createElement('div');
   root.id = 'root';
-  document.body.appendChild(root);
+  if (document.body && root instanceof HTMLElement) {
+    document.body.appendChild(root);
+  }
 }
 
 test('HOC', async t => {
   let didRender = false;
-  class Test extends React.Component {
+  type Props = {
+    logger: any,
+  };
+  class Test extends React.Component<Props> {
     render() {
       t.equal(
         typeof this.props.logger,
@@ -36,7 +43,7 @@ test('HOC', async t => {
   t.ok(
     __NODE__
       ? res.body.includes('hello')
-      : document.body.innerHTML.includes('hello'),
+      : document.body && document.body.innerHTML.includes('hello'),
     'Test content rendered correctly'
   );
   t.ok(didRender, 'Test component rendered');
