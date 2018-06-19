@@ -1,3 +1,4 @@
+// @flow
 import tape from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
@@ -54,32 +55,32 @@ tape('m3 server plugin', t => {
     counter(key, value, {tags}) {
       flags.counter = true;
       t.equal(key, 'key', 'counter passes key through');
-      t.equal(value, 'value', 'counter passes value through');
-      t.equal(tags, 'tags', 'counter passes tags through');
+      t.equal(value, 100, 'counter passes value through');
+      t.looseEqual(tags, {tags: 'tags'}, 'counter passes tags through');
     }
     increment(key, value, {tags}) {
       flags.increment = true;
       t.equal(key, 'key', 'increment passes key through');
       t.equal(value, 1, 'increment calls with value 1');
-      t.equal(tags, 'tags', 'increment passes tags through');
+      t.looseEqual(tags, {tags: 'tags'}, 'increment passes tags through');
     }
     decrement(key, value, {tags}) {
       flags.decrement = true;
       t.equal(key, 'key', 'decrement passes key through');
       t.equal(value, 1, 'decrement calls with value 1');
-      t.equal(tags, 'tags', 'decrement passes tags through');
+      t.looseEqual(tags, {tags: 'tags'}, 'decrement passes tags through');
     }
     timing(key, value, {tags}) {
       flags.timing = true;
       t.equal(key, 'key', 'timing passes key through');
-      t.equal(value, 'value', 'timing passes value through');
-      t.equal(tags, 'tags', 'timing passes tags through');
+      t.equal(value, 100, 'timing passes value through');
+      t.looseEqual(tags, {tags: 'tags'}, 'timing passes tags through');
     }
     gauge(key, value, {tags}) {
       flags.gauge = true;
       t.equal(key, 'key', 'gauge passes key through');
-      t.equal(value, 'value', 'gauge passes value through');
-      t.equal(tags, 'tags', 'gauge passes tags through');
+      t.equal(value, 100, 'gauge passes value through');
+      t.looseEqual(tags, {tags: 'tags'}, 'gauge passes tags through');
     }
     scope(arg) {
       flags.scope = true;
@@ -88,32 +89,44 @@ tape('m3 server plugin', t => {
     immediateCounter(key, value, {tags}) {
       flags.immediateCounter = true;
       t.equal(key, 'key', 'immediateCounter passes key through');
-      t.equal(value, 'value', 'immediateCounter passes value through');
-      t.equal(tags, 'tags', 'immediateCounter passes tags through');
+      t.equal(value, 100, 'immediateCounter passes value through');
+      t.looseEqual(
+        tags,
+        {tags: 'tags'},
+        'immediateCounter passes tags through'
+      );
     }
     immediateIncrement(key, value, {tags}) {
       flags.immediateIncrement = true;
       t.equal(key, 'key', 'immediateIncrement passes key through');
       t.equal(value, 1, 'immediateIncrement uses 1 as value');
-      t.equal(tags, 'tags', 'immediateIncrement passes tags through');
+      t.looseEqual(
+        tags,
+        {tags: 'tags'},
+        'immediateIncrement passes tags through'
+      );
     }
     immediateDecrement(key, value, {tags}) {
       flags.immediateDecrement = true;
       t.equal(key, 'key', 'immediateDecrement passes key through');
       t.equal(value, 1, 'immediateDecrement uses 1 as value');
-      t.equal(tags, 'tags', 'immediateDecrement passes tags through');
+      t.looseEqual(
+        tags,
+        {tags: 'tags'},
+        'immediateDecrement passes tags through'
+      );
     }
     immediateTiming(key, value, {tags}) {
       flags.immediateTiming = true;
       t.equal(key, 'key', 'immediateTiming passes key through');
-      t.equal(value, 'value', 'immediateTiming passes value through');
-      t.equal(tags, 'tags', 'immediateTiming passes tags through');
+      t.equal(value, 100, 'immediateTiming passes value through');
+      t.looseEqual(tags, {tags: 'tags'}, 'immediateTiming passes tags through');
     }
     immediateGauge(key, value, {tags}) {
       flags.immediateGauge = true;
       t.equal(key, 'key', 'immediateGauge passes key through');
-      t.equal(value, 'value', 'immediateGauge passes value through');
-      t.equal(tags, 'tags', 'immediateGauge passes tags through');
+      t.equal(value, 100, 'immediateGauge passes value through');
+      t.looseEqual(tags, {tags: 'tags'}, 'immediateGauge passes tags through');
     }
     close(arg) {
       flags.close = true;
@@ -123,20 +136,21 @@ tape('m3 server plugin', t => {
   const app = new App('el', el => el);
   app.register(M3ClientToken, Client);
   app.register(M3Token, M3Plugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   app.middleware({m3: M3Token}, ({m3}) => {
-    m3.counter('key', 'value', 'tags');
-    m3.increment('key', 'tags');
-    m3.decrement('key', 'tags');
-    m3.timing('key', 'value', 'tags');
-    m3.gauge('key', 'value', 'tags');
+    m3.counter('key', 100, {tags: 'tags'});
+    m3.increment('key', {tags: 'tags'});
+    m3.decrement('key', {tags: 'tags'});
+    m3.timing('key', 100, {tags: 'tags'});
+    m3.gauge('key', 100, {tags: 'tags'});
     m3.scope('test');
-    m3.immediateCounter('key', 'value', 'tags');
-    m3.immediateIncrement('key', 'tags');
-    m3.immediateDecrement('key', 'tags');
-    m3.immediateTiming('key', 'value', 'tags');
-    m3.immediateGauge('key', 'value', 'tags');
+    m3.immediateCounter('key', 100, {tags: 'tags'});
+    m3.immediateIncrement('key', {tags: 'tags'});
+    m3.immediateDecrement('key', {tags: 'tags'});
+    m3.immediateTiming('key', 100, {tags: 'tags'});
+    m3.immediateGauge('key', 100, {tags: 'tags'});
     m3.close('test');
     return (ctx, next) => next();
   });
@@ -236,6 +250,7 @@ tape('m3 server plugin - event handlers', t => {
   const app = new App('el', el => el);
   app.register(M3ClientToken, Client);
   app.register(M3Token, M3Plugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
@@ -257,6 +272,7 @@ tape('m3 server plugin - event handlers with __url__', t => {
     gauge: false,
   };
   const events = {
+    emit() {},
     on(type, handler) {
       const m3Type = types.shift();
       t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
@@ -332,6 +348,7 @@ tape('m3 server plugin - event handlers with __url__', t => {
   const app = new App('el', el => el);
   app.register(M3ClientToken, Client);
   app.register(M3Token, M3Plugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
@@ -407,6 +424,7 @@ tape('m3 server plugin - event handlers with __url__ and no tags', t => {
   const app = new App('el', el => el);
   app.register(M3ClientToken, Client);
   app.register(M3Token, M3Plugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);

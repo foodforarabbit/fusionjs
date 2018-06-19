@@ -1,8 +1,13 @@
+// @flow
 /* eslint-env browser */
 import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-export default __BROWSER__ &&
+import type {FusionPlugin} from 'fusion-core';
+import type {DepsType, ServiceType} from './types.js';
+
+const plugin =
+  __BROWSER__ &&
   createPlugin({
     deps: {events: UniversalEventsToken},
     provides: ({events}) => {
@@ -25,3 +30,5 @@ export default __BROWSER__ &&
       };
     },
   });
+
+export default ((plugin: any): FusionPlugin<DepsType, ServiceType>);

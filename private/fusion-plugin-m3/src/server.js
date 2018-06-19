@@ -1,11 +1,15 @@
+// @flow
 /* eslint-env node */
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
-import {createPlugin, createToken} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
 
-export const M3ClientToken = createToken('M3Client');
-export const CommonTagsToken = createToken('commonTags');
+import {M3ClientToken, CommonTagsToken} from './tokens.js';
 
-export default __NODE__ &&
+import type {FusionPlugin} from 'fusion-core';
+import type {DepsType, ServiceType} from './types.js';
+
+const plugin =
+  __NODE__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
@@ -93,3 +97,5 @@ export default __NODE__ &&
     },
     cleanup: m3 => m3.close(),
   });
+
+export default ((plugin: any): FusionPlugin<DepsType, ServiceType>);

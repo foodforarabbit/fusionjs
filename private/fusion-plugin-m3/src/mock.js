@@ -1,3 +1,4 @@
+// @flow
 import {createPlugin} from 'fusion-core';
 
 export default createPlugin({
