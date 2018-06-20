@@ -1,3 +1,4 @@
+// @flow
 import M3Plugin from '@uber/fusion-plugin-m3';
 import {ProviderPlugin} from 'fusion-react';
 
