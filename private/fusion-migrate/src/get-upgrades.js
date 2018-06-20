@@ -1,3 +1,4 @@
+const codemodStep = require('./utils/codemod-step.js');
 const modCsrfIgnoreRoutes = require('./codemods/add-csrf-ignore-routes-token/plugin.js');
 const modHelmet = require('./codemods/add-react-helmet-async/plugin.js');
 const modReduxEnhancer = require('./codemods/expose-redux-from-enhancer/plugin.js');
@@ -6,7 +7,8 @@ const modLogtronBackend = require('./codemods/remove-logtron-backend-config-wrap
 const modHelmetMigrations = require('./codemods/helmet-migrations/plugin.js');
 const modPluginRemovals = require('./codemods/plugin-removals/plugin.js');
 
-const codemodStep = require('./utils/codemod-step.js');
+const flowConfigStep = require('./utils/flowconfig-step.js');
+const addFlowLibdefsToConfig = require('./commands/add-flow-libdefs-to-config.js');
 const updateDeps = require('./commands/update-deps.js');
 const updateFiles = require('./commands/update-files.js');
 const format = require('./utils/format.js');
@@ -78,6 +80,10 @@ module.exports = function getUpgrades({srcDir, destDir}) {
           'src/plugins/favicon.js',
           'src/plugins/full-height.js',
         ],
+      });
+      await flowConfigStep({
+        destDir,
+        plugin: addFlowLibdefsToConfig,
       });
     },
     async () => format(destDir),

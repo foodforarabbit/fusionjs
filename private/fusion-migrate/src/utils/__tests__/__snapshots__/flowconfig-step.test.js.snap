@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`flowconfig-step 1`] = `
+"[ignore]
+.*/node_modules/.*[^(package)]\\\\.json$
+
+[include]
+./src/
+
+[libs]
+./some-lib-filepath
+
+[lints]
+
+[options]
+
+[strict]
+
+A simple line added!"
+`;

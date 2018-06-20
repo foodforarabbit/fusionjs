@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add-flow-libdefs-to-config config: config 1`] = `
+"[ignore]
+.*/node_modules/.*[^(package)]\\\\.json$
+
+[include]
+./src/
+
+[libs]
+./some-lib-filepath
+
+[lints]
+
+[options]
+
+[strict]
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+[ignore]
+.*/node_modules/.*[^(package)]\\\\.json$
+
+[include]
+./src/
+
+[libs]
+./node_modules/fusion-core/flow-typed/tape-cup_v4.x.x.js
+./node_modules/fusion-core/flow-typed/npm/koa_v2.x.x.js
+./node_modules/fusion-plugin-redux-action-emitter-enhancer/flow-typed/npm/redux_v3.x.x.js
+./node_modules/fusion-plugin-react-redux/flow-typed/npm/redux_v3.x.x.js
+./node_modules/fusion-plugin-rpc-redux-react/flow-typed/redux-reactors_v1.x.x.js
+./node_modules/fusion-plugin-rpc-redux-react/flow-typed/npm/redux_v4.x.x.js
+./some-lib-filepath
+
+[lints]
+
+[options]
+
+[strict]
+"
+`;
