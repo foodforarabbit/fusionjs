@@ -47,6 +47,7 @@ const test = () => {
   return createRPCPromise(rpcIds.test);
 };
 
+// TODO: You may want to move this into the container component file
 const _TestWithData2 = compose(
   connect(
     state => {
@@ -73,6 +74,7 @@ const getTrips = () => {
   return createRPCPromise('getTrips');
 };
 
+// TODO: You may want to move this into the container component file
 const _TripsWithData2 = compose(
   connect(
     state => {
@@ -95,8 +97,8 @@ const thing = 'test';
 export default function() {
   const routes = (
     <Route path=\\"/trips-viewer\\" component={App}>
-      <Route path=\\"trips\\" component={Trips} />
-      <Route path=\\"test\\" component={Test} />
+      <Route path=\\"trips\\" component={_TripsWithData2} />
+      <Route path=\\"test\\" component={_TestWithData2} />
     </Route>
   );
 }
@@ -147,6 +149,7 @@ const getTrips = () => {
   return createRPCPromise('getTrips');
 };
 
+// TODO: You may want to move this into the container component file
 const _TripsWithData2 = compose(
   connect(
     state => {
@@ -165,6 +168,7 @@ const _TripsWithData2 = compose(
   })
 )(Trips);
 
+// TODO: You may want to move this into the container component file
 const _UserWithData = compose(
   connect(
     state => {
@@ -187,7 +191,7 @@ export default function() {
   const routes = (
     <Route path=\\"/trips-viewer\\" component={App}>
       <Route path=\\"/user\\" component={_UserWithData} />
-      <Route path=\\"trips\\" component={Trips} />
+      <Route path=\\"trips\\" component={_TripsWithData2} />
       <Route path=\\"/trip\\" component={_TripsWithData2} />
     </Route>
   );
@@ -242,6 +246,7 @@ const getUser = () => {
   return createRPCPromise('getUser');
 };
 
+// TODO: You may want to move this into the container component file
 const _PartnersWithData2 = compose(
   connect(
     state => {
@@ -264,6 +269,7 @@ const getTrips = () => {
   return createRPCPromise('getTrips');
 };
 
+// TODO: You may want to move this into the container component file
 const _TripsWithData2 = compose(
   connect(
     state => {
@@ -286,8 +292,8 @@ const thing = 'test';
 export default function() {
   const routes = (
     <Route path=\\"/trips-viewer\\" component={App}>
-      <Route path=\\"trips\\" component={Trips} />
-      <Route path=\\"partners\\" component={Partners} />
+      <Route path=\\"trips\\" component={_TripsWithData2} />
+      <Route path=\\"partners\\" component={_PartnersWithData2} />
     </Route>
   );
 }
@@ -333,6 +339,7 @@ const test = () => {
   return createRPCPromise(rpcIds.test);
 };
 
+// TODO: You may want to move this into the container component file
 const _TestWithData = compose(
   connect(
     state => {
@@ -354,6 +361,7 @@ const getTrips = () => {
   return createRPCPromise('getTrips');
 };
 
+// TODO: You may want to move this into the container component file
 const _TripsWithData = compose(
   connect(
     state => {
@@ -375,6 +383,7 @@ const getUser = () => {
   return createRPCPromise('getUser');
 };
 
+// TODO: You may want to move this into the container component file
 const _AppWithData = compose(
   connect(
     state => {
@@ -449,6 +458,7 @@ const getTrips = () => {
   return createRPCPromise('getTrips');
 };
 
+// TODO: You may want to move this into the container component file
 const _TripsContainerWithData = compose(
   connect(
     state => {
@@ -470,6 +480,7 @@ const getUser = () => {
   return createRPCPromise('getUser');
 };
 
+// TODO: You may want to move this into the container component file
 const _AppContainerWithData = compose(
   connect(
     state => {
@@ -551,6 +562,7 @@ const getTrips = () => {
   return createRPCPromise(rpcIds.getTrips);
 };
 
+// TODO: You may want to move this into the container component file
 const _TripsContainerWithData = compose(
   connect(
     state => {
@@ -572,6 +584,7 @@ const getUser = () => {
   return createRPCPromise(rpcIds.getUser);
 };
 
+// TODO: You may want to move this into the container component file
 const _AppContainerWithData = compose(
   connect(
     state => {
@@ -656,6 +669,7 @@ const getTrips = () => {
   return createRPCPromise('getTrips');
 };
 
+// TODO: You may want to move this into the container component file
 const _TripsContainerWithData = compose(
   connect(
     state => {
@@ -677,6 +691,7 @@ const getUser = () => {
   return createRPCPromise('getUser');
 };
 
+// TODO: You may want to move this into the container component file
 const _AppContainerWithData = compose(
   connect(
     state => {
@@ -754,6 +769,7 @@ const getTrips = () => {
   return createRPCPromise('getTrips');
 };
 
+// TODO: You may want to move this into the container component file
 const _TripsContainerWithData = compose(
   connect(
     state => {
@@ -775,6 +791,7 @@ const getUser = () => {
   return createRPCPromise('getUser');
 };
 
+// TODO: You may want to move this into the container component file
 const _AppContainerWithData = compose(
   connect(
     state => {

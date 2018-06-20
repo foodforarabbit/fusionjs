@@ -87,6 +87,10 @@ module.exports = () => {
               )
             ),
           ]);
+          addComment(
+            declaration,
+            'TODO: You may want to move this into the container component file'
+          );
           insertAfterLastImport(body, declaration);
           insertAfterLastImport(body, rpcPromiseDeclaration);
         }
@@ -132,6 +136,7 @@ function handleArrayExpression({
       });
     }
     components[dependencyName] = newIdentifier;
+    component.value.expression = newIdentifier;
     rpcPromiseDeclarations.push(
       getRPCPromiseDeclaration(dependencyName, dataDependency)
     );
@@ -150,6 +155,10 @@ function handleArrayExpression({
       )
     ),
   ]);
+  addComment(
+    declaration,
+    'TODO: You may want to move this into the container component file'
+  );
   insertAfterLastImport(body, declaration);
   rpcPromiseDeclarations.forEach(promiseDeclaration =>
     insertAfterLastImport(body, promiseDeclaration)
