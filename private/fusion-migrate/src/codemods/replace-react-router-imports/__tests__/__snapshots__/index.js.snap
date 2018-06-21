@@ -1,5 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`replace-react-router-imports browser-history: browser-history 1`] = `
+"import Thing, {Link, browserHistory} from 'react-router';
+
+function thing() {
+  return (
+    <div>
+      <Link to=\\"/test\\" />
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import Thing, {Link} from 'fusion-plugin-react-router';
+import {browserHistoryCompat as browserHistory} from '@uber/fusion-plugin-react-router-v3-compat';
+
+function thing() {
+  return (
+    <div>
+      <Link to=\\"/test\\" />
+    </div>
+  );
+}
+"
+`;
+
+exports[`replace-react-router-imports browser-history-only: browser-history-only 1`] = `
+"import {browserHistory} from 'react-router';
+
+function thing() {
+  return <div />;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {browserHistoryCompat as browserHistory} from '@uber/fusion-plugin-react-router-v3-compat';
+
+function thing() {
+  return <div />;
+}
+"
+`;
+
 exports[`replace-react-router-imports positive-match: positive-match 1`] = `
 "import {Link} from 'react-router';
 
