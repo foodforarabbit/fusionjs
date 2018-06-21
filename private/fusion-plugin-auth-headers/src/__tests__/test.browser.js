@@ -1,3 +1,4 @@
+// @flow
 import test from 'tape-cup';
 
 import AuthHeadersPlugin from '../browser';
