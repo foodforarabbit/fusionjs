@@ -40,6 +40,8 @@ const defaultCompatModules = [
 const defaultUpgradeModules = {
   '@uber/web-rpc-redux': '^9.1.2',
   '@uber/web-rpc-atreyu': '^5.0.12',
+  '@uber/react-oops': '^3.0.0',
+  '@uber/react-four-oh-four': '^3.0.0',
 };
 
 module.exports = async function updateDeps({
