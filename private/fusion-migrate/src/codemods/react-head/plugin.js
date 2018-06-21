@@ -1,4 +1,5 @@
 const {astOf} = require('../../utils');
+const composeVisitors = require('../../utils/compose-visitors.js');
 const visitNamedModule = require('../../utils/visit-named-module.js');
 
 module.exports = babel => {
@@ -38,10 +39,16 @@ module.exports = babel => {
       });
   };
 
-  const visitor = visitNamedModule({
+  const headVisitor = visitNamedModule({
     t,
-    packageName: ['@uber/react-head', 'react-helmet'],
+    packageName: '@uber/react-head',
     moduleName: ['Component', 'Helmet'],
+    refsHandler,
+  });
+
+  const helmetVisitor = visitNamedModule({
+    t,
+    packageName: 'react-helmet',
     refsHandler,
   });
 
@@ -99,7 +106,7 @@ module.exports = babel => {
 
   return {
     name: 'react-head',
-    visitor,
+    visitor: composeVisitors(helmetVisitor, headVisitor),
   };
 };
 

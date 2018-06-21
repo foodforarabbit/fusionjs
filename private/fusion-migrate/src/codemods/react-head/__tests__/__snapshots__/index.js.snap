@@ -143,7 +143,7 @@ import routes from '../components/routes';
 import {Provider} from 'react-redux';
 import {browserHistory} from 'react-router';
 import isBrowser from 'is-browser';
-import {Helmet} from 'react-helmet';
+import Helmet from 'react-helmet';
 
 const Root = ({store}) => {
   const title = 'Trips Viewer';

@@ -11,6 +11,10 @@ module.exports = babel => {
       body,
       `import {createToken, createPlugin} from 'fusion-core'`
     );
+    ensureImportDeclaration(
+      body,
+      `import {EnhancerToken} from 'fusion-plugin-react-redux'`
+    );
     addStatementAfter(
       path,
       `import RPCCompatEnhancer from '@uber/fusion-plugin-web-rpc-compat'`
