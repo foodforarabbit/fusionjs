@@ -6,6 +6,7 @@ const modHealthPathCheck = require('./codemods/fix-health-path-check/plugin.js')
 const modLogtronBackend = require('./codemods/remove-logtron-backend-config-wrapping/plugin.js');
 const modHelmetMigrations = require('./codemods/helmet-migrations/plugin.js');
 const modPluginRemovals = require('./codemods/plugin-removals/plugin.js');
+const modMoveAuthHeadersConfigFromMain = require('./codemods/move-auth-headers-config-from-main/plugin.js');
 
 const flowConfigStep = require('./utils/flowconfig-step.js');
 const addFlowLibdefsToConfig = require('./commands/add-flow-libdefs-to-config.js');
@@ -84,6 +85,11 @@ module.exports = function getUpgrades({srcDir, destDir}) {
       await flowConfigStep({
         destDir,
         plugin: addFlowLibdefsToConfig,
+      });
+      await codemodStep({
+        destDir,
+        plugin: modMoveAuthHeadersConfigFromMain,
+        filter: f => f.endsWith('src/main.js'),
       });
     },
     async () => format(destDir),

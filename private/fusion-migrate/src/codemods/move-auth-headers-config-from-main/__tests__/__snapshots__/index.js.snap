@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`move-auth-headers-config-from-main positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
+import {createPlugin} from 'fusion-core';
+import AuthHeadersPlugin, {
+  AuthHeadersToken,
+  AuthHeadersUUIDConfigToken,
+} from '@uber/fusion-plugin-auth-headers';
+
+// configuration
+import atreyuConfig from './config/atreyu';
+import fontConfig from './config/fonts';
+
+function thing() {
+  const app = new App();
+  if (__NODE__) {
+    const authHeadersDevConfig = {uuid: process.env.UBER_OWNER_UUID};
+    if (typeof authHeadersDevConfig.uuid === 'string') {
+      app.register(AuthHeadersUUIDConfigToken, authHeadersDevConfig.uuid);
+    }
+  }
+  return app;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import {createPlugin} from 'fusion-core';
+import AuthHeadersPlugin, {
+  AuthHeadersToken,
+  AuthHeadersUUIDConfigToken,
+  AuthHeadersEmailConfigToken,
+  AuthHeadersTokenConfigToken,
+  AuthHeadersRolesConfigToken,
+  AuthHeadersGroupsConfigToken,
+} from '@uber/fusion-plugin-auth-headers'; // configuration
+
+import atreyuConfig from './config/atreyu';
+import authHeadersDevConfig from './config/auth-headers-dev.js';
+import fontConfig from './config/fonts';
+
+function thing() {
+  const app = new App();
+
+  if (__NODE__) {
+    authHeadersDevConfig.uuid &&
+      app.register(AuthHeadersUUIDConfigToken, authHeadersDevConfig.uuid);
+    authHeadersDevConfig.groups &&
+      app.register(AuthHeadersGroupsConfigToken, authHeadersDevConfig.groups);
+    authHeadersDevConfig.roles &&
+      app.register(AuthHeadersRolesConfigToken, authHeadersDevConfig.roles);
+    authHeadersDevConfig.token &&
+      app.register(AuthHeadersTokenConfigToken, authHeadersDevConfig.token);
+    authHeadersDevConfig.email &&
+      app.register(AuthHeadersEmailConfigToken, authHeadersDevConfig.email);
+  }
+
+  return app;
+}
+"
+`;

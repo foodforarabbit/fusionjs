@@ -57,6 +57,7 @@ function matchTree(a, b, matchingOptions) {
   }
   return true;
 }
+
 function clearMatchCache() {
   cache = {};
 }
