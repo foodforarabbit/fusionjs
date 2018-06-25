@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-legacy-styling-compat-mixin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fusion App mixin for legacy isorender/bedrock styling",
   "files": [
     "dist",
