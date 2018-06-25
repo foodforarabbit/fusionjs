@@ -1,6 +1,6 @@
 # @uber/fusion-legacy-styling-compat-mixin
 
-Legacy styling compatability mixin for bedrock 14 to fusion migration.
+Legacy styling compatability Fusion App mixin for bedrock 14 to fusion migration.
 
 ---
 
