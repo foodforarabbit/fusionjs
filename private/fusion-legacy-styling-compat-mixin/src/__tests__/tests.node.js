@@ -1,3 +1,4 @@
+/* @noflow */
 import tape from 'tape-cup';
 
 import styletron from 'styletron-legacy';

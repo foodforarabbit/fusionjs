@@ -1,3 +1,4 @@
+/* @noflow */
 /* eslint-env browser */
 
 import tape from 'tape-cup';

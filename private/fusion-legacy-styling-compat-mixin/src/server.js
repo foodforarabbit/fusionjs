@@ -1,3 +1,5 @@
+/* @noflow */
+
 import styletron from 'styletron-legacy';
 import safeString from 'safe-string';
 import CleanCSS from 'clean-css';

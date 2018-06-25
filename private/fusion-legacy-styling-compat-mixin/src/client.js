@@ -1,3 +1,4 @@
+/* @noflow */
 /* eslint-env browser */
 
 import {HYDRATION_ID, INSTANCE_KEY} from './constants.js';

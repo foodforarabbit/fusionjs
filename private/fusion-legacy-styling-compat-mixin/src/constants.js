@@ -1,3 +1,5 @@
+/* @noflow */
+
 import styletronConstants from 'styletron-legacy/constants';
 
 const {INSTANCE_KEY} = styletronConstants;
