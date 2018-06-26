@@ -1,33 +1,31 @@
 const {addStatementAfter, astOf} = require('../../utils/index.js');
 const composeVisitors = require('../../utils/compose-visitors.js');
-const visitNewAppExpression = require('../../utils/visit-new-app-expression.js');
+const visitNamedModule = require('../../utils/visit-named-module.js');
 
-module.exports = babel => {
-  const t = babel.types;
-  const appVisitor = visitNewAppExpression(t, (t, state, refPath) => {
-    refPath.parentPath.parentPath.parentPath.parentPath.traverse({
-      IfStatement(path) {
-        if (path.node.test.name === '__NODE__') {
-          path.node.consequent.body.push(
-            astOf(`app.register(BedrockCompatToken, BedrockCompatPlugin);`)
-          );
-          path.node.consequent.body.push(
-            astOf(
-              `app.register(InitializeServerToken, require('./server/index.js').default);`
-            )
-          );
-          path.node.consequent.body.push(
-            astOf(`app.register(HttpHandlerToken, createPlugin({
+module.exports = () => {
+  const errorHandlerVisitor = visitNamedModule({
+    packageName: '@uber/fusion-plugin-secure-headers',
+    refsHandler(t, state, refPaths) {
+      const ref = refPaths.find(p => p.parentPath.type === 'CallExpression');
+      if (!ref) {
+        throw new Error('Could not find registration of uber error handler');
+      }
+      ref.parentPath.insertAfter(astOf(`app.register(HttpHandlerPlugin);`));
+      ref.parentPath.insertAfter(
+        astOf(`app.register(HttpHandlerToken, createPlugin({
               deps: {server: BedrockCompatToken},
               provides: ({server}) => server.app,
             }))`)
-          );
-          path.node.consequent.body.push(
-            astOf(`app.register(HttpHandlerPlugin);`)
-          );
-        }
-      },
-    });
+      );
+      ref.parentPath.insertAfter(
+        astOf(
+          `app.register(InitializeServerToken, require('./server/index.js').default);`
+        )
+      );
+      ref.parentPath.insertAfter(
+        astOf(`app.register(BedrockCompatToken, BedrockCompatPlugin);`)
+      );
+    },
   });
 
   const importVisitor = {
@@ -48,6 +46,6 @@ module.exports = babel => {
 
   return {
     name: 'compat-plugin-http-handler',
-    visitor: composeVisitors(appVisitor, importVisitor),
+    visitor: composeVisitors(errorHandlerVisitor, importVisitor),
   };
 };

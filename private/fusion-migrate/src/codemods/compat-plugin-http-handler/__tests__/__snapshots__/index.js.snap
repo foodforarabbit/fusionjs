@@ -3,7 +3,7 @@
 exports[`compat-plugin-http-handler positive-match: positive-match 1`] = `
 "import App from 'fusion-react';
 import {createPlugin} from 'fusion-core';
-import {SomeToken, SomePlugin} from 'some-plugin';
+import SomePlugin, {SomeToken} from '@uber/fusion-plugin-secure-headers';
 import {OtherToken, OtherPlugin} from 'other-plugin';
 
 console.log(App);
@@ -29,7 +29,7 @@ import BedrockCompatPlugin, {
   BedrockCompatToken,
 } from '@uber/fusion-plugin-bedrock-compat';
 import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';
-import {SomeToken, SomePlugin} from 'some-plugin';
+import SomePlugin, {SomeToken} from '@uber/fusion-plugin-secure-headers';
 import {OtherToken, OtherPlugin} from 'other-plugin';
 console.log(App);
 
