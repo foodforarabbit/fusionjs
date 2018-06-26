@@ -116,7 +116,7 @@ function get14Steps(options) {
     getStep('redux-state-compat', () =>
       codemodStep({
         ...options,
-        filter: filterMatchFile('src/main.js', 'src/app.js'),
+        filter: filterMatchFile('src/app.js'),
         plugin: modInitialStateCompat,
       })
     ),
