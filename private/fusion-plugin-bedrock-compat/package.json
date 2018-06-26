@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-bedrock-compat",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "fusion plugin for bedrock compatability",
   "files": [
     "dist",
