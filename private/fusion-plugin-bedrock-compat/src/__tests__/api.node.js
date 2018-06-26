@@ -1,8 +1,10 @@
+import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import {GalileoToken} from '@uber/fusion-plugin-galileo';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import App, {createPlugin} from 'fusion-core';
+
 import getPort from 'get-port';
 import http from 'http';
 import request from 'request-promise';
@@ -34,24 +36,34 @@ tape('provides', async t => {
     t.equal(server.clients.atreyu, 'atreyu');
     t.equal(typeof cb, 'function');
     server.get('/', (req, res) => {
+      t.equal(
+        req.headers['x-test'],
+        'test-value',
+        'sets mock headers for bedrock middleware'
+      );
       res.status(200);
       res.json(res.locals.state);
     });
     return server;
   });
   app.register(
+    HttpHandlerToken,
     createPlugin({
       deps: {
         server: BedrockCompatToken,
       },
-      middleware: ({server}) => {
-        return async (ctx, next) => {
-          await next();
-          server.app(ctx.req, ctx.res);
-        };
-      },
+      provides: ({server}) => server.app,
     })
   );
+  app.register(HttpHandlerPlugin);
+  app.middleware((ctx, next) => {
+    t.equal(
+      ctx.req.headers['x-test'],
+      'test-value',
+      'sets mock headers for other fusion plugins'
+    );
+    return next();
+  });
   const server = http.createServer(app.callback());
   const port = await getPort();
   server.listen(port);

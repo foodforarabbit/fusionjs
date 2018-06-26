@@ -34,6 +34,17 @@ export default __NODE__ &&
         m3: deps.m3,
         galileo: deps.galileo.galileo,
       };
+
+      if (__DEV__) {
+        var mockHeaders = server.config.mockHeaders || {};
+        server.app.use(function mockNginxHeaders(req, res, next) {
+          Object.keys(mockHeaders).forEach(function each(headerName) {
+            req.headers[headerName] =
+              req.headers[headerName] || mockHeaders[headerName];
+          });
+          return next();
+        });
+      }
       server.app.use((req, res, next) => {
         res.putState('bedrock', {
           appName: process.env.SVC_ID,
