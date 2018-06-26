@@ -1,6 +1,7 @@
 const codemodStep = require('./utils/codemod-step.js');
 const modCsrfIgnoreRoutes = require('./codemods/add-csrf-ignore-routes-token/plugin.js');
 const modHelmet = require('./codemods/add-react-helmet-async/plugin.js');
+const modHeatpipePlugin = require('./codemods/add-heatpipe-plugin/plugin.js');
 const modReduxEnhancer = require('./codemods/expose-redux-from-enhancer/plugin.js');
 const modHealthPathCheck = require('./codemods/fix-health-path-check/plugin.js');
 const modLogtronBackend = require('./codemods/remove-logtron-backend-config-wrapping/plugin.js');
@@ -37,6 +38,17 @@ module.exports = function getUpgrades({srcDir, destDir}) {
         codemodStep({
           destDir,
           plugin: modHelmet,
+          filter: f => f.endsWith('src/main.js'),
+        }),
+      ]);
+    },
+    async () => {
+      const modulesToAdd = ['@uber/fusion-plugin-heatpipe'];
+      await Promise.all([
+        updateDeps({srcDir, destDir, modulesToAdd}),
+        codemodStep({
+          destDir,
+          plugin: modHeatpipePlugin,
           filter: f => f.endsWith('src/main.js'),
         }),
       ]);
