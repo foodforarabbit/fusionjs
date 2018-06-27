@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "just-map-object": "^1.1.24",
-    "just-omit": "^1.0.1"
+    "just-omit": "^1.0.1",
+    "react": "^15.0.0"
   },
   "devDependencies": {
     "just-entries": "^1.0.0",

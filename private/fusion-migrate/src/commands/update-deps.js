@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const exec = require('execa');
+const semver = require('semver');
 
 const defaultModulesToRemove = [
   '@uber/uber-xhr',
@@ -74,6 +75,15 @@ module.exports = async function updateDeps({
       });
     })
   );
+
+  // Install enzyme-adapter-react-15 if necessary
+  const reactVersion = srcPackage.dependencies.react;
+  if (reactVersion) {
+    const parsedVersion = semver.coerce(reactVersion);
+    if (parsedVersion.major === 15) {
+      destPackage.devDependencies['enzyme-adapter-react-15'] = '^1.0.5';
+    }
+  }
 
   // Don't upgrade react during migration
   delete srcPackage.dependencies.react;

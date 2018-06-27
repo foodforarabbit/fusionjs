@@ -46,9 +46,14 @@ test('updateDeps', async () => {
   assert.ok(finalDeps.includes('just-index'));
   assert.equal(finalPackage.dependencies['just-partition'], '1.0.0');
   assert.equal(finalPackage.devDependencies['just-curry-it'], '3.0.0');
+  assert.equal(
+    finalPackage.devDependencies['enzyme-adapter-react-15'],
+    '^1.0.5'
+  );
   assert.equal(finalDeps.length, 5);
+  assert.ok(finalDevDeps.includes('enzyme-adapter-react-15'));
   assert.ok(finalDevDeps.includes('just-curry-it'));
   assert.ok(finalDevDeps.includes('just-entries'));
   assert.ok(finalDevDeps.includes('just-extend'));
-  assert.equal(finalDevDeps.length, 3);
+  assert.equal(finalDevDeps.length, 4);
 });
