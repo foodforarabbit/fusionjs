@@ -100,7 +100,7 @@ test('SPA Endpoint', t => {
 
 import test from 'tape'; // put in fixtures?
 
-import app from '../../../main';
+import app from '../../../../main';
 import {getSimulator} from 'fusion-test-utils';
 import startServer from '../../server';
 import prefixUrl from '@uber/bedrock/prefix-url';

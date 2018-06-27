@@ -8,7 +8,7 @@ module.exports = () => {
   return {
     name: 'server-simulator-tests',
     visitor: {
-      ImportDeclaration(path) {
+      ImportDeclaration(path, state) {
         if (path.node.source.value === 'tape') {
           const test = path.node.specifiers[0].local.name;
 
@@ -16,7 +16,10 @@ module.exports = () => {
             path,
             `import {getSimulator} from 'fusion-test-utils'`
           );
-          addStatementAfter(path, `import app from '../../../main'`);
+          const filename = state.file.opts.filename;
+          const rest = filename.match(/\/src\/(.+)/)[1];
+          const rel = new Array(rest.match(/\//g).length).fill('..').join('/');
+          addStatementAfter(path, `import app from '${rel}/main'`);
 
           path.parentPath.traverse({
             CallExpression(path) {
