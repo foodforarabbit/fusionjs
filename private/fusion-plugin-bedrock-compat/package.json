@@ -25,6 +25,7 @@
   },
   "peerDependencies": {
     "@uber/fusion-plugin-atreyu": "^1.0.1",
+    "@uber/fusion-plugin-flipr": "^1.0.6",
     "@uber/fusion-plugin-galileo": "^1.0.1",
     "@uber/fusion-plugin-m3": "^1.0.4",
     "fusion-core": "^1.0.0",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@uber/fusion-plugin-atreyu": "^1.0.1",
+    "@uber/fusion-plugin-flipr": "^1.0.6",
     "@uber/fusion-plugin-galileo": "^1.0.1",
     "@uber/fusion-plugin-m3": "^1.0.4",
     "@uber/fusion-plugin-tchannel": "^1.0.4",

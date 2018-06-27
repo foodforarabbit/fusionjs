@@ -5,6 +5,7 @@ import {LoggerToken} from 'fusion-tokens';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {GalileoToken} from '@uber/fusion-plugin-galileo';
+import {FliprToken} from '@uber/fusion-plugin-flipr';
 import zeroConfig from 'zero-config';
 
 export const InitializeServerToken = createToken('InitializeServer');
@@ -18,6 +19,7 @@ export default __NODE__ &&
       atreyu: AtreyuToken,
       m3: M3Token,
       galileo: GalileoToken,
+      flipr: FliprToken,
     },
     provides: deps => {
       const server = bedrock.createServer();
@@ -33,6 +35,7 @@ export default __NODE__ &&
         atreyu: deps.atreyu,
         m3: deps.m3,
         galileo: deps.galileo.galileo,
+        flipr: deps.flipr,
       };
 
       if (__DEV__) {

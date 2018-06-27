@@ -3,6 +3,7 @@ import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import {GalileoToken} from '@uber/fusion-plugin-galileo';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
+import {FliprToken} from '@uber/fusion-plugin-flipr';
 import App, {createPlugin} from 'fusion-core';
 
 import getPort from 'get-port';
@@ -26,6 +27,7 @@ tape('provides', async t => {
   app.register(AtreyuToken, 'atreyu');
   app.register(M3Token, 'm3');
   app.register(GalileoToken, {galileo: 'galileo'});
+  app.register(FliprToken, 'flipr');
   app.register(InitializeServerToken, (server, cb) => {
     t.equal(server.config.test, true);
     t.equal(server.logger, 'logger');
@@ -34,6 +36,7 @@ tape('provides', async t => {
     t.equal(server.clients.m3, 'm3');
     t.equal(server.clients.galileo, 'galileo');
     t.equal(server.clients.atreyu, 'atreyu');
+    t.equal(server.clients.flipr, 'flipr');
     t.equal(typeof cb, 'function');
     server.get('/', (req, res) => {
       t.equal(

@@ -15,6 +15,7 @@ Fusion plugin for bedrock compatability
     * [`M3Token`](#m3token)
     * [`AtreyuToken`](#atreyutoken)
     * [`GalileoToken`](#galileotoken)
+    * [`FliprToken`](#fliprtoken)
 
 ---
 
@@ -60,8 +61,15 @@ See [`M3Token`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-m3)
 
 ##### `AtreyuToken`
 
-See [`AtreyuToken`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-atreyu#atreyutoken)
+See
+[`AtreyuToken`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-atreyu#atreyutoken)
 
 ##### `GalileoToken`
 
-See [`GalileoToken`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-galileo#galileotoken)
+See
+[`GalileoToken`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-galileo#galileotoken)
+
+##### `FliprToken`
+
+See
+[`FliprToken`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-flipr#fliprtoken)
