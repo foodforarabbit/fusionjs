@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import path from 'path';
 import Logtron from '@uber/logtron';
@@ -6,6 +7,10 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import createErrorTransform from './create-error-transform';
 import {supportedLevels} from './constants';
+
+import type {FusionPlugin} from 'fusion-core';
+import type {Logger as LoggerType} from 'fusion-tokens';
+import type {PayloadType, PayloadMetaType} from './types.js';
 
 export const BackendsToken = createToken('LogtronBackends');
 export const TeamToken = createToken('LogtronTeam');
@@ -23,7 +28,16 @@ function validateItem(item) {
   return true;
 }
 
-export default __NODE__ &&
+type DepsType = {
+  events: typeof UniversalEventsToken,
+  m3: typeof M3Token,
+  backends: typeof BackendsToken,
+  team: typeof TeamToken,
+  transforms: typeof TransformsToken,
+};
+
+const plugin =
+  __NODE__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
@@ -72,7 +86,7 @@ export default __NODE__ &&
           path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
           ext: '.map',
         });
-        events.on('logtron:log', async payload => {
+        events.on('logtron:log', payload => {
           handleLog(logger, transformError, payload);
         });
       }
@@ -81,7 +95,11 @@ export default __NODE__ &&
     cleanup: logger => logger.destroy(),
   });
 
-export const handleLog = async (logger, transformError, payload) => {
+export const handleLog = async (
+  logger: LoggerType,
+  transformError: PayloadMetaType => {},
+  payload: PayloadType
+) => {
   if (validateItem(payload)) {
     const {level, message} = payload;
     let {meta} = payload;
@@ -101,3 +119,5 @@ function isErrorMeta(meta) {
   }
   return (meta.error && meta.error.stack) || (meta.source && meta.line);
 }
+
+export default ((plugin: any): FusionPlugin<DepsType, LoggerType>);

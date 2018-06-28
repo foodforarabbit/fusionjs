@@ -1,5 +1,9 @@
 // @flow
-import ServerLogger, {BackendsToken, TransformsToken, TeamToken} from './server';
+import ServerLogger, {
+  BackendsToken,
+  TransformsToken,
+  TeamToken,
+} from './server';
 import BrowserLogger from './browser';
 
 export {default as mock} from './mock';

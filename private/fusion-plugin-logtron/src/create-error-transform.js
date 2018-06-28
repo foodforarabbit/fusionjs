@@ -1,15 +1,22 @@
+// @flow
 import fs from 'fs';
 import path from 'path';
 import sourcemap from 'source-map';
 import ErrorStackParser from 'error-stack-parser';
+import type {PayloadMetaType} from './types.js';
 
-export default function createErrorTransform(config) {
+type ConfigType = {
+  path: string,
+  ext: string,
+};
+
+export default function createErrorTransform(config: ConfigType) {
   const mappers = loadSourceMaps(config);
 
-  return async function parseError(data) {
+  return async function parseError(data: PayloadMetaType) {
     const {message, source, line, col, error} = data;
 
-    let parsed;
+    let parsed: {source?: string, stack?: string, line?: string};
     if (error && error.stack) {
       // Newer browsers send the error object
       parsed = await handleErrorObject(error);
@@ -33,13 +40,15 @@ export default function createErrorTransform(config) {
     // TODO: Maybe include a newline at the beginning of the stack for better readability
     parsed.stack = parsed.stack
       ? parsed.stack.trim()
-      : `${parsed.message}\n    at ${parsed.source}:${parsed.line}`;
+      : `${String(parsed.message)}\n    at ${String(parsed.source)}:${String(
+          parsed.line
+        )}`;
 
     return parsed;
   };
 
   async function applySourceMap(fileName, line, column) {
-    const map = await mappers[path.basename(fileName)];
+    const map = await mappers[path.basename(String(fileName))];
     return map ? map.originalPositionFor({line, column}) : null;
   }
 
@@ -107,8 +116,7 @@ function loadSourceMaps(config) {
   const mappers = {};
 
   try {
-    fs
-      .readdirSync(config.path)
+    fs.readdirSync(config.path)
       .filter(fName => fName.endsWith(config.ext))
       .reduce(toSourceMapper, mappers);
   } catch (e) {
@@ -116,6 +124,7 @@ function loadSourceMaps(config) {
     const wrappedError = new Error(
       `Failed to read sourcemaps from ${config.path}`
     );
+    // $FlowFixMe
     wrappedError.originalError = e;
     throw wrappedError;
   }

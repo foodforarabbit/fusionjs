@@ -1,3 +1,4 @@
+// @flow
 import tape from 'tape-cup';
 import App from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
@@ -9,10 +10,14 @@ import Plugin, {handleLog, TeamToken} from '../server';
 import {supportedLevels} from '../constants';
 import TestEmitter from './test-emitter';
 
+import type {Logger as LoggerType} from 'fusion-tokens';
+
 tape('test all methods exist for server', t => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
+  // $FlowFixMe
   app.register(M3Token, {});
+  // $FlowFixMe
   app.register(UniversalEventsToken, {});
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {
@@ -28,7 +33,9 @@ tape('test all methods exist for server', t => {
 tape('server plugin basic creation', t => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
+  // $FlowFixMe
   app.register(M3Token, {});
+  // $FlowFixMe
   app.register(UniversalEventsToken, {});
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {
@@ -48,6 +55,7 @@ tape('server test handleLog with valid payload', t => {
     error: spy(),
   };
 
+  // $FlowFixMe - missing logger methods in mock
   handleLog(loggerMock, function() {}, {
     level: 'error',
     message: 'hello world',
@@ -57,11 +65,18 @@ tape('server test handleLog with valid payload', t => {
 });
 
 tape('server test handleLog with invalid payload', t => {
-  const loggerMock = {
+  // $FlowFixMe - missing logger methods in mock
+  const loggerMock: LoggerType = {
     error: spy(),
   };
 
-  handleLog(loggerMock, function() {}, {});
+  handleLog(
+    loggerMock,
+    function() {
+      return {};
+    },
+    {message: '', level: '', meta: {}}
+  );
   t.ok(loggerMock.error.called, 'logger.error was called');
   t.end();
 });
@@ -71,6 +86,7 @@ tape('server test handleLog with invalid payload message', t => {
     error: spy(),
   };
 
+  // $FlowFixMe - missing logger methods in mock
   handleLog(loggerMock, function() {}, {
     level: 'error',
     message: {},
@@ -85,6 +101,7 @@ tape('server test handleLog with error set in meta', async t => {
   };
 
   await handleLog(
+    // $FlowFixMe
     loggerMock,
     function() {
       return Promise.resolve({});
@@ -108,7 +125,9 @@ tape('server test log method', t => {
 
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
+  // $FlowFixMe
   app.register(M3Token, {});
+  // $FlowFixMe
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {

@@ -1,3 +1,4 @@
+// @flow
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
@@ -9,6 +10,7 @@ import {supportedLevels} from '../constants';
 tape('test all methods exist for browser', t => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, {});
   app.middleware({logger: LoggerToken}, ({logger}) => {
     supportedLevels.concat(['log']).forEach(fn => {
@@ -23,6 +25,7 @@ tape('test all methods exist for browser', t => {
 tape('test info method', t => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, {
     emit: () => {},
   });
@@ -41,6 +44,7 @@ tape('test info method', t => {
 tape('test info method with message of an error', t => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, {
     emit: (scope, params) => {
       t.equal(typeof params.meta.error, 'object', 'meta is correctly set');
@@ -57,6 +61,7 @@ tape('test info method with message of an error', t => {
 tape('test info method with meta of an error', t => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, {
     emit: (scope, params) => {
       t.equal(typeof params.meta.error, 'object', 'meta is correctly set');

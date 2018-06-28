@@ -1,22 +1,36 @@
+// @flow
 import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {supportedLevels} from './constants';
 
-export default __BROWSER__ &&
+import type {FusionPlugin} from 'fusion-core';
+import type {Logger as LoggerType} from 'fusion-tokens';
+import type {IEmitter} from './types.js';
+
+type DepsType = {
+  events: typeof UniversalEventsToken,
+};
+
+const plugin =
+  __BROWSER__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
     },
     provides: ({events}) => {
       class UniversalLogger {
+        emitter: IEmitter;
+
         constructor() {
           this.emitter = events;
           supportedLevels.forEach(level => {
-            this[level] = (message, meta) => {
+            // Cast to object to trick flow into thinking we have an indexer.
+            (this: Object)[level] = (message, meta) => {
               return this.log(level, message, meta);
             };
           });
         }
+
         log(level, message, meta) {
           // Supports the interface of logger[level](new Error('some-error'));
           if (message instanceof Error) {
@@ -42,9 +56,14 @@ export default __BROWSER__ &&
             meta.error = error;
           }
 
-          return this.emitter.emit('logtron:log', {level, message, meta});
+          return (
+            this.emitter &&
+            this.emitter.emit('logtron:log', {level, message, meta})
+          );
         }
       }
       return new UniversalLogger();
     },
   });
+
+export default ((plugin: any): FusionPlugin<DepsType, LoggerType>);

@@ -1,11 +1,18 @@
+// @flow
 import {createPlugin} from 'fusion-core';
 
-export default createPlugin({
+import type {FusionPlugin} from 'fusion-core';
+import type {Logger as LoggerType} from 'fusion-tokens';
+
+const plugin = createPlugin({
   provides: () => {
     class Logger {
       constructor() {
         this.calls = [];
       }
+
+      calls: Array<[string, mixed]>;
+
       _mock(method, args) {
         this.calls.push([method, args]);
       }
@@ -18,8 +25,14 @@ export default createPlugin({
       access(...args) {
         this._mock('access', args);
       }
+      silly(...args) {
+        this._mock('silly', args);
+      }
       warn(...args) {
         this._mock('warn', args);
+      }
+      verbose(...args) {
+        this._mock('verbose', args);
       }
       trace(...args) {
         this._mock('trace', args);
@@ -41,3 +54,5 @@ export default createPlugin({
     return new Logger();
   },
 });
+
+export default ((plugin: any): FusionPlugin<empty, LoggerType>);

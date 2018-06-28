@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import path from 'path';
 import tape from 'tape-cup';
