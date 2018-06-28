@@ -4,6 +4,7 @@ const exec = require('execa');
 const semver = require('semver');
 
 const defaultModulesToRemove = [
+  'fusion-plugin-styletron-react',
   '@uber/uber-xhr',
   '@uber/render-page-skeleton',
   '@uber/bedrock',
@@ -24,6 +25,7 @@ const defaultModulesToRemove = [
 
 const defaultCompatModules = [
   'jest-codemods',
+  '@uber/fusion-legacy-styling-compat-mixin',
   '@uber/bedrock-14-compat',
   '@uber/isomorphic-i18n-compat',
   '@uber/fusion-plugin-initial-state-compat',

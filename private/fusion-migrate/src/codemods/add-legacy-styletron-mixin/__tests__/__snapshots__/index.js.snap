@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add-legacy-styletron-mixin positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
+import StyletronPlugin from 'fusion-plugin-styletron-react';
+
+export default function start() {
+  const app = new App(a, b);
+  app.register(StyletronPlugin);
+  return app;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {legacyStyling} from '@uber/fusion-legacy-styling-compat-mixin';
+import App from 'fusion-react';
+import StyletronPlugin from 'fusion-plugin-styletron-react';
+export default function start() {
+  const LegacyStyledApp = legacyStyling(App);
+  const app = new LegacyStyledApp(a, b);
+  app.register(StyletronPlugin);
+  return app;
+}
+"
+`;

@@ -44,6 +44,8 @@ const modRemoveInternalToolLayout = require('./codemods/remove-internal-tool-lay
 const modRemoveEnzymeAdapter = require('./codemods/remove-enzyme-adapter/plugin.js');
 const modMoveTestUtils = require('./codemods/move-test-utils/plugin.js');
 const modServerSimulatorTests = require('./codemods/server-simulator-tests/plugin.js');
+const modRemoveStyletron = require('./codemods/remove-styletron-react-plugin/plugin.js');
+const modAddLegacyStyletronMixin = require('./codemods/add-legacy-styletron-mixin/plugin.js');
 const updateDeps = require('./commands/update-deps.js');
 const updateEngines = require('./commands/update-engines.js');
 const updateFiles = require('./commands/update-files.js');
@@ -276,6 +278,22 @@ function get14Steps(options) {
           filter: filterMatchMain,
         })
       ),
+    getStep('remove-styletron-plugin', () =>
+      codemodStep({
+        ...options,
+        plugin: modRemoveStyletron,
+        filter: filterMatchMain,
+      })
+    ),
+    // This should be the final codemod as it changes the new App expression,
+    // which means other codemods won't be able to find the new App expression
+    getStep('add-legacy-styletron-mixin', () =>
+      codemodStep({
+        ...options,
+        plugin: modAddLegacyStyletronMixin,
+        filter: filterMatchMain,
+      })
+    ),
   ].filter(Boolean);
 }
 
