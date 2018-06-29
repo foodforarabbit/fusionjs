@@ -11,7 +11,7 @@ module.exports = function updateEngines({destDir}) {
   const destPackage = JSON.parse(fs.readFileSync(destPackagePath).toString());
   destPackage.engines = {
     node: fetchRequiredNodeVersion(),
-    npm: '5.8.0',
+    npm: '4.0.5',
     yarn: fetchRequiredYarnVersion(),
   };
   return writeFile(destPackagePath, JSON.stringify(destPackage, null, 2));
