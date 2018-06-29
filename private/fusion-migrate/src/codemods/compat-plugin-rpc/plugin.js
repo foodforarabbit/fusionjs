@@ -7,6 +7,7 @@ module.exports = babel => {
   const t = babel.types;
   const appVisitor = visitNewAppExpression(t, (t, state, refPath, path) => {
     const body = getProgram(path).node.body;
+    ensureImportDeclaration(body, `import {compose} from 'redux'`);
     ensureImportDeclaration(
       body,
       `import {createToken, createPlugin} from 'fusion-core'`

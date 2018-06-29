@@ -18,6 +18,7 @@ function thing() {
 import {EnhancerToken} from 'fusion-plugin-react-redux';
 import RPCCompatEnhancer from '@uber/fusion-plugin-web-rpc-compat';
 import {createToken, createPlugin} from 'fusion-core';
+import {compose} from 'redux';
 import App from 'fusion-react';
 import {SomeToken, SomePlugin} from 'some-plugin';
 console.log(App);
