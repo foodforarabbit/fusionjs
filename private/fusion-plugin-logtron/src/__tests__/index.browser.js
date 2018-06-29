@@ -14,6 +14,7 @@ tape('test all methods exist for browser', t => {
   app.register(UniversalEventsToken, {});
   app.middleware({logger: LoggerToken}, ({logger}) => {
     supportedLevels.concat(['log']).forEach(fn => {
+      // $FlowFixMe - Logtron has methods that the LoggerToken does not.
       t.equal(typeof logger[fn], 'function', `${fn} was set`);
     });
     t.end();

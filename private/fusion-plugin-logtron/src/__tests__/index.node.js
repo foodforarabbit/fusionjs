@@ -22,6 +22,7 @@ tape('test all methods exist for server', t => {
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {
     supportedLevels.concat(['log']).forEach(fn => {
+      // $FlowFixMe - Logtron has methods that the LoggerToken does not.
       t.equal(typeof logger[fn], 'function', `${fn} was set`);
     });
     t.end();
@@ -77,6 +78,7 @@ tape('server test handleLog with invalid payload', t => {
     },
     {message: '', level: '', meta: {}}
   );
+  // $FlowFixMe - called is only used for testing
   t.ok(loggerMock.error.called, 'logger.error was called');
   t.end();
 });
@@ -135,7 +137,7 @@ tape('server test log method', t => {
       t.pass('emitter called when log was called');
       t.end();
     });
-    logger.log('error', {});
+    logger.log('error', 'message', {});
     return (ctx, next) => next();
   });
   getSimulator(app);
