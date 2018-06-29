@@ -12,7 +12,9 @@ import UniversalEvents, {
 
 import DefaultRoot from '../components/root';
 
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
 export default function start(options = {}) {
   const defaultRender = mount;

@@ -40,7 +40,11 @@ function matchTree(a, b, matchingOptions) {
       a.value.trim() === b.value.trim()
     ) {
       continue;
-    } else if (key.match(/start|end|loc|importKind|comment|lines|raw|extra/i)) {
+    } else if (
+      key.match(
+        /start|end|loc|importKind|comment|lines|raw|extra|typeArguments/i
+      )
+    ) {
       continue;
     } else if (Array.isArray(a[key])) {
       if (!Array.isArray(b[key])) return false;
