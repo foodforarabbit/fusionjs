@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-initial-state-compat",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "fusion plugin for initial state compatibility with bedrock",
   "files": [
     "dist",
