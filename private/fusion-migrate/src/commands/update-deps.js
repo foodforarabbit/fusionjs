@@ -4,6 +4,8 @@ const exec = require('execa');
 const semver = require('semver');
 
 const defaultModulesToRemove = [
+  'livereactload',
+  'react-proxy',
   'fusion-plugin-styletron-react',
   '@uber/uber-xhr',
   '@uber/render-page-skeleton',

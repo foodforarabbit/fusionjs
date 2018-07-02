@@ -9,6 +9,7 @@ const defaultFilesToAdd = [
   'src/main.js',
   'src/app.js',
   '.eslintrc.js',
+  '.flowconfig',
   'flow-typed',
   'src/config',
   'src/static',
@@ -20,6 +21,7 @@ const defaultFilesToRemove = [
   '.eslintrc',
   'gulpfile.js',
   'gulpfile-dev.js',
+  'server.js',
 ];
 
 module.exports = async function updateFiles({
@@ -36,7 +38,12 @@ module.exports = async function updateFiles({
     });
   });
   const addFiles = add.map(fileToAdd => {
-    return ncp(path.join(srcDir, fileToAdd), path.join(destDir, fileToAdd));
+    let destAddPath = path.join(destDir, fileToAdd);
+    const srcAddPath = path.join(srcDir, fileToAdd);
+    if (fs.existsSync(destAddPath)) {
+      destAddPath = path.join(destDir, `${fileToAdd}-new`);
+    }
+    return ncp(srcAddPath, destAddPath);
   });
   return Promise.all([...removeFiles, ...addFiles]);
 };

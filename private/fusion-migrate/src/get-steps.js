@@ -46,11 +46,13 @@ const modMoveTestUtils = require('./codemods/move-test-utils/plugin.js');
 const modServerSimulatorTests = require('./codemods/server-simulator-tests/plugin.js');
 const modRemoveStyletron = require('./codemods/remove-styletron-react-plugin/plugin.js');
 const modAddLegacyStyletronMixin = require('./codemods/add-legacy-styletron-mixin/plugin.js');
+const lintFix = require('./commands/lint-fix.js');
 const updateDeps = require('./commands/update-deps.js');
 const updateEngines = require('./commands/update-engines.js');
 const updateFiles = require('./commands/update-files.js');
 const renameTestFiles = require('./commands/rename-test-files.js');
 const updateScripts = require('./commands/update-scripts.js');
+const addNoFlowAnnotation = require('./commands/no-flow.js');
 const updateGitignore = require('./commands/update-gitignore.js');
 const jestCodemods = require('./commands/jest-codemods.js');
 const setRoutePrefix = require('./commands/route-prefix.js');
@@ -294,6 +296,8 @@ function get14Steps(options) {
         filter: filterMatchMain,
       })
     ),
+    getStep('add-no-flow-annotation', () => addNoFlowAnnotation(options)),
+    getStep('lint-fix', () => lintFix(options)),
   ].filter(Boolean);
 }
 
