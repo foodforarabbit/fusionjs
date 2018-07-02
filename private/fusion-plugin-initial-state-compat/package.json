@@ -32,6 +32,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
+    "fusion-core": "^1.4.0",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
     "tape-cup": "^4.7.1",
@@ -52,5 +53,8 @@
     "node": ">=8.3.0",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
+  },
+  "peerDependencies": {
+    "fusion-core": "^1.4.0"
   }
 }
