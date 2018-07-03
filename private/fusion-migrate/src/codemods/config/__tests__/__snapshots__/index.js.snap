@@ -13,8 +13,11 @@ export default {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import extend from 'just-extend';
+
 /* Fetch the IDL files when you add new services t.uber.com/idl */
-export default Object.assign(
+export default extend(
+  true,
   {
     enabled: true,
     appName: 'test',

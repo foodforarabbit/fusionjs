@@ -2,7 +2,7 @@
 
 exports[`getConfigDeclaration 1`] = `
 Object {
-  "code": "Object.assign({
+  "code": "extend(true, {
   \\"a\\": true
 }, __DEV__ ? {
   \\"b\\": false
@@ -46,7 +46,7 @@ Object {
 
 exports[`getConfigDeclaration undefined common values 1`] = `
 Object {
-  "code": "Object.assign(__DEV__ ? {
+  "code": "extend(true, __DEV__ ? {
   \\"a\\": \\"test\\"
 } : {}, process.env.UBER_ENVIRONMENT === 'production' ? {
   \\"b\\": \\"test\\"
@@ -58,7 +58,7 @@ Object {
 
 exports[`getConfigDeclaration undefined dev values 1`] = `
 Object {
-  "code": "Object.assign({
+  "code": "extend(true, {
   \\"a\\": \\"something\\"
 }, process.env.UBER_ENVIRONMENT === 'production' ? {
   \\"b\\": \\"lol\\"
@@ -70,7 +70,7 @@ Object {
 
 exports[`getConfigDeclaration undefined production values 1`] = `
 Object {
-  "code": "Object.assign({
+  "code": "extend(true, {
   \\"a\\": \\"something\\"
 }, __DEV__ ? {
   \\"b\\": \\"test\\"

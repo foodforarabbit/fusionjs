@@ -26,6 +26,7 @@ const defaultModulesToRemove = [
 ];
 
 const defaultCompatModules = [
+  'just-extend',
   'jest-codemods',
   '@uber/fusion-legacy-styling-compat-mixin',
   '@uber/bedrock-14-compat',

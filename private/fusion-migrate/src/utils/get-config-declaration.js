@@ -28,7 +28,7 @@ module.exports = function getConfigDeclaration(config, keyPath) {
   if (args.length === 1) {
     code = args[0];
   } else if (args.length > 1) {
-    code = `Object.assign(${args.join(',')})`;
+    code = `extend(true, ${args.join(',')})`;
   }
   return babylon.parseExpression(code);
 };
