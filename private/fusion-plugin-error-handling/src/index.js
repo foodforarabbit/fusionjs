@@ -2,5 +2,12 @@
 import UberServerErrorHandler from './server';
 import UberBrowserErrorHandler from './browser';
 
+import type {FusionPlugin} from 'fusion-core';
+import type {ErrorHandlingDepsType, ErrorHandlingServiceType} from './types';
+
 declare var __NODE__: Boolean;
-export default (__NODE__ ? UberServerErrorHandler : UberBrowserErrorHandler);
+const plugin = __NODE__ ? UberServerErrorHandler : UberBrowserErrorHandler;
+export default ((plugin: any): FusionPlugin<
+  ErrorHandlingDepsType,
+  ErrorHandlingServiceType
+>);

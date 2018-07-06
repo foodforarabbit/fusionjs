@@ -1,19 +1,25 @@
+// @flow
+
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 
+import type {FusionPlugin} from 'fusion-core';
+import type {ErrorHandlingDepsType, ErrorHandlingServiceType} from './types';
+
 const defaultTimeout = 10000;
-export default __NODE__ &&
+const plugin =
+  __NODE__ &&
   createPlugin({
     deps: {
       logger: LoggerToken,
       m3: M3Token,
     },
     provides: ({logger, m3}) => {
-      const errorLog = (e, captureType) => {
+      const errorLog = (e: Error, captureType: string) => {
         const defaultMessage = `uncaught ${captureType} exception`;
 
-        let _err = e;
+        let _err: {message: string, tags?: {}} = e;
         if (typeof _err !== 'object') {
           _err = {
             message: (typeof e === 'string' && e) || defaultMessage,
@@ -27,32 +33,41 @@ export default __NODE__ &&
         };
 
         return new Promise(resolve => {
-          logger.fatal(_err.message, _err, resolve);
+          logger.error(_err.message, _err, resolve);
         });
       };
       const errorIncrement = captureType => {
         return new Promise(resolve => {
-          m3.immediateIncrement('exception', {captureType}, resolve);
+          m3.immediateIncrement('exception', {captureType});
+          resolve();
         });
       };
 
-      return (e, captureType) => {
+      return (e, captureType: string) => {
         const delayP = delay(defaultTimeout);
         return Promise.race([
           Promise.all([errorLog(e, captureType), errorIncrement(captureType)]),
           delayP,
         ]).then(() => {
-          delayP.cancel();
+          delayP.cancel && delayP.cancel();
         });
       };
     },
   });
 
+type DelayedPromise = Promise<void> & {cancel?: () => void};
 function delay(time) {
   let id = null;
-  let p = new Promise(resolve => {
+  let p: DelayedPromise = new Promise(resolve => {
     id = setTimeout(resolve, time);
   });
-  p.cancel = () => clearTimeout(id);
+  p.cancel = () => {
+    id && clearTimeout(id);
+  };
   return p;
 }
+
+export default ((plugin: any): FusionPlugin<
+  ErrorHandlingDepsType,
+  ErrorHandlingServiceType
+>);

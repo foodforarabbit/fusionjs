@@ -1,13 +1,13 @@
+// @flow
 /* eslint-env node */
 
 import test from 'tape-cup';
-import App, {createToken} from 'fusion-core';
+import App from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {getSimulator} from 'fusion-test-utils';
 import plugin from '../server';
-
-const ErrorToken = createToken('ErrorHandler');
+import {ErrorHandlerToken} from 'fusion-plugin-error-handling';
 
 process.on('unhandledRejection', e => {
   throw e;
@@ -17,7 +17,7 @@ test('interface', async t => {
   let calledLogger = false;
   let calledM3 = false;
   const Logger = {
-    fatal(message, error, cb) {
+    error(message, error, cb) {
       t.equal(message, 'error');
       t.equal(error.message, 'error');
       t.equal(error.tags.captureType, 'server', 'tags capture type');
@@ -26,20 +26,21 @@ test('interface', async t => {
     },
   };
   const M3 = {
-    immediateIncrement(name, tags, cb) {
+    immediateIncrement(name, tags) {
       t.equal(name, 'exception');
       t.equal(tags.captureType, 'server');
       calledM3 = true;
-      cb();
     },
   };
   const app = new App('el', el => el);
+  // $FlowFixMe
   app.register(M3Token, M3);
+  // $FlowFixMe
   app.register(LoggerToken, Logger);
-  app.register(ErrorToken, plugin);
-  app.middleware({errorHandler: ErrorToken}, ({errorHandler}) => {
+  app.register(ErrorHandlerToken, plugin);
+  app.middleware({errorHandler: ErrorHandlerToken}, ({errorHandler}) => {
     return async (ctx, next) => {
-      await errorHandler('error', 'server');
+      await errorHandler(new Error('error'), 'server');
       return next();
     };
   });
