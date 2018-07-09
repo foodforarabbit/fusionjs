@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-error-handling",
-  "version": "1.0.3",
+  "version": "1.0.4-0",
   "description": "An uber fusion plugin for error handling",
   "files": [
     "dist",
