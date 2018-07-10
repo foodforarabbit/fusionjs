@@ -140,6 +140,28 @@ type RosettaConfig = {
 
 If no configuration is provided, only the `service` will have a default value.  In the event that `process.env.SVC_ID` is set, that will be used.  Otherwise, `'dev-service'` is used.
 
+##### `LocaleNegotiationToken`
+
+```js
+import Rosetta, {LocaleNegotiationToken} from '@uber/fusion-plugin-rosetta';
+```
+
+Implements a custom strategy for determining the client's locale. Optional. Server only.
+
+###### Types
+
+```js
+type LocaleNegotiationStrategy = (ctx: Context, supportedLocales: Locales) => Locale
+```
+
+The locale negotiation strategy takes a fusion Context and a [Locales](http://t.uber.com/new-locales-npm) object representing the supported locales.
+It returns a [Locale](http://t.uber.com/new-locale-npm) object representing the chosen locale.
+
+###### Default values
+
+If no locale negotiation strategy is provided, the application will determine the
+client's locale based on the [Accept-Language](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language) HTTP header.
+
 #### Service API
 
 ```js
