@@ -1,4 +1,5 @@
 const {astOf} = require('../../utils/index.js');
+const t = require('@babel/types');
 
 module.exports = () => {
   return {
@@ -11,16 +12,30 @@ module.exports = () => {
             CallExpression(path) {
               const callee = path.node.callee;
 
+              const args = path.node.arguments;
+              // Ensure tests use BlockStatements rather than implicit return functions
+              // due to an issue with jest-codemods and implicit return
+              if (
+                callee.type === 'Identifier' &&
+                callee.name === test &&
+                args.length === 2 &&
+                args[1].type === 'ArrowFunctionExpression' &&
+                args[1].body.type !== 'BlockStatement'
+              ) {
+                const oldBody = args[1].body;
+                args[1].body = t.blockStatement([t.returnStatement(oldBody)]);
+              }
+
               // if arg in `tape('desc', arg)` is not `t`, rename it to `t`
               if (
                 callee.type === 'Identifier' &&
                 callee.name === test &&
-                path.node.arguments.length === 2 &&
-                path.node.arguments[1].type.match(/FunctionExpression/) &&
-                path.node.arguments[1].params.length === 1
+                args.length === 2 &&
+                args[1].type.match(/FunctionExpression/) &&
+                args[1].params.length === 1
               ) {
-                const arg = path.node.arguments[1].params[0].name;
-                path.node.arguments[1].params[0].name = 't';
+                const arg = args[1].params[0].name;
+                args[1].params[0].name = 't';
                 path.traverse({
                   Identifier(path) {
                     if (path.node.name === arg) path.node.name = 't';
@@ -33,12 +48,12 @@ module.exports = () => {
               if (
                 callee.type === 'Identifier' &&
                 callee.name === test &&
-                path.node.arguments.length > 1 &&
-                !path.node.arguments[1].type.match(/FunctionExpression/)
+                args.length > 1 &&
+                !args[1].type.match(/FunctionExpression/)
               ) {
                 const ast = astOf(`t => $()`).expression;
-                ast.body.callee = path.node.arguments[1];
-                path.node.arguments[1] = ast;
+                ast.body.callee = args[1];
+                args[1] = ast;
               }
             },
           });

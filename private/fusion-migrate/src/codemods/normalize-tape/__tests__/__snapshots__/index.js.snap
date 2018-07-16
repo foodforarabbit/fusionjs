@@ -1,5 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`normalize-tape both: both 1`] = `
+"import test from 'tape';
+
+test('a', assert => assert.ok(1));
+test('b', withContext(t => t.ok(1)));
+test('c', t => t.fail('errored'));
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import test from 'tape';
+test('a', t => {
+  return t.ok(1);
+});
+test('b', t => withContext(t => t.ok(1))());
+test('c', t => {
+  return t.fail('errored');
+});
+"
+`;
+
+exports[`normalize-tape function-expression: function-expression 1`] = `
+"import test from 'tape';
+
+test('a', t =>
+  something()
+    .then(() => t.end())
+    .catch(() => t.end()));
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import test from 'tape';
+test('a', t => {
+  return something()
+    .then(() => t.end())
+    .catch(() => t.end());
+});
+"
+`;
+
 exports[`normalize-tape positive-match: positive-match 1`] = `
 "import test from 'tape';
 
