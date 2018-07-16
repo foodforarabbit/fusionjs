@@ -21,6 +21,23 @@ test('c', t => {
 "
 `;
 
+exports[`normalize-tape config: config 1`] = `
+"import test from 'tape';
+
+test('b', {skip: false}, t => {
+  t.ok(1);
+});
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import test from 'tape';
+test('b', t => {
+  t.ok(1);
+});
+"
+`;
+
 exports[`normalize-tape function-expression: function-expression 1`] = `
 "import test from 'tape';
 

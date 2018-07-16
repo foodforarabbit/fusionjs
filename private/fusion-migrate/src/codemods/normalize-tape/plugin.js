@@ -13,6 +13,16 @@ module.exports = () => {
               const callee = path.node.callee;
 
               const args = path.node.arguments;
+
+              // No longer support second argument config such as {test: skip}
+              if (
+                callee.type === 'Identifier' &&
+                callee.name === test &&
+                args.length === 3
+              ) {
+                args[1] = args[2];
+                args.pop();
+              }
               // Ensure tests use BlockStatements rather than implicit return functions
               // due to an issue with jest-codemods and implicit return
               if (
