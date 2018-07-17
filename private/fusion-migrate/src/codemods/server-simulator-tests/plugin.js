@@ -11,7 +11,6 @@ module.exports = () => {
       ImportDeclaration(path, state) {
         if (path.node.source.value === 'tape') {
           const test = path.node.specifiers[0].local.name;
-
           addStatementAfter(
             path,
             `import {getSimulator} from 'fusion-test-utils'`
@@ -19,7 +18,12 @@ module.exports = () => {
           const filename = state.file.opts.filename;
           const rest = filename.match(/\/src\/(.+)/)[1];
           const rel = new Array(rest.match(/\//g).length).fill('..').join('/');
-          addStatementAfter(path, `import app from '${rel}/main'`);
+          // app is a common enough variable name that we should use a generated identifier
+          const {name} = path.scope.generateUidIdentifier('app');
+          addStatementAfter(
+            path,
+            `import {default as ${name}} from '${rel}/main'`
+          );
 
           path.parentPath.traverse({
             CallExpression(path) {
@@ -37,7 +41,7 @@ module.exports = () => {
                   const simulatorHealthTest = `
                     test(${arg.extra.raw}, async () => {
                       __BEFORE__;
-                      const sim = getSimulator(await app());
+                      const sim = getSimulator(await ${name}());
                       const ctx = await sim.request('/health');
                       expect(ctx.status).toBe(200);
                       __AFTER__;
@@ -49,7 +53,7 @@ module.exports = () => {
                   const simulatorEndpointTest = `
                     test(${arg.extra.raw}, async () => {
                       __BEFORE__;
-                      const sim = getSimulator(await app());
+                      const sim = getSimulator(await ${name}());
                       const ctx = await sim.request('/');
                       expect(ctx.status).toBe(302);
                       __AFTER__;

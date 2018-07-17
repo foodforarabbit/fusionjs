@@ -5,6 +5,8 @@ import prefixUrl from '@uber/bedrock/prefix-url';
 import {testRequest as request} from './utils/test-request';
 import {env} from 'process';
 
+const app = 'test';
+
 function setUp() {
   const ctx = {
     oldNodeEnv: env.NODE_ENV,

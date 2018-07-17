@@ -8,6 +8,8 @@ import prefixUrl from '@uber/bedrock/prefix-url';
 import {testRequest as request} from './utils/test-request';
 import {env} from 'process';
 
+const app = 'test';
+
 function setUp() {
   const ctx = {
     oldNodeEnv: env.NODE_ENV,
@@ -100,12 +102,13 @@ test('SPA Endpoint', t => {
 
 import test from 'tape'; // put in fixtures?
 
-import app from '../../../../main';
+import {default as _app} from '../../../../main';
 import {getSimulator} from 'fusion-test-utils';
 import startServer from '../../server';
 import prefixUrl from '@uber/bedrock/prefix-url';
 import {testRequest as request} from './utils/test-request';
 import {env} from 'process';
+const app = 'test';
 
 function setUp() {
   const ctx = {
@@ -130,7 +133,7 @@ function tearDown(ctx) {
  */
 test('Health Endpoint', async () => {
   const ctx = setUp();
-  const sim = getSimulator(await app());
+  const sim = getSimulator(await _app());
   const ctx = await sim.request('/health');
   expect(ctx.status).toBe(200);
   tearDown(ctx);
@@ -138,7 +141,7 @@ test('Health Endpoint', async () => {
 
 test('SPA Endpoint', async () => {
   const ctx = setUp();
-  const sim = getSimulator(await app());
+  const sim = getSimulator(await _app());
   const ctx = await sim.request('/');
   expect(ctx.status).toBe(302);
   tearDown(ctx);
