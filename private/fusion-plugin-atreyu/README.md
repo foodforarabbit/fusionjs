@@ -50,7 +50,7 @@ import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 
 export default createPlugin({
   deps: {atreyu: AtreyuToken},
-  provides() {
+  provides({atreyu}) {
     const getCountries = atreyu.createGraph({
       all: {
         service: 'safari',
@@ -228,7 +228,7 @@ import {createPlugin} from 'fusion-core';
 
 export default createPlugin({
   deps: {atreyu: AtreyuToken},
-  provides() {
+  provides({atreyu}) {
     const requestDefinition = {
       service: 'populous',
       method: 'UserService::getUser',
@@ -252,7 +252,7 @@ import {createPlugin} from 'fusion-core';
 
 export default createPlugin({
   deps: {atreyu: AtreyuToken},
-  provides() {
+  provides({atreyu}) {
     const graphDefinition = {
       user: {
         service: 'populous',
