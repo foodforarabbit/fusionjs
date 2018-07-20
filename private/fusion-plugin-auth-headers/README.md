@@ -60,6 +60,43 @@ export default createPlugin({
 });
 ```
 
+#### Inject UUID into Redux Store
+
+You may wish to expose these headers for use directly within React components.  One method for achieving this involves injecting headers into the Redux store and then connecting your component to your store:
+
+```js
+// src/main.js
+import { GetInitialStateToken } from 'fusion-plugin-react-redux';
+import { getInitialState } from './redux.js';
+...
+app.register(GetInitialStateToken, getInitialState);
+
+// src/redux.js
+const getInitialState = createPlugin({
+  deps: {
+    headers: AuthHeadersToken,
+  },
+  provides: ({headers}) => {
+    return async function getInitialState(ctx?: Context) {
+      return {
+        ...defaultState,
+        user: {
+          ...defaultState.user,
+          uuid: headers.from(ctx).get('uuid'),
+        },
+      };
+    };
+  },
+});
+export {getInitialState};
+
+// src/components/some-component.js
+const SomeComponent = props => { <div>{props.user.uuid}</div> };
+export default connect(({user}) => { return {user}; })(SomeComponent);
+```
+
+For a concrete example, see [example-trips-viewer-fusion](https://code.uberinternal.com/diffusion/WEEXAZJ/).
+
 ---
 
 ### Setup
