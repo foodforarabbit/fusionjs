@@ -4,8 +4,7 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import test from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import plugin, {HyperbahnClientToken, TChannelClientToken} from '../server';
-import {HyperbahnConfigToken} from '../tokens';
+import plugin, {TChannelClientToken} from '../server';
 import {TChannelToken} from '../index';
 
 test('interface', async t => {
@@ -22,17 +21,6 @@ test('interface', async t => {
       t.pass('calls close');
     }
   }
-  class HyperbahnClient {
-    constructor(options) {
-      t.ok(options, 'passes options to hyperbahn client');
-    }
-    advertise() {
-      t.fail('hyperbahn should not advertise');
-    }
-    destroy() {
-      t.pass('calls destroy');
-    }
-  }
 
   const mockLogger = {
     createChild() {},
@@ -45,21 +33,13 @@ test('interface', async t => {
   const app = new App('el', el => el);
   app.register(LoggerToken, mockLogger);
   app.register(TChannelClientToken, TChannelClient);
-  app.register(HyperbahnClientToken, HyperbahnClient);
-  app.register(HyperbahnConfigToken, {
-    hostPortList: [],
-  });
   app.register(TChannelToken, plugin);
   app.register(M3Token, mockM3);
   app.middleware({Tchannel: TChannelToken}, ({Tchannel}) => {
-    const {tchannel, hyperbahn} = Tchannel;
+    const {tchannel} = Tchannel;
     t.ok(
       tchannel instanceof TChannelClient,
       'creates an instance of the tchannel client'
-    );
-    t.ok(
-      hyperbahn instanceof HyperbahnClient,
-      'creates an instance of the hyperbahn client'
     );
     t.equal(typeof Tchannel.cleanup, 'function', 'exports a cleanup function');
     Tchannel.cleanup();

@@ -1,20 +1,6 @@
 # TChannel plugin for fusion
 
-Sets up Tchannel and hyperbahn, which allows you to make requests to Uber services. This plugin is a required dependency for [`@uber/fusion-plugin-atreyu`](/web/api/uber-fusion-plugin-atreyu)
-
-You must have `cerberus` running in order for it to work.
-
-To update cerberus, run:
-
-```sh
-brew update && brew reinstall cerberus
-```
-
-To start it, make sure you are in the root directory of your project and run:
-
-```sh
-cerberus
-```
+Sets up a server-side instance of [Tchannel](https://github.com/uber/tchannel-node) client, which allows you to make requests to Uber services. This plugin is a required dependency of [`@uber/fusion-plugin-atreyu`](/web/api/uber-fusion-plugin-atreyu)
 
 ---
 
@@ -32,8 +18,6 @@ cerberus
     * [`UniversalEventsToken`](#universaleventstoken)
     * [`LoggerToken`](#loggertoken)
     * [`TChannelClientToken`](#tchannelclienttoken)
-    * [`HyperbahnClientToken`](#hyperbahnclienttoken)
-    * [`HyperbahnConfigToken`](#hyperbahnconfigtoken)
 
 ---
 
@@ -133,23 +117,3 @@ class TChannelClient {
   close() {}
 }
 ```
-
-##### `HyperbahnClientToken`
-
-```js
-import {HyperbahnClientToken} from 'fusion-plugin-tchannel';
-```
-
-Server-only. Optional. Useful for mocking Hyperbahn in tests. See [https://github.com/uber-archive/hyperbahn](https://github.com/uber-archive/hyperbahn)
-
-###### Types
-
-```js
-class Hyperbahn {
-  destroy() {}
-}
-```
-
-##### `HyperbahnConfigToken`
-
-Server-only. Optional. Configuration object for Hyperbahn. See [https://github.com/uber-archive/hyperbahn](https://github.com/uber-archive/hyperbahn)
