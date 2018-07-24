@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome 1`] = `
+<Styled(div)>
+  <div>
+    <Styled(div)
+      $delay="500ms"
+    >
+      <WithFontLoading>
+        Welcome
+      </WithFontLoading>
+    </Styled(div)>
+    <Styled(div)>
+      <Styled(div)
+        $delay="1.5s"
+      >
+        <RightArrowLink
+          href="http://t.uber.com/web"
+          target="_blank"
+        >
+          Let's get started
+        </RightArrowLink>
+      </Styled(div)>
+    </Styled(div)>
+  </div>
+</Styled(div)>
+`;

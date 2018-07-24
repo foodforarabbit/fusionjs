@@ -1,0 +1,20 @@
+service_type: website
+service_name: {{project}}
+
+# TODO: When ready to provision,
+# this will be replaced automatically by AWD ('uber-web provision').
+# In the meantime, leaving as 0 is fine.
+# For more information on provisioning web services go to
+# http://t.uber.com/web-provisioning
+backend_port: 0
+frontend_port: 0
+
+# Set this to true for sites that need access to langley secrets at build time.
+# This should be true for sites scaffolded with 'uber-web'.
+uses_langley_build_secrets: true
+
+website:
+  workflow_version: 1
+  {% if isExternal %}
+  command: 'CDN_URL="{{assetBase}}" npm start'
+  {% endif %}

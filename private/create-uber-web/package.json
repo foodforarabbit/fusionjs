@@ -1,0 +1,95 @@
+{
+  "name": "@uber/create-uber-web",
+  "version": "0.0.0",
+  "description": "CLI to scaffold a new Uber web application or library",
+  "repository": {
+    "type": "git",
+    "url": "gitolite@code.uber.internal:web/uber-web.git"
+  },
+  "bin": {
+    "create-uber-web": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "upgrade": "yarn upgrade",
+    "dev": "npm-watch | grep --invert-match nodemon",
+    "build": "babel src -d dist -q && eslint . --fix",
+    "test": "ussh && jest && yarn flow",
+    "cover": "ussh && jest --coverage",
+    "flow": "flow check || true",
+    "prepublish": "babel src -d dist -s"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    },
+    "test": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    }
+  },
+  "dependencies": {
+    "@dubstep/core": "file:../dubstep",
+    "fs-extra": "^6.0.1",
+    "inquirer": "^6.0.0",
+    "nunjucks": "^3.1.3",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5",
+    "sade": "^1.4.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.0.0-beta.54",
+    "@babel/core": "7.0.0-beta.54",
+    "@babel/plugin-transform-modules-commonjs": "7.0.0-beta.54",
+    "@babel/preset-flow": "7.0.0-beta.54",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^5.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "flow-bin": "^0.76.0",
+    "jest": "^23.4.1",
+    "npm-watch": "^0.3.0",
+    "prettier": "^1.13.7"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-flow"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs"
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "prettier",
+      "prettier/flowtype"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "trailingComma": "all",
+          "bracketSpacing": false
+        }
+      ]
+    }
+  },
+  "jest": {
+    "testRegex": "src/.*?.test.js"
+  }
+}
