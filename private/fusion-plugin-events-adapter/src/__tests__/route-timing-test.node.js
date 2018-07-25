@@ -132,3 +132,31 @@ tape('route timing - render:server', t => {
     status: 'test-status',
   });
 });
+
+tape('route timing - route with invalid m3 characters', t => {
+  const events = new EventEmitter();
+  const mockM3 = {
+    increment() {},
+    timing(key, value, tags) {
+      t.equal(key, 'render_server', 'logs the correct key');
+      t.equal(value, 5, 'logs the correct value');
+      t.deepLooseEqual(
+        tags,
+        {
+          route: '/__test-route__another-route__/__someUuid',
+          status: 'test-status',
+        },
+        'logs the correct tags'
+      );
+      t.end();
+    },
+  };
+
+  routeTiming({events, m3: mockM3});
+
+  events.emit('render:server', {
+    title: '/(test-route|another-route)/:someUuid',
+    timing: 5,
+    status: 'test-status',
+  });
+});

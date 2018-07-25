@@ -38,6 +38,10 @@ yarn-add @uber/fusion-plugin-events-adapter
 
 This plugin is pre-configured in the `uber-web` scaffold. Its service isn't meant to be used programmatically by application developers.
 
+#### URL Parameters in Routes
+
+When using URL parameters in `react-router` the route names generated include characters that are invalid for M3 (specifically `:`). All invalid characters in the route will be replaced with `__`.
+
 ---
 
 ### Setup
