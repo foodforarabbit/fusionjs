@@ -44,7 +44,12 @@ export default __NODE__ &&
           return next();
         }
 
-        const reqPath = ctx.path;
+        // Only proxy URLs starting with /_static
+        if (!ctx.path || !ctx.path.startsWith('/_static/')) {
+          return next();
+        }
+
+        const reqPath = ctx.path.substring(9);
         const notFoundCache = state.notFoundCache;
         if (notFoundCache.get(reqPath)) {
           // If we know that a previous request to this asset has responded with a 404

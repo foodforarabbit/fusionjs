@@ -69,7 +69,7 @@ test('Server Client', t => {
     });
 
     const sim = getSimulator(app);
-    const ctx = await sim.request('test.txt');
+    const ctx = await sim.request('/_static/test.txt');
 
     t.equal(ctx.status, 200, 'fetch test file 200');
     const respBody = await util.promisify(zlib.gunzip)(ctx.body);
@@ -78,6 +78,9 @@ test('Server Client', t => {
       'test file content\n',
       'can fetch test file contents'
     );
+
+    const missingCtx = await sim.request('test.txt');
+    t.equal(missingCtx.status, 404, 'fetch no prefix 404');
 
     await util.promisify(s3.deleteObjects.bind(s3))({
       Bucket: s3Config.bucket,
@@ -151,7 +154,7 @@ test('upload with FUSION_UPLOAD_DIR set', t => {
     });
 
     const sim = getSimulator(app);
-    const ctx = await sim.request('test.txt');
+    const ctx = await sim.request('/_static/test.txt');
 
     t.equal(ctx.status, 200, 'fetch test file 200');
     const respBody = await util.promisify(zlib.gunzip)(ctx.body);
