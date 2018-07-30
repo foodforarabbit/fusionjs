@@ -1,10 +1,11 @@
 import postToCatalyst from '../utils/post-to-catalyst';
+import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
 
 const STAT_EVENT = 'stat';
 
 export default function browserPerformance({events, m3, heatpipeEmitter}) {
   events.on('browser-performance-emitter:stats', (payload, ctx) => {
-    const {webEventsMeta, calculatedStats, resourceEntries} = payload;
+    const {webEventsMeta, calculatedStats, resourceEntries, __url__} = payload;
 
     if (!isEmpty(calculatedStats)) {
       Object.keys(calculatedStats).forEach(key => {
@@ -20,7 +21,7 @@ export default function browserPerformance({events, m3, heatpipeEmitter}) {
             webEventsMeta,
           });
 
-          m3.timing(key, statValue);
+          m3.timing(key, statValue, {}, sanitizeRouteForM3(__url__));
         }
       });
     }

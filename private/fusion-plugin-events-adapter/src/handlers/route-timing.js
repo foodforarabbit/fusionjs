@@ -1,13 +1,10 @@
-export default function routeTiming({events, m3}) {
-  // invalid character list from: https://engdocs.uberinternal.com/m3_and_umonitor/send_metrics/requirements.html
-  const INVALID_M3_CHARACTERS_REG_EX = /[+,=:|\s()]/g;
-  const sanitizeRoute = route =>
-    route.replace(INVALID_M3_CHARACTERS_REG_EX, '__');
+import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
 
+export default function routeTiming({events, m3}) {
   // increment handlers
   const incrementHandler = key => ({title, status}) => {
     m3.increment(key, {
-      route: status === 404 ? 'not-found' : sanitizeRoute(title),
+      route: status === 404 ? 'not-found' : sanitizeRouteForM3(title),
       status,
     });
   };
@@ -15,7 +12,7 @@ export default function routeTiming({events, m3}) {
   // timing handlers
   const timingHandler = key => ({title, timing, status}) => {
     m3.timing(key, timing, {
-      route: status === 404 ? 'not-found' : sanitizeRoute(title),
+      route: status === 404 ? 'not-found' : sanitizeRouteForM3(title),
       status,
     });
   };
