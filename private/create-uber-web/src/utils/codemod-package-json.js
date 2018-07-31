@@ -7,6 +7,8 @@ import {getYarnVersion} from './get-yarn-version.js';
 import {getUserName} from './get-user-name.js';
 import {getUserEmail} from './get-user-email.js';
 import {replaceNunjucksFile} from './replace-nunjucks-file.js';
+import packageJson from '../../package.json';
+
 export const codemodPackageJson = async ({
   name,
   description,
@@ -16,17 +18,15 @@ export const codemodPackageJson = async ({
   description: string,
   team: string,
 }) => {
-  const nodeVersion = await getNodeVersion();
-  const npmVersion = await getNpmVersion(nodeVersion);
-  const yarnVersion = await getYarnVersion();
   await replaceNunjucksFile(`${name}/package.json`, {
     project: name,
     description,
     gitName: await getUserName(),
     email: await getUserEmail(),
     team,
-    nodeVersion,
-    npmVersion,
-    yarnVersion,
+    nodeVersion: await getNodeVersion(),
+    npmVersion: await getNpmVersion(),
+    yarnVersion: await getYarnVersion(),
+    version: packageJson.version,
   });
 };

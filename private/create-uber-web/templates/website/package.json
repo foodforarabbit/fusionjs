@@ -2,7 +2,7 @@
   "name": "{{name}}",
   "description": "{{description}}",
   "version": "0.0.1",
-  "scaffold-version": "1.0.0",
+  "scaffold-version": "{{version}}",
   "author": "{{author}} <{{email}}>",
   "repository": {
     "type": "git",

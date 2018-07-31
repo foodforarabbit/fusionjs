@@ -2,6 +2,7 @@
 
 import {Stepper, step, exec} from '@dubstep/core';
 import fse from 'fs-extra';
+import {checkYarnRegistry} from '../utils/check-yarn-registry.js';
 import {getTeams} from '../utils/get-teams.js';
 import {promptChoice} from '../utils/prompt-choice.js';
 import {prompt} from '../utils/prompt.js';
@@ -24,10 +25,13 @@ export type ProjectData = {
 export default async ({localPath, skipInstall}: ScaffoldOptions) => {
   const project = {type: '', name: '', description: '', team: ''};
 
-  await exec('ussh'); // required to fetch team list
+  await exec('ussh').catch(() => {}); // required to fetch team list. If command does not exist (e.g. in CI), ignore
   const teams = getTeams(); // don't await here, let promise resolve while user goes through the wizard
 
   const stepper = new Stepper([
+    step('preflight', async () => {
+      await checkYarnRegistry();
+    }),
     step('template', async () => {
       project.type = await promptChoice('Choose a template:', {
         'Web Application': 'website',
@@ -38,6 +42,11 @@ export default async ({localPath, skipInstall}: ScaffoldOptions) => {
     }),
     step('project name', async () => {
       project.name = await prompt('Project name:');
+      if (await fse.pathExists(project.name)) {
+        throw new Error(
+          `A folder with the name ${project.name} already exists`,
+        );
+      }
       if (project.name.endsWith('staging')) {
         throw new Error(
           'Do not add `-staging` at the end of the project name. It can cause routing issues when you provision',
@@ -68,8 +77,13 @@ export default async ({localPath, skipInstall}: ScaffoldOptions) => {
       console.log('Template scaffolded.');
       if (!skipInstall) {
         console.log('Installing dependencies...');
-        await exec(`cd ${project.name} && yarn`);
-        console.log(`Done. Run 'cd ${project.name} && yarn dev' to start`);
+        try {
+          await exec(`cd ${project.name} && yarn`);
+          console.log(`Done. Run \`cd ${project.name} && yarn dev\` to start`);
+        } catch (e) {
+          console.log(`Scaffolded successfully, but \`yarn install\` failed.`);
+          console.log(`Run \`cd ${project.name} && yarn\` to troubleshoot`);
+        }
       }
     }),
   ]);

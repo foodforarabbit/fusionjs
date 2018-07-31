@@ -1,6 +1,6 @@
 {
   "name": "@uber/create-uber-web",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "CLI to scaffold a new Uber web application or library",
   "repository": {
     "type": "git",
@@ -15,9 +15,10 @@
   "scripts": {
     "upgrade": "yarn upgrade",
     "dev": "npm-watch | grep --invert-match nodemon",
-    "build": "babel src -d dist -q && eslint . --fix",
+    "build": "babel src -d dist -q && eslint src --fix",
+    "lint": "eslint src",
     "test": "ussh && jest && yarn flow",
-    "cover": "ussh && jest --coverage",
+    "cover": "jest --coverage",
     "flow": "flow check || true",
     "prepublish": "babel src -d dist -s"
   },
@@ -36,12 +37,10 @@
     }
   },
   "dependencies": {
-    "@dubstep/core": "file:../dubstep",
+    "@dubstep/core": "^0.0.3",
     "fs-extra": "^6.0.1",
     "inquirer": "^6.0.0",
     "nunjucks": "^3.1.3",
-    "request": "^2.87.0",
-    "request-promise-native": "^1.0.5",
     "sade": "^1.4.1"
   },
   "devDependencies": {
@@ -90,6 +89,16 @@
     }
   },
   "jest": {
-    "testRegex": "src/.*?.test.js"
-  }
+    "testRegex": "src/(commands|utils)/.*?.test.js",
+    "coverageReporters": [
+      "text",
+      "cobertura"
+    ]
+  },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "5.6.0",
+    "yarn": "1.9.2"
+  },
+  "private": true
 }

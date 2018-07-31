@@ -1,10 +1,7 @@
 /* @flow */
 
-import request from 'request-promise-native';
+import packageJson from '../../package.json';
 
 export const getYarnVersion = async () => {
-  const config = await request(
-    'https://raw.githubusercontent.com/yarnpkg/website/master/_config.yml',
-  );
-  return config.match(/latest_version: (.+?)\n/)[1];
+  return packageJson.engines.yarn;
 };
