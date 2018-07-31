@@ -61,10 +61,10 @@ function createMockM3(t, expectedEvents) {
   let _m3EventsCount = 0;
 
   return {
-    timing(key, value, tags, __url__) {
+    timing(key, value, tags) {
       const currentExpected = expectedEvents.m3[_m3EventsCount++];
       t.deepEqual(
-        {key, value, tags, __url__},
+        {key, value, tags},
         currentExpected,
         `M3 stat emitted - ${currentExpected.key}`
       );
@@ -98,7 +98,6 @@ tape('browser-performance handler', t => {
         value:
           browserPerformanceEventFixture.calculatedStats['time_to_first_byte'],
         tags: {},
-        __url__: '',
       },
     ],
   };
@@ -135,8 +134,7 @@ tape('browser-performance handler with __url__', t => {
         key: 'time_to_first_byte',
         value:
           browserPerformanceEventFixture.calculatedStats['time_to_first_byte'],
-        tags: {},
-        __url__: '/view/__itemUuid',
+        tags: {route: '/view/__itemUuid'},
       },
     ],
   };

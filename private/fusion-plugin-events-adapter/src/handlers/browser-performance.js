@@ -21,7 +21,11 @@ export default function browserPerformance({events, m3, heatpipeEmitter}) {
             webEventsMeta,
           });
 
-          m3.timing(key, statValue, {}, sanitizeRouteForM3(__url__));
+          m3.timing(
+            key,
+            statValue,
+            __url__ ? {route: sanitizeRouteForM3(__url__)} : {}
+          );
         }
       });
     }
