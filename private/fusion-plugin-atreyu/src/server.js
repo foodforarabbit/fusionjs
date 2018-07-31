@@ -21,8 +21,8 @@ export default __NODE__ &&
       Client: AtreyuClientToken.optional,
       m3: M3Token,
       logger: LoggerToken,
-      tracer: TracerToken,
-      galileo: GalileoToken,
+      tracer: TracerToken.optional,
+      galileo: GalileoToken.optional,
       tchannel: TChannelToken,
     },
     provides({
