@@ -1,5 +1,5 @@
 {
-  "name": "@uber/library-template",
+  "name": "@uber/react-component-template",
   "description": "{{description}}",
   "scaffold-version": "{{version}}",
   "author": "{{author}} <{{email}}>",
@@ -28,21 +28,30 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "global": "^4.3.2"
+    "enzyme-react-adapter-future": "npm:enzyme-react-adapter-future",
+    "react": "16.4.1",
+    "react-dom": "16.4.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "7.0.0-beta.55",
+    "@babel/preset-flow": "7.0.0-beta.55",
+    "@babel/preset-react": "^7.0.0-beta.55",
+    "@babel/plugin-transform-block-scoping": "7.0.0-beta.55",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
     "create-universal-package": "^3.4.1",
-    "eslint": "^5.1.0",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "npm:enzyme-react-adapter-future",
+    "eslint": "^5.2.0",
     "eslint-config-fusion": "^4.0.0",
     "eslint-plugin-cup": "^2.0.0",
     "eslint-plugin-flowtype": "^2.50.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-prettier": "^2.6.2",
-    "flow-bin": "^0.76.0",
-    "jest": "^23.4.1"
+    "eslint-plugin-react": "^7.10.0",
+    "flow-bin": "^0.77.0",
+    "jest": "^23.4.2"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
@@ -59,7 +68,8 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-flow"
+      "@babel/preset-flow",
+      "@babel/preset-react"
     ],
     "plugins": [
       [
@@ -100,7 +110,8 @@
       "/node_modules/",
       "/dist/"
     ],
-    "testURL": "http://localhost"
+    "testURL": "http://localhost",
+    "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js"
   },
   "eslintConfig": {
     "extends": [

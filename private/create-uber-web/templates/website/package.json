@@ -1,5 +1,5 @@
 {
-  "name": "{{name}}",
+  "name": "website-template",
   "description": "{{description}}",
   "version": "0.0.1",
   "scaffold-version": "{{version}}",
@@ -32,6 +32,7 @@
     "@uber/fusion-plugin-tracer": "^1.0.2",
     "@uber/node-heatpipe-publisher": "^1.5.2",
     "clear-module": "^3.0.0",
+    "enzyme-react-adapter-future": "npm:enzyme-react-adapter-future",
     "fusion-cli": "^1.8.3",
     "fusion-core": "^1.4.1",
     "fusion-plugin-browser-performance-emitter": "^1.6.0",
@@ -82,20 +83,21 @@
     "tape": "^4.9.1"
   },
   "scripts": {
-    "lint": "eslint src/",
-    "flow": "flow check",
-    "dev": "SVC_ID='{{name}}' fusion-dev-cli fusion dev",
-    "start": "PORT_HTTP=\"$UBER_PORT_HTTP\" fusion start",
+    "bootstrap": "rm -rf node_modules && yarn",
+    "lint": "eslint src --fix",
+    "flow": "flow check || true",
     "build": "fusion build",
-    "build-production": "fusion build --production && upload-assets-to-s3",
+    "dev": "SVC_ID='{{name}}' fusion-dev-cli fusion dev",
     "test": "fusion test",
-    "test-integration": "yarn test --env=node --testFolder=__integration__",
-    "cover": "fusion test --coverage"
+    "cover": "fusion test --coverage",
+    "start": "PORT_HTTP=\"$UBER_PORT_HTTP\" fusion start",
+    "build-production": "fusion build --production && upload-assets-to-s3",
+    "test-integration": "yarn test --env=node --testFolder=__integration__"
   },
   "engines": {
-    "node": "{{nodeVersion}}",
-    "npm": "{{npmVersion}}",
-    "yarn": "{{yarnVersion}}"
+    "node": ">=0",
+    "npm": ">=0",
+    "yarn": ">=0"
   },
   "private": true
 }

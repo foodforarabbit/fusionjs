@@ -26,7 +26,7 @@ test('scaffold', async () => {
       }
     });
 
-    await scaffold({localPath: null, skipInstall: true}); // no need to test that yarn command works
+    await scaffold({localPath: null, skipInstall: true, hoistDeps: false}); // no need to test that yarn command works
 
     expect(await fse.pathExists(name)).toBe(true);
 
@@ -57,7 +57,7 @@ test('prevents bad name', async () => {
     });
 
     await expect(
-      scaffold({localPath: null, skipInstall: true}),
+      scaffold({localPath: null, skipInstall: true, hoistDeps: false}),
     ).rejects.toThrow(/Do not add `-staging`/);
   } finally {
     await fse.remove(name);

@@ -7,12 +7,14 @@ import {getTeams} from '../utils/get-teams.js';
 import {promptChoice} from '../utils/prompt-choice.js';
 import {prompt} from '../utils/prompt.js';
 import {codemodPackageJson} from '../utils/codemod-package-json.js';
+import {removeConfigFiles} from '../utils/remove-config-files.js';
 import {codemodReadme} from '../utils/codemod-readme.js';
 import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
 
 export type ScaffoldOptions = {
   localPath: ?string,
-  skipInstall: ?boolean,
+  skipInstall: boolean,
+  hoistDeps: boolean,
 };
 
 export type ProjectData = {
@@ -22,7 +24,7 @@ export type ProjectData = {
   team: string,
 };
 
-export default async ({localPath, skipInstall}: ScaffoldOptions) => {
+export default async ({localPath, skipInstall, hoistDeps}: ScaffoldOptions) => {
   const project = {type: '', name: '', description: '', team: ''};
 
   await exec('ussh').catch(() => {}); // required to fetch team list. If command does not exist (e.g. in CI), ignore
@@ -65,7 +67,10 @@ export default async ({localPath, skipInstall}: ScaffoldOptions) => {
       await fse.copy(templatePath, project.name);
     }),
     step('codemod package.json', async () => {
-      await codemodPackageJson(project);
+      await codemodPackageJson({...project, hoistDeps});
+    }),
+    step('codemod config existence', async () => {
+      if (hoistDeps) await removeConfigFiles(project.name);
     }),
     step('codemod readme file', async () => {
       await codemodReadme(project);
@@ -76,7 +81,7 @@ export default async ({localPath, skipInstall}: ScaffoldOptions) => {
     step('install deps', async () => {
       console.log('Template scaffolded.');
       if (!skipInstall) {
-        console.log('Installing dependencies...');
+        console.log('Installing dependencies. This may take a few seconds...');
         try {
           await exec(`cd ${project.name} && yarn`);
           console.log(`Done. Run \`cd ${project.name} && yarn dev\` to start`);

@@ -23,9 +23,11 @@ Usage
 
   Options
     -v, --version    Displays current version
-    -h, --help       Displays this message
+    -h, --help       Displays help message
 ```
 
 ### Scaffolding into a monorepo
 
-If you use a Lerna monorepo or Yarn workspaces, simply run the `yarn create @uber/uber-web scaffold` command from the directory where you want the project folder to be created.
+If you use a Lerna monorepo or Yarn workspaces, simply run `yarn create @uber/uber-web scaffold` from the directory where you want the project folder to be created.
+
+If you are scaffolding into a versionless monorepo (i.e. a monorepo that has a global yarn.lock file, as opposed to one where each package is versioned and published individually), run `yarn create @uber/uber-web scaffold --hoist-deps` from the directory where you want the project folder to be created. The `--hoist-deps` flag generates a scaffold without `dependencies`, `devDependencies` and `peerDependencies` in its `package.json` file.

@@ -16,11 +16,22 @@ async function run() {
     .command('scaffold')
     .describe('Scaffold a new project structure locally')
     .option('--local-path, -l', 'Use a local folder as the template')
-    .option('--skip-install', 'Use a local folder as the template')
-    .action(({'local-path': path, l, 'skip-install': skipInstall}) => {
+    .option('--skip-install', 'Avoid running `yarn install`')
+    .option('--hoist-deps', [
+      'Generates a package.json without dependencies fields',
+      'Use this flag if scaffolding into a versionless monorepo with a global yarn.lock file',
+    ])
+    .action(args => {
+      const {
+        l: localPathShorthand,
+        'local-path': localPath,
+        'skip-install': skipInstall = false,
+        'hoist-deps': hoistDeps = false,
+      } = args;
       scaffold({
-        localPath: path || l,
-        skipInstall: skipInstall || false,
+        localPath: localPath || localPathShorthand,
+        skipInstall,
+        hoistDeps,
       });
     });
 
