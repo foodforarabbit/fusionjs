@@ -79,3 +79,31 @@ test('Atreyu Plugin Interface', async t => {
   );
   t.end();
 });
+
+test('Atreyu Plugin optional deps', async t => {
+  t.equals(typeof plugin, 'object');
+
+  class OptDepsClient {
+    constructor(config, options) {
+      t.deepLooseEqual(config, {a: true, appName: 'dev-service'});
+      t.equal(options.galileo, null, 'galileo client does not pass through');
+      t.equal(options.tracer, null, 'tracer client does not pass through');
+    }
+  }
+
+  const m3 = 'm3';
+  const logger = 'logger';
+  const tchannel = {hyperbahn: 'hyperbahn'};
+
+  const atreyu = plugin.provides({
+    config: {a: true},
+    m3,
+    logger,
+    tchannel,
+    options: {a: 'b'},
+    Client: OptDepsClient,
+  });
+
+  t.ok(atreyu instanceof OptDepsClient, 'atreyu instance successfully created');
+  t.end();
+});
