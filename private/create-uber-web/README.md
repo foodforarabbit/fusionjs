@@ -31,3 +31,13 @@ Usage
 If you use a Lerna monorepo or Yarn workspaces, simply run `yarn create @uber/uber-web scaffold` from the directory where you want the project folder to be created.
 
 If you are scaffolding into a versionless monorepo (i.e. a monorepo that has a global yarn.lock file, as opposed to one where each package is versioned and published individually), run `yarn create @uber/uber-web scaffold --hoist-deps` from the directory where you want the project folder to be created. The `--hoist-deps` flag generates a scaffold without `dependencies`, `devDependencies` and `peerDependencies` in its `package.json` file.
+
+---
+
+### Troubleshooting
+
+If you get an error saying that @uber/uber-web is not in `https://registry.yarnpkg.com`, run this command:
+
+```
+yarn config set registry "https://unpm.uberinternal.com"
+```
