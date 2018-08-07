@@ -29,7 +29,17 @@ module.exports = () => {
         const isorenderHandleRequestRef =
           refPath.scope.bindings[refPath.parentPath.parentPath.node.id.name]
             .referencePaths[0];
-        isorenderHandleRequestRef.parentPath.parentPath.parentPath.parentPath.remove();
+        const root =
+          isorenderHandleRequestRef.parentPath.parentPath.parentPath.parentPath;
+        if (root.parentPath.type !== 'FunctionDeclaration') {
+          isorenderHandleRequestRef.parentPath.parentPath.parentPath.parentPath.remove();
+        } else {
+          throw new Error(
+            `Remove @uber/isorender import and isorender.handleRequest call manually in ${
+              state.file.opts.filename
+            }`
+          );
+        }
       } else {
         // TODO: We could maybe add a codemod to look for `isorender.handleRequest` for this case
         log(chalk.red('WARNING: Unable to successfully remove isorender'));
