@@ -9,32 +9,38 @@ jest.setTimeout(20000);
 jest.spyOn(console, 'log').mockImplementation(() => {});
 
 test('scaffold', async () => {
-  const name = 'fixtures/fixture';
+  for (let i = 0; i < 4; i++) {
+    await run('fixtures/fixture' + i, i);
+  }
 
-  try {
-    jest.spyOn(inquirer, 'prompt').mockImplementation(options => {
-      if (options.message.match(/template/)) {
-        return {value: options.choices[0]};
-      } else if (options.message.match(/name/)) {
-        return {value: name};
-      } else if (options.message.match(/description/)) {
-        return {value: name};
-      } else if (options.message.match(/team/)) {
-        return {value: 'web'};
-      } else if (options.message.match(/external/)) {
-        return {value: options.choices[0]};
-      }
-    });
+  async function run(name, templateIndex) {
+    try {
+      await fse.remove(name).catch(() => {});
 
-    await scaffold({localPath: null, skipInstall: true, hoistDeps: false}); // no need to test that yarn command works
+      jest.spyOn(inquirer, 'prompt').mockImplementation(options => {
+        if (options.message.match(/template/)) {
+          return {value: options.choices[templateIndex]};
+        } else if (options.message.match(/name/)) {
+          return {value: name};
+        } else if (options.message.match(/description/)) {
+          return {value: name};
+        } else if (options.message.match(/team/)) {
+          return {value: 'web'};
+        } else if (options.message.match(/external/)) {
+          return {value: options.choices[0]};
+        }
+      });
 
-    expect(await fse.pathExists(name)).toBe(true);
+      await scaffold({localPath: null, skipInstall: true, hoistDeps: false}); // no need to test that yarn command works
 
-    const data = await fse.readJson(`${name}/package.json`);
+      expect(await fse.pathExists(name)).toBe(true);
 
-    expect(data.name.includes('{{')).toEqual(false);
-  } finally {
-    await fse.remove(name);
+      const data = await fse.readJson(`${name}/package.json`);
+
+      expect(data.name.includes('{{')).toEqual(false);
+    } finally {
+      await fse.remove(name).catch(() => {});
+    }
   }
 });
 
