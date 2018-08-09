@@ -4,7 +4,7 @@ import inquirer from 'inquirer';
 import fse from 'fs-extra';
 import scaffold from './scaffold.js';
 
-jest.setTimeout(20000);
+jest.setTimeout(30000);
 
 jest.spyOn(console, 'log').mockImplementation(() => {});
 
