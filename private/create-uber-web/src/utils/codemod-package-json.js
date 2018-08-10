@@ -37,6 +37,12 @@ export const codemodPackageJson = async ({
     data.engines.npm = await getNpmVersion();
     data.engines.yarn = await getYarnVersion();
 
+    if (data.__files) {
+      // Don't npmignore the files in the templates when publishing create-uber-web
+      data.files = data.__files;
+      delete data.__files;
+    }
+
     if (hoistDeps) {
       delete data.babel;
       delete data.jest;
