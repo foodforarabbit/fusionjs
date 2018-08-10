@@ -9,10 +9,6 @@
   "bin": {
     "@uber/create-uber-web": "dist/index.js"
   },
-  "files": [
-    "dist",
-    "templates"
-  ],
   "scripts": {
     "dev": "npm-watch | grep --invert-match nodemon",
     "build": "babel src -d dist -q && eslint src --fix",
