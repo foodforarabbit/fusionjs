@@ -1,5 +1,6 @@
 // @flow
+import '../index.js';
 
-test('test', () => {
+test('browser test', () => {
   expect(typeof window).toEqual('object');
 });

@@ -1,4 +1,4 @@
 // @flow
-import global from 'global';
-
-global.console.log('test');
+export default function() {
+  return 'hello world';
+}

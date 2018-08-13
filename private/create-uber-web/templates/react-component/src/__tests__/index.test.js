@@ -1,6 +1,8 @@
 // @flow
-import '../index.js';
+import {shallow} from 'enzyme';
+import React from 'react';
+import Hello from '../index.js';
 
 test('first test', () => {
-  expect(true).toEqual(true);
+  expect(shallow(<Hello />).text()).toEqual('Hello world');
 });

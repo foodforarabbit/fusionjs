@@ -26,6 +26,7 @@ export const codemodPackageJson = async ({
 }: PackageJsonCodemodData) => {
   await replaceNunjucksFile(`${name}/package.json`, {
     description,
+    name,
     gitName: await getUserName(),
     email: await getUserEmail(),
     team,

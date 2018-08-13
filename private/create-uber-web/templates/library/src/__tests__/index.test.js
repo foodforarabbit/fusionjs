@@ -1,6 +1,6 @@
 // @flow
-import '../index.js';
+import hello from '../index.js';
 
 test('first test', () => {
-  expect(true).toEqual(true);
+  expect(hello()).toEqual('hello world');
 });

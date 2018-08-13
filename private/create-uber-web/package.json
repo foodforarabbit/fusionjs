@@ -15,7 +15,7 @@
   "scripts": {
     "dev": "npm-watch | grep --invert-match nodemon",
     "build": "babel src -d dist -q && eslint src --fix",
-    "lint": "eslint src",
+    "lint": "eslint src --fix",
     "test": "ussh && jest && yarn flow",
     "cover": "jest --coverage",
     "flow": "flow check || true",

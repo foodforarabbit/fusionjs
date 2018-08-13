@@ -9,7 +9,7 @@ test('codemodPackageJson', async () => {
   const file = `${dir}/package.json`;
   await writeFile(
     `${file}`,
-    '{"name":"name","dependencies":{},"engines":{"node":"0","npm":"0","yarn":"0"}}',
+    '{"name":"name","__files":[],"dependencies":{},"engines":{"node":"0","npm":"0","yarn":"0"}}',
   );
   await codemodPackageJson({
     type: 'website',
@@ -21,6 +21,7 @@ test('codemodPackageJson', async () => {
   const data = await readFile(file);
   expect(/"name": "name"/.test(data)).toEqual(false);
   expect(/"name": "@uber/.test(data)).toEqual(false);
+  expect(/"files"/.test(data)).toEqual(true);
   expect(/"dependencies": {}/.test(data)).toEqual(true);
   await fse.remove(dir);
 });

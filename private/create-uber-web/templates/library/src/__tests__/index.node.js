@@ -1,5 +1,6 @@
 // @flow
+import '../index.js';
 
-test('test', async () => {
+test('server test', () => {
   expect(typeof process).toEqual('object');
 });
