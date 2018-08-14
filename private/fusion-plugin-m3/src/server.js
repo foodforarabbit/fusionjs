@@ -27,6 +27,7 @@ const plugin =
             env: process.env.NODE_ENV || 'production',
             runtime: process.env.UBER_RUNTIME_ENVIRONMENT || 'production',
             service: service,
+            framework: 'fusion',
             scaffolded_web_app: true, // eslint-disable-line camelcase
           },
           commonTags
