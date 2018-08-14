@@ -64,7 +64,7 @@ const plugin =
           proxyPort: 18084,
         };
       }
-      const logger = Logtron({
+      const logtron = Logtron({
         meta: {team, project: service, runtime},
         statsd: m3,
         backends: Logtron.defaultBackends(backends),
@@ -73,26 +73,47 @@ const plugin =
 
       // Logtron is missing LoggerToken interface methods so we need to define the custom levels
       // Utilize pre-existing methods and assign them to matching levels in the heirarchy
-      logger.silly = logger.trace;
-      logger.verbose = logger.info;
-      // Define the log method
-      logger.log = (level, payload) => {
-        events.emit('logtron:log', payload);
+      const levelMap = {
+        error: 'error',
+        warn: 'warn',
+        info: 'info',
+        debug: 'debug',
+        silly: 'trace',
+        verbose: 'info',
+      };
+      const wrappedLogger = {};
+
+      wrappedLogger.destroy = () => logtron.destroy();
+
+      // We process all log methods through the error transformer.
+      const logEmitter = (level, message, meta) => {
+        events.emit('logtron:log', {level, message, meta});
+        return wrappedLogger;
       };
 
-      // in dev we don't send client errors to the server
-      if (env === 'production') {
-        const transformError = createErrorTransform({
-          path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
-          ext: '.map',
-        });
-        events.on('logtron:log', payload => {
-          handleLog(logger, transformError, payload);
-        });
-      }
-      return logger;
+      Object.keys(levelMap).forEach(tokenLevel => {
+        wrappedLogger[tokenLevel] = (...args) => {
+          logEmitter(levelMap[tokenLevel], ...args);
+          return wrappedLogger;
+        };
+      });
+      wrappedLogger.log = logEmitter;
+
+      const transformError =
+        env === 'production'
+          ? createErrorTransform({
+              path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
+              ext: '.map',
+            })
+          : // in dev we don't send client errors to the server
+            o => o;
+      events.on('logtron:log', payload => {
+        handleLog(logtron, transformError, payload);
+      });
+
+      return wrappedLogger;
     },
-    cleanup: logger => logger.destroy(),
+    cleanup: logtron => logtron.destroy(),
   });
 
 export const handleLog = async (

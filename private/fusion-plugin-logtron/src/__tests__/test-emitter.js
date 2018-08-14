@@ -5,9 +5,9 @@ export default class TestEmitter {
   }
   events: {[string]: Function};
 
-  emit(event: mixed) {
+  emit(event: mixed, ...data: any) {
     if (typeof event === 'string' && this.events[event]) {
-      this.events[event]();
+      this.events[event](...data);
     }
   }
 

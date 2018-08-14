@@ -13,16 +13,16 @@ import TestEmitter from './test-emitter';
 import type {Logger as LoggerType} from 'fusion-tokens';
 
 tape('test all methods exist for server', t => {
+  const emitter = new TestEmitter();
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
   // $FlowFixMe
   app.register(M3Token, {});
   // $FlowFixMe
-  app.register(UniversalEventsToken, {});
+  app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {
     supportedLevels.concat(['log']).forEach(fn => {
-      // $FlowFixMe - Logtron has methods that the LoggerToken does not.
       t.equal(typeof logger[fn], 'function', `${fn} was set`);
     });
     t.end();
@@ -32,12 +32,13 @@ tape('test all methods exist for server', t => {
 });
 
 tape('server plugin basic creation', t => {
+  const emitter = new TestEmitter();
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
   // $FlowFixMe
   app.register(M3Token, {});
   // $FlowFixMe
-  app.register(UniversalEventsToken, {});
+  app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {
     t.equal(typeof logger.info, 'function', 'exposes logger functions');
@@ -122,7 +123,7 @@ tape('server test handleLog with error set in meta', async t => {
   t.end();
 });
 
-tape('server test log method', t => {
+tape('server test log methods', t => {
   const emitter = new TestEmitter();
 
   const app = new App('el', el => el);
@@ -133,11 +134,19 @@ tape('server test log method', t => {
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {
+    let emitterCalls = 0;
     emitter.on('logtron:log', () => {
-      t.pass('emitter called when log was called');
-      t.end();
+      emitterCalls += 1;
     });
     logger.log('error', 'message', {});
+    logger.error('message', {});
+    logger.warn('message', {});
+    logger.info('message', {});
+    logger.debug('message', {});
+    logger.silly('message', {});
+    logger.verbose('message', {});
+    t.equal(emitterCalls, 7);
+    t.end();
     return (ctx, next) => next();
   });
   getSimulator(app);
