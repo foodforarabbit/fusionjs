@@ -60,6 +60,7 @@
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
+    "styletron-react": "4.3.5",
     "unfetch": "^3.0.0"
   },
   "devDependencies": {
