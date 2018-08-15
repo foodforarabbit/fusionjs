@@ -9,7 +9,7 @@ import provision from './commands/provision.js';
 
 process.on('unhandledRejection', e => console.log(e.stack));
 
-const cli = sade('yarn create @uber/uber-web');
+const cli = sade('npx @uber/create-uber-web');
 
 cli
   .command('scaffold')

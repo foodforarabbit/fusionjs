@@ -4,14 +4,16 @@ A tool to manage web project boilerplates.
 
 At Uber, the Web Platform team provides boilerplates for websites, libraries and React components. These boilerplates come preconfigured with recommended tooling such as babel, eslint, flow and prettier.
 
-The `yarn create @uber/uber-web scaffold` command creates boilerplate templates
-The `yarn create @uber/uber-web provision` command sets up your project for publishing.
+The `npx @uber/create-uber-web scaffold` command creates boilerplate templates
+The `npx @uber/create-uber-web provision` command sets up your project for publishing.
 
 ```
+npx @uber/create-uber-web <command> [options]
+# or
 yarn create @uber/uber-web <command> [options]
 
-Usage
-    $ uber-web <command> [options]
+  Usage
+    $ npx @uber/create-uber-web uber-web <command> [options]
 
   Available Commands
     scaffold     Scaffold a new project structure locally
