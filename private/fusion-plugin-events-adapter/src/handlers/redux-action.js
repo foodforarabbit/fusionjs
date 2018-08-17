@@ -2,7 +2,12 @@ import structureMeta from '../utils/structure-meta';
 
 export default function reduxAction({events, heatpipeEmitter, m3}) {
   events.on('redux-action-emitter:action', (payload, ctx) => {
-    const {type, _trackingMeta, webEventsMeta} = payload;
+    const {type, webEventsMeta} = payload;
+    // redux-actions payload creator will nest under another payload key
+    const _trackingMeta =
+      payload._trackingMeta ||
+      (payload.payload && payload.payload._trackingMeta);
+
     heatpipeEmitter.publishWebEvents({
       message: {
         type: 'action',
