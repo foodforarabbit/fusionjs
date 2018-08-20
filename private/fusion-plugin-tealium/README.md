@@ -117,18 +117,29 @@ The canonical token for the Tealium plugin. Typically, it should be registered w
 import {TealiumConfigToken} from '@uber/fusion-plugin-tealium';
 ```
 
-Required.  Server only.  Configuration for the Tealium plugin.  For more details on configuration, see the [Tealium for engineers](https://code.uberinternal.com/w/tealium/) documentation.
+Required, server only, configuration for the Tealium plugin. Can be defined as
+a static object, or as a function which takes a fusion context and returns a
+tealium config object or promise for a tealium config object. For instance, if
+you need to run geoip on your request to determine the `geo` then you would
+most likely want to use a function for generating tealium config based on the
+`ctx.ip`.
+
+For more details on configuration, see the [Tealium for engineers](https://code.uberinternal.com/w/tealium/) documentation.
 
 ###### Types
 
 ```js
 type GeoType = 'NL' | 'FR' | 'IN' /*| etc...*/;
-type TealiumConfig = {
+type ResolvedTealiumConfig = {
   account: string,
   profile: string,
   geo: GeoType,
   env: string
 }
+type TealiumConfig =
+  ResolvedTealiumConfig |
+  (Context) => ResolvedTealiumConfig |
+  (Context) => Promise<ResolvedTealiumConfig;
 ```
 
 ###### Example
