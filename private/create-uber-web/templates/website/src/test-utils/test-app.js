@@ -18,11 +18,12 @@ export default async function start({render = defaultRender, root}: * = {}) {
   const app = await getApp({render, root});
 
   if (__NODE__) {
-    app.register(GalileoConfigToken, {
-      enabled: false,
-    });
     app.register(TChannelToken, {});
-    app.register(TracerToken, {});
+    !__DEV__ &&
+      app.register(GalileoConfigToken, {
+        enabled: false,
+      });
+    !__DEV__ && app.register(TracerToken, {});
   } else {
     app.register(HydrationStateToken, {chunks: [], translations: {}});
   }

@@ -1,3 +1,6 @@
+// flow-typed signature: c4accb474c9c8dff69c710a8aeb51509
+// flow-typed version: 622ff96b86/puppeteer_v1.2.x/flow_>=v0.76.x
+
 // @flow
 
 /**
@@ -6,7 +9,7 @@
  */
 
 declare module 'puppeteer' {
-  import type {ChildProcess} from 'child_process';
+  import type { ChildProcess } from 'child_process';
 
   declare class OverridableEventEmitter extends events$EventEmitter {
     /* eslint-disable flowtype/no-weak-types */
@@ -22,13 +25,10 @@ declare module 'puppeteer' {
      * @param key Name of key to press, such as ArrowLeft.
      * @param options Specifies a input text event.
      */
-    down(key: string, options?: {text?: string}): Promise<void>,
+    down(key: string, options?: { text?: string }): Promise<void>,
 
     /** Shortcut for `keyboard.down` and `keyboard.up`. */
-    press(
-      key: string,
-      options?: {delay?: number, text?: string}
-    ): Promise<void>,
+    press(key: string, options?: { delay?: number, text?: string }): Promise<void>,
 
     /** Dispatches a `keypress` and `input` event. This does not send a `keydown` or keyup `event`. */
     sendCharacter(char: string): Promise<void>,
@@ -38,7 +38,7 @@ declare module 'puppeteer' {
      * @param text A text to type into a focused element.
      * @param options Specifies the typing options.
      */
-    type(text: string, options?: {delay?: number}): Promise<void>,
+    type(text: string, options?: { delay?: number }): Promise<void>,
 
     /**
      * Dispatches a keyup event.
@@ -82,7 +82,7 @@ declare module 'puppeteer' {
      * @param y The y position.
      * @param options The mouse move options.
      */
-    move(x: number, y: number, options?: {steps: number}): Promise<void>,
+    move(x: number, y: number, options?: { steps: number }): Promise<void>,
     /**
      * Dispatches a `mouseup` event.
      * @param options The mouse press options.
@@ -313,11 +313,7 @@ declare module 'puppeteer' {
 
   declare type EvaluateFn = string | ((...args: Array<mixed>) => mixed);
 
-  declare type LoadEvent =
-    | 'load'
-    | 'domcontentloaded'
-    | 'networkidle0'
-    | 'networkidle2';
+  declare type LoadEvent = 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
 
   /** The navigation options. */
   declare type NavigationOptions = {
@@ -567,10 +563,7 @@ declare module 'puppeteer' {
      * @param key Name of key to press, such as ArrowLeft. See USKeyboardLayout for a list of all key names.
      * @param options The text and delay options.
      */
-    press(
-      key: string,
-      options?: {delay?: number, text?: string}
-    ): Promise<void>,
+    press(key: string, options?: { delay?: number, text?: string }): Promise<void>,
 
     /**
      * This method scrolls element into view if needed, and then uses page.screenshot to take a screenshot of the element.
@@ -592,7 +585,7 @@ declare module 'puppeteer' {
      * @param text A text to type into a focused element.
      * @param options The typing options.
      */
-    type(text: string, options?: {delay: number}): Promise<void>,
+    type(text: string, options?: { delay: number }): Promise<void>,
 
     /**
      * This method expects elementHandle to point to an input element.
@@ -684,14 +677,8 @@ declare module 'puppeteer' {
     Timestamp: number,
   };
 
-  declare type Headers = {[key: string]: string};
-  declare type HttpMethod =
-    | 'GET'
-    | 'POST'
-    | 'PATCH'
-    | 'PUT'
-    | 'DELETE'
-    | 'OPTIONS';
+  declare type Headers = { [key: string]: string };
+  declare type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE' | 'OPTIONS';
 
   declare type ResourceType =
     | 'document'
@@ -832,8 +819,6 @@ declare module 'puppeteer' {
     url(): string,
   };
 
-  // Modified to pass in the flow-bin@0.76.x
-  // Upstream PR: https://github.com/flow-typed/flow-typed/pull/2494
   declare class FrameBase {
     /**
      * The method runs document.querySelector within the page.
@@ -979,7 +964,7 @@ declare module 'puppeteer' {
      * Emitted when the JavaScript code makes a call to `console.timeStamp`.
      * For the list of metrics see `page.metrics`.
      */
-    metrics: {metrics: mixed, title: string},
+    metrics: { metrics: mixed, title: string },
 
     /** Emitted when an uncaught exception happens within the page. */
     pageerror: string,
@@ -1096,10 +1081,7 @@ declare module 'puppeteer' {
      * @param url URL to navigate page to. The url should include scheme, e.g. `https://`
      * @param options The navigation parameters.
      */
-    goto(
-      url: string,
-      options?: $Shape<NavigationOptions>
-    ): Promise<Response | null>;
+    goto(url: string, options?: $Shape<NavigationOptions>): Promise<Response | null>;
 
     /**
      * This method fetches an element with `selector`, scrolls it into view if needed,
@@ -1262,11 +1244,7 @@ declare module 'puppeteer' {
      * @param text: A text to type into a focused element.
      * @param options: The typing parameters.
      */
-    type(
-      selector: string,
-      text: string,
-      options?: {delay: number}
-    ): Promise<void>;
+    type(selector: string, text: string, options?: { delay: number }): Promise<void>;
 
     /**
      * The page's URL. This is a shortcut for `page.mainFrame().url()`
@@ -1309,10 +1287,7 @@ declare module 'puppeteer' {
      */
     on<K: BrowserEvents>(
       eventName: K,
-      handler: (
-        e: $ElementType<BrowserEventObj, K>,
-        ...args: Array<mixed>
-      ) => void
+      handler: (e: $ElementType<BrowserEventObj, K>, ...args: Array<mixed>) => void
     ): Browser;
 
     /**
@@ -1323,10 +1298,7 @@ declare module 'puppeteer' {
      */
     once<K: BrowserEvents>(
       eventName: K,
-      handler: (
-        e: $ElementType<BrowserEventObj, K>,
-        ...args: Array<mixed>
-      ) => void
+      handler: (e: $ElementType<BrowserEventObj, K>, ...args: Array<mixed>) => void
     ): Browser;
 
     /** Promise which resolves to an array of all open pages. */
@@ -1480,7 +1452,7 @@ declare module 'puppeteer' {
   };
 
   declare type CoverageEntry = {
-    ranges: Array<{end: number, start: number}>,
+    ranges: Array<{ end: number, start: number }>,
     text: string,
     url: string,
   };

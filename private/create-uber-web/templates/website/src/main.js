@@ -15,7 +15,6 @@
 */
 import App from 'fusion-react';
 import HelmetPlugin from 'fusion-plugin-react-helmet-async';
-import {createPlugin} from 'fusion-core';
 import SecureHeaders, {
   SecureHeadersToken,
   SecureHeadersCSPConfigToken,
@@ -73,7 +72,6 @@ import Rosetta from '@uber/fusion-plugin-rosetta';
 import BrowserPerformanceEmitterPlugin from 'fusion-plugin-browser-performance-emitter';
 import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';
 import RPC, {RPCToken, RPCHandlersToken} from 'fusion-plugin-rpc-redux-react';
-import {ReduxToken} from 'fusion-plugin-react-redux';
 import ErrorHandlingPlugin, {
   ErrorHandlerToken,
 } from 'fusion-plugin-error-handling';
@@ -152,8 +150,8 @@ export default async function start(options: any = {}) {
       app.register(AuthHeadersEmailConfigToken, authHeadersDevConfig.email);
     app.register(NodePerfEmitterPlugin);
     app.register(I18nLoaderToken, Rosetta);
-    app.register(TracerToken, TracerPlugin);
-    app.register(GalileoToken, GalileoPlugin);
+    !__DEV__ && app.register(TracerToken, TracerPlugin);
+    !__DEV__ && app.register(GalileoToken, GalileoPlugin);
     app.register(TChannelToken, TChannel);
     app.register(AtreyuToken, AtreyuPlugin);
     app.register(AtreyuConfigToken, atreyuConfig);
@@ -165,29 +163,6 @@ export default async function start(options: any = {}) {
     app.register(FetchForCsrfToken, unfetch);
     app.register(RPCToken, RPC);
     app.register(I18nToken, I18n);
-    // Handle redux hot reloading.
-    // This needs to exist in main.js to prevent main.js from reloading.
-    __DEV__ &&
-      app.enhance(ReduxToken, redux => {
-        return createPlugin({
-          provides() {
-            return redux;
-          },
-          middleware: () => {
-            return (ctx, next) => {
-              /* global module */
-              if (module.hot) {
-                module.hot.accept('./redux', () => {
-                  // eslint-disable-next-line cup/no-undef
-                  const nextReducer = require('./redux').default.reducer;
-                  redux.from(ctx).store.replaceReducer(nextReducer);
-                });
-              }
-              return next();
-            };
-          },
-        });
-      });
   }
   registerPlugins(app);
   return app;
