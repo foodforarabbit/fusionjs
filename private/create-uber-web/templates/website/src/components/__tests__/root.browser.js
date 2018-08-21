@@ -9,13 +9,13 @@ import type {ShallowWrapper} from 'enzyme';
 import {Root} from '../root';
 import loadApp from '../../test-utils/test-app';
 
-test('Root renders', async assert => {
+test('Root renders', async () => {
   const app = await loadApp();
   const sim = getSimulator(app);
   const ctx = await sim.render('/');
 
   const root: ShallowWrapper = ctx.rendered.find(Root);
   const switches: ShallowWrapper = ctx.rendered.find(Switch);
-  assert.equal(root.length, 1, 'has a root component');
-  assert.equal(switches.length, 1, 'has one switch component');
+  expect(root.length).toEqual(1);
+  expect(switches.length).toEqual(1);
 });

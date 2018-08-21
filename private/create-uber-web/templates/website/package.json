@@ -22,7 +22,6 @@
     "@uber/fusion-plugin-galileo": "^1.0.1",
     "@uber/fusion-plugin-heatpipe": "^1.0.1",
     "@uber/fusion-plugin-logtron-react": "^1.1.2",
-    "@uber/fusion-plugin-m3": "^1.1.3",
     "@uber/fusion-plugin-m3-react": "^1.0.6",
     "@uber/fusion-plugin-rosetta": "^1.0.2",
     "@uber/fusion-plugin-s3-asset-proxying": "^1.1.1",

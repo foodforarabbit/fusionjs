@@ -1,6 +1,7 @@
 {
   "name": "@uber/react-component-template",
   "description": "{{description}}",
+  "version": "0.0.1",
   "scaffold-version": "{{version}}",
   "author": "{{author}} <{{email}}>",
   "repository": {

@@ -1,12 +1,11 @@
 // @flow
 
 import React from 'react';
-import {test} from 'fusion-test-utils';
 import {shallow} from 'enzyme';
 
 import Welcome from '../welcome';
 
-test('Welcome', async assert => {
+test('Welcome', async () => {
   const wrapper = shallow(<Welcome />);
-  assert.matchSnapshot(wrapper);
+  expect(wrapper).toMatchSnapshot();
 });
