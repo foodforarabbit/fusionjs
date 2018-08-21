@@ -22,8 +22,15 @@ tape('test all methods exist for server', t => {
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {
+    // Logtron has some additional logging methods not present in the LoggerToken interface such as createChild, trace, access, and fatal.
+    // We keep these around for compatiblity with libraries and existing code.
+    // $FlowFixMe
+    const child = logger.createChild('test-child');
     supportedLevels.concat(['log']).forEach(fn => {
+      // $FlowFixMe
       t.equal(typeof logger[fn], 'function', `${fn} was set`);
+      // $FlowFixMe
+      t.equal(typeof child[fn], 'function', `${fn} was set on child logger`);
     });
     t.end();
     return (ctx, next) => next();

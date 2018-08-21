@@ -1,10 +1,13 @@
 // @flow
 
 export const supportedLevels = [
-  'debug',
-  'info',
-  'warn',
   'error',
-  'verbose',
+  'warn',
+  'info',
+  'debug',
   'silly',
+  'verbose',
+  'trace',
+  'access',
+  'fatal',
 ];

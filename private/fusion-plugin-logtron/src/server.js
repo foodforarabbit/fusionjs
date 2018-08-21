@@ -80,6 +80,9 @@ const plugin =
         debug: 'debug',
         silly: 'trace',
         verbose: 'info',
+        trace: 'trace',
+        access: 'access',
+        fatal: 'fatal',
       };
       const wrappedLogger = {};
 
@@ -98,6 +101,8 @@ const plugin =
         };
       });
       wrappedLogger.log = logEmitter;
+      // TODO: Consider implementing a real createChild. For now, this is simply a chainable noop.
+      wrappedLogger.createChild = () => wrappedLogger;
 
       const transformError =
         env === 'production'
