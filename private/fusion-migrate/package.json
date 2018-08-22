@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-migrate",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description":
     "Migration scripts for migrating from @uber/bedrock to Fusion.js",
   "bin": {
