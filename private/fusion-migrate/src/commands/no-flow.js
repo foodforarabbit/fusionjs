@@ -10,6 +10,14 @@ module.exports = async function addNoFlow({destDir}) {
     if (contents.includes('@flow') || contents.includes('@noflow')) {
       return;
     }
-    fs.writeFileSync(filePath, '// @noflow\n' + contents);
+    if (contents.startsWith('#!')) {
+      const [, hashbang] = contents.match(/(#!.+\n)/m);
+      fs.writeFileSync(
+        filePath,
+        hashbang + '// @noflow\n' + contents.slice(hashbang.length)
+      );
+    } else {
+      fs.writeFileSync(filePath, '// @noflow\n' + contents);
+    }
   });
 };

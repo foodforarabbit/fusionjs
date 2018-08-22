@@ -5,7 +5,7 @@ module.exports = {
     'flow',
     'classProperties',
     'objectRestSpread',
-    'decorators',
+    ['decorators', {decoratorsBeforeExport: false}],
     'asyncGenerators',
     'functionBind',
     'functionSent',
