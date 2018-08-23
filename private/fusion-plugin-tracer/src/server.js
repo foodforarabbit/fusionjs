@@ -75,10 +75,12 @@ export default __NODE__ &&
 
         tracerContainer.from(ctx).span = span;
 
-        await next();
+        ctx.timing.end.then(() => {
+          span.setTag(opentracing.Tags.HTTP_STATUS_CODE, ctx.response.status);
+          span.finish();
+        });
 
-        span.setTag(opentracing.Tags.HTTP_STATUS_CODE, ctx.response.status);
-        span.finish();
+        return next();
       };
     },
     cleanup: tracer => new Promise(resolve => tracer.tracer.close(resolve)),

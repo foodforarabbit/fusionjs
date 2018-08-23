@@ -108,7 +108,7 @@ test('Tracer Middleware', async t => {
   app.register(TracerToken, TracerPlugin);
   app.register(InitTracerToken, MockInitTracer);
   app.middleware({Tracer: TracerToken}, ({Tracer}) => {
-    return (ctx, next) => {
+    return async (ctx, next) => {
       t.ok(true, 'Next is called');
       t.equals(Tracer.from(ctx).span, mockSpan, 'span should be defined');
       t.equals(
@@ -116,10 +116,72 @@ test('Tracer Middleware', async t => {
         Tracer.tracer,
         'tracer should be defined'
       );
+      await next();
       ctx.body = 'Hello world';
-      return next();
     };
   });
+  const sim = getSimulator(app);
+  await sim.request('/path', {headers: {'x-uber-source': 'fusion'}});
+});
+
+test('Tracer Middleware with response set above tracer', async t => {
+  const mockSpan = {
+    setTag(key, value) {
+      t.equals(key, 'http.status_code', 'should set status code');
+      t.equals(value, 200, 'status code should have value');
+    },
+    finish() {
+      t.ok(true, 'span.finish should be called');
+      t.end();
+    },
+  };
+
+  const mockTracer = {
+    extract(type, headers) {
+      t.equals(
+        type,
+        'http_headers',
+        'extract root span from inbound http headers'
+      );
+      t.looseEquals(
+        headers,
+        {'x-uber-source': 'fusion'},
+        'headers should be passed as is'
+      );
+      return 'inbound_context';
+    },
+    startSpan(name, options) {
+      t.equals(name, 'GET_/path', 'span name should match');
+      t.looseEquals(
+        options.tags,
+        {
+          component: 'fusion',
+          'span.kind': 'server',
+          'http.url': '/path',
+          'http.method': 'GET',
+          'peer.service': 'web_client',
+        },
+        'span options should match'
+      );
+
+      t.equals(options.childOf, 'inbound_context', 'span childOf should match');
+
+      return mockSpan;
+    },
+  };
+
+  function MockInitTracer() {
+    return mockTracer;
+  }
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, MockLogger);
+  app.middleware(async (ctx, next) => {
+    await next();
+    ctx.body = 'hello';
+  });
+  app.register(TracerToken, TracerPlugin);
+  app.register(InitTracerToken, MockInitTracer);
   const sim = getSimulator(app);
   await sim.request('/path', {headers: {'x-uber-source': 'fusion'}});
 });
