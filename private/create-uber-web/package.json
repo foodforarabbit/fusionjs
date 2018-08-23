@@ -7,9 +7,10 @@
     "url": "gitolite@code.uber.internal:web/uber-web.git"
   },
   "bin": {
-    "@uber/create-uber-web": "dist/index.js",
-    "create-uber-web": "dist/index.js"
+    "@uber/create-uber-web": "dist/cli.js",
+    "create-uber-web": "dist/cli.js"
   },
+  "main": "dist/index.js",
   "files": [
     "*"
   ],

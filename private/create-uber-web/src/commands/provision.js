@@ -1,6 +1,6 @@
 /* @flow */
 
-export default async () => {
+export const provision = async () => {
   console.log(
     `Automated provisioning is currently disabled. ` +
       `Please visit the Web Platform Team's documentation on ` +

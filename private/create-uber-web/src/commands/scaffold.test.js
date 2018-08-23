@@ -2,7 +2,7 @@
 
 import inquirer from 'inquirer';
 import fse from 'fs-extra';
-import scaffold from './scaffold.js';
+import {scaffold} from './scaffold.js';
 
 jest.setTimeout(30000);
 
@@ -31,7 +31,16 @@ test('scaffold', async () => {
         }
       });
 
-      await scaffold({localPath: null, skipInstall: true, hoistDeps: false}); // no need to test that yarn command works
+      await scaffold({
+        type: '',
+        name: '',
+        description: '',
+        team: '',
+        external: undefined,
+        localPath: null,
+        skipInstall: true,
+        hoistDeps: false,
+      }); // no need to test that yarn command works
 
       expect(await fse.pathExists(name)).toBe(true);
 
@@ -48,22 +57,17 @@ test('prevents bad name', async () => {
   const name = 'fixtures/fixture-staging';
 
   try {
-    jest.spyOn(inquirer, 'prompt').mockImplementation(options => {
-      if (options.message.match(/template/)) {
-        return {value: options.choices[0]};
-      } else if (options.message.match(/name/)) {
-        return {value: name};
-      } else if (options.message.match(/description/)) {
-        return {value: name};
-      } else if (options.message.match(/team/)) {
-        return {value: 'web'};
-      } else if (options.message.match(/external/)) {
-        return {value: options.choices[0]};
-      }
-    });
-
     await expect(
-      scaffold({localPath: null, skipInstall: true, hoistDeps: false}),
+      scaffold({
+        type: 'website',
+        name: name,
+        description: name,
+        team: 'web',
+        external: true,
+        localPath: null,
+        skipInstall: true,
+        hoistDeps: false,
+      }),
     ).rejects.toThrow(/Do not add `-staging`/);
   } finally {
     await fse.remove(name);

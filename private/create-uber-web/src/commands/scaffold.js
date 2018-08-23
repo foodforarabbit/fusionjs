@@ -12,6 +12,11 @@ import {codemodReadme} from '../utils/codemod-readme.js';
 import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
 
 export type ScaffoldOptions = {
+  type: string,
+  name: string,
+  description: string,
+  team: string,
+  external: ?boolean,
   localPath: ?string,
   skipInstall: boolean,
   hoistDeps: boolean,
@@ -22,10 +27,20 @@ export type ProjectData = {
   name: string,
   description: string,
   team: string,
+  external: ?boolean,
 };
 
-export default async ({localPath, skipInstall, hoistDeps}: ScaffoldOptions) => {
-  const project = {type: '', name: '', description: '', team: ''};
+export const scaffold = async ({
+  type,
+  name,
+  description,
+  team,
+  external,
+  localPath,
+  skipInstall,
+  hoistDeps,
+}: ScaffoldOptions) => {
+  const project = {type, name, description, team};
 
   await exec('ussh').catch(() => {}); // required to fetch team list. If command does not exist (e.g. in CI), ignore
   const teams = getTeams(); // don't await here, let promise resolve while user goes through the wizard
@@ -35,15 +50,19 @@ export default async ({localPath, skipInstall, hoistDeps}: ScaffoldOptions) => {
       await checkYarnRegistry();
     }),
     step('template', async () => {
-      project.type = await promptChoice('Choose a template:', {
-        'Web Application': 'website',
-        'Fusion.js Plugin': 'fusion-plugin',
-        'React Component': 'react-component',
-        'Generic Library': 'library',
-      });
+      if (project.type === '') {
+        project.type = await promptChoice('Choose a template:', {
+          'Web Application': 'website',
+          'Fusion.js Plugin': 'fusion-plugin',
+          'React Component': 'react-component',
+          'Generic Library': 'library',
+        });
+      }
     }),
     step('project name', async () => {
-      project.name = await prompt('Project name:');
+      if (project.name === '') {
+        project.name = await prompt('Project name:');
+      }
       if (await fse.pathExists(project.name)) {
         throw new Error(
           `A folder with the name ${project.name} already exists`,
@@ -56,10 +75,14 @@ export default async ({localPath, skipInstall, hoistDeps}: ScaffoldOptions) => {
       }
     }),
     step('project description', async () => {
-      project.description = await prompt('Project description:');
+      if (project.description === '') {
+        project.description = await prompt('Project description:');
+      }
     }),
     step('team', async () => {
-      project.team = await promptChoice('Project team:', await teams);
+      if (project.team === '') {
+        project.team = await promptChoice('Project team:', await teams);
+      }
     }),
     step('copy', async () => {
       const templatePath =
@@ -76,7 +99,9 @@ export default async ({localPath, skipInstall, hoistDeps}: ScaffoldOptions) => {
       await codemodReadme(project);
     }),
     step('run', async () => {
-      if (project.type === 'website') await runWebsiteSteps(project);
+      if (project.type === 'website') {
+        await runWebsiteSteps({...project, external});
+      }
     }),
     step('install deps', async () => {
       console.log('Template scaffolded.');
@@ -95,18 +120,25 @@ export default async ({localPath, skipInstall, hoistDeps}: ScaffoldOptions) => {
   await stepper.run();
 };
 
-async function runWebsiteSteps({name, description, team}: ProjectData) {
-  const project = {external: false};
+async function runWebsiteSteps({
+  name,
+  description,
+  team,
+  external,
+}: ProjectData) {
+  const project = {external};
 
   const stepper = new Stepper([
     step('external', async () => {
-      project.external = await promptChoice(
-        'Is this an internal or external application?',
-        {
-          Internal: false,
-          External: true,
-        },
-      );
+      if (typeof project.external !== 'boolean') {
+        project.external = await promptChoice(
+          'Is this an internal or external application?',
+          {
+            Internal: false,
+            External: true,
+          },
+        );
+      }
     }),
     step('codemod udeploy config file', async () => {
       await replaceNunjucksFile(`${name}/udeploy/config/udeploy.yaml`, {
@@ -117,7 +149,7 @@ async function runWebsiteSteps({name, description, team}: ProjectData) {
       const file = `${name}/udeploy/pinocchio.yaml`;
       await replaceNunjucksFile(file, {
         project: name,
-        isExternal: project.external,
+        isExternal: project.external || false,
         assetBase: `https://d3i4yxtzktqr9n.cloudfront.net/${name}`,
       });
     }),

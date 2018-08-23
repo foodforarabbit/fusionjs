@@ -1,4 +1,4 @@
-import provision from './provision.js';
+import {provision} from './provision.js';
 
 test('disabled', async () => {
   const spy = jest.spyOn(console, 'log').mockImplementation(() => {});
