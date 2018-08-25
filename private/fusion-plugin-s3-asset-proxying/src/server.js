@@ -2,22 +2,31 @@
 import path from 'path';
 import {createPlugin} from 'fusion-core';
 import LRU from 'lru-cache';
-import {S3ConfigToken} from './tokens';
+import {S3ConfigToken, AssetProxyingResponseHeaderOverrides} from './tokens';
+
+const defaultViewerResponseHeaders = {
+  'cache-control': 'public, max-age=31536000',
+  'timing-allow-origin': '*',
+};
 
 export default __NODE__ &&
   createPlugin({
-    deps: {config: S3ConfigToken.optional},
-    provides: ({config}) => {
+    deps: {
+      s3Config: S3ConfigToken.optional,
+      customViewerResponseHeaders:
+        AssetProxyingResponseHeaderOverrides.optional,
+    },
+    provides: ({s3Config}) => {
       const aws = require('aws-sdk');
       const loadConfig = require('../s3-config');
-      config = config || loadConfig();
+      s3Config = s3Config || loadConfig();
       class S3Service {
         constructor() {
           this.notFoundCache = new LRU({
             // store 404s
             max: 500,
           });
-          this.config = config;
+          this.config = s3Config;
           const {
             accessKeyId,
             secretAccessKey,
@@ -44,6 +53,9 @@ export default __NODE__ &&
           return next();
         }
 
+        const customViewerResponseHeaders =
+          deps.customViewerResponseHeaders || {};
+
         // Only proxy URLs starting with /_static
         if (!ctx.path || !ctx.path.startsWith('/_static/')) {
           return next();
@@ -61,20 +73,24 @@ export default __NODE__ &&
         const s3 = state.s3;
         const {bucket, prefix} = state.config;
 
-        const {s3Error, statusCode, headers, data} = await new Promise(
-          resolve =>
-            s3.getObject(
-              {
-                Bucket: bucket,
-                Key: path.join(prefix, reqPath),
-              },
-              function(s3Error, data) {
-                let statusCode =
-                  this.httpResponse && this.httpResponse.statusCode;
-                const headers = this.httpResponse && this.httpResponse.headers;
-                return resolve({s3Error, statusCode, headers, data});
-              }
-            )
+        const {
+          s3Error,
+          statusCode,
+          headers: s3ResponseHeaders,
+          data,
+        } = await new Promise(resolve =>
+          s3.getObject(
+            {
+              Bucket: bucket,
+              Key: path.join(prefix, reqPath),
+            },
+            function(s3Error, data) {
+              let statusCode =
+                this.httpResponse && this.httpResponse.statusCode;
+              const headers = this.httpResponse && this.httpResponse.headers;
+              return resolve({s3Error, statusCode, headers, data});
+            }
+          )
         );
 
         if (s3Error || statusCode !== 200) {
@@ -88,8 +104,14 @@ export default __NODE__ &&
             notFoundCache.set(reqPath, true);
           }
         } else {
-          Object.keys(headers).forEach(h => ctx.set(h, headers[h]));
-          ctx.set('Cache-Control', 'public, max-age=31536000');
+          const responseHeaders = {
+            ...s3ResponseHeaders,
+            ...defaultViewerResponseHeaders,
+            ...customViewerResponseHeaders,
+          };
+          Object.keys(responseHeaders).forEach(h =>
+            ctx.set(h, responseHeaders[h])
+          );
           ctx.status = statusCode;
           ctx.body = data.Body;
         }
