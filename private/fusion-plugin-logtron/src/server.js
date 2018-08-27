@@ -8,11 +8,11 @@ import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import createErrorTransform from './create-error-transform';
 import {supportedLevels} from './constants';
 
-import type {FusionPlugin} from 'fusion-core';
+import type {FusionPlugin, Token} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
 import type {PayloadType, PayloadMetaType} from './types.js';
 
-export const BackendsToken = createToken('LogtronBackends');
+export const BackendsToken: Token<Object> = createToken('LogtronBackends');
 export const TeamToken = createToken('LogtronTeam');
 export const TransformsToken = createToken('LogtronTransform');
 
@@ -30,10 +30,6 @@ function validateItem(item) {
 
 type DepsType = {
   events: typeof UniversalEventsToken,
-  m3: typeof M3Token,
-  backends: typeof BackendsToken,
-  team: typeof TeamToken,
-  transforms: typeof TransformsToken,
 };
 
 const plugin =
