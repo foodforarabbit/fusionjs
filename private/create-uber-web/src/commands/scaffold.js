@@ -10,6 +10,7 @@ import {codemodPackageJson} from '../utils/codemod-package-json.js';
 import {removeConfigFiles} from '../utils/remove-config-files.js';
 import {codemodReadme} from '../utils/codemod-readme.js';
 import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
+import {initRepo} from '../utils/init-repo.js';
 
 export type ScaffoldOptions = {
   type: string,
@@ -116,6 +117,7 @@ export const scaffold = async ({
         }
       }
     }),
+    step('init repo', () => initRepo(project.name, project.team)),
   ]);
   await stepper.run();
 };

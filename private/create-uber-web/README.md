@@ -40,13 +40,10 @@ If you are scaffolding into a versionless monorepo (i.e. a monorepo that has a g
 
 ### Setting up a repository
 
+The scaffold automatically sets up a master branch with the initial code committed. All you need to do is push to have gitolite create the repo.
+
 ```
 # in your project root folder
-git init
-git checkout -b master
-git remote add origin gitolite@code.uber.internal:{YOUR_TEAM_NAME}/{YOUR_PROJECT_NAME}
-git add README.md
-git commit -m 'initial commit'
 git push origin master # At Uber, git push is only used to create the repo. To push further changes, use arc diff
 ```
 

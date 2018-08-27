@@ -38,7 +38,7 @@
     }
   },
   "dependencies": {
-    "@dubstep/core": "^0.0.7",
+    "@dubstep/core": "^0.1.0",
     "fs-extra": "^7.0.0",
     "inquirer": "^6.1.0",
     "nunjucks": "^3.1.3",
