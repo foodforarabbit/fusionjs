@@ -1,7 +1,7 @@
 {
   "name": "@uber/react-component-template",
   "description": "{{description}}",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scaffold-version": "{{version}}",
   "author": "{{author}} <{{email}}>",
   "repository": {
@@ -43,9 +43,9 @@
       "quiet": true
     }
   },
-  "dependencies": {
-    "react": "16.4.2",
-    "react-dom": "16.4.2"
+  "peerDependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
   },
   "devDependencies": {
     "@babel/preset-env": "7.0.0-rc.1",
@@ -70,7 +70,9 @@
     "jest": "^23.5.0",
     "jest-environment-jsdom-global": "1.1.0",
     "npm-watch": "^0.3.0",
-    "prettier": "1.14.2"
+    "prettier": "1.14.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
