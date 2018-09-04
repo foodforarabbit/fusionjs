@@ -108,6 +108,18 @@ See the [provisioning guide](https://docs.google.com/document/d/1j2XVa4fiM4xtss_
 
 ### Troubleshooting
 
+#### Illegal operation on a directory (EISDIR)
+
+You may have conflicting Node.js installations. Run `which node -a` and ensure you only have one installation. If you use NVM, the installation path should include `.nvm` in it. If it does not, follow the [Node setup steps here](https://engdocs.uberinternal.com/web/docs/getting-started/environment-setup#nodejs).
+
+Alternatively, try `yarn create @uber/uber-web scaffold` instead of `npx @uber/create-uber-web scaffold`.
+
+If you get an `illegal operation on a directory` error running the `npx` command, make sure your home directory name only contain lowercase alphanumeric characters (i.e. no spaces and no symbols).
+
+Check that your `.npmrc` file does not have a truncated file path for the `prefix` option.
+
+If all else fails, run `yarn global add @uber/create-uber-web && create-uber-web scaffold`.
+
 #### Package could not be found in registry
 
 If you get an error saying that @uber/uber-web is not in `https://registry.yarnpkg.com`, run this command:
@@ -117,16 +129,6 @@ yarn config set registry "https://unpm.uberinternal.com"
 ```
 
 If the issue persists, run `npx @uber/create-uber-web scaffold` instead of `yarn create @uber/uber-web scaffold`. If both fail, run `yarn global add @uber/create-uber-web && create-uber-web scaffold`.
-
-#### Illegal operation on a directory (EISDIR)
-
-Try `yarn create @uber/uber-web scaffold` instead of `npx @uber/create-uber-web scaffold`.
-
-If you get an `illegal operation on a directory` error running the `npx` command, make sure your home directory name only contain lowercase alphanumeric characters (i.e. no spaces and no symbols).
-
-Check that your `.npmrc` file does not have a truncated file path for the `prefix` option.
-
-If all else fails, run `yarn global add @uber/create-uber-web && create-uber-web scaffold`.
 
 #### Syntax errors
 
