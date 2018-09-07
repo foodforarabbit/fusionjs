@@ -11,7 +11,7 @@ tape('Rosetta plugin', async t => {
     constructor({logger, thing}) {
       this.locales = ['en_US'];
       this.translations = {
-        en_US: {
+        en: {
           hello: 'world',
         },
       };
@@ -39,7 +39,7 @@ tape('Rosetta plugin', async t => {
     return (ctx, next) => {
       const {translations, locale} = rosetta.from(ctx);
       t.deepLooseEqual(translations, {hello: 'world'});
-      t.equal(locale.normalized, 'en_US');
+      t.equal(locale.normalized, 'en');
       return next();
     };
   });

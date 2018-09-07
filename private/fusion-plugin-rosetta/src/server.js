@@ -33,7 +33,7 @@ function defaultLocaleNegotiationStrategy(ctx, supportedLocales) {
 }
 
 function translationsLoaderFactory(client, localeNegotiationStrategy) {
-  const supportedLocales = new Locales(client.locales);
+  const supportedLocales = new Locales(client.locales, 'en');
 
   return ctx => {
     const locale = localeNegotiationStrategy(ctx, supportedLocales);
