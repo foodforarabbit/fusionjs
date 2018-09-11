@@ -1,0 +1,162 @@
+{
+  "name": "@uber/fusion-plugin-marketing",
+  "description": "Port of @uber/node-marketing-utils for web marketing attributions",
+  "version": "0.0.1",
+  "scaffold-version": "0.0.19",
+  "author": " <dennis.lin@uber.com>",
+  "repository": {
+    "type": "git",
+    "url": "gitolite@code.uber.internal:web/fusion-plugin-marketing.git"
+  },
+  "bugs": {
+    "url": "https://code.uberinternal.com/maniphest/task/create/",
+    "email": "dennis.lin@uber.com"
+  },
+  "license": "UNLICENSED",
+  "scripts": {
+    "bootstrap": "rm -rf node_modules && yarn",
+    "lint": "eslint src --fix",
+    "flow": "flow check || true",
+    "build": "cup build && yarn lint",
+    "dev": "npm-watch | grep --invert-match nodemon",
+    "test": "jest && yarn flow",
+    "cover": "yarn lint && yarn flow && yarn test",
+    "prepublish": "yarn build"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    },
+    "test": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    }
+  },
+  "dependencies": {
+    "react": "16.4.2",
+    "react-dom": "16.4.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "7.0.0-rc.1",
+    "@babel/preset-flow": "7.0.0-rc.1",
+    "@babel/preset-react": "^7.0.0-rc.1",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.2",
+    "create-universal-package": "^3.4.6",
+    "enzyme": "3.4.4",
+    "enzyme-adapter-react-16": "1.2.0",
+    "eslint": "^5.4.0",
+    "eslint-config-fusion": "^4.0.0",
+    "eslint-plugin-cup": "^2.0.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.21.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.11.1",
+    "flow-bin": "^0.79.1",
+    "fusion-core": "^1.5.0",
+    "fusion-plugin-universal-events": "^1.1.0",
+    "fusion-test-utils": "^1.2.2",
+    "fusion-tokens": "^1.0.4",
+    "jest": "^23.5.0",
+    "jest-environment-jsdom-global": "1.1.0",
+    "npm-watch": "^0.3.0",
+    "prettier": "1.14.2"
+  },
+  "peerDependencies": {
+    "fusion-core": "^1.4.1",
+    "fusion-tokens": "^1.0.4"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.es.js",
+  "browser": {
+    "./dist/index.js": "./dist/browser.es5.js",
+    "./dist/index.es.js": "./dist/browser.es5.es.js"
+  },
+  "es2015": {
+    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
+  },
+  "es2017": {
+    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
+    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-flow",
+      "@babel/preset-react"
+    ]
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/type.js"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "cobertura",
+      "html",
+      "json",
+      "text-summary",
+      "text"
+    ],
+    "projects": [
+      {
+        "displayName": "browser",
+        "browser": true,
+        "testEnvironment": "jest-environment-jsdom-global",
+        "testPathIgnorePatterns": [
+          "/node_modules/",
+          "/dist/",
+          ".*\\.node\\.js"
+        ],
+        "testURL": "http://localhost",
+        "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js",
+        "globals": {
+          "__DEV__": true,
+          "__NODE__": false,
+          "__BROWSER__": true
+        }
+      },
+      {
+        "displayName": "server",
+        "browser": false,
+        "testEnvironment": "node",
+        "testPathIgnorePatterns": [
+          "/node_modules/",
+          "/dist/",
+          ".*\\.browser\\.js"
+        ],
+        "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js",
+        "globals": {
+          "__DEV__": true,
+          "__NODE__": true,
+          "__BROWSER__": false
+        }
+      }
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-fusion"
+    ]
+  },
+  "engines": {
+    "node": ">=8.9.4 <9.0.0",
+    "npm": ">=5.6.0",
+    "yarn": ">=1.4.0"
+  },
+  "private": true,
+  "files": [
+    "dist",
+    "src",
+    "!__tests__"
+  ]
+}
