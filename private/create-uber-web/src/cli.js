@@ -5,19 +5,22 @@
 import sade from 'sade';
 import {exec} from '@dubstep/core';
 import {scaffold} from './commands/scaffold.js';
+import {upgrade} from './commands/upgrade.js';
 import {provision} from './commands/provision.js';
 
 process.on('unhandledRejection', e => console.log(e.stack));
 
-const cli = sade('npx @uber/create-uber-web');
+const cli = sade('create-uber-web');
+
+cli.version(require('../package.json').version);
 
 cli
   .command('scaffold')
   .describe('Scaffold a new project structure locally')
-  .option('--type', 'website, fusion-plugin, react-component or library')
-  .option('--name', 'Project name')
-  .option('--description', 'Project description')
-  .option('--team', 'Team name')
+  .option('--type', 'website, fusion-plugin, react-component or library', '')
+  .option('--name', 'Project name', '')
+  .option('--description', 'Project description', '')
+  .option('--team', 'Team name', '')
   .option('--audience', 'external or internal')
   .option('--local-path, -l', 'Use a local folder as the template')
   .option('--skip-install', 'Avoid running `yarn install`')
@@ -27,10 +30,10 @@ cli
   ])
   .action(args => {
     const {
-      type = '',
-      name = '',
-      description = '',
-      team = '',
+      type,
+      name,
+      description,
+      team,
       audience,
       l: localPathShorthand,
       'local-path': localPath,
@@ -50,8 +53,19 @@ cli
   });
 
 cli
+  .command('upgrade')
+  .describe('Upgrade dependencies')
+  .option('--dir', 'Project folder', '.')
+  .option('--skip-install', 'Avoid running `yarn install`')
+  .action(args => {
+    const {dir, 'skip-install': skipInstall = false} = args;
+    upgrade({dir, skipInstall});
+  });
+
+cli
   .command('provision')
   .describe('Publish a web application')
   .action(provision);
 
+if (process.argv.length === 2) process.argv.push('--help');
 cli.parse(process.argv);
