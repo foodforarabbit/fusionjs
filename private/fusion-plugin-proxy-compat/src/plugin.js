@@ -84,6 +84,7 @@ function getProxyHeaders(ctx, proxyConfig = {}) {
     {
       'x-uber-source': appName,
       'x-uber-app': appName,
+      ...(proxyConfig.uri ? {host: url.parse(proxyConfig.uri).host} : {}),
     },
     proxyConfig.headers || {}
   );

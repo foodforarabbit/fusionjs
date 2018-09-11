@@ -333,6 +333,25 @@ tape('x-uber-origin header handling', async t => {
   t.end();
 });
 
+tape('host header handling', async t => {
+  const mockCtx = {
+    method: 'GET',
+    headers: {
+      'x-uber-origin': 'abcd_lol',
+    },
+  };
+  const headersWithHost = getProxyHeaders(mockCtx, {
+    uri: 'https://this.that.com',
+  });
+  t.deepLooseEqual(headersWithHost, {
+    'x-uber-origin': 'abcd-lol,unknown-service',
+    'x-uber-source': 'unknown-service',
+    'x-uber-app': 'unknown-service',
+    host: 'this.that.com',
+  });
+  t.end();
+});
+
 tape('decider', async t => {
   const app = new App('el', el => el);
   app.enhance(SSRDeciderToken, ProxyDecider);
