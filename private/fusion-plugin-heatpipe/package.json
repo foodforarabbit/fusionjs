@@ -53,7 +53,7 @@
     "prepublish": "npm run transpile"
   },
   "engines": {
-    "node": ">=8.3.0",
+    "node": "^8.11.4",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
