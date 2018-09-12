@@ -35,7 +35,6 @@
     "fusion-test-utils": "^1.0.0",
     "fusion-tokens": "^1.0.0",
     "@uber/fusion-plugin-m3": "^1.0.0",
-    "@uber/node-heatpipe-publisher": "^1.4.2",
     "fusion-plugin-universal-events": "^1.0.0",
     "nyc": "^11.4.1",
     "prettier": "1.10.2",
@@ -59,11 +58,13 @@
     "yarn": ">=1.0.0"
   },
   "private": true,
+  "dependencies": {
+    "@uber/node-heatpipe-publisher": "^1.4.2"
+  },
   "peerDependencies": {
     "fusion-core": "^1.0.0",
     "fusion-tokens": "^1.0.0",
     "@uber/fusion-plugin-m3": "^1.0.0",
-    "@uber/node-heatpipe-publisher": "^1.4.2",
     "fusion-plugin-universal-events": "^1.0.0"
   }
 }
