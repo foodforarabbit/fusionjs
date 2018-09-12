@@ -1,5 +1,7 @@
 // @flow
 
+/* eslint-disable */
+
 /*
  Purpose
  1) Data for @font-face generation

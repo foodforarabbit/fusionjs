@@ -37,7 +37,8 @@ function replaceImport(oldImport, newImport, localSourcePath) {
     ImportDeclaration(path /*: Object */, state) {
       const thisSource = path.node.source.value;
       const isRelativeSource = thisSource.startsWith('.');
-      const thisDirName = state.file.opts.filename && pathUtils.dirname(state.file.opts.filename);
+      const thisDirName =
+        state.file.opts.filename && pathUtils.dirname(state.file.opts.filename);
       const absoluteSource = isRelativeSource
         ? pathUtils.resolve(thisDirName, thisSource)
         : thisSource;
@@ -46,7 +47,8 @@ function replaceImport(oldImport, newImport, localSourcePath) {
       if (
         // If localSourcePath supplied, accept any source that resolves to localSourcePath
         localSourcePath
-          ? absoluteSource !== pathUtils.join(state.file.opts.cwd, localSourcePath)
+          ? absoluteSource !==
+            pathUtils.join(state.file.opts.cwd, localSourcePath)
           : thisSource !== oldSource
       ) {
         return;
@@ -68,7 +70,7 @@ function replaceImport(oldImport, newImport, localSourcePath) {
       if (specifiersToKeep.length !== path.node.specifiers.length) {
         // add new import
         if (isRelativeSource) {
-          newImport = newImport.replace(/(?:'|").*(?:'|")/, `'${thisSource}'`)
+          newImport = newImport.replace(/(?:'|").*(?:'|")/, `'${thisSource}'`);
         }
         addNewImport = true;
       }

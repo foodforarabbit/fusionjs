@@ -16,25 +16,31 @@ async function updateFonts() {
     // clear old font files
     await util.promisify(rimraf)('src/static/fonts');
     // copy new files
-    await ncp(path.resolve(__dirname, './resources/font-files'), 'src/static/fonts');
+    await ncp(
+      path.resolve(__dirname, './resources/font-files'),
+      'src/static/fonts'
+    );
     // copy new config
-    await util.promisify(fs.copyFile)(path.resolve(__dirname, './resources/font-config.js'), 'src/config/fonts.js');
-  } catch(e) {
+    await util.promisify(fs.copyFile)(
+      path.resolve(__dirname, './resources/font-config.js'),
+      'src/config/fonts.js'
+    );
+  } catch (e) {
     return log('font update failed:', e);
   }
   await updateImports(
-    `import {withBook} from ''`,
-    `import {withMoveRegular} from ''`,
+    `import {withNews} from ''`,
+    `import {withMoveTextRegular} from ''`,
     'src/config/fonts'
   );
   await updateImports(
-    `import {withNews} from ''`,
-    `import {withMoveBold} from ''`,
+    `import {withBook} from ''`,
+    `import {withMoveTextLight} from ''`,
     'src/config/fonts'
   );
   await updateImports(
     `import {withThin} from ''`,
-    `import {withMoveLight} from ''`,
+    `import {withMoveTextLight} from ''`,
     'src/config/fonts'
   );
 }
