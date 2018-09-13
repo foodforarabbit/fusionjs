@@ -2,7 +2,7 @@
 
 Improves the web application security by setting headers, such as Content Security Policy, X-Frame-Options, etc.
 
-By default it turns on [frameguardind](https://helmetjs.github.io/docs/frameguard/) to protect against [clickjacking attacks](https://en.wikipedia.org/wiki/Clickjacking), and uses a default Uber content security policy to mitigate [cross-site scripting (XSS) attacks](https://en.wikipedia.org/wiki/Cross-site_scripting).
+By default it turns on [frameguard](https://helmetjs.github.io/docs/frameguard/) to protect against [clickjacking attacks](https://en.wikipedia.org/wiki/Clickjacking), and uses a default Uber content security policy to mitigate [cross-site scripting (XSS) attacks](https://en.wikipedia.org/wiki/Cross-site_scripting).
 
 To understand more about Content Security Policy, see [https://helmetjs.github.io/docs/csp/](https://helmetjs.github.io/docs/csp/)
 
@@ -124,7 +124,7 @@ Optional. Server-only. Determines whether to use x-frame-options headers. Defaul
 import {SecureHeadersCSPConfigToken} from 'fusion-plugin-secure-headers';
 ```
 
-Optional. Server-only. Content security policy configuration. Defaults to an empty object.
+Optional. Server-only. Content security policy configuration. Defaults to an empty object. This token can be registered as a value, or as a function that returns an object that conforms to `CSPConfig`. This allows for dynamic setup of Content Security Policies, possibly from a `Plugin`.
 
 ###### Types
 
@@ -147,3 +147,23 @@ type CSPConfig = {
 * `allowInsecureContent` - If true, removes the `blockAllMixedContent` from the policy. Optional. Defaults to false.
 * `allowMixedContent` - Alias for `allowInsecureContent`.
 * `analyticsServiceNames` - A list of analytics service names. Optional. Defaults to `['googleAnalytics']`
+
+
+###### Examples
+
+An example of dynamic setup of Content Security Policies using a dependency enhancer:
+
+```js
+app.enhance(SecureHeadersCSPConfigToken, csp => {
+  return createPlugin({
+    deps: {
+      customerConfig: CustomerConfigToken,
+    },
+    provides: ({customerConfig}) => (ctx: Context): CSPConfig => {
+      const config = customerConfig.loadCustomerConfig(ctx);
+      csp.overrides.frameAncestors = config.frameAncestors;
+      return csp;
+    },
+  });
+});
+```

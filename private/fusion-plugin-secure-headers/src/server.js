@@ -21,6 +21,9 @@ export default __NODE__ &&
       const serviceName = process.env.SVC_ID;
       return async (ctx, next) => {
         const secureHeaderMiddlewares = [];
+        if (typeof cspConfig === 'function') {
+          cspConfig = await cspConfig(ctx);
+        }
         secureHeaderMiddlewares.push(
           buildCSPMiddleware({
             ctx,

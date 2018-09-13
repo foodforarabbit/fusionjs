@@ -79,3 +79,25 @@ test('basics - csp override', async t => {
   t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
   t.end();
 });
+
+test('basics - csp override with a function', async t => {
+  const app = createTestFixture();
+  const overrideFunc = function() {
+    return {
+      overrides: {
+        connectSrc: ['test.uber.com'],
+      },
+    };
+  };
+  app.register(SecureHeadersCSPConfigToken, overrideFunc);
+  t.plan(3);
+  const simulator = getSimulator(app);
+  const ctx = await simulator.render('/test-url', fixtureHeaders);
+  t.equal(
+    ctx.response.header['content-security-policy'],
+    fixtureCSPWithOverrides(ctx.nonce)
+  );
+  t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
+  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
+  t.end();
+});
