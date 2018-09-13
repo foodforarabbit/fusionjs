@@ -4,20 +4,22 @@ import isUUID from 'validator/lib/isUUID';
 
 import type {PluginConfig} from '../types';
 import type {Context} from 'fusion-core';
+import type {CookiesSetOptions} from 'koa';
 
 export function setCookieId(
   ctx: Context,
   cookieId: string,
   {cookieDomain, cookieIdKey, cookieAge}: PluginConfig
 ) {
-  ctx.cookies.set(cookieIdKey, cookieId, {
+  const options: $Shape<CookiesSetOptions> = {
     domain: cookieDomain,
     expires: new Date(Date.now() + cookieAge * 1000),
-  });
+  };
+  ctx.cookies.set(cookieIdKey, cookieId, options);
 }
 
-export function getCookieId(ctx: Context, key: string) {
-  const cookieId = ctx.cookies.get(key);
+export function getCookieId(ctx: Context, key: string): string {
+  const cookieId = ctx.cookies.get(key) || '';
 
   // Check if our current cookie UUID is valid and try to reuse it.
   if (isValidUUID(cookieId, 4)) {
