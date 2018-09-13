@@ -21,7 +21,9 @@
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest && yarn flow",
     "cover": "yarn lint && yarn flow && yarn test",
-    "prepublish": "yarn build"
+    "clean": "rm -rf dist",
+    "transpile": "npm run clean && cup build",
+    "prepublish": "npm run transpile"
   },
   "watch": {
     "build": {
