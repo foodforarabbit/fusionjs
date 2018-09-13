@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-marketing",
   "description": "Fusion.js plugin for web marketing attributions.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scaffold-version": "0.0.19",
   "author": " <dennis.lin@uber.com>",
   "repository": {
