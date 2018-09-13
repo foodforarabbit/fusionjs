@@ -72,6 +72,7 @@ export function shouldSkipTracking(ctx: Context, trackingInfo: any) {
     path.startsWith('/api') ||
     path.startsWith('/_events') ||
     path.startsWith('/_static') ||
+    path.startsWith('/_translations') ||
     // file extensions
     path.endsWith('.js') ||
     path.endsWith('.css') ||
