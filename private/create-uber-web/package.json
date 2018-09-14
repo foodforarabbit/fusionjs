@@ -1,6 +1,6 @@
 {
   "name": "@uber/create-uber-web",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CLI to scaffold a new Uber web application or library",
   "repository": {
     "type": "git",
