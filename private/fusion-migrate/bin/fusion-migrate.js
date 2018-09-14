@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 const args = require('args');
+const reset = require('../src/reset.js');
 const migrate = require('../src/migrate.js');
 const upgrade = require('../src/upgrade.js');
 const updateFonts = require('../src/update-fonts.js');
 
+args.command('reset', 'reset from a failed migration', reset);
 args.command('migrate', 'run an automated migration', migrate);
 args.command('upgrade', 'upgrade to latest scaffold', upgrade);
 args.option('pause', 'pause on each step', false);

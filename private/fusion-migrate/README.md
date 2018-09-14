@@ -8,8 +8,16 @@ Note: running migrations will modify source code in-place. Make sure you have no
 
 ```sh
 # from the root directory of your project/plugin repo
-yarn add @uber/fusion-migrate
-yarn fusion-migrate
+yarn global add @uber/fusion-migrate
+git checkout -b fusion-migrate
+ufusion migrate
+```
+
+If your migration fails, run:
+
+```sh
+ufusion reset
+ufusion migrate
 ```
 
 ### What to do if migration doesn't work

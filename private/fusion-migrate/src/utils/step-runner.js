@@ -8,13 +8,7 @@ module.exports = class StepRunner {
     this.dir = dir;
     this.version = version;
     this.reportPath = path.join(this.dir, 'migration-report.json');
-    if (fs.existsSync(this.reportPath)) {
-      this.completedSteps = JSON.parse(
-        fs.readFileSync(this.reportPath).toString()
-      ).completedSteps;
-    } else {
-      this.completedSteps = [];
-    }
+    this.completedSteps = [];
   }
   async step(fn, stepId) {
     if (!stepId)
