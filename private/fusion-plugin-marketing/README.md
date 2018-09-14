@@ -43,10 +43,6 @@ export default () => {
   const app = new App(...);
   // ...
   app.register(UberMarketingToken, UberMarketingPlugin);
-  // SPECIFY YOUR DOMAIN NAME
-  app.register(UberMarketingConfigToken, {
-  	serverDomain: 'awesome.uber.com',
-  });
   // ...
   return app;
 };
@@ -64,13 +60,13 @@ See ["Setup"](#setup)
 
 #### `UberMarketingConfigToken`
 
-Required. The configuration.
+Optional. The configuration. Mainly for overriding cookie settings.
 ```
 export type PluginConfig = {
   cookieAge: number,
   cookieIdKey: string,
-  cookieDomain: string, // REQUIRED IF APP NOT DEPLOYED ON *.uber.com
-  serverDomain: string, // REQUIRED, SPECIFY YOUR DOMAIN NAME
+  serverDomain: string, // by default derived from the HTTP `host` header OR 'UNKNOWN'
+  cookieDomain: string, // by default derived root domain from serverDomain OR null
   disableHeatpipe: boolean,
 };
 ```

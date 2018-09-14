@@ -12,9 +12,12 @@ export function setCookieId(
   {cookieDomain, cookieIdKey, cookieAge}: PluginConfig
 ) {
   const options: $Shape<CookiesSetOptions> = {
-    domain: cookieDomain,
     expires: new Date(Date.now() + cookieAge * 1000),
   };
+  if (cookieDomain) {
+    options.domain = cookieDomain;
+  }
+
   ctx.cookies.set(cookieIdKey, cookieId, options);
 }
 

@@ -2,6 +2,7 @@
 
 import {createPlugin, memoize} from 'fusion-core';
 import stringify from 'fast-safe-stringify';
+import parseDomain from 'parse-domain';
 import type {FusionPlugin, Context} from 'fusion-core';
 import type {PluginServiceType, PluginConfig} from './types.js';
 
@@ -19,7 +20,7 @@ const plugin =
   __NODE__ &&
   createPlugin({
     deps: {
-      userConfig: UberMarketingConfigToken,
+      userConfig: UberMarketingConfigToken.optional,
       heatpipe: HeatpipeToken,
       logger: LoggerToken,
     },
@@ -31,20 +32,20 @@ const plugin =
 
         constructor(ctx) {
           this.ctx = ctx;
+
+          const reqHostname = ctx.hostname || 'UNKNOWN';
+          const parsedHostname = parseDomain(reqHostname) || {};
+          const {domain, tld} = parsedHostname;
+          const rootDomain = domain && tld ? `.${domain}.${tld}` : null;
+
           this.config = {
             cookieAge: 31536000,
             cookieIdKey: 'marketing_vistor_id',
-            cookieDomain: __DEV__ ? 'localhost' : '.uber.com',
-            serverDomain: '', // TODO: consolidate this to a single meta field
+            cookieDomain: rootDomain,
+            serverDomain: reqHostname,
             disableHeatpipe: false,
             ...userConfig,
           };
-
-          if (!this.config.serverDomain) {
-            throw new Error(
-              '[fusion-plugin-marketing] MISSING config.serverDomain = YOUR_WEB_APP_DOMAIN'
-            );
-          }
 
           this.visitorUuid = getCookieId(ctx, this.config.cookieIdKey);
         }
