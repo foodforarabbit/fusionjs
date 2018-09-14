@@ -15,7 +15,10 @@ module.exports = babel => {
         const props = refPath.parentPath.node.attributes;
         const {title, link, meta, htmlAttributes} = props.reduce(
           (acc, prop) => {
-            acc[prop.name.name] = prop;
+            const propName = prop && prop.name && prop.name.name;
+            if (propName) {
+              acc[propName] = prop;
+            }
             return acc;
           },
           {}
@@ -111,6 +114,9 @@ module.exports = babel => {
 };
 
 function removeNonBlocking(item) {
+  if (!item.value) {
+    return;
+  }
   if (item.value.type !== 'JSXExpressionContainer') {
     return;
   }

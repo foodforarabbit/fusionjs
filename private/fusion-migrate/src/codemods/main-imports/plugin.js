@@ -16,9 +16,14 @@ module.exports = state => (/*babel*/) => {
         if (rewrites[sourceName]) {
           let rewrite = rewrites[sourceName];
           if (typeof rewrite === 'function') {
-            rewrite = relative(dirname(s.file.opts.filename), rewrite(state));
-            if (!rewrite.startsWith('.')) {
-              rewrite = './' + rewrite;
+            rewrite = rewrite(state);
+            if (!rewrite) {
+              rewrite = 'TODO';
+            } else {
+              rewrite = relative(dirname(s.file.opts.filename), rewrite);
+              if (!rewrite.startsWith('.')) {
+                rewrite = './' + rewrite;
+              }
             }
           }
           path.node.source.value = rewrite;

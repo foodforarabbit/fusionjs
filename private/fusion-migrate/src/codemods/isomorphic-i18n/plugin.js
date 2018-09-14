@@ -21,7 +21,7 @@ module.exports = babel => {
       }
       const args = callPath.node.arguments;
       // called with string literal, can automatically migrate to <Translate> component
-      if (args.length && args[0].type === 'StringLiteral') {
+      if (args && args.length && args[0].type === 'StringLiteral') {
         const attributePath = refPath.parentPath.parentPath.parentPath;
         const jsxElementPath = attributePath.parentPath.parentPath;
         // checks for props passed to native elements. i.e <input placeholder={i18n.t('test')} />
