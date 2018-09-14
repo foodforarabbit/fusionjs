@@ -181,41 +181,46 @@ function getConnectFunction(dependencyName) {
 }
 
 function getPrepareFunction(dataDependency) {
-  // TODO: figure out how to add comments
   let returnStatement;
+  const paramsExpression = t.memberExpression(
+    t.memberExpression(t.identifier('props'), t.identifier('match')),
+    t.identifier('params')
+  );
   if (Array.isArray(dataDependency)) {
-    returnStatement = t.returnStatement(
-      t.callExpression(
-        t.memberExpression(t.identifier('Promise'), t.identifier('all')),
-        [
-          t.arrayExpression(
-            dataDependency.map(dep => {
-              return t.callExpression(
-                t.memberExpression(
-                  t.identifier('props'),
-                  dep.type === 'StringLiteral' ? t.identifier(dep.value) : dep,
-                  dep.type !== 'StringLiteral'
-                ),
-                []
-              );
-            })
-          ),
-        ]
-      )
+    returnStatement = t.callExpression(
+      t.memberExpression(t.identifier('Promise'), t.identifier('all')),
+      [
+        t.arrayExpression(
+          dataDependency.map(dep => {
+            return t.callExpression(
+              t.memberExpression(
+                t.identifier('props'),
+                dep.type === 'StringLiteral' ? t.identifier(dep.value) : dep,
+                dep.type !== 'StringLiteral'
+              ),
+              [paramsExpression]
+            );
+          })
+        ),
+      ]
     );
   } else {
-    returnStatement = t.returnStatement(
-      t.callExpression(
-        t.memberExpression(
-          t.identifier('props'),
-          dataDependency.value.expression ||
-            t.identifier(dataDependency.value.value),
-          dataDependency.value.type !== 'StringLiteral'
-        ),
-        []
-      )
+    returnStatement = t.callExpression(
+      t.memberExpression(
+        t.identifier('props'),
+        dataDependency.value.expression ||
+          t.identifier(dataDependency.value.value),
+        dataDependency.value.type !== 'StringLiteral'
+      ),
+      [paramsExpression]
     );
   }
+  returnStatement = t.returnStatement(
+    t.callExpression(
+      t.memberExpression(returnStatement, t.identifier('catch')),
+      [t.arrowFunctionExpression([], t.blockStatement([]))]
+    )
+  );
   addComment(
     returnStatement,
     'TODO: You probably want to add a check to see if the data exists, or is loading.'
@@ -247,11 +252,12 @@ function getRPCPromiseDeclaration(dependencyName, dependencyExpression) {
     t.VariableDeclarator(
       t.identifier(dependencyName),
       t.arrowFunctionExpression(
-        [],
+        [t.identifier('args')],
         t.blockStatement([
           t.returnStatement(
             t.callExpression(t.identifier('createRPCPromise'), [
               dependencyExpression,
+              t.identifier('args'),
             ])
           ),
         ])

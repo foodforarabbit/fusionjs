@@ -39,12 +39,12 @@ import App from '../app';
 import Trips from '../trips';
 import rpcIds from './rpcids';
 
-const other = () => {
-  return createRPCPromise(rpcIds.other);
+const other = args => {
+  return createRPCPromise(rpcIds.other, args);
 };
 
-const test = () => {
-  return createRPCPromise(rpcIds.test);
+const test = args => {
+  return createRPCPromise(rpcIds.test, args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -62,16 +62,19 @@ const _TestWithData2 = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return Promise.all([props[rpcIds.test](), props[rpcIds.other]()]);
+    return Promise.all([
+      props[rpcIds.test](props.match.params),
+      props[rpcIds.other](props.match.params),
+    ]).catch(() => {});
   })
 )(Test);
 
-const getUser = () => {
-  return createRPCPromise('getUser');
+const getUser = args => {
+  return createRPCPromise('getUser', args);
 };
 
-const getTrips = () => {
-  return createRPCPromise('getTrips');
+const getTrips = args => {
+  return createRPCPromise('getTrips', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -89,7 +92,10 @@ const _TripsWithData2 = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return Promise.all([props.getTrips(), props.getUser()]);
+    return Promise.all([
+      props.getTrips(props.match.params),
+      props.getUser(props.match.params),
+    ]).catch(() => {});
   })
 )(Trips);
 
@@ -141,12 +147,12 @@ import App from '../app';
 import Trips from '../trips';
 import rpcIds from './rpcids';
 
-const getUser = () => {
-  return createRPCPromise('getUser');
+const getUser = args => {
+  return createRPCPromise('getUser', args);
 };
 
-const getTrips = () => {
-  return createRPCPromise('getTrips');
+const getTrips = args => {
+  return createRPCPromise('getTrips', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -164,7 +170,10 @@ const _TripsWithData2 = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return Promise.all([props.getTrips(), props.getUser()]);
+    return Promise.all([
+      props.getTrips(props.match.params),
+      props.getUser(props.match.params),
+    ]).catch(() => {});
   })
 )(Trips);
 
@@ -182,7 +191,7 @@ const _UserWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getUser();
+    return props.getUser(props.match.params).catch(() => {});
   })
 )(User);
 
@@ -238,12 +247,12 @@ import App from '../app';
 import Trips from '../trips';
 import rpcIds from './rpcids';
 
-const getPartners = () => {
-  return createRPCPromise('getPartners');
+const getPartners = args => {
+  return createRPCPromise('getPartners', args);
 };
 
-const getUser = () => {
-  return createRPCPromise('getUser');
+const getUser = args => {
+  return createRPCPromise('getUser', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -261,12 +270,15 @@ const _PartnersWithData2 = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return Promise.all([props.getUser(), props.getPartners()]);
+    return Promise.all([
+      props.getUser(props.match.params),
+      props.getPartners(props.match.params),
+    ]).catch(() => {});
   })
 )(Partners);
 
-const getTrips = () => {
-  return createRPCPromise('getTrips');
+const getTrips = args => {
+  return createRPCPromise('getTrips', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -284,7 +296,10 @@ const _TripsWithData2 = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return Promise.all([props.getTrips(), props.getUser()]);
+    return Promise.all([
+      props.getTrips(props.match.params),
+      props.getUser(props.match.params),
+    ]).catch(() => {});
   })
 )(Trips);
 
@@ -335,8 +350,8 @@ import App from '../app';
 import Trips from '../trips';
 import rpcIds from './rpcids';
 
-const test = () => {
-  return createRPCPromise(rpcIds.test);
+const test = args => {
+  return createRPCPromise(rpcIds.test, args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -353,12 +368,12 @@ const _TestWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props[rpcIds.test]();
+    return props[rpcIds.test](props.match.params).catch(() => {});
   })
 )(Test);
 
-const getTrips = () => {
-  return createRPCPromise('getTrips');
+const getTrips = args => {
+  return createRPCPromise('getTrips', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -375,12 +390,12 @@ const _TripsWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getTrips();
+    return props.getTrips(props.match.params).catch(() => {});
   })
 )(Trips);
 
-const getUser = () => {
-  return createRPCPromise('getUser');
+const getUser = args => {
+  return createRPCPromise('getUser', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -397,7 +412,7 @@ const _AppWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getUser();
+    return props.getUser(props.match.params).catch(() => {});
   })
 )(App);
 
@@ -454,8 +469,8 @@ import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
 import TripsContainer from '../containers/trips-container';
 
-const getTrips = () => {
-  return createRPCPromise('getTrips');
+const getTrips = args => {
+  return createRPCPromise('getTrips', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -472,12 +487,12 @@ const _TripsContainerWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getTrips();
+    return props.getTrips(props.match.params).catch(() => {});
   })
 )(TripsContainer);
 
-const getUser = () => {
-  return createRPCPromise('getUser');
+const getUser = args => {
+  return createRPCPromise('getUser', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -494,7 +509,7 @@ const _AppContainerWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getUser();
+    return props.getUser(props.match.params).catch(() => {});
   })
 )(AppContainer);
 
@@ -558,8 +573,8 @@ import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
 import TripsContainer from '../containers/trips-container';
 
-const getTrips = () => {
-  return createRPCPromise(rpcIds.getTrips);
+const getTrips = args => {
+  return createRPCPromise(rpcIds.getTrips, args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -576,12 +591,12 @@ const _TripsContainerWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props[rpcIds.getTrips]();
+    return props[rpcIds.getTrips](props.match.params).catch(() => {});
   })
 )(TripsContainer);
 
-const getUser = () => {
-  return createRPCPromise(rpcIds.getUser);
+const getUser = args => {
+  return createRPCPromise(rpcIds.getUser, args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -598,7 +613,7 @@ const _AppContainerWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props[rpcIds.getUser]();
+    return props[rpcIds.getUser](props.match.params).catch(() => {});
   })
 )(AppContainer);
 
@@ -665,8 +680,8 @@ import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
 import TripsContainer from '../containers/trips-container';
 
-const getTrips = () => {
-  return createRPCPromise('getTrips');
+const getTrips = args => {
+  return createRPCPromise('getTrips', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -683,12 +698,12 @@ const _TripsContainerWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getTrips();
+    return props.getTrips(props.match.params).catch(() => {});
   })
 )(TripsContainer);
 
-const getUser = () => {
-  return createRPCPromise('getUser');
+const getUser = args => {
+  return createRPCPromise('getUser', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -705,7 +720,7 @@ const _AppContainerWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getUser();
+    return props.getUser(props.match.params).catch(() => {});
   })
 )(AppContainer);
 
@@ -765,8 +780,8 @@ import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
 import TripsContainer from '../containers/trips-container';
 
-const getTrips = () => {
-  return createRPCPromise('getTrips');
+const getTrips = args => {
+  return createRPCPromise('getTrips', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -783,12 +798,12 @@ const _TripsContainerWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getTrips();
+    return props.getTrips(props.match.params).catch(() => {});
   })
 )(TripsContainer);
 
-const getUser = () => {
-  return createRPCPromise('getUser');
+const getUser = args => {
+  return createRPCPromise('getUser', args);
 };
 
 // TODO: You may want to move this into the container component file
@@ -805,7 +820,7 @@ const _AppContainerWithData = compose(
   prepared(props => {
     // TODO: You probably want to add a check to see if the data exists, or is loading.
     // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
-    return props.getUser();
+    return props.getUser(props.match.params).catch(() => {});
   })
 )(AppContainer);
 
