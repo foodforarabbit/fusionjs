@@ -22,12 +22,12 @@
     "bootstrap": "rm -rf node_modules && yarn",
     "lint": "eslint src --fix",
     "flow": "flow check || true",
-    "build": "cup build && yarn lint",
+    "build": "cup build && eslint src",
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest && yarn flow",
     "cover": "yarn lint && yarn flow && yarn test",
     "storybook": "start-storybook -p 9000 -c src/storybook",
-    "prepublish": "yarn build"
+    "prepublish": "cup build && eslint src"
   },
   "watch": {
     "build": {
