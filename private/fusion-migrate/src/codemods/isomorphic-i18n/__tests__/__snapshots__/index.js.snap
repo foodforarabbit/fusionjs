@@ -39,17 +39,19 @@ function Test() {
     <div>
       <div>
         <div>
-          {
-            <Translate
-              id=\\"key\\"
-              data={{
-                a: 'lol',
-              }}
-            />
-          }
+          <Translate
+            id=\\"key\\"
+            data={{
+              a: 'lol',
+            }}
+          />
         </div>
-        <div>{<Translate id=\\"key\\" data={something} />}</div>
-        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <div>
+          <Translate id=\\"key\\" data={something} />
+        </div>
+        <div>
+          Hello <Translate id=\\"lol\\" />
+        </div>
         <Something a={<Translate id=\\"test\\" />} />
         <input placeholder={<Translate id=\\"another\\" />} />
       </div>
@@ -108,17 +110,19 @@ function Test() {
     <div>
       <div>
         <div>
-          {
-            <Translate
-              id=\\"key\\"
-              data={{
-                a: 'lol',
-              }}
-            />
-          }
+          <Translate
+            id=\\"key\\"
+            data={{
+              a: 'lol',
+            }}
+          />
         </div>
-        <div>{<Translate id=\\"key\\" data={something} />}</div>
-        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <div>
+          <Translate id=\\"key\\" data={something} />
+        </div>
+        <div>
+          Hello <Translate id=\\"lol\\" />
+        </div>
         <Something a={<Translate id=\\"test\\" />} />
         <input placeholder={<Translate id=\\"another\\" />} />
       </div>
@@ -176,17 +180,19 @@ function Test() {
     <div>
       <div>
         <div>
-          {
-            <Translate
-              id=\\"key\\"
-              data={{
-                a: 'lol',
-              }}
-            />
-          }
+          <Translate
+            id=\\"key\\"
+            data={{
+              a: 'lol',
+            }}
+          />
         </div>
-        <div>{<Translate id=\\"key\\" data={something} />}</div>
-        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <div>
+          <Translate id=\\"key\\" data={something} />
+        </div>
+        <div>
+          Hello <Translate id=\\"lol\\" />
+        </div>
         <Something a={<Translate id=\\"test\\" />} />
         <input placeholder={t('another')} />
       </div>
@@ -244,17 +250,19 @@ function Test() {
     <div>
       <div>
         <div>
-          {
-            <Translate
-              id=\\"key\\"
-              data={{
-                a: 'lol',
-              }}
-            />
-          }
+          <Translate
+            id=\\"key\\"
+            data={{
+              a: 'lol',
+            }}
+          />
         </div>
-        <div>{<Translate id=\\"key\\" data={something} />}</div>
-        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <div>
+          <Translate id=\\"key\\" data={something} />
+        </div>
+        <div>
+          Hello <Translate id=\\"lol\\" />
+        </div>
         <Something a={<Translate id=\\"test\\" />} />
         <input placeholder={t('another')} />
       </div>
@@ -304,16 +312,16 @@ function Test() {
     <div>
       <div>
         <div>
-          {
-            <Translate
-              id=\\"key\\"
-              data={{
-                a: 'lol',
-              }}
-            />
-          }
+          <Translate
+            id=\\"key\\"
+            data={{
+              a: 'lol',
+            }}
+          />
         </div>
-        <div>Hello {<Translate id=\\"lol\\" />}</div>
+        <div>
+          Hello <Translate id=\\"lol\\" />
+        </div>
         <Something a={<Translate id=\\"test\\" />} />
       </div>
     </div>

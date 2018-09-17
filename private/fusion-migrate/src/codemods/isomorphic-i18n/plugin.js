@@ -34,25 +34,31 @@ module.exports = babel => {
           return;
         }
         shouldAddTranslateImport = true;
-        // Replace with <Translate> component with key and optional data props
-        callPath.replaceWith(
-          t.JSXElement(
-            t.JSXOpeningElement(
-              t.JSXIdentifier('Translate'),
-              [
-                t.JSXAttribute(t.JSXIdentifier('id'), args[0]),
-                args.length === 2 &&
-                  t.JSXAttribute(
-                    t.JSXIdentifier('data'),
-                    t.JSXExpressionContainer(args[1])
-                  ),
-              ].filter(Boolean)
-            ),
-            t.JSXClosingElement(t.JSXIdentifier('Translate')),
-            [],
-            true
-          )
+        const element = t.JSXElement(
+          t.JSXOpeningElement(
+            t.JSXIdentifier('Translate'),
+            [
+              t.JSXAttribute(t.JSXIdentifier('id'), args[0]),
+              args.length === 2 &&
+                t.JSXAttribute(
+                  t.JSXIdentifier('data'),
+                  t.JSXExpressionContainer(args[1])
+                ),
+            ].filter(Boolean)
+          ),
+          t.JSXClosingElement(t.JSXIdentifier('Translate')),
+          [],
+          true
         );
+        // Replace with <Translate> component with key and optional data props
+        if (
+          callPath.parentPath.type === 'JSXExpressionContainer' &&
+          callPath.parentPath.parentPath.type === 'JSXElement'
+        ) {
+          callPath.parentPath.replaceWith(element);
+        } else {
+          callPath.replaceWith(element);
+        }
       } else {
         // called with non-string literal. Cannot manually migrate
         shouldAddI18nCompatImport = true;
