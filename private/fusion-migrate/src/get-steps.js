@@ -30,6 +30,10 @@ const modRemoveBedrockRenderer = require('./codemods/remove-bedrock-renderer/plu
 const modProxies = require('./codemods/compat-plugin-proxies/plugin.js');
 const modRpc = require('./codemods/bedrock-rpc/plugin.js');
 const modHoistRoutes = require('./codemods/hoist-routes/plugin.js');
+const modIndexRedirect = require('./codemods/mod-index-redirect/plugin.js');
+const modRedirect = require('./codemods/mod-redirect/plugin.js');
+const modIndexRoute = require('./codemods/mod-index-route/plugin.js');
+const modReactRouter = require('./codemods/mod-react-router-4/plugin.js');
 const modMainImports = require('./codemods/main-imports/plugin.js');
 const modSentryConfig = require('./codemods/sentry-config/plugin.js');
 const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
@@ -208,6 +212,34 @@ function get14Steps(options) {
     ),
     getStep('mod-react-head', () =>
       codemodStep({...options, plugin: modReactHead})
+    ),
+    getStep('mod-redirect', () =>
+      codemodStep({
+        ...options,
+        plugin: modRedirect,
+        filter: filterMatchRoutes,
+      })
+    ),
+    getStep('mod-index-redirect', () =>
+      codemodStep({
+        ...options,
+        plugin: modIndexRedirect,
+        filter: filterMatchRoutes,
+      })
+    ),
+    getStep('mod-index-route', () =>
+      codemodStep({
+        ...options,
+        plugin: modIndexRoute,
+        filter: filterMatchRoutes,
+      })
+    ),
+    getStep('mod-react-router', () =>
+      codemodStep({
+        ...options,
+        plugin: modReactRouter,
+        filter: filterMatchRoutes,
+      })
     ),
     getStep('mod-hoist-routes', () =>
       codemodStep({

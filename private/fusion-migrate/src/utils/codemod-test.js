@@ -36,3 +36,4 @@ function formatter(code) {
     parser: 'babylon',
   });
 }
+module.exports.format = formatter;

@@ -1,8 +1,8 @@
-const {join} = require('path');
 const {astOf} = require('../../utils');
 const ensureImportDeclaration = require('../../utils/ensure-import-declaration.js');
+const getProgram = require('../../utils/get-program.js');
 
-const compatModules = ['Route', 'IndexRoute', 'Redirect', 'IndexRedirect'];
+const compatModules = ['Route', 'Redirect'];
 module.exports = routePrefix => babel => {
   const t = babel.types;
   routePrefix = stripLeadingSlash(routePrefix);
@@ -21,39 +21,30 @@ module.exports = routePrefix => babel => {
           return;
         }
         state.didHoistRoutes = true;
+        const program = getProgram(path);
+        const body = program.node.body;
         ensureImportDeclaration(
-          path.parent.body,
-          `import {Router4Compat} from '@uber/fusion-plugin-react-router-v3-compat';`
+          body,
+          `import {Redirect} from 'fusion-plugin-react-router'`
+        );
+        ensureImportDeclaration(
+          body,
+          `import {Route} from 'fusion-plugin-react-router'`
+        );
+        ensureImportDeclaration(
+          body,
+          `import {Switch} from 'fusion-plugin-react-router'`
         );
         const routesIdentifier = path.scope.generateUidIdentifier('routes');
         path.traverse({
           JSXIdentifier(jsxPath) {
             if (
-              jsxPath.parent.type === 'JSXOpeningElement' ||
-              jsxPath.parent.type === 'JSXClosingElement'
-            ) {
-              // Renames compatModules to V3
-              if (compatModules.includes(jsxPath.node.name)) {
-                jsxPath.node.name = jsxPath.node.name + 'V3';
-                ensureImportDeclaration(
-                  path.parent.body,
-                  `import {${
-                    jsxPath.node.name
-                  }} from '@uber/fusion-plugin-react-router-v3-compat';`
-                );
-              }
-            } else if (
               routePrefix &&
               jsxPath.parent.type === 'JSXAttribute' &&
-              compatModules.includes(
-                jsxPath.parentPath.parent.name.name.replace('V3', '')
-              )
+              compatModules.includes(jsxPath.parentPath.parent.name.name)
             ) {
               // Messing around with paths to play nicely with route prefixes
-              const parentName = jsxPath.parentPath.parent.name.name.replace(
-                'V3',
-                ''
-              );
+              const parentName = jsxPath.parentPath.parent.name.name;
               if (
                 parentName == 'Route' &&
                 jsxPath.node.name === 'path' &&
@@ -67,17 +58,6 @@ module.exports = routePrefix => babel => {
                 if (routePath === routePrefix) {
                   jsxPath.parent.value.value = '/';
                 }
-              } else if (
-                ['Redirect', 'IndexRedirect'].includes(parentName) &&
-                jsxPath.node.name === 'to' &&
-                jsxPath.parent.value.type === 'StringLiteral'
-              ) {
-                // Adds routePrefix to RedirectV3 and IndexRedirectV3 components
-                jsxPath.parent.value.value = join(
-                  '/',
-                  routePrefix,
-                  jsxPath.parent.value.value
-                );
               }
             }
           },
@@ -92,8 +72,11 @@ module.exports = routePrefix => babel => {
           );
         } else {
           // hoists routes out of `getRoutes` function
+          let replacedReturn = false;
           path.traverse({
             ReturnStatement(returnPath) {
+              if (replacedReturn) return;
+              replacedReturn = true;
               returnPath.replaceWith(
                 t.VariableDeclaration('const', [
                   t.VariableDeclarator(
@@ -108,21 +91,19 @@ module.exports = routePrefix => babel => {
             path.node.declaration.body.body
           );
         }
-        // Updates export to use <Route4Compat>
+        let routesPath = null;
         path.parentPath.traverse({
           VariableDeclaration(declarationPath) {
             if (declarationPath.node.declarations[0].id === routesIdentifier) {
-              declarationPath.insertAfter(
-                astOf(
-                  `export default <Router4Compat v3Routes={[${
-                    routesIdentifier.name
-                  }]} />`
-                )
-              );
+              routesPath = declarationPath;
+              declarationPath.insertBefore();
             }
           },
         });
         path.remove();
+        routesPath.insertAfter(
+          astOf(`export default ${routesIdentifier.name};`)
+        );
       },
     },
   };

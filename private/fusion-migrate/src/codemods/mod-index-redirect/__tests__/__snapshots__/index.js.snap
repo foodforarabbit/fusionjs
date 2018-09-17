@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index-redirect positive-match: positive-match 1`] = `
+"import React from 'react';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+
+export default (
+  <Route component={AppContainer} path=\\"prefix\\">
+    <IndexRedirect to=\\"/test\\" />
+  </Route>
+);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React from 'react';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+export default (
+  <Route component={AppContainer} path=\\"prefix\\">
+    <Route
+      path=\\"/\\"
+      exact
+      render={props => {
+        return <Redirect to=\\"/test\\" />;
+      }}
+    />
+  </Route>
+);
+"
+`;

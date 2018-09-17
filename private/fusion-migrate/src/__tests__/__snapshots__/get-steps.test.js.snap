@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routing codemods 1`] = `
+"import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
+import {prepared} from 'fusion-react-async';
+import {connect} from 'react-redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {compose} from 'redux';
+
+const E = args => {
+  return createRPCPromise('E', args);
+}; // TODO: You may want to move this into the container component file
+
+const _EWithData = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      E,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return props.E(props.match.params).catch(() => {});
+  })
+)(E);
+
+const A = args => {
+  return createRPCPromise('A', args);
+}; // TODO: You may want to move this into the container component file
+
+const _CWithData = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      A,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return props.A(props.match.params).catch(() => {});
+  })
+)(C);
+
+const getB = args => {
+  return createRPCPromise(rpcIds.getB, args);
+};
+
+const getA = args => {
+  return createRPCPromise(rpcIds.getA, args);
+}; // TODO: You may want to move this into the container component file
+
+const _HomeContainerWithData2 = compose(
+  connect(
+    state => {
+      // TODO: get things from state you need here
+      return {};
+    },
+    {
+      getA,
+      getB,
+    }
+  ),
+  prepared(props => {
+    // TODO: You probably want to add a check to see if the data exists, or is loading.
+    // See https://engdocs.uberinternal.com/web/docs/guides/fetching-data/#use-rpc-method-in-a-component
+    return Promise.all([
+      props[rpcIds.getA](props.match.params),
+      props[rpcIds.getB](props.match.params),
+    ]).catch(() => {});
+  })
+)(HomeContainer);
+
+const _routes = (
+  <Route
+    path=\\"/\\"
+    trackingId=\\"app\\"
+    render={_props => {
+      return (
+        <AppContainer {..._props}>
+          <Switch>
+            <Route
+              path={_props.match.path + '/'}
+              exact
+              component={_HomeContainerWithData2}
+              trackingId=\\"home\\"
+            />
+            <Route
+              path={_props.match.path + '/a'}
+              component={A}
+              trackingId=\\"a\\"
+              exact
+            />
+            <Route
+              path={_props.match.path + '/b'}
+              trackingId=\\"b\\"
+              render={_props2 => {
+                return (
+                  <B {..._props2}>
+                    <Switch>
+                      <Route
+                        path={_props2.match.path + '/'}
+                        exact
+                        render={props => {
+                          return <Redirect to=\\"/c\\" />;
+                        }}
+                      />
+                      <Route
+                        path={_props2.match.path + '/c'}
+                        component={_CWithData}
+                        trackingId=\\"c\\"
+                        exact
+                      />
+                      <Route
+                        path={_props2.match.path + '/e'}
+                        component={_EWithData}
+                        trackingId=\\"E\\"
+                        exact
+                      />
+                      <Route
+                        path={_props2.match.path + '/d'}
+                        exact
+                        render={props => {
+                          return <Redirect to=\\"/c\\" />;
+                        }}
+                      />
+                    </Switch>
+                  </B>
+                );
+              }}
+              exact
+            />
+          </Switch>
+        </AppContainer>
+      );
+    }}
+    exact
+  />
+);
+
+export default _routes;
+"
+`;

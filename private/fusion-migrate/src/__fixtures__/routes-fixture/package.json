@@ -1,0 +1,13 @@
+{
+  "name": "routes-fixture",
+  "version": "0.0.0",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0",
+    "yarn": ">=1.0.0"
+  }
+}
