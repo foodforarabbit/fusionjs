@@ -10,9 +10,7 @@ module.exports = function checkMigrationVersion(dir) {
         'Could not find a project to migrate. Please run in a directory with a package.json',
     };
   }
-  const packageJSON = JSON.parse(fs.readFileSync(packageDir).toString());
-  const deps = packageJSON.dependencies || {};
-  const bedrockVersion = deps['@uber/bedrock'];
+  const bedrockVersion = getBedrockVersion(dir);
   if (!bedrockVersion) {
     return {
       error:
@@ -35,3 +33,17 @@ module.exports = function checkMigrationVersion(dir) {
     };
   }
 };
+
+function getBedrockVersion(dir) {
+  const packageDir = path.join(dir, 'package.json');
+  try {
+    const packageJSON = JSON.parse(fs.readFileSync(packageDir).toString());
+    const deps = packageJSON.dependencies || {};
+    if (deps['@uber/bedrock']) return deps['@uber/bedrock'];
+    else throw new Error('not found');
+  } catch (e) {
+    const parent = path.resolve(dir, '..');
+    if (parent !== `/`) return getBedrockVersion(parent);
+    else return null;
+  }
+}

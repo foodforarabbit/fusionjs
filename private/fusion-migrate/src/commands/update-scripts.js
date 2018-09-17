@@ -26,7 +26,11 @@ module.exports = async function updateScripts({srcDir, destDir}) {
     return ext === '.scss' || ext === '.sass';
   });
   if (sassFiles.length) {
-    destPackage.devDependencies['node-sass'] = '^4.9.0';
+    // package.json files in services in monorepo do not have devDependencies field (it's hoisted to the top package.json)
+    if (destPackage.devDependencies) {
+      destPackage.devDependencies['node-sass'] = '^4.9.0';
+    }
+    if (!destPackage.scripts) destPackage.scripts = {};
     destPackage.scripts['compile-sass'] =
       'node-sass src/client/stylesheets/ -o dist-client/';
     destPackage.scripts['predev'] = 'yarn compile-sass';

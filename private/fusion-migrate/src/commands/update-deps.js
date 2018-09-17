@@ -61,6 +61,9 @@ module.exports = async function updateDeps({
   );
   const destPackagePath = path.join(destDir, 'package.json');
   const destPackage = JSON.parse(fs.readFileSync(destPackagePath).toString());
+
+  if (destPackage.dependencies == null) return; // in monorepo, skip
+
   const opts = {
     cwd: destDir,
     stdio,
