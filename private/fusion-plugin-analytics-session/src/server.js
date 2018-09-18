@@ -11,6 +11,22 @@ function safeJSONParse(str) {
   }
 }
 
+const getCookieData = (cookieType, incomingCookieData) => {
+  if (cookieType.rolling && incomingCookieData) {
+    return incomingCookieData;
+  }
+
+  return JSON.stringify(generateCookieData(cookieType));
+};
+
+const getCookieExpiry = ({expires}) => {
+  if (!expires) {
+    return;
+  }
+
+  return new Date(Date.now() + expires);
+};
+
 export default __NODE__ &&
   createPlugin({
     deps: {
@@ -26,13 +42,16 @@ export default __NODE__ &&
     middleware: ({cookieType}) => {
       return (ctx, next) => {
         // TODO: only set cookie on certain requests
-        if (!ctx.cookies.get(cookieType.name)) {
+        const incomingCookieData = ctx.cookies.get(cookieType.name);
+
+        if (!incomingCookieData || cookieType.rolling) {
           ctx.cookies.set(
             cookieType.name,
-            JSON.stringify(generateCookieData(cookieType)),
+            getCookieData(cookieType, incomingCookieData),
             {
               overwrite: false,
               ...cookieType.options,
+              expires: getCookieExpiry(cookieType.options),
             }
           );
         }

@@ -34,6 +34,7 @@ tape('AnalyticsSessions server plugin - middleware', t => {
           options,
           {
             overwrite: false,
+            expires: undefined,
             ...FixtureCookieType.options,
           },
           'valid options'
@@ -45,6 +46,42 @@ tape('AnalyticsSessions server plugin - middleware', t => {
 
   const middleware = plugin.middleware({cookieType: FixtureCookieType});
   middleware(ctx, next);
+
+  t.end();
+});
+
+tape('AnalyticsSessions server plugin - rolling session', async t => {
+  const cookieSets = [];
+  const ctx = {
+    cookies: {
+      get: () => (cookieSets.length ? cookieSets[0] : null),
+      set: (name, value, options) => cookieSets.push(options),
+    },
+  };
+  const next = () => t.pass('called next()');
+
+  const middleware = plugin.middleware({
+    cookieType: {
+      ...FixtureCookieType,
+      rolling: true,
+      options: {
+        expires: 50,
+      },
+    },
+  });
+  middleware(ctx, next);
+  await new Promise(res => setTimeout(res, 200)); // add a small time delay
+  middleware(ctx, next);
+
+  t.equal(
+    Object.prototype.toString.call(cookieSets[0].expires),
+    '[object Date]',
+    'expires should be a date'
+  );
+  t.ok(
+    cookieSets[0].expires < cookieSets[1].expires,
+    'date should be rolling, ie. increasing each req'
+  );
 
   t.end();
 });

@@ -5,3 +5,4 @@ dist-tests/
 *.log
 coverage/
 .nyc_output/
+.idea/
