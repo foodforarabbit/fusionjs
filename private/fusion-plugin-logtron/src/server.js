@@ -18,11 +18,8 @@ export const TransformsToken = createToken('LogtronTransform');
 
 function validateItem(item) {
   item = item || {};
-  const {level, message} = item;
+  const {level} = item;
   if (!level || !supportedLevels.includes(level)) {
-    return false;
-  }
-  if (typeof message !== 'string') {
     return false;
   }
   return true;
@@ -123,10 +120,18 @@ export const handleLog = async (
   payload: PayloadType
 ) => {
   if (validateItem(payload)) {
-    const {level, message} = payload;
-    let {meta} = payload;
+    const {level} = payload;
+    let {meta, message} = payload;
     if (isErrorMeta(meta)) {
       meta = {...meta, ...(await transformError(meta))};
+    }
+    if (typeof message !== 'string') {
+      if (message && typeof message == 'object' && !meta) {
+        meta = message;
+        message = '';
+      } else {
+        message = '';
+      }
     }
     logger[level](message, meta);
   } else {

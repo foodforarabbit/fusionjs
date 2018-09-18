@@ -91,17 +91,109 @@ tape('server test handleLog with invalid payload', t => {
   t.end();
 });
 
-tape('server test handleLog with invalid payload message', t => {
+tape('server test handleLog object message', t => {
   const loggerMock = {
     error: spy(),
+    info: spy(),
+  };
+  const message = {
+    test: 'test',
   };
 
   // $FlowFixMe - missing logger methods in mock
   handleLog(loggerMock, function() {}, {
-    level: 'error',
-    message: {},
+    level: 'info',
+    message,
   });
-  t.ok(loggerMock.error.called, 'logger.error was called');
+  t.notok(loggerMock.error.called, 'logger.error was not called');
+  t.ok(loggerMock.info.called, 'calls info');
+  t.equal(
+    loggerMock.info.getCall(0).args[0],
+    '',
+    'calls with empty string for message'
+  );
+  t.equal(
+    loggerMock.info.getCall(0).args[1],
+    message,
+    'uses object message as meta'
+  );
+  t.end();
+});
+
+tape('server test handleLog with object message and meta', t => {
+  const loggerMock = {
+    error: spy(),
+    info: spy(),
+  };
+  const message = {
+    test: 'test',
+  };
+  const meta = {
+    a: 'b',
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog(loggerMock, function() {}, {
+    level: 'info',
+    message,
+    meta,
+  });
+  t.notok(loggerMock.error.called, 'logger.error was not called');
+  t.ok(loggerMock.info.called, 'calls info');
+  t.equal(
+    loggerMock.info.getCall(0).args[0],
+    '',
+    'calls with empty string for message'
+  );
+  t.equal(loggerMock.info.getCall(0).args[1], meta, 'uses meta as meta');
+  t.end();
+});
+
+tape('server test handleLog with null message and object meta', t => {
+  const loggerMock = {
+    error: spy(),
+    info: spy(),
+  };
+  const message = null;
+  const meta = {
+    a: 'b',
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog(loggerMock, function() {}, {
+    level: 'info',
+    message,
+    meta,
+  });
+  t.notok(loggerMock.error.called, 'logger.error was not called');
+  t.ok(loggerMock.info.called, 'calls info');
+  t.equal(
+    loggerMock.info.getCall(0).args[0],
+    '',
+    'calls with empty string for message'
+  );
+  t.equal(loggerMock.info.getCall(0).args[1], meta, 'uses meta as meta');
+  t.end();
+});
+
+tape('server test handleLog with invalid level', t => {
+  const loggerMock = {
+    error: spy(),
+    info: spy(),
+  };
+  const message = 'test';
+  const meta = {
+    a: 'b',
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog(loggerMock, function() {}, {
+    level: 'invalid',
+    message,
+    meta,
+  });
+  t.ok(loggerMock.error.called, 'logger.error called');
+  t.notok(loggerMock.info.called, 'does not call info');
   t.end();
 });
 
