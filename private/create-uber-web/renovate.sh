@@ -6,4 +6,5 @@ for d in ./templates/*/ ; do (
   rm -rf node_modules;
   rm -rf dist;
   rm -f yarn-error.log;
+  cp .gitignore dotgitignore
 ); done

@@ -89,6 +89,11 @@ export const scaffold = async ({
       const templatePath =
         localPath || `${__dirname}/../../templates/${project.type}`;
       await fse.copy(templatePath, project.name);
+      await fse.move(
+        `${project.name}/dotgitignore`,
+        `${project.name}/.gitignore`,
+        {overwrite: true},
+      );
     }),
     step('codemod package.json', async () => {
       await codemodPackageJson({...project, hoistDeps});
