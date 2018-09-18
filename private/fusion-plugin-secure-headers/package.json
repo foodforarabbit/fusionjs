@@ -1,11 +1,13 @@
 {
   "name": "@uber/fusion-plugin-secure-headers",
-  "description":
-    "A fusion plugin to improve the security by setting headers, such as Content Security Policy, X-Frame-Options...etc.",
-  "version": "3.0.5",
+  "description": "A fusion plugin to improve the security by setting headers, such as Content Security Policy, X-Frame-Options...etc.",
+  "version": "3.1.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
   "browser": {
@@ -44,13 +46,11 @@
     "lint": "eslint src",
     "transpile": "npm run clean && cup build",
     "build-test": "rm -rf dist-tests && cup build-tests",
-    "just-test":
-      "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
+    "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
     "test": "npm run build-test && npm run just-test",
     "cover": "npm run build-test && npm run just-cover",
     "just-cover": "nyc --reporter=cobertura npm run just-test",
-    "view-cover":
-      "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html",
+    "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html",
     "prepublish": "npm run transpile"
   },
   "dependencies": {
