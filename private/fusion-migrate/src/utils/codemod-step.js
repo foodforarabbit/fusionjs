@@ -23,6 +23,9 @@ module.exports = async function codemodStep({
       plugins,
       babelrc: false,
       parserOpts,
+      generatorOpts: {
+        retainLines: true,
+      },
     }).then(({code}) => {
       return {
         file: file,

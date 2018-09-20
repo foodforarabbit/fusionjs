@@ -4,6 +4,8 @@ const get = require('just-safe-get');
 const codemodStep = require('./utils/codemod-step.js');
 const composeSteps = require('./utils/compose-steps.js');
 const diffStep = require('./commands/diff-step.js');
+const fixEslintConfig = require('./utils/fix-eslint-config.js');
+const fixFusionRC = require('./utils/fix-fusionrc.js');
 const format = require('./utils/format.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const loadConfig = require('./utils/load-config.js');
@@ -49,6 +51,7 @@ const modRemoveEnzymeAdapter = require('./codemods/remove-enzyme-adapter/plugin.
 const modMoveTestUtils = require('./codemods/move-test-utils/plugin.js');
 const modServerSimulatorTests = require('./codemods/server-simulator-tests/plugin.js');
 const modRemoveStyletron = require('./codemods/remove-styletron-react-plugin/plugin.js');
+const modFixTracer = require('./codemods/fix-tracer/plugin.js');
 const modAddLegacyStyletronMixin = require('./codemods/add-legacy-styletron-mixin/plugin.js');
 const lintFix = require('./commands/lint-fix.js');
 const updateDeps = require('./commands/update-deps.js');
@@ -69,6 +72,8 @@ module.exports = function getSteps(options) {
     getStep('update-files', () => updateFiles(options)),
     getStep('update-engines', () => updateEngines(options)),
     getStep('update-scripts', () => updateScripts(options)),
+    getStep('fix-eslint-config', () => fixEslintConfig(options.destDir)),
+    getStep('fix-fusionrc', () => fixFusionRC(options.destDir)),
     ...getTestCodemodSteps(options),
     getStep('prettier', () => format(options.destDir)),
   ];
@@ -83,14 +88,6 @@ module.exports = function getSteps(options) {
     .concat(getStep('update-deps', () => updateDeps(options)))
     .reduce((prev, next) => {
       prev.push(next);
-      // run prettier on changed files after every step, other than the prettier step
-      if (next.id !== 'prettier') {
-        prev.push(
-          getStep(`${next.id}-prettier`, () =>
-            format(options.destDir, {changedOnly: true})
-          )
-        );
-      }
       // pause and show diff after every step
       prev.push(
         getStep(`${next.id}-diff`, () => diffStep({name: next.id, ...options}))
@@ -317,6 +314,12 @@ function get14Steps(options) {
         ...options,
         plugin: modRemoveStyletron,
         filter: filterMatchMain,
+      })
+    ),
+    getStep('fix-tracer', () =>
+      codemodStep({
+        ...options,
+        plugin: modFixTracer,
       })
     ),
     // This should be the final codemod as it changes the new App expression,

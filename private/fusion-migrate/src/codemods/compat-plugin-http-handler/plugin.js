@@ -1,6 +1,7 @@
-const {addStatementAfter, astOf} = require('../../utils/index.js');
-const composeVisitors = require('../../utils/compose-visitors.js');
+const {astOf} = require('../../utils/index.js');
 const visitNamedModule = require('../../utils/visit-named-module.js');
+const ensureImportDeclaration = require('../../utils/ensure-import-declaration.js');
+const getProgram = require('../../utils/get-program.js');
 
 module.exports = () => {
   const errorHandlerVisitor = visitNamedModule({
@@ -25,27 +26,21 @@ module.exports = () => {
       ref.parentPath.insertAfter(
         astOf(`app.register(BedrockCompatToken, BedrockCompatPlugin);`)
       );
+
+      const body = getProgram(refPaths[0]).node.body;
+      ensureImportDeclaration(
+        body,
+        `import BedrockCompatPlugin, {InitializeServerToken, BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat'`
+      );
+      ensureImportDeclaration(
+        body,
+        `import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler'`
+      );
     },
   });
 
-  const importVisitor = {
-    ImportDeclaration(path) {
-      const sourceName = path.node.source.value;
-      if (sourceName === 'fusion-core') {
-        addStatementAfter(
-          path,
-          `import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';`
-        );
-        addStatementAfter(
-          path,
-          `import BedrockCompatPlugin, {InitializeServerToken, BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';`
-        );
-      }
-    },
-  };
-
   return {
     name: 'compat-plugin-http-handler',
-    visitor: composeVisitors(errorHandlerVisitor, importVisitor),
+    visitor: errorHandlerVisitor,
   };
 };
