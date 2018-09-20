@@ -44,8 +44,8 @@
     }
   },
   "peerDependencies": {
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.1.0",
@@ -61,7 +61,7 @@
     "eslint": "^5.6.0",
     "eslint-config-fusion": "^4.0.0",
     "eslint-plugin-cup": "^2.0.0",
-    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-flowtype": "^2.50.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^21.22.0",
     "eslint-plugin-prettier": "^2.6.2",
@@ -70,9 +70,9 @@
     "jest": "^23.6.0",
     "jest-environment-jsdom-global": "^1.1.0",
     "npm-watch": "^0.4.0",
-    "prettier": "^1.14.2",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1"
+    "prettier": "^1.14.3",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
