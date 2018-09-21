@@ -59,7 +59,7 @@
   },
   "private": true,
   "dependencies": {
-    "@uber/node-heatpipe-publisher": "^1.4.2"
+    "@uber/node-heatpipe-publisher": "^2.0.1"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "^1.0.0",
