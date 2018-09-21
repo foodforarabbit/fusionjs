@@ -2862,9 +2862,9 @@ eslint-plugin-import@^2.14.0:
     read-pkg-up "^2.0.0"
     resolve "^1.6.0"
 
-eslint-plugin-jest@^21.22.0:
-  version "21.22.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-21.22.0.tgz#1b9e49b3e5ce9a3d0a51af4579991d517f33726e"
+eslint-plugin-jest@^21.22.1:
+  version "21.22.1"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-21.22.1.tgz#bc805e9b1c75c3bc92e47c44dd41370c1af7ebcc"
 
 eslint-plugin-prettier@^2.6.2:
   version "2.6.2"
@@ -3318,9 +3318,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-core@^1.6.0:
-  version "1.6.0"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.6.0.tgz#397935d0e045df30751a70f10fae739f0557fc09"
+fusion-core@^1.6.1:
+  version "1.6.1"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.6.1.tgz#4ef8ddb91b5c2dcbb15c4d379974c66a267b0cd6"
   dependencies:
     koa "^2.4.1"
     koa-compose "^4.0.0"

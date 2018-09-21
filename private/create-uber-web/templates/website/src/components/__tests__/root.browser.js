@@ -16,6 +16,6 @@ test('Root renders', async () => {
 
   const root: ShallowWrapper = ctx.rendered.find(Root);
   const switches: ShallowWrapper = ctx.rendered.find(Switch);
-  expect(root.length).toEqual(1);
-  expect(switches.length).toEqual(1);
+  expect(root).toHaveLength(1);
+  expect(switches).toHaveLength(1);
 });
