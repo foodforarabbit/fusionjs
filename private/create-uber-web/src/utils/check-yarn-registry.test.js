@@ -2,6 +2,6 @@
 
 import {checkYarnRegistry} from './check-yarn-registry.js';
 
-test('checkYarnRegistry', () => {
-  expect(checkYarnRegistry).not.toThrow();
+test('checkYarnRegistry', async () => {
+  await expect(checkYarnRegistry()).resolves.toBe(undefined);
 });
