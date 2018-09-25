@@ -10,6 +10,7 @@ import ReactReduxPlugin, {
   EnhancerToken,
 } from 'fusion-plugin-react-redux';
 import reduxOptions from './redux.js';
+import A11yPlugin from './plugins/a11y.js';
 import HealthPlugin from './plugins/health.js';
 
 export default (app: FusionApp) => {
@@ -18,6 +19,7 @@ export default (app: FusionApp) => {
     app.middleware(HealthPlugin);
   } else {
     // browser-specific plugins
+    app.middleware(A11yPlugin);
 
     // Handle redux hot reloading for redux.
     __DEV__ &&

@@ -1,6 +1,6 @@
 // @flow
 export default {
   csp: {
-    overrides: {},
+    overrides: __DEV__ ? {scriptSrc: ["'unsafe-eval'"]} : {},
   },
 };
