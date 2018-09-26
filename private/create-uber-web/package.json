@@ -21,7 +21,8 @@
     "test": "ussh && jest && yarn flow",
     "cover": "jest --coverage",
     "flow": "flow check || true",
-    "prepublish": "babel src -d dist -s"
+    "prepublish": "babel src -d dist -s",
+    "renovate": "./renovate.sh"
   },
   "watch": {
     "build": {

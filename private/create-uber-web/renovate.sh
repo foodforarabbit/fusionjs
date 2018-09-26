@@ -8,3 +8,4 @@ for d in ./templates/*/ ; do (
   rm -f yarn-error.log;
   cp .gitignore dotgitignore
 ); done
+npm version patch;
