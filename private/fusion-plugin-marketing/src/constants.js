@@ -41,6 +41,8 @@ export const QUERY_KEYS = [
 ];
 
 export const TRACK_TOPIC = {
-  version: 8,
+  version: 9,
   topic: 'hp-clay_marketing_tracking-track',
 };
+
+export const OPTIMIZELY_COOKIE_KEY = 'optimizely-pid_cid_exp_var';

@@ -4,11 +4,17 @@ exports[`Basic publish(UA desktop) 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
-    "version": 8,
+    "version": 9,
   },
   Object {
     "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
     "ip": "127.0.0.1",
+    "optimizely_cookie": Object {
+      "campaign_id": null,
+      "experiment_id": null,
+      "project_id": null,
+      "variation_id": null,
+    },
     "original_url": "https://www.uber.com/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
     "prefetched": false,
     "referrer": "https://awesome.com/",
@@ -36,11 +42,17 @@ exports[`User Agent - isMobile 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
-    "version": 8,
+    "version": 9,
   },
   Object {
     "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
     "ip": "127.0.0.1",
+    "optimizely_cookie": Object {
+      "campaign_id": null,
+      "experiment_id": null,
+      "project_id": null,
+      "variation_id": null,
+    },
     "original_url": "https://www.uber.com/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
     "prefetched": false,
     "referrer": "https://awesome.com/",

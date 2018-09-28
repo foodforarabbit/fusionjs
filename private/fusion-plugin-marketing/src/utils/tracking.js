@@ -2,7 +2,7 @@
 import isBot from 'isbot';
 import requestIp from 'request-ip';
 
-import {QUERY_KEYS} from '../constants';
+import {QUERY_KEYS, OPTIMIZELY_COOKIE_KEY} from '../constants';
 
 import type {PluginConfig} from '../types';
 import type {Context} from 'fusion-core';
@@ -38,10 +38,11 @@ export function createTrackingPayload(
       ctx.headers['x-purpose'] === 'preview',
     referrer: ctx.headers['referer'] || '',
     user_agent: getUserAgentInfo(ctx),
+    optimizely_cookie: getOptimizelyCookieInfo(ctx),
   };
 }
 
-export function getUserAgentInfo(ctx: Context) {
+function getUserAgentInfo(ctx: Context) {
   const rawUA = ctx.headers['user-agent'];
   const parsedUA = ctx.useragent;
 
@@ -53,6 +54,22 @@ export function getUserAgentInfo(ctx: Context) {
     os_version: parsedUA.os.version,
     is_bot: isBot(rawUA),
     is_mobile: Boolean(parsedUA.device.type),
+  };
+}
+
+function getOptimizelyCookieInfo(ctx: Context) {
+  let optimizely_array = (ctx.cookies.get(OPTIMIZELY_COOKIE_KEY) || '').split(
+    '_'
+  );
+  if (!optimizely_array || optimizely_array.length !== 4) {
+    optimizely_array = [null, null, null, null];
+  }
+
+  return {
+    project_id: optimizely_array[0],
+    campaign_id: optimizely_array[1],
+    experiment_id: optimizely_array[2],
+    variation_id: optimizely_array[3],
   };
 }
 
@@ -68,6 +85,7 @@ export function shouldSkipTracking(ctx: Context, trackingInfo: any) {
     path.includes('/csrf-token') ||
     path.startsWith('/rtapi') ||
     path.includes('/static/') ||
+    path.includes('/assets/') ||
     // Fusion.js apps
     path.startsWith('/api') ||
     path.startsWith('/_events') ||
