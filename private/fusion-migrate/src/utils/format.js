@@ -18,7 +18,7 @@ module.exports = async function format(destDir, options = {}) {
 };
 
 async function formatFile(filePath) {
-  if (!await exists(filePath)) {
+  if (!(await exists(filePath))) {
     return;
   }
   const source = await readFile(filePath);

@@ -33,7 +33,10 @@ function thing() {
         rpcCompat: RPCCompatEnhancerToken,
       },
       provides: ({rpcCompat}) => {
-        return compose(prevEnhancer, rpcCompat);
+        return compose(
+          prevEnhancer,
+          rpcCompat
+        );
       },
     });
   });

@@ -20,9 +20,9 @@ test('no flow - has noflow declaration', async () => {
   const fs = require('fs');
   fs.readFileSync.mockReturnValueOnce(initialContents);
   await noFlow({destDir});
-  expect(fs.readFileSync.mock.calls.length).toEqual(1);
+  expect(fs.readFileSync.mock.calls).toHaveLength(1);
   expect(fs.readFileSync.mock.calls[0][0]).toEqual('testdir/test.js');
-  expect(fs.writeFileSync.mock.calls.length).toEqual(0);
+  expect(fs.writeFileSync.mock.calls).toHaveLength(0);
   fs.readFileSync.mockReset();
   fs.writeFileSync.mockReset();
 });
@@ -39,9 +39,9 @@ test('no flow - has flow declaration', async () => {
   const fs = require('fs');
   fs.readFileSync.mockReturnValueOnce(initialContents);
   await noFlow({destDir});
-  expect(fs.readFileSync.mock.calls.length).toEqual(1);
+  expect(fs.readFileSync.mock.calls).toHaveLength(1);
   expect(fs.readFileSync.mock.calls[0][0]).toEqual('testdir/test.js');
-  expect(fs.writeFileSync.mock.calls.length).toEqual(0);
+  expect(fs.writeFileSync.mock.calls).toHaveLength(0);
   fs.readFileSync.mockReset();
   fs.writeFileSync.mockReset();
 });
@@ -56,9 +56,9 @@ test('no flow - no declaration', async () => {
   const fs = require('fs');
   fs.readFileSync.mockReturnValueOnce(initialContents);
   await noFlow({destDir});
-  expect(fs.readFileSync.mock.calls.length).toEqual(1);
+  expect(fs.readFileSync.mock.calls).toHaveLength(1);
   expect(fs.readFileSync.mock.calls[0][0]).toEqual('testdir/test.js');
-  expect(fs.writeFileSync.mock.calls.length).toEqual(1);
+  expect(fs.writeFileSync.mock.calls).toHaveLength(1);
   expect(fs.writeFileSync.mock.calls[0][0]).toEqual('testdir/test.js');
   expect(fs.writeFileSync.mock.calls[0][1]).toEqual(
     '// @noflow\n' + initialContents

@@ -1,0 +1,13 @@
+[ignore]
+.*/resources/.*
+.*/__fixtures__/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]

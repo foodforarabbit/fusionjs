@@ -14,7 +14,7 @@ test('getChangedJsFiles', async () => {
     cwd: dir,
   });
   let files = await getChangedJsFiles(dir);
-  expect(files.length).toEqual(0);
+  expect(files).toHaveLength(0);
   fs.writeFileSync(path.join(dir, 'top.js'), 'console.log()');
   fs.writeFileSync(path.join(dir, 'src/main.js'), 'console.log()');
   fs.writeFileSync(path.join(dir, 'new.js'), 'console.log()');

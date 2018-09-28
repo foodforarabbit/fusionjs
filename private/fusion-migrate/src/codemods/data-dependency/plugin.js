@@ -5,7 +5,7 @@ const getProgram = require('../../utils/get-program.js');
 const t = require('@babel/types');
 
 module.exports = () => {
-  const components = {};
+  let components = {};
   return {
     name: 'data-dependency',
     visitor: {
@@ -94,6 +94,11 @@ module.exports = () => {
           insertAfterLastImport(body, declaration);
           insertAfterLastImport(body, rpcPromiseDeclaration);
         }
+      },
+      Program: {
+        exit() {
+          components = {}; // clear cache between test runs
+        },
       },
     },
   };

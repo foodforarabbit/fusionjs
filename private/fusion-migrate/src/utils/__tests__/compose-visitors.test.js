@@ -18,8 +18,8 @@ test('composeVisitors', async () => {
   expect(visitorA.one.mock.calls[0][0]).toEqual('first-arg');
   expect(visitorA.one.mock.calls[0][1]).toEqual('second-arg');
 
-  expect(visitorA.two.mock.calls.length).toEqual(0);
-  expect(visitorB.two.mock.calls.length).toEqual(0);
+  expect(visitorA.two.mock.calls).toHaveLength(0);
+  expect(visitorB.two.mock.calls).toHaveLength(0);
 
   composed.two('first-arg', 'second-arg');
   expect(visitorA.two.mock.calls[0][0]).toEqual('first-arg');

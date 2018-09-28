@@ -34,5 +34,5 @@ test('format changedOnly', async () => {
   await format(dir, {changedOnly: true});
   const formattedSource = fs.readFileSync(testFile).toString();
   expect(formattedSource).toMatchSnapshot();
-  expect(require('../get-changed-js-files.js').mock.calls.length).toEqual(1);
+  expect(require('../get-changed-js-files.js').mock.calls).toHaveLength(1);
 });

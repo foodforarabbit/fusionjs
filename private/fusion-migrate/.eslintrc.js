@@ -3,7 +3,9 @@ module.exports = {
   env: {
     node: true,
   },
-  rules: {},
+  rules: {
+    'flowtype/require-valid-file-annotation': false,
+  },
   globals: {
     test: true,
     expect: true,
