@@ -43,24 +43,19 @@
     "fast-safe-stringify": "^2.0.6",
     "isbot": "^2.2.0",
     "parse-domain": "^2.1.2",
-    "react": "16.4.2",
-    "react-dom": "16.4.2",
     "request-ip": "^2.1.1",
     "uuid": "^3.3.2",
     "validator": "^10.7.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.0.0-rc.1",
-    "@babel/preset-flow": "7.0.0-rc.1",
-    "@babel/preset-react": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
     "@uber/fusion-plugin-heatpipe": "^1.0.5",
     "@uber/fusion-plugin-m3": "^1.1.4",
-    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.4.2",
     "create-universal-package": "^3.4.6",
-    "enzyme": "3.4.4",
-    "enzyme-adapter-react-16": "1.2.0",
     "eslint": "^5.4.0",
     "eslint-config-fusion": "^4.0.0",
     "eslint-plugin-cup": "^2.0.0",
@@ -75,9 +70,9 @@
     "fusion-test-utils": "^1.2.3-0",
     "fusion-tokens": "^1.0.4",
     "jest": "^23.5.0",
-    "jest-environment-jsdom-global": "1.1.0",
+    "jest-environment-jsdom-global": "^1.1.0",
     "npm-watch": "^0.3.0",
-    "prettier": "1.14.2"
+    "prettier": "^1.14.2"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-heatpipe": "^1.0.5",
@@ -100,8 +95,7 @@
   "babel": {
     "presets": [
       "@babel/preset-env",
-      "@babel/preset-flow",
-      "@babel/preset-react"
+      "@babel/preset-flow"
     ]
   },
   "jest": {
@@ -129,7 +123,6 @@
           ".*\\.node\\.js"
         ],
         "testURL": "http://localhost",
-        "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js",
         "globals": {
           "__DEV__": true,
           "__NODE__": false,
@@ -145,7 +138,6 @@
           "/dist/",
           ".*\\.browser\\.js"
         ],
-        "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js",
         "globals": {
           "__DEV__": true,
           "__NODE__": true,
