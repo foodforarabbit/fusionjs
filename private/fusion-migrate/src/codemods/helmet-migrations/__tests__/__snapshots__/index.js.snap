@@ -24,9 +24,9 @@ export default <Root />;
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // @flow
-import React from 'react';
 import {Helmet} from 'fusion-plugin-react-helmet-async';
 import {assetUrl} from 'fusion-core';
+import React from 'react';
 import {Route, Switch, NotFound} from 'fusion-plugin-react-router';
 import Welcome from './welcome.js';
 

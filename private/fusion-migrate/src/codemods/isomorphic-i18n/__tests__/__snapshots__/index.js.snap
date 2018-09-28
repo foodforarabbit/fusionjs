@@ -330,6 +330,58 @@ function Test() {
 "
 `;
 
+exports[`isomorphic-i18n handle-flow-comment: handle-flow-comment 1`] = `
+"// @flow
+import foo from 'foo';
+import i18n from '@uber/bedrock/isomorphic-i18n';
+import React from 'react';
+
+function Test() {
+  const nonJSX = i18n.t('thing');
+  i18n.addLanguage('test');
+  return (
+    <div>
+      <div>
+        <div>{i18n.t('key', {a: 'lol'})}</div>
+        <div>Hello {i18n.t('lol')}</div>
+        <Something a={i18n.t('test')} />
+      </div>
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+// @flow
+import {Translate} from 'fusion-plugin-i18n-react';
+import foo from 'foo';
+import React from 'react';
+
+function Test() {
+  const nonJSX = <Translate id=\\"thing\\" />;
+  return (
+    <div>
+      <div>
+        <div>
+          <Translate
+            id=\\"key\\"
+            data={{
+              a: 'lol',
+            }}
+          />
+        </div>
+        <div>
+          Hello <Translate id=\\"lol\\" />
+        </div>
+        <Something a={<Translate id=\\"test\\" />} />
+      </div>
+    </div>
+  );
+}
+"
+`;
+
 exports[`isomorphic-i18n no-migration: no-migration 1`] = `
 "import i18n from '@uber/bedrock/isomorphic-i18n';
 import React from 'react';
@@ -368,6 +420,53 @@ function Test() {
         <div>Hello {i18n.t(identifier)}</div>
         <Something a={i18n.t(identifier)} />
         <input placeholder={i18n.t(identifier)} />
+      </div>
+    </div>
+  );
+}
+"
+`;
+
+exports[`isomorphic-i18n no-react: no-react 1`] = `
+"import i18n from '@uber/bedrock/isomorphic-i18n';
+
+function Test() {
+  const nonJSX = i18n.t('thing');
+  i18n.addLanguage('test');
+  return (
+    <div>
+      <div>
+        <div>{i18n.t('key', {a: 'lol'})}</div>
+        <div>Hello {i18n.t('lol')}</div>
+        <Something a={i18n.t('test')} />
+      </div>
+    </div>
+  );
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import {Translate} from 'fusion-plugin-i18n-react';
+import React from 'react';
+
+function Test() {
+  const nonJSX = <Translate id=\\"thing\\" />;
+  return (
+    <div>
+      <div>
+        <div>
+          <Translate
+            id=\\"key\\"
+            data={{
+              a: 'lol',
+            }}
+          />
+        </div>
+        <div>
+          Hello <Translate id=\\"lol\\" />
+        </div>
+        <Something a={<Translate id=\\"test\\" />} />
       </div>
     </div>
   );

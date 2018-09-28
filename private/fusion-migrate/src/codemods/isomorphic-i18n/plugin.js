@@ -59,6 +59,7 @@ module.exports = babel => {
         } else {
           callPath.replaceWith(element);
         }
+        ensureImportDeclaration(body, `import React from 'react'`);
       } else {
         // called with non-string literal. Cannot manually migrate
         shouldAddI18nCompatImport = true;

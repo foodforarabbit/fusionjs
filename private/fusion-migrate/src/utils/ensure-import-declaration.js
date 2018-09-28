@@ -11,6 +11,18 @@ module.exports = function ensureImportDeclaration(body, importString) {
     );
   });
   if (!matchingNode) {
+    if (
+      body[0] &&
+      body[0].leadingComments &&
+      body[0].leadingComments[0] &&
+      body[0].leadingComments[0].value.match(/@flow/)
+    ) {
+      const flowComment = body[0].leadingComments.shift();
+      declaration.leadingComments = [
+        flowComment,
+        ...(declaration.leadingComments || []),
+      ];
+    }
     body.unshift(declaration);
     return;
   }
