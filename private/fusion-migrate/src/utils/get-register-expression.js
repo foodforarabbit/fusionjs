@@ -7,8 +7,10 @@ module.exports = function getRegisterExpression(token, plugin) {
   if (typeof plugin === 'string') {
     plugin = t.identifier(plugin);
   }
-  return t.callExpression(
-    t.memberExpression(t.identifier('app'), t.identifier('register')),
-    [token, plugin]
+  return t.expressionStatement(
+    t.callExpression(
+      t.memberExpression(t.identifier('app'), t.identifier('register')),
+      [token, plugin]
+    )
   );
 };

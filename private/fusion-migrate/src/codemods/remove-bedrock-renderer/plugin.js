@@ -94,15 +94,18 @@ function removeRouteHandler(refPath, topPath) {
     parentCallExpression.remove();
   } else if (parentDeclaration) {
     const id = parentDeclaration.node.id.name;
-    const refPaths = topPath.scope.bindings[id].referencePaths;
-    refPaths.forEach(path => {
-      if (
-        path.parentPath.type === 'CallExpression' &&
-        isServerGet(path.parentPath)
-      ) {
-        path.parentPath.remove();
-      }
-    });
+    const binding = topPath.scope.bindings[id];
+    if (binding) {
+      const refPaths = binding.referencePaths;
+      refPaths.forEach(path => {
+        if (
+          path.parentPath.type === 'CallExpression' &&
+          isServerGet(path.parentPath)
+        ) {
+          path.parentPath.remove();
+        }
+      });
+    }
     parentDeclaration.remove();
   }
 }

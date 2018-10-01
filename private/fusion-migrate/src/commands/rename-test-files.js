@@ -13,8 +13,8 @@ const rename = util.promisify(fs.rename);
 const exec = util.promisify(proc.exec);
 
 module.exports = async function() {
-  await renameFiles('src/test');
-  await rename('src/test', 'src/__tests__');
+  await renameFiles('src/test').catch(() => {});
+  await rename('src/test', 'src/__tests__').catch(() => {});
 };
 
 async function renameFiles(root) {
@@ -29,17 +29,17 @@ async function renameFiles(root) {
       const dir = root.replace('src/test', 'src/test-utils');
       const dirname = path.dirname(dir);
       await exec(`mkdir -p ${dirname}`);
-      await rename(root, dir);
+      await rename(root, dir).catch(() => {});
     } else if (root.includes('src/test/browser')) {
       const replaced = root
         .replace(/.browser.js/, '.js')
         .replace(/\.js$/, '.browser.js');
-      if (root !== replaced) await rename(root, replaced);
+      if (root !== replaced) await rename(root, replaced).catch(() => {});
     } else if (root.includes('src/test/node')) {
       const replaced = root
         .replace(/.node.js/, '.js')
         .replace(/\.js$/, '.node.js');
-      if (root !== replaced) await rename(root, replaced);
+      if (root !== replaced) await rename(root, replaced).catch(() => {});
     }
   }
 }
