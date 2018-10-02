@@ -10,6 +10,7 @@ export default function postToCatalyst(
   config = {
     name: process.env.npm_package_name,
     version: process.env.npm_package_version,
+    fusion: true,
   }
 ) {
   const req = ctx.request;
