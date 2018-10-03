@@ -12,6 +12,7 @@ export const QUERY_KEYS = [
   'kw_id',
 
   'gclid',
+  'gclsrc',
   'click_id',
   '_ga',
   'lang',
@@ -41,7 +42,7 @@ export const QUERY_KEYS = [
 ];
 
 export const TRACK_TOPIC = {
-  version: 9,
+  version: 10,
   topic: 'hp-clay_marketing_tracking-track',
 };
 

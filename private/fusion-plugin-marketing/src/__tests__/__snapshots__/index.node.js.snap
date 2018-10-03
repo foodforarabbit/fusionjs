@@ -4,7 +4,7 @@ exports[`Basic publish(UA desktop) 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
-    "version": 9,
+    "version": 10,
   },
   Object {
     "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
@@ -42,7 +42,7 @@ exports[`User Agent - isMobile 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
-    "version": 9,
+    "version": 10,
   },
   Object {
     "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
