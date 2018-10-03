@@ -820,9 +820,9 @@
     nan "^2.2.0"
     xtend "^4.0.1"
 
-"@uber/web-perf-collector@0.6.0":
-  version "0.6.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fweb-perf-collector/-/private/%40uber%2Fweb-perf-collector-0.6.0.tgz#e2012a8fa15239c0d513d1a6f047855f752104f0"
+"@uber/web-perf-collector@^0.7.0":
+  version "0.7.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fweb-perf-collector/-/private/%40uber%2Fweb-perf-collector-0.7.0.tgz#db551d974a9bbdfab51e685ea028dc0bb765ef45"
 
 abbrev@1:
   version "1.1.1"
