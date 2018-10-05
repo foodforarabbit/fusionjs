@@ -5,5 +5,5 @@
 
   "unit.engine": "TAPTestEngine",
   "unit.engine.tap.cover": "npm run lint && npm run cover",
-  "unit.engine.tap.timeout": 30
+  "unit.engine.tap.timeout": 90
 }

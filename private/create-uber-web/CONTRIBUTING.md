@@ -12,7 +12,7 @@ As a rule of thumb, the implementation for each command should be in a file name
 
 ### Upgrading dependencies
 
-To upgrade dependencies, run `yarn renovate`
+To upgrade dependencies, run `./renovate.sh`
 
 Note: this will also patch this package's version
 
