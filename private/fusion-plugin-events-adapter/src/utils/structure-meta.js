@@ -4,6 +4,7 @@
  * @param {Object.<string, string|boolean|number>} trackingMeta - a flatten object with custom fields to be published to the `hp-event-web` Heatpipe topic
  * @returns {Object} New object with properties sorted by types and mapped to according fields of the `hp-event-web` Heatpipe topic
  */
+
 function structureMeta(trackingMeta) {
   // Partially referenced: https://code.uberinternal.com/diffusion/UMETAHU/browse/master/src/util/structureMeta.js
   if (!trackingMeta) {
@@ -11,7 +12,7 @@ function structureMeta(trackingMeta) {
   }
 
   if (typeof trackingMeta !== 'object' || Array.isArray(trackingMeta)) {
-    throw ERROR_NON_OBJECT_ROOT(trackingMeta);
+    throw new Error('_trackingMeta: Only object(and not array) can be parsed.');
   }
 
   // See Heatpipe topic `hp-event-web`: https://watchtower.uberinternal.com/watchtower/#topic=hp-event-web
@@ -24,7 +25,7 @@ function structureMeta(trackingMeta) {
   for (const key in metaObj) {
     if (metaObj.hasOwnProperty(key)) {
       if (key === '') {
-        throw ERROR_NO_EMPTY_KEYS();
+        throw new Error('_trackingMeta: Empty string keys are not allowed');
       }
       const value = metaObj[key];
       switch (typeof value) {
@@ -39,11 +40,16 @@ function structureMeta(trackingMeta) {
           if (value % 1 === 0) {
             meta_long[key] = value;
           } else {
-            throw ERROR_INVALID_TYPE(key, value);
+            throw new TrackingMetaInvalidTypeError(key, value);
           }
           break;
         default:
-          throw ERROR_INVALID_TYPE(key, value);
+          if (typeof value === 'object' || Array.isArray(value)) {
+            throw new Error(
+              '_trackingMeta: Nested objects or arrays are disallowed.'
+            );
+          }
+          throw new TrackingMetaInvalidTypeError(key, value);
       }
     }
   }
@@ -55,15 +61,19 @@ function structureMeta(trackingMeta) {
   };
 }
 
-const ERROR_NON_OBJECT_ROOT = () =>
-  new Error(`Only object(and not array) can be parsed.`);
-const ERROR_NO_EMPTY_KEYS = () =>
-  new Error('Empty string keys are not allowed');
-const ERROR_INVALID_TYPE = (key, value) =>
-  new Error(`Key '${key}' contains value of type '${typeof value}'. Only values of the following types are allowed:
+class TrackingMetaInvalidTypeError extends Error {
+  constructor(key, value, ...args) {
+    super(...args);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, TrackingMetaInvalidTypeError);
+    }
+
+    this.message = `_trackingMeta: Key '${key}' contains value of type '${typeof value}'. Only values of the following types are allowed:
   - 'string',
-  - 'number' (long),
-  - 'boolean',
-  - nested 'objects' or 'arrays'`);
+  - 'number' (integers),
+  - 'boolean'`;
+  }
+}
 
 export default structureMeta;
