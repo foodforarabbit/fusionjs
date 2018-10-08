@@ -798,6 +798,10 @@
     js-cookie "^2.2.0"
     uuid "^3.2.1"
 
+"@uber/fusion-plugin-auth-headers@^1.1.2":
+  version "1.1.2"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-auth-headers/-/private/%40uber%2Ffusion-plugin-auth-headers-1.1.2.tgz#d4c3d97d59cb1431d704a7268606290ef9cf83ad"
+
 "@uber/fusion-plugin-heatpipe@^1.0.6":
   version "1.0.6"
   resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-1.0.6.tgz#f2c05fc5f08cb08ddb400f8e167b494151642356"

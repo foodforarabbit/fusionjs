@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@uber/fusion-plugin-analytics-session": "^1.1.0",
+    "@uber/fusion-plugin-auth-headers": "^1.1.2",
     "@uber/fusion-plugin-heatpipe": "^1.0.6",
     "@uber/fusion-plugin-m3": "^1.1.4",
     "@uber/node-heatpipe-publisher": "^2.0.1",
@@ -63,6 +64,7 @@
   },
   "peerDependencies": {
     "@uber/fusion-plugin-analytics-session": "^1.0.0",
+    "@uber/fusion-plugin-auth-headers": "^1.1.2",
     "@uber/fusion-plugin-heatpipe": "^1.0.0",
     "@uber/fusion-plugin-m3": "^1.0.0",
     "fusion-core": "^1.2.2",

@@ -5,6 +5,11 @@ import type {
   I18nServiceType,
 } from '../types';
 
+import {AuthHeadersToken} from '@uber/fusion-plugin-auth-headers';
+
+type ExtractReturnType = <V>(() => V) => V;
+type AuthHeadersService = $Call<typeof AuthHeadersToken, ExtractReturnType>;
+
 export const webTopicInfo = {
   topic: 'hp-event-web',
   version: 8,
@@ -14,6 +19,7 @@ type HeatpipeArgs = {
   // TODO: HeatpipeEmitter Plugin typing
   heatpipe: *,
   AnalyticsSession: AnalyticsSessionPlugin,
+  AuthHeaders?: AuthHeadersService,
   Geolocation?: GeolocationPlugin,
   I18n?: I18nServiceType,
   serviceName: string,
@@ -37,6 +43,7 @@ type WebEventsMeta = {
 export default function({
   heatpipe,
   AnalyticsSession,
+  AuthHeaders,
   Geolocation,
   I18n,
   serviceName,
@@ -101,7 +108,8 @@ export default function({
           locale: (locale && locale.toString()) || '',
         },
         app_name: serviceName,
-        user_id: ctx.headers['x-auth-params-user-uuid'] || 'unknown',
+        user_id:
+          (AuthHeaders && AuthHeaders.from(ctx).get('uuid')) || 'unknown',
         session_id,
         session_time_ms,
         time_ms: Date.now(),

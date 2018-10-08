@@ -4,6 +4,7 @@ import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 import {I18nToken} from 'fusion-plugin-i18n';
+import {AuthHeadersToken} from '@uber/fusion-plugin-auth-headers';
 
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {LoggerToken} from 'fusion-tokens';
@@ -27,17 +28,27 @@ const plugin =
     deps: {
       events: UniversalEventsToken,
       AnalyticsSession: AnalyticsSessionToken,
+      AuthHeaders: AuthHeadersToken.optional,
       I18n: I18nToken.optional,
       m3: M3Token,
       heatpipe: HeatpipeToken,
       logger: LoggerToken,
     },
-    provides: ({events, AnalyticsSession, I18n, m3, heatpipe, logger}) => {
+    provides: ({
+      events,
+      AnalyticsSession,
+      AuthHeaders,
+      I18n,
+      m3,
+      heatpipe,
+      logger,
+    }) => {
       const serviceName = process.env.SVC_ID || 'dev-service';
 
       const heatpipeEmitter = HeatpipeEmitter({
         heatpipe,
         AnalyticsSession,
+        AuthHeaders,
         I18n,
         serviceName,
       });

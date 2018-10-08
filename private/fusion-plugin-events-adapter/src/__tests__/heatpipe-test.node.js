@@ -2,6 +2,7 @@
 import EventEmitter from 'events';
 import tape from 'tape-cup';
 import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
+import AuthHeadersPlugin from '@uber/fusion-plugin-auth-headers';
 
 tape('heatpipe emitter interface', t => {
   t.equal(typeof HeatpipeEmitter, 'function', 'exports a function');
@@ -73,9 +74,12 @@ const webEventsFixture = {
         version: '537.36',
       },
     },
-    headers: {
-      'x-auth-params-user-uuid': '6cd132f9-3842-455f-b50f-9705f317df26',
+    request: {
+      headers: {
+        'x-auth-params-user-uuid': '6cd132f9-3842-455f-b50f-9705f317df26',
+      },
     },
+    memoized: new Map(),
   },
   webEventsMeta: {
     dimensions: {
@@ -98,6 +102,7 @@ const webEventsFixture = {
     },
     from: () => webEventsFixture.AnalyticsSession._ua,
   },
+  AuthHeaders: AuthHeadersPlugin.provides({}),
   I18n: {
     _localeString: 'zh-TW',
     from: () => ({
@@ -131,7 +136,7 @@ const webEventsFixture = {
       locale: webEventsFixture.I18n._localeString,
     },
     app_name: webEventsFixture.serviceName,
-    user_id: webEventsFixture.ctx.headers['x-auth-params-user-uuid'],
+    user_id: webEventsFixture.ctx.request.headers['x-auth-params-user-uuid'],
     session_id: webEventsFixture.AnalyticsSession._ua.session_id,
     session_time_ms: webEventsFixture.AnalyticsSession._ua.session_time_ms,
     latitude: webEventsFixture.Geolocation._geoObject.latitude,
@@ -162,6 +167,7 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
   const hp = HeatpipeEmitter({
     heatpipe: mockHeatpipe,
     AnalyticsSession: webEventsFixture.AnalyticsSession,
+    AuthHeaders: webEventsFixture.AuthHeaders,
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
     serviceName: webEventsFixture.serviceName,
@@ -203,6 +209,7 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
   const hp = HeatpipeEmitter({
     heatpipe: mockHeatpipe,
     AnalyticsSession: webEventsFixture.AnalyticsSession,
+    AuthHeaders: webEventsFixture.AuthHeaders,
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
     serviceName: webEventsFixture.serviceName,
