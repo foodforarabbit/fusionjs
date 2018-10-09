@@ -47,6 +47,7 @@ test('auth headers plugin resolved in test plugin', t => {
 test('missing auth param', t => {
   t.plan(1);
 
+  // $FlowFixMe
   const mockContext = {
     request: {
       headers: {},
@@ -71,6 +72,7 @@ test('missing auth param', t => {
 test('service - get authentication param from context', t => {
   t.plan(1);
 
+  // $FlowFixMe
   const mockContext = {
     request: {
       headers: {
@@ -102,6 +104,7 @@ test('service - get authentication param from context', t => {
 test('service - get authentication param from context (breeze)', t => {
   t.plan(2);
 
+  // $FlowFixMe
   const mockContext = {
     request: {
       headers: {
@@ -139,6 +142,7 @@ test('service - get authentication param from context (breeze)', t => {
 test('get authentication param from override', t => {
   t.plan(1);
 
+  // $FlowFixMe
   const mockContext = {
     request: {
       headers: {
