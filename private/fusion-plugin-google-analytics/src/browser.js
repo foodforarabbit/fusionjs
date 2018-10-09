@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 import {createPlugin, createToken} from 'fusion-core';
 import loadGoogleAnalytics from './load-ga';

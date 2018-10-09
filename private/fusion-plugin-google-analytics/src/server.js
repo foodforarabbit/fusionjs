@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import {createPlugin, html} from 'fusion-core';
 
