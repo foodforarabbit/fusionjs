@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';

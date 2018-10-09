@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
@@ -31,8 +32,7 @@ tape('heatpipe-plugin in __DEV__', async t => {
       provides: ({hp}) => {
         t.doesNotThrow(hp.publish, 'publish does not throw');
         t.doesNotThrow(hp.destroy, 'destroy does not throw');
-        hp
-          .asyncPublish('data', 'thing')
+        hp.asyncPublish('data', 'thing')
           .then(() => t.pass('asyncPublish works'))
           .catch(t.ifError)
           .then(() => t.end());

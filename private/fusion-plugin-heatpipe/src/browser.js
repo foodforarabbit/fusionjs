@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
