@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 import jsCookie from 'js-cookie';
 import {createPlugin} from 'fusion-core';

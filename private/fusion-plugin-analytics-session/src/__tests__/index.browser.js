@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 import tape from 'tape-cup';
 import plugin from '../browser';

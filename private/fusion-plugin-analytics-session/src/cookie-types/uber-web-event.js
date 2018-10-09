@@ -1,3 +1,4 @@
+// @flow
 import {UUID, TIME_STAMP} from './index';
 
 export default {

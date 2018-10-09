@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import tape from 'tape-cup';
 

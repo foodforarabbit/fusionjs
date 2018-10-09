@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import {createPlugin, memoize} from 'fusion-core';
 import {generateCookieData} from './cookie-types/index';
