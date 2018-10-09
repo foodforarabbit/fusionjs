@@ -1,3 +1,4 @@
+// @noflow
 import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
 
 export default function routeTiming({events, m3}) {

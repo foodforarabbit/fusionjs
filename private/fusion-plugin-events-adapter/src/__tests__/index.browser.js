@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import tape from 'tape-cup';
 import EventEmitter from 'events';
 import {getSimulator} from 'fusion-test-utils';

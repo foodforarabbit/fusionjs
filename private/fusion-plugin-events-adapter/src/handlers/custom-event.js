@@ -1,3 +1,4 @@
+// @noflow
 export default ({events, heatpipeEmitter, m3}) =>
   events.on('custom-hp-web-event', (payload, ctx) => {
     const {name, type, value, webEventsMeta} = payload;

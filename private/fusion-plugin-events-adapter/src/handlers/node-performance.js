@@ -1,3 +1,4 @@
+// @noflow
 export default function nodePerformance({events, m3}) {
   const prefix = 'node-performance-emitter';
   const gaugePrefix = `${prefix}:gauge`;

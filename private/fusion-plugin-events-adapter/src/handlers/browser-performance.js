@@ -1,3 +1,4 @@
+// @noflow
 import postToCatalyst from '../utils/post-to-catalyst';
 import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
 

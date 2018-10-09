@@ -1,3 +1,4 @@
+// @noflow
 export default function pageViewBrowser({events, heatpipeEmitter, analytics}) {
   if (__NODE__) {
     events.on('pageview:browser', (payload, ctx) => {

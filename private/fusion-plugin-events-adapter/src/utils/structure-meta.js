@@ -1,3 +1,4 @@
+// @noflow
 /**
  * Structures meta information attached to a Redux action to a mapped object to according fields of the `hp-event-web` Heatpipe topic
  * @param {Object.<string, string|boolean|number>} trackingMeta - a flatten object with custom fields to be published to the `hp-event-web` Heatpipe topic

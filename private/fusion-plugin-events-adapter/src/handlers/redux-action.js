@@ -1,3 +1,4 @@
+// @noflow
 import structureMeta from '../utils/structure-meta';
 
 export default function reduxAction({events, heatpipeEmitter, m3}) {

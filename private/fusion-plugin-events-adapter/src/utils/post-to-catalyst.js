@@ -1,3 +1,4 @@
+// @noflow
 /* global process */
 /* eslint-disable no-console */
 

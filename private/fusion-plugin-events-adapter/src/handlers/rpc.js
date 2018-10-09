@@ -1,3 +1,4 @@
+// @noflow
 export default function rpcHandlers({events, m3, logger}) {
   events.on('rpc:error', ({origin, error}) => {
     m3.increment('rpc_missing_handler', {origin});
