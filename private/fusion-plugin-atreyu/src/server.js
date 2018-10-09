@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import Atreyu from '@uber/atreyu';
 import {createPlugin} from 'fusion-core';
