@@ -34,6 +34,7 @@
     "eslint-plugin-cup": "^2.0.0",
     "eslint-plugin-flowtype": "^2.50.3",
     "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.24.1",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
     "fusion-core": "^1.7.0",
@@ -61,8 +62,5 @@
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
-  "private": true,
-  "dependencies": {
-    "eslint-plugin-jest": "^21.24.1"
-  }
+  "private": true
 }
