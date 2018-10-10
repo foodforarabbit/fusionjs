@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import fs from 'fs';
 
