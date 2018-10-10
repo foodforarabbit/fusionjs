@@ -6,6 +6,9 @@ import dottie from 'dottie';
 import {createPlugin} from 'fusion-core';
 import {DevSecretsToken, SecretsLocationToken} from './tokens';
 
+declare var __DEV__: boolean;
+declare var __NODE__: boolean;
+
 export default __NODE__ &&
   createPlugin({
     deps: {
@@ -21,7 +24,7 @@ export default __NODE__ &&
       try {
         secrets = __DEV__
           ? devValues
-          : JSON.parse(fs.readFileSync(secretsPath));
+          : JSON.parse(fs.readFileSync(secretsPath, 'utf8'));
       } catch (e) {
         throw new Error(`Failed to parse secrets at ${secretsPath}`);
       }

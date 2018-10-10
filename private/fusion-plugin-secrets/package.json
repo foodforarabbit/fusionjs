@@ -39,6 +39,7 @@
     "eslint-plugin-jest": "^21.24.1",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "flow-bin": "^0.82.0",
     "fusion-core": "^1.7.0",
     "fusion-test-utils": "^1.2.3",
     "fusion-tokens": "^1.1.0",
@@ -49,6 +50,7 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
+    "flow": "flow check",
     "lint": "eslint .",
     "transpile": "npm run clean && cup build",
     "build-test": "rm -rf dist-tests && cup build-tests",
