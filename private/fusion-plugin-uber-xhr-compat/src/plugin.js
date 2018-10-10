@@ -1,3 +1,4 @@
+// @flow
 import {FetchToken} from 'fusion-tokens';
 import {createPlugin} from 'fusion-core';
 import getXhr from './uber-xhr.js';

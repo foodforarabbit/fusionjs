@@ -1,3 +1,4 @@
+// @flow
 import createXhrPlugin from './plugin.js';
 
 const {xhr, plugin} = createXhrPlugin();
