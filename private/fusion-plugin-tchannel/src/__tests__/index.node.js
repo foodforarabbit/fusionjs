@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';

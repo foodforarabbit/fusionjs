@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import {createPlugin, createToken} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
