@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import test from 'tape-cup';
 import S3rver from 's3rver';

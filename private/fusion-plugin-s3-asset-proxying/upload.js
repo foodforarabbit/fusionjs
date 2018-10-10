@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 const util = require('util');
 const fs = require('fs');
@@ -24,8 +25,7 @@ module.exports = async ({directory, s3Config} = {}) => {
     secretAccessKey,
     s3ForcePathStyle,
     endpoint,
-  } =
-    s3Config || loadConfig();
+  } = s3Config || loadConfig();
   const s3 = new AWS.S3({
     accessKeyId,
     secretAccessKey,
