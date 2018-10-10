@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 
 import {createPlugin, dangerouslySetHTML} from 'fusion-core';
