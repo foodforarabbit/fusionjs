@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import {JaegerClient} from '@uber/jaeger-client-adapter';
 import {createPlugin, createToken} from 'fusion-core';
