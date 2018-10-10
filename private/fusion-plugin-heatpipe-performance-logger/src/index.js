@@ -1,3 +1,4 @@
+// @flow
 import server, {HeatpipePerfLoggerConfig} from './server';
 import browser from './browser';
 

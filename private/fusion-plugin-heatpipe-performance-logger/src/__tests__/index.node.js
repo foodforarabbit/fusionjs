@@ -1,4 +1,5 @@
-import test from 'tape';
+// @flow
+import test from 'tape-cup';
 
 import plugin from '../index';
 
