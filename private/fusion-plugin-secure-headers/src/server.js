@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import {createPlugin} from 'fusion-core';
 import compose from 'koa-compose';

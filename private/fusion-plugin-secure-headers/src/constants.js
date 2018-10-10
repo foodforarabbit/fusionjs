@@ -1,3 +1,4 @@
+// @flow
 const REQUIRED_CSP_CONTENT_TYPES = ['text/html', 'image/svg'];
 const CSP_HEADERS = [
   'Content-Security-Policy',

@@ -1,3 +1,4 @@
+// @flow
 const analyticsOverrides = {
   // TODO: The current goal is to capture the reality of tealium.
   // A future goal will be to minimize this list.

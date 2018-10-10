@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 export default function Strict(nonce) {
   return {

@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import koaHelmet from 'koa-helmet';
 
@@ -15,8 +16,7 @@ export default function buildCSPMiddleware({ctx, serviceName, cspConfig}) {
     allowInsecureContent,
     allowMixedContent,
     analyticsServiceNames,
-  } =
-    cspConfig || {};
+  } = cspConfig || {};
 
   function shouldUseReportOnlyMode() {
     if (typeof intentionallyRemoveAllSecurity !== 'undefined') {

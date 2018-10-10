@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 function addSourcesToDirective(policy, directive, sources) {
   if (policy[directive] && policy[directive][0] !== "'none'") {
