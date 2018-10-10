@@ -1,3 +1,4 @@
+// @flow
 // Unchanged: https://github.com/ReactTraining/react-router/blob/v3/modules/isActive.js
 import {matchPattern} from './PatternUtils';
 

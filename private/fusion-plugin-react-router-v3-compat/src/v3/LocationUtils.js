@@ -1,3 +1,4 @@
+// @flow
 // Unchanged: https://github.com/ReactTraining/history/blob/v3/modules/LocationUtils.js
 import {parsePath} from './PathUtils';
 

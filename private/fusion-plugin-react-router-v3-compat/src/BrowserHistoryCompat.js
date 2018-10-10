@@ -1,3 +1,4 @@
+// @flow
 const supportedMethods = ['go', 'goBack', 'goForward', 'push', 'replace'];
 
 export class BrowserHistoryCompat {

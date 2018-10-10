@@ -1,3 +1,4 @@
+// @flow
 import App from 'fusion-core';
 import Router from 'fusion-plugin-react-router';
 import {test, getSimulator} from 'fusion-test-utils';

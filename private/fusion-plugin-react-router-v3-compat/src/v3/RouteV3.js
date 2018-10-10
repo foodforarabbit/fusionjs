@@ -1,3 +1,4 @@
+// @flow
 // Modified: https://github.com/ReactTraining/react-router/blob/v3/modules/Route.js
 import React from 'react';
 
