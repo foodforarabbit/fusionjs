@@ -1,3 +1,4 @@
+// @flow
 import {createPlugin, html} from 'fusion-core';
 import {PageSkeletonConfigToken} from './tokens';
 

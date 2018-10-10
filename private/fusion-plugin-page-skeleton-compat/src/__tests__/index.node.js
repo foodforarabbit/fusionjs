@@ -1,3 +1,4 @@
+// @flow
 import tape from 'tape-cup';
 import ServerPlugin from '../server.js';
 import {PageSkeletonConfigToken} from '../tokens.js';

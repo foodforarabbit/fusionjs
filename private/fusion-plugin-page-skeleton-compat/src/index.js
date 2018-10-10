@@ -1,3 +1,4 @@
+// @flow
 import ServerPlugin from './server.js';
 
 export {PageSkeletonConfigToken} from './tokens.js';
