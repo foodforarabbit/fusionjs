@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env browser */
 import App from 'fusion-react';
 import {getSimulator} from 'fusion-test-utils';

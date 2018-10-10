@@ -8,10 +8,7 @@ import {
   GoogleAnalyticsConfigToken,
 } from '@uber/fusion-plugin-google-analytics';
 
-export {
-  GoogleAnalyticsToken,
-  GoogleAnalyticsConfigToken,
-};
+export {GoogleAnalyticsToken, GoogleAnalyticsConfigToken};
 
 export default plugin;
 export {withGoogleAnalytics};

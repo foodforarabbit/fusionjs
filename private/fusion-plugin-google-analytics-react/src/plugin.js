@@ -1,3 +1,4 @@
+// @flow
 import GoogleAnalyticsPlugin from '@uber/fusion-plugin-google-analytics';
 import {ProviderPlugin} from 'fusion-react';
 
