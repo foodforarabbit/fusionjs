@@ -1,3 +1,4 @@
+// @flow
 import {LoggerToken} from 'fusion-tokens';
 import {createPlugin} from 'fusion-core';
 import UniversalLogger from './universal-logger.js';
