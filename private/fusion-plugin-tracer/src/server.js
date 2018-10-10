@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 import {LoggerToken} from 'fusion-tokens';
 import {JaegerClient, initTracer} from '@uber/jaeger-client-adapter';

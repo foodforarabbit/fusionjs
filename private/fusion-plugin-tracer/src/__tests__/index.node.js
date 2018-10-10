@@ -1,3 +1,4 @@
+// @flow
 import test from 'tape-cup';
 import {LoggerToken} from 'fusion-tokens';
 import App, {createToken} from 'fusion-core';
