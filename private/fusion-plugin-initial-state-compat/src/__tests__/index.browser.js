@@ -1,3 +1,4 @@
+// @flow
 import tape from 'tape-cup';
 import getInitialState from '../index.js';
 
