@@ -1,3 +1,4 @@
+// @flow
 import tape from 'tape-cup';
 import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
