@@ -1,18 +1,26 @@
 // @flow
-import test from 'tape-cup';
-import {LoggerToken} from 'fusion-tokens';
-import App, {createToken} from 'fusion-core';
-import {getSimulator} from 'fusion-test-utils';
-import TracerPlugin, {TracerConfigToken, InitTracerToken} from '../server';
 
-const TracerToken = createToken('Tracer');
+import test from 'tape-cup';
+
+import {LoggerToken} from 'fusion-tokens';
+import App from 'fusion-core';
+import {getSimulator} from 'fusion-test-utils';
+
+import TracerPlugin from '../server.js';
+import {TracerToken, TracerConfigToken, InitTracerToken} from '../tokens.js';
 
 const mockLogger = {};
-
 const MockLogger = {
   createChild() {
     return mockLogger;
   },
+  log: (msg: any): any => {},
+  error: (msg: any): any => {},
+  warn: (msg: any): any => {},
+  info: (msg: any): any => {},
+  verbose: (msg: any): any => {},
+  debug: (msg: any): any => {},
+  silly: (msg: any): any => {},
 };
 
 test('Tracer Plugin Interface', t => {

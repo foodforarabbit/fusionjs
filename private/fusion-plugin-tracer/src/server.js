@@ -1,15 +1,21 @@
 // @flow
+
 /* eslint-env node */
-import {LoggerToken} from 'fusion-tokens';
+
 import {JaegerClient, initTracer} from '@uber/jaeger-client-adapter';
-import {createPlugin, memoize, createToken} from 'fusion-core';
 
-export const TracerConfigToken = createToken('TracerConfig');
-export const TracerOptionsToken = createToken('TracerOptions');
-export const InitTracerToken = createToken('InitTracerToken');
+import {LoggerToken} from 'fusion-tokens';
+import {createPlugin, memoize} from 'fusion-core';
 
-// eslint-disable-next-line no-unused-vars
-export default __NODE__ &&
+import {
+  TracerConfigToken,
+  TracerOptionsToken,
+  InitTracerToken,
+} from './tokens.js';
+
+import type {Tracer, TracerPluginType} from './types.js';
+
+const pluginFactory: () => TracerPluginType = () =>
   createPlugin({
     deps: {
       logger: LoggerToken,
@@ -23,6 +29,7 @@ export default __NODE__ &&
       options = {},
       initClient = initTracer,
     }) => {
+      // $FlowFixMe
       options.logger = options.logger || logger.createChild('tracer');
 
       const {mock, ...tracerConfig} = config;
@@ -38,6 +45,9 @@ export default __NODE__ &&
       const tracer = initClient(tracerConfig, options);
 
       class TracerPlugin {
+        span: any;
+        tracer: Tracer;
+
         constructor() {
           this.span = null;
           this.tracer = tracer;
@@ -86,3 +96,5 @@ export default __NODE__ &&
     },
     cleanup: tracer => new Promise(resolve => tracer.tracer.close(resolve)),
   });
+
+export default ((__NODE__ && pluginFactory(): any): TracerPluginType);

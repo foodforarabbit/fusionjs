@@ -1,15 +1,15 @@
 // @flow
+
 // Main export file
-import {createToken} from 'fusion-core';
-import browser from './browser';
-import server, {
+import browser from './browser.js';
+import server from './server.js';
+import {
   TracerOptionsToken as OptionsToken,
   TracerConfigToken as ConfigToken,
-} from './server';
+} from './tokens.js';
 
-export const TracerToken = createToken('Tracer');
+export {TracerToken} from './tokens.js';
 
-declare var __NODE__: Boolean;
 export default (__NODE__ ? server : browser);
 
 export const TracerOptionsToken = __NODE__ && OptionsToken;

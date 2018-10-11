@@ -101,7 +101,7 @@ Optional. Server-only. Useful for mocking Tracer in tests. Defaults to `initTrac
 ###### Types
 
 ```flow
-type InitTracer = (serviceName: string, config: TracerConfig, options: TracerOptions) => Tracer
+type InitTracer = (config: TracerConfig, options: TracerOptions) => Tracer
 ```
 
 ##### `TracerConfigToken`
