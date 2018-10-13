@@ -6,7 +6,7 @@ import request from 'request';
 import {serverPerfCollector} from '@uber/web-perf-collector';
 
 export default function postToCatalyst(
-  {enhancedMetrics: metrics},
+  {enhancedMetrics: metrics, __url__: route},
   ctx,
   config = {
     name: process.env.npm_package_name,
@@ -24,7 +24,7 @@ export default function postToCatalyst(
     'https://web-logging.uber.com/perf',
     {
       json: {
-        ...serverPerfCollector(config)(req, metrics),
+        ...serverPerfCollector(config)(req, metrics, route),
       },
     },
     (err, resp) => {
