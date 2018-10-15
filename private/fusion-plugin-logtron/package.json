@@ -2,10 +2,7 @@
   "name": "@uber/fusion-plugin-logtron",
   "version": "1.4.5",
   "description": "fusion plugin for universal logging via logtron",
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist", "src"],
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
   "browser": {
@@ -20,7 +17,7 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "dependencies": {
-    "@uber/logtron": "^9.0.7",
+    "@uber/logtron": "^9.0.8",
     "error-stack-parser": "^2.0.2",
     "koa-bodyparser": "4.2.1",
     "source-map": "^0.7.3"
