@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-events-adapter",
   "description": "An adapter for all uber specific events",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
