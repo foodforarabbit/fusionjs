@@ -22,6 +22,7 @@ import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
 import AccessLog from './utils/access-log.js';
+import sanitizeRouteForM3 from './utils/sanitize-route-for-m3.js';
 
 const plugin =
   __NODE__ &&
@@ -79,9 +80,10 @@ const plugin =
 
       ctx.timing.end.then(timing => {
         const tags = {
-          ...(ctx.status !== 404
-            ? {route: ctx.path, status: ctx.status}
-            : {route: 'not-found', status: 404}),
+          route:
+            ctx.status === 404 ? 'not-found' : sanitizeRouteForM3(ctx.path),
+          status: ctx.status,
+          method: ctx.method,
           ...ctx.req.m3Tags, // Bedrock compatability
         };
 
