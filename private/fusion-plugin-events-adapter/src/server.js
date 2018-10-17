@@ -21,6 +21,7 @@ import pageViewBrowser from './handlers/page-view-browser';
 import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
+import AccessLog from './utils/access-log.js';
 
 const plugin =
   __NODE__ &&
@@ -58,7 +59,7 @@ const plugin =
       browserPerformance({events, m3, heatpipeEmitter});
       pageViewBrowser({events, heatpipeEmitter});
       reduxAction({events, heatpipeEmitter, m3});
-      routeTiming({events, m3});
+      routeTiming({events, m3, logger});
       customEvent({events, heatpipeEmitter, m3});
 
       return {
@@ -69,11 +70,12 @@ const plugin =
         },
       };
     },
-    middleware: (deps, service) => async (
+    middleware: ({logger}, service) => async (
       ctx: Object,
       next: () => Promise<void>
     ) => {
       const {logTiming} = service;
+      const accessLog = AccessLog(logger);
 
       ctx.timing.end.then(timing => {
         const tags = {
@@ -87,6 +89,13 @@ const plugin =
         // server side renders are tracked separately as pageviews
         if (!ctx.element) {
           logTiming('request', tags)(timing);
+          accessLog({
+            type: 'request',
+            url: ctx.url,
+            route: ctx.path,
+            status: ctx.status,
+            timing,
+          });
         }
 
         ctx.timing.downstream.then(logTiming('downstream', tags));

@@ -1,7 +1,9 @@
 // @noflow
 import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
+import AccessLog from '../utils/access-log.js';
 
-export default function routeTiming({events, m3}) {
+export default function routeTiming({events, m3, logger}) {
+  const accessLog = AccessLog(logger);
   // increment handlers
   const incrementHandler = key => ({title, status}) => {
     m3.increment(key, {
@@ -18,9 +20,22 @@ export default function routeTiming({events, m3}) {
     });
   };
 
+  const logHandler = type => ({title, timing, status}, ctx) => {
+    const meta = {
+      type,
+      url: ctx && ctx.url,
+      route: title,
+      timing,
+      status,
+    };
+    accessLog(meta);
+  };
+
   // use route_time here to be consistent
   events.on('pageview:server', timingHandler('route_time'));
   events.on('pageview:server', incrementHandler('pageview_server'));
+  events.on('pageview:server', logHandler('pageview:server'));
+  events.on('pageview:browser', logHandler('pageview:browser'));
   events.on('pageview:browser', incrementHandler('pageview_browser'));
   events.on('render:server', timingHandler('render_server'));
 }

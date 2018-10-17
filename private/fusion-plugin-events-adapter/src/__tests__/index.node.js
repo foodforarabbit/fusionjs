@@ -27,7 +27,16 @@ tape('Server plugin', async t => {
   app.register(EventsAdapterToken, ServerPlugin);
   app.register(UniversalEventsToken, new Events());
   app.register(M3Token, M3Mock);
-  app.register(LoggerToken, {});
+  app.register(LoggerToken, {
+    info(msg, meta) {
+      t.equal(msg, 'access log');
+      t.equal(meta.type, 'request');
+      t.equal(meta.route, '/test');
+      t.equal(meta.url, '/test');
+      t.equal(meta.status, 200);
+      t.equal(typeof meta.timing, 'number');
+    },
+  });
   app.register(HeatpipeToken, {});
 
   app.register(I18nToken, {
