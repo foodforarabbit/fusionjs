@@ -1,16 +1,18 @@
 // @flow
 /* eslint-env node */
 import {JaegerClient} from '@uber/jaeger-client-adapter';
-import {createPlugin, createToken} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
 
-export const ConfigToken = createToken('GalileoConfig');
-export const ClientToken = createToken('GalileoClient');
+import {
+  GalileoConfigToken as ConfigToken,
+  GalileoClientToken as ClientToken,
+} from './tokens.js';
+import type {GalileoPluginType, GalileoClient} from './types.js';
 
-// eslint-disable-next-line no-unused-vars
-export default __NODE__ &&
+const pluginFactory: () => GalileoPluginType = () =>
   createPlugin({
     deps: {
       logger: LoggerToken,
@@ -20,6 +22,7 @@ export default __NODE__ &&
       Client: ClientToken.optional,
     },
     provides: ({m3, logger, Tracer, config = {}, Client}) => {
+      // $FlowFixMe
       logger = logger.createChild('galileo');
       const tracer = Tracer.tracer;
       let appName = __DEV__ ? process.env.UBER_OWNER : process.env.SVC_ID;
@@ -46,6 +49,8 @@ export default __NODE__ &&
       );
 
       class GalileoPlugin {
+        galileo: GalileoClient;
+
         constructor() {
           this.galileo = galileo;
         }
@@ -60,5 +65,8 @@ export default __NODE__ &&
       }
       return new GalileoPlugin();
     },
-    cleanup: galileoPlugin => galileoPlugin.destroy(),
+    cleanup: async galileoPlugin => {
+      galileoPlugin.destroy();
+    },
   });
+export default ((__NODE__ && pluginFactory(): any): GalileoPluginType);

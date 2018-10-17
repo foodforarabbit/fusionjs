@@ -1,17 +1,44 @@
 // @flow
 /* eslint-env node */
 import test from 'tape-cup';
+
 import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
+
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
-import GalileoPlugin, {ClientToken, ConfigToken} from '../server';
+
+import GalileoPlugin from '../server.js';
+import {
+  GalileoConfigToken as ConfigToken,
+  GalileoClientToken as ClientToken,
+} from '../tokens.js';
 
 const mockLogger = {
   createChild: () => 'logger',
+  log: (msg: any): any => {},
+  error: (msg: any): any => {},
+  warn: (msg: any): any => {},
+  info: (msg: any): any => {},
+  verbose: (msg: any): any => {},
+  debug: (msg: any): any => {},
+  silly: (msg: any): any => {},
 };
-const mockM3 = 'm3';
+const mockM3 = {
+  counter: (string, number, TagsType) => {},
+  increment: (string, TagsType) => {},
+  decrement: (string, TagsType) => {},
+  timing: (string, number, TagsType) => {},
+  gauge: (string, number, TagsType) => {},
+  scope: string => {},
+  immediateCounter: (string, number, TagsType) => {},
+  immediateIncrement: (string, TagsType) => {},
+  immediateDecrement: (string, TagsType) => {},
+  immediateTiming: (string, number, TagsType) => {},
+  immediateGauge: (string, number, TagsType) => {},
+  close: async string => {},
+};
 const mockTracer = {tracer: 'tracer'};
 
 test('Galileo Plugin', t => {
@@ -40,7 +67,7 @@ test('fusion Galileo Plugin', t => {
       'config is passed down'
     );
     t.equal(tracer, 'tracer', 'tracer instance needs to be passed down');
-    t.equal(m3, 'm3', 'm3 needs to be passed down');
+    t.equal(m3, mockM3, 'm3 needs to be passed down');
     t.equal(logger, 'logger', 'logger instance needs to be passed down');
     t.equal(format, 'http_headers', 'format needs to be passed down');
     return {};
