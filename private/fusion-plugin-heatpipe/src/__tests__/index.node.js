@@ -21,8 +21,11 @@ tape('heatpipe-plugin in __DEV__', async t => {
     },
   };
   app.register(HeatpipeToken, HeatpipePlugin);
+  // $FlowFixMe
   app.register(LoggerToken, mockLoggerServiceInstance);
+  // $FlowFixMe
   app.register(M3Token, mockM3ServiceInstance);
+  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(
     createPlugin({
@@ -118,8 +121,11 @@ tape('[fusion] heatpipe-plugin', async t => {
   app.register(HeatpipeToken, HeatpipePlugin);
   app.register(HeatpipeConfigToken, fixture.heatpipeConfig);
   app.register(HeatpipeClientToken, MockClient);
+  // $FlowFixMe
   app.register(LoggerToken, mockLoggerServiceInstance);
+  // $FlowFixMe
   app.register(M3Token, mockM3ServiceInstance);
+  // $FlowFixMe
   app.register(UniversalEventsToken, events);
 
   getSimulator(

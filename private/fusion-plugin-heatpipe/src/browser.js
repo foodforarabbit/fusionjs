@@ -9,7 +9,7 @@ export default __BROWSER__ &&
       UniversalEvents: UniversalEventsToken,
     },
     provides({UniversalEvents}) {
-      const emitter = UniversalEvents.from();
+      const emitter = UniversalEvents;
 
       return {
         publish(topicInfo, message) {

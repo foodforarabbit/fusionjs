@@ -22,19 +22,19 @@ const fixture = {
 tape('heatpipe:publish', t => {
   const MockUniversalEvents = {
     from() {
-      return {
-        emit(type, {topicInfo, message}) {
-          t.equal(type, 'heatpipe:publish', 'calls with correct event type');
-          t.equal(topicInfo, fixture.topicInfo, 'topicInfo passes through');
-          t.equal(message, fixture.message, 'message passes through');
-          t.end();
-        },
-      };
+      return this;
+    },
+    emit(type, {topicInfo, message}) {
+      t.equal(type, 'heatpipe:publish', 'calls with correct event type');
+      t.equal(topicInfo, fixture.topicInfo, 'topicInfo passes through');
+      t.equal(message, fixture.message, 'message passes through');
+      t.end();
     },
   };
 
   const app = new App('content', el => el);
   app.register(HeatpipeToken, HeatpipePlugin);
+  // $FlowFixMe
   app.register(UniversalEventsToken, MockUniversalEvents);
 
   getSimulator(

@@ -14,12 +14,13 @@ import {HeatpipeConfigToken} from './tokens';
 export const HeatpipeClientToken = createToken('HeatpipeClientToken');
 
 class NoopClient {
+  constructor(args) {}
   connect() {}
   publish(info, message, cb) {
-    cb && cb(null);
+    cb && cb();
   }
   destroy(cb) {
-    cb && cb(null);
+    cb && cb();
   }
 }
 
