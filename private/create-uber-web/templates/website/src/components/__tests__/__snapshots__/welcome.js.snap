@@ -14,12 +14,9 @@ exports[`Welcome 1`] = `
       <Styled(div)
         $delay="1.5s"
       >
-        <RightArrowLink
-          href="http://t.uber.com/web"
-          target="_blank"
-        >
+        <ButtonLink>
           Let's get started
-        </RightArrowLink>
+        </ButtonLink>
       </Styled(div)>
     </Styled(div)>
   </div>

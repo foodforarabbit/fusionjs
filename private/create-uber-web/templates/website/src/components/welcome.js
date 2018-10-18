@@ -1,8 +1,10 @@
 // @flow
-import React from 'react';
-import {styled} from 'fusion-plugin-styletron-react';
+import * as React from 'react';
 import type {ElementType} from 'react';
-import {withThinFont, withNewsFont} from '../config/fonts';
+import {styled} from 'baseui';
+import {Button} from 'baseui/button';
+import {ChevronRight} from 'baseui/icon';
+import {withThinFont} from '../config/fonts';
 
 const Centered = styled('div', {
   display: 'flex',
@@ -20,30 +22,8 @@ const H1 = withThinFont(
   }))
 );
 
-const A = withNewsFont(
-  styled('a', props => {
-    return {
-      fontWeight: '500',
-      fontSize: '14px',
-      letterSpacing: '.4px',
-      textTransform: 'uppercase',
-      textDecoration: 'none',
-      color: '#11939A',
-      ':hover': {
-        color: '#0c6c71',
-      },
-      ...props.$fontStyles,
-    };
-  })
-);
-
 const AlignRight = styled('div', {
   textAlign: 'right',
-});
-
-const Svg = styled('svg', {
-  // $FlowFixMe
-  fill: 'currentColor',
 });
 
 const FadeIn = styled('div', props => ({
@@ -57,53 +37,62 @@ const FadeIn = styled('div', props => ({
   animationDelay: props.$delay,
 }));
 
-function RightArrow(props) {
+function ChevronIcon(props) {
   return (
-    <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6.3 10.7" {...props}>
-      <path d="M6.3 5.4L1.4.1 0 1.5l3.6 3.9L0 9.2l1.4 1.4 4.9-5.2z" />
-    </Svg>
+    <ChevronRight size={24}/>
   );
 }
 
-const PaddedRightArrow = styled(RightArrow, props => ({
-  paddingLeft: props.$entered ? '14px' : '10px',
-  paddingRight: props.$entered ? '0px' : '4px',
-  transition: 'padding 400ms ease',
-}));
-
-type RightArrowProps = {
-  children: ElementType,
+type ButtonProps = {
+  children: React.Node,
 };
 
-type RightArrowState = {
-  entered: boolean,
+type ButtonState = {
+  hovered: boolean,
 };
 
-class RightArrowLink extends React.Component<RightArrowProps, RightArrowState> {
-  state = {entered: false};
+class ButtonLink extends React.Component<ButtonProps, ButtonState> {
+  state = {hovered: false};
 
   onMouseOver = () => {
-    this.setState({entered: true});
+    this.setState({hovered: true});
   };
 
   onMouseOut = () => {
-    this.setState({entered: false});
+    this.setState({hovered: false});
   };
 
   render() {
     return (
-      <A
+      <Button
         {...this.props}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
+        endEnhancer={ChevronIcon}
+        overrides={{
+          BaseButton: {
+            props: {
+              $as: 'a',
+              href: 'http://t.uber.com/web',
+              target: '_blank'
+            },
+            style: {
+              paddingRight: this.state.hovered ? '10px' : '16px',
+              transitionProperty: 'background padding',
+            }
+          },
+          EndEnhancer: {
+            style: ({$theme}) => ({
+              marginLeft: this.state.hovered ? '18px' : '12px',
+              transitionProperty: 'margin',
+              transitionDuration: $theme.animation.timing100,
+              transitionTimingFunction: $theme.animation.easeOutCurve,
+            })
+          }
+        }}
       >
-        {this.props.children}
-        <PaddedRightArrow
-          width="11"
-          height="11"
-          $entered={this.state.entered}
-        />
-      </A>
+      {this.props.children}
+    </Button>
     );
   }
 }
@@ -117,9 +106,9 @@ export default function Hello() {
         </FadeIn>
         <AlignRight>
           <FadeIn $delay="1.5s">
-            <RightArrowLink href="http://t.uber.com/web" target="_blank">
+            <ButtonLink>
               Let&apos;s get started
-            </RightArrowLink>
+            </ButtonLink>
           </FadeIn>
         </AlignRight>
       </div>
