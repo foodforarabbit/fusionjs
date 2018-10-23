@@ -16,6 +16,13 @@ const FixtureCookieType = {
   },
 };
 
+const FixtureExtraCookieType = {
+  name: 'bar',
+  data: {
+    id: UUID,
+  },
+};
+
 tape('AnalyticsSessions server plugin - middleware', t => {
   const ctx = {
     cookies: {
@@ -42,14 +49,56 @@ tape('AnalyticsSessions server plugin - middleware', t => {
         );
       },
     },
+    memoized: new Map(),
   };
   const next = () => t.pass('called next()');
 
-  const middleware = plugin.middleware({cookieType: FixtureCookieType});
+  const deps = {pluginCookieType: FixtureCookieType};
+  const middleware = plugin.middleware(deps, plugin.provides(deps));
   middleware(ctx, next);
 
   t.end();
 });
+
+tape(
+  'AnalyticsSessions server plugin - middleware, multiple cookieTypes',
+  t => {
+    const cookieTypes = [FixtureCookieType, FixtureExtraCookieType];
+    var cookieIdx = 0;
+
+    const ctx = {
+      cookies: {
+        get: () => {
+          t.pass('existence check of the cookie');
+          return null;
+        },
+        set: (name, value, options) => {
+          t.equal(name, cookieTypes[cookieIdx].name, 'name matched');
+
+          const parsed = JSON.parse(value);
+          const regexUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+          t.ok(regexUUID.test(parsed.id), 'UUID generated');
+
+          cookieIdx++;
+        },
+      },
+      memoized: new Map(),
+    };
+    const next = () => t.pass('called next()');
+
+    const deps = {
+      pluginCookieType: cookieTypes,
+    };
+    const middlewareWithMultiple = plugin.middleware(
+      deps,
+      plugin.provides(deps)
+    );
+
+    middlewareWithMultiple(ctx, next);
+
+    t.end();
+  }
+);
 
 tape('AnalyticsSessions server plugin - rolling session', async t => {
   const cookieSets = [];
@@ -58,18 +107,20 @@ tape('AnalyticsSessions server plugin - rolling session', async t => {
       get: () => (cookieSets.length ? cookieSets[0] : null),
       set: (name, value, options) => cookieSets.push(options),
     },
+    memoized: new Map(),
   };
   const next = () => t.pass('called next()');
 
-  const middleware = plugin.middleware({
-    cookieType: {
+  const deps = {
+    pluginCookieType: {
       ...FixtureCookieType,
       rolling: true,
       options: {
         expires: 50,
       },
     },
-  });
+  };
+  const middleware = plugin.middleware(deps, plugin.provides(deps));
   middleware(ctx, next);
   await new Promise(res => setTimeout(res, 200)); // add a small time delay
   middleware(ctx, next);
@@ -86,65 +137,3 @@ tape('AnalyticsSessions server plugin - rolling session', async t => {
 
   t.end();
 });
-
-tape('AnalyticsSessions browser plugin - service - basics', t => {
-  const fixtureCookieType = {
-    name: 'foo',
-  };
-
-  const cookieValue = {a: 1, b: {c: 2}};
-
-  const ctx = {
-    memoized: new Map(),
-    cookies: {
-      get: name => {
-        t.pass('gets cookie');
-        t.equal(
-          name,
-          fixtureCookieType.name,
-          'passing in cookie name from the cookieType'
-        );
-        return JSON.stringify(cookieValue);
-      },
-    },
-  };
-
-  const service = plugin.provides({
-    cookieType: fixtureCookieType,
-  });
-
-  t.deepEqual(service.from(ctx), cookieValue);
-  t.end();
-});
-
-tape(
-  'AnalyticsSessions browser plugin - service - invalid JSON in cookies',
-  t => {
-    const fixtureCookieType = {
-      name: 'foo',
-    };
-
-    const ctx = {
-      memoized: new Map(),
-      cookies: {
-        get: name => {
-          t.pass('gets cookie');
-          t.equal(
-            name,
-            fixtureCookieType.name,
-            'passing in cookie name from the cookieType'
-          );
-          return 'zzz';
-        },
-      },
-    };
-
-    const service = plugin.provides({
-      cookieType: fixtureCookieType,
-    });
-
-    t.doesNotThrow(() => service.from(ctx), 'safely parses cookie values');
-    t.deepEqual(service.from(ctx), {}, 'returns an empty object');
-    t.end();
-  }
-);

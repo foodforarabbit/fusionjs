@@ -23,7 +23,7 @@ tape('AnalyticsSessions browser plugin - basics', t => {
   };
 
   const service = plugin.provides({
-    cookieType: fixtureCookieType,
+    pluginCookieType: fixtureCookieType,
     Cookies: fixtureCookies,
   });
 
@@ -49,7 +49,7 @@ tape('AnalyticsSessions browser plugin - invalid JSON in cookies', t => {
   };
 
   const service = plugin.provides({
-    cookieType: fixtureCookieType,
+    pluginCookieType: fixtureCookieType,
     Cookies: fixtureCookies,
   });
 

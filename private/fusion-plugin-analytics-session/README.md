@@ -1,6 +1,6 @@
 # @uber/fusion-plugin-analytics-session
 
-Generates and provides analytics sessions data - such as id, timestamp - in a cookie
+Generates and provides analytics sessions data - such as id, timestamp - in cookies.
 
 ---
 
@@ -29,10 +29,23 @@ yarn add @uber/fusion-plugin-analytics-session
 
 ### Usage
 
+`.from(ctx)` returns the cookie value, or the first cookie value if `AnalyticsCookieTypeToken` is registered with` Array<CookieType>`
+
 ```js
-app.middleware({session: AnalyticsSessionToken}, ({session}) => {
+app.middleware({sessionCookie: AnalyticsSessionToken}, ({sessionCookie}) => {
   return (ctx, next) => {
-    const {session_id, session_time_ms} = session.from(ctx);
+    const {session_id, session_time_ms} = sessionCookie.from(ctx);
+    return next();
+  }
+});
+```
+
+`._from(ctx)` returns the [service instance](#service-api)
+```js
+app.middleware({sessionCookie: AnalyticsSessionToken}, ({sessionCookie}) => {
+  return (ctx, next) => {
+    const sessionCookie = session._from(ctx);
+    const {session_id, session_time_ms} = sessionCookie.get(UberWebEventCookie);
     return next();
   }
 });
@@ -53,6 +66,8 @@ export default function start() {
 
   app.register(AnalyticsSessionToken, AnalyticsSession);
   app.register(AnalyticsCookieTypeToken, UberWebEventCookie);
+  // or
+  // app.register(AnalyticsCookieTypeToken, [UberWebEventCookie, SomeCookieType...]);
 
   return app;
 }
@@ -76,7 +91,9 @@ Should be registered with the [`AnalyticsSession`](#analyticssession) plugin
 
 ##### `AnalyticsCookieTypeToken`
 
-A cookie configuration object. Should be registered with [`UberWebEventCookie`](#uberwebeventcookie)
+A cookie configuration type object, or __an array of__. `CookieType | Array<CookieType>`
+
+ Should be registered with [`UberWebEventCookie`](#uberwebeventcookie)
 
 ###### Types
 
@@ -120,3 +137,26 @@ A value of type `CookieType`
   },
 }
 ```
+
+#### Service API
+
+For backward-compatibility,  `Plugin.from(ctx)` was defined to return the generated cookie value, or the first cookie value if `AnalyticsCookieTypeToken` is registered with` Array<CookieType>`.
+
+The service is [request-scoped](https://fusionjs.com/api/fusion-core#memoization), to access the service, instantiate via `Plugin._from(ctx)`.
+
+see [Usage](#usage) for exmaples differentiate `.from(ctx)` and `._from(ctx)`.
+
+The following is the API for service instances intantiated via __`._from(ctx)`__
+
+`sessionCookie.setCookie(cookieType)`
+
+Generates the cookie for the response if the cookie doesn't exist in request. Also updates expiry if applicable.
+
+`sessionCookie.setCookies()`
+
+`.setCookie()` for all the `CookieType`s registered with `AnalyticsCookieTypeToken`
+
+`sessionCookie.get(cookieType?: CookieType)`
+
+Get the generated cookie value for a given cookieType.
+If no cookieType was given, it defaults to the what's registered with `AnalyticsCookieTypeToken` (Object), or the first type in an `Array<CookieType>`.

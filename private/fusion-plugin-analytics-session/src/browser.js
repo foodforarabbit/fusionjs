@@ -15,10 +15,13 @@ function safeJSONParse(str) {
 export default __BROWSER__ &&
   createPlugin({
     deps: {
-      cookieType: AnalyticsCookieTypeToken,
+      pluginCookieType: AnalyticsCookieTypeToken,
       Cookies: AnalyticsCookieModuleToken.optional,
     },
-    provides: ({cookieType, Cookies = jsCookie}) => {
-      return safeJSONParse(Cookies.get(cookieType.name));
+    provides: ({pluginCookieType, Cookies = jsCookie}) => {
+      const cookieTypes = Array.isArray(pluginCookieType)
+        ? pluginCookieType
+        : [pluginCookieType];
+      return safeJSONParse(Cookies.get(cookieTypes[0].name));
     },
   });
