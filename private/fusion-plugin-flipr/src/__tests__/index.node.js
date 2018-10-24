@@ -5,11 +5,11 @@ import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
 
-import FliprPlugin, {DEFAULT_UPDATE_INTERVAL} from '../server';
-import {FliprToken, FliprClientToken, FliprConfigToken} from '../tokens';
+import FliprPlugin, {FliprService, DEFAULT_UPDATE_INTERVAL} from '../server.js';
+import {FliprToken, FliprClientToken, FliprConfigToken} from '../tokens.js';
 
-function createTestFixture(t) {
-  const mockLogger = () => {};
+function createTestFixture(t: void): App {
+  const mockLogger = (): void => {};
   const mockFliprClient = function(config) {
     const {
       propertiesNamespaces,
@@ -35,28 +35,28 @@ function createTestFixture(t) {
     t && t.ok(dcPath, 'set DEV dcPath');
     t && t.ok(diskCachePath, 'set DEV diskCachePath');
 
-    this.startUpdating = () => t && t.pass('invoked startUpdating()');
-    this.randomFunction = () => {};
+    this.startUpdating = (): void => t && t.pass('invoked startUpdating()');
+    this.randomFunction = (): void => {};
   };
-  const mockConfig = {
-    defaultNamespace: 'foo',
-  };
+  const mockConfig = {defaultNamespace: 'foo'};
 
   const app = new App('content', el => el);
   app.register(FliprToken, FliprPlugin);
   app.register(FliprClientToken, mockFliprClient);
   app.register(FliprConfigToken, mockConfig);
+
+  // $FlowFixMe
   app.register(LoggerToken, mockLogger);
   return app;
 }
 
-test('plugin - exported as expected', t => {
+test('plugin - exported as expected', (t): void => {
   t.ok(FliprPlugin, 'plugin defined as expected');
   t.equal(typeof FliprPlugin, 'object', 'plugin is an object');
   t.end();
 });
 
-test('plugin - service resolved as expected', t => {
+test('plugin - service resolved as expected', (t): void => {
   const app = createTestFixture(t);
 
   let wasResolved = false;
@@ -64,7 +64,8 @@ test('plugin - service resolved as expected', t => {
     app,
     createPlugin({
       deps: {flipr: FliprToken},
-      provides: deps => {
+
+      provides: (deps: {|flipr: empty|}): void => {
         const {flipr} = deps;
         t.ok(flipr);
         wasResolved = true;
@@ -76,13 +77,14 @@ test('plugin - service resolved as expected', t => {
   t.end();
 });
 
-test('plugin - initialization', t => {
+test('plugin - initialization', (t): void => {
   let app = createTestFixture();
   getSimulator(
     app,
     createPlugin({
       deps: {flipr: FliprToken},
-      provides: ({flipr}) => {
+
+      provides: ({flipr}): void => {
         t.ok(
           flipr.randomFunction,
           'Flipr client functions proxied on the service'
@@ -94,19 +96,18 @@ test('plugin - initialization', t => {
   t.end();
 });
 
-test('service - initialization with client error', t => {
+test('service - initialization with client error', (t): void => {
   const MockGrumpyFliprClient = function() {
-    this.startUpdating = cb => {
+    this.startUpdating = (cb): void => {
       cb(new Error('flipr client is unhappy'));
     };
   };
 
   t.throws(
-    () =>
+    (): any | FliprService =>
+      FliprPlugin.provides &&
       FliprPlugin.provides({
-        config: {
-          defaultNamespace: 'foo',
-        },
+        config: {defaultNamespace: 'foo'},
         Client: MockGrumpyFliprClient,
       }),
     /unhappy/g,

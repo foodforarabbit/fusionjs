@@ -1,8 +1,7 @@
 // @flow
-import server from './server';
-import browser from './browser';
+import server from './server.js';
+import browser from './browser.js';
 
-export {FliprToken, FliprClientToken, FliprConfigToken} from './tokens';
+export {FliprToken, FliprClientToken, FliprConfigToken} from './tokens.js';
 
-declare var __NODE__: Boolean;
 export default (__NODE__ ? server : browser);

@@ -4,11 +4,16 @@ import os from 'os';
 import path from 'path';
 
 import {createPlugin} from 'fusion-core';
+import type {FusionPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
+import type {Logger} from 'fusion-tokens';
 
-import {FliprClientToken, FliprConfigToken} from './tokens';
+import {FliprClientToken, FliprConfigToken} from './tokens.js';
 
-function getFliprPropertiesNamespaces({rootNamespace, dataCenter}) {
+function getFliprPropertiesNamespaces({
+  rootNamespace,
+  dataCenter,
+}): Array<string> {
   return [
     rootNamespace,
     `${rootNamespace}.${dataCenter || 'local'}`,
@@ -16,24 +21,24 @@ function getFliprPropertiesNamespaces({rootNamespace, dataCenter}) {
   ];
 }
 
-function getFliprDatacenterPath() {
+function getFliprDatacenterPath(): string | null {
   return __DEV__ ? path.join(__dirname, '../flipr/local_datacenter') : null;
 }
 
-function getFliprDiskCachePath() {
+function getFliprDiskCachePath(): string | null {
   return __DEV__ ? path.join(__dirname, '../flipr/') : null;
 }
 
 export const DEFAULT_UPDATE_INTERVAL = 5000;
 
-class FliprService {
-  constructor(config, logger, Client) {
+export class FliprService {
+  constructor(config: any, logger: Logger, Client: any) {
+    // Plugin config properties
+    // @uber/flipr-client config properties
     const {
-      // Plugin config properties
       defaultNamespace,
       dataCenter,
       overrides,
-      // @uber/flipr-client config properties
       propertiesNamespaces,
       updateInterval,
       defaultProperties,
@@ -59,12 +64,12 @@ class FliprService {
     for (const key in flipr) {
       if (typeof flipr[key] === 'function') {
         Object.defineProperty(this, key, {
-          value: (...args) => flipr[key](...args),
+          value: (...args): any => flipr[key](...args),
         });
       }
     }
 
-    flipr.startUpdating(function onUpdating(err) {
+    flipr.startUpdating(function onUpdating(err): void {
       if (err) {
         throw err;
       }
@@ -80,7 +85,8 @@ const plugin =
       logger: LoggerToken,
       Client: FliprClientToken.optional,
     },
-    provides: ({config = {}, logger, Client}) => {
+
+    provides: ({config = {}, logger, Client}): FliprService => {
       // The flipr client pulls in bignum which causes some problems
       // when used with jest. To resolve this, we can lazy load the flipr client
       Client = Client || require('@uber/flipr-client');
@@ -92,7 +98,8 @@ const plugin =
 
       return new FliprService(fliprClientConfig, logger, Client);
     },
-    cleanup: flipr => flipr.destroy(),
+    // $FlowFixMe
+    cleanup: (flipr: FliprService): any => flipr.destroy(),
   });
 
-export default plugin;
+export default ((plugin: any): FusionPlugin<any, any>);
