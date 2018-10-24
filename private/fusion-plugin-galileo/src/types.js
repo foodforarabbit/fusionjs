@@ -1,5 +1,4 @@
 // @flow
-
 import type {FusionPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 
@@ -17,7 +16,7 @@ type GalileoDepsType = {
   config: typeof GalileoConfigToken.optional,
   Client: typeof GalileoClientToken.optional,
 };
-type GalileoServiceType = {
+export type GalileoServiceType = {
   +galileo: GalileoClient,
   +destroy: () => boolean | void,
 };

@@ -1,5 +1,4 @@
 // @flow
-
 import {createToken} from 'fusion-core';
 import type {Token} from 'fusion-core';
 

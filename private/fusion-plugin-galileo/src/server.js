@@ -1,8 +1,8 @@
 // @flow
 /* eslint-env node */
-import {JaegerClient} from '@uber/jaeger-client-adapter';
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
+import {JaegerClient} from '@uber/jaeger-client-adapter';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
 
@@ -10,9 +10,13 @@ import {
   GalileoConfigToken as ConfigToken,
   GalileoClientToken as ClientToken,
 } from './tokens.js';
-import type {GalileoPluginType, GalileoClient} from './types.js';
+import type {
+  GalileoServiceType,
+  GalileoPluginType,
+  GalileoClient,
+} from './types.js';
 
-const pluginFactory: () => GalileoPluginType = () =>
+const pluginFactory: () => GalileoPluginType = (): GalileoPluginType =>
   createPlugin({
     deps: {
       logger: LoggerToken,
@@ -21,7 +25,14 @@ const pluginFactory: () => GalileoPluginType = () =>
       config: ConfigToken.optional,
       Client: ClientToken.optional,
     },
-    provides: ({m3, logger, Tracer, config = {}, Client}) => {
+
+    provides: ({
+      m3,
+      logger,
+      Tracer,
+      config = {},
+      Client,
+    }): GalileoServiceType => {
       // $FlowFixMe
       logger = logger.createChild('galileo');
       const tracer = Tracer.tracer;
@@ -37,7 +48,7 @@ const pluginFactory: () => GalileoPluginType = () =>
         },
       };
       if (!galileoConfig.galileo.enabled) {
-        return {galileo: null, destroy() {}};
+        return {galileo: null, destroy(): void {}};
       }
       Client = Client || require('@uber/unpm-galileo');
       const galileo = new Client(
@@ -50,12 +61,10 @@ const pluginFactory: () => GalileoPluginType = () =>
 
       class GalileoPlugin {
         galileo: GalileoClient;
-
         constructor() {
           this.galileo = galileo;
         }
-
-        destroy() {
+        destroy(): boolean {
           const {wonkaClient} = galileo;
           if (wonkaClient) {
             wonkaClient.destroy();
@@ -65,7 +74,8 @@ const pluginFactory: () => GalileoPluginType = () =>
       }
       return new GalileoPlugin();
     },
-    cleanup: async galileoPlugin => {
+
+    cleanup: async (galileoPlugin: GalileoServiceType): Promise<void> => {
       galileoPlugin.destroy();
     },
   });

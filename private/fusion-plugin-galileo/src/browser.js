@@ -1,4 +1,6 @@
 // @flow
 import {createPlugin} from 'fusion-core';
 
-export default __BROWSER__ && createPlugin({});
+import type {GalileoPluginType} from './types.js';
+
+export default ((__BROWSER__ && createPlugin({}): any): GalileoPluginType);
