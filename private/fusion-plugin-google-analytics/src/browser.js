@@ -1,15 +1,17 @@
 // @flow
 /* eslint-env browser */
 import {createPlugin, createToken} from 'fusion-core';
-import loadGoogleAnalytics from './load-ga';
+import type {FusionPlugin} from 'fusion-core';
+
+import loadGoogleAnalytics from './load-ga.js';
 
 export const GoogleAnalyticsConfigToken = createToken('GoogleAnalyticsConfig');
 
-export default __BROWSER__ &&
+const plugin =
+  __BROWSER__ &&
   createPlugin({
-    deps: {
-      options: GoogleAnalyticsConfigToken,
-    },
+    deps: {options: GoogleAnalyticsConfigToken},
+
     provides: ({options}) => {
       if (!options.trackingId) {
         throw new Error('Tracking id required');
@@ -33,6 +35,9 @@ export default __BROWSER__ &&
         options.name = options.trackingId.replace(/-/g, '_');
       }
       class GoogleAnalytics {
+        options: any;
+        _ga: any;
+
         constructor() {
           this.options = options;
 
@@ -48,26 +53,23 @@ export default __BROWSER__ &&
             options.cookieDomain,
             options.name
           );
+
           // Initialize ga tracker features
           this._initializeFeatures();
         }
-
-        ga(name, ...args) {
+        ga(name: string, ...args): void {
           this._ga(this.options.name + name, ...args);
         }
-
-        // https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
-        identify(id) {
+        identify(id): void {
+          // https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
           this.ga('.set', 'userId', id);
         }
-
-        // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
-        track(data) {
+        track(data): void {
+          // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
           this.ga('.send', 'event', data);
         }
-
-        // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
-        pageview({title, page, location}) {
+        pageview({title, page, location}): void {
+          // https://developers.google.com/analytics/devguides/collection/analyticsjs/pages
           this.ga('.set', {
             title: title || document.title,
             page: page || window.location.pathname,
@@ -75,8 +77,7 @@ export default __BROWSER__ &&
           });
           this.ga('.send', 'pageview');
         }
-
-        _initializeFeatures() {
+        _initializeFeatures(): void {
           var options = this.options;
 
           if (options.advertiserFeatures) {
@@ -99,3 +100,5 @@ export default __BROWSER__ &&
       return new GoogleAnalytics();
     },
   });
+
+export default ((plugin: any): FusionPlugin<any, any>);
