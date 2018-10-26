@@ -1,13 +1,16 @@
 // @flow
 import {createPlugin, html} from 'fusion-core';
-import {PageSkeletonConfigToken} from './tokens';
+import type {Context} from 'fusion-core';
+
+import {PageSkeletonConfigToken} from './tokens.js';
 
 export default createPlugin({
-  deps: {
-    config: PageSkeletonConfigToken.optional,
-  },
-  middleware: ({config = {}}) => {
-    return async (ctx, next) => {
+  deps: {config: PageSkeletonConfigToken.optional},
+
+  middleware: ({
+    config = {},
+  }): ((ctx: Context, next: () => Promise<void>) => Promise<void>) => {
+    return async (ctx: Context, next: () => Promise<void>): Promise<void> => {
       await next();
       if (!ctx.element) {
         return;
@@ -36,8 +39,9 @@ export default createPlugin({
       }
     };
   },
-  provides: () => {
-    return function renderPageSkeleton() {
+
+  provides: (): (() => string) => {
+    return function renderPageSkeleton(): string {
       return `<div id='root'></div>`;
     };
   },
