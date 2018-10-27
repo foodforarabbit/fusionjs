@@ -1,14 +1,19 @@
 // @flow
 import tape from 'tape-cup';
+
 import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
-import plugin, {ClientToken, ConfigToken} from '../server';
+
+import plugin, {ClientToken, ConfigToken} from '../server.js';
 
 const RosettaToken = createToken('RosettaToken');
 
 tape('Rosetta plugin', async t => {
   class Client {
+    locales: any;
+    translations: any;
+
     constructor({logger, thing}) {
       this.locales = ['en_US'];
       this.translations = {
@@ -31,8 +36,11 @@ tape('Rosetta plugin', async t => {
   }
   const app = new App('el', el => el);
   app.register(RosettaToken, plugin);
+  // $FlowFixMe
   app.register(LoggerToken, 'mock-logger');
+  // $FlowFixMe
   app.register(ClientToken, Client);
+  // $FlowFixMe
   app.register(ConfigToken, {thing: 'test'});
   app.middleware({rosetta: RosettaToken}, ({rosetta}) => {
     t.ok(rosetta instanceof Client, 'exposes the client');

@@ -1,15 +1,21 @@
 // @flow
 /* eslint-env node */
-import {createPlugin, memoize, createToken} from 'fusion-core';
-import {LoggerToken} from 'fusion-tokens';
 import {Locales} from 'locale';
+
 import Genghis from '@uber/node-genghis';
+
+import {createPlugin, memoize, createToken} from 'fusion-core';
+import type {Context} from 'fusion-core';
+import {LoggerToken} from 'fusion-tokens';
 
 export const ClientToken = createToken('RosettaClient');
 export const ConfigToken = createToken('RosettaConfig');
 export const LocaleNegotiationToken = createToken('RosettaLocaleNegotiation');
 
 class TranslationsLoader {
+  locale: any;
+  translations: any;
+
   constructor({locale, translations}) {
     this.locale = locale;
     this.translations = translations;
@@ -28,15 +34,21 @@ class TranslationsLoader {
  * Locale negotiation strategies work in terms of the Locales and Locale classes
  * defined in the `'locale'` package.
  */
-function defaultLocaleNegotiationStrategy(ctx, supportedLocales) {
+function defaultLocaleNegotiationStrategy(
+  ctx: Context,
+  supportedLocales: any
+): any {
   const expectedLocales = new Locales(ctx.headers['accept-language']);
   return expectedLocales.best(supportedLocales);
 }
 
-function translationsLoaderFactory(client, localeNegotiationStrategy) {
+function translationsLoaderFactory(
+  client: any,
+  localeNegotiationStrategy: (ctx: Context, supportedLocales: any) => any
+): (ctx: Context) => TranslationsLoader {
   const supportedLocales = new Locales(client.locales, 'en');
 
-  return ctx => {
+  return (ctx: Context): TranslationsLoader => {
     const locale = localeNegotiationStrategy(ctx, supportedLocales);
 
     const normalizedLocale = locale.normalized;
@@ -48,7 +60,7 @@ function translationsLoaderFactory(client, localeNegotiationStrategy) {
   };
 }
 
-export default __NODE__ &&
+const pluginFactory = () =>
   createPlugin({
     deps: {
       logger: LoggerToken,
@@ -56,9 +68,10 @@ export default __NODE__ &&
       config: ConfigToken.optional,
       localeNegotiation: LocaleNegotiationToken.optional,
     },
+
     provides: ({logger, Client = Genghis, config = {}, localeNegotiation}) => {
       config.service = config.service || process.env.SVC_ID || 'dev-service';
-      const client = new Client({logger, ...config});
+      const client: any = new Client({logger, ...config});
       client.load();
       client.setLoadInterval();
 
@@ -70,5 +83,10 @@ export default __NODE__ &&
       );
       return client;
     },
+
     cleanup: client => client.clearInterval(),
   });
+
+type ExtractReturnType = <R>(() => R) => R;
+type PluginType = $Call<ExtractReturnType, typeof pluginFactory>;
+export default ((__NODE__ && pluginFactory(): any): PluginType);
