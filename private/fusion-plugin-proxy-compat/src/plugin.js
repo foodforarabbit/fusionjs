@@ -1,12 +1,17 @@
+// @flow
 /* eslint-env node */
+const pathToRegexp = require('path-to-regexp');
+const request = require('request');
+
 const {GalileoToken} = require('@uber/fusion-plugin-galileo');
 const {LoggerToken} = require('fusion-tokens');
 const {TracerToken} = require('@uber/fusion-plugin-tracer');
 const {M3Token} = require('@uber/fusion-plugin-m3');
 const registerM3Events = require('@uber/request-m3-events');
 const {createPlugin} = require('fusion-core');
-const pathToRegexp = require('path-to-regexp');
-const request = require('request');
+/*::
+import type {Context} from 'fusion-core';
+*/
 
 const path = require('path');
 const url = require('url');
@@ -23,10 +28,14 @@ module.exports = createPlugin({
     Tracer: TracerToken,
     Galileo: GalileoToken,
   },
+
   middleware: ({config, logger, m3Client, Tracer, Galileo}) => {
     const {galileo} = Galileo;
     const matchFn = getMatchFn(config);
-    return async (ctx, next) => {
+    return async (
+      ctx /*: Context */,
+      next /*: () => Promise<void> */
+    ) /*: Promise<void> */ => {
       await next();
       if (ctx.element || ctx.body) return;
       const match = matchFn(ctx);
@@ -34,18 +43,18 @@ module.exports = createPlugin({
       const {proxyConfig} = match;
       const {span} = Tracer.from(ctx);
       const proxyHeaders = getProxyHeaders(ctx, proxyConfig);
-      await new Promise(resolve => {
+      await new Promise((
+        resolve /*: (result: Promise<void> | void) => void */
+      ) /*: void */ => {
         galileo.AuthenticateOut(
           proxyConfig.name,
           'http',
           span,
-          function onHeaders(err, headers) {
+          function onHeaders(err, headers) /*: void */ {
             if (err) {
               logger.error(
                 err.message || 'Failed to get galileo auth ( outbound )',
-                {
-                  path: ctx.path,
-                }
+                {path: ctx.path}
               );
             }
             if (headers) {
@@ -58,7 +67,7 @@ module.exports = createPlugin({
       const proxyReq = request(getProxyUrl(proxyConfig, ctx), {
         headers: proxyHeaders,
       });
-      proxyReq.on('request', req => {
+      proxyReq.on('request', (req) /*: void */ => {
         registerM3Events(req, {
           client: m3Client,
           key: proxyConfig.m3Key || 'unknown_route',
@@ -70,7 +79,7 @@ module.exports = createPlugin({
   },
 });
 
-function getProxyUrl(proxyConfig, ctx) {
+function getProxyUrl(proxyConfig, ctx /*: Context */) /*: string */ {
   const resultingUrl = url.resolve(
     proxyConfig.uri,
     ctx.url.replace('/' + proxyConfig.name, '')
@@ -78,7 +87,7 @@ function getProxyUrl(proxyConfig, ctx) {
   return resultingUrl;
 }
 
-function getProxyHeaders(ctx, proxyConfig = {}) {
+function getProxyHeaders(ctx /*: Context */, proxyConfig = {}) {
   var headers = Object.assign(
     ctx.headers,
     {
@@ -111,33 +120,40 @@ function getProxyHeaders(ctx, proxyConfig = {}) {
   return headers;
 }
 
-function getMatchFn(config) {
+function getMatchFn(
+  config
+) /*: (
+  ctx: Context
+) => {|proxyConfig: empty, regex: any|} | void */ {
   let matchers = [];
-  Object.keys(config).forEach(key => {
+  Object.keys(config).forEach((key) /*: void */ => {
     const proxyConfig = config[key];
     proxyConfig.name = key;
     const routes = proxyConfig.routes;
-    routes.forEach(({route, headers = {}, m3Key}) => {
+    routes.forEach(({route, headers = {}, m3Key}) /*: void */ => {
       matchers.push({
         regex: pathToRegexp(path.join('/', key, route)),
         proxyConfig: {
           ...proxyConfig,
-          headers: {
-            ...proxyConfig.headers,
-            ...headers,
-          },
+          headers: {...proxyConfig.headers, ...headers},
           m3Key,
         },
       });
     });
   });
-  return ctx => {
-    const match = matchers.find(({regex}) => {
+  return (
+    ctx /*: Context */
+  ) /*: {|proxyConfig: empty, regex: any|} | void */ => {
+    const match = matchers.find(({regex}) /*: any */ => {
       const tested = regex.test(ctx.path);
       return tested;
     });
     return match;
   };
 }
+
+// $FlowFixMe
 module.exports.getMatchFn = getMatchFn;
+
+// $FlowFixMe
 module.exports.getProxyHeaders = getProxyHeaders;

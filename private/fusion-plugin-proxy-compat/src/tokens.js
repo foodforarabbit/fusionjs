@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 const {createToken} = require('fusion-core');
 

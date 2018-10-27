@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env node */
 const {GalileoToken} = require('@uber/fusion-plugin-galileo');
 const {LoggerToken} = require('fusion-tokens');
@@ -5,52 +6,79 @@ const {TracerToken} = require('@uber/fusion-plugin-tracer');
 const {mock: mockM3, M3Token} = require('@uber/fusion-plugin-m3');
 const App = require('fusion-core').default;
 const {createPlugin, SSRDeciderToken} = require('fusion-core');
+/*::
+import type {Context} from 'fusion-core';
+*/
 
 const {getSimulator} = require('fusion-test-utils');
 const getPort = require('get-port');
 const http = require('http');
+/*::
+import type {IncomingMessage, ServerResponse} from 'http';
+*/
 const request = require('request-promise');
 const tape = require('tape-cup');
 
 const {ProxyConfigToken} = require('../tokens');
 const ProxyDecider = require('../decider.js');
 const ProxyPlugin = require('../plugin.js');
+
+// $FlowFixMe
 const {getProxyHeaders} = require('../plugin.js');
 
-function getMockTracer(t) {
+function getMockTracer(
+  t
+) /*: {|
+  from: (ctx: empty) => {|span: any, tracer: any|},
+  tracer: any,
+|} */ {
   return {
     tracer: {},
-    from: ctx => {
+
+    from: (ctx) /*: {|span: any, tracer: any|} */ => {
       t.ok(ctx, 'passes ctx to tracer');
-      return {
-        tracer: {},
-        span: {},
-      };
+      return {tracer: {}, span: {}};
     },
   };
 }
 
-function getMockGalileo(fn) {
+function getMockGalileo(
+  fn /*: (proxyName: empty, type: empty, span: empty, cb: empty) => void */
+) /*: {|
+  galileo: {|
+    AuthenticateOut: (
+      proxyName: empty,
+      type: empty,
+      span: empty,
+      cb: empty
+    ) => void,
+  |},
+|} */ {
   return {
     galileo: {
-      AuthenticateOut(proxyName, type, span, cb) {
+      AuthenticateOut(proxyName, type, span, cb) /*: void */ {
         return fn(proxyName, type, span, cb);
       },
     },
   };
 }
 
-tape('proxies GET requests', async t => {
+tape('proxies GET requests', async (t) /*: Promise<void> */ => {
   const app = new App('el', el => el);
   const proxyPort = await getPort();
   const appPort = await getPort();
 
+  // $FlowFixMe
   app.register(M3Token, mockM3);
   let M3 = null;
   app.register(
     createPlugin({
       deps: {m3: M3Token},
-      middleware: ({m3}) => async (ctx, next) => {
+
+      middleware: ({m3}) => async (
+        ctx /*: Context */,
+        next /*: () => Promise<void> */
+      ) /*: Promise<void> */ => {
         await next();
         M3 = m3;
       },
@@ -58,40 +86,32 @@ tape('proxies GET requests', async t => {
   );
 
   app.register(ProxyPlugin);
+
+  // $FlowFixMe
   app.register(LoggerToken, console);
   app.register(TracerToken, getMockTracer(t));
   app.register(
     GalileoToken,
-    getMockGalileo((proxyName, type, span, cb) => {
+    getMockGalileo((proxyName, type, span, cb) /*: void */ => {
       t.equal(proxyName, 'test');
       t.equal(type, 'http');
       t.ok(span);
       t.equal(typeof cb, 'function');
-      cb(null, {
-        'x-test': 'test-value',
-      });
+      cb(null, {'x-test': 'test-value'});
     })
   );
   app.register(ProxyConfigToken, {
     test: {
       uri: `http://localhost:${proxyPort}`,
-      routes: [
-        {
-          route: '/*',
-          headers: {
-            'x-next': 'correct',
-          },
-          m3Key: 'root',
-        },
-      ],
-      headers: {
-        'x-value': 'some-value',
-        'x-next': 'whoops',
-      },
+      routes: [{route: '/*', headers: {'x-next': 'correct'}, m3Key: 'root'}],
+      headers: {'x-value': 'some-value', 'x-next': 'whoops'},
     },
   });
 
-  const proxyServer = http.createServer((req, res) => {
+  const proxyServer = http.createServer((
+    req /*: IncomingMessage */,
+    res /*: ServerResponse */
+  ) /*: void */ => {
     t.equal(req.url, '/hello?a=b');
     t.equal(req.headers['x-hello'], 'world');
     t.equal(req.headers['x-test'], 'test-value');
@@ -104,6 +124,7 @@ tape('proxies GET requests', async t => {
   });
   const proxyConnection = proxyServer.listen(proxyPort);
 
+  // $FlowFixMe
   const appServer = http.createServer(app.callback());
   const connection = appServer.listen(appPort);
 
@@ -118,6 +139,7 @@ tape('proxies GET requests', async t => {
   proxyConnection.close();
   connection.close();
 
+  // $FlowFixMe
   const m3Calls = M3.getCalls();
   t.deepEqual(m3Calls[0], [
     'timing',
@@ -134,7 +156,7 @@ tape('proxies GET requests', async t => {
   t.end();
 });
 
-tape('galileo error handling', async t => {
+tape('galileo error handling', async (t) /*: Promise<void> */ => {
   const app = new App('el', el => el);
   const proxyPort = await getPort();
   const appPort = await getPort();
@@ -144,7 +166,11 @@ tape('galileo error handling', async t => {
   app.register(
     createPlugin({
       deps: {m3: M3Token},
-      middleware: ({m3}) => async (ctx, next) => {
+
+      middleware: ({m3}) => async (
+        ctx /*: Context */,
+        next /*: () => Promise<void> */
+      ) /*: Promise<void> */ => {
         await next();
         M3 = m3;
       },
@@ -152,8 +178,10 @@ tape('galileo error handling', async t => {
   );
 
   app.register(ProxyPlugin);
+
+  // $FlowFixMe
   app.register(LoggerToken, {
-    error: (message, {path}) => {
+    error: (message, {path}) /*: void */ => {
       t.equal(message, 'test error');
       t.equal(path, '/test/hello');
     },
@@ -161,7 +189,7 @@ tape('galileo error handling', async t => {
   app.register(TracerToken, getMockTracer(t));
   app.register(
     GalileoToken,
-    getMockGalileo((proxyName, type, span, cb) => {
+    getMockGalileo((proxyName, type, span, cb) /*: void */ => {
       t.equal(proxyName, 'test');
       t.equal(type, 'http');
       t.ok(span);
@@ -172,16 +200,14 @@ tape('galileo error handling', async t => {
   app.register(ProxyConfigToken, {
     test: {
       uri: `http://localhost:${proxyPort}`,
-      routes: [
-        {
-          route: '/*',
-          m3Key: 'root',
-        },
-      ],
+      routes: [{route: '/*', m3Key: 'root'}],
     },
   });
 
-  const proxyServer = http.createServer((req, res) => {
+  const proxyServer = http.createServer((
+    req /*: IncomingMessage */,
+    res /*: ServerResponse */
+  ) /*: void */ => {
     t.equal(req.url, '/hello?a=b');
     t.equal(req.headers['x-hello'], 'world');
     t.equal(req.headers['x-test'], 'something');
@@ -206,6 +232,7 @@ tape('galileo error handling', async t => {
   proxyConnection.close();
   connection.close();
 
+  // $FlowFixMe
   const m3Calls = M3.getCalls();
   t.deepEqual(m3Calls[0], [
     'timing',
@@ -222,7 +249,7 @@ tape('galileo error handling', async t => {
   t.end();
 });
 
-tape('proxies POST requests', async t => {
+tape('proxies POST requests', async (t) /*: Promise<void> */ => {
   const app = new App('el', el => el);
   const proxyPort = await getPort();
   const appPort = await getPort();
@@ -232,7 +259,11 @@ tape('proxies POST requests', async t => {
   app.register(
     createPlugin({
       deps: {m3: M3Token},
-      middleware: ({m3}) => async (ctx, next) => {
+
+      middleware: ({m3}) => async (
+        ctx /*: Context */,
+        next /*: () => Promise<void> */
+      ) /*: Promise<void> */ => {
         await next();
         M3 = m3;
       },
@@ -240,43 +271,41 @@ tape('proxies POST requests', async t => {
   );
 
   app.register(ProxyPlugin);
+
+  // $FlowFixMe
   app.register(LoggerToken, console);
   app.register(TracerToken, getMockTracer(t));
   app.register(
     GalileoToken,
-    getMockGalileo((proxyName, type, span, cb) => {
+    getMockGalileo((proxyName, type, span, cb) /*: void */ => {
       t.equal(proxyName, 'test');
       t.equal(type, 'http');
       t.ok(span);
       t.equal(typeof cb, 'function');
-      cb(null, {
-        'x-test': 'test-value',
-      });
+      cb(null, {'x-test': 'test-value'});
     })
   );
   app.register(ProxyConfigToken, {
     test: {
       uri: `http://localhost:${proxyPort}`,
-      routes: [
-        {
-          route: '/*',
-          m3Key: 'root',
-        },
-      ],
+      routes: [{route: '/*', m3Key: 'root'}],
     },
   });
 
-  const proxyServer = http.createServer((req, res) => {
+  const proxyServer = http.createServer((
+    req /*: IncomingMessage */,
+    res /*: ServerResponse */
+  ) /*: void */ => {
     const buff = [];
     t.equal(req.url, '/hello?a=b');
     t.equal(req.headers['x-hello'], 'world');
     t.equal(req.headers['x-test'], 'test-value');
     t.ok(req.headers['x-uber-app']);
     t.notok(req.headers['x-csrf-token']);
-    req.on('data', data => {
+    req.on('data', (data) /*: void */ => {
       buff.push(data.toString());
     });
-    req.on('end', () => {
+    req.on('end', () /*: void */ => {
       t.deepLooseEqual(JSON.parse(buff.join()), {hello: 'world'});
       res.writeHead(200);
       res.end('OK');
@@ -293,14 +322,13 @@ tape('proxies POST requests', async t => {
       'x-hello': 'world',
       'x-csrf-token': 'lol',
     },
-    json: {
-      hello: 'world',
-    },
+    json: {hello: 'world'},
   });
   t.equal(res, 'OK');
   proxyConnection.close();
   connection.close();
 
+  // $FlowFixMe
   const m3Calls = M3.getCalls();
   t.deepEqual(m3Calls[0], [
     'timing',
@@ -317,13 +345,8 @@ tape('proxies POST requests', async t => {
   t.end();
 });
 
-tape('x-uber-origin header handling', async t => {
-  const mockCtx = {
-    method: 'GET',
-    headers: {
-      'x-uber-origin': 'abcd_lol',
-    },
-  };
+tape('x-uber-origin header handling', async (t) /*: Promise<void> */ => {
+  const mockCtx = {method: 'GET', headers: {'x-uber-origin': 'abcd_lol'}};
   const headers = getProxyHeaders(mockCtx);
   t.deepLooseEqual(headers, {
     'x-uber-origin': 'abcd-lol,unknown-service',
@@ -333,13 +356,8 @@ tape('x-uber-origin header handling', async t => {
   t.end();
 });
 
-tape('host header handling', async t => {
-  const mockCtx = {
-    method: 'GET',
-    headers: {
-      'x-uber-origin': 'abcd_lol',
-    },
-  };
+tape('host header handling', async (t) /*: Promise<void> */ => {
+  const mockCtx = {method: 'GET', headers: {'x-uber-origin': 'abcd_lol'}};
   const headersWithHost = getProxyHeaders(mockCtx, {
     uri: 'https://this.that.com',
   });
@@ -352,31 +370,20 @@ tape('host header handling', async t => {
   t.end();
 });
 
-tape('decider', async t => {
+tape('decider', async (t) /*: Promise<void> */ => {
   const app = new App('el', el => el);
   app.enhance(SSRDeciderToken, ProxyDecider);
   app.register(ProxyConfigToken, {
     test: {
       uri: `http://localhost:1234`,
-      routes: [
-        {
-          route: '/user/*',
-        },
-        {
-          route: '/test/*',
-        },
-      ],
+      routes: [{route: '/user/*'}, {route: '/test/*'}],
     },
-    all: {
-      uri: `http://localhost:2234`,
-      routes: [
-        {
-          route: '/*',
-        },
-      ],
-    },
+    all: {uri: `http://localhost:2234`, routes: [{route: '/*'}]},
   });
-  app.middleware((ctx, next) => {
+  app.middleware((
+    ctx /*: Context */,
+    next /*: () => Promise<void> */
+  ) /*: Promise<void> */ => {
     if (
       ctx.url === '/test/user/test' ||
       ctx.url === '/test/test/something' ||
