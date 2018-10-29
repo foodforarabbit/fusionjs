@@ -6,6 +6,20 @@ import type {Context, FusionPlugin} from 'fusion-core';
 const plugin =
   __NODE__ &&
   createPlugin({
+    provides: () => {
+      const message = 'Cannot use ga on the server';
+      return {
+        identify() {
+          throw new Error(message);
+        },
+        track() {
+          throw new Error(message);
+        },
+        pageview() {
+          throw new Error(message);
+        },
+      };
+    },
     middleware: (): ((
       ctx: Context,
       next: () => Promise<void>
