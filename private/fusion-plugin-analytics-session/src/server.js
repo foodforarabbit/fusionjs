@@ -1,10 +1,12 @@
 // @flow
 /* eslint-env node */
 import {createPlugin, memoize} from 'fusion-core';
-import {generateCookieData} from './cookie-types/index';
-import {AnalyticsCookieTypeToken} from './tokens';
+import type {FusionPlugin, Context} from 'fusion-core';
 
-function safeJSONParse(str) {
+import {generateCookieData} from './cookie-types/index.js';
+import {AnalyticsCookieTypeToken} from './tokens.js';
+
+function safeJSONParse(str: string): {||} | any {
   try {
     return JSON.parse(str) || {};
   } catch (e) {
@@ -12,7 +14,7 @@ function safeJSONParse(str) {
   }
 }
 
-const getCookieData = (cookieType, incomingCookieData) => {
+const getCookieData = (cookieType, incomingCookieData: any): any | string => {
   if (cookieType.rolling && incomingCookieData) {
     return incomingCookieData;
   }
@@ -20,7 +22,7 @@ const getCookieData = (cookieType, incomingCookieData) => {
   return JSON.stringify(generateCookieData(cookieType));
 };
 
-const getCookieExpiry = ({expires} = {}) => {
+const getCookieExpiry = ({expires} = {}): void => {
   if (!expires) {
     return;
   }
@@ -28,20 +30,21 @@ const getCookieExpiry = ({expires} = {}) => {
   return new Date(Date.now() + expires);
 };
 
-export default __NODE__ &&
+const pluginFactory = () =>
   createPlugin({
-    deps: {
-      pluginCookieType: AnalyticsCookieTypeToken,
-    },
+    deps: {pluginCookieType: AnalyticsCookieTypeToken},
+
     provides: ({pluginCookieType}) => {
       class AnalyticsSessionCookie {
-        constructor(ctx) {
+        ctx: any;
+        cookieTypes: any;
+        constructor(ctx: Context) {
           this.ctx = ctx;
           this.cookieTypes = Array.isArray(pluginCookieType)
             ? pluginCookieType
             : [pluginCookieType];
         }
-        setCookie(cookieType) {
+        setCookie(cookieType): void {
           const {ctx} = this;
           const incomingCookieData = ctx.cookies.get(cookieType.name);
           if (!incomingCookieData || cookieType.rolling) {
@@ -56,13 +59,16 @@ export default __NODE__ &&
             );
           }
         }
-        setCookies() {
-          this.cookieTypes.forEach(cookieType => {
-            this.setCookie(cookieType);
-          });
+        setCookies(): void {
+          this.cookieTypes.forEach(
+            (cookieType): void => {
+              this.setCookie(cookieType);
+            }
+          );
         }
-        get(cookieType) {
+        get(cookieType: void): {||} | any {
           const {ctx} = this;
+
           // If no cookieType is provided, then assume the first cookieType
           const targetCookieType = cookieType || this.cookieTypes[0];
 
@@ -71,19 +77,32 @@ export default __NODE__ &&
         }
       }
 
-      const memoizedFactory = memoize(ctx => new AnalyticsSessionCookie(ctx));
+      const memoizedFactory = memoize(
+        (ctx: Context): AnalyticsSessionCookie =>
+          new AnalyticsSessionCookie(ctx)
+      );
 
       return {
-        // for backward-compatibility, from() will continue to return a value
-        from: ctx => {
+        from: (ctx): {||} | any => {
+          // for backward-compatibility, from() will continue to return a value
           const sessionCookie = memoizedFactory(ctx);
+
+          // $FlowFixMe
           return safeJSONParse(sessionCookie.get());
         },
+
         _from: memoizedFactory,
       };
     },
-    middleware: (_, AnalyticsSessionCookie) => {
-      return (ctx, next) => {
+
+    middleware: (
+      _: {|pluginCookieType: any|},
+      AnalyticsSessionCookie: {|
+        _from: any,
+        from: (ctx: empty) => {||} | any,
+      |}
+    ): ((ctx: Context, next: () => Promise<void>) => Promise<void>) => {
+      return (ctx: Context, next: () => Promise<void>): Promise<void> => {
         // TODO: only set cookie on certain requests
         const sessionCookie = AnalyticsSessionCookie._from(ctx);
         sessionCookie.setCookies();
@@ -91,3 +110,4 @@ export default __NODE__ &&
       };
     },
   });
+export default ((__NODE__ && pluginFactory(): any): FusionPlugin<any, any>);

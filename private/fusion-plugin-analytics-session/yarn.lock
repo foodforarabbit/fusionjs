@@ -629,7 +629,7 @@
     "@babel/types" "7.0.0-beta.55"
     lodash "^4.17.10"
 
-"@babel/template@^7.1.0", "@babel/template@^7.1.2":
+"@babel/template@^7.0.0", "@babel/template@^7.1.0", "@babel/template@^7.1.2":
   version "7.1.2"
   resolved "https://unpm.uberinternal.com/@babel%2ftemplate/-/template-7.1.2.tgz#090484a574fef5a2d2d7726a674eceda5c5b5644"
   dependencies:
@@ -818,11 +818,11 @@ acorn@^4.0.3:
   version "4.0.13"
   resolved "https://unpm.uberinternal.com/acorn/-/acorn-4.0.13.tgz#105495ae5361d697bd195c825192e1ad7f253787"
 
-ajv-keywords@^3.0.0, ajv-keywords@^3.1.0:
+ajv-keywords@^3.1.0:
   version "3.2.0"
   resolved "https://unpm.uberinternal.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
 
-ajv@^6.0.1, ajv@^6.1.0, ajv@^6.5.3:
+ajv@^6.1.0, ajv@^6.5.3:
   version "6.5.4"
   resolved "https://unpm.uberinternal.com/ajv/-/ajv-6.5.4.tgz#247d5274110db653706b550fcc2b797ca28cfc59"
   dependencies:
@@ -1008,6 +1008,14 @@ babel-plugin-istanbul@^5.0.1:
   dependencies:
     find-up "^3.0.0"
     istanbul-lib-instrument "^2.2.0"
+    test-exclude "^5.0.0"
+
+babel-plugin-istanbul@^5.1.0:
+  version "5.1.0"
+  resolved "https://unpm.uberinternal.com/babel-plugin-istanbul/-/babel-plugin-istanbul-5.1.0.tgz#6892f529eff65a3e2d33d87dc5888ffa2ecd4a30"
+  dependencies:
+    find-up "^3.0.0"
+    istanbul-lib-instrument "^3.0.0"
     test-exclude "^5.0.0"
 
 babel-plugin-transform-cup-globals@^1.0.1:
@@ -1423,7 +1431,7 @@ content-type@^1.0.4:
   version "1.0.4"
   resolved "https://unpm.uberinternal.com/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
 
-convert-source-map@^1.1.0, convert-source-map@^1.5.1:
+convert-source-map@^1.1.0, convert-source-map@^1.6.0:
   version "1.6.0"
   resolved "https://unpm.uberinternal.com/convert-source-map/-/convert-source-map-1.6.0.tgz#51b537a8c43e0f04dec1993bffcdd504e758ac20"
   dependencies:
@@ -1894,9 +1902,9 @@ eslint-plugin-cup@^2.0.0:
   dependencies:
     globals "^11.5.0"
 
-eslint-plugin-flowtype@^2.50.3:
-  version "2.50.3"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.50.3.tgz#61379d6dce1d010370acd6681740fd913d68175f"
+eslint-plugin-flowtype@^3.1.4:
+  version "3.1.4"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.1.4.tgz#c6c9c514b8c01579e6621b51d83549d5db802cac"
   dependencies:
     lodash "^4.17.10"
 
@@ -1915,9 +1923,9 @@ eslint-plugin-import@^2.14.0:
     read-pkg-up "^2.0.0"
     resolve "^1.6.0"
 
-eslint-plugin-jest@^21.24.1:
-  version "21.24.1"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-21.24.1.tgz#aaf3c34e816f07add83d1e9c20696fdc31fac8dc"
+eslint-plugin-jest@^21.26.2:
+  version "21.26.2"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-21.26.2.tgz#5b24413970e83e2c5b87c5c047a08a4881783605"
 
 eslint-plugin-prettier@^3.0.0:
   version "3.0.0"
@@ -1957,9 +1965,9 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^5.6.1:
-  version "5.6.1"
-  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.6.1.tgz#348134e32ccc09abb2df1bf282b3f6eed8c7b480"
+eslint@^5.8.0:
+  version "5.8.0"
+  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.8.0.tgz#91fbf24f6e0471e8fdf681a4d9dd1b2c9f28309b"
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.5.3"
@@ -1992,12 +2000,12 @@ eslint@^5.6.1:
     path-is-inside "^1.0.2"
     pluralize "^7.0.0"
     progress "^2.0.0"
-    regexpp "^2.0.0"
+    regexpp "^2.0.1"
     require-uncached "^1.0.3"
     semver "^5.5.1"
     strip-ansi "^4.0.0"
     strip-json-comments "^2.0.1"
-    table "^4.0.3"
+    table "^5.0.2"
     text-table "^0.2.0"
 
 espree@^4.0.0:
@@ -2230,6 +2238,10 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+flow-bin@^0.84.0:
+  version "0.84.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.84.0.tgz#4cb2364c750fb37a7840524fa62456b53f64cdcb"
+
 for-each@~0.3.3:
   version "0.3.3"
   resolved "https://unpm.uberinternal.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
@@ -2292,9 +2304,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-core@^1.7.0:
-  version "1.8.0"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.8.0.tgz#286e8e2e2ebd253115cae97a70e5812e73f24901"
+fusion-core@^1.9.0:
+  version "1.9.0"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.9.0.tgz#a35436666c898de091aa259b295dc426df73e631"
   dependencies:
     koa "^2.5.3"
     koa-compose "^4.1.0"
@@ -2368,7 +2380,7 @@ glob-parent@^3.0.1, glob-parent@^3.1.0:
     is-glob "^3.1.0"
     path-dirname "^1.0.0"
 
-glob@^7.0.3, glob@^7.0.5, glob@^7.1.2, glob@~7.1.2:
+glob@^7.0.3, glob@^7.0.5, glob@^7.1.2, glob@^7.1.3, glob@~7.1.2:
   version "7.1.3"
   resolved "https://unpm.uberinternal.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
   dependencies:
@@ -2875,7 +2887,7 @@ istanbul-lib-hook@^2.0.1:
   dependencies:
     append-transform "^1.0.0"
 
-istanbul-lib-instrument@^2.2.0, istanbul-lib-instrument@^2.3.2:
+istanbul-lib-instrument@^2.2.0:
   version "2.3.2"
   resolved "https://unpm.uberinternal.com/istanbul-lib-instrument/-/istanbul-lib-instrument-2.3.2.tgz#b287cbae2b5f65f3567b05e2e29b275eaf92d25e"
   dependencies:
@@ -2887,9 +2899,21 @@ istanbul-lib-instrument@^2.2.0, istanbul-lib-instrument@^2.3.2:
     istanbul-lib-coverage "^2.0.1"
     semver "^5.5.0"
 
-istanbul-lib-report@^2.0.1:
-  version "2.0.1"
-  resolved "https://unpm.uberinternal.com/istanbul-lib-report/-/istanbul-lib-report-2.0.1.tgz#64a0a08f42676b9c801b841b9dc3311017c6ae09"
+istanbul-lib-instrument@^3.0.0:
+  version "3.0.0"
+  resolved "https://unpm.uberinternal.com/istanbul-lib-instrument/-/istanbul-lib-instrument-3.0.0.tgz#b5f066b2a161f75788be17a9d556f40a0cf2afc9"
+  dependencies:
+    "@babel/generator" "^7.0.0"
+    "@babel/parser" "^7.0.0"
+    "@babel/template" "^7.0.0"
+    "@babel/traverse" "^7.0.0"
+    "@babel/types" "^7.0.0"
+    istanbul-lib-coverage "^2.0.1"
+    semver "^5.5.0"
+
+istanbul-lib-report@^2.0.2:
+  version "2.0.2"
+  resolved "https://unpm.uberinternal.com/istanbul-lib-report/-/istanbul-lib-report-2.0.2.tgz#430a2598519113e1da7af274ba861bd42dd97535"
   dependencies:
     istanbul-lib-coverage "^2.0.1"
     make-dir "^1.3.0"
@@ -2905,9 +2929,9 @@ istanbul-lib-source-maps@^2.0.1:
     rimraf "^2.6.2"
     source-map "^0.6.1"
 
-istanbul-reports@^2.0.0:
-  version "2.0.0"
-  resolved "https://unpm.uberinternal.com/istanbul-reports/-/istanbul-reports-2.0.0.tgz#eb12eddf55724ebc557b32cd77c34d11ed7980c1"
+istanbul-reports@^2.0.1:
+  version "2.0.1"
+  resolved "https://unpm.uberinternal.com/istanbul-reports/-/istanbul-reports-2.0.1.tgz#fb8d6ea850701a3984350b977a969e9a556116a7"
   dependencies:
     handlebars "^4.0.11"
 
@@ -3615,25 +3639,25 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-nyc@^13.0.1:
-  version "13.0.1"
-  resolved "https://unpm.uberinternal.com/nyc/-/nyc-13.0.1.tgz#b61857ed633c803353fc41eeca775d0e1f62034b"
+nyc@^13.1.0:
+  version "13.1.0"
+  resolved "https://unpm.uberinternal.com/nyc/-/nyc-13.1.0.tgz#463665c7ff6b5798e322624a5eb449a678db90e3"
   dependencies:
     archy "^1.0.0"
     arrify "^1.0.1"
     caching-transform "^2.0.0"
-    convert-source-map "^1.5.1"
+    convert-source-map "^1.6.0"
     debug-log "^1.0.1"
     find-cache-dir "^2.0.0"
     find-up "^3.0.0"
     foreground-child "^1.5.6"
-    glob "^7.1.2"
+    glob "^7.1.3"
     istanbul-lib-coverage "^2.0.1"
     istanbul-lib-hook "^2.0.1"
-    istanbul-lib-instrument "^2.3.2"
-    istanbul-lib-report "^2.0.1"
+    istanbul-lib-instrument "^3.0.0"
+    istanbul-lib-report "^2.0.2"
     istanbul-lib-source-maps "^2.0.1"
-    istanbul-reports "^2.0.0"
+    istanbul-reports "^2.0.1"
     make-dir "^1.3.0"
     merge-source-map "^1.1.0"
     resolve-from "^4.0.0"
@@ -4132,7 +4156,7 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
 
-regexpp@^2.0.0:
+regexpp@^2.0.1:
   version "2.0.1"
   resolved "https://unpm.uberinternal.com/regexpp/-/regexpp-2.0.1.tgz#8d19d31cf632482b589049f8281f93dbcba4d07f"
 
@@ -4570,14 +4594,12 @@ supports-color@^5.3.0, supports-color@^5.4.0:
   dependencies:
     has-flag "^3.0.0"
 
-table@^4.0.3:
-  version "4.0.3"
-  resolved "https://unpm.uberinternal.com/table/-/table-4.0.3.tgz#00b5e2b602f1794b9acaf9ca908a76386a7813bc"
+table@^5.0.2:
+  version "5.1.0"
+  resolved "https://unpm.uberinternal.com/table/-/table-5.1.0.tgz#69a54644f6f01ad1628f8178715b408dc6bf11f7"
   dependencies:
-    ajv "^6.0.1"
-    ajv-keywords "^3.0.0"
-    chalk "^2.1.0"
-    lodash "^4.17.4"
+    ajv "^6.5.3"
+    lodash "^4.17.10"
     slice-ansi "1.0.0"
     string-width "^2.1.1"
 
