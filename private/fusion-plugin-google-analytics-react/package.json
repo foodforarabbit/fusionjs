@@ -58,7 +58,7 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/fusion-plugin-google-analytics": "^1.0.2"
+    "@uber/fusion-plugin-google-analytics": "^1.0.3"
   },
   "peerDependencies": {
     "fusion-core": "^1.0.2",

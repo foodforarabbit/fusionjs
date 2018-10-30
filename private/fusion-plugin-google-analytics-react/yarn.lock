@@ -783,9 +783,9 @@
   version "0.0.28"
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
 
-"@uber/fusion-plugin-google-analytics@^1.0.2":
-  version "1.0.2"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-google-analytics/-/private/%40uber%2Ffusion-plugin-google-analytics-1.0.2.tgz#3972a3cda9bda20fd0c7fe36e847ae17466d5eee"
+"@uber/fusion-plugin-google-analytics@^1.0.3":
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-google-analytics/-/private/%40uber%2Ffusion-plugin-google-analytics-1.0.3.tgz#bf759807dddf7e95f9c214a1d502ce10bfa15294"
 
 abbrev@1:
   version "1.1.1"
