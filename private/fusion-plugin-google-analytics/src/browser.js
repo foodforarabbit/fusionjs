@@ -1,11 +1,13 @@
 // @flow
 /* eslint-env browser */
 import {createPlugin, createToken} from 'fusion-core';
-import type {FusionPlugin} from 'fusion-core';
+import type {FusionPlugin, Token} from 'fusion-core';
 
 import loadGoogleAnalytics from './load-ga.js';
 
-export const GoogleAnalyticsConfigToken = createToken('GoogleAnalyticsConfig');
+export const GoogleAnalyticsConfigToken: Token<any> = createToken(
+  'GoogleAnalyticsConfig'
+);
 
 const plugin =
   __BROWSER__ &&
