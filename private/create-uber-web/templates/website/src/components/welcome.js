@@ -4,7 +4,7 @@ import type {ElementType} from 'react';
 import {styled} from 'baseui';
 import {Button} from 'baseui/button';
 import {ChevronRight} from 'baseui/icon';
-import {withThinFont} from '../config/fonts';
+import {withMoveTextLight} from '../config/fonts';
 
 const Centered = styled('div', {
   display: 'flex',
@@ -13,7 +13,7 @@ const Centered = styled('div', {
   height: '100%',
 });
 
-const H1 = withThinFont(
+const H1 = withMoveTextLight(
   styled('h1', props => ({
     fontWeight: '100',
     fontSize: '96px',

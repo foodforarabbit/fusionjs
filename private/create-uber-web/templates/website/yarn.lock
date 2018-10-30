@@ -606,6 +606,12 @@
     "@babel/plugin-transform-react-jsx-self" "^7.0.0"
     "@babel/plugin-transform-react-jsx-source" "^7.0.0"
 
+"@babel/runtime@^7.1.2":
+  version "7.1.2"
+  resolved "https://unpm.uberinternal.com/@babel%2fruntime/-/runtime-7.1.2.tgz#81c89935f4647706fc54541145e6b4ecfef4b8e3"
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@^7.0.0":
   version "7.0.0"
   resolved "https://unpm.uberinternal.com/@babel%2ftemplate/-/template-7.0.0.tgz#c2bc9870405959c89a9c814376a2ecb247838c80"
@@ -780,9 +786,17 @@
     thrift "^0.9.2"
     xtend "^4.0.0"
 
-"@uber/atreyu@^5.5.0", "@uber/atreyu@^5.5.2":
+"@uber/atreyu@^5.5.0":
   version "5.5.2"
   resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-5.5.2.tgz#ae910bf979fd7bee8f3fe62c6e3496f9e9acf3fb"
+  dependencies:
+    "@uber/atreyu-graph" "^4.15.1"
+    "@uber/atreyu-transport" "^4.6.7"
+    inherits "^2.0.1"
+
+"@uber/atreyu@^5.5.3":
+  version "5.5.3"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-5.5.3.tgz#2e4fea387d54c06444dc31fdd2f8c53b1fcd6803"
   dependencies:
     "@uber/atreyu-graph" "^4.15.1"
     "@uber/atreyu-transport" "^4.6.7"
@@ -796,12 +810,12 @@
     request "^2.83.0"
     request-promise "^4.2.2"
 
-"@uber/fusion-plugin-analytics-session@^1.1.0":
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-analytics-session/-/private/%40uber%2Ffusion-plugin-analytics-session-1.1.0.tgz#9ee59ca7249cce3ce562ea616ad509bb47c93ea8"
+"@uber/fusion-plugin-analytics-session@^1.2.0":
+  version "1.2.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-analytics-session/-/private/%40uber%2Ffusion-plugin-analytics-session-1.2.0.tgz#2d412b1150fca0457b5bf545ccace4f3bc272555"
   dependencies:
     js-cookie "^2.2.0"
-    uuid "^3.2.1"
+    uuid "^3.3.2"
 
 "@uber/fusion-plugin-atreyu@^1.2.1":
   version "1.2.1"
@@ -818,23 +832,23 @@
   version "1.0.5"
   resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-error-handling/-/private/%40uber%2Ffusion-plugin-error-handling-1.0.5.tgz#3726ff150e482476041ac080c3cc4a16c0c3016b"
 
-"@uber/fusion-plugin-events-adapter@^1.9.0":
-  version "1.9.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-events-adapter/-/private/%40uber%2Ffusion-plugin-events-adapter-1.9.0.tgz#a732be847a97759d3c8cb2726718e8c99e960524"
+"@uber/fusion-plugin-events-adapter@^1.9.1":
+  version "1.9.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-events-adapter/-/private/%40uber%2Ffusion-plugin-events-adapter-1.9.1.tgz#724367e7338b3b460341db3ddfe01b33ec47dec0"
   dependencies:
     "@uber/web-perf-collector" "^0.8.0"
     request "^2.88.0"
 
-"@uber/fusion-plugin-galileo@^1.0.3":
-  version "1.0.3"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-galileo/-/private/%40uber%2Ffusion-plugin-galileo-1.0.3.tgz#b4fed2a78abde08ade787469908c6be0afde2989"
+"@uber/fusion-plugin-galileo@^1.0.4":
+  version "1.0.4"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-galileo/-/private/%40uber%2Ffusion-plugin-galileo-1.0.4.tgz#a1ff9312ff8de0ce282068dfa96f9ceadb77e577"
   dependencies:
     "@uber/jaeger-client-adapter" "^3.4.0"
     "@uber/unpm-galileo" "^1.3.0"
 
-"@uber/fusion-plugin-heatpipe@^1.0.7":
-  version "1.0.7"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-1.0.7.tgz#721e5675348fac8504ebd429494663376fd619ef"
+"@uber/fusion-plugin-heatpipe@^1.0.8":
+  version "1.0.8"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-1.0.8.tgz#5445b0be984a09aca7342e05903fb1808107e33c"
   dependencies:
     "@uber/node-heatpipe-publisher" "^2.0.1"
     eslint-plugin-jest "^21.24.1"
@@ -1707,9 +1721,9 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^3.0.0:
-  version "3.0.0"
-  resolved "https://unpm.uberinternal.com/baseui/-/baseui-3.0.0.tgz#257961dda8d9a3135e9894bdfd8e136e052f7c3e"
+baseui@^4.1.0:
+  version "4.1.0"
+  resolved "https://unpm.uberinternal.com/baseui/-/baseui-4.1.0.tgz#d987642dd12f1093f7dbda6e163efc9a1263e2d3"
   dependencies:
     memoize-one "^4.0.2"
     popper.js "^1.14.3"
@@ -3148,9 +3162,9 @@ eslint-plugin-cup@^2.0.0:
   dependencies:
     globals "^11.5.0"
 
-eslint-plugin-flowtype@^3.0.0:
-  version "3.0.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.0.0.tgz#4b72588d8a5a5c836439752fe52e8e0f4b9954df"
+eslint-plugin-flowtype@^3.1.4:
+  version "3.1.4"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.1.4.tgz#c6c9c514b8c01579e6621b51d83549d5db802cac"
   dependencies:
     lodash "^4.17.10"
 
@@ -3215,9 +3229,9 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^5.7.0:
-  version "5.7.0"
-  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.7.0.tgz#55c326d6fb2ad45fcbd0ce17c3846f025d1d819c"
+eslint@^5.8.0:
+  version "5.8.0"
+  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.8.0.tgz#91fbf24f6e0471e8fdf681a4d9dd1b2c9f28309b"
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.5.3"
@@ -3807,9 +3821,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-cli@^1.12.0:
-  version "1.12.0"
-  resolved "https://unpm.uberinternal.com/fusion-cli/-/fusion-cli-1.12.0.tgz#dce7c894e7f16d3ca35bf8171cf7c970c6db19fd"
+fusion-cli@^1.12.1:
+  version "1.12.1"
+  resolved "https://unpm.uberinternal.com/fusion-cli/-/fusion-cli-1.12.1.tgz#e51f97d0f067ac603b153039b9c4ef3caad9535a"
   dependencies:
     "@babel/core" "^7.1.2"
     "@babel/plugin-syntax-dynamic-import" "7.0.0"
@@ -3871,9 +3885,9 @@ fusion-core@^1.3.0:
     ua-parser-js "^0.7.17"
     uuid "^3.2.1"
 
-fusion-core@^1.8.0:
-  version "1.8.0"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.8.0.tgz#286e8e2e2ebd253115cae97a70e5812e73f24901"
+fusion-core@^1.9.0:
+  version "1.9.0"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.9.0.tgz#a35436666c898de091aa259b295dc426df73e631"
   dependencies:
     koa "^2.5.3"
     koa-compose "^4.1.0"
@@ -3882,9 +3896,9 @@ fusion-core@^1.8.0:
     ua-parser-js "^0.7.18"
     uuid "^3.3.2"
 
-fusion-plugin-browser-performance-emitter@^1.6.1:
-  version "1.6.1"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-browser-performance-emitter/-/fusion-plugin-browser-performance-emitter-1.6.1.tgz#957935a47d52669c3a5ca625b1019219790b3991"
+fusion-plugin-browser-performance-emitter@^1.7.0:
+  version "1.7.0"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-browser-performance-emitter/-/fusion-plugin-browser-performance-emitter-1.7.0.tgz#6eefc58970a48285bb04d6f3c1f2a67e44a102ee"
 
 fusion-plugin-csrf-protection-react@^1.0.3:
   version "1.0.3"
@@ -3911,20 +3925,12 @@ fusion-plugin-font-loader-react@^1.0.7:
   dependencies:
     prop-types "^15.6.2"
 
-fusion-plugin-i18n-react@^1.1.0:
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n-react/-/fusion-plugin-i18n-react-1.1.0.tgz#a5198dcef8866d4c6ae08e3cce82b63aab12c101"
-  dependencies:
-    fusion-plugin-i18n "^1.1.1"
-    prop-types "^15.6.2"
-
-fusion-plugin-i18n@^1.1.1:
+fusion-plugin-i18n-react@^1.1.1:
   version "1.1.1"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n/-/fusion-plugin-i18n-1.1.1.tgz#486af1fde00eeed467d694cc7ac5815f2e7ac228"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n-react/-/fusion-plugin-i18n-react-1.1.1.tgz#f487d706b835484c5f5354cb466b32144c6c5eb8"
   dependencies:
-    eslint-plugin-jest "^21.22.0"
-    locale "^0.1.0"
-    rollup "^0.65.2"
+    fusion-plugin-i18n "^1.1.2"
+    prop-types "^15.6.2"
 
 fusion-plugin-i18n@^1.1.2:
   version "1.1.2"
@@ -3955,15 +3961,15 @@ fusion-plugin-react-helmet-async@^1.0.0:
   dependencies:
     react-helmet-async "^0.1.0"
 
-fusion-plugin-react-redux@^1.0.9:
-  version "1.0.9"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-react-redux/-/fusion-plugin-react-redux-1.0.9.tgz#fdfc96f91367b8b127a16c2931c1fbb70c14d007"
+fusion-plugin-react-redux@^1.0.10:
+  version "1.0.10"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-react-redux/-/fusion-plugin-react-redux-1.0.10.tgz#f3db3b4d2d9dd843f99b6c49b98926971af3964d"
   dependencies:
-    eslint-plugin-jest "^21.18.0"
+    eslint-plugin-jest "^21.24.1"
 
-fusion-plugin-react-router@^1.4.0:
-  version "1.4.0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-react-router/-/fusion-plugin-react-router-1.4.0.tgz#c7a79dc28300a94f2a602512d5d8d5aa6fb8e525"
+fusion-plugin-react-router@^1.4.1:
+  version "1.4.1"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-react-router/-/fusion-plugin-react-router-1.4.1.tgz#2edb4e11af8cbf5c63b8f3f5d9bb482bbeb7828c"
   dependencies:
     history "^4.7.2"
     prop-types "^15.6.2"
@@ -4019,9 +4025,9 @@ fusion-react-async@^1.2.4:
     prop-types "^15.6.1"
     react-is "^16.3.2"
 
-fusion-react@^1.3.1:
-  version "1.3.1"
-  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.3.1.tgz#da47dd055a035f05a0addf328de8261ffbad2902"
+fusion-react@^1.3.2:
+  version "1.3.2"
+  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.3.2.tgz#bba342a63ffc11655d06d6bfc08cb88760752341"
   dependencies:
     prop-types "^15.6.2"
     react-is "^16.5.2"
@@ -4368,6 +4374,12 @@ hoist-non-react-statics@^2.5.0:
   version "2.5.5"
   resolved "https://unpm.uberinternal.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
 
+hoist-non-react-statics@^3.0.0:
+  version "3.1.0"
+  resolved "https://unpm.uberinternal.com/hoist-non-react-statics/-/hoist-non-react-statics-3.1.0.tgz#42414ccdfff019cd2168168be998c7b3bd5245c0"
+  dependencies:
+    react-is "^16.3.2"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://unpm.uberinternal.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -4639,7 +4651,7 @@ int64-native@0.4.0:
     bindings "1.2.x"
     nan "^2.0.8"
 
-invariant@^2.0.0, invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.4:
+invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://unpm.uberinternal.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
@@ -5812,10 +5824,6 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
-
-lodash-es@^4.17.5:
-  version "4.17.10"
-  resolved "https://unpm.uberinternal.com/lodash-es/-/lodash-es-4.17.10.tgz#62cd7104cdf5dd87f235a837f0ede0e8e5117e05"
 
 lodash.compact@^3.0.0:
   version "3.0.1"
@@ -7263,14 +7271,14 @@ react-dev-utils@^6.0.4:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
-react-dom@^16.5.2:
-  version "16.5.2"
-  resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.5.2.tgz#b69ee47aa20bab5327b2b9d7c1fe2a30f2cfa9d7"
+react-dom@^16.6.0:
+  version "16.6.0"
+  resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.6.0.tgz#6375b8391e019a632a89a0988bce85f0cc87a92f"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    schedule "^0.5.0"
+    scheduler "^0.10.0"
 
 react-error-overlay@^5.0.4:
   version "5.0.4"
@@ -7293,16 +7301,25 @@ react-is@^16.5.2:
   version "16.5.2"
   resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.5.2.tgz#e2a7b7c3f5d48062eb769fcb123505eb928722e3"
 
-react-redux@^5.0.7:
-  version "5.0.7"
-  resolved "https://unpm.uberinternal.com/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
+react-is@^16.6.0:
+  version "16.6.0"
+  resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.6.0.tgz#456645144581a6e99f6816ae2bd24ee94bdd0c01"
+
+react-lifecycles-compat@^3.0.0:
+  version "3.0.4"
+  resolved "https://unpm.uberinternal.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+
+react-redux@^5.1.0:
+  version "5.1.0"
+  resolved "https://unpm.uberinternal.com/react-redux/-/react-redux-5.1.0.tgz#948b1e2686473d1999092bcfb32d0dc43d33f667"
   dependencies:
-    hoist-non-react-statics "^2.5.0"
-    invariant "^2.0.0"
-    lodash "^4.17.5"
-    lodash-es "^4.17.5"
+    "@babel/runtime" "^7.1.2"
+    hoist-non-react-statics "^3.0.0"
+    invariant "^2.2.4"
     loose-envify "^1.1.0"
-    prop-types "^15.6.0"
+    prop-types "^15.6.1"
+    react-is "^16.6.0"
+    react-lifecycles-compat "^3.0.0"
 
 react-router-dom@^4.3.1:
   version "4.3.1"
@@ -7336,23 +7353,23 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.5.0"
     schedule "^0.3.0"
 
-react-test-renderer@^16.5.2:
-  version "16.5.2"
-  resolved "https://unpm.uberinternal.com/react-test-renderer/-/react-test-renderer-16.5.2.tgz#92e9d2c6f763b9821b2e0b22f994ee675068b5ae"
+react-test-renderer@^16.6.0:
+  version "16.6.0"
+  resolved "https://unpm.uberinternal.com/react-test-renderer/-/react-test-renderer-16.6.0.tgz#fe490096bed55c3f4e92c023da3b89f9d03fceb3"
   dependencies:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    react-is "^16.5.2"
-    schedule "^0.5.0"
+    react-is "^16.6.0"
+    scheduler "^0.10.0"
 
-react@^16.5.2:
-  version "16.5.2"
-  resolved "https://unpm.uberinternal.com/react/-/react-16.5.2.tgz#19f6b444ed139baa45609eee6dc3d318b3895d42"
+react@^16.6.0:
+  version "16.6.0"
+  resolved "https://unpm.uberinternal.com/react/-/react-16.6.0.tgz#b34761cfaf3e30f5508bc732fb4736730b7da246"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    schedule "^0.5.0"
+    scheduler "^0.10.0"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -7485,6 +7502,10 @@ regenerate@^1.4.0:
 regenerator-runtime@^0.11.0, regenerator-runtime@^0.11.1:
   version "0.11.1"
   resolved "https://unpm.uberinternal.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+
+regenerator-runtime@^0.12.0:
+  version "0.12.1"
+  resolved "https://unpm.uberinternal.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
 
 regenerator-transform@^0.13.3:
   version "0.13.3"
@@ -7708,13 +7729,6 @@ rollup@^0.64.0:
     "@types/estree" "0.0.39"
     "@types/node" "*"
 
-rollup@^0.65.2:
-  version "0.65.2"
-  resolved "https://unpm.uberinternal.com/rollup/-/rollup-0.65.2.tgz#e1532e3c1a2e102c89d99289a184fcbbc7cd4b4a"
-  dependencies:
-    "@types/estree" "0.0.39"
-    "@types/node" "*"
-
 rollup@^0.66.2:
   version "0.66.4"
   resolved "https://unpm.uberinternal.com/rollup/-/rollup-0.66.4.tgz#8067b9638af82873b7fd644af9c3d72108ca4bab"
@@ -7825,10 +7839,11 @@ schedule@^0.3.0:
   dependencies:
     object-assign "^4.1.1"
 
-schedule@^0.5.0:
-  version "0.5.0"
-  resolved "https://unpm.uberinternal.com/schedule/-/schedule-0.5.0.tgz#c128fffa0b402488b08b55ae74bb9df55cc29cc8"
+scheduler@^0.10.0:
+  version "0.10.0"
+  resolved "https://unpm.uberinternal.com/scheduler/-/scheduler-0.10.0.tgz#7988de90fe7edccc774ea175a783e69c40c521e1"
   dependencies:
+    loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
 schema-utils@^0.4.4, schema-utils@^0.4.5:
@@ -8318,24 +8333,30 @@ styletron-engine-atomic@^1.0.5:
     inline-style-prefixer "^4.0.0"
     styletron-standard "^1.0.6"
 
-styletron-react-core@^1.3.2:
-  version "1.3.2"
-  resolved "https://unpm.uberinternal.com/styletron-react-core/-/styletron-react-core-1.3.2.tgz#919f9e55e555d8bd66957e11c98c00d1d6e559f9"
+styletron-react-core@^1.3.3:
+  version "1.3.3"
+  resolved "https://unpm.uberinternal.com/styletron-react-core/-/styletron-react-core-1.3.3.tgz#8414ee9497b3f03b980adb5008f23c0e0e701877"
   dependencies:
     create-react-context "^0.2.2"
     prop-types "^15.6.0"
 
-styletron-react@^4.3.5:
-  version "4.3.5"
-  resolved "https://unpm.uberinternal.com/styletron-react/-/styletron-react-4.3.5.tgz#f85515fa83de41e2f73c029c82524ada0c8bbe81"
+styletron-react@^4.3.6:
+  version "4.3.6"
+  resolved "https://unpm.uberinternal.com/styletron-react/-/styletron-react-4.3.6.tgz#cd9201c28a2f19aea60afaef32c8b994e5cbcbb4"
   dependencies:
     prop-types "^15.6.0"
-    styletron-react-core "^1.3.2"
-    styletron-standard "^1.0.6"
+    styletron-react-core "^1.3.3"
+    styletron-standard "^1.0.7"
 
 styletron-standard@^1.0.6:
   version "1.0.6"
   resolved "https://unpm.uberinternal.com/styletron-standard/-/styletron-standard-1.0.6.tgz#f38a21d888ccee143a7c263e86d525f1eef2df7d"
+  dependencies:
+    inline-style-prefixer "^4.0.0"
+
+styletron-standard@^1.0.7:
+  version "1.0.7"
+  resolved "https://unpm.uberinternal.com/styletron-standard/-/styletron-standard-1.0.7.tgz#f960c91a5ef127d7601222658892925e8dd5fa5d"
   dependencies:
     inline-style-prefixer "^4.0.0"
 

@@ -1,106 +1,115 @@
 // @flow
+
+/*
+ Purpose
+ 1) Data for @font-face generation
+ 2) Used to build an in-memory font fallback tree at runtime
+ 3) Fallbacks at and above the specified preloadDepth will be preloaded/prefetched on page load
+ 4) Remaining fonts will lazily load, text will temporarily use fallback font until the font has loaded
+ */
+
 import {assetUrl} from 'fusion-core';
 import {withFontLoading} from 'fusion-plugin-font-loader-react';
 
-export const withBookFont = withFontLoading('Book');
-export const withMediumFont = withFontLoading('Medium');
-export const withNewsFont = withFontLoading('News');
-export const withThinFont = withFontLoading('Thin');
-export const withNarrowBookFont = withFontLoading('NarrowBook');
-export const withNarrowMediumFont = withFontLoading('NarrowMedium');
-export const withNarrowNewsFont = withFontLoading('NarrowNews');
-export const withNarrowThinFont = withFontLoading('NarrowThin');
+export const withMoveRegular = withFontLoading('UberMove-Regular');
+export const withMoveLight = withFontLoading('UberMove-Light');
+export const withMoveMedium = withFontLoading('UberMove-Medium');
+export const withMoveBold = withFontLoading('UberMove-Bold');
+export const withMoveTextRegular = withFontLoading('UberMoveText-Regular');
+export const withMoveTextLight = withFontLoading('UberMoveText-Light');
+export const withMoveTextMedium = withFontLoading('UberMoveText-Medium');
+export const withMoveTextBold = withFontLoading('UberMoveText-Bold');
 
 export default {
-  preloadDepth: 1,
+  preloadDepth: 0,
   fonts: {
-    Book: {
+    'UberMove-Regular': {
       urls: {
-        woff2: assetUrl('../static/fonts/Clan-Book.woff2'),
-        woff: assetUrl('../static/fonts/Clan-Book.woff'),
+        woff2: assetUrl('../static/fonts/UberMove-Regular.woff2'),
+        woff: assetUrl('../static/fonts/UberMove-Regular.woff'),
       },
       fallback: {
-        name: 'Helvetica',
+        name: 'Arial',
       },
     },
-    NarrowBook: {
+    'UberMove-Light': {
       urls: {
-        woff2: assetUrl('../static/fonts/Clan-Narrow-Book.woff2'),
-        woff: assetUrl('../static/fonts/Clan-Narrow-Book.woff'),
+        woff2: assetUrl('../static/fonts/UberMove-Light.woff2'),
+        woff: assetUrl('../static/fonts/UberMove-Light.woff'),
       },
       fallback: {
-        name: 'Helvetica',
-      },
-    },
-    Medium: {
-      urls: {
-        woff2: assetUrl('../static/fonts/Clan-Medium.woff2'),
-        woff: assetUrl('../static/fonts/Clan-Medium.woff'),
-      },
-      fallback: {
-        name: 'Book',
-      },
-      styles: {
-        fontWeight: 'bold',
-      },
-    },
-    NarrowMedium: {
-      urls: {
-        woff2: assetUrl('../static/fonts/Clan-Narrow-Medium.woff2'),
-        woff: assetUrl('../static/fonts/Clan-Narrow-Medium.woff'),
-      },
-      fallback: {
-        name: 'NarrowBook',
-      },
-      styles: {
-        fontWeight: 'bold',
-      },
-    },
-    News: {
-      urls: {
-        woff2: assetUrl('../static/fonts/Clan-News.woff2'),
-        woff: assetUrl('../static/fonts/Clan-News.woff'),
-      },
-      fallback: {
-        name: 'Book',
+        name: 'UberMove-Regular',
         styles: {
-          fontWeight: 'bold',
+          fontWeight: '200',
         },
       },
     },
-    NarrowNews: {
+    'UberMove-Medium': {
       urls: {
-        woff2: assetUrl('../static/fonts/Clan-Narrow-News.woff2'),
-        woff: assetUrl('../static/fonts/Clan-Narrow-News.woff'),
+        woff2: assetUrl('../static/fonts/UberMove-Medium.woff2'),
+        woff: assetUrl('../static/fonts/UberMove-Medium.woff'),
       },
       fallback: {
-        name: 'NarrowBook',
+        name: 'UberMove-Regular',
         styles: {
-          fontWeight: 'bold',
+          fontWeight: '500',
         },
       },
     },
-    Thin: {
+    'UberMove-Bold': {
       urls: {
-        woff2: assetUrl('../static/fonts/Clan-Thin.woff2'),
-        woff: assetUrl('../static/fonts/Clan-Thin.woff'),
+        woff2: assetUrl('../static/fonts/UberMove-Bold.woff2'),
+        woff: assetUrl('../static/fonts/UberMove-Bold.woff'),
       },
       fallback: {
-        name: 'Book',
+        name: 'UberMove-Regular',
         styles: {
-          fontWeight: '100',
+          fontWeight: '600',
         },
       },
     },
-    NarrowThin: {
+    'UberMoveText-Regular': {
       urls: {
-        woff2: assetUrl('../static/fonts/Clan-Narrow-Thin.woff2'),
-        woff: assetUrl('../static/fonts/Clan-Narrow-Thin.woff'),
+        woff2: assetUrl('../static/fonts/UberMoveText-Regular.woff2'),
+        woff: assetUrl('../static/fonts/UberMoveText-Regular.woff'),
       },
       fallback: {
-        name: 'NarrowBook',
+        name: 'Arial',
+      },
+    },
+    'UberMoveText-Light': {
+      urls: {
+        woff2: assetUrl('../static/fonts/UberMoveText-Light.woff2'),
+        woff: assetUrl('../static/fonts/UberMoveText-Light.woff'),
+      },
+      fallback: {
+        name: 'UberMoveText-Regular',
         styles: {
-          fontWeight: '100',
+          fontWeight: '200',
+        },
+      },
+    },
+    'UberMoveText-Medium': {
+      urls: {
+        woff2: assetUrl('../static/fonts/UberMoveText-Medium.woff2'),
+        woff: assetUrl('../static/fonts/UberMoveText-Medium.woff'),
+      },
+      fallback: {
+        name: 'UberMoveText-Regular',
+        styles: {
+          fontWeight: '500',
+        },
+      },
+    },
+    'UberMoveText-Bold': {
+      urls: {
+        woff2: assetUrl('../static/fonts/UberMoveText-Bold.woff2'),
+        woff: assetUrl('../static/fonts/UberMoveText-Bold.woff'),
+      },
+      fallback: {
+        name: 'UberMoveText-Regular',
+        styles: {
+          fontWeight: '600',
         },
       },
     },
