@@ -10,6 +10,7 @@ tape(
       'function',
       'exposes a middleware function'
     );
+    // $FlowFixMe
     const api = Plugin.provides();
     t.equal(typeof api.identify, 'function');
     t.equal(typeof api.track, 'function');
