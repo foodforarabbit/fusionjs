@@ -26,7 +26,7 @@ if (latest !== version) {
   process.exit();
 }
 
-const cli = sade('create-uber-web');
+const cli = sade('uber-web');
 
 cli.version(require('../package.json').version);
 
@@ -72,10 +72,11 @@ cli
   .command('upgrade')
   .describe('Upgrade dependencies')
   .option('--dir', 'Project folder', '.')
-  .option('--skip-install', 'Avoid running `yarn install`')
+  .option('--match', 'Only upgrade deps whose name match this regex', '')
+  .option('--force', 'Force deps to latest version, ignoring tests', 'false')
   .action(args => {
-    const {dir, 'skip-install': skipInstall = false} = args;
-    upgrade({dir, skipInstall});
+    const {dir, upgrade} = args;
+    upgrade({dir, upgrade: upgrade !== 'false'});
   });
 
 cli

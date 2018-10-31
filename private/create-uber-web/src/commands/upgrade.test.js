@@ -8,9 +8,12 @@ import {upgrade} from './upgrade.js';
 test('upgrade', async () => {
   const dir = 'fixtures/upgrade';
   const file = `${dir}/package.json`;
-  await writeFile(file, '{"dependencies": {"fusion-core": "0.1.0"}}');
-  await upgrade({dir, skipInstall: true});
+  await writeFile(
+    file,
+    '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}',
+  );
+  await upgrade({dir, match: '', force: true});
   const data = await readFile(file);
-  expect(data.includes('0.1.0')).toEqual(false);
+  expect(data.includes('0.0.0')).toEqual(false);
   await fse.remove(dir);
 });

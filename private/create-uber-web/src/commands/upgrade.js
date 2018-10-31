@@ -3,17 +3,11 @@
 import {Stepper, step, exec} from '@dubstep/core';
 import {bumpDeps} from '../utils/bump-deps.js';
 
-export type UpgradeOptions = {dir: string, skipInstall: boolean};
+export type UpgradeOptions = {dir: string, match: string, force: boolean};
 
-export const upgrade = async ({dir, skipInstall}: UpgradeOptions) => {
+export const upgrade = async ({dir, match, force}: UpgradeOptions) => {
   const stepper = new Stepper([
-    step('upgrade', async () => await bumpDeps(dir)),
-    step('regenerate lock file', async () => {
-      if (!skipInstall)
-        await exec(`yarn install --silent --ignore-engines --ignore-scripts`, {
-          cwd: dir,
-        });
-    }),
+    step('upgrade', async () => await bumpDeps(dir, match, force)),
   ]);
   await stepper.run();
 };
