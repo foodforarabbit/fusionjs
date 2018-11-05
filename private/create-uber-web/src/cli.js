@@ -75,8 +75,8 @@ cli
   .option('--match', 'Only upgrade deps whose name match this regex', '')
   .option('--force', 'Force deps to latest version, ignoring tests', 'false')
   .action(args => {
-    const {dir, upgrade} = args;
-    upgrade({dir, upgrade: upgrade !== 'false'});
+    const {dir, force} = args;
+    upgrade({dir, force: force !== 'false'});
   });
 
 cli
