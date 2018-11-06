@@ -1,36 +1,49 @@
 // @flow
 /* eslint-env browser */
-import jsCookie from 'js-cookie';
+import {createPlugin, memoize} from 'fusion-core';
+import {AnalyticsCookieModuleToken, AnalyticsCookieTypeToken} from './tokens';
+import CookiesParser from './utils/cookies-parser';
 
-import {createPlugin} from 'fusion-core';
 import type {FusionPlugin} from 'fusion-core';
+import type {BrowserPluginType, DepsType, CookieTypeType} from './types.js';
 
-import {
-  AnalyticsCookieModuleToken,
-  AnalyticsCookieTypeToken,
-} from './tokens.js';
-
-function safeJSONParse(str: string): {||} | any {
-  try {
-    return JSON.parse(str) || {};
-  } catch (e) {
-    return {};
-  }
-}
-
-const pluginFactory = () =>
+const plugin =
+  __BROWSER__ &&
   createPlugin({
     deps: {
       pluginCookieType: AnalyticsCookieTypeToken,
       Cookies: AnalyticsCookieModuleToken.optional,
     },
+    provides: ({pluginCookieType, Cookies}) => {
+      // To prevent cookie tampered by others on the browser
+      const CookieAPI =
+        Cookies || new CookiesParser(document && document.cookie);
 
-    provides: ({pluginCookieType, Cookies = jsCookie}): {||} | any => {
-      const cookieTypes = Array.isArray(pluginCookieType)
-        ? pluginCookieType
-        : [pluginCookieType];
-      return safeJSONParse(Cookies.get(cookieTypes[0].name));
+      class AnalyticsSessionCookie {
+        cookieTypes: Array<CookieTypeType>;
+
+        constructor() {
+          this.cookieTypes = Array.isArray(pluginCookieType)
+            ? pluginCookieType
+            : [pluginCookieType];
+        }
+        get(cookieType) {
+          // If no cookieType is provided, then assume the first cookieType
+          const targetCookieType = cookieType || this.cookieTypes[0];
+          return CookieAPI.get(targetCookieType.name);
+        }
+      }
+
+      const memoizedFactory = memoize(ctx => new AnalyticsSessionCookie());
+      return {
+        // for backward-compatibility, from() will continue to return a value
+        from: ctx => {
+          const sessionCookie = memoizedFactory(ctx);
+          return sessionCookie.get();
+        },
+        _from: memoizedFactory,
+      };
     },
   });
 
-export default ((__BROWSER__ && pluginFactory(): any): FusionPlugin<any, any>);
+export default ((plugin: any): FusionPlugin<DepsType, BrowserPluginType>);

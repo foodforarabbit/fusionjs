@@ -1,148 +1,118 @@
 // @flow
 /* eslint-env node */
-import tape from 'tape-cup';
 
-import plugin from '../server';
+import Plugin from '../server';
 import {UUID, TIME_STAMP} from '../cookie-types/index';
+
+const plugin: any = Plugin;
 
 const FixtureCookieType = {
   name: 'foo',
-  options: {opt1: true},
-  data: {id: UUID, time: TIME_STAMP},
+  options: {
+    opt1: true,
+  },
+  data: {
+    id: UUID,
+    time: TIME_STAMP,
+  },
 };
 
-const FixtureExtraCookieType = {name: 'bar', data: {id: UUID}};
+const FixtureExtraCookieType = {
+  name: 'bar',
+  data: {
+    id: UUID,
+  },
+};
 
-tape(
-  'AnalyticsSessions server plugin - middleware',
-  (t): void => {
-    const ctx = {
-      cookies: {
-        get: (): null => {
-          t.pass('existence check of the cookie');
-          return null;
-        },
-
-        set: (name, value, options): void => {
-          t.equal(name, FixtureCookieType.name, 'name matched');
-
-          const parsed = JSON.parse(value);
-          const regexUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-          t.ok(regexUUID.test(parsed.id), 'UUID generated');
-          t.equal(typeof parsed.time, 'number', 'Timestamp generated');
-
-          t.deepEqual(
-            options,
-            {
-              overwrite: false,
-              expires: undefined,
-              ...FixtureCookieType.options,
-            },
-            'valid options'
-          );
-        },
+test('AnalyticsSessions server plugin - middleware', () => {
+  const ctx: any = {
+    cookies: {
+      get: () => {
+        return null;
       },
+      set: (name, value, options) => {
+        expect(name).toBe(FixtureCookieType.name);
 
-      memoized: new Map(),
-    };
-    const next = () => t.pass('called next()');
+        const parsed = JSON.parse(value);
+        const regexUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        expect(regexUUID.test(parsed.id)).toBeTruthy();
+        expect(typeof parsed.time).toBe('number');
 
-    const deps = {pluginCookieType: FixtureCookieType};
-
-    // $FlowFixMe
-    const middleware = plugin.middleware(deps, plugin.provides(deps));
-    middleware(ctx, next);
-
-    t.end();
-  }
-);
-
-tape(
-  'AnalyticsSessions server plugin - middleware, multiple cookieTypes',
-  (t): void => {
-    const cookieTypes = [FixtureCookieType, FixtureExtraCookieType];
-    var cookieIdx = 0;
-
-    const ctx = {
-      cookies: {
-        get: (): null => {
-          t.pass('existence check of the cookie');
-          return null;
-        },
-
-        set: (name, value, options): void => {
-          t.equal(name, cookieTypes[cookieIdx].name, 'name matched');
-
-          const parsed = JSON.parse(value);
-          const regexUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-          t.ok(regexUUID.test(parsed.id), 'UUID generated');
-
-          cookieIdx++;
-        },
+        expect(options).toEqual({
+          expires: undefined,
+          ...FixtureCookieType.options,
+        });
       },
+    },
+    memoized: new Map(),
+  };
+  const next = () => {};
 
-      memoized: new Map(),
-    };
-    const next = () => t.pass('called next()');
+  const deps = {pluginCookieType: FixtureCookieType};
+  const middleware = plugin.middleware(deps, plugin.provides(deps));
+  middleware(ctx, next);
+});
 
-    const deps = {pluginCookieType: cookieTypes};
+test('AnalyticsSessions server plugin - middleware, multiple cookieTypes', () => {
+  const cookieTypes = [FixtureCookieType, FixtureExtraCookieType];
+  var cookieIdx = 0;
 
-    // $FlowFixMe
-    const middlewareWithMultiple = plugin.middleware(
-      deps,
-      // $FlowFixMe
-      plugin.provides(deps)
-    );
-
-    middlewareWithMultiple(ctx, next);
-
-    t.end();
-  }
-);
-
-tape(
-  'AnalyticsSessions server plugin - rolling session',
-  async (t): Promise<void> => {
-    const cookieSets = [];
-    const ctx = {
-      cookies: {
-        get: (): null => (cookieSets.length ? cookieSets[0] : null),
-
-        set: (name, value, options): number => cookieSets.push(options),
+  const ctx: any = {
+    cookies: {
+      get: () => {
+        return null;
       },
+      set: (name, value, options) => {
+        expect(name).toBe(cookieTypes[cookieIdx].name);
 
-      memoized: new Map(),
-    };
-    const next = () => t.pass('called next()');
+        const parsed = JSON.parse(value);
+        const regexUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        expect(regexUUID.test(parsed.id)).toBeTruthy();
 
-    const deps = {
-      pluginCookieType: {
-        ...FixtureCookieType,
-        rolling: true,
-        options: {expires: 50},
+        cookieIdx++;
       },
-    };
+    },
+    memoized: new Map(),
+  };
+  const next = () => {};
 
-    // $FlowFixMe
-    const middleware = plugin.middleware(deps, plugin.provides(deps));
-    middleware(ctx, next);
-    await new Promise(
-      (res: (result: Promise<void> | void) => void): TimeoutID =>
-        setTimeout(res, 200)
-    );
-    // add a small time delay
-    middleware(ctx, next);
+  const deps = {
+    pluginCookieType: cookieTypes,
+  };
+  const middlewareWithMultiple = plugin.middleware(deps, plugin.provides(deps));
 
-    t.equal(
-      Object.prototype.toString.call(cookieSets[0].expires),
-      '[object Date]',
-      'expires should be a date'
-    );
-    t.ok(
-      cookieSets[0].expires < cookieSets[1].expires,
-      'date should be rolling, ie. increasing each req'
-    );
+  middlewareWithMultiple(ctx, next);
+});
 
-    t.end();
-  }
-);
+test('AnalyticsSessions server plugin - rolling session', async () => {
+  const cookieSets = [];
+  const ctx: any = {
+    cookies: {
+      get: () => (cookieSets.length ? cookieSets[0] : null),
+      set: (name, value, options) => cookieSets.push(options),
+    },
+    memoized: new Map(),
+  };
+  const next = () => {};
+
+  const deps = {
+    pluginCookieType: {
+      ...FixtureCookieType,
+      rolling: true,
+      options: {
+        expires: 50,
+      },
+    },
+  };
+
+  const middleware = plugin.middleware(deps, plugin.provides(deps));
+
+  middleware(ctx, next);
+  await new Promise(res => setTimeout(res, 200)); // add a small time delay
+  middleware(ctx, next);
+
+  expect(Object.prototype.toString.call(cookieSets[0].expires)).toBe(
+    '[object Date]'
+  );
+  expect(cookieSets[0].expires < cookieSets[1].expires).toBeTruthy();
+});

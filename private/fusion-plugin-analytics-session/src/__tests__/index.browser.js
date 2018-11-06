@@ -1,62 +1,45 @@
 // @flow
 /* eslint-env browser */
-import tape from 'tape-cup';
 import plugin from '../browser';
 
-tape(
-  'AnalyticsSessions browser plugin - basics',
-  (t): void => {
-    const fixtureCookieType = {name: 'foo'};
+test('AnalyticsSessions browser plugin - basics', () => {
+  const fixtureCookieType = {
+    name: 'foo',
+  };
 
-    const cookieValue = {a: 1, b: {c: 2}};
+  const cookieValue = {a: 1, b: {c: 2}};
+  document.cookie = `a=1`;
+  // eslint-disable-next-line
+  document.cookie = `${fixtureCookieType.name}=${encodeURI(JSON.stringify(cookieValue))}`;
+  document.cookie = `b=w`;
 
-    const fixtureCookies = {
-      get: (name): string => {
-        t.pass('get cookie');
-        t.equal(
-          name,
-          fixtureCookieType.name,
-          'passing in cookie name from the cookieType'
-        );
-        return JSON.stringify(cookieValue);
-      },
-    };
-
-    // $FlowFixMe
-    const service = plugin.provides({
+  const service =
+    plugin.provides &&
+    plugin.provides({
       pluginCookieType: fixtureCookieType,
-      Cookies: fixtureCookies,
     });
 
-    t.deepEqual(service, cookieValue);
-    t.end();
-  }
-);
+  const ctx = ({memoized: new Map()}: any);
 
-tape(
-  'AnalyticsSessions browser plugin - invalid JSON in cookies',
-  (t): void => {
-    const fixtureCookieType = {name: 'foo'};
+  expect(service && service._from(ctx).get(fixtureCookieType)).toEqual(
+    cookieValue
+  );
+});
 
-    const fixtureCookies = {
-      get: (name): string => {
-        t.pass('get cookie');
-        t.equal(
-          name,
-          fixtureCookieType.name,
-          'passing in cookie name from the cookieType'
-        );
-        return 'zzz';
-      },
-    };
+test('AnalyticsSessions browser plugin - invalid JSON in cookies', () => {
+  const fixtureCookieType = {
+    name: 'foo',
+  };
 
-    // $FlowFixMe
-    const service = plugin.provides({
+  document.cookie = `${fixtureCookieType.name}=zzz`;
+
+  const service =
+    plugin.provides &&
+    plugin.provides({
       pluginCookieType: fixtureCookieType,
-      Cookies: fixtureCookies,
     });
 
-    t.deepEqual(service, {}, 'returns an empty object');
-    t.end();
-  }
-);
+  const ctx = ({memoized: new Map()}: any);
+
+  expect(service && service._from(ctx).get(fixtureCookieType)).toEqual({});
+});

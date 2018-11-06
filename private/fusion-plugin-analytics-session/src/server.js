@@ -1,20 +1,22 @@
 // @flow
 /* eslint-env node */
 import {createPlugin, memoize} from 'fusion-core';
+import {generateCookieData} from './cookie-types/index';
+import {AnalyticsCookieTypeToken} from './tokens';
+
+import type {CookiesSetOptions} from 'koa';
 import type {FusionPlugin, Context} from 'fusion-core';
+import type {ServerPluginType, DepsType, CookieTypeType} from './types.js';
 
-import {generateCookieData} from './cookie-types/index.js';
-import {AnalyticsCookieTypeToken} from './tokens.js';
-
-function safeJSONParse(str: string): {||} | any {
+function safeJSONParse(str): Object {
   try {
-    return JSON.parse(str) || {};
+    return JSON.parse(str || '') || {};
   } catch (e) {
     return {};
   }
 }
 
-const getCookieData = (cookieType, incomingCookieData: any): any | string => {
+const getCookieData = (cookieType, incomingCookieData) => {
   if (cookieType.rolling && incomingCookieData) {
     return incomingCookieData;
   }
@@ -22,7 +24,7 @@ const getCookieData = (cookieType, incomingCookieData: any): any | string => {
   return JSON.stringify(generateCookieData(cookieType));
 };
 
-const getCookieExpiry = ({expires} = {}): void => {
+const getCookieExpiry = ({expires} = {}) => {
   if (!expires) {
     return;
   }
@@ -30,45 +32,44 @@ const getCookieExpiry = ({expires} = {}): void => {
   return new Date(Date.now() + expires);
 };
 
-const pluginFactory = () =>
+const plugin =
+  __NODE__ &&
   createPlugin({
-    deps: {pluginCookieType: AnalyticsCookieTypeToken},
-
+    deps: {
+      pluginCookieType: AnalyticsCookieTypeToken,
+    },
     provides: ({pluginCookieType}) => {
       class AnalyticsSessionCookie {
-        ctx: any;
-        cookieTypes: any;
+        cookieTypes: Array<CookieTypeType>;
+        ctx: Context;
+
         constructor(ctx: Context) {
           this.ctx = ctx;
           this.cookieTypes = Array.isArray(pluginCookieType)
             ? pluginCookieType
             : [pluginCookieType];
         }
-        setCookie(cookieType): void {
+        setCookie(cookieType) {
           const {ctx} = this;
           const incomingCookieData = ctx.cookies.get(cookieType.name);
           if (!incomingCookieData || cookieType.rolling) {
             ctx.cookies.set(
               cookieType.name,
               getCookieData(cookieType, incomingCookieData),
-              {
-                overwrite: false,
+              ({
                 ...cookieType.options,
                 expires: getCookieExpiry(cookieType.options),
-              }
+              }: $Shape<CookiesSetOptions>)
             );
           }
         }
-        setCookies(): void {
-          this.cookieTypes.forEach(
-            (cookieType): void => {
-              this.setCookie(cookieType);
-            }
-          );
+        setCookies() {
+          this.cookieTypes.forEach(cookieType => {
+            this.setCookie(cookieType);
+          });
         }
-        get(cookieType: void): {||} | any {
+        get(cookieType) {
           const {ctx} = this;
-
           // If no cookieType is provided, then assume the first cookieType
           const targetCookieType = cookieType || this.cookieTypes[0];
 
@@ -77,32 +78,18 @@ const pluginFactory = () =>
         }
       }
 
-      const memoizedFactory = memoize(
-        (ctx: Context): AnalyticsSessionCookie =>
-          new AnalyticsSessionCookie(ctx)
-      );
-
+      const memoizedFactory = memoize(ctx => new AnalyticsSessionCookie(ctx));
       return {
-        from: (ctx): {||} | any => {
-          // for backward-compatibility, from() will continue to return a value
+        // for backward-compatibility, from() will continue to return a value
+        from: ctx => {
           const sessionCookie = memoizedFactory(ctx);
-
-          // $FlowFixMe
-          return safeJSONParse(sessionCookie.get());
+          return sessionCookie.get();
         },
-
         _from: memoizedFactory,
       };
     },
-
-    middleware: (
-      _: {|pluginCookieType: any|},
-      AnalyticsSessionCookie: {|
-        _from: any,
-        from: (ctx: empty) => {||} | any,
-      |}
-    ): ((ctx: Context, next: () => Promise<void>) => Promise<void>) => {
-      return (ctx: Context, next: () => Promise<void>): Promise<void> => {
+    middleware: (_, AnalyticsSessionCookie) => {
+      return (ctx, next) => {
         // TODO: only set cookie on certain requests
         const sessionCookie = AnalyticsSessionCookie._from(ctx);
         sessionCookie.setCookies();
@@ -110,4 +97,5 @@ const pluginFactory = () =>
       };
     },
   });
-export default ((__NODE__ && pluginFactory(): any): FusionPlugin<any, any>);
+
+export default ((plugin: any): FusionPlugin<DepsType, ServerPluginType>);
