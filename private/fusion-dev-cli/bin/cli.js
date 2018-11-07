@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// @noflow
 const request = require('request-promise');
 const cp = require('child_process');
 const prompt = require('promptly');
