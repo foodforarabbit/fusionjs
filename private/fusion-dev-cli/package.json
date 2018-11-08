@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-dev-cli",
   "description": "M3 plugin for fusion",
-  "version": "0.1.2",
+  "version": "0.1.3-0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "bin": {
