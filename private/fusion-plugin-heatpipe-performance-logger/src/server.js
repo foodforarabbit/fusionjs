@@ -53,7 +53,9 @@ function mapPerformanceDataToSchema(event, ctx) {
     external,
   } = event;
   const navigationMeta = {
+    // $FlowFixMe
     url: ctx.url,
+    // $FlowFixMe
     qs: ctx.querystring,
   };
 
@@ -78,11 +80,13 @@ function mapPerformanceDataToSchema(event, ctx) {
 
   const network = {
     ...rawNetwork,
+    // $FlowFixMe
     ipAddress: (ctx.request && ctx.request.ip) || ctx.ip,
   };
 
   const client = {
     memory,
+    // $FlowFixMe
     ua: ctx.request && ctx.request.headers['user-agent'],
     locale: 'en',
   };
