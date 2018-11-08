@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import Plugin from './plugin';
 import {createRouter4Compat} from './Router4Compat';
 

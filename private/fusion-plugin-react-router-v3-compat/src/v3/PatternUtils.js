@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 // Unchanged: https://github.com/ReactTraining/react-router/blob/v3/modules/PatternUtils.js
 import invariant from 'invariant';
 

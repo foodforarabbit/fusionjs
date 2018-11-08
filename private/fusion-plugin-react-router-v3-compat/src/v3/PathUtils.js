@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 // Unchanged: https://github.com/ReactTraining/history/blob/v3/modules/PathUtils.js
 const extractPath = string => {
   /* eslint-disable-next-line no-useless-escape */

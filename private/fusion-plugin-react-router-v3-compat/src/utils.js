@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 export const assignWith = (object, ...rest) => {
   if (
     rest.length === 0 ||

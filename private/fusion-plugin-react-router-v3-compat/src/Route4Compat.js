@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Redirect, Switch, matchPath} from 'fusion-plugin-react-router';
