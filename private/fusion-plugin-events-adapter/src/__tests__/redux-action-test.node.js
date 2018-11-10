@@ -52,6 +52,38 @@ tape('redux-action handler', t => {
   t.end();
 });
 
+tape('redux-action handler - action is not a plain-object', t => {
+  const events = new EventEmitter();
+
+  const mockM3 = {
+    increment() {
+      t.fail('should not emit non-plain-object actions');
+    },
+  };
+
+  const mockHeatpipe = {
+    publish() {
+      t.fail('should not emit non-plain-object actions');
+    },
+  };
+
+  // $FlowFixMe
+  const heatpipeEmitter = HeatpipeEmitter({
+    heatpipe: mockHeatpipe,
+    service: 'test',
+  });
+
+  reactAction({events, heatpipeEmitter, m3: mockM3});
+
+  events.emit('redux-action-emitter:action', dispatch => {
+    dispatch({type: 'foo'});
+  });
+
+  t.pass('Do not emit non-plain-object actions');
+
+  t.end();
+});
+
 tape('redux-action handler - nested _trackingMeta', t => {
   const events = new EventEmitter();
 

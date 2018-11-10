@@ -17,7 +17,7 @@ export const webTopicInfo = {
 
 type HeatpipeArgs = {
   // TODO: HeatpipeEmitter Plugin typing
-  heatpipe: *,
+  heatpipe: any,
   AnalyticsSession: AnalyticsSessionPlugin,
   AuthHeaders?: AuthHeadersService,
   Geolocation?: GeolocationPlugin,
