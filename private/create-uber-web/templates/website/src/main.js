@@ -98,7 +98,7 @@ import RPCHandlersPlugin from './rpc/handlers.js';
 
 import registerPlugins from './app.js';
 
-const team = '{{name}}';
+const team = '{{team}}';
 
 export default async function start(options: any = {}) {
   const root = options.root || DefaultRoot;

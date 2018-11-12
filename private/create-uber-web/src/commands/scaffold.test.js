@@ -2,13 +2,14 @@
 
 import inquirer from 'inquirer';
 import fse from 'fs-extra';
+import {readFile} from '@dubstep/core';
 import {scaffold} from './scaffold.js';
 
-jest.setTimeout(40000);
+jest.setTimeout(100000);
 
 jest.spyOn(console, 'log').mockImplementation(() => {});
 
-async function testScaffold(name, templateIndex) {
+async function testScaffold(name, templateIndex, cb) {
   try {
     await fse.remove(name).catch(() => {});
 
@@ -42,13 +43,18 @@ async function testScaffold(name, templateIndex) {
     const data = await fse.readJson(`${name}/package.json`);
 
     expect(data.name.includes('{{')).toEqual(false);
+
+    if (cb) await cb();
   } finally {
     await fse.remove(name).catch(() => {});
   }
 }
 
 test('scaffold website', async () => {
-  await testScaffold('fixtures/website', 0);
+  await testScaffold('fixtures/website', 0, async () => {
+    const main = await readFile('fixtures/website/src/main.js');
+    expect(main.includes('{{')).toBe(false);
+  });
 });
 test('scaffold plugin', async () => {
   await testScaffold('fixtures/plugin', 1);
