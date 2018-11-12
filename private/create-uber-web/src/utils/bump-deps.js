@@ -1,6 +1,7 @@
 /* @flow */
 
 import {readFile, exec, writeFile} from '@dubstep/core';
+import {install, test} from './yarn';
 
 export const bumpDeps = async (dir: string, match: string, force: boolean) => {
   const file = `${dir}/package.json`;
@@ -20,14 +21,10 @@ const read = async file => {
 const write = async (file, data) => {
   writeFile(file, JSON.stringify(data));
 };
-const install = async dir => {
-  return exec(`yarn install --silent --ignore-engines --ignore-scripts`, {
-    cwd: dir,
-  });
-};
-const test = async dir => {
+
+const installAndTest = async dir => {
   await install(dir);
-  return exec(`yarn test`, {cwd: dir});
+  await test(dir);
 };
 
 const upgrade = async (dir, match, force, file, data, key) => {
@@ -43,7 +40,7 @@ const upgrade = async (dir, match, force, file, data, key) => {
     if (data[key][dep] === version) continue;
     await write(file, data);
     if (!force) {
-      await test(dir).catch(e => {
+      await installAndTest(dir).catch(e => {
         console.log(`Could not upgrade ${dep}`);
         data[key][dep] = version;
         return write(file, data);
