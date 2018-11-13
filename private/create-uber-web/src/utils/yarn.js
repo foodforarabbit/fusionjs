@@ -7,6 +7,5 @@ export const install = async (dir: string) => {
 };
 
 export const test = async (dir: string) => {
-  await install(dir);
   return exec(`yarn test`, {cwd: dir});
 };

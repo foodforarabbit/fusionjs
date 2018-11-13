@@ -85,7 +85,7 @@ test('bumpDeps match', async () => {
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}',
   );
-  await bumpDeps(dir, 'asd', true);
+  await bumpDeps(dir, 'asd', false);
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await fse.remove(dir);
