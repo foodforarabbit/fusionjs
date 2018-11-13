@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-analytics-session",
   "description": "Plugin for generating and providing analytics sessions in the cookie",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
