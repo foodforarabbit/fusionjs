@@ -17,7 +17,6 @@ export default step(
     if (!pkg.dependencies['fusion-plugin-csrf-protection-react']) {
       return;
     }
-    await withJsFiles('.', /^\.\/src\/main.js$/, p => true);
     await exec(
       `yarn remove fusion-plugin-csrf-protection-react && yarn add fusion-plugin-csrf-protection@latest fusion-react@latest`,
     );
