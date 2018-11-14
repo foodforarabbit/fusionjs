@@ -6,10 +6,13 @@ import dottie from 'dottie';
 import {createPlugin} from 'fusion-core';
 import {DevSecretsToken, SecretsLocationToken} from './tokens';
 
+import type {SecretPluginType} from './types';
+
 declare var __DEV__: boolean;
 declare var __NODE__: boolean;
 
-export default __NODE__ &&
+const plugin =
+  __NODE__ &&
   createPlugin({
     deps: {
       devValues: DevSecretsToken.optional,
@@ -35,3 +38,5 @@ export default __NODE__ &&
       };
     },
   });
+
+export default ((plugin: any): SecretPluginType);

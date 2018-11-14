@@ -1,6 +1,11 @@
 // @flow
 import {createToken} from 'fusion-core';
 
-export const SecretsToken = createToken('Secrets');
-export const DevSecretsToken = createToken('DevSecrets');
-export const SecretsLocationToken = createToken('SecretsLocation');
+import type {Token} from 'fusion-core';
+import type {SecretServiceType} from './types';
+
+export const SecretsToken: Token<SecretServiceType> = createToken('Secrets');
+export const DevSecretsToken: Token<Object> = createToken('DevSecrets');
+export const SecretsLocationToken: Token<string> = createToken(
+  'SecretsLocation'
+);
