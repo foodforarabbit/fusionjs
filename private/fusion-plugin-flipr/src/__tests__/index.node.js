@@ -47,7 +47,10 @@ function createTestFixture(t): App {
 
     return {
       startUpdating: (): void => t && t.pass('invoked startUpdating()'),
-      randomFunction: (): void => {},
+      randomValue: 999,
+      randomFunction: function(): number {
+        return this.randomValue;
+      },
     };
   };
   const mockConfig = {defaultNamespace: 'foo'};
@@ -97,9 +100,10 @@ test('plugin - initialization', (t): void => {
       deps: {flipr: FliprToken},
 
       provides: ({flipr}): void => {
-        t.ok(
+        t.equal(
           // $FlowFixMe
-          flipr.randomFunction,
+          flipr.randomFunction(),
+          999,
           'Flipr client functions proxied on the service'
         );
       },

@@ -71,8 +71,8 @@ export class FliprService {
     });
 
     for (const key in flipr) {
-      const func = flipr[key];
-      if (typeof func === 'function') {
+      if (typeof flipr[key] === 'function') {
+        const func = flipr[key].bind(flipr);
         Object.defineProperty(this, key, {
           value: (...args): any => func(...args),
         });
