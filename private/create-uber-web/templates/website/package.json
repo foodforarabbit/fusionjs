@@ -83,7 +83,7 @@
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
     "lint": "eslint src --fix",
-    "flow": "flow check || true",
+    "flow": "flow check",
     "build": "fusion build",
     "dev": "SVC_ID='{{name}}' fusion-dev-cli fusion dev",
     "test": "fusion test",
