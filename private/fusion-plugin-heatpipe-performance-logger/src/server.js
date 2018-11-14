@@ -2,14 +2,21 @@
 /* global console,process */
 /* eslint-disable no-console,no-process-env */
 
+import type {
+  HeatpipePerformanceLoggerDepsType,
+  HeatpipePerformanceLoggerType,
+} from './types';
+
 import request from 'request';
-import {createPlugin, createToken} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-export const HeatpipePerfLoggerConfig = createToken('HeatpipePerfLoggerConfig');
 export default __NODE__ &&
-  createPlugin({
-    deps: {emitter: UniversalEventsToken, config: HeatpipePerfLoggerConfig},
+  createPlugin<
+    HeatpipePerformanceLoggerDepsType,
+    HeatpipePerformanceLoggerType
+  >({
+    deps: {emitter: UniversalEventsToken},
     provides: deps => {
       const emitter = deps.emitter;
       emitter.on('browser-performance-emitter:stats', (e, ctx) => {

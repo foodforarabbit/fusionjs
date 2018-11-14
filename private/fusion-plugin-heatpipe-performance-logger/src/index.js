@@ -1,6 +1,12 @@
 // @flow
-import server, {HeatpipePerfLoggerConfig} from './server';
+import type {
+  HeatpipePerformanceLoggerDepsType,
+  HeatpipePerformanceLoggerType,
+} from './types';
+
+import server from './server';
 import browser from './browser';
 
-export {HeatpipePerfLoggerConfig};
 export default (__NODE__ ? server : browser);
+
+export type {HeatpipePerformanceLoggerDepsType, HeatpipePerformanceLoggerType};
