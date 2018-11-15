@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import tape from 'tape-cup';
 
 import App, {RenderToken} from 'fusion-core';

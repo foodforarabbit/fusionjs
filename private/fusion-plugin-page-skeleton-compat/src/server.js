@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import {createPlugin, html} from 'fusion-core';
 import type {Context} from 'fusion-core';
 
