@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import tape from 'tape-cup';
 import createXhrPlugin from '../plugin.js';
 

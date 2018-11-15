@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 const supportedMethods = ['get', 'put', 'post', 'patch', 'delete'];
 export default function getXhr() {
   let flushed = false;

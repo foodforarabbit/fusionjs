@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import createXhrPlugin from './plugin.js';
 
 const {xhr, plugin} = createXhrPlugin();
