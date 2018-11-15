@@ -2260,6 +2260,10 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+flow-bin@^0.86.0:
+  version "0.86.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.86.0.tgz#153a28722b4dc13b7200c74b644dd4d9f4969a11"
+
 for-each@~0.3.3:
   version "0.3.3"
   resolved "https://unpm.uberinternal.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"

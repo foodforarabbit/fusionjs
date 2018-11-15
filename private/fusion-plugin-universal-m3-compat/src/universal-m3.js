@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 let supportedMethods = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
 if (__NODE__) {
   supportedMethods = supportedMethods.concat([

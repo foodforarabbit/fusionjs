@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import {createPlugin} from 'fusion-core';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import UniversalM3 from './universal-m3.js';

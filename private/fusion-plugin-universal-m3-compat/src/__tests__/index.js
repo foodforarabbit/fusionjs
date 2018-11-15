@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import tape from 'tape-cup';
 import createM3Plugin from '../plugin.js';
 
