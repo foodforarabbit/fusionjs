@@ -1,8 +1,9 @@
 // @flow
-import server, {
+import server from './server.js';
+import {
   ConfigToken,
   LocaleNegotiationToken as LocaleNegotiation,
-} from './server.js';
+} from './tokens.js';
 import browser from './browser.js';
 
 export default (((__NODE__ ? server : browser): any): typeof server);

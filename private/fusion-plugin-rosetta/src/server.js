@@ -1,16 +1,25 @@
 // @flow
 /* eslint-env node */
+import type {RosettaDepsType, RosettaType} from './types';
+
 import {Locales} from 'locale';
 
 import Genghis from '@uber/node-genghis';
 
-import {createPlugin, memoize, createToken} from 'fusion-core';
+import {createPlugin, memoize} from 'fusion-core';
 import type {Context} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 
-export const ClientToken = createToken('RosettaClient');
-export const ConfigToken = createToken('RosettaConfig');
-export const LocaleNegotiationToken = createToken('RosettaLocaleNegotiation');
+import {ClientToken, ConfigToken, LocaleNegotiationToken} from './tokens';
+
+type ExtractReturnType = <R>(() => R) => R;
+type LoggerType = $Call<ExtractReturnType, typeof LoggerToken>;
+type ClientType = typeof Genghis;
+type ConfigType = $Call<ExtractReturnType, typeof ConfigToken.optional>;
+type LocaleNegotiationType = $Call<
+  ExtractReturnType,
+  typeof LocaleNegotiationToken.optional
+>;
 
 class TranslationsLoader {
   locale: any;
@@ -61,7 +70,7 @@ function translationsLoaderFactory(
 }
 
 const pluginFactory = () =>
-  createPlugin({
+  createPlugin<RosettaDepsType, RosettaType>({
     deps: {
       logger: LoggerToken,
       Client: ClientToken.optional,
@@ -69,7 +78,17 @@ const pluginFactory = () =>
       localeNegotiation: LocaleNegotiationToken.optional,
     },
 
-    provides: ({logger, Client = Genghis, config = {}, localeNegotiation}) => {
+    provides: ({
+      logger,
+      Client = Genghis,
+      config = {},
+      localeNegotiation,
+    }: {
+      logger: LoggerType,
+      Client: ClientType,
+      config: ConfigType,
+      localeNegotiation: LocaleNegotiationType,
+    }) => {
       config.service = config.service || process.env.SVC_ID || 'dev-service';
       const client: any = new Client({logger, ...config});
       client.load();
@@ -87,6 +106,5 @@ const pluginFactory = () =>
     cleanup: client => client.clearInterval(),
   });
 
-type ExtractReturnType = <R>(() => R) => R;
 type PluginType = $Call<ExtractReturnType, typeof pluginFactory>;
 export default ((__NODE__ && pluginFactory(): any): PluginType);

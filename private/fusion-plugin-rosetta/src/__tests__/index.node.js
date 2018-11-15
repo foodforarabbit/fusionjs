@@ -5,7 +5,8 @@ import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
 
-import plugin, {ClientToken, ConfigToken} from '../server.js';
+import plugin from '../server.js';
+import {ClientToken, ConfigToken} from '../tokens.js';
 
 const RosettaToken = createToken('RosettaToken');
 
