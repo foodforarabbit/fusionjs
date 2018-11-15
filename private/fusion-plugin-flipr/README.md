@@ -167,3 +167,8 @@ To simplify the process fetching flipr cached files for local development, run t
 ```sh
 yarn update-flipr-bootstrap [your-flipr-namespace]
 ```
+
+The command is just a convenience on [the steps described by Boxer](https://engdocs.uberinternal.com/boxer/docker.html#setup-flipr). It only fetches the global namespace, which means Flipr properties rolled out to specific DCs are excluded from the result.
+
+If you need production bootstrap files, it's located `/var/cache/flipr-config/` on production hosts according to [Flipr](https://engdocs.uberinternal.com/fliprdocs/faq.html). You should adhere to security policies when fetching and committing cache files from production hosts.
+
