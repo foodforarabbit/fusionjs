@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import createLoggerPlugin from './plugin.js';
 
 const {logger, plugin} = createLoggerPlugin();
