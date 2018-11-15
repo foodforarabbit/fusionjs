@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import {createPlugin} from 'fusion-core';
 import {RPCToken} from 'fusion-plugin-rpc';
 
