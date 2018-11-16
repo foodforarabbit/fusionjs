@@ -8,7 +8,7 @@ export default step('fusion-react-async-codemod-replace', async () => {
   }
   await exec(`yarn remove fusion-react-async`);
 
-  await withJsFiles('.', /^\.\/src\/(.*?).js$/, path => {
+  await withJsFiles('src/**/*.js', path => {
     let shouldUpdate = false;
     function replaceImport(importPath) {
       shouldUpdate = true;

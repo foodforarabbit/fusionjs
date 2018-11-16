@@ -16,12 +16,8 @@ jest.mock('@dubstep/core', () => {
       });
     }),
     exec: jest.fn(),
-    withJsFiles: (dir, regex, handler) => {
-      return actual.withJsFiles(
-        './fixtures/csrf-enhancer/',
-        /fixture/,
-        handler,
-      );
+    withJsFiles: (glob, handler) => {
+      return actual.withJsFiles('./fixtures/csrf-enhancer/fixture.js', handler);
     },
   };
 });
@@ -49,19 +45,16 @@ export default async function start() {
   const newContents = (await fse.readFile(fixture)).toString();
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
-"import CsrfProtectionPlugin, { CsrfIgnoreRoutesToken } from \\"fusion-plugin-csrf-protection\\";
+"
+import CsrfProtectionPlugin, { CsrfIgnoreRoutesToken } from \\"fusion-plugin-csrf-protection\\";
 import fetch from \\"unfetch\\";
 import App from \\"fusion-core\\";
 export default async function start() {
   const app = new App(\\"test\\", el => el);
   app.enhance(FetchToken, CsrfProtectionPlugin);
-
   app.register(FetchToken, unfetch);
-
   __NODE__ && app.register(CsrfIgnoreRoutesToken, [\\"/_errors\\"]);
-
   if (__BROWSER__) {}
-
   return app;
 }"
 `);
@@ -70,12 +63,11 @@ export default async function start() {
 
 test('csrf protection codemod withServices', async () => {
   const contents = `
-import {
-  withFetch
-} from "fusion-plugin-csrf-protection-react";
+import React from 'react';
+import {withFetch} from "fusion-plugin-csrf-protection-react";
 
 export default withFetch(function start() {
-  return <div>Hello </div>
+  return (<div>Hello</div>);
 })`;
   const fixture = 'fixtures/csrf-enhancer/fixture.js';
   await fse.writeFile(fixture, contents);
@@ -83,13 +75,14 @@ export default withFetch(function start() {
   const newContents = (await fse.readFile(fixture)).toString();
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
-"import { withServices } from 'fusion-react';
-import { FetchToken } from 'fusion-tokens';
-export default withServices({
-  fetch: FetchToken
-})(function start() {
-  return <div>Hello </div>;
-});"
+"
+import React from 'react';
+import {withServices} from 'fusion-react';
+import {FetchToken} from 'fusion-tokens';
+
+export default withServices({fetch: FetchToken})(function start() {
+  return (<div>Hello</div>);
+})"
 `);
   await fse.remove(fixture);
 });

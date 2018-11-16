@@ -16,10 +16,9 @@ jest.mock('@dubstep/core', () => {
       });
     }),
     exec: jest.fn(),
-    withJsFiles: (dir, regex, handler) => {
+    withJsFiles: (glob, handler) => {
       return actual.withJsFiles(
-        './fixtures/fusion-react-async/',
-        /fixture/,
+        './fixtures/fusion-react-async/fixture.js',
         handler,
       );
     },
@@ -37,8 +36,10 @@ prepared('test');
   const newContents = (await fse.readFile(fixture)).toString();
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
-"import { prepared } from \\"fusion-react\\";
-prepared('test');"
+"
+import {prepared} from \\"fusion-react\\";
+prepared('test');
+"
 `);
   await fse.remove(fixture);
 });
@@ -55,9 +56,11 @@ d();
   const newContents = (await fse.readFile(fixture)).toString();
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
-"import { prepared, dispatched as d } from \\"fusion-react\\";
+"
+import {prepared, dispatched as d} from \\"fusion-react\\";
 prepared('test');
-d();"
+d();
+"
 `);
   await fse.remove(fixture);
 });

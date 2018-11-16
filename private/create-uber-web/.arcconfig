@@ -1,9 +1,5 @@
 {
   "phabricator.uri": "https://code.uberinternal.com/",
   "repository.callsign": "WECREHQ",
-  "git.default-relative-commit": "origin/master",
-
-  "unit.engine": "TAPTestEngine",
-  "unit.engine.tap.cover": "npm run lint && npm run cover",
-  "unit.engine.tap.timeout": 90
+  "git.default-relative-commit": "origin/master"
 }

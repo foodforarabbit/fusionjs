@@ -20,7 +20,7 @@ export default step(
     await exec(
       `yarn remove fusion-plugin-csrf-protection-react --ignore-engines && yarn add fusion-plugin-csrf-protection@latest fusion-react@latest --ignore-engines`,
     );
-    await withJsFiles('.', /^\.\/src\/(.*?).js$/, path => {
+    await withJsFiles('src/**/*.js', path => {
       let shouldUpdate = false;
       visitJsImport(
         path,
@@ -40,8 +40,8 @@ export default step(
               parseJs(`withServices({fetch: FetchToken});`).node.body[0],
             );
           });
-          ensureJsImports(path, `import {withServices} from 'fusion-react';`);
-          ensureJsImports(path, `import {FetchToken} from 'fusion-tokens';`);
+          ensureJsImports(path, `import {withServices} from 'fusion-react';\n`);
+          ensureJsImports(path, `import {FetchToken} from 'fusion-tokens';\n`);
           importPath.remove();
         },
       );
@@ -55,12 +55,12 @@ export default step(
           );
           refs.forEach(r => {
             r.parentPath.insertAfter(
-              parseJs(`app.register(FetchToken, unfetch);`).node,
+              parseJs(`app.register(FetchToken, unfetch);\n`).node.body[0],
             );
             r.parentPath.insertAfter(
               parseJs(
-                `app.enhance(FetchToken, ${defaultSpecifier.local.name});`,
-              ).node,
+                `app.enhance(FetchToken, ${defaultSpecifier.local.name});\n`,
+              ).node.body[0],
             );
             r.parentPath.remove();
           });
