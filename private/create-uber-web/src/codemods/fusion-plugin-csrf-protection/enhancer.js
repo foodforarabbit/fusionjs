@@ -18,7 +18,7 @@ export default step(
       return;
     }
     await exec(
-      `yarn remove fusion-plugin-csrf-protection-react && yarn add fusion-plugin-csrf-protection@latest fusion-react@latest`,
+      `yarn remove fusion-plugin-csrf-protection-react --ignore-engines && yarn add fusion-plugin-csrf-protection@latest fusion-react@latest --ignore-engines`,
     );
     await withJsFiles('.', /^\.\/src\/(.*?).js$/, path => {
       let shouldUpdate = false;
