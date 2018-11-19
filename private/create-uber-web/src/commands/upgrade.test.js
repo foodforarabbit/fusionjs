@@ -8,7 +8,7 @@ import {upgrade} from './upgrade.js';
 test('upgrade', async () => {
   const dir = 'fixtures/upgrade';
   const file = `${dir}/package.json`;
-  await writeFile(`${dir}/test.js`, '');
+  await writeFile(`${dir}/src/test.js`, '');
   await writeFile(
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}',
