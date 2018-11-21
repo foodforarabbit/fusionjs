@@ -2,4 +2,8 @@
 import GoogleAnalyticsPlugin from '@uber/fusion-plugin-google-analytics';
 import {ProviderPlugin} from 'fusion-react';
 
-export default ProviderPlugin.create('googleAnalytics', GoogleAnalyticsPlugin);
+// Typed as any as GoogleAnalyticsPlugin does not yet export types.
+export default ProviderPlugin.create<any, any>(
+  'googleAnalytics',
+  GoogleAnalyticsPlugin
+);

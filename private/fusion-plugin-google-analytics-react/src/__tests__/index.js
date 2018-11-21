@@ -12,12 +12,12 @@ import withGoogleAnalytics from '../hoc';
 if (__BROWSER__) {
   const root = document.createElement('div');
   root.id = 'root';
-  document.body.appendChild(root);
+  document.body && document.body.appendChild(root);
 }
 
 test('HOC', async t => {
   let didRender = false;
-  class Test extends React.Component {
+  class Test extends React.Component<any> {
     render() {
       if (__BROWSER__) {
         t.equal(
@@ -44,7 +44,7 @@ test('HOC', async t => {
   t.ok(
     __NODE__
       ? res.body.includes('hello')
-      : document.body.innerHTML.includes('hello'),
+      : document.body && document.body.innerHTML.includes('hello'),
     'Test content rendered correctly'
   );
   t.ok(didRender, 'Test component rendered');
