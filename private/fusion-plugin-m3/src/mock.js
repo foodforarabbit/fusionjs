@@ -1,7 +1,7 @@
 // @flow
-import {createPlugin} from 'fusion-core';
+import {createPlugin, type FusionPlugin} from 'fusion-core';
 
-export default createPlugin({
+const plugin: FusionPlugin<any, any> = createPlugin({
   provides: () => {
     const calls = [];
     const callbackFunc = (methodName, ...args) => {
@@ -51,3 +51,5 @@ export default createPlugin({
     };
   },
 });
+
+export default plugin;
