@@ -3,34 +3,11 @@
 import {createPlugin, memoize} from 'fusion-core';
 import {generateCookieData} from './cookie-types/index';
 import {AnalyticsCookieTypeToken} from './tokens';
+import {safeJSONStringify, safeJSONParse} from './utils/json';
 
 import type {CookiesSetOptions} from 'koa';
 import type {FusionPlugin, Context} from 'fusion-core';
 import type {PluginType, DepsType, CookieTypeType} from './types.js';
-
-function safeJSONParse(str): Object {
-  try {
-    return JSON.parse(str || '') || {};
-  } catch (e) {
-    return {};
-  }
-}
-
-const getCookieData = (cookieType, incomingCookieData) => {
-  if (cookieType.rolling && incomingCookieData) {
-    return incomingCookieData;
-  }
-
-  return JSON.stringify(generateCookieData(cookieType));
-};
-
-const getCookieExpiry = ({expires} = {}) => {
-  if (!expires) {
-    return;
-  }
-
-  return new Date(Date.now() + expires);
-};
 
 const plugin =
   __NODE__ &&
@@ -49,25 +26,38 @@ const plugin =
             ? pluginCookieType
             : [pluginCookieType];
         }
-        setCookie(cookieType) {
+
+        refreshCookie(cookieType) {
           const {ctx} = this;
+
           const incomingCookieData = ctx.cookies.get(cookieType.name);
           if (!incomingCookieData || cookieType.rolling) {
-            ctx.cookies.set(
-              cookieType.name,
-              getCookieData(cookieType, incomingCookieData),
-              ({
-                ...cookieType.options,
-                expires: getCookieExpiry(cookieType.options),
-              }: $Shape<CookiesSetOptions>)
+            this.set(
+              cookieType,
+              incomingCookieData || generateCookieData(cookieType)
             );
           }
         }
-        setCookies() {
+
+        refreshCookies() {
           this.cookieTypes.forEach(cookieType => {
-            this.setCookie(cookieType);
+            this.refreshCookie(cookieType);
           });
         }
+
+        set(cookieType, data) {
+          const {ctx} = this;
+          const expiresMs = cookieType.options && cookieType.options.expires;
+          ctx.cookies.set(
+            cookieType.name,
+            safeJSONStringify(data),
+            ({
+              ...cookieType.options,
+              expires: expiresMs && new Date(Date.now() + expiresMs),
+            }: $Shape<CookiesSetOptions>)
+          );
+        }
+
         get(cookieType) {
           const {ctx} = this;
           // If no cookieType is provided, then assume the first cookieType
@@ -92,7 +82,7 @@ const plugin =
       return (ctx, next) => {
         // TODO: only set cookie on certain requests
         const sessionCookie = AnalyticsSessionCookie._from(ctx);
-        sessionCookie.setCookies();
+        sessionCookie.refreshCookies();
         return next();
       };
     },

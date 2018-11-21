@@ -42,6 +42,7 @@
     }
   },
   "dependencies": {
+    "just-map-values": "^1.1.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

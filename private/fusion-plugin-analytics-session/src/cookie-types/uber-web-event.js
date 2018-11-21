@@ -1,6 +1,5 @@
 // @flow
-import {UUID, TIME_STAMP} from './index';
-
+import {CookieDataTypes} from './index';
 import type {CookieTypeType} from '../types';
 
 const UberWebEventCookieType: CookieTypeType = {
@@ -9,8 +8,8 @@ const UberWebEventCookieType: CookieTypeType = {
     httpOnly: false,
   },
   data: {
-    session_id: UUID,
-    session_time_ms: TIME_STAMP,
+    session_id: CookieDataTypes.UUID,
+    session_time_ms: CookieDataTypes.TIME_STAMP,
   },
 };
 

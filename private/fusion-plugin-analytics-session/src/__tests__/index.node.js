@@ -2,7 +2,7 @@
 /* eslint-env node */
 
 import Plugin from '../server';
-import {UUID, TIME_STAMP} from '../cookie-types/index';
+import {CookieDataTypes} from '../cookie-types/index';
 
 const plugin: any = Plugin;
 
@@ -12,16 +12,21 @@ const FixtureCookieType = {
     opt1: true,
   },
   data: {
-    id: UUID,
-    time: TIME_STAMP,
+    id: CookieDataTypes.UUID,
+    time: CookieDataTypes.TIME_STAMP,
   },
 };
 
 const FixtureExtraCookieType = {
   name: 'bar',
   data: {
-    id: UUID,
+    id: CookieDataTypes.UUID,
   },
+};
+
+const FixtureSimpleCookieType = {
+  name: 'bar',
+  data: CookieDataTypes.UUID,
 };
 
 test('AnalyticsSessions server plugin - middleware', () => {
@@ -115,4 +120,64 @@ test('AnalyticsSessions server plugin - rolling session', async () => {
     '[object Date]'
   );
   expect(cookieSets[0].expires < cookieSets[1].expires).toBeTruthy();
+});
+
+test('AnalyticsSessions server plugin - data scheme as non-object(single value)', () => {
+  const ctx: any = {
+    cookies: {
+      get: () => {
+        return null;
+      },
+      set: (name, value, options) => {
+        expect(name).toBe(FixtureSimpleCookieType.name);
+
+        const parsed = JSON.parse(value);
+        const regexUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        expect(regexUUID.test(parsed)).toBeTruthy();
+      },
+    },
+    memoized: new Map(),
+  };
+  const next = () => {};
+
+  const deps = {pluginCookieType: FixtureSimpleCookieType};
+  const middleware = plugin.middleware(deps, plugin.provides(deps));
+  middleware(ctx, next);
+});
+
+test('AnalyticsSessions server plugin - set()', () => {
+  const fixtureUUID = 'c3f27148-9965-4e52-a0fc-0b470ef50117';
+  const ctx: any = {
+    _cookies: {},
+    cookies: {
+      get: name => {
+        return ctx._cookies[name];
+      },
+      set: (name, value, options) => {
+        expect(name).toBe(FixtureSimpleCookieType.name);
+        const parsed = JSON.parse(value);
+        const regexUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        expect(regexUUID.test(parsed)).toBeTruthy();
+        ctx._cookies[name] = value;
+      },
+    },
+    memoized: new Map(),
+  };
+  const next = () => {};
+
+  const deps = {pluginCookieType: FixtureSimpleCookieType};
+  const service = plugin.provides(deps);
+  const middleware = plugin.middleware(deps, service);
+  middleware(ctx, next);
+
+  // some uniquely generated UUID
+  expect(service._from(ctx).get(FixtureSimpleCookieType)).not.toEqual(
+    fixtureUUID
+  );
+  // set a fixture value
+  service
+    ._from(ctx)
+    .set(FixtureSimpleCookieType, 'c3f27148-9965-4e52-a0fc-0b470ef50117');
+  // now should equal to the fixture value
+  expect(service._from(ctx).get(FixtureSimpleCookieType)).toEqual(fixtureUUID);
 });

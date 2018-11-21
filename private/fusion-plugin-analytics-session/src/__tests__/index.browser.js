@@ -5,6 +5,7 @@ import plugin from '../browser';
 test('AnalyticsSessions browser plugin - basics', () => {
   const fixtureCookieType = {
     name: 'foo',
+    data: {},
   };
 
   const cookieValue = {a: 1, b: {c: 2}};
@@ -29,6 +30,7 @@ test('AnalyticsSessions browser plugin - basics', () => {
 test('AnalyticsSessions browser plugin - invalid JSON in cookies', () => {
   const fixtureCookieType = {
     name: 'foo',
+    data: {},
   };
 
   document.cookie = `${fixtureCookieType.name}=zzz`;

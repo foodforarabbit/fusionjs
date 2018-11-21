@@ -4406,6 +4406,10 @@ jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
+just-map-values@^1.1.0:
+  version "1.1.0"
+  resolved "https://unpm.uberinternal.com/just-map-values/-/just-map-values-1.1.0.tgz#a4798cfaf7a13f455eefd495ec15a57cff7f56c3"
+
 keygrip@~1.0.3:
   version "1.0.3"
   resolved "https://unpm.uberinternal.com/keygrip/-/keygrip-1.0.3.tgz#399d709f0aed2bab0a059e0cdd3a5023a053e1dc"

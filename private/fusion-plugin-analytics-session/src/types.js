@@ -6,9 +6,10 @@ import type {Context} from 'fusion-core';
 import type {CookiesSetOptions} from 'koa';
 
 export type PluginServiceType = {
-  setCookie?: CookieTypeType => void,
-  setCookies?: void => void,
+  refreshCookie?: CookieTypeType => void,
+  refreshCookies?: void => void,
   get: (cookieType?: CookieTypeType) => Object,
+  set: (cookieType: CookieTypeType, data: any) => void,
 };
 
 export type PluginType = {
@@ -27,9 +28,6 @@ export type CookieModuleType = {
 export type CookieTypeType = {
   name: string,
   options?: $Shape<CookiesSetOptions>,
-  data?: {
-    session_id?: Symbol | string,
-    session_time_ms?: Symbol | string,
-  },
+  data: {[string]: Symbol | string} | Symbol,
   rolling?: boolean,
 };

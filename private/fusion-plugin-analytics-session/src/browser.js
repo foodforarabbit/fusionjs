@@ -27,6 +27,15 @@ const plugin =
             ? pluginCookieType
             : [pluginCookieType];
         }
+
+        set() {
+          if (__DEV__) {
+            throw new Error(
+              '[fusion-plugin-analytics-session] set() is not supported in browsers'
+            );
+          }
+        }
+
         get(cookieType) {
           // If no cookieType is provided, then assume the first cookieType
           const targetCookieType = cookieType || this.cookieTypes[0];
