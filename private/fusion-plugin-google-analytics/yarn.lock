@@ -1902,9 +1902,9 @@ eslint-plugin-cup@^2.0.0:
   dependencies:
     globals "^11.5.0"
 
-eslint-plugin-flowtype@^3.0.0:
-  version "3.0.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.0.0.tgz#4b72588d8a5a5c836439752fe52e8e0f4b9954df"
+eslint-plugin-flowtype@^3.2.0:
+  version "3.2.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.2.0.tgz#824364ed5940a404b91326fdb5a313a2a74760df"
   dependencies:
     lodash "^4.17.10"
 
@@ -1923,9 +1923,9 @@ eslint-plugin-import@^2.14.0:
     read-pkg-up "^2.0.0"
     resolve "^1.6.0"
 
-eslint-plugin-jest@^21.26.1:
-  version "21.26.1"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-21.26.1.tgz#73c5d6838d384fe6a9644077c27011bd99665ff2"
+eslint-plugin-jest@^22.0.0:
+  version "22.0.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.0.0.tgz#87dc52bbdd47f37f23bf2b10bb8469458bb3ed68"
 
 eslint-plugin-prettier@^3.0.0:
   version "3.0.0"
@@ -1965,9 +1965,9 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^5.7.0:
-  version "5.7.0"
-  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.7.0.tgz#55c326d6fb2ad45fcbd0ce17c3846f025d1d819c"
+eslint@^5.9.0:
+  version "5.9.0"
+  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.9.0.tgz#b234b6d15ef84b5849c6de2af43195a2d59d408e"
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.5.3"
@@ -2304,9 +2304,9 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-core@1.9.1-1:
-  version "1.9.1-1"
-  resolved "https://registry.yarnpkg.com/fusion-core/-/fusion-core-1.9.1-1.tgz#d783edbacae8ca5f9583f3fd5bca855cf79276c2"
+fusion-core@1.10.0:
+  version "1.10.0"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.10.0.tgz#4c568671f622d47be0483c9a9d2ae5ed509ef570"
   dependencies:
     koa "^2.6.1"
     koa-compose "^4.1.0"
@@ -2315,17 +2315,17 @@ fusion-core@1.9.1-1:
     ua-parser-js "^0.7.19"
     uuid "^3.3.2"
 
-fusion-test-utils@^1.2.3:
-  version "1.2.3"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.2.3.tgz#b48fe0adc7896163bf9d05c6bf51d3e6cfd4e8aa"
+fusion-test-utils@^1.2.4:
+  version "1.2.4"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.2.4.tgz#360e5eeb752642a45bbf69cba4cea664f3af140a"
   dependencies:
     assert "^1.4.1"
     koa "^2.4.1"
     node-mocks-http "^1.6.6"
 
-fusion-tokens@^1.1.0:
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.0.tgz#d4d3147be4a3bdb1ebc4c59196e927f60fe73097"
+fusion-tokens@^1.1.1:
+  version "1.1.1"
+  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.1.tgz#5b29b7d8397d186ed3d459c4e7bbd2de3f3303b6"
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -3972,9 +3972,9 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@1.14.3:
-  version "1.14.3"
-  resolved "https://unpm.uberinternal.com/prettier/-/prettier-1.14.3.tgz#90238dd4c0684b7edce5f83b0fb7328e48bd0895"
+prettier@1.15.2:
+  version "1.15.2"
+  resolved "https://unpm.uberinternal.com/prettier/-/prettier-1.15.2.tgz#d31abe22afa4351efa14c7f8b94b58bb7452205e"
 
 private@^0.1.6:
   version "0.1.8"

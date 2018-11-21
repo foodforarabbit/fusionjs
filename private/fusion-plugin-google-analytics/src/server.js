@@ -24,7 +24,12 @@ const plugin =
       ctx: Context,
       next: () => Promise<void>
     ) => Promise<void>) => {
-      const escaped = html`<script async src='https://www.google-analytics.com/analytics.js'></script>`;
+      const escaped = html`
+        <script
+          async
+          src="https://www.google-analytics.com/analytics.js"
+        ></script>
+      `;
       return function middleware(
         ctx: Context,
         next: () => Promise<void>
