@@ -5,7 +5,8 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import test from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import plugin, {TChannelClientToken} from '../server';
+import plugin from '../server';
+import {TChannelClientToken} from '../tokens';
 import {TChannelToken} from '../index';
 
 test('interface', async t => {
@@ -32,9 +33,11 @@ test('interface', async t => {
 
   const mockM3 = {};
   const app = new App('el', el => el);
+  // $FlowFixMe
   app.register(LoggerToken, mockLogger);
   app.register(TChannelClientToken, TChannelClient);
   app.register(TChannelToken, plugin);
+  // $FlowFixMe
   app.register(M3Token, mockM3);
   app.middleware({Tchannel: TChannelToken}, ({Tchannel}) => {
     const {tchannel} = Tchannel;

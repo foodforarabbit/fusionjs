@@ -1,14 +1,15 @@
 // @flow
 /* eslint-env node */
-import {createPlugin, createToken} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import TChannel from 'tchannel';
 import path from 'path';
+import {TChannelClientToken} from './tokens.js';
 
-export const TChannelClientToken = createToken('TChannelClient');
+import type {TChannelPluginType} from './types.js';
 
-export default __NODE__ &&
+const pluginFactory: () => TChannelPluginType = () =>
   createPlugin({
     deps: {
       logger: LoggerToken,
@@ -21,13 +22,18 @@ export default __NODE__ &&
       const service = process.env.SVC_ID || 'dev-service';
       const dc = process.env.UBER_DATACENTER || 'sjc1';
 
-      // eslint-disable-next-line import/no-dynamic-require
-      const appVersion = require(path.join(process.cwd(), 'package.json'))
-        .version;
+      /* eslint-disable import/no-dynamic-require */
+      // $FlowFixMe
+      const appVersion: string = require(path.join(
+        process.cwd(),
+        'package.json'
+      )).version;
+      /* eslint-enable import/no-dynamic-require */
 
       const channel = new TChannelClient({
         host: '0.0.0.0',
         port: 5437, // https://infra.uberinternal.com/ports/5437
+        // $FlowFixMe
         logger: logger.createChild('tchannel'),
         statsd: m3,
         statTags: {
@@ -41,6 +47,7 @@ export default __NODE__ &&
         constructor() {
           this.tchannel = channel;
         }
+        tchannel: typeof TChannelClient;
         cleanup() {
           return new Promise(resolve => this.tchannel.close(resolve));
         }
@@ -49,3 +56,5 @@ export default __NODE__ &&
     },
     cleanup: tchannel => tchannel.cleanup(),
   });
+
+export default ((__NODE__ && pluginFactory(): any): TChannelPluginType);

@@ -1,5 +1,7 @@
 // @flow
 
-import {createToken} from 'fusion-core';
+import {createToken, type Token} from 'fusion-core';
+import type {TChannelType} from './types.js';
 
-export const TChannelToken = createToken('TChannelToken');
+export const TChannelClientToken: Token<any> = createToken('TChannelClient');
+export const TChannelToken: Token<TChannelType> = createToken('TChannelToken');
