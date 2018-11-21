@@ -6,7 +6,16 @@ const STAT_EVENT = 'stat';
 
 export default function browserPerformance({events, m3, heatpipeEmitter}) {
   events.on('browser-performance-emitter:stats', (payload, ctx) => {
-    const {webEventsMeta, calculatedStats, resourceEntries, __url__} = payload;
+    const {
+      webEventsMeta,
+      calculatedStats,
+      resourceEntries,
+      enhancedMetrics,
+      __url__,
+    } = payload;
+
+    // post enhanced stats to heatpipe
+    enhancedMetrics && postToCatalyst({enhancedMetrics, __url__}, ctx);
 
     if (!isEmpty(calculatedStats)) {
       Object.keys(calculatedStats).forEach(key => {
@@ -63,14 +72,6 @@ export default function browserPerformance({events, m3, heatpipeEmitter}) {
       });
     }
   });
-
-  events.on(
-    'browser-performance-emitter:stats:browser-only',
-    async (payload, ctx) => {
-      // post enhanced metrics to new catalyst service (for perf dashboard etc)
-      postToCatalyst(payload, ctx);
-    }
-  );
 }
 
 function isEmpty(item) {
