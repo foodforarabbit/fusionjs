@@ -5,24 +5,15 @@ import type {Context} from 'fusion-core';
 
 import type {CookiesSetOptions} from 'koa';
 
-export type ServerPluginServiceType = {
-  setCookie: CookieTypeType => void,
-  setCookies: void => void,
+export type PluginServiceType = {
+  setCookie?: CookieTypeType => void,
+  setCookies?: void => void,
   get: (cookieType?: CookieTypeType) => Object,
 };
 
-export type ServerPluginType = {
+export type PluginType = {
   from: (ctx: Context) => Object,
-  _from: (ctx: Context) => ServerPluginServiceType,
-};
-
-export type BrowserPluginServiceType = {
-  get: (cookieType?: CookieTypeType) => Object,
-};
-
-export type BrowserPluginType = {
-  from: (ctx: Context) => Object,
-  _from: (ctx: Context) => BrowserPluginServiceType,
+  _from: (ctx: Context) => PluginServiceType,
 };
 
 export type DepsType = {

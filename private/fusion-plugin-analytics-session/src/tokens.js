@@ -2,12 +2,7 @@
 import {createToken} from 'fusion-core';
 
 import type {Token} from 'fusion-core';
-import type {
-  CookieModuleType,
-  CookieTypeType,
-  ServerPluginType,
-  BrowserPluginType,
-} from './types';
+import type {CookieModuleType, CookieTypeType, PluginType} from './types';
 
 export const AnalyticsCookieTypeToken: Token<
   Array<CookieTypeType> | CookieTypeType
@@ -15,6 +10,6 @@ export const AnalyticsCookieTypeToken: Token<
 export const AnalyticsCookieModuleToken: Token<CookieModuleType> = createToken(
   'AnalyticsCookieModule'
 );
-export const AnalyticsSessionToken: Token<
-  ServerPluginType | BrowserPluginType
-> = createToken('AnalyticsSession');
+export const AnalyticsSessionToken: Token<PluginType> = createToken(
+  'AnalyticsSession'
+);

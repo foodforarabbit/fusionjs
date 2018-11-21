@@ -5,7 +5,7 @@ import {AnalyticsCookieModuleToken, AnalyticsCookieTypeToken} from './tokens';
 import CookiesParser from './utils/cookies-parser';
 
 import type {FusionPlugin} from 'fusion-core';
-import type {BrowserPluginType, DepsType, CookieTypeType} from './types.js';
+import type {PluginType, DepsType, CookieTypeType} from './types.js';
 
 const plugin =
   __BROWSER__ &&
@@ -46,4 +46,4 @@ const plugin =
     },
   });
 
-export default ((plugin: any): FusionPlugin<DepsType, BrowserPluginType>);
+export default ((plugin: any): FusionPlugin<DepsType, PluginType>);

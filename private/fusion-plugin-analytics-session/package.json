@@ -20,7 +20,7 @@
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
     "lint": "eslint src --fix",
-    "flow": "flow check || true",
+    "flow": "flow check",
     "build": "cup build && eslint src",
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest && yarn flow",

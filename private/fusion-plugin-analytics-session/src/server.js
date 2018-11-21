@@ -6,7 +6,7 @@ import {AnalyticsCookieTypeToken} from './tokens';
 
 import type {CookiesSetOptions} from 'koa';
 import type {FusionPlugin, Context} from 'fusion-core';
-import type {ServerPluginType, DepsType, CookieTypeType} from './types.js';
+import type {PluginType, DepsType, CookieTypeType} from './types.js';
 
 function safeJSONParse(str): Object {
   try {
@@ -98,4 +98,4 @@ const plugin =
     },
   });
 
-export default ((plugin: any): FusionPlugin<DepsType, ServerPluginType>);
+export default ((plugin: any): FusionPlugin<DepsType, PluginType>);
