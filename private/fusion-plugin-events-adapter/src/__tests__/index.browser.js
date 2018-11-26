@@ -1,6 +1,6 @@
 // @noflow
 import tape from 'tape-cup';
-import EventEmitter from 'events';
+import EventEmitter from './custom-event-emitter.js';
 import {getSimulator} from 'fusion-test-utils';
 import App, {createPlugin} from 'fusion-core';
 

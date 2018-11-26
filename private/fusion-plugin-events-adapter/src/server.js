@@ -22,6 +22,7 @@ import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
 import AccessLog from './utils/access-log.js';
+import accessLogHandler from './handlers/access-log';
 import sanitizeRouteForM3 from './utils/sanitize-route-for-m3.js';
 
 const plugin =
@@ -49,6 +50,7 @@ const plugin =
 
       const heatpipeEmitter = HeatpipeEmitter({
         heatpipe,
+        // $FlowFixMe
         AnalyticsSession,
         AuthHeaders,
         I18n,
@@ -62,6 +64,7 @@ const plugin =
       reduxAction({events, heatpipeEmitter, m3});
       routeTiming({events, m3, logger});
       customEvent({events, heatpipeEmitter, m3});
+      accessLogHandler({events, logger});
 
       return {
         logTiming(key, tags) {
@@ -71,13 +74,12 @@ const plugin =
         },
       };
     },
-    middleware: ({logger}, service) => async (
+    middleware: ({logger, events}, service) => async (
       ctx: Object,
       next: () => Promise<void>
     ) => {
       const {logTiming} = service;
-      const accessLog = AccessLog(logger);
-
+      const accessLog = AccessLog(events.from(ctx));
       ctx.timing.end.then(timing => {
         const tags = {
           route:

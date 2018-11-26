@@ -1,5 +1,5 @@
 // @flow
-import EventEmitter from 'events';
+import EventEmitter from './custom-event-emitter.js';
 import tape from 'tape-cup';
 
 import pageViewBrowser from '../handlers/page-view-browser';

@@ -3,7 +3,6 @@ import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
 import AccessLog from '../utils/access-log.js';
 
 export default function routeTiming({events, m3, logger}) {
-  const accessLog = AccessLog(logger);
   // increment handlers
   const incrementHandler = key => ({title, status}) => {
     m3.increment(key, {
@@ -21,6 +20,7 @@ export default function routeTiming({events, m3, logger}) {
   };
 
   const logHandler = type => ({title, timing, status}, ctx) => {
+    const accessLog = AccessLog(ctx ? events.from(ctx) : events);
     const meta = {
       type,
       url: ctx && ctx.url,

@@ -1,10 +1,11 @@
 // @flow
-import EventEmitter from 'events';
+import EventEmitter from './custom-event-emitter.js';
 import tape from 'tape-cup';
 import routeTiming from '../handlers/route-timing';
 
 tape('route timing - pageview:server', t => {
   const events = new EventEmitter();
+  t.plan(4);
   const mockLogger = {
     info(message, meta) {
       t.equal(message, 'access log');
@@ -17,6 +18,7 @@ tape('route timing - pageview:server', t => {
       });
     },
   };
+  events.on('access-log', payload => mockLogger.info('access log', payload));
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_server', 'logs the correct key');
@@ -25,7 +27,6 @@ tape('route timing - pageview:server', t => {
         {route: 'test', status: 200},
         'logs the correct tags'
       );
-      t.end();
     },
     timing() {},
   };
@@ -37,9 +38,11 @@ tape('route timing - pageview:server', t => {
     {title: 'test', status: 200, timing: 5},
     {url: '/test'}
   );
+  t.end();
 });
 
 tape('route timing - pageview:browser', t => {
+  t.plan(4);
   const events = new EventEmitter();
   const mockLogger = {
     info(message, meta) {
@@ -53,6 +56,7 @@ tape('route timing - pageview:browser', t => {
       });
     },
   };
+  events.on('access-log', payload => mockLogger.info('access log', payload));
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_browser', 'logs the correct key');
@@ -61,17 +65,17 @@ tape('route timing - pageview:browser', t => {
         {route: 'test', status: 200},
         'logs the correct tags'
       );
-      t.end();
     },
     timing() {},
   };
 
   routeTiming({events, m3: mockM3, logger: mockLogger});
-
   events.emit('pageview:browser', {title: 'test', status: 200}, {url: '/test'});
+  t.end();
 });
 
 tape('route timing - pageview:server - 404 not found', t => {
+  t.plan(4);
   const events = new EventEmitter();
   const mockLogger = {
     info(message, meta) {
@@ -85,6 +89,7 @@ tape('route timing - pageview:server - 404 not found', t => {
       });
     },
   };
+  events.on('access-log', payload => mockLogger.info('access log', payload));
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_server', 'logs the correct key');
@@ -93,7 +98,6 @@ tape('route timing - pageview:server - 404 not found', t => {
         {route: 'not-found', status: 404},
         'logs the correct tags'
       );
-      t.end();
     },
     timing() {},
   };
@@ -105,10 +109,12 @@ tape('route timing - pageview:server - 404 not found', t => {
     {title: 'test', status: 404, timing: 5},
     {url: '/test'}
   );
+  t.end();
 });
 
 tape('route timing - pageview:browser - 404 not found', t => {
   const events = new EventEmitter();
+  t.plan(4);
   const mockLogger = {
     info(message, meta) {
       t.equal(message, 'access log');
@@ -121,6 +127,7 @@ tape('route timing - pageview:browser - 404 not found', t => {
       });
     },
   };
+  events.on('access-log', payload => mockLogger.info('access log', payload));
   const mockM3 = {
     increment(key, tags) {
       t.equal(key, 'pageview_browser', 'logs the correct key');
@@ -129,7 +136,6 @@ tape('route timing - pageview:browser - 404 not found', t => {
         {route: 'not-found', status: 404},
         'logs the correct tags'
       );
-      t.end();
     },
     timing() {},
   };
@@ -141,6 +147,7 @@ tape('route timing - pageview:browser - 404 not found', t => {
     {title: 'test', status: 404, timing: 5},
     {url: '/test'}
   );
+  t.end();
 });
 
 tape('route timing - route_time', t => {
@@ -158,7 +165,6 @@ tape('route timing - route_time', t => {
         {route: 'test-route', status: 'test-status'},
         'logs the correct tags'
       );
-      t.end();
     },
   };
 
@@ -169,6 +175,7 @@ tape('route timing - route_time', t => {
     timing: 5,
     status: 'test-status',
   });
+  t.end();
 });
 
 tape('route timing - render:server', t => {
@@ -186,7 +193,6 @@ tape('route timing - render:server', t => {
         {route: 'test-route', status: 'test-status'},
         'logs the correct tags'
       );
-      t.end();
     },
   };
 
@@ -197,6 +203,7 @@ tape('route timing - render:server', t => {
     timing: 5,
     status: 'test-status',
   });
+  t.end();
 });
 
 tape('route timing - route with invalid m3 characters', t => {
@@ -217,7 +224,6 @@ tape('route timing - route with invalid m3 characters', t => {
         },
         'logs the correct tags'
       );
-      t.end();
     },
   };
 
@@ -228,4 +234,5 @@ tape('route timing - route with invalid m3 characters', t => {
     timing: 5,
     status: 'test-status',
   });
+  t.end();
 });

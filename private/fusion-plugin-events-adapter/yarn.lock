@@ -899,25 +899,27 @@
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
   integrity sha1-VWJRm8eWPKyoq/fxKMrjtZTUHQY=
 
-"@uber/fusion-plugin-analytics-session@^1.1.0":
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-analytics-session/-/private/%40uber%2Ffusion-plugin-analytics-session-1.1.0.tgz#9ee59ca7249cce3ce562ea616ad509bb47c93ea8"
-  integrity sha512-vs3sl5+A+fA2wshaKcA6t8fZQLhM3xO5YfWaQNEJiCBP0bDyAZ2y7CvvqpioLGS8RN0LPxvRQmlYZYSbU0bTow==
+"@uber/fusion-plugin-analytics-session@^1.3.0":
+  version "1.3.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-analytics-session/-/private/%40uber%2Ffusion-plugin-analytics-session-1.3.0.tgz#4bf322c62b7c5df910195a3f1ff976af3d18ff03"
+  integrity sha512-F9trrckw1fvqbyQGnyZ1SGNtfTWqOD0TJTmU05DQ9A3n5ofDWABkwOELE5o4HlcGWsIp5i8g7rh/Na0vYPX/Dg==
   dependencies:
-    js-cookie "^2.2.0"
-    uuid "^3.2.1"
+    uuid "^3.3.2"
 
-"@uber/fusion-plugin-auth-headers@^1.1.2":
-  version "1.1.2"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-auth-headers/-/private/%40uber%2Ffusion-plugin-auth-headers-1.1.2.tgz#d4c3d97d59cb1431d704a7268606290ef9cf83ad"
-  integrity sha512-9SxlcQL7/FK/ZKDh7IxmoVLCyoJ/HncRHAGAfkZZbWi9IvbTuK/HvYGONc6jY9+JQ0GpeABd43ac3LMbLGbYJQ==
+"@uber/fusion-plugin-auth-headers@^1.1.3":
+  version "1.1.3"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-auth-headers/-/private/%40uber%2Ffusion-plugin-auth-headers-1.1.3.tgz#cef70630b9ad088fa6764c43fbeaa2c5958b7184"
+  integrity sha512-hbx5Gv3heSxi/TeybWxsVkU8KANkdj2RW0JgkdgA5AKnpoX3jc8GVRC6QB8sMbKJH13Fmd7gh4Ur7+vKduwlXA==
+  dependencies:
+    eslint-plugin-jest "^21.24.1"
 
-"@uber/fusion-plugin-heatpipe@^1.0.6":
-  version "1.0.6"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-1.0.6.tgz#f2c05fc5f08cb08ddb400f8e167b494151642356"
-  integrity sha512-KkMnS6tx02B7JfAqB5p2Cr9pLM/v+7C+f/0o4iWcYPKdl8qy3RhommcY5AqafRAB8iG8zbFjvveQ5jZ6duLVXw==
+"@uber/fusion-plugin-heatpipe@^1.0.8":
+  version "1.0.8"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-1.0.8.tgz#5445b0be984a09aca7342e05903fb1808107e33c"
+  integrity sha512-UidJCW1hu5oqG3gbbacjLnuj3hy/AKpDhMjjaOAXlq8Gc2WuMsbJNsQcQO/ItSoCYoYjba0HHHXS+2HnipZJiw==
   dependencies:
     "@uber/node-heatpipe-publisher" "^2.0.1"
+    eslint-plugin-jest "^21.24.1"
 
 "@uber/fusion-plugin-m3@^1.1.4":
   version "1.1.4"
@@ -1018,7 +1020,7 @@ airlock@2.1.0:
   resolved "https://unpm.uberinternal.com/airlock/-/airlock-2.1.0.tgz#4d21ca300ff2f1d4b975f68850a281ddfcc6f67b"
   integrity sha1-TSHKMA/y8dS5dfaIUKKB3fzG9ns=
 
-ajv-keywords@^3.0.0, ajv-keywords@^3.1.0:
+ajv-keywords@^3.1.0:
   version "3.2.0"
   resolved "https://unpm.uberinternal.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
   integrity sha1-6GuBnGAs+IIa1jdBNpjx3sAhhHo=
@@ -1033,7 +1035,7 @@ ajv@^5.3.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
-ajv@^6.0.1, ajv@^6.1.0, ajv@^6.5.3:
+ajv@^6.1.0, ajv@^6.5.3:
   version "6.5.4"
   resolved "https://unpm.uberinternal.com/ajv/-/ajv-6.5.4.tgz#247d5274110db653706b550fcc2b797ca28cfc59"
   integrity sha512-4Wyjt8+t6YszqaXnLDfMmG/8AlO5Zbcsy3ATHncCzjW/NoPzAId8AK6749Ybjmdt+kUY1gP60fCu46oDxPv/mg==
@@ -2473,6 +2475,11 @@ eslint-plugin-jest@^21.24.1:
   resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-21.24.1.tgz#aaf3c34e816f07add83d1e9c20696fdc31fac8dc"
   integrity sha512-+lJ6nvwJtDRQtTumCs/9gMuteiopArpHJbRbWqPaScCzlhTu1pEilWTUlTgDEtY7GOx7FdOMD3BO/mdxFb4yDg==
 
+eslint-plugin-jest@^22.0.0:
+  version "22.0.1"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.0.1.tgz#796af66d2f86a1cb4193d4baefca9d2479c06e6c"
+  integrity sha512-thHQBWZefGO0yhjj8QA1iZ7V9S9LVk6nBK9s8B52Mg//Ly9OppFSGrrIruJ3hzgLpsLx6iIP/8/a8CfI8ESvRA==
+
 eslint-plugin-prettier@^3.0.0:
   version "3.0.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.0.0.tgz#f6b823e065f8c36529918cdb766d7a0e975ec30c"
@@ -2517,10 +2524,10 @@ eslint-visitor-keys@^1.0.0:
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
   integrity sha512-qzm/XxIbxm/FHyH341ZrbnMUpe+5Bocte9xkmFMzPMjRaZMcXww+MpBptFvtU+79L362nqiLhekCxCxDPaUMBQ==
 
-eslint@^5.6.1:
-  version "5.6.1"
-  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.6.1.tgz#348134e32ccc09abb2df1bf282b3f6eed8c7b480"
-  integrity sha512-hgrDtGWz368b7Wqf+v1Z69O3ZebNR0+GA7PtDdbmuz4rInFVUV9uw7whjZEiWyLzCjVb5Rs5WRN1TAS6eo7AYA==
+eslint@^5.9.0:
+  version "5.9.0"
+  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.9.0.tgz#b234b6d15ef84b5849c6de2af43195a2d59d408e"
+  integrity sha512-g4KWpPdqN0nth+goDNICNXGfJF7nNnepthp46CAlJoJtC5K/cLu3NgCM3AHu1CkJ5Hzt9V0Y0PBAO6Ay/gGb+w==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.5.3"
@@ -2553,12 +2560,12 @@ eslint@^5.6.1:
     path-is-inside "^1.0.2"
     pluralize "^7.0.0"
     progress "^2.0.0"
-    regexpp "^2.0.0"
+    regexpp "^2.0.1"
     require-uncached "^1.0.3"
     semver "^5.5.1"
     strip-ansi "^4.0.0"
     strip-json-comments "^2.0.1"
-    table "^4.0.3"
+    table "^5.0.2"
     text-table "^0.2.0"
 
 espree@^4.0.0:
@@ -2954,47 +2961,47 @@ functional-red-black-tree@^1.0.1:
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-fusion-core@^1.7.0:
-  version "1.7.0"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.7.0.tgz#69e206a8fd8cb798a36d447d0f230d1a6e65f85c"
-  integrity sha512-9uj1xL31SLLhtr7DcfqqrpsEHyDUYjVwhP6Zs2KFuarRWazTy98AJLeDt/4P6ZAlw/VIt6zMklY8psVsC+kFwA==
+fusion-core@^1.10.0:
+  version "1.10.0"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.10.0.tgz#4c568671f622d47be0483c9a9d2ae5ed509ef570"
+  integrity sha512-i6JtWKH4jLZMjHRUoLWUei8h4Wpl9h1NQDyZjUarDH+of2ikP2ymxMbiMEclXQMolrsyCTF3SrJBsCmld7OPgw==
   dependencies:
-    koa "^2.4.1"
-    koa-compose "^4.0.0"
-    node-mocks-http "^1.6.6"
-    toposort "^2.0.1"
-    ua-parser-js "^0.7.17"
-    uuid "^3.2.1"
+    koa "^2.6.1"
+    koa-compose "^4.1.0"
+    node-mocks-http "^1.7.3"
+    toposort "^2.0.2"
+    ua-parser-js "^0.7.19"
+    uuid "^3.3.2"
 
-fusion-plugin-i18n@^1.1.2:
-  version "1.1.2"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n/-/fusion-plugin-i18n-1.1.2.tgz#351e712ebc4c55b3d5c9cc99dc884f1764fd188f"
-  integrity sha512-bluJH1O+7SxVLR49yAXNsbi+qJyTRBCFs6cNIUOz01J/PYzKOyhtk87yuBlFTnD0AXgcwPaMe0AapTTnBqDaIQ==
+fusion-plugin-i18n@^1.1.4:
+  version "1.1.4"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n/-/fusion-plugin-i18n-1.1.4.tgz#a4da3476ff6e127dbacd591740dde32e406c591f"
+  integrity sha512-v3V4V+kCrma2CgeJOw9vTO79FJTegExi9VUwa9fUwNgrbnyIxF6f17BT4HC7GWG3CRrCZfSrti9jiTMmKVVALg==
   dependencies:
-    eslint-plugin-jest "^21.24.1"
+    eslint-plugin-jest "^22.0.0"
     locale "^0.1.0"
-    rollup "^0.66.2"
+    rollup "^0.67.1"
 
-fusion-plugin-universal-events@^1.2.0:
-  version "1.2.0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.2.0.tgz#8636c4bf97c68efa0b5c7808ebfa459214a5a55d"
-  integrity sha512-Cy0cbg36hdHJWPP2nw+ODJLIpx1yQcloXzBN+5C/FG3Nfcdr4aO8bcJXbhiYAw0DI7mxp9bN2Mmz1HpzUTe4JQ==
+fusion-plugin-universal-events@^1.3.0:
+  version "1.3.0"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.3.0.tgz#461e20bff7f273ffcfe3bcf9c280191ab3e3a3c8"
+  integrity sha512-YuqQUMCWym2fDNM5HAikHSRqpCt4SuYgp83lx+u4gx+LopTtkChKtG17TOnh52kUI/JlSVBr1zJVGOeBgKeZaQ==
   dependencies:
     koa-bodyparser "4.2.1"
 
-fusion-test-utils@^1.2.3:
-  version "1.2.3"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.2.3.tgz#b48fe0adc7896163bf9d05c6bf51d3e6cfd4e8aa"
-  integrity sha512-BDPpOKWHnPbKXzSg47RietZAHbDee2ZzujWAsb6paye9dmrTI6JaDhIlVUpkpekaHGzjwnA2vCANkffNavFIVw==
+fusion-test-utils@^1.2.4:
+  version "1.2.4"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.2.4.tgz#360e5eeb752642a45bbf69cba4cea664f3af140a"
+  integrity sha512-FfIqdjX79Y7pG/+PuNYEwxpAQqK7JnxQJWm++TxW/3dqYQ71kQWlUFiEUH/wk/xWpEy+FGncqHuECzyMl5rlrg==
   dependencies:
     assert "^1.4.1"
     koa "^2.4.1"
     node-mocks-http "^1.6.6"
 
-fusion-tokens@^1.1.0:
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.0.tgz#d4d3147be4a3bdb1ebc4c59196e927f60fe73097"
-  integrity sha512-QsBCkXZc3tXR1DawUT1NlADi5TZlVdFiFasz2jLkzTfGlA9+fk7kvDoC2N7mM9Vd1WU5K2ISbkxNRg+Ty3xWFg==
+fusion-tokens@^1.1.1:
+  version "1.1.1"
+  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.1.tgz#5b29b7d8397d186ed3d459c4e7bbd2de3f3303b6"
+  integrity sha512-AQ0edpYQqstPMHnWhFb+Kgi4JY7aJ/koH4wFmMMY8U8UwqR4S8MED72fF+O0ynj4cykuiJdCNZXKKn8Qa+OK6A==
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -3778,11 +3785,6 @@ jest-worker@^22.4.3:
   dependencies:
     merge-stream "^1.0.1"
 
-js-cookie@^2.2.0:
-  version "2.2.0"
-  resolved "https://unpm.uberinternal.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
-  integrity sha1-Gywnmm7s44ChIWi5JIUmWzWx7/s=
-
 js-tokens@^3.0.0:
   version "3.0.2"
   resolved "https://unpm.uberinternal.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
@@ -3931,7 +3933,7 @@ koa-compose@^3.0.0:
   dependencies:
     any-promise "^1.1.0"
 
-koa-compose@^4.0.0, koa-compose@^4.1.0:
+koa-compose@^4.1.0:
   version "4.1.0"
   resolved "https://unpm.uberinternal.com/koa-compose/-/koa-compose-4.1.0.tgz#507306b9371901db41121c812e923d0d67d3e877"
   integrity sha512-8ODW8TrDuMYvXRwra/Kh7/rJo9BtOfPc6qO8eAfC80CnCvSjSl0bkRM24X6/XBBEyj0v1nRUQ1LyOy3dbqOWXw==
@@ -3953,6 +3955,36 @@ koa@^2.4.1:
   version "2.5.3"
   resolved "https://unpm.uberinternal.com/koa/-/koa-2.5.3.tgz#0b0c37eee3aac807a0a6ad36bc0b8660f12d83f1"
   integrity sha512-U6rgy2kwlfO+3P1phAidDrRZpGfwcpHCxl33wFe+fHXalpzEshHGnMaSU7I/ZeDFpGRQkbQOYsXkXfUjn+AtdQ==
+  dependencies:
+    accepts "^1.3.5"
+    cache-content-type "^1.0.0"
+    content-disposition "~0.5.2"
+    content-type "^1.0.4"
+    cookies "~0.7.1"
+    debug "~3.1.0"
+    delegates "^1.0.0"
+    depd "^1.1.2"
+    destroy "^1.0.4"
+    error-inject "^1.0.0"
+    escape-html "^1.0.3"
+    fresh "~0.5.2"
+    http-assert "^1.3.0"
+    http-errors "^1.6.3"
+    is-generator-function "^1.0.7"
+    koa-compose "^4.1.0"
+    koa-convert "^1.2.0"
+    koa-is-json "^1.0.0"
+    on-finished "^2.3.0"
+    only "~0.0.2"
+    parseurl "^1.3.2"
+    statuses "^1.5.0"
+    type-is "^1.6.16"
+    vary "^1.1.2"
+
+koa@^2.6.1:
+  version "2.6.2"
+  resolved "https://unpm.uberinternal.com/koa/-/koa-2.6.2.tgz#57ba4d049b0a99cae0d594e6144e2931949a7ce1"
+  integrity sha512-KdnBFhTgh9ysMMoYe4J4fLvaKjT7mF3nRYV8MjxLzx6qywFNeptqi4xevyUltg1fZl2CFJ+HeLXuCGx07Yvl/A==
   dependencies:
     accepts "^1.3.5"
     cache-content-type "^1.0.0"
@@ -4511,6 +4543,22 @@ node-mocks-http@^1.6.6:
   version "1.7.2"
   resolved "https://unpm.uberinternal.com/node-mocks-http/-/node-mocks-http-1.7.2.tgz#d4a22e61c29a1e8a0345f55f61e4b0ff94afc40b"
   integrity sha512-n7fj7BzRNjhQuWU/xcoRH/aOOPeLg3qMJx3mUDjwheoEmZGkThhhGMTxJZ5nnSUcXmEU1uS3gFq3VdBMhS5ZxQ==
+  dependencies:
+    accepts "^1.3.5"
+    depd "^1.1.0"
+    fresh "^0.5.2"
+    merge-descriptors "^1.0.1"
+    methods "^1.1.2"
+    mime "^1.3.4"
+    net "^1.0.2"
+    parseurl "^1.3.1"
+    range-parser "^1.2.0"
+    type-is "^1.6.16"
+
+node-mocks-http@^1.7.3:
+  version "1.7.3"
+  resolved "https://unpm.uberinternal.com/node-mocks-http/-/node-mocks-http-1.7.3.tgz#1c744189f012c1977f4d97443495931a7cd5b4d3"
+  integrity sha512-wayzLNhEroH3lJj113pFKQ1cd1GKG1mXoZR1HcKp/o9a9lTGGgVY/hYeLajiIFr/z4tXFKOdfJickqqihBtn9g==
   dependencies:
     accepts "^1.3.5"
     depd "^1.1.0"
@@ -5306,7 +5354,7 @@ regex-not@^1.0.0, regex-not@^1.0.2:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
 
-regexpp@^2.0.0:
+regexpp@^2.0.1:
   version "2.0.1"
   resolved "https://unpm.uberinternal.com/regexpp/-/regexpp-2.0.1.tgz#8d19d31cf632482b589049f8281f93dbcba4d07f"
   integrity sha512-lv0M6+TkDVniA3aD1Eg0DVpfU/booSu7Eev3TDO/mZKHBfVjgCGTV4t4buppESEYDtkArYFOxTJWv6S5C+iaNw==
@@ -5500,10 +5548,10 @@ rollup@^0.55.1:
   resolved "https://unpm.uberinternal.com/rollup/-/rollup-0.55.5.tgz#2f88c300f7cf24b5ec2dca8a6aba73b04e087e93"
   integrity sha512-2hke9NOy332kxvnmMQOgl7DHm94zihNyYJNd8ZLWo4U0EjFvjUkeWa0+ge+70bTg+mY0xJ7NUsf5kIhDtrGrtA==
 
-rollup@^0.66.2:
-  version "0.66.5"
-  resolved "https://unpm.uberinternal.com/rollup/-/rollup-0.66.5.tgz#49b109d3db4772301d84b8ed9617a4481e9a8042"
-  integrity sha512-tFdxC5zOynOS3fUHkJmKk9QjRWVLXxDCUVDmpoZazubxgXZmS/XzrlzhwuOKPelJm92Hd4hmXIqkzVN22Isf+w==
+rollup@^0.67.1:
+  version "0.67.3"
+  resolved "https://unpm.uberinternal.com/rollup/-/rollup-0.67.3.tgz#55475b1b62c43220c3b4bd7edc5846233932f50b"
+  integrity sha512-TyNQCz97rKuVVbsKUTXfwIjV7UljWyTVd7cTMuE+aqlQ7WJslkYF5QaYGjMLR2BlQtUOO5CAxSVnpQ55iYp5jg==
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "*"
@@ -5903,15 +5951,13 @@ supports-color@^5.3.0, supports-color@^5.4.0:
   dependencies:
     has-flag "^3.0.0"
 
-table@^4.0.3:
-  version "4.0.3"
-  resolved "https://unpm.uberinternal.com/table/-/table-4.0.3.tgz#00b5e2b602f1794b9acaf9ca908a76386a7813bc"
-  integrity sha512-S7rnFITmBH1EnyKcvxBh1LjYeQMmnZtCXSEbHcH6S0NoKit24ZuFO/T1vDcLdYsLQkM188PVVhQmzKIuThNkKg==
+table@^5.0.2:
+  version "5.1.0"
+  resolved "https://unpm.uberinternal.com/table/-/table-5.1.0.tgz#69a54644f6f01ad1628f8178715b408dc6bf11f7"
+  integrity sha512-e542in22ZLhD/fOIuXs/8yDZ9W61ltF8daM88rkRNtgTIct+vI2fTnAyu/Db2TCfEcI8i7mjZz6meLq0nW7TYg==
   dependencies:
-    ajv "^6.0.1"
-    ajv-keywords "^3.0.0"
-    chalk "^2.1.0"
-    lodash "^4.17.4"
+    ajv "^6.5.3"
+    lodash "^4.17.10"
     slice-ansi "1.0.0"
     string-width "^2.1.1"
 
@@ -6088,7 +6134,7 @@ toidentifier@1.0.0:
   resolved "https://unpm.uberinternal.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
 
-toposort@^2.0.1:
+toposort@^2.0.2:
   version "2.0.2"
   resolved "https://unpm.uberinternal.com/toposort/-/toposort-2.0.2.tgz#ae21768175d1559d48bef35420b2f4962f09c330"
   integrity sha1-riF2gXXRVZ1IvvNUILL0li8JwzA=
@@ -6143,10 +6189,10 @@ type-is@^1.6.16:
     media-typer "0.3.0"
     mime-types "~2.1.18"
 
-ua-parser-js@^0.7.17:
-  version "0.7.18"
-  resolved "https://unpm.uberinternal.com/ua-parser-js/-/ua-parser-js-0.7.18.tgz#a7bfd92f56edfb117083b69e31d2aa8882d4b1ed"
-  integrity sha512-LtzwHlVHwFGTptfNSgezHp7WUlwiqb0gA9AALRbKaERfxwJoiX0A73QbTToxteIAuIaFshhgIZfqK8s7clqgnA==
+ua-parser-js@^0.7.19:
+  version "0.7.19"
+  resolved "https://unpm.uberinternal.com/ua-parser-js/-/ua-parser-js-0.7.19.tgz#94151be4c0a7fb1d001af7022fdaca4642659e4b"
+  integrity sha512-T3PVJ6uz8i0HzPxOF9SWzWAlfN/DavlpQqepn22xgve/5QecC+XMCAtmUNnY7C9StehaV6exjUCI801lOI7QlQ==
 
 uglify-js@^2.8.29:
   version "2.8.29"
@@ -6302,7 +6348,7 @@ uuid@2.0.1:
   resolved "https://unpm.uberinternal.com/uuid/-/uuid-2.0.1.tgz#c2a30dedb3e535d72ccf82e343941a50ba8533ac"
   integrity sha1-wqMN7bPlNdcsz4LjQ5QaULqFM6w=
 
-uuid@^3.2.1, uuid@^3.3.2:
+uuid@^3.3.2:
   version "3.3.2"
   resolved "https://unpm.uberinternal.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==

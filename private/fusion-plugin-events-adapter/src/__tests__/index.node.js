@@ -1,5 +1,5 @@
 // @noflow
-import EventEmitter from 'events';
+import EventEmitter from './custom-event-emitter.js';
 import tape from 'tape-cup';
 import {getSimulator} from 'fusion-test-utils';
 import App, {createPlugin} from 'fusion-core';
@@ -18,14 +18,10 @@ import {EventsAdapterToken} from '../tokens';
 import ServerPlugin from '../server';
 
 tape('Server plugin', async t => {
+  t.plan(11);
   const app = new App('content', el => el);
-  class Events extends EventEmitter {
-    from() {
-      return this;
-    }
-  }
   app.register(EventsAdapterToken, ServerPlugin);
-  app.register(UniversalEventsToken, new Events());
+  app.register(UniversalEventsToken, new EventEmitter());
   app.register(M3Token, M3Mock);
   app.register(LoggerToken, {
     info(msg, meta) {

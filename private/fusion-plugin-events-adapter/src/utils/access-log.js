@@ -1,5 +1,5 @@
 // @flow
-import type {Logger} from 'fusion-tokens';
+import type {UniversalEventsType} from 'fusion-plugin-universal-events';
 
 type AccessMeta = {
   type: 'request' | 'pageview:server' | 'pageview:browser',
@@ -8,8 +8,8 @@ type AccessMeta = {
   timing: number,
   status: number,
 };
-export default function AccessLog(logger: Logger) {
+export default function AccessLog(events: UniversalEventsType) {
   return function accessLog(meta: AccessMeta) {
-    logger.info('access log', meta);
+    events.emit('access-log', meta);
   };
 }
