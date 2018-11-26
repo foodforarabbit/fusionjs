@@ -1,7 +1,7 @@
 /* @flow */
 
 import {Stepper, step, exec} from '@dubstep/core';
-import fse from 'fs-extra';
+import {copy, move, pathExists} from 'fs-extra';
 import {checkYarnRegistry} from '../utils/check-yarn-registry.js';
 import {getTeams} from '../utils/get-teams.js';
 import {promptChoice} from '../utils/prompt-choice.js';
@@ -64,7 +64,7 @@ export const scaffold = async ({
       if (project.name === '') {
         project.name = await prompt('Project name:');
       }
-      if (await fse.pathExists(project.name)) {
+      if (await pathExists(project.name)) {
         throw new Error(
           `A folder with the name ${project.name} already exists`,
         );
@@ -88,12 +88,10 @@ export const scaffold = async ({
     step('copy', async () => {
       const templatePath =
         localPath || `${__dirname}/../../templates/${project.type}`;
-      await fse.copy(templatePath, project.name);
-      await fse.move(
-        `${project.name}/dotgitignore`,
-        `${project.name}/.gitignore`,
-        {overwrite: true},
-      );
+      await copy(templatePath, project.name);
+      await move(`${project.name}/dotgitignore`, `${project.name}/.gitignore`, {
+        overwrite: true,
+      });
     }),
     step('codemod package.json', async () => {
       await codemodPackageJson({...project, hoistDeps});

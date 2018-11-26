@@ -1,6 +1,6 @@
 /* @flow */
 
-import fse from 'fs-extra';
+import {remove} from 'fs-extra';
 import {writeFile, readFile} from '@dubstep/core';
 import {replaceNunjucksFile} from './replace-nunjucks-file.js';
 
@@ -10,5 +10,5 @@ test('replaceNunjucksFile works', async () => {
   await writeFile(file, '{{test}}');
   await replaceNunjucksFile(file, {test: 'data'});
   await expect(readFile(file)).resolves.toEqual('data');
-  await fse.remove(file);
+  await remove(file);
 });

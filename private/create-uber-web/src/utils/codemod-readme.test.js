@@ -1,6 +1,6 @@
 /* @flow */
 
-import fse from 'fs-extra';
+import {remove} from 'fs-extra';
 import {writeFile, readFile} from '@dubstep/core';
 import {codemodReadme} from './codemod-readme.js';
 
@@ -10,5 +10,5 @@ test('codemodReadme', async () => {
   await writeFile(`${file}`, '{{description}}');
   await codemodReadme({name: dir, description: 'a', team: 'a'});
   await expect(readFile(file)).resolves.toEqual('a');
-  await fse.remove(dir);
+  await remove(dir);
 });

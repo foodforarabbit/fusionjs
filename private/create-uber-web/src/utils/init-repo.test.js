@@ -1,7 +1,7 @@
 /* @flow */
 
 import {writeFile, exec} from '@dubstep/core';
-import fse from 'fs-extra';
+import {pathExists, remove} from 'fs-extra';
 import {initRepo} from './init-repo.js';
 
 test('initRepo', async () => {
@@ -9,6 +9,6 @@ test('initRepo', async () => {
   const file = `${name}/test.txt`;
   await writeFile(file, 'test');
   await initRepo(name, 'web');
-  await expect(fse.pathExists(`${name}/.git`)).resolves.toEqual(true);
-  await fse.remove(name);
+  await expect(pathExists(`${name}/.git`)).resolves.toEqual(true);
+  await remove(name);
 });

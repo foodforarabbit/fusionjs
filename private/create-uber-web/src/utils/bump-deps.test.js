@@ -2,7 +2,7 @@
 
 import proc from 'child_process';
 import {readFile, writeFile} from '@dubstep/core';
-import fse from 'fs-extra';
+import {remove} from 'fs-extra';
 import {bumpDeps} from './bump-deps.js';
 
 test('bumpDeps', async () => {
@@ -15,7 +15,7 @@ test('bumpDeps', async () => {
   await bumpDeps(dir, '', true);
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
-  await fse.remove(dir);
+  await remove(dir);
 });
 
 test('bumpDeps bails out if untestable', async () => {
@@ -35,7 +35,7 @@ test('bumpDeps bails out if untestable', async () => {
   await bumpDeps(dir, '', false).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
-  await fse.remove(dir);
+  await remove(dir);
 });
 
 test('bumpDeps rolls back if regression', async () => {
@@ -55,7 +55,7 @@ test('bumpDeps rolls back if regression', async () => {
   await bumpDeps(dir, '', false).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
-  await fse.remove(dir);
+  await remove(dir);
 });
 
 test('bumpDeps force', async () => {
@@ -75,7 +75,7 @@ test('bumpDeps force', async () => {
   await bumpDeps(dir, '', true).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
-  await fse.remove(dir);
+  await remove(dir);
 });
 
 test('bumpDeps match', async () => {
@@ -88,5 +88,5 @@ test('bumpDeps match', async () => {
   await bumpDeps(dir, 'asd', false);
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
-  await fse.remove(dir);
+  await remove(dir);
 });

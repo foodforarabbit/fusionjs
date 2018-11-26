@@ -1,7 +1,7 @@
 // @flow
 import codemod from './codemod-replace';
 import path from 'path';
-import fse from 'fs-extra';
+import {writeFile, readFile, remove} from 'fs-extra';
 
 jest.mock('@dubstep/core', () => {
   // $FlowFixMe
@@ -31,9 +31,9 @@ import {prepared} from "fusion-react-async";
 prepared('test');
 `;
   const fixture = 'fixtures/fusion-react-async/fixture.js';
-  await fse.writeFile(fixture, contents);
+  await writeFile(fixture, contents);
   await codemod.step();
-  const newContents = (await fse.readFile(fixture)).toString();
+  const newContents = (await readFile(fixture)).toString();
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
 "
@@ -41,7 +41,7 @@ import {prepared} from \\"fusion-react\\";
 prepared('test');
 "
 `);
-  await fse.remove(fixture);
+  await remove(fixture);
 });
 
 test('fusion-react-async codemod-replace complex', async () => {
@@ -51,9 +51,9 @@ prepared('test');
 d();
 `;
   const fixture = 'fixtures/fusion-react-async/fixture.js';
-  await fse.writeFile(fixture, contents);
+  await writeFile(fixture, contents);
   await codemod.step();
-  const newContents = (await fse.readFile(fixture)).toString();
+  const newContents = (await readFile(fixture)).toString();
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
 "
@@ -62,5 +62,5 @@ prepared('test');
 d();
 "
 `);
-  await fse.remove(fixture);
+  await remove(fixture);
 });

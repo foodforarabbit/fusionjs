@@ -181,6 +181,11 @@
   resolved "https://unpm.uberinternal.com/@babel%2fparser/-/parser-7.1.5.tgz#20b7d5e7e1811ba996f8a868962ea7dd2bfcd2fc"
   integrity sha512-WXKf5K5HT6X0kKiCOezJZFljsfxKV1FpU8Tf1A7ZpGvyd/Q4hlrJm2EwoH2onaUq3O4tLDp+4gk0hHPsMyxmOg==
 
+"@babel/parser@^7.1.6":
+  version "7.1.6"
+  resolved "https://unpm.uberinternal.com/@babel%2fparser/-/parser-7.1.6.tgz#16e97aca1ec1062324a01c5a6a7d0df8dd189854"
+  integrity sha512-dWP6LJm9nKT6ALaa+bnL247GHHMWir3vSlZ2+IHgHgktZQx0L3Uvq2uAWcuzIe+fujRsYWBW2q622C5UvGK9iQ==
+
 "@babel/plugin-proposal-object-rest-spread@^7.0.0":
   version "7.0.0"
   resolved "https://unpm.uberinternal.com/@babel%2fplugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.0.0.tgz#9a17b547f64d0676b6c9cecd4edf74a82ab85e7e"
@@ -334,15 +339,15 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@dubstep/core@2.0.0-0":
-  version "2.0.0-0"
-  resolved "https://unpm.uberinternal.com/@dubstep%2fcore/-/core-2.0.0-0.tgz#6a7691685799faaaa27a6fabe96cfd22e2132bd6"
-  integrity sha512-nUt2oktbJp6S3UfG6X7uuT8B5JBRJkPfb4JrYOfTeXopKs+hCxdYB5EQFZxlJhFVAUG0E39vE6y8l9Vr/Tpx6A==
+"@dubstep/core@2.0.0-2":
+  version "2.0.0-2"
+  resolved "https://unpm.uberinternal.com/@dubstep%2fcore/-/core-2.0.0-2.tgz#19d884891efbcf0d76a572949d9746becc61135d"
+  integrity sha512-z9K3gReHUgI0+gdfAjzB9KcA5fR4wwaA7X8MXm0y4EIHkHPY0DkiePBEC/sC359+Feu1kHP8sAbtlMG3b6ZmYA==
   dependencies:
+    "@babel/parser" "^7.1.6"
     "@babel/template" "^7.1.2"
     "@babel/traverse" "^7.1.5"
     "@babel/types" "^7.1.5"
-    babylon "^6.18.0"
     execa "^1.0.0"
     flow-coverage-report "^0.6.0"
     fs-extra "^7.0.1"

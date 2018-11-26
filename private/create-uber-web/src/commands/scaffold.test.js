@@ -1,7 +1,7 @@
 /* @flow */
 
 import inquirer from 'inquirer';
-import fse from 'fs-extra';
+import {remove, pathExists, readJson} from 'fs-extra';
 import {readFile} from '@dubstep/core';
 import {scaffold} from './scaffold.js';
 
@@ -11,7 +11,7 @@ jest.spyOn(console, 'log').mockImplementation(() => {});
 
 async function testScaffold(name, templateIndex, cb) {
   try {
-    await fse.remove(name).catch(() => {});
+    await remove(name).catch(() => {});
 
     jest.spyOn(inquirer, 'prompt').mockImplementation(options => {
       if (options.message.match(/template/)) {
@@ -38,15 +38,15 @@ async function testScaffold(name, templateIndex, cb) {
       hoistDeps: false,
     }); // no need to test that yarn command works
 
-    expect(await fse.pathExists(name)).toBe(true);
+    expect(await pathExists(name)).toBe(true);
 
-    const data = await fse.readJson(`${name}/package.json`);
+    const data = await readJson(`${name}/package.json`);
 
     expect(data.name.includes('{{')).toEqual(false);
 
     if (cb) await cb();
   } finally {
-    await fse.remove(name).catch(() => {});
+    await remove(name).catch(() => {});
   }
 }
 
@@ -83,6 +83,6 @@ test('prevents bad name', async () => {
       }),
     ).rejects.toThrow(/Do not add `-staging`/);
   } finally {
-    await fse.remove(name);
+    await remove(name);
   }
 });

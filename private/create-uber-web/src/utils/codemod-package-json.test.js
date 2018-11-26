@@ -1,6 +1,6 @@
 /* @flow */
 
-import fse from 'fs-extra';
+import {remove} from 'fs-extra';
 import {writeFile, readFile} from '@dubstep/core';
 import {codemodPackageJson} from './codemod-package-json.js';
 
@@ -23,7 +23,7 @@ test('codemodPackageJson', async () => {
   expect(/"name": "@uber/.test(data)).toEqual(false);
   expect(/"files"/.test(data)).toEqual(true);
   expect(/"dependencies": {}/.test(data)).toEqual(true);
-  await fse.remove(dir);
+  await remove(dir);
 });
 
 test('codemodPackageJson non-website', async () => {
@@ -44,5 +44,5 @@ test('codemodPackageJson non-website', async () => {
   expect(/"name": "name"/.test(data)).toEqual(false);
   expect(/"name": "@uber/.test(data)).toEqual(true);
   expect(/"dependencies": {}/.test(data)).toEqual(false);
-  await fse.remove(dir);
+  await remove(dir);
 });

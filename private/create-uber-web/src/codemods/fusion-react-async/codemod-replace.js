@@ -1,6 +1,5 @@
 import {types as t} from '@babel/core';
 import {withJsFiles, step, visitJsImport, readFile, exec} from '@dubstep/core';
-import fse from 'fs-extra';
 export default step('fusion-react-async-codemod-replace', async () => {
   const pkg = JSON.parse(await readFile('package.json'));
   if (!pkg.dependencies['fusion-react-async']) {

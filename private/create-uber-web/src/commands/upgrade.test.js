@@ -2,7 +2,7 @@
 
 import proc from 'child_process';
 import {readFile, writeFile} from '@dubstep/core';
-import fse from 'fs-extra';
+import {remove} from 'fs-extra';
 import {upgrade} from './upgrade.js';
 
 test('upgrade', async () => {
@@ -16,5 +16,5 @@ test('upgrade', async () => {
   await upgrade({dir, match: '', force: true});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
-  await fse.remove(dir);
+  await remove(dir);
 });

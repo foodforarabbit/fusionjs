@@ -1,7 +1,7 @@
 // @flow
 import codemod from './enhancer';
 import path from 'path';
-import fse from 'fs-extra';
+import {writeFile, readFile, remove} from 'fs-extra';
 
 jest.mock('@dubstep/core', () => {
   // $FlowFixMe
@@ -40,9 +40,9 @@ export default async function start() {
   return app;
 }`;
   const fixture = 'fixtures/csrf-enhancer/fixture.js';
-  await fse.writeFile(fixture, contents);
+  await writeFile(fixture, contents);
   await codemod.step();
-  const newContents = (await fse.readFile(fixture)).toString();
+  const newContents = (await readFile(fixture)).toString();
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
 "
@@ -58,7 +58,7 @@ export default async function start() {
   return app;
 }"
 `);
-  await fse.remove(fixture);
+  await remove(fixture);
 });
 
 test('csrf protection codemod withServices', async () => {
@@ -70,9 +70,9 @@ export default withFetch(function start() {
   return (<div>Hello</div>);
 })`;
   const fixture = 'fixtures/csrf-enhancer/fixture.js';
-  await fse.writeFile(fixture, contents);
+  await writeFile(fixture, contents);
   await codemod.step();
-  const newContents = (await fse.readFile(fixture)).toString();
+  const newContents = (await readFile(fixture)).toString();
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
 "
@@ -84,5 +84,5 @@ export default withServices({fetch: FetchToken})(function start() {
   return (<div>Hello</div>);
 })"
 `);
-  await fse.remove(fixture);
+  await remove(fixture);
 });
