@@ -1,7 +1,7 @@
 // @flow
 import {exec} from '@dubstep/core';
 export const install = async (dir: string) => {
-  return exec(`yarn install --silent --ignore-engines --ignore-scripts`, {
+  return exec(`yarn install --ignore-engines --ignore-scripts`, {
     cwd: dir,
   });
 };

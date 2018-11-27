@@ -5,7 +5,7 @@ export default step('fusion-react-async-codemod-replace', async () => {
   if (!pkg.dependencies['fusion-react-async']) {
     return;
   }
-  await exec(`yarn remove fusion-react-async`);
+  await exec(`yarn remove fusion-react-async --ignore-engines`);
 
   await withJsFiles('src/**/*.js', path => {
     let shouldUpdate = false;
