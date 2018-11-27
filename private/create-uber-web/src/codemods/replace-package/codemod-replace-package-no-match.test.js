@@ -1,5 +1,5 @@
 // @flow
-import codemod from './codemod-replace';
+import codemod from './codemod-replace-package';
 import path from 'path';
 
 jest.mock('@dubstep/core', () => {
@@ -16,8 +16,8 @@ jest.mock('@dubstep/core', () => {
   };
 });
 
-test('fusion-react-async replace-codemod no match', async () => {
-  await codemod.step();
+test('replace-codemod no match', async () => {
+  await codemod('no-match', 'replacement').step();
   const dubstep = require('@dubstep/core');
   expect(dubstep.exec).not.toBeCalled();
 });
