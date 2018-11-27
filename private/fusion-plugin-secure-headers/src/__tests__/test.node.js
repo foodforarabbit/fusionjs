@@ -68,6 +68,7 @@ test('basics - default CSP headers', async t => {
 
 test('basics - csp override', async t => {
   const app = createTestFixture();
+  // $FlowFixMe
   app.register(SecureHeadersCSPConfigToken, {
     overrides: {
       connectSrc: ['test.uber.com'],
@@ -94,6 +95,7 @@ test('basics - csp override with a function', async t => {
       },
     };
   };
+  // $FlowFixMe
   app.register(SecureHeadersCSPConfigToken, overrideFunc);
   t.plan(3);
   const simulator = getSimulator(app);

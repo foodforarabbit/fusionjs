@@ -1,6 +1,6 @@
 // @flow
 /* eslint-env node */
-export default function Strict(nonce) {
+export default function Strict(nonce: string) {
   return {
     blockAllMixedContent: true, // Block loading of insecure resources
     objectSrc: ["'none'"],

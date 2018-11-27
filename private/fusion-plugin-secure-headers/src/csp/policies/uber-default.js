@@ -1,6 +1,6 @@
 // @flow
 /* eslint-env node */
-export default function UberDefault(nonce) {
+export default function UberDefault(nonce: string) {
   return {
     blockAllMixedContent: true, // Block loading of insecure resources
     frameSrc: ["'self'"], // frame, IFrame

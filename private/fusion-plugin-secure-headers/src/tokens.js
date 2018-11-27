@@ -1,11 +1,14 @@
 // @flow
-import {createToken} from 'fusion-core';
+import {createToken, type Token, type Context} from 'fusion-core';
 
-export const SecureHeadersToken = createToken('SecureHeadersToken');
+import type {CSPConfigType} from './types.js';
 
-export const SecureHeadersUseFrameguardConfigToken = createToken(
+export const SecureHeadersToken: Token<any> = createToken('SecureHeadersToken');
+
+export const SecureHeadersUseFrameguardConfigToken: Token<boolean> = createToken(
   'SecureHeadersUseFrameguardConfigToken'
 );
-export const SecureHeadersCSPConfigToken = createToken(
-  'SecureHeadersCSPConfigToken'
-);
+
+export const SecureHeadersCSPConfigToken: Token<
+  CSPConfigType | (Context => CSPConfigType)
+> = createToken('SecureHeadersCSPConfigToken');

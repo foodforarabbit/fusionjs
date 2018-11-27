@@ -6,8 +6,18 @@ import {addDirectives} from './policies/policy-utils';
 import analyticsOverrides from './analytics-overrides';
 import Strict from './policies/strict';
 import UberDefault from './policies/uber-default';
+import type {Context} from 'fusion-core';
+import type {CSPConfigType} from '../types.js';
 
-export default function buildCSPMiddleware({ctx, serviceName, cspConfig}) {
+export default function buildCSPMiddleware({
+  ctx,
+  serviceName,
+  cspConfig,
+}: {
+  ctx: Context,
+  serviceName: ?string,
+  cspConfig: CSPConfigType,
+}) {
   const {
     overrides,
     reportUri,
@@ -29,13 +39,17 @@ export default function buildCSPMiddleware({ctx, serviceName, cspConfig}) {
     if (reportUri) {
       return reportUri.replace(
         /ro=(true|false)/,
-        `ro=${shouldUseReportOnlyMode()}`
+        `ro=${String(shouldUseReportOnlyMode())}`
       );
     }
     if (serviceName) {
-      return `https://csp.uber.com/csp?a=${serviceName}&ro=${shouldUseReportOnlyMode()}`;
+      return `https://csp.uber.com/csp?a=${serviceName}&ro=${String(
+        shouldUseReportOnlyMode()
+      )}`;
     }
-    return `https://csp.uber.com/csp?a=unknown&ro=${shouldUseReportOnlyMode()}`;
+    return `https://csp.uber.com/csp?a=unknown&ro=${String(
+      shouldUseReportOnlyMode()
+    )}`;
   }
 
   let policy = {};
@@ -56,10 +70,12 @@ export default function buildCSPMiddleware({ctx, serviceName, cspConfig}) {
     }, policy);
 
     if (allowInsecureContent || allowMixedContent) {
+      // $FlowFixMe
       delete policy.blockAllMixedContent;
     }
   }
 
+  // $FlowFixMe
   policy.reportUri = getDynamicReportUri;
 
   return koaHelmet.contentSecurityPolicy({
