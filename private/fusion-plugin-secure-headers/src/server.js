@@ -18,7 +18,7 @@ export default __NODE__ &&
       useFrameGuard: SecureHeadersUseFrameguardConfigToken.optional,
       cspConfig: SecureHeadersCSPConfigToken.optional,
     },
-    middleware: ({useFrameguard = true, cspConfig}) => {
+    middleware: ({useFrameGuard = true, cspConfig}) => {
       const serviceName = process.env.SVC_ID;
       return async (ctx, next) => {
         const secureHeaderMiddlewares = [];
@@ -32,7 +32,7 @@ export default __NODE__ &&
             cspConfig,
           })
         );
-        if (useFrameguard !== false) {
+        if (useFrameGuard !== false) {
           secureHeaderMiddlewares.push(
             koaHelmet.frameguard({action: 'sameorigin'})
           );

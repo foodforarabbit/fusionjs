@@ -5,7 +5,11 @@ import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 
 import SecureHeadersPlugin from '../server';
-import {SecureHeadersToken, SecureHeadersCSPConfigToken} from '../tokens';
+import {
+  SecureHeadersToken,
+  SecureHeadersCSPConfigToken,
+  SecureHeadersUseFrameguardConfigToken,
+} from '../tokens';
 
 const fixtureHeaders = {
   'Content-Type': 'text/html',
@@ -99,6 +103,22 @@ test('basics - csp override with a function', async t => {
     fixtureCSPWithOverrides(ctx.nonce)
   );
   t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
+  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
+  t.end();
+});
+
+test('basics - disabling frameguard does not add x-frame-origin header', async t => {
+  const app = createTestFixture();
+  app.register(SecureHeadersUseFrameguardConfigToken, false);
+
+  t.plan(3);
+  const simulator = getSimulator(app);
+  const ctx = await simulator.render('/test-url', fixtureHeaders);
+  t.equal(
+    ctx.response.header['content-security-policy'],
+    fixtureCSP(ctx.nonce)
+  );
+  t.equal(ctx.response.header['x-frame-options'], undefined);
   t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
   t.end();
 });
