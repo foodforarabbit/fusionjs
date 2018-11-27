@@ -9,9 +9,11 @@ export default [
     'fusion-plugin-universal-events',
     'fusion-plugin-universal-events-react',
   ),
-  replacePackage('fusion-plugin-m3', 'fusion-plugin-m3-react'),
+  replacePackage('@uber/fusion-plugin-m3', '@uber/fusion-plugin-m3-react'),
   replacePackage('fusion-plugin-i18n', 'fusion-plugin-i18n-react'),
-  replacePackage('fusion-plugin-logtron', 'fusion-plugin-logtron-react'),
-  replacePackage('fusion-plugin-logtron', 'fusion-plugin-logtron-react'),
+  replacePackage(
+    '@uber/fusion-plugin-logtron',
+    '@uber/fusion-plugin-logtron-react',
+  ),
   addPackage('styletron-react'),
 ];
