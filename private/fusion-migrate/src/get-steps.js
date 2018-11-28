@@ -3,10 +3,9 @@ const path = require('path');
 const get = require('just-safe-get');
 const codemodStep = require('./utils/codemod-step.js');
 const composeSteps = require('./utils/compose-steps.js');
-const diffStep = require('./commands/diff-step.js');
 const fixEslintConfig = require('./utils/fix-eslint-config.js');
 const fixFusionRC = require('./utils/fix-fusionrc.js');
-const format = require('./utils/format.js');
+const format = require('./utils/lint-fix.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const loadConfig = require('./utils/load-config.js');
 const routesMatcher = require('./matchers/match-routes/match-routes.js');
@@ -42,14 +41,8 @@ const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.j
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
 const modRemoveMagellanReducer = require('./codemods/remove-magellan-reducer/plugin.js');
 const modRedux = require('./codemods/redux/plugin.js');
-const modNormalizeTape = require('./codemods/normalize-tape/plugin.js');
-const modDeepLooseEqual = require('./codemods/deep-loose-equal/plugin.js');
-const modUpgradeEnzyme = require('./codemods/upgrade-enzyme/plugin.js');
 const modI18n = require('./codemods/isomorphic-i18n/plugin.js');
 const modRemoveInternalToolLayout = require('./codemods/remove-internal-tool-layout/plugin.js');
-const modRemoveEnzymeAdapter = require('./codemods/remove-enzyme-adapter/plugin.js');
-const modMoveTestUtils = require('./codemods/move-test-utils/plugin.js');
-const modServerSimulatorTests = require('./codemods/server-simulator-tests/plugin.js');
 const modRemoveStyletron = require('./codemods/remove-styletron-react-plugin/plugin.js');
 const modFixTracer = require('./codemods/fix-tracer/plugin.js');
 const modAddLegacyStyletronMixin = require('./codemods/add-legacy-styletron-mixin/plugin.js');
@@ -57,13 +50,12 @@ const lintFix = require('./commands/lint-fix.js');
 const updateDeps = require('./commands/update-deps.js');
 const updateEngines = require('./commands/update-engines.js');
 const updateFiles = require('./commands/update-files.js');
-const renameTestFiles = require('./commands/rename-test-files.js');
 const updateScripts = require('./commands/update-scripts.js');
 const addNoFlowAnnotation = require('./commands/no-flow.js');
 const updateGitignore = require('./commands/update-gitignore.js');
-const jestCodemods = require('./commands/jest-codemods.js');
 const setRoutePrefix = require('./commands/route-prefix.js');
 const setServiceId = require('./commands/svc-id.js');
+const addDiffSteps = require('./utils/add-diff-steps.js');
 
 module.exports = function getSteps(options) {
   options.config = loadConfig(options.destDir);
@@ -74,7 +66,6 @@ module.exports = function getSteps(options) {
     getStep('update-scripts', () => updateScripts(options)),
     getStep('fix-eslint-config', () => fixEslintConfig(options.destDir)),
     getStep('fix-fusionrc', () => fixFusionRC(options.destDir)),
-    ...getTestCodemodSteps(options),
     getStep('prettier', () => format(options.destDir)),
   ];
   let versionSpecificSteps = [];
@@ -86,14 +77,7 @@ module.exports = function getSteps(options) {
   return sharedSteps
     .concat(versionSpecificSteps)
     .concat(getStep('update-deps', () => updateDeps(options)))
-    .reduce((prev, next) => {
-      prev.push(next);
-      // pause and show diff after every step
-      prev.push(
-        getStep(`${next.id}-diff`, () => diffStep({name: next.id, ...options}))
-      );
-      return prev;
-    }, []);
+    .reduce(addDiffSteps(options), []);
 };
 
 const filterMatchMain = filterMatchFile('src/main.js');
@@ -367,55 +351,6 @@ function getConfigCodemodStep(options, keyPath, file) {
         filter: filterMatchFile(file),
       }),
   };
-}
-
-function getTestCodemodSteps(options) {
-  return [
-    getStep('normalize-tape', () =>
-      codemodStep({
-        ...options,
-        plugin: modNormalizeTape,
-        filter: f => f.includes('src/test'),
-      })
-    ),
-    getStep('deep-loose-equal', () =>
-      codemodStep({
-        ...options,
-        plugin: modDeepLooseEqual,
-        filter: f => f.includes('src/test'),
-      })
-    ),
-    getStep('upgrade-enzyme', () =>
-      codemodStep({
-        ...options,
-        plugin: modUpgradeEnzyme,
-        filter: f => f.includes('src/test'),
-      })
-    ),
-    getStep('remove-enzyme-adapter', () =>
-      codemodStep({
-        ...options,
-        plugin: modRemoveEnzymeAdapter,
-        filter: f => f.includes('src/test-utils/test-app.js'),
-      })
-    ),
-    getStep('server-simulator-tests', () =>
-      codemodStep({
-        ...options,
-        plugin: modServerSimulatorTests,
-        filter: f => f.includes('src/test'),
-      })
-    ),
-    getStep('jest-codemods', () => jestCodemods(options)),
-    getStep('move-test-utils', () =>
-      codemodStep({
-        ...options,
-        plugin: modMoveTestUtils,
-        filter: f => f.includes('src/test') && !f.includes('/util'),
-      })
-    ),
-    getStep('rename-test-files', () => renameTestFiles()),
-  ];
 }
 
 function filterMatchFile(...files) {

@@ -84,7 +84,7 @@ module.exports = async function updateDeps({
   );
 
   // Install enzyme-adapter-react-15 if necessary
-  const reactVersion = srcPackage.dependencies.react;
+  const reactVersion = destPackage.dependencies.react;
   if (reactVersion) {
     const parsedVersion = semver.coerce(reactVersion);
     if (parsedVersion.major === 15) {

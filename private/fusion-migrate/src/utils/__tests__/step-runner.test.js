@@ -6,7 +6,7 @@ const StepRunner = require('../step-runner.js');
 
 test('steprunner', async () => {
   const dir = tmp.dirSync().name;
-  const runner = new StepRunner(dir);
+  const runner = new StepRunner(dir, {version: 14, lastCompletedStep: 'lint'});
   let doneWithAsync = false;
   let ranSyncTask = false;
   const syncTask = () => {

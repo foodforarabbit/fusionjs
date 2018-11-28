@@ -50,7 +50,7 @@ test('updateDeps', async () => {
     finalPackage.devDependencies['enzyme-adapter-react-15'],
     '^1.0.5'
   );
-  assert.equal(finalDeps.length, 5);
+  assert.equal(finalDeps.length, 6);
   assert.ok(finalDevDeps.includes('enzyme-adapter-react-15'));
   assert.ok(finalDevDeps.includes('just-curry-it'));
   assert.ok(finalDevDeps.includes('just-entries'));

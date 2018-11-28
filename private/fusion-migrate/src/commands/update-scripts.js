@@ -2,18 +2,25 @@ const fs = require('fs');
 const path = require('path');
 const getTrackedFiles = require('../utils/get-tracked-files.js');
 
-module.exports = async function updateScripts({srcDir, destDir}) {
+module.exports = async function updateScripts({srcDir, destDir, filter}) {
+  if (!filter) {
+    filter = () => true;
+  }
   const destPackagePath = path.join(destDir, 'package.json');
   const destPackage = JSON.parse(fs.readFileSync(destPackagePath).toString());
   const srcPackagePath = path.join(srcDir, 'package.json');
   const srcPackage = JSON.parse(fs.readFileSync(srcPackagePath).toString());
 
-  Object.keys(destPackage.scripts).forEach(script => {
-    destPackage.scripts['__old__' + script] = destPackage.scripts[script];
-  });
-  Object.keys(srcPackage.scripts).forEach(script => {
-    destPackage.scripts[script] = srcPackage.scripts[script];
-  });
+  Object.keys(destPackage.scripts)
+    .filter(filter)
+    .forEach(script => {
+      destPackage.scripts['__old__' + script] = destPackage.scripts[script];
+    });
+  Object.keys(srcPackage.scripts)
+    .filter(filter)
+    .forEach(script => {
+      destPackage.scripts[script] = srcPackage.scripts[script];
+    });
 
   destPackage.node = {
     process: 'mock',
@@ -25,7 +32,7 @@ module.exports = async function updateScripts({srcDir, destDir}) {
     const ext = path.extname(f);
     return ext === '.scss' || ext === '.sass';
   });
-  if (sassFiles.length) {
+  if (sassFiles.length && filter('sass')) {
     // package.json files in services in monorepo do not have devDependencies field (it's hoisted to the top package.json)
     if (destPackage.devDependencies) {
       destPackage.devDependencies['node-sass'] = '^4.9.0';

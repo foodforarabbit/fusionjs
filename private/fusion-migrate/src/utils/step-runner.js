@@ -4,9 +4,10 @@ const chalk = require('chalk');
 const log = require('../log.js');
 
 module.exports = class StepRunner {
-  constructor(dir, version) {
+  constructor(dir, report) {
     this.dir = dir;
-    this.version = version;
+    this.version = report.version;
+    this.lastCompletedStep = report.lastCompletedStep;
     this.reportPath = path.join(this.dir, 'migration-report.json');
     this.completedSteps = [];
   }
@@ -24,6 +25,7 @@ module.exports = class StepRunner {
       log(chalk.red(`Failed at step ${stepId}`), error);
       const report = {
         version: this.version,
+        lastCompletedStep: this.lastCompletedStep,
         completedSteps: this.completedSteps,
         failedStep: stepId,
         error: {

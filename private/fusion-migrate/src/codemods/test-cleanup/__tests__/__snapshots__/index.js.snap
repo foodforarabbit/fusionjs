@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test-cleanup positive-match: positive-match 1`] = `
+"import './test';
+import a from 'b';
+
+require('source-map-support').install();
+
+console.log('test');
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import a from 'b';
+console.log('test');
+"
+`;

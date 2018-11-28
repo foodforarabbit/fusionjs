@@ -1,11 +1,17 @@
 const fs = require('fs');
+const execa = require('execa');
 const path = require('path');
 const chalk = require('chalk');
 const StepRunner = require('./utils/step-runner.js');
 const checkMigrationVersion = require('./commands/check-migration-version.js');
 const getSteps = require('./get-steps.js');
+const getLintSteps = require('./get-lint-steps.js');
+const getTestSteps = require('./get-test-steps.js');
+const getEngineSteps = require('./get-engine-steps.js');
 const log = require('./log.js');
 const scaffold = require('./utils/scaffold.js');
+
+const megaSteps = ['engines', 'lint', 'test', 'main'];
 
 module.exports = async function(name, sub, options) {
   if (options.steps.length && options.skipSteps.length) {
@@ -18,18 +24,7 @@ module.exports = async function(name, sub, options) {
 
   let report = {};
   if (fs.existsSync(reportPath)) {
-    if (options.steps.length) {
-      log(
-        chalk.red(
-          'Cannot run specific steps and recover from previous migration. Run `rm migration-report.json` to remove old migration report'
-        )
-      );
-      return false;
-    }
     report = JSON.parse(fs.readFileSync(reportPath).toString());
-    if (report.completedSteps) {
-      options.skipSteps = options.skipSteps.concat(report.completedSteps);
-    }
   }
   let version = report.version;
   if (!version) {
@@ -49,7 +44,35 @@ module.exports = async function(name, sub, options) {
     return false;
   }
   const srcDir = await scaffold();
-  const steps = getSteps({destDir, srcDir, version}).filter(step => {
+  let steps = [];
+  let migrationPart;
+  if (!report.lastCompletedStep) {
+    // engines migration
+    steps = getEngineSteps({destDir});
+    migrationPart = 1;
+  } else if (report.lastCompletedStep === 'engines') {
+    // lint migration
+    steps = getLintSteps({destDir, srcDir});
+    migrationPart = 2;
+  } else if (report.lastCompletedStep === 'lint') {
+    // test migration
+    steps = getTestSteps({destDir, srcDir});
+    migrationPart = 3;
+  } else if (report.lastCompletedStep === 'test') {
+    steps = getSteps({destDir, srcDir, version});
+    migrationPart = 4;
+    // code migration
+  } else {
+    log(
+      chalk.red(
+        `Unknown lastCompletedStep ${
+          report.lastCompletedStep
+        } in migration-report.json`
+      )
+    );
+    return false;
+  }
+  steps = steps.filter(step => {
     if (options.skipSteps.length && options.skipSteps.includes(step.id)) {
       return false;
     }
@@ -58,15 +81,19 @@ module.exports = async function(name, sub, options) {
     }
     return true;
   });
-  if (await migrate({destDir, version, steps})) {
-    log(chalk.green('Successfully ran all migration steps'));
+  if (await migrate({destDir, report, steps, migrationPart})) {
+    log(
+      chalk.green(
+        `Successfully ran migration part ${migrationPart}/${megaSteps.length}`
+      )
+    );
     return true;
   }
   return false;
 };
 
-async function migrate({destDir, steps, version}) {
-  const runner = new StepRunner(destDir, version);
+async function migrate({destDir, steps, report, migrationPart}) {
+  const runner = new StepRunner(destDir, report);
   let stepIndex = 0;
   let currentStep = steps[stepIndex];
 
@@ -75,6 +102,15 @@ async function migrate({destDir, steps, version}) {
     currentStep = steps[stepIndex];
   }
   if (!currentStep) {
+    report.lastCompletedStep = megaSteps[migrationPart - 1];
+    const reportPath = path.join(destDir, 'migration-report.json');
+    if (report.lastCompletedStep === 'main') {
+      fs.unlinkSync(reportPath);
+      log(chalk.green('Migration complete'));
+    } else {
+      fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+    }
+    await execa.shell('git add . && git commit --amend --no-edit');
     return true;
   }
   return false;
