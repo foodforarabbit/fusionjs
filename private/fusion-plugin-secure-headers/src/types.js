@@ -6,13 +6,13 @@ import {
 } from './tokens.js';
 
 export type CSPConfigType = {
-  overrides: ?{[string]: Array<string>},
-  reportUri: ?string,
-  intentionallyRemoveAllSecurity: ?boolean,
-  useStrictDynamicMode: ?boolean,
-  allowInsecureContent: ?boolean,
-  allowMixedContent: ?boolean,
-  analyticsServiceNames: ?Array<string>,
+  overrides?: Object,
+  reportUri?: string | (() => string),
+  intentionallyRemoveAllSecurity?: boolean,
+  useStrictDynamicMode?: boolean,
+  allowInsecureContent?: boolean,
+  allowMixedContent?: boolean,
+  analyticsServiceNames?: Array<string>,
 };
 
 export type SecureHeadersDepsType = {

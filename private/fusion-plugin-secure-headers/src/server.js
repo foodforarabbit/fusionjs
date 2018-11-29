@@ -23,8 +23,8 @@ const pluginFactory: () => PluginType = () =>
       useFrameGuard: SecureHeadersUseFrameguardConfigToken.optional,
       cspConfig: SecureHeadersCSPConfigToken.optional,
     },
-    middleware: ({useFrameGuard = true, cspConfig}: any) => {
-      const serviceName = process.env.SVC_ID;
+    middleware: ({useFrameGuard = true, cspConfig = {}}) => {
+      const serviceName = process.env.SVC_ID || '';
       return async (ctx, next) => {
         const secureHeaderMiddlewares = [];
         if (typeof cspConfig === 'function') {

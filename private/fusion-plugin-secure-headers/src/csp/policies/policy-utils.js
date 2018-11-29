@@ -1,6 +1,10 @@
 // @flow
 /* eslint-env node */
-function addSourcesToDirective(policy: any, directive: any, sources: any) {
+function addSourcesToDirective(
+  policy: Object,
+  directive: string,
+  sources: [string]
+) {
   if (policy[directive] && policy[directive][0] !== "'none'") {
     policy[directive] = policy[directive].concat(sources);
   } else {
@@ -9,7 +13,7 @@ function addSourcesToDirective(policy: any, directive: any, sources: any) {
   return policy;
 }
 
-function addDirectives(policy: any, directives: any) {
+function addDirectives(policy: Object, directives: Object) {
   return Object.keys(directives).reduce(function perDirectiveKey(
     p,
     directiveKey

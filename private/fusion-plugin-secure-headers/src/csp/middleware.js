@@ -15,7 +15,7 @@ export default function buildCSPMiddleware({
   cspConfig,
 }: {
   ctx: Context,
-  serviceName: ?string,
+  serviceName: string,
   cspConfig: CSPConfigType,
 }) {
   const {
