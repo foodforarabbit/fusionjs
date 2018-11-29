@@ -1,5 +1,6 @@
 // @flow
 /* eslint-env node */
+import fs from 'fs';
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
@@ -7,10 +8,14 @@ import TChannel from 'tchannel';
 import path from 'path';
 import {TChannelClientToken} from './tokens.js';
 
-import type {TChannelPluginType} from './types.js';
+import type {
+  TChannelDepsType,
+  TChannelType,
+  TChannelPluginType,
+} from './types.js';
 
-const pluginFactory: () => TChannelPluginType = () =>
-  createPlugin({
+const pluginFactory = () =>
+  createPlugin<TChannelDepsType, TChannelType>({
     deps: {
       logger: LoggerToken,
       m3: M3Token,
@@ -23,17 +28,15 @@ const pluginFactory: () => TChannelPluginType = () =>
       const dc = process.env.UBER_DATACENTER || 'sjc1';
 
       /* eslint-disable import/no-dynamic-require */
-      // $FlowFixMe
-      const appVersion: string = require(path.join(
-        process.cwd(),
-        'package.json'
-      )).version;
+      const appVersion: string = JSON.parse(
+        fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8')
+      ).version;
       /* eslint-enable import/no-dynamic-require */
 
       const channel = new TChannelClient({
         host: '0.0.0.0',
         port: 5437, // https://infra.uberinternal.com/ports/5437
-        // $FlowFixMe
+        // $FlowFixMe this code assumes Logtron, but typeof LoggerToken != typeof Logtron
         logger: logger.createChild('tchannel'),
         statsd: m3,
         statTags: {

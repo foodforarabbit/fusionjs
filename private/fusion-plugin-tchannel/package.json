@@ -20,12 +20,12 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "peerDependencies": {
-    "@uber/fusion-plugin-m3": "^1.0.0",
+    "@uber/fusion-plugin-m3": "^1.1.6",
     "fusion-core": "^1.0.0",
     "fusion-tokens": "^1.0.0"
   },
   "devDependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.4",
+    "@uber/fusion-plugin-m3": "^1.1.6",
     "babel-eslint": "10.0.1",
     "create-universal-package": "^3.4.6",
     "eslint": "^5.9.0",
@@ -50,11 +50,11 @@
   "scripts": {
     "lint": "eslint src/",
     "clean": "rm -rf dist",
-    "flow": "flow check",
+    "flow": "flow",
     "transpile": "npm run clean && cup build",
     "build-test": "rm -rf dist-tests && NODE_ENV=test cup build-tests",
     "just-test": "unitest --node=dist-tests/node.js",
-    "test": "npm run lint && npm run build-test && npm run just-test",
+    "test": "npm run build-test && npm run just-test",
     "cover": "npm run build-test && npm run just-cover",
     "just-cover": "nyc --reporter=cobertura npm run just-test",
     "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html",

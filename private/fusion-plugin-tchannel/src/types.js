@@ -11,12 +11,8 @@ export type TChannelDepsType = {
   m3: typeof M3Token,
   TChannelClient: typeof TChannelClientToken.optional,
 };
-
-export type TChannelType = {[string]: (...args: any) => any};
-export type TChannelPluginType = FusionPlugin<
-  TChannelDepsType,
-  {
-    tchannel: TChannelType,
-    +cleanup: () => Promise<void>,
-  }
->;
+export type TChannelType = {
+  [string]: (...args: any) => any,
+  +cleanup: () => Promise<void>,
+};
+export type TChannelPluginType = FusionPlugin<TChannelDepsType, TChannelType>;
