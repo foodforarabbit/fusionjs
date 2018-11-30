@@ -2,19 +2,16 @@
 /* eslint-env node */
 import path from 'path';
 import Logtron from '@uber/logtron';
-import {createPlugin, createToken} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import createErrorTransform from './create-error-transform';
 import {supportedLevels} from './constants';
 
-import type {FusionPlugin, Token} from 'fusion-core';
+import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
-import type {PayloadType, PayloadMetaType} from './types.js';
-
-export const BackendsToken: Token<Object> = createToken('LogtronBackends');
-export const TeamToken = createToken('LogtronTeam');
-export const TransformsToken = createToken('LogtronTransform');
+import type {PayloadType, PayloadMetaType, LogtronDepsType} from './types.js';
+import {BackendsToken, TeamToken, TransformsToken} from './tokens.js';
 
 function validateItem(item) {
   item = item || {};
@@ -25,13 +22,9 @@ function validateItem(item) {
   return true;
 }
 
-type DepsType = {
-  events: typeof UniversalEventsToken,
-};
-
 const plugin =
   __NODE__ &&
-  createPlugin({
+  createPlugin<LogtronDepsType, LoggerType>({
     deps: {
       events: UniversalEventsToken,
       m3: M3Token,
@@ -88,8 +81,8 @@ const plugin =
       };
 
       Object.keys(levelMap).forEach(tokenLevel => {
-        wrappedLogger[tokenLevel] = (...args) => {
-          logEmitter(levelMap[tokenLevel], ...args);
+        wrappedLogger[tokenLevel] = (message, meta) => {
+          logEmitter(levelMap[tokenLevel], message, meta);
           return wrappedLogger;
         };
       });
@@ -111,6 +104,7 @@ const plugin =
 
       return wrappedLogger;
     },
+    // $FlowFixMe
     cleanup: logtron => logtron.destroy(),
   });
 
@@ -147,4 +141,4 @@ function isErrorMeta(meta) {
   return (meta.error && meta.error.stack) || (meta.source && meta.line);
 }
 
-export default ((plugin: any): FusionPlugin<DepsType, LoggerType>);
+export default ((plugin: any): FusionPlugin<LogtronDepsType, LoggerType>);

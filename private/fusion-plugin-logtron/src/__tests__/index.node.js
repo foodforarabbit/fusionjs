@@ -6,7 +6,8 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import {getSimulator} from 'fusion-test-utils';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {spy} from 'sinon';
-import Plugin, {handleLog, TeamToken} from '../server';
+import Plugin, {handleLog} from '../server';
+import {TeamToken} from '../tokens';
 import {supportedLevels} from '../constants';
 import TestEmitter from './test-emitter';
 
