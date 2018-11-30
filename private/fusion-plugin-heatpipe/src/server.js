@@ -1,6 +1,6 @@
 // @flow
 /* eslint-env node */
-import {createPlugin, createToken} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
 import util from 'util';
 
 import HeatpipePublisher from '@uber/node-heatpipe-publisher';
@@ -9,12 +9,12 @@ import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-import {HeatpipeConfigToken} from './tokens';
+import {HeatpipeClientToken, HeatpipeConfigToken} from './tokens';
 
-export const HeatpipeClientToken = createToken('HeatpipeClientToken');
+import type {HeatpipePluginType} from './types';
 
 class NoopClient {
-  constructor(args) {}
+  constructor(...args) {}
   connect() {}
   publish(info, message, cb) {
     cb && cb();
@@ -23,8 +23,8 @@ class NoopClient {
     cb && cb();
   }
 }
-
-export default __NODE__ &&
+const plugin =
+  __NODE__ &&
   createPlugin({
     deps: {
       heatpipeConfig: HeatpipeConfigToken.optional,
@@ -75,3 +75,5 @@ export default __NODE__ &&
     },
     cleanup: hp => new Promise(resolve => hp.destroy(resolve)),
   });
+
+export default ((plugin: any): HeatpipePluginType);

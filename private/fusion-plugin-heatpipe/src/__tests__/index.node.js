@@ -8,8 +8,12 @@ import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-import {HeatpipeToken, HeatpipeConfigToken} from '../tokens';
-import HeatpipePlugin, {HeatpipeClientToken} from '../server';
+import {
+  HeatpipeToken,
+  HeatpipeConfigToken,
+  HeatpipeClientToken,
+} from '../tokens';
+import HeatpipePlugin from '../server';
 
 tape('heatpipe-plugin in __DEV__', async t => {
   const mockM3ServiceInstance = {};
@@ -35,7 +39,7 @@ tape('heatpipe-plugin in __DEV__', async t => {
       provides: ({hp}) => {
         t.doesNotThrow(hp.publish, 'publish does not throw');
         t.doesNotThrow(hp.destroy, 'destroy does not throw');
-        hp.asyncPublish('data', 'thing')
+        hp.asyncPublish({topic: 'foo', version: 43}, 'thing')
           .then(() => t.pass('asyncPublish works'))
           .catch(t.ifError)
           .then(() => t.end());
@@ -156,7 +160,7 @@ tape('[fusion] heatpipe-plugin', async t => {
           );
         });
 
-        heatpipe.destroy();
+        heatpipe.destroy && heatpipe.destroy();
 
         t.ok(
           called.destroy,

@@ -3,7 +3,10 @@
 import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-export default __BROWSER__ &&
+import type {HeatpipePluginType} from './types';
+
+const plugin =
+  __BROWSER__ &&
   createPlugin({
     deps: {
       UniversalEvents: UniversalEventsToken,
@@ -11,10 +14,15 @@ export default __BROWSER__ &&
     provides({UniversalEvents}) {
       const emitter = UniversalEvents;
 
+      function publish(topicInfo, message) {
+        emitter.emit('heatpipe:publish', {topicInfo, message});
+      }
+
       return {
-        publish(topicInfo, message) {
-          emitter.emit('heatpipe:publish', {topicInfo, message});
-        },
+        publish,
+        asyncPublish: (...args) => Promise.resolve(publish(...args)),
       };
     },
   });
+
+export default ((plugin: any): HeatpipePluginType);

@@ -1,7 +1,21 @@
 // @flow
 import {createToken} from 'fusion-core';
 
-const HeatpipeToken = createToken('HeatpipeToken');
-const HeatpipeConfigToken = createToken('HeatpipeConfigToken');
+import type {Token} from 'fusion-core';
+import type {
+  HeatpipePluginServiceType,
+  HeatpipeClientType,
+  HeatpipeConfigType,
+} from './types';
 
-export {HeatpipeToken, HeatpipeConfigToken};
+const HeatpipeToken: Token<HeatpipePluginServiceType> = createToken(
+  'HeatpipeToken'
+);
+const HeatpipeClientToken: Token<HeatpipeClientType> = createToken(
+  'HeatpipeClientToken'
+);
+const HeatpipeConfigToken: Token<HeatpipeConfigType> = createToken(
+  'HeatpipeConfigToken'
+);
+
+export {HeatpipeToken, HeatpipeClientToken, HeatpipeConfigToken};
