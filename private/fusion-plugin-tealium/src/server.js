@@ -3,13 +3,15 @@
 
 import {createPlugin, dangerouslySetHTML} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
-import {TealiumConfigToken as ConfigToken} from './tokens';
+import {TealiumConfigToken as ConfigToken} from './tokens.js';
+import type {FusionPlugin} from 'fusion-core';
+import type {TealiumDepsType, TealiumType} from './types.js';
 
 const StrictGeo = ['NL', 'FR'];
 
 const plugin =
   __NODE__ &&
-  createPlugin({
+  createPlugin<TealiumDepsType, TealiumType>({
     deps: {
       config: ConfigToken,
       logger: LoggerToken,
@@ -49,4 +51,4 @@ const plugin =
     },
   });
 
-export default plugin;
+export default ((plugin: any): FusionPlugin<TealiumDepsType, TealiumType>);

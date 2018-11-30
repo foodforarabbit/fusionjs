@@ -2,7 +2,6 @@
 /* eslint-env node */
 import test from 'tape-cup';
 import {consumeSanitizedHTML} from 'fusion-core';
-
 import TealiumPlugin from '../server';
 
 function noop() {}
@@ -21,7 +20,7 @@ test('plugin - server init', t => {
     geo: 'NL',
   };
 
-  const mockCtx = {
+  const mockCtx: any = {
     element: {},
     nonce: 'abc123',
     template: {
@@ -39,10 +38,18 @@ test('plugin - server init', t => {
   };
 
   t.plan(3);
-  TealiumPlugin.middleware({config: mockConfig})(mockCtx, () => {
-    t.pass('next() called');
-    t.end();
-  });
+  if (TealiumPlugin.middleware) {
+    TealiumPlugin.middleware(
+      {
+        config: mockConfig,
+        logger: (null: any),
+      },
+      (null: any)
+    )(mockCtx, async () => {
+      t.pass('next() called');
+      t.end();
+    });
+  }
 });
 
 test('plugin accepts config as a function', t => {
@@ -57,7 +64,7 @@ test('plugin accepts config as a function', t => {
     });
   };
 
-  const mockCtx = {
+  const mockCtx: any = {
     element: {},
     nonce: 'cakeface',
     template: {
@@ -75,10 +82,18 @@ test('plugin accepts config as a function', t => {
   };
 
   t.plan(4);
-  TealiumPlugin.middleware({config: configStub})(mockCtx, () => {
-    t.pass('next() called');
-    t.end();
-  });
+  if (TealiumPlugin.middleware) {
+    TealiumPlugin.middleware(
+      {
+        config: configStub,
+        logger: (null: any),
+      },
+      (null: any)
+    )(mockCtx, async () => {
+      t.pass('next() called');
+      t.end();
+    });
+  }
 });
 
 test('plugin skips processing non-HTML request', t => {
@@ -87,7 +102,7 @@ test('plugin skips processing non-HTML request', t => {
     return {};
   };
 
-  const mockCtx = {
+  const mockCtx: any = {
     nonce: 'xyz456',
     template: {
       head: {
@@ -97,8 +112,16 @@ test('plugin skips processing non-HTML request', t => {
   };
 
   t.plan(1);
-  TealiumPlugin.middleware({config: configStub})(mockCtx, () => {
-    t.pass('next() called');
-    t.end();
-  });
+  if (TealiumPlugin.middleware) {
+    TealiumPlugin.middleware(
+      {
+        config: configStub,
+        logger: (null: any),
+      },
+      (null: any)
+    )(mockCtx, async () => {
+      t.pass('next() called');
+      t.end();
+    });
+  }
 });

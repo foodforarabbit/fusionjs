@@ -7,9 +7,13 @@ import {
 } from '@uber/fusion-analyticsjs-utils';
 
 import {createPlugin} from 'fusion-core';
+import type {FusionPlugin} from 'fusion-core';
+
+import type {TealiumType} from './types.js';
 
 // TODO: support setting UDO
 class Tealium {
+  _userId: string;
   identify(id) {
     this._userId = id;
   }
@@ -54,4 +58,7 @@ class Tealium {
   }
 }
 
-export default __BROWSER__ && createPlugin({provides: () => new Tealium()});
+export default ((__BROWSER__ &&
+  createPlugin<{}, TealiumType>({
+    provides: () => new Tealium(),
+  }): any): FusionPlugin<{}, TealiumType>);

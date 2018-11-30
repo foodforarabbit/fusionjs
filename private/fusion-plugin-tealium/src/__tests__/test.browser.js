@@ -41,18 +41,20 @@ test('plugin - service resolved as expected', t => {
 });
 
 test('service - API as expected', t => {
-  const service = TealiumPlugin.provides();
-  t.equal(
-    typeof service.pageview,
-    'function',
-    'service.pageview method exists'
-  );
-  t.equal(
-    typeof service.identify,
-    'function',
-    'service.identify method exists'
-  );
-  t.equal(typeof service.track, 'function', 'service.track method exists');
+  if (TealiumPlugin.provides) {
+    const service = TealiumPlugin.provides({});
+    t.equal(
+      typeof service.pageview,
+      'function',
+      'service.pageview method exists'
+    );
+    t.equal(
+      typeof service.identify,
+      'function',
+      'service.identify method exists'
+    );
+    t.equal(typeof service.track, 'function', 'service.track method exists');
 
-  t.end();
+    t.end();
+  }
 });
