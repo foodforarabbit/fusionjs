@@ -1,6 +1,6 @@
 /* @flow */
 
-import {Stepper, step, exec} from '@dubstep/core';
+import {Stepper, step} from '@dubstep/core';
 import {bumpDeps} from '../utils/bump-deps.js';
 import codemods from '../codemods/index.js';
 import {format} from '../utils/format.js';

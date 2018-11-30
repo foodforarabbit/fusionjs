@@ -1,8 +1,5 @@
 /* @flow */
 
-import proc from 'child_process';
-import {readFile, writeFile} from '@dubstep/core';
-import {remove} from 'fs-extra';
 import {upgrade} from './upgrade.js';
 
 jest.mock('@dubstep/core', () => {
@@ -22,5 +19,5 @@ jest.mock('@dubstep/core', () => {
 test('upgrade', async () => {
   await upgrade({dir: 'some/dir', match: '', force: true});
   const {step} = require('@dubstep/core');
-  expect(step).toBeCalled();
+  expect(step).toHaveBeenCalled();
 });

@@ -1,6 +1,6 @@
 /* @flow */
 
-import {writeFile, exec} from '@dubstep/core';
+import {writeFile} from '@dubstep/core';
 import {pathExists, remove} from 'fs-extra';
 import {initRepo} from './init-repo.js';
 

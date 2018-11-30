@@ -1,6 +1,5 @@
 // @flow
 import codemod from './enhancer';
-import path from 'path';
 
 jest.mock('@dubstep/core', () => {
   // $FlowFixMe

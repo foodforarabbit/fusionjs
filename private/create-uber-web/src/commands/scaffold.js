@@ -66,12 +66,12 @@ export const scaffold = async ({
       }
       if (await pathExists(project.name)) {
         throw new Error(
-          `A folder with the name ${project.name} already exists`,
+          `A folder with the name ${project.name} already exists`
         );
       }
       if (project.name.endsWith('staging')) {
         throw new Error(
-          'Do not add `-staging` at the end of the project name. It can cause routing issues when you provision',
+          'Do not add `-staging` at the end of the project name. It can cause routing issues when you provision'
         );
       }
     }),
@@ -108,14 +108,19 @@ export const scaffold = async ({
       }
     }),
     step('install deps', async () => {
+      // eslint-disable-next-line no-console
       console.log('Template scaffolded.');
       if (!skipInstall) {
+        // eslint-disable-next-line no-console
         console.log('Installing dependencies. This may take a few seconds...');
         try {
           await exec(`cd ${project.name} && yarn`);
+          // eslint-disable-next-line no-console
           console.log(`Done. Run \`cd ${project.name} && yarn dev\` to start`);
         } catch (e) {
+          // eslint-disable-next-line no-console
           console.log(`Scaffolded successfully, but \`yarn install\` failed.`);
+          // eslint-disable-next-line no-console
           console.log(`Run \`cd ${project.name} && yarn\` to troubleshoot`);
         }
       }
@@ -141,7 +146,7 @@ async function runWebsiteSteps({
           {
             Internal: false,
             External: true,
-          },
+          }
         );
       }
     }),

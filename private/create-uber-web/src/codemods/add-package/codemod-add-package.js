@@ -1,11 +1,12 @@
-import {types as t} from '@babel/core';
+// @flow
 import {step, readFile, exec} from '@dubstep/core';
-export default name =>
+
+export default (name: string) =>
   step('codemod-replace-package', async () => {
     const pkg = JSON.parse(await readFile('package.json'));
     const deps = Object.assign(
       pkg.dependencies || {},
-      pkg.devDependencies || {},
+      pkg.devDependencies || {}
     );
     if (deps[name]) {
       return;

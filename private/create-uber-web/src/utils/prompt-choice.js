@@ -4,7 +4,7 @@ import inquirer from 'inquirer';
 
 export const promptChoice = async (
   message: string,
-  choices: Array<string> | {[string]: string | number | boolean},
+  choices: Array<string> | {[string]: string | number | boolean}
 ) => {
   const {value} = await inquirer.prompt({
     name: 'value',

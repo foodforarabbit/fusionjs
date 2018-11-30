@@ -1,6 +1,5 @@
 // @flow
 import codemod from './codemod-add-package';
-import path from 'path';
 
 jest.mock('@dubstep/core', () => {
   // $FlowFixMe
@@ -20,7 +19,7 @@ test('codemod-add-package, no existing', async () => {
   });
   await codemod('test').step();
   const dubstep = require('@dubstep/core');
-  expect(dubstep.exec).toBeCalled();
+  expect(dubstep.exec).toHaveBeenCalled();
 });
 
 test('replace-codemod, existing', async () => {

@@ -1,3 +1,4 @@
+// @flow
 import {provision} from './provision.js';
 
 test('disabled', async () => {

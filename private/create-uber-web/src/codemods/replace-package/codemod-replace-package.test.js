@@ -1,6 +1,5 @@
 // @flow
 import codemod from './codemod-replace-package';
-import path from 'path';
 import {writeFile, readFile, remove} from 'fs-extra';
 
 jest.mock('@dubstep/core', () => {
@@ -19,7 +18,7 @@ jest.mock('@dubstep/core', () => {
     withJsFiles: (glob, handler) => {
       return actual.withJsFiles(
         './fixtures/fusion-react-async/fixture.js',
-        handler,
+        handler
       );
     },
   };

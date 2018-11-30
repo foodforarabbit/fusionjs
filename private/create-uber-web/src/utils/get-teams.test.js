@@ -7,5 +7,5 @@ test(
   async () => {
     await expect(getTeams()).resolves.toEqual(expect.arrayContaining(['web']));
   },
-  10000,
+  10000
 );

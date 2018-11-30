@@ -1,6 +1,5 @@
 // @flow
 import codemod from './enhancer';
-import path from 'path';
 import {writeFile, readFile, remove} from 'fs-extra';
 
 jest.mock('@dubstep/core', () => {

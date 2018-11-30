@@ -80,7 +80,7 @@ test('prevents bad name', async () => {
         localPath: null,
         skipInstall: true,
         hoistDeps: false,
-      }),
+      })
     ).rejects.toThrow(/Do not add `-staging`/);
   } finally {
     await remove(name);

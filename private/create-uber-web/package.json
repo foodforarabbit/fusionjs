@@ -17,10 +17,10 @@
   "scripts": {
     "dev": "npm-watch | grep --invert-match nodemon",
     "build": "babel src -d dist -q",
-    "lint": "eslint src --fix",
-    "test": "ussh && jest && yarn flow",
+    "lint": "eslint src",
+    "test": "ussh && jest",
     "cover": "jest --coverage",
-    "flow": "flow check || true",
+    "flow": "flow check",
     "prepublish": "babel src -d dist -s"
   },
   "watch": {
@@ -55,8 +55,13 @@
     "babel-jest": "^23.6.0",
     "babel-preset-flow": "^6.23.0",
     "eslint": "^5.8.0",
-    "eslint-config-prettier": "^3.1.0",
+    "eslint-config-fusion": "^4.0.0",
+    "eslint-plugin-cup": "^2.0.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.1.0",
     "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-react": "^7.11.1",
     "flow-bin": "^0.83.0",
     "jest": "^23.6.0",
     "npm-watch": "^0.4.0",
@@ -70,26 +75,6 @@
       "@babel/plugin-proposal-object-rest-spread",
       "@babel/plugin-transform-modules-commonjs"
     ]
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "plugins": [
-      "prettier"
-    ],
-    "extends": [
-      "prettier",
-      "prettier/flowtype"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "singleQuote": true,
-          "trailingComma": "all",
-          "bracketSpacing": false
-        }
-      ]
-    }
   },
   "jest": {
     "testRegex": "src/(commands|utils|codemods)/.*?.test.js",

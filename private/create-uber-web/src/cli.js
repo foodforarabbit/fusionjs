@@ -8,13 +8,16 @@ import {scaffold} from './commands/scaffold.js';
 import {upgrade} from './commands/upgrade.js';
 import {provision} from './commands/provision.js';
 
-process.on('unhandledRejection', e => console.log(e.stack));
+process.on('unhandledRejection', e => {
+  throw e;
+});
 
 const latest = proc
   .execSync('npm info @uber/create-uber-web version 2>/dev/null')
   .toString()
   .trim();
 const version = require('../package.json').version;
+
 if (latest !== version) {
   // do a clean install because upgrades can break with stupid errors e.g. EISGIT
   proc.execSync(`
@@ -22,6 +25,7 @@ if (latest !== version) {
     npm uninstall @uber/create-uber-web --global || true;
     npm install @uber/create-uber-web --global || true;
   `);
+  // eslint-disable-next-line no-console
   console.log('Upgrade complete. Please rerun this command.');
   process.exit();
 }

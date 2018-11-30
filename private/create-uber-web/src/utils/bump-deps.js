@@ -40,13 +40,12 @@ const batchUpgrade = async (dir, match, file, data) => {
   keys.forEach(key => {
     if (!data[key]) return;
     for (const dep in data[key]) {
-      const version = data[key][dep];
       if (['babel-core'].includes(dep)) continue;
       if (!new RegExp(match).test(dep)) continue;
       promises.push(
         getLatestVersion(dep).then(v => {
           data[key][dep] = v;
-        }),
+        })
       );
     }
   });
@@ -65,6 +64,7 @@ const upgrade = async (dir, match, file, data, key) => {
     if (data[key][dep] === version) continue;
     await write(file, data);
     await installAndTest(dir).catch(e => {
+      // eslint-disable-next-line no-console
       console.log(`Could not upgrade ${dep}`);
       data[key][dep] = version;
       return write(file, data);
