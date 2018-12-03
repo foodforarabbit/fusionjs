@@ -11,3 +11,5 @@ export default (__NODE__ ? ServerLogger : BrowserLogger);
 export const LogtronBackendsToken = BackendsToken;
 export const LogtronTeamToken = TeamToken;
 export const LogtronTransformsToken = TransformsToken;
+
+export type * from './types.js';

@@ -5,11 +5,7 @@ import {supportedLevels} from './constants';
 
 import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
-import type {IEmitter} from './types.js';
-
-type DepsType = {
-  events: typeof UniversalEventsToken,
-};
+import type {IEmitter, LogtronDepsType} from './types.js';
 
 const plugin =
   __BROWSER__ &&
@@ -66,4 +62,4 @@ const plugin =
     },
   });
 
-export default ((plugin: any): FusionPlugin<DepsType, LoggerType>);
+export default ((plugin: any): FusionPlugin<LogtronDepsType, LoggerType>);
