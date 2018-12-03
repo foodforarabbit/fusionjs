@@ -2,8 +2,6 @@ const modNormalizeTape = require('./codemods/normalize-tape/plugin.js');
 const modDeepLooseEqual = require('./codemods/deep-loose-equal/plugin.js');
 const modUpgradeEnzyme = require('./codemods/upgrade-enzyme/plugin.js');
 const modRemoveEnzymeAdapter = require('./codemods/remove-enzyme-adapter/plugin.js');
-const modMoveTestUtils = require('./codemods/move-test-utils/plugin.js');
-// const modServerSimulatorTests = require('./codemods/server-simulator-tests/plugin.js');
 const renameTestFiles = require('./commands/rename-test-files.js');
 const jestCodemods = require('./commands/jest-codemods.js');
 const codemodStep = require('./utils/codemod-step.js');
@@ -14,6 +12,7 @@ const modTestCleanup = require('./codemods/test-cleanup/plugin.js');
 const addDiffSteps = require('./utils/add-diff-steps.js');
 const lintFix = require('./utils/lint-fix.js');
 const removeEmptyTestFiles = require('./commands/remove-empty-test-files.js');
+const modFixTestImports = require('./codemods/fix-test-imports/plugin.js');
 
 module.exports = function getTestSteps(options) {
   return [
@@ -82,15 +81,6 @@ module.exports = function getTestSteps(options) {
         }),
     },
     {id: 'jest-codemods', step: () => jestCodemods(options)},
-    {
-      id: 'move-test-utils',
-      step: () =>
-        codemodStep({
-          ...options,
-          plugin: modMoveTestUtils,
-          filter: f => f.includes('src/test') && !f.includes('/util'),
-        }),
-    },
     {id: 'rename-test-files', step: () => renameTestFiles()},
     {
       id: 'test-cleanup',
@@ -98,9 +88,11 @@ module.exports = function getTestSteps(options) {
         codemodStep({
           ...options,
           plugin: modTestCleanup,
-          filter: f => f.includes('src/__tests__'),
+          filter: f =>
+            f.includes('src/__tests__') || f.includes('src/test-utils'),
         }),
     },
+    modFixTestImports,
     {
       id: 'remove-empty-test-files',
       step: () => removeEmptyTestFiles(options),

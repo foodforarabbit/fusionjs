@@ -97,7 +97,10 @@ async function migrate({destDir, steps, report, migrationPart}) {
   let stepIndex = 0;
   let currentStep = steps[stepIndex];
 
-  while (currentStep && (await runner.step(currentStep.step, currentStep.id))) {
+  while (
+    currentStep &&
+    (await runner.step(currentStep.step, currentStep.id || currentStep.name))
+  ) {
     stepIndex++;
     currentStep = steps[stepIndex];
   }
