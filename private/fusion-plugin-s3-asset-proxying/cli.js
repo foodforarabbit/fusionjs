@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// @flow
+// @noflow
 /* eslint-env node */
 
 process.on('unhandledRejection', err => {

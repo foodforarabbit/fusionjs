@@ -15,8 +15,8 @@ import AssetProxyingPlugin from '../server.js';
 const AWS = require('aws-sdk');
 
 // weird path because things are built to 'dist-test'
-// eslint-disable-next-line import/no-unresolved
-const upload = require('../upload.js');
+// $FlowFixMe hack due to cup limitation
+const upload = require('../upload.js'); // eslint-disable-line import/no-unresolved
 
 test('Server Client', t => {
   (async () => {

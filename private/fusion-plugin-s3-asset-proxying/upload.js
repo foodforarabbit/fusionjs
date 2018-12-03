@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 /* eslint-env node */
 const util = require('util');
 const fs = require('fs');
