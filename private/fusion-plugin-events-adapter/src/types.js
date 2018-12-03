@@ -1,6 +1,16 @@
 // @flow
 
 import type {I18nServiceType} from 'fusion-plugin-i18n';
+import type {Context} from 'fusion-core';
+
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
+import {I18nToken} from 'fusion-plugin-i18n';
+import {AuthHeadersToken} from '@uber/fusion-plugin-auth-headers';
+
+import {M3Token} from '@uber/fusion-plugin-m3';
+import {LoggerToken} from 'fusion-tokens';
+import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
 
 export interface EventEmitter {
   on(event: string, handler: (Object) => any): any;
@@ -30,6 +40,25 @@ export type GeolocationPlugin = {
     ctx: Object
   ) => {
     lookup: () => GeolocationData,
+  },
+};
+
+export type EventsAdapterDepsType = {
+  events: typeof UniversalEventsToken,
+  AnalyticsSession: typeof AnalyticsSessionToken,
+  AuthHeaders: typeof AuthHeadersToken.optional,
+  I18n: typeof I18nToken.optional,
+  m3: typeof M3Token,
+  heatpipe: typeof HeatpipeToken,
+  logger: typeof LoggerToken,
+};
+export type EventsAdapterType = {
+  logTiming: (string, Array<string>) => string => void,
+};
+
+export type EventsAdapterAnalyticsType = {
+  from: Context => {
+    pageview: any => void,
   },
 };
 

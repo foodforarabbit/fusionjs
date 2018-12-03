@@ -25,9 +25,11 @@ import AccessLog from './utils/access-log.js';
 import accessLogHandler from './handlers/access-log';
 import sanitizeRouteForM3 from './utils/sanitize-route-for-m3.js';
 
+import type {EventsAdapterDepsType, EventsAdapterType} from './types.js';
+
 const plugin =
   __NODE__ &&
-  createPlugin({
+  createPlugin<EventsAdapterDepsType, EventsAdapterType>({
     deps: {
       events: UniversalEventsToken,
       AnalyticsSession: AnalyticsSessionToken,

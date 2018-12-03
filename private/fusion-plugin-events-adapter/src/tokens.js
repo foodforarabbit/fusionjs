@@ -1,8 +1,11 @@
 // @flow
 /* eslint-env browser */
 import {createToken} from 'fusion-core';
+import type {EventsAdapterType, EventsAdapterAnalyticsType} from './types.js';
 
-const EventsAdapterToken = createToken('EventAdapterToken');
-const EventsAdapterAnalyticsToken = createToken('EventsAdapterAnalyticsToken');
+const EventsAdapterToken = createToken<EventsAdapterType>('EventAdapterToken');
+const EventsAdapterAnalyticsToken = createToken<EventsAdapterAnalyticsType>(
+  'EventsAdapterAnalyticsToken'
+);
 
 export {EventsAdapterToken, EventsAdapterAnalyticsToken};
