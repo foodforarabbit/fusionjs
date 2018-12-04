@@ -2,7 +2,7 @@ const fs = require('fs');
 const util = require('util');
 const {move} = require('fs-extra');
 const path = require('path');
-const {findFiles} = require('@dubstep/core');
+const {findFiles, withTextFile} = require('@dubstep/core');
 
 const {programOf} = require('../utils/index.js');
 
@@ -13,6 +13,7 @@ const readDir = util.promisify(fs.readdir);
 const rename = util.promisify(fs.rename);
 
 module.exports = async function() {
+  await unlink('dist-test/').catch(() => {});
   await move('src/test/node', 'src/__tests__/node').catch(() => {});
   await move('src/test/browser', 'src/__tests__/browser').catch(e => {});
   await move('src/test', 'src/test-utils').catch(e => {});
@@ -20,7 +21,19 @@ module.exports = async function() {
   await move('src/test-utils/e2e', 'src/test/e2e').catch(e => {});
   await renameFiles('src/__tests__/');
   await removeRedundantFiles();
+  await updateGulpfile();
 };
+
+function updateGulpfile() {
+  return withTextFile('gulpfile.js', contents => {
+    return `${contents}
+// disabling bedrock test build on watch
+gulp.task('watch:test-client', () => {});
+gulp.task('watch:test-server', () => {});
+gulp.task('watch:test-json', () => {}); 
+`;
+  });
+}
 
 async function moveNonTestFiles() {
   const files = await findFiles('src/__tests__/**/*.js');
