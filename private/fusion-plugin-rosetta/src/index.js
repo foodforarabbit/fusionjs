@@ -8,5 +8,5 @@ import browser from './browser.js';
 
 export default (((__NODE__ ? server : browser): any): typeof server);
 
-export const RosettaConfigToken = __NODE__ && ConfigToken;
-export const LocaleNegotiationToken = __NODE__ && LocaleNegotiation;
+export const RosettaConfigToken = ConfigToken;
+export const LocaleNegotiationToken = LocaleNegotiation;
