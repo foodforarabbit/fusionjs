@@ -12,5 +12,5 @@ export {TracerToken} from './tokens.js';
 
 export default (__NODE__ ? server : browser);
 
-export const TracerOptionsToken = __NODE__ && OptionsToken;
-export const TracerConfigToken = __NODE__ && ConfigToken;
+export const TracerOptionsToken = OptionsToken;
+export const TracerConfigToken = ConfigToken;
