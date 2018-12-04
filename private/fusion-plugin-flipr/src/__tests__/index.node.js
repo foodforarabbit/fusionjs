@@ -101,7 +101,6 @@ test('plugin - initialization', (t): void => {
 
       provides: ({flipr}): void => {
         t.equal(
-          // $FlowFixMe
           flipr.randomFunction(),
           999,
           'Flipr client functions proxied on the service'
@@ -118,6 +117,7 @@ test('service - initialization with client error', (t): void => {
     this.startUpdating = (cb): void => {
       cb(new Error('flipr client is unhappy'));
     };
+    return this;
   };
 
   t.throws(
@@ -127,7 +127,6 @@ test('service - initialization with client error', (t): void => {
         provides({
           config: {defaultNamespace: 'foo'},
           logger: createMockLogger(),
-          // $FlowFixMe
           Client: MockGrumpyFliprClient,
         });
       }

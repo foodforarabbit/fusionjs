@@ -4,7 +4,7 @@ import {createToken} from 'fusion-core';
 import type {Token} from 'fusion-core';
 import type {Logger} from 'fusion-tokens';
 
-import type {FliprPluginType} from './types.js';
+import type {FliprServiceType} from './types.js';
 
 type OverridesType = {[string]: mixed};
 export type FliprConfigType = {|
@@ -32,7 +32,7 @@ export type FliprClientType = (
   options: FliprClientOptionsType
 ) => {[string]: mixed};
 
-export const FliprToken: Token<FliprPluginType> = createToken('FliprToken');
+export const FliprToken: Token<FliprServiceType> = createToken('FliprToken');
 
 export const FliprClientToken: Token<FliprClientType> = createToken(
   'FliprClientToken'

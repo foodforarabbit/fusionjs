@@ -15,6 +15,6 @@ export type FliprDepsType = {
 export type FliprServiceType = {
   startUpdating?: (errCallback: (err: Error) => void) => void,
   destroy?: () => any,
-  [string]: string, // remaining properties from provided FliprClient
+  [string]: Function, // remaining methods from provided FliprClient
 };
 export type FliprPluginType = FusionPlugin<FliprDepsType, FliprServiceType>;
