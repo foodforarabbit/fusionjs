@@ -11,7 +11,7 @@ const {ProxyConfigToken} = require('./tokens.js');
 
 module.exports = (
   decide /*: any */
-) /*: FusionPlugin<{|config: Token<mixed>|}, (ctx: empty) => any> */ => {
+) /*: FusionPlugin<{|config: typeof ProxyConfigToken|}, (ctx: empty) => any> */ => {
   return createPlugin({
     deps: {config: ProxyConfigToken},
 

@@ -11,6 +11,7 @@ const registerM3Events = require('@uber/request-m3-events');
 const {createPlugin} = require('fusion-core');
 /*::
 import type {Context} from 'fusion-core';
+import type {ProxyCompatPluginType, TransformedProxyConfigType} from './types';
 */
 
 const path = require('path');
@@ -20,7 +21,7 @@ const {ProxyConfigToken} = require('./tokens');
 
 const appName = process.env.SVC_ID || 'unknown-service';
 
-module.exports = createPlugin({
+const plugin /*: ProxyCompatPluginType */ = createPlugin({
   deps: {
     config: ProxyConfigToken,
     logger: LoggerToken,
@@ -79,6 +80,8 @@ module.exports = createPlugin({
   },
 });
 
+module.exports = plugin;
+
 function getProxyUrl(proxyConfig, ctx /*: Context */) /*: string */ {
   const resultingUrl = url.resolve(
     proxyConfig.uri,
@@ -124,11 +127,14 @@ function getMatchFn(
   config
 ) /*: (
   ctx: Context
-) => {|proxyConfig: empty, regex: any|} | void */ {
+) => {|proxyConfig: TransformedProxyConfigType, regex: any|} | void */ {
   let matchers = [];
   Object.keys(config).forEach((key) /*: void */ => {
-    const proxyConfig = config[key];
-    proxyConfig.name = key;
+    const proxyConfig /*: TransformedProxyConfigType */ = {
+      ...config[key],
+      name: key,
+      m3Key: 'unknown',
+    };
     const routes = proxyConfig.routes;
     routes.forEach(({route, headers = {}, m3Key}) /*: void */ => {
       matchers.push({
@@ -141,9 +147,7 @@ function getMatchFn(
       });
     });
   });
-  return (
-    ctx /*: Context */
-  ) /*: {|proxyConfig: empty, regex: any|} | void */ => {
+  return ctx => {
     const match = matchers.find(({regex}) /*: any */ => {
       const tested = regex.test(ctx.path);
       return tested;

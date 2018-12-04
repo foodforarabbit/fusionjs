@@ -8,11 +8,11 @@
   dependencies:
     "@babel/highlight" "^7.0.0"
 
-"@babel/generator@^7.0.0", "@babel/generator@^7.1.3":
-  version "7.1.3"
-  resolved "https://unpm.uberinternal.com/@babel%2fgenerator/-/generator-7.1.3.tgz#2103ec9c42d9bdad9190a6ad5ff2d456fd7b8673"
+"@babel/generator@^7.0.0", "@babel/generator@^7.1.6":
+  version "7.2.0"
+  resolved "https://unpm.uberinternal.com/@babel%2fgenerator/-/generator-7.2.0.tgz#eaf3821fa0301d9d4aef88e63d4bcc19b73ba16c"
   dependencies:
-    "@babel/types" "^7.1.3"
+    "@babel/types" "^7.2.0"
     jsesc "^2.5.1"
     lodash "^4.17.10"
     source-map "^0.5.0"
@@ -46,9 +46,9 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.0.0", "@babel/parser@^7.1.2", "@babel/parser@^7.1.3":
-  version "7.1.3"
-  resolved "https://unpm.uberinternal.com/@babel%2fparser/-/parser-7.1.3.tgz#2c92469bac2b7fbff810b67fca07bd138b48af77"
+"@babel/parser@^7.0.0", "@babel/parser@^7.1.2", "@babel/parser@^7.1.6":
+  version "7.2.0"
+  resolved "https://unpm.uberinternal.com/@babel%2fparser/-/parser-7.2.0.tgz#02d01dbc330b6cbf36b76ac93c50752c69027065"
 
 "@babel/template@^7.0.0", "@babel/template@^7.1.0":
   version "7.1.2"
@@ -59,43 +59,43 @@
     "@babel/types" "^7.1.2"
 
 "@babel/traverse@^7.0.0":
-  version "7.1.4"
-  resolved "https://unpm.uberinternal.com/@babel%2ftraverse/-/traverse-7.1.4.tgz#f4f83b93d649b4b2c91121a9087fa2fa949ec2b4"
+  version "7.1.6"
+  resolved "https://unpm.uberinternal.com/@babel%2ftraverse/-/traverse-7.1.6.tgz#c8db9963ab4ce5b894222435482bd8ea854b7b5c"
   dependencies:
     "@babel/code-frame" "^7.0.0"
-    "@babel/generator" "^7.1.3"
+    "@babel/generator" "^7.1.6"
     "@babel/helper-function-name" "^7.1.0"
     "@babel/helper-split-export-declaration" "^7.0.0"
-    "@babel/parser" "^7.1.3"
-    "@babel/types" "^7.1.3"
-    debug "^3.1.0"
+    "@babel/parser" "^7.1.6"
+    "@babel/types" "^7.1.6"
+    debug "^4.1.0"
     globals "^11.1.0"
     lodash "^4.17.10"
 
-"@babel/types@^7.0.0", "@babel/types@^7.1.2", "@babel/types@^7.1.3":
-  version "7.1.3"
-  resolved "https://unpm.uberinternal.com/@babel%2ftypes/-/types-7.1.3.tgz#3a767004567060c2f40fca49a304712c525ee37d"
+"@babel/types@^7.0.0", "@babel/types@^7.1.2", "@babel/types@^7.1.6", "@babel/types@^7.2.0":
+  version "7.2.0"
+  resolved "https://unpm.uberinternal.com/@babel%2ftypes/-/types-7.2.0.tgz#7941c5b2d8060e06f9601d6be7c223eef906d5d8"
   dependencies:
     esutils "^2.0.2"
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@uber/fusion-plugin-galileo@^1.0.4-0":
-  version "1.0.4-0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-galileo/-/private/%40uber%2Ffusion-plugin-galileo-1.0.4-0.tgz#923520f872c6f2b373abcef00b2835a4c714ff18"
+"@uber/fusion-plugin-galileo@^1.0.4":
+  version "1.0.4"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-galileo/-/private/%40uber%2Ffusion-plugin-galileo-1.0.4.tgz#a1ff9312ff8de0ce282068dfa96f9ceadb77e577"
   dependencies:
     "@uber/jaeger-client-adapter" "^3.4.0"
     "@uber/unpm-galileo" "^1.3.0"
 
-"@uber/fusion-plugin-m3@^1.1.4":
-  version "1.1.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.4.tgz#2ad2d95b85edda3240026c57a662dc345e3318e8"
+"@uber/fusion-plugin-m3@^1.1.6":
+  version "1.1.6"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.6.tgz#dce20b9fe2d496cad18ca0efd3bde676b67932a6"
   dependencies:
-    "@uber/node-m3-client-addon" "^1.4.3"
+    "@uber/node-m3-client-addon" "^1.4.4"
 
-"@uber/fusion-plugin-tracer@^1.0.4":
-  version "1.0.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-tracer/-/private/%40uber%2Ffusion-plugin-tracer-1.0.4.tgz#eb3312683731cfac4c64c3fb9f449d76b8ed1c56"
+"@uber/fusion-plugin-tracer@^1.0.5":
+  version "1.0.5"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-tracer/-/private/%40uber%2Ffusion-plugin-tracer-1.0.5.tgz#ab6fa5fe2c405bfa93ea716d2c91a55a81b0266e"
   dependencies:
     "@uber/jaeger-client-adapter" "^3.4.0"
 
@@ -110,9 +110,9 @@
   version "0.13.1"
   resolved "https://unpm.uberinternal.com/%40uber%2Flibwonka/-/private/%40uber%2Flibwonka-0.13.1.tgz#79aa5cb0868827f52b9854ce0e97c26d85c466bb"
 
-"@uber/node-m3-client-addon@^1.4.3":
-  version "1.4.3"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-m3-client-addon/-/private/%40uber%2Fnode-m3-client-addon-1.4.3.tgz#6f9cf33695ee74d98707f0a028335062586f643d"
+"@uber/node-m3-client-addon@^1.4.4":
+  version "1.4.4"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-m3-client-addon/-/private/%40uber%2Fnode-m3-client-addon-1.4.4.tgz#6352f9693072e9e0da9f89ce1906d82ebdf5c5f6"
   dependencies:
     nan "^2.2.0"
     xtend "^4.0.1"
@@ -138,7 +138,7 @@
     ref "^1.3.4"
     ref-struct "^1.1.0"
 
-accepts@^1.2.2, accepts@^1.3.3, accepts@^1.3.5:
+accepts@^1.3.5:
   version "1.3.5"
   resolved "https://unpm.uberinternal.com/accepts/-/accepts-1.3.5.tgz#eb777df6011723a3b14e8a72c0805c8e86746bd2"
   dependencies:
@@ -146,25 +146,16 @@ accepts@^1.2.2, accepts@^1.3.3, accepts@^1.3.5:
     negotiator "0.6.1"
 
 acorn-jsx@^5.0.0:
-  version "5.0.0"
-  resolved "https://unpm.uberinternal.com/acorn-jsx/-/acorn-jsx-5.0.0.tgz#958584ddb60990c02c97c1bd9d521fce433bb101"
+  version "5.0.1"
+  resolved "https://unpm.uberinternal.com/acorn-jsx/-/acorn-jsx-5.0.1.tgz#32a064fd925429216a09b141102bfdd185fae40e"
 
 acorn@^6.0.2:
-  version "6.0.2"
-  resolved "https://unpm.uberinternal.com/acorn/-/acorn-6.0.2.tgz#6a459041c320ab17592c6317abbfdf4bbaa98ca4"
+  version "6.0.4"
+  resolved "https://unpm.uberinternal.com/acorn/-/acorn-6.0.4.tgz#77377e7353b72ec5104550aa2d2097a2fd40b754"
 
-ajv@^5.3.0:
-  version "5.5.2"
-  resolved "https://unpm.uberinternal.com/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
-  dependencies:
-    co "^4.6.0"
-    fast-deep-equal "^1.0.0"
-    fast-json-stable-stringify "^2.0.0"
-    json-schema-traverse "^0.3.0"
-
-ajv@^6.5.3:
-  version "6.5.4"
-  resolved "https://unpm.uberinternal.com/ajv/-/ajv-6.5.4.tgz#247d5274110db653706b550fcc2b797ca28cfc59"
+ajv@^6.5.3, ajv@^6.5.5, ajv@^6.6.1:
+  version "6.6.1"
+  resolved "https://unpm.uberinternal.com/ajv/-/ajv-6.6.1.tgz#6360f5ed0d80f232cc2b294c362d5dc2e538dd61"
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
@@ -187,7 +178,11 @@ ansi-regex@^3.0.0:
   version "3.0.0"
   resolved "https://unpm.uberinternal.com/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
 
-ansi-styles@^3.2.1:
+ansi-regex@^4.0.0:
+  version "4.0.0"
+  resolved "https://unpm.uberinternal.com/ansi-regex/-/ansi-regex-4.0.0.tgz#70de791edf021404c3fd615aa89118ae0432e5a9"
+
+ansi-styles@^3.2.0, ansi-styles@^3.2.1:
   version "3.2.1"
   resolved "https://unpm.uberinternal.com/ansi-styles/-/ansi-styles-3.2.1.tgz#41fbb20243e50b12be0f04b8dedbf07520ce841d"
   dependencies:
@@ -220,23 +215,15 @@ array-includes@^3.0.3:
     define-properties "^1.1.2"
     es-abstract "^1.7.0"
 
-array-union@^1.0.1:
-  version "1.0.2"
-  resolved "https://unpm.uberinternal.com/array-union/-/array-union-1.0.2.tgz#9a34410e4f4e3da23dea375be5be70f24778ec39"
-  dependencies:
-    array-uniq "^1.0.1"
-
-array-uniq@^1.0.1:
-  version "1.0.3"
-  resolved "https://unpm.uberinternal.com/array-uniq/-/array-uniq-1.0.3.tgz#af6ac877a25cc7f74e058894753858dfdb24fdb6"
-
-arrify@^1.0.0, arrify@^1.0.1:
+arrify@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
 asn1@~0.2.3:
-  version "0.2.3"
-  resolved "https://unpm.uberinternal.com/asn1/-/asn1-0.2.3.tgz#dac8787713c9966849fc8180777ebe9c1ddf3b86"
+  version "0.2.4"
+  resolved "https://unpm.uberinternal.com/asn1/-/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
+  dependencies:
+    safer-buffer "~2.1.0"
 
 assert-plus@1.0.0, assert-plus@^1.0.0:
   version "1.0.0"
@@ -247,6 +234,10 @@ assert@^1.4.1:
   resolved "https://unpm.uberinternal.com/assert/-/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"
   dependencies:
     util "0.10.3"
+
+astral-regex@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/astral-regex/-/astral-regex-1.0.0.tgz#6c8c3fb827dd43ee3918f27b82782ab7658a6fd9"
 
 async@^2.5.0:
   version "2.6.1"
@@ -282,22 +273,22 @@ balanced-match@^1.0.0:
   resolved "https://unpm.uberinternal.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
 bcrypt-pbkdf@^1.0.0:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
+  version "1.0.2"
+  resolved "https://unpm.uberinternal.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.2.tgz#a4301d389b6a43f9b67ff3ca11a3f6637e360e9e"
   dependencies:
     tweetnacl "^0.14.3"
 
 bindings@1:
-  version "1.3.0"
-  resolved "https://unpm.uberinternal.com/bindings/-/bindings-1.3.0.tgz#b346f6ecf6a95f5a815c5839fc7cdb22502f1ed7"
+  version "1.3.1"
+  resolved "https://unpm.uberinternal.com/bindings/-/bindings-1.3.1.tgz#21fc7c6d67c18516ec5aaa2815b145ff77b26ea5"
 
 bindings@~1.2.0, bindings@~1.2.1:
   version "1.2.1"
   resolved "https://unpm.uberinternal.com/bindings/-/bindings-1.2.1.tgz#14ad6113812d2d37d72e67b4cacb4bb726505f11"
 
 bluebird@^3.5.0:
-  version "3.5.1"
-  resolved "https://unpm.uberinternal.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
+  version "3.5.3"
+  resolved "https://unpm.uberinternal.com/bluebird/-/bluebird-3.5.3.tgz#7d01c6f9616c9a51ab0f8c549a79dfe6ec33efa7"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -357,8 +348,8 @@ caseless@~0.12.0:
   resolved "https://unpm.uberinternal.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
 chalk@^2.0.0, chalk@^2.1.0:
-  version "2.3.2"
-  resolved "https://unpm.uberinternal.com/chalk/-/chalk-2.3.2.tgz#250dc96b07491bfd601e648d66ddf5f60c7a5c65"
+  version "2.4.1"
+  resolved "https://unpm.uberinternal.com/chalk/-/chalk-2.4.1.tgz#18c49ab16a037b6eb0152cc83e3471338215b66e"
   dependencies:
     ansi-styles "^3.2.1"
     escape-string-regexp "^1.0.5"
@@ -383,8 +374,8 @@ cli-width@^2.0.0:
   resolved "https://unpm.uberinternal.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
 cliui@^4.0.0:
-  version "4.0.0"
-  resolved "https://unpm.uberinternal.com/cliui/-/cliui-4.0.0.tgz#743d4650e05f36d1ed2575b59638d87322bfbbcc"
+  version "4.1.0"
+  resolved "https://unpm.uberinternal.com/cliui/-/cliui-4.1.0.tgz#348422dbe82d800b3022eef4f6ac10bf2e4d1b49"
   dependencies:
     string-width "^2.1.1"
     strip-ansi "^4.0.0"
@@ -408,12 +399,12 @@ code-point-at@^1.0.0:
   resolved "https://unpm.uberinternal.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
 color-convert@^1.9.0:
-  version "1.9.1"
-  resolved "https://unpm.uberinternal.com/color-convert/-/color-convert-1.9.1.tgz#c1261107aeb2f294ebffec9ed9ecad529a6097ed"
+  version "1.9.3"
+  resolved "https://unpm.uberinternal.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
   dependencies:
-    color-name "^1.1.1"
+    color-name "1.1.3"
 
-color-name@^1.1.1:
+color-name@1.1.3:
   version "1.1.3"
   resolved "https://unpm.uberinternal.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
@@ -439,11 +430,11 @@ contains-path@^0.1.0:
   version "0.1.0"
   resolved "https://unpm.uberinternal.com/contains-path/-/contains-path-0.1.0.tgz#fe8cf184ff6670b6baef01a9d4861a5cbec4120a"
 
-content-disposition@~0.5.0, content-disposition@~0.5.2:
+content-disposition@~0.5.2:
   version "0.5.2"
   resolved "https://unpm.uberinternal.com/content-disposition/-/content-disposition-0.5.2.tgz#0cf68bb9ddf5f2be7961c3a85178cb85dba78cb4"
 
-content-type@^1.0.0, content-type@^1.0.4:
+content-type@^1.0.4:
   version "1.0.4"
   resolved "https://unpm.uberinternal.com/content-type/-/content-type-1.0.4.tgz#e138cc75e040c727b1966fe5e5f8c9aee256fe3b"
 
@@ -453,19 +444,12 @@ convert-source-map@^1.6.0:
   dependencies:
     safe-buffer "~5.1.1"
 
-cookies@~0.7.0:
-  version "0.7.1"
-  resolved "https://unpm.uberinternal.com/cookies/-/cookies-0.7.1.tgz#7c8a615f5481c61ab9f16c833731bcb8f663b99b"
-  dependencies:
-    depd "~1.1.1"
-    keygrip "~1.0.2"
-
 cookies@~0.7.1:
-  version "0.7.2"
-  resolved "https://unpm.uberinternal.com/cookies/-/cookies-0.7.2.tgz#52736976126658af7713d7f858f7d21f99dab486"
+  version "0.7.3"
+  resolved "https://unpm.uberinternal.com/cookies/-/cookies-0.7.3.tgz#7912ce21fbf2e8c2da70cf1c3f351aecf59dadfa"
   dependencies:
     depd "~1.1.2"
-    keygrip "~1.0.2"
+    keygrip "~1.0.3"
 
 copy-to@^2.0.1:
   version "2.0.1"
@@ -514,23 +498,29 @@ debug-log@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/debug-log/-/debug-log-1.0.1.tgz#2307632d4c04382b8df8a32f70b895046d52745f"
 
-debug@*, debug@^3.1.0, debug@~3.1.0:
-  version "3.1.0"
-  resolved "https://unpm.uberinternal.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
-  dependencies:
-    ms "2.0.0"
-
 debug@2, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "https://unpm.uberinternal.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   dependencies:
     ms "2.0.0"
 
-debug@^4.0.1:
+debug@^3.1.0:
+  version "3.2.6"
+  resolved "https://unpm.uberinternal.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
+  dependencies:
+    ms "^2.1.1"
+
+debug@^4.0.1, debug@^4.1.0:
   version "4.1.0"
   resolved "https://unpm.uberinternal.com/debug/-/debug-4.1.0.tgz#373687bffa678b38b1cd91f861b63850035ddc87"
   dependencies:
     ms "^2.1.1"
+
+debug@~3.1.0:
+  version "3.1.0"
+  resolved "https://unpm.uberinternal.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  dependencies:
+    ms "2.0.0"
 
 decamelize@^1.1.1:
   version "1.2.0"
@@ -551,27 +541,14 @@ default-require-extensions@^2.0.0:
     strip-bom "^3.0.0"
 
 define-properties@^1.1.2:
-  version "1.1.2"
-  resolved "https://unpm.uberinternal.com/define-properties/-/define-properties-1.1.2.tgz#83a73f2fea569898fb737193c8f873caf6d45c94"
+  version "1.1.3"
+  resolved "https://unpm.uberinternal.com/define-properties/-/define-properties-1.1.3.tgz#cf88da6cbee26fe6db7094f61d870cbd84cee9f1"
   dependencies:
-    foreach "^2.0.5"
-    object-keys "^1.0.8"
+    object-keys "^1.0.12"
 
 defined@~1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
-
-del@^2.0.2:
-  version "2.2.2"
-  resolved "https://unpm.uberinternal.com/del/-/del-2.2.2.tgz#c12c981d067846c84bcaf862cff930d907ffd1a8"
-  dependencies:
-    globby "^5.0.0"
-    is-path-cwd "^1.0.0"
-    is-path-in-cwd "^1.0.0"
-    object-assign "^4.0.1"
-    pify "^2.0.0"
-    pinkie-promise "^2.0.0"
-    rimraf "^2.2.8"
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -581,15 +558,11 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
 
-depd@1.1.1:
-  version "1.1.1"
-  resolved "https://unpm.uberinternal.com/depd/-/depd-1.1.1.tgz#5783b4e1c459f06fa5ca27f991f3d06e7a310359"
-
-depd@^1.1.0, depd@^1.1.2, depd@~1.1.1, depd@~1.1.2:
+depd@^1.1.0, depd@^1.1.2, depd@~1.1.2:
   version "1.1.2"
   resolved "https://unpm.uberinternal.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
 
-destroy@^1.0.3, destroy@^1.0.4:
+destroy@^1.0.4:
   version "1.0.4"
   resolved "https://unpm.uberinternal.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
@@ -607,28 +580,23 @@ doctrine@^2.1.0:
     esutils "^2.0.2"
 
 ecc-jsbn@~0.1.1:
-  version "0.1.1"
-  resolved "https://unpm.uberinternal.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
+  version "0.1.2"
+  resolved "https://unpm.uberinternal.com/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz#3a83a904e54353287874c564b7549386849a98c9"
   dependencies:
     jsbn "~0.1.0"
+    safer-buffer "^2.1.0"
 
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://unpm.uberinternal.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
-error-ex@^1.2.0:
-  version "1.3.1"
-  resolved "https://unpm.uberinternal.com/error-ex/-/error-ex-1.3.1.tgz#f855a86ce61adc4e8621c3cda21e7a7612c3a8dc"
-  dependencies:
-    is-arrayish "^0.2.1"
-
-error-ex@^1.3.1:
+error-ex@^1.2.0, error-ex@^1.3.1:
   version "1.3.2"
   resolved "https://unpm.uberinternal.com/error-ex/-/error-ex-1.3.2.tgz#b4ac40648107fdcdcfae242f428bea8a14d4f1bf"
   dependencies:
     is-arrayish "^0.2.1"
 
-error-inject@^1.0.0, error-inject@~1.0.0:
+error-inject@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/error-inject/-/error-inject-1.0.0.tgz#e2b3d91b54aed672f309d950d154850fa11d4f37"
 
@@ -640,8 +608,8 @@ error@7.0.2, error@^7.0.0, error@^7.0.1:
     xtend "~4.0.0"
 
 es-abstract@^1.5.0, es-abstract@^1.7.0:
-  version "1.11.0"
-  resolved "https://unpm.uberinternal.com/es-abstract/-/es-abstract-1.11.0.tgz#cce87d518f0496893b1a30cd8461835535480681"
+  version "1.12.0"
+  resolved "https://unpm.uberinternal.com/es-abstract/-/es-abstract-1.12.0.tgz#9dbbdd27c6856f0001421ca18782d786bf8a6165"
   dependencies:
     es-to-primitive "^1.1.1"
     function-bind "^1.1.1"
@@ -650,12 +618,12 @@ es-abstract@^1.5.0, es-abstract@^1.7.0:
     is-regex "^1.0.4"
 
 es-to-primitive@^1.1.1:
-  version "1.1.1"
-  resolved "https://unpm.uberinternal.com/es-to-primitive/-/es-to-primitive-1.1.1.tgz#45355248a88979034b6792e19bb81f2b7975dd0d"
+  version "1.2.0"
+  resolved "https://unpm.uberinternal.com/es-to-primitive/-/es-to-primitive-1.2.0.tgz#edf72478033456e8dda8ef09e00ad9650707f377"
   dependencies:
-    is-callable "^1.1.1"
+    is-callable "^1.1.4"
     is-date-object "^1.0.1"
-    is-symbol "^1.0.1"
+    is-symbol "^1.0.2"
 
 es6-error@^4.0.1:
   version "4.1.1"
@@ -665,7 +633,7 @@ es6-promise@^3.0.2:
   version "3.3.1"
   resolved "https://unpm.uberinternal.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
 
-escape-html@^1.0.3, escape-html@~1.0.1:
+escape-html@^1.0.3:
   version "1.0.3"
   resolved "https://unpm.uberinternal.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
 
@@ -684,8 +652,8 @@ eslint-config-fusion@^4.0.0:
     eslint-config-uber-universal-stage-3 "^2.0.0"
 
 eslint-config-prettier@^2.0.0:
-  version "2.9.0"
-  resolved "https://unpm.uberinternal.com/eslint-config-prettier/-/eslint-config-prettier-2.9.0.tgz#5ecd65174d486c22dff389fe036febf502d468a3"
+  version "2.10.0"
+  resolved "https://unpm.uberinternal.com/eslint-config-prettier/-/eslint-config-prettier-2.10.0.tgz#ec07bc1d01f87d09f61d3840d112dc8a9791e30b"
   dependencies:
     get-stdin "^5.0.1"
 
@@ -728,9 +696,9 @@ eslint-plugin-cup@^2.0.0:
   dependencies:
     globals "^11.5.0"
 
-eslint-plugin-flowtype@^3.1.1:
-  version "3.1.1"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.1.1.tgz#1b96559b8015c06e6b7a3c5ba9c73d8e652e69d8"
+eslint-plugin-flowtype@^3.2.0:
+  version "3.2.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.2.0.tgz#824364ed5940a404b91326fdb5a313a2a74760df"
   dependencies:
     lodash "^4.17.10"
 
@@ -749,9 +717,9 @@ eslint-plugin-import@^2.14.0:
     read-pkg-up "^2.0.0"
     resolve "^1.6.0"
 
-eslint-plugin-jest@^21.26.2:
-  version "21.26.2"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-21.26.2.tgz#5b24413970e83e2c5b87c5c047a08a4881783605"
+eslint-plugin-jest@^22.1.0:
+  version "22.1.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.1.0.tgz#9a4dfa3367563e8301560a7fb92ec309096dbca3"
 
 eslint-plugin-prettier@^3.0.0:
   version "3.0.0"
@@ -791,9 +759,9 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^5.8.0:
-  version "5.8.0"
-  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.8.0.tgz#91fbf24f6e0471e8fdf681a4d9dd1b2c9f28309b"
+eslint@^5.9.0:
+  version "5.9.0"
+  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.9.0.tgz#b234b6d15ef84b5849c6de2af43195a2d59d408e"
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.5.3"
@@ -843,8 +811,8 @@ espree@^4.0.0:
     eslint-visitor-keys "^1.0.0"
 
 esprima@^4.0.0:
-  version "4.0.0"
-  resolved "https://unpm.uberinternal.com/esprima/-/esprima-4.0.0.tgz#4499eddcd1110e0b218bacf2fa7f7f59f55ca804"
+  version "4.0.1"
+  resolved "https://unpm.uberinternal.com/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
 
 esquery@^1.0.1:
   version "1.0.1"
@@ -865,6 +833,10 @@ estraverse@^4.0.0, estraverse@^4.1.0, estraverse@^4.1.1:
 esutils@^2.0.2:
   version "2.0.2"
   resolved "https://unpm.uberinternal.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
+
+events@^2.0.0:
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/events/-/events-2.1.0.tgz#2a9a1e18e6106e0e812aa9ebd4a819b3c29c0ba5"
 
 execa@^0.7.0:
   version "0.7.0"
@@ -903,10 +875,6 @@ farmhash@1.1.0:
   resolved "https://unpm.uberinternal.com/farmhash/-/farmhash-1.1.0.tgz#f1079bfb824e960d304ad85e8dfc5afb3740ed92"
   dependencies:
     nan "^2.0.5"
-
-fast-deep-equal@^1.0.0:
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
 
 fast-deep-equal@^2.0.1:
   version "2.0.1"
@@ -975,27 +943,23 @@ find-up@^3.0.0:
     locate-path "^3.0.0"
 
 flat-cache@^1.2.1:
-  version "1.3.0"
-  resolved "https://unpm.uberinternal.com/flat-cache/-/flat-cache-1.3.0.tgz#d3030b32b38154f4e3b7e9c709f490f7ef97c481"
+  version "1.3.4"
+  resolved "https://unpm.uberinternal.com/flat-cache/-/flat-cache-1.3.4.tgz#2c2ef77525cc2929007dfffa1dd314aa9c9dee6f"
   dependencies:
     circular-json "^0.3.1"
-    del "^2.0.2"
     graceful-fs "^4.1.2"
+    rimraf "~2.6.2"
     write "^0.2.1"
 
-flow-bin@^0.84.0:
-  version "0.84.0"
-  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.84.0.tgz#4cb2364c750fb37a7840524fa62456b53f64cdcb"
+flow-bin@^0.87.0:
+  version "0.87.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.87.0.tgz#fab7f984d8cc767e93fa9eb01cf7d57ed744f19d"
 
-for-each@~0.3.2:
-  version "0.3.2"
-  resolved "https://unpm.uberinternal.com/for-each/-/for-each-0.3.2.tgz#2c40450b9348e97f281322593ba96704b9abd4d4"
+for-each@~0.3.3:
+  version "0.3.3"
+  resolved "https://unpm.uberinternal.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
   dependencies:
-    is-function "~1.0.0"
-
-foreach@^2.0.5:
-  version "2.0.5"
-  resolved "https://unpm.uberinternal.com/foreach/-/foreach-2.0.5.tgz#0bee005018aeb260d0a3af3ae658dd0136ec1b99"
+    is-callable "^1.1.3"
 
 foreground-child@^1.5.6:
   version "1.5.6"
@@ -1032,38 +996,38 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
-fusion-core@^1.8.0:
-  version "1.8.0"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.8.0.tgz#286e8e2e2ebd253115cae97a70e5812e73f24901"
+fusion-core@^1.10.0:
+  version "1.10.0"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.10.0.tgz#4c568671f622d47be0483c9a9d2ae5ed509ef570"
   dependencies:
-    koa "^2.5.3"
+    koa "^2.6.1"
     koa-compose "^4.1.0"
-    node-mocks-http "^1.7.2"
-    toposort "^2.0.1"
-    ua-parser-js "^0.7.18"
+    node-mocks-http "^1.7.3"
+    toposort "^2.0.2"
+    ua-parser-js "^0.7.19"
     uuid "^3.3.2"
 
-fusion-plugin-universal-events@^1.2.0:
-  version "1.2.0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.2.0.tgz#8636c4bf97c68efa0b5c7808ebfa459214a5a55d"
+fusion-plugin-universal-events@^1.3.0:
+  version "1.3.0"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.3.0.tgz#461e20bff7f273ffcfe3bcf9c280191ab3e3a3c8"
   dependencies:
     koa-bodyparser "4.2.1"
 
-fusion-test-utils@^1.2.3:
-  version "1.2.3"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.2.3.tgz#b48fe0adc7896163bf9d05c6bf51d3e6cfd4e8aa"
+fusion-test-utils@^1.3.0:
+  version "1.3.0"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.3.0.tgz#36ae6a3cac6cfbe34b85003cb79e11b3ea442483"
   dependencies:
     assert "^1.4.1"
-    koa "^2.4.1"
+    koa "^2.6.2"
     node-mocks-http "^1.6.6"
 
-fusion-tokens@^1.1.0:
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.0.tgz#d4d3147be4a3bdb1ebc4c59196e927f60fe73097"
+fusion-tokens@^1.1.1:
+  version "1.1.1"
+  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.1.tgz#5b29b7d8397d186ed3d459c4e7bbd2de3f3303b6"
 
 get-caller-file@^1.0.1:
-  version "1.0.2"
-  resolved "https://unpm.uberinternal.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
 
 get-port@^4.0.0:
   version "4.0.0"
@@ -1083,18 +1047,7 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-glob@^7.0.3, glob@^7.0.5, glob@^7.1.2, glob@~7.1.2:
-  version "7.1.2"
-  resolved "https://unpm.uberinternal.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
-  dependencies:
-    fs.realpath "^1.0.0"
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "^3.0.4"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
-
-glob@^7.1.3:
+glob@^7.0.5, glob@^7.1.2, glob@^7.1.3, glob@~7.1.2:
   version "7.1.3"
   resolved "https://unpm.uberinternal.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
   dependencies:
@@ -1105,28 +1058,13 @@ glob@^7.1.3:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-globals@^11.1.0:
-  version "11.4.0"
-  resolved "https://unpm.uberinternal.com/globals/-/globals-11.4.0.tgz#b85c793349561c16076a3c13549238a27945f1bc"
-
-globals@^11.5.0, globals@^11.7.0:
-  version "11.8.0"
-  resolved "https://unpm.uberinternal.com/globals/-/globals-11.8.0.tgz#c1ef45ee9bed6badf0663c5cb90e8d1adec1321d"
-
-globby@^5.0.0:
-  version "5.0.0"
-  resolved "https://unpm.uberinternal.com/globby/-/globby-5.0.0.tgz#ebd84667ca0dbb330b99bcfc68eac2bc54370e0d"
-  dependencies:
-    array-union "^1.0.1"
-    arrify "^1.0.0"
-    glob "^7.0.3"
-    object-assign "^4.0.1"
-    pify "^2.0.0"
-    pinkie-promise "^2.0.0"
+globals@^11.1.0, globals@^11.5.0, globals@^11.7.0:
+  version "11.9.0"
+  resolved "https://unpm.uberinternal.com/globals/-/globals-11.9.0.tgz#bde236808e987f290768a93d065060d78e6ab249"
 
 graceful-fs@^4.1.11, graceful-fs@^4.1.2:
-  version "4.1.11"
-  resolved "https://unpm.uberinternal.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
+  version "4.1.15"
+  resolved "https://unpm.uberinternal.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
 
 handlebars@^4.0.11:
   version "4.0.12"
@@ -1143,38 +1081,29 @@ har-schema@^2.0.0:
   resolved "https://unpm.uberinternal.com/har-schema/-/har-schema-2.0.0.tgz#a94c2224ebcac04782a0d9035521f24735b7ec92"
 
 har-validator@~5.1.0:
-  version "5.1.0"
-  resolved "https://unpm.uberinternal.com/har-validator/-/har-validator-5.1.0.tgz#44657f5688a22cfd4b72486e81b3a3fb11742c29"
+  version "5.1.3"
+  resolved "https://unpm.uberinternal.com/har-validator/-/har-validator-5.1.3.tgz#1ef89ebd3e4996557675eed9893110dc350fa080"
   dependencies:
-    ajv "^5.3.0"
+    ajv "^6.5.5"
     har-schema "^2.0.0"
 
 has-flag@^3.0.0:
   version "3.0.0"
   resolved "https://unpm.uberinternal.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
 
-has@^1.0.1, has@~1.0.1:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/has/-/has-1.0.1.tgz#8461733f538b0837c9361e39a9ab9e9704dc2f28"
-  dependencies:
-    function-bind "^1.0.2"
+has-symbols@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/has-symbols/-/has-symbols-1.0.0.tgz#ba1a8f1af2a0fc39650f5c850367704122063b44"
 
-has@^1.0.3:
+has@^1.0.1, has@^1.0.3, has@~1.0.3:
   version "1.0.3"
   resolved "https://unpm.uberinternal.com/has/-/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
   dependencies:
     function-bind "^1.1.1"
 
 hosted-git-info@^2.1.4:
-  version "2.6.0"
-  resolved "https://unpm.uberinternal.com/hosted-git-info/-/hosted-git-info-2.6.0.tgz#23235b29ab230c576aab0d4f13fc046b0b038222"
-
-http-assert@^1.1.0:
-  version "1.3.0"
-  resolved "https://unpm.uberinternal.com/http-assert/-/http-assert-1.3.0.tgz#a31a5cf88c873ecbb5796907d4d6f132e8c01e4a"
-  dependencies:
-    deep-equal "~1.0.1"
-    http-errors "~1.6.1"
+  version "2.7.1"
+  resolved "https://unpm.uberinternal.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
 
 http-assert@^1.3.0:
   version "1.4.0"
@@ -1183,16 +1112,7 @@ http-assert@^1.3.0:
     deep-equal "~1.0.1"
     http-errors "~1.7.1"
 
-http-errors@1.6.2:
-  version "1.6.2"
-  resolved "https://unpm.uberinternal.com/http-errors/-/http-errors-1.6.2.tgz#0a002cc85707192a7e7946ceedc11155f60ec736"
-  dependencies:
-    depd "1.1.1"
-    inherits "2.0.3"
-    setprototypeof "1.0.3"
-    statuses ">= 1.3.1 < 2"
-
-http-errors@1.6.3, http-errors@^1.2.8, http-errors@~1.6.1:
+http-errors@1.6.3:
   version "1.6.3"
   resolved "https://unpm.uberinternal.com/http-errors/-/http-errors-1.6.3.tgz#8b55680bb4be283a0b5bf4ea2e38580be1d9320d"
   dependencies:
@@ -1218,10 +1138,6 @@ http-signature@~1.2.0:
     assert-plus "^1.0.0"
     jsprim "^1.2.2"
     sshpk "^1.7.0"
-
-iconv-lite@0.4.19:
-  version "0.4.19"
-  resolved "https://unpm.uberinternal.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 iconv-lite@0.4.23:
   version "0.4.23"
@@ -1267,8 +1183,8 @@ inherits@2.0.1:
   resolved "https://unpm.uberinternal.com/inherits/-/inherits-2.0.1.tgz#b17d08d326b4423e568eff719f91b0b1cbdf69f1"
 
 inquirer@^6.1.0:
-  version "6.2.0"
-  resolved "https://unpm.uberinternal.com/inquirer/-/inquirer-6.2.0.tgz#51adcd776f661369dc1e894859c2560a224abdd8"
+  version "6.2.1"
+  resolved "https://unpm.uberinternal.com/inquirer/-/inquirer-6.2.1.tgz#9943fc4882161bdb0b0c9276769c75b32dbfcd52"
   dependencies:
     ansi-escapes "^3.0.0"
     chalk "^2.0.0"
@@ -1281,7 +1197,7 @@ inquirer@^6.1.0:
     run-async "^2.2.0"
     rxjs "^6.1.0"
     string-width "^2.1.0"
-    strip-ansi "^4.0.0"
+    strip-ansi "^5.0.0"
     through "^2.3.6"
 
 invert-kv@^1.0.0:
@@ -1298,9 +1214,9 @@ is-builtin-module@^1.0.0:
   dependencies:
     builtin-modules "^1.0.0"
 
-is-callable@^1.1.1, is-callable@^1.1.3:
-  version "1.1.3"
-  resolved "https://unpm.uberinternal.com/is-callable/-/is-callable-1.1.3.tgz#86eb75392805ddc33af71c92a0eedf74ee7604b2"
+is-callable@^1.1.3, is-callable@^1.1.4:
+  version "1.1.4"
+  resolved "https://unpm.uberinternal.com/is-callable/-/is-callable-1.1.4.tgz#1e1adf219e1eeb684d691f9d6a05ff0d30a24d75"
 
 is-date-object@^1.0.1:
   version "1.0.1"
@@ -1316,29 +1232,9 @@ is-fullwidth-code-point@^2.0.0:
   version "2.0.0"
   resolved "https://unpm.uberinternal.com/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz#a3b30a5c4f199183167aaab93beefae3ddfb654f"
 
-is-function@~1.0.0:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/is-function/-/is-function-1.0.1.tgz#12cfb98b65b57dd3d193a3121f5f6e2f437602b5"
-
-is-generator-function@^1.0.3, is-generator-function@^1.0.7:
+is-generator-function@^1.0.7:
   version "1.0.7"
   resolved "https://unpm.uberinternal.com/is-generator-function/-/is-generator-function-1.0.7.tgz#d2132e529bb0000a7f80794d4bdf5cd5e5813522"
-
-is-path-cwd@^1.0.0:
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/is-path-cwd/-/is-path-cwd-1.0.0.tgz#d225ec23132e89edd38fda767472e62e65f1106d"
-
-is-path-in-cwd@^1.0.0:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/is-path-in-cwd/-/is-path-in-cwd-1.0.1.tgz#5ac48b345ef675339bd6c7a48a912110b241cf52"
-  dependencies:
-    is-path-inside "^1.0.0"
-
-is-path-inside@^1.0.0:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/is-path-inside/-/is-path-inside-1.0.1.tgz#8ef5b7de50437a3fdca6b4e865ef7aa55cb48036"
-  dependencies:
-    path-is-inside "^1.0.1"
 
 is-promise@^2.1.0:
   version "2.1.0"
@@ -1358,9 +1254,11 @@ is-stream@^1.1.0:
   version "1.1.0"
   resolved "https://unpm.uberinternal.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
 
-is-symbol@^1.0.1:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/is-symbol/-/is-symbol-1.0.1.tgz#3cc59f00025194b6ab2e38dbae6689256b660572"
+is-symbol@^1.0.2:
+  version "1.0.2"
+  resolved "https://unpm.uberinternal.com/is-symbol/-/is-symbol-1.0.2.tgz#a055f6ae57192caee329e7a860118b497a950f38"
+  dependencies:
+    has-symbols "^1.0.0"
 
 is-typedarray@~1.0.0:
   version "1.0.0"
@@ -1434,11 +1332,7 @@ jaeger-client@^3.11.0:
     uuid "^3.2.1"
     xorshift "^0.2.0"
 
-js-tokens@^3.0.0:
-  version "3.0.2"
-  resolved "https://unpm.uberinternal.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
-
-js-tokens@^4.0.0:
+"js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://unpm.uberinternal.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
 
@@ -1454,16 +1348,12 @@ jsbn@~0.1.0:
   resolved "https://unpm.uberinternal.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
 jsesc@^2.5.1:
-  version "2.5.1"
-  resolved "https://unpm.uberinternal.com/jsesc/-/jsesc-2.5.1.tgz#e421a2a8e20d6b0819df28908f782526b96dd1fe"
+  version "2.5.2"
+  resolved "https://unpm.uberinternal.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
 
 json-parse-better-errors@^1.0.1:
   version "1.0.2"
   resolved "https://unpm.uberinternal.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
-
-json-schema-traverse@^0.3.0:
-  version "0.3.1"
-  resolved "https://unpm.uberinternal.com/json-schema-traverse/-/json-schema-traverse-0.3.1.tgz#349a6d44c53a51de89b40805c5d5e59b417d3340"
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
@@ -1496,9 +1386,9 @@ jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
-keygrip@~1.0.2:
-  version "1.0.2"
-  resolved "https://unpm.uberinternal.com/keygrip/-/keygrip-1.0.2.tgz#ad3297c557069dea8bcfe7a4fa491b75c5ddeb91"
+keygrip@~1.0.3:
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/keygrip/-/keygrip-1.0.3.tgz#399d709f0aed2bab0a059e0cdd3a5023a053e1dc"
 
 koa-bodyparser@4.2.1:
   version "4.2.1"
@@ -1512,10 +1402,6 @@ koa-compose@^3.0.0:
   resolved "https://unpm.uberinternal.com/koa-compose/-/koa-compose-3.2.1.tgz#a85ccb40b7d986d8e5a345b3a1ace8eabcf54de7"
   dependencies:
     any-promise "^1.1.0"
-
-koa-compose@^4.0.0:
-  version "4.0.0"
-  resolved "https://unpm.uberinternal.com/koa-compose/-/koa-compose-4.0.0.tgz#2800a513d9c361ef0d63852b038e4f6f2d5a773c"
 
 koa-compose@^4.1.0:
   version "4.1.0"
@@ -1532,38 +1418,9 @@ koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
 
-koa@^2.4.1:
-  version "2.5.0"
-  resolved "https://unpm.uberinternal.com/koa/-/koa-2.5.0.tgz#b0fbe1e195e43b27588a04fd0be0ddaeca2c154c"
-  dependencies:
-    accepts "^1.2.2"
-    content-disposition "~0.5.0"
-    content-type "^1.0.0"
-    cookies "~0.7.0"
-    debug "*"
-    delegates "^1.0.0"
-    depd "^1.1.0"
-    destroy "^1.0.3"
-    error-inject "~1.0.0"
-    escape-html "~1.0.1"
-    fresh "^0.5.2"
-    http-assert "^1.1.0"
-    http-errors "^1.2.8"
-    is-generator-function "^1.0.3"
-    koa-compose "^4.0.0"
-    koa-convert "^1.2.0"
-    koa-is-json "^1.0.0"
-    mime-types "^2.0.7"
-    on-finished "^2.1.0"
-    only "0.0.2"
-    parseurl "^1.3.0"
-    statuses "^1.2.0"
-    type-is "^1.5.5"
-    vary "^1.0.0"
-
-koa@^2.5.3:
-  version "2.6.1"
-  resolved "https://unpm.uberinternal.com/koa/-/koa-2.6.1.tgz#88cabb18cd297e0577a37e40f400c4b6f1699fef"
+koa@^2.6.1, koa@^2.6.2:
+  version "2.6.2"
+  resolved "https://unpm.uberinternal.com/koa/-/koa-2.6.2.tgz#57ba4d049b0a99cae0d594e6144e2931949a7ce1"
   dependencies:
     accepts "^1.3.5"
     cache-content-type "^1.0.0"
@@ -1639,11 +1496,7 @@ lodash.flattendeep@^4.4.0:
   version "4.4.0"
   resolved "https://unpm.uberinternal.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
 
-lodash@^4.13.1, lodash@^4.17.4:
-  version "4.17.5"
-  resolved "https://unpm.uberinternal.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
-
-lodash@^4.17.10, lodash@^4.17.5:
+lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5:
   version "4.17.11"
   resolved "https://unpm.uberinternal.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
 
@@ -1652,14 +1505,14 @@ long@^2.4.0:
   resolved "https://unpm.uberinternal.com/long/-/long-2.4.0.tgz#9fa180bb1d9500cdc29c4156766a1995e1f4524f"
 
 loose-envify@^1.3.1:
-  version "1.3.1"
-  resolved "https://unpm.uberinternal.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
+  version "1.4.0"
+  resolved "https://unpm.uberinternal.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   dependencies:
-    js-tokens "^3.0.0"
+    js-tokens "^3.0.0 || ^4.0.0"
 
 lru-cache@^4.0.1, lru-cache@^4.1.1:
-  version "4.1.2"
-  resolved "https://unpm.uberinternal.com/lru-cache/-/lru-cache-4.1.2.tgz#45234b2e6e2f2b33da125624c4664929a0224c3f"
+  version "4.1.5"
+  resolved "https://unpm.uberinternal.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
   dependencies:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
@@ -1705,24 +1558,16 @@ methods@^1.1.2:
   resolved "https://unpm.uberinternal.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
 
 metrics@^0.1.8:
-  version "0.1.14"
-  resolved "https://unpm.uberinternal.com/metrics/-/metrics-0.1.14.tgz#8d0e47e1a8b22c476e4c361ce7274058ff99b199"
-
-mime-db@~1.33.0:
-  version "1.33.0"
-  resolved "https://unpm.uberinternal.com/mime-db/-/mime-db-1.33.0.tgz#a3492050a5cb9b63450541e39d9788d2272783db"
+  version "0.1.19"
+  resolved "https://unpm.uberinternal.com/metrics/-/metrics-0.1.19.tgz#12958f71dd995b593686fabccb98f7ebe41211d4"
+  dependencies:
+    events "^2.0.0"
 
 mime-db@~1.37.0:
   version "1.37.0"
   resolved "https://unpm.uberinternal.com/mime-db/-/mime-db-1.37.0.tgz#0b6a0ce6fdbe9576e25f1f2d2fde8830dc0ad0d8"
 
-mime-types@^2.0.7, mime-types@^2.1.12, mime-types@~2.1.18:
-  version "2.1.18"
-  resolved "https://unpm.uberinternal.com/mime-types/-/mime-types-2.1.18.tgz#6f323f60a83d11146f831ff11fd66e2fe5503bb8"
-  dependencies:
-    mime-db "~1.33.0"
-
-mime-types@^2.1.18, mime-types@~2.1.19:
+mime-types@^2.1.12, mime-types@^2.1.18, mime-types@~2.1.18, mime-types@~2.1.19:
   version "2.1.21"
   resolved "https://unpm.uberinternal.com/mime-types/-/mime-types-2.1.21.tgz#28995aa1ecb770742fe6ae7e58f9181c744b3f96"
   dependencies:
@@ -1773,8 +1618,8 @@ mute-stream@0.0.7:
   resolved "https://unpm.uberinternal.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
 nan@2, nan@^2.0.0, nan@^2.0.5, nan@^2.2.0:
-  version "2.10.0"
-  resolved "https://unpm.uberinternal.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
+  version "2.11.1"
+  resolved "https://unpm.uberinternal.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
 
 natural-compare@^1.4.0:
   version "1.4.0"
@@ -1796,22 +1641,7 @@ node-int64@^0.4.0:
   version "0.4.0"
   resolved "https://unpm.uberinternal.com/node-int64/-/node-int64-0.4.0.tgz#87a9065cdb355d3182d8f94ce11188b825c68a3b"
 
-node-mocks-http@^1.6.6:
-  version "1.6.7"
-  resolved "https://unpm.uberinternal.com/node-mocks-http/-/node-mocks-http-1.6.7.tgz#89f31c12586585c3812e6bd725d417710d7632e3"
-  dependencies:
-    accepts "^1.3.3"
-    depd "^1.1.0"
-    fresh "^0.5.2"
-    merge-descriptors "^1.0.1"
-    methods "^1.1.2"
-    mime "^1.3.4"
-    net "^1.0.2"
-    parseurl "^1.3.1"
-    range-parser "^1.2.0"
-    type-is "^1.6.14"
-
-node-mocks-http@^1.7.2:
+node-mocks-http@^1.6.6, node-mocks-http@^1.7.3:
   version "1.7.3"
   resolved "https://unpm.uberinternal.com/node-mocks-http/-/node-mocks-http-1.7.3.tgz#1c744189f012c1977f4d97443495931a7cd5b4d3"
   dependencies:
@@ -1883,15 +1713,15 @@ object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://unpm.uberinternal.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
-object-inspect@~1.5.0:
-  version "1.5.0"
-  resolved "https://unpm.uberinternal.com/object-inspect/-/object-inspect-1.5.0.tgz#9d876c11e40f485c79215670281b767488f9bfe3"
+object-inspect@~1.6.0:
+  version "1.6.0"
+  resolved "https://unpm.uberinternal.com/object-inspect/-/object-inspect-1.6.0.tgz#c70b6cbf72f274aab4c34c0c82f5167bf82cf15b"
 
-object-keys@^1.0.8:
-  version "1.0.11"
-  resolved "https://unpm.uberinternal.com/object-keys/-/object-keys-1.0.11.tgz#c54601778ad560f1142ce0e01bcca8b56d13426d"
+object-keys@^1.0.12:
+  version "1.0.12"
+  resolved "https://unpm.uberinternal.com/object-keys/-/object-keys-1.0.12.tgz#09c53855377575310cca62f55bb334abff7b3ed2"
 
-on-finished@^2.1.0, on-finished@^2.3.0:
+on-finished@^2.3.0:
   version "2.3.0"
   resolved "https://unpm.uberinternal.com/on-finished/-/on-finished-2.3.0.tgz#20f1336481b083cd75337992a16971aa2d906947"
   dependencies:
@@ -1909,7 +1739,7 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-only@0.0.2, only@~0.0.2:
+only@~0.0.2:
   version "0.0.2"
   resolved "https://unpm.uberinternal.com/only/-/only-0.0.2.tgz#2afde84d03e50b9a8edc444e30610a70295edfb4"
 
@@ -1956,8 +1786,8 @@ p-finally@^1.0.0:
   resolved "https://unpm.uberinternal.com/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
 
 p-limit@^1.1.0:
-  version "1.2.0"
-  resolved "https://unpm.uberinternal.com/p-limit/-/p-limit-1.2.0.tgz#0e92b6bedcb59f022c13d0f1949dc82d15909f1c"
+  version "1.3.0"
+  resolved "https://unpm.uberinternal.com/p-limit/-/p-limit-1.3.0.tgz#b86bd5f0c25690911c7590fcbfc2010d54b3ccb8"
   dependencies:
     p-try "^1.0.0"
 
@@ -2009,7 +1839,7 @@ parse-json@^4.0.0:
     error-ex "^1.3.1"
     json-parse-better-errors "^1.0.1"
 
-parseurl@^1.3.0, parseurl@^1.3.1, parseurl@^1.3.2:
+parseurl@^1.3.1, parseurl@^1.3.2:
   version "1.3.2"
   resolved "https://unpm.uberinternal.com/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
 
@@ -2027,7 +1857,7 @@ path-is-absolute@^1.0.0:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
 
-path-is-inside@^1.0.1, path-is-inside@^1.0.2:
+path-is-inside@^1.0.2:
   version "1.0.2"
   resolved "https://unpm.uberinternal.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
 
@@ -2036,8 +1866,8 @@ path-key@^2.0.0, path-key@^2.0.1:
   resolved "https://unpm.uberinternal.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
 path-parse@^1.0.5:
-  version "1.0.5"
-  resolved "https://unpm.uberinternal.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
+  version "1.0.6"
+  resolved "https://unpm.uberinternal.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
 
 path-to-regexp@0.1.7:
   version "0.1.7"
@@ -2103,17 +1933,17 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@1.14.3:
-  version "1.14.3"
-  resolved "https://unpm.uberinternal.com/prettier/-/prettier-1.14.3.tgz#90238dd4c0684b7edce5f83b0fb7328e48bd0895"
+prettier@1.15.3:
+  version "1.15.3"
+  resolved "https://unpm.uberinternal.com/prettier/-/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
 
 process@0.11.1:
   version "0.11.1"
   resolved "https://unpm.uberinternal.com/process/-/process-0.11.1.tgz#ee3becb4335edf3c8b14ccbf7e17a1125a4431ae"
 
 progress@^2.0.0:
-  version "2.0.0"
-  resolved "https://unpm.uberinternal.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
+  version "2.0.2"
+  resolved "https://unpm.uberinternal.com/progress/-/progress-2.0.2.tgz#db9476f916bcc9ebe8a04efb22b18b0740376c61"
 
 prop-types@^15.6.2:
   version "15.6.2"
@@ -2126,7 +1956,7 @@ pseudomap@^1.0.2:
   version "1.0.2"
   resolved "https://unpm.uberinternal.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
-psl@^1.1.24:
+psl@^1.1.24, psl@^1.1.28:
   version "1.1.29"
   resolved "https://unpm.uberinternal.com/psl/-/psl-1.1.29.tgz#60f580d360170bb722a797cc704411e6da850c67"
 
@@ -2134,11 +1964,15 @@ punycode@^1.4.1:
   version "1.4.1"
   resolved "https://unpm.uberinternal.com/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
 
-punycode@^2.1.0:
+punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
   resolved "https://unpm.uberinternal.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
 
-qs@^6.5.2, qs@~6.5.2:
+qs@^6.5.2:
+  version "6.6.0"
+  resolved "https://unpm.uberinternal.com/qs/-/qs-6.6.0.tgz#a99c0f69a8d26bf7ef012f871cdabb0aee4424c2"
+
+qs@~6.5.2:
   version "6.5.2"
   resolved "https://unpm.uberinternal.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
 
@@ -2146,16 +1980,7 @@ range-parser@^1.2.0:
   version "1.2.0"
   resolved "https://unpm.uberinternal.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
-raw-body@^2.1.2:
-  version "2.3.2"
-  resolved "https://unpm.uberinternal.com/raw-body/-/raw-body-2.3.2.tgz#bcd60c77d3eb93cde0050295c3f379389bc88f89"
-  dependencies:
-    bytes "3.0.0"
-    http-errors "1.6.2"
-    iconv-lite "0.4.19"
-    unpipe "1.0.0"
-
-raw-body@^2.3.3:
+raw-body@^2.1.2, raw-body@^2.3.3:
   version "2.3.3"
   resolved "https://unpm.uberinternal.com/raw-body/-/raw-body-2.3.3.tgz#1b324ece6b5706e153855bc1148c65bb7f6ea0c3"
   dependencies:
@@ -2286,21 +2111,15 @@ resolve-from@^4.0.0:
   version "4.0.0"
   resolved "https://unpm.uberinternal.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
 
-resolve@^1.5.0:
-  version "1.6.0"
-  resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.6.0.tgz#0fbd21278b27b4004481c395349e7aba60a9ff5c"
-  dependencies:
-    path-parse "^1.0.5"
-
-resolve@^1.6.0:
+resolve@^1.5.0, resolve@^1.6.0:
   version "1.8.1"
   resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.8.1.tgz#82f1ec19a423ac1fbd080b0bab06ba36e84a7a26"
   dependencies:
     path-parse "^1.0.5"
 
-resolve@~1.5.0:
-  version "1.5.0"
-  resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.5.0.tgz#1f09acce796c9a762579f31b2c1cc4c3cddf9f36"
+resolve@~1.7.1:
+  version "1.7.1"
+  resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.7.1.tgz#aadd656374fd298aee895bc026b8297418677fd3"
   dependencies:
     path-parse "^1.0.5"
 
@@ -2317,7 +2136,7 @@ resumer@~0.0.0:
   dependencies:
     through "~2.3.4"
 
-rimraf@^2.2.8, rimraf@^2.6.2:
+rimraf@^2.6.2, rimraf@~2.6.2:
   version "2.6.2"
   resolved "https://unpm.uberinternal.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
@@ -2330,12 +2149,12 @@ run-async@^2.2.0:
     is-promise "^2.1.0"
 
 run-parallel@^1.1.0:
-  version "1.1.8"
-  resolved "https://unpm.uberinternal.com/run-parallel/-/run-parallel-1.1.8.tgz#70e4e788f13a1ad9603254f6a2277f3843a5845c"
+  version "1.1.9"
+  resolved "https://unpm.uberinternal.com/run-parallel/-/run-parallel-1.1.9.tgz#c9dd3a7cf9f4b2c4b6244e173a6ed866e61dd679"
 
 run-series@^1.1.2:
-  version "1.1.6"
-  resolved "https://unpm.uberinternal.com/run-series/-/run-series-1.1.6.tgz#d2ff1666b8da9be633e5e233623227a664d9356d"
+  version "1.1.8"
+  resolved "https://unpm.uberinternal.com/run-series/-/run-series-1.1.8.tgz#2c4558f49221e01cd6371ff4e0a1e203e460fc36"
 
 rust-result@^1.0.0:
   version "1.0.0"
@@ -2349,11 +2168,7 @@ rxjs@^6.1.0:
   dependencies:
     tslib "^1.9.0"
 
-safe-buffer@^5.0.1:
-  version "5.1.1"
-  resolved "https://unpm.uberinternal.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
-
-safe-buffer@^5.1.2, safe-buffer@~5.1.1:
+safe-buffer@^5.0.1, safe-buffer@^5.1.2, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://unpm.uberinternal.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
 
@@ -2363,25 +2178,17 @@ safe-json-parse@^4.0.0:
   dependencies:
     rust-result "^1.0.0"
 
-"safer-buffer@>= 2.1.2 < 3":
+"safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
   version "2.1.2"
   resolved "https://unpm.uberinternal.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-"semver@2 || 3 || 4 || 5":
-  version "5.5.0"
-  resolved "https://unpm.uberinternal.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
-
-semver@^5.5.0, semver@^5.5.1:
+"semver@2 || 3 || 4 || 5", semver@^5.5.0, semver@^5.5.1:
   version "5.6.0"
   resolved "https://unpm.uberinternal.com/semver/-/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
 
 set-blocking@^2.0.0:
   version "2.0.0"
   resolved "https://unpm.uberinternal.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
-
-setprototypeof@1.0.3:
-  version "1.0.3"
-  resolved "https://unpm.uberinternal.com/setprototypeof/-/setprototypeof-1.0.3.tgz#66567e37043eeb4f04d91bd658c0cbefb55b8e04"
 
 setprototypeof@1.1.0:
   version "1.1.0"
@@ -2401,10 +2208,12 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://unpm.uberinternal.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-slice-ansi@1.0.0:
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/slice-ansi/-/slice-ansi-1.0.0.tgz#044f1a49d8842ff307aad6b505ed178bd950134d"
+slice-ansi@2.0.0:
+  version "2.0.0"
+  resolved "https://unpm.uberinternal.com/slice-ansi/-/slice-ansi-2.0.0.tgz#5373bdb8559b45676e8541c66916cdd6251612e7"
   dependencies:
+    ansi-styles "^3.2.0"
+    astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
 
 source-map@^0.5.0:
@@ -2427,15 +2236,15 @@ spawn-wrap@^1.4.2:
     which "^1.3.0"
 
 spdx-correct@^3.0.0:
-  version "3.0.0"
-  resolved "https://unpm.uberinternal.com/spdx-correct/-/spdx-correct-3.0.0.tgz#05a5b4d7153a195bc92c3c425b69f3b2a9524c82"
+  version "3.0.2"
+  resolved "https://unpm.uberinternal.com/spdx-correct/-/spdx-correct-3.0.2.tgz#19bb409e91b47b1ad54159243f7312a858db3c2e"
   dependencies:
     spdx-expression-parse "^3.0.0"
     spdx-license-ids "^3.0.0"
 
 spdx-exceptions@^2.1.0:
-  version "2.1.0"
-  resolved "https://unpm.uberinternal.com/spdx-exceptions/-/spdx-exceptions-2.1.0.tgz#2c7ae61056c714a5b9b9b2b2af7d311ef5c78fe9"
+  version "2.2.0"
+  resolved "https://unpm.uberinternal.com/spdx-exceptions/-/spdx-exceptions-2.2.0.tgz#2ea450aee74f2a89bfb94519c07fcd6f41322977"
 
 spdx-expression-parse@^3.0.0:
   version "3.0.0"
@@ -2445,8 +2254,8 @@ spdx-expression-parse@^3.0.0:
     spdx-license-ids "^3.0.0"
 
 spdx-license-ids@^3.0.0:
-  version "3.0.0"
-  resolved "https://unpm.uberinternal.com/spdx-license-ids/-/spdx-license-ids-3.0.0.tgz#7a7cd28470cc6d3a1cfe6d66886f6bc430d3ac87"
+  version "3.0.2"
+  resolved "https://unpm.uberinternal.com/spdx-license-ids/-/spdx-license-ids-3.0.2.tgz#a59efc09784c2a5bada13cfeaf5c75dd214044d2"
 
 sprintf-js@~1.0.2:
   version "1.0.3"
@@ -2460,20 +2269,20 @@ sse4_crc32@4.1.1:
     nan "^2.0.0"
 
 sshpk@^1.7.0:
-  version "1.14.1"
-  resolved "https://unpm.uberinternal.com/sshpk/-/sshpk-1.14.1.tgz#130f5975eddad963f1d56f92b9ac6c51fa9f83eb"
+  version "1.15.2"
+  resolved "https://unpm.uberinternal.com/sshpk/-/sshpk-1.15.2.tgz#c946d6bd9b1a39d0e8635763f5242d6ed6dcb629"
   dependencies:
     asn1 "~0.2.3"
     assert-plus "^1.0.0"
-    dashdash "^1.12.0"
-    getpass "^0.1.1"
-  optionalDependencies:
     bcrypt-pbkdf "^1.0.0"
+    dashdash "^1.12.0"
     ecc-jsbn "~0.1.1"
+    getpass "^0.1.1"
     jsbn "~0.1.0"
+    safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
-"statuses@>= 1.3.1 < 2", "statuses@>= 1.4.0 < 2", "statuses@>= 1.5.0 < 2", statuses@^1.2.0, statuses@^1.5.0:
+"statuses@>= 1.4.0 < 2", "statuses@>= 1.5.0 < 2", statuses@^1.5.0:
   version "1.5.0"
   resolved "https://unpm.uberinternal.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
 
@@ -2520,6 +2329,12 @@ strip-ansi@^4.0.0:
   dependencies:
     ansi-regex "^3.0.0"
 
+strip-ansi@^5.0.0:
+  version "5.0.0"
+  resolved "https://unpm.uberinternal.com/strip-ansi/-/strip-ansi-5.0.0.tgz#f78f68b5d0866c20b2c9b8c61b5298508dc8756f"
+  dependencies:
+    ansi-regex "^4.0.0"
+
 strip-bom@^3.0.0:
   version "3.0.0"
   resolved "https://unpm.uberinternal.com/strip-bom/-/strip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
@@ -2532,25 +2347,19 @@ strip-json-comments@^2.0.1:
   version "2.0.1"
   resolved "https://unpm.uberinternal.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
-supports-color@^5.3.0:
-  version "5.3.0"
-  resolved "https://unpm.uberinternal.com/supports-color/-/supports-color-5.3.0.tgz#5b24ac15db80fa927cf5227a4a33fd3c4c7676c0"
-  dependencies:
-    has-flag "^3.0.0"
-
-supports-color@^5.4.0:
+supports-color@^5.3.0, supports-color@^5.4.0:
   version "5.5.0"
   resolved "https://unpm.uberinternal.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
   dependencies:
     has-flag "^3.0.0"
 
 table@^5.0.2:
-  version "5.1.0"
-  resolved "https://unpm.uberinternal.com/table/-/table-5.1.0.tgz#69a54644f6f01ad1628f8178715b408dc6bf11f7"
+  version "5.1.1"
+  resolved "https://unpm.uberinternal.com/table/-/table-5.1.1.tgz#92030192f1b7b51b6eeab23ed416862e47b70837"
   dependencies:
-    ajv "^6.5.3"
-    lodash "^4.17.10"
-    slice-ansi "1.0.0"
+    ajv "^6.6.1"
+    lodash "^4.17.11"
+    slice-ansi "2.0.0"
     string-width "^2.1.1"
 
 tape-cluster@2.1.0:
@@ -2564,19 +2373,19 @@ tape-cup@^4.7.1:
     tape "^4.7.0"
 
 tape@^4.7.0:
-  version "4.9.0"
-  resolved "https://unpm.uberinternal.com/tape/-/tape-4.9.0.tgz#855c08360395133709d34d3fbf9ef341eb73ca6a"
+  version "4.9.1"
+  resolved "https://unpm.uberinternal.com/tape/-/tape-4.9.1.tgz#1173d7337e040c76fbf42ec86fcabedc9b3805c9"
   dependencies:
     deep-equal "~1.0.1"
     defined "~1.0.0"
-    for-each "~0.3.2"
+    for-each "~0.3.3"
     function-bind "~1.1.1"
     glob "~7.1.2"
-    has "~1.0.1"
+    has "~1.0.3"
     inherits "~2.0.3"
     minimist "~1.2.0"
-    object-inspect "~1.5.0"
-    resolve "~1.5.0"
+    object-inspect "~1.6.0"
+    resolve "~1.7.1"
     resumer "~0.0.0"
     string.prototype.trim "~1.1.2"
     through "~2.3.8"
@@ -2618,8 +2427,8 @@ text-table@^0.2.0:
   resolved "https://unpm.uberinternal.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
 thriftrw@^3.11.0, thriftrw@^3.5.0:
-  version "3.11.2"
-  resolved "https://unpm.uberinternal.com/thriftrw/-/thriftrw-3.11.2.tgz#696a919517c1679e6babb794b22974ee511a6dcd"
+  version "3.11.3"
+  resolved "https://unpm.uberinternal.com/thriftrw/-/thriftrw-3.11.3.tgz#2cef6b4d089b7ba6275198b86582881582907d45"
   dependencies:
     bufrw "^1.2.1"
     error "7.0.2"
@@ -2643,15 +2452,16 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
 
-toposort@^2.0.1:
+toposort@^2.0.2:
   version "2.0.2"
   resolved "https://unpm.uberinternal.com/toposort/-/toposort-2.0.2.tgz#ae21768175d1559d48bef35420b2f4962f09c330"
 
 tough-cookie@>=2.3.3:
-  version "2.3.4"
-  resolved "https://unpm.uberinternal.com/tough-cookie/-/tough-cookie-2.3.4.tgz#ec60cee38ac675063ffc97a5c18970578ee83655"
+  version "2.5.0"
+  resolved "https://unpm.uberinternal.com/tough-cookie/-/tough-cookie-2.5.0.tgz#cd9fb2a0aa1d5a12b473bd9fb96fa3dcff65ade2"
   dependencies:
-    punycode "^1.4.1"
+    psl "^1.1.28"
+    punycode "^2.1.1"
 
 tough-cookie@~2.4.3:
   version "2.4.3"
@@ -2684,14 +2494,14 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
-type-is@^1.5.5, type-is@^1.6.14, type-is@^1.6.16:
+type-is@^1.6.16:
   version "1.6.16"
   resolved "https://unpm.uberinternal.com/type-is/-/type-is-1.6.16.tgz#f89ce341541c672b25ee7ae3c73dee3b2be50194"
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.18"
 
-ua-parser-js@^0.7.18:
+ua-parser-js@^0.7.19:
   version "0.7.19"
   resolved "https://unpm.uberinternal.com/ua-parser-js/-/ua-parser-js-0.7.19.tgz#94151be4c0a7fb1d001af7022fdaca4642659e4b"
 
@@ -2718,22 +2528,18 @@ util@0.10.3:
   dependencies:
     inherits "2.0.1"
 
-uuid@^3.2.1:
-  version "3.2.1"
-  resolved "https://unpm.uberinternal.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
-
-uuid@^3.3.2:
+uuid@^3.2.1, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://unpm.uberinternal.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
 validate-npm-package-license@^3.0.1:
-  version "3.0.3"
-  resolved "https://unpm.uberinternal.com/validate-npm-package-license/-/validate-npm-package-license-3.0.3.tgz#81643bcbef1bdfecd4623793dc4648948ba98338"
+  version "3.0.4"
+  resolved "https://unpm.uberinternal.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vary@^1.0.0, vary@^1.1.2:
+vary@^1.1.2:
   version "1.1.2"
   resolved "https://unpm.uberinternal.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
 
@@ -2750,8 +2556,8 @@ which-module@^2.0.0:
   resolved "https://unpm.uberinternal.com/which-module/-/which-module-2.0.0.tgz#d9ef07dce77b9902b8a3a8fa4b31c3e3f7e6e87a"
 
 which@^1.2.9, which@^1.3.0:
-  version "1.3.0"
-  resolved "https://unpm.uberinternal.com/which/-/which-1.3.0.tgz#ff04bdfc010ee547d780bec38e1ac1c2777d253a"
+  version "1.3.1"
+  resolved "https://unpm.uberinternal.com/which/-/which-1.3.1.tgz#a45043d54f5805316da8d62f9f50918d3da70b0a"
   dependencies:
     isexe "^2.0.0"
 
