@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-tracer",
   "description": "A fusion plugin for jaeger tracing",
-  "version": "1.0.5",
+  "version": "1.0.6-0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
