@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 /* eslint-env node */
 import {createPlugin, createToken} from 'fusion-core';
 import bedrock from '@uber/bedrock-14-compat';
@@ -19,8 +19,8 @@ export default __NODE__ &&
       logger: LoggerToken,
       atreyu: AtreyuToken,
       m3: M3Token,
-      galileo: GalileoToken,
-      flipr: FliprToken,
+      galileo: GalileoToken.optional,
+      flipr: FliprToken.optional,
     },
     provides: deps => {
       const server = bedrock.createServer();
@@ -35,7 +35,7 @@ export default __NODE__ &&
         logger: deps.logger,
         atreyu: deps.atreyu,
         m3: deps.m3,
-        galileo: deps.galileo.galileo,
+        galileo: deps.galileo ? deps.galileo.galileo : {},
         flipr: deps.flipr,
       };
 

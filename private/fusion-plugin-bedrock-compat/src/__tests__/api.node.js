@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import {GalileoToken} from '@uber/fusion-plugin-galileo';

@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 import Server, {InitializeServerToken, BedrockCompatToken} from './server.js';
 import Browser from './browser.js';
 
