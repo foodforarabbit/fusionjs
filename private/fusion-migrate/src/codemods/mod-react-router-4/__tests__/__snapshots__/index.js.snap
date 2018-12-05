@@ -1,5 +1,119 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`react-router-4 no-prefix: no-prefix 1`] = `
+"import React from 'react';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+
+export default (
+  <Route component={AppContainer} path=\\"/\\">
+    <Route path=\\"counter\\" component={CounterContainer} />
+    <Route path=\\"/counter\\" component={CounterContainer} />
+    <Route path={getThing()} component={CounterContainer} />
+    <Route path=\\"test\\" component={Test}>
+      <Route path=\\"LOL\\" component={Other} />
+    </Route>
+    <Route path=\\"*\\" component={FourOhFour} statusCode={404} />
+  </Route>
+);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React from 'react';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+export default (
+  <AppContainer
+    match={{
+      params: {},
+    }}
+  >
+    <Route path=\\"/counter\\" component={CounterContainer} exact />
+    <Route path=\\"/counter\\" component={CounterContainer} exact />
+    <Route path={getThing()} component={CounterContainer} exact />
+    <Route
+      path=\\"/test\\"
+      render={_props => {
+        return (
+          <Test {..._props}>
+            <Switch>
+              <Route
+                path={_props.match.path + '/LOL'}
+                component={Other}
+                exact
+              />
+            </Switch>
+          </Test>
+        );
+      }}
+      exact
+    />
+    <Route path=\\"/*\\" component={FourOhFour} statusCode={404} exact />
+  </AppContainer>
+);
+"
+`;
+
+exports[`react-router-4 no-prefix-expression: no-prefix-expression 1`] = `
+"import React from 'react';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+
+export default (
+  <Route component={AppContainer} path={'/'}>
+    <Route path=\\"counter\\" component={CounterContainer} />
+    <Route path=\\"/counter\\" component={CounterContainer} />
+    <Route path={getThing()} component={CounterContainer} />
+    <Route path=\\"test\\" component={Test}>
+      <Route path=\\"LOL\\" component={Other} />
+    </Route>
+    <Route path=\\"*\\" component={FourOhFour} statusCode={404} />
+  </Route>
+);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React from 'react';
+import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
+import FourOhFour from './not-found';
+import AppContainer from '../containers/app-container';
+export default (
+  <AppContainer
+    match={{
+      params: {},
+    }}
+  >
+    <Route path=\\"/counter\\" component={CounterContainer} exact />
+    <Route path=\\"/counter\\" component={CounterContainer} exact />
+    <Route path={getThing()} component={CounterContainer} exact />
+    <Route
+      path=\\"/test\\"
+      render={_props => {
+        return (
+          <Test {..._props}>
+            <Switch>
+              <Route
+                path={_props.match.path + '/LOL'}
+                component={Other}
+                exact
+              />
+            </Switch>
+          </Test>
+        );
+      }}
+      exact
+    />
+    <Route path=\\"/*\\" component={FourOhFour} statusCode={404} exact />
+  </AppContainer>
+);
+"
+`;
+
 exports[`react-router-4 positive-match: positive-match 1`] = `
 "import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';

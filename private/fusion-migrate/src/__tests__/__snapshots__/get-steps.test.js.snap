@@ -79,70 +79,58 @@ const _HomeContainerWithData2 = compose(
 )(HomeContainer);
 
 const _routes = (
-  <Route
-    path=\\"/\\"
-    trackingId=\\"app\\"
-    render={_props => {
-      return (
-        <AppContainer {..._props}>
-          <Switch>
-            <Route
-              path={_props.match.path + '/'}
-              exact
-              component={_HomeContainerWithData2}
-              trackingId=\\"home\\"
-            />
-            <Route
-              path={_props.match.path + '/a'}
-              component={A}
-              trackingId=\\"a\\"
-              exact
-            />
-            <Route
-              path={_props.match.path + '/b'}
-              trackingId=\\"b\\"
-              render={_props2 => {
-                return (
-                  <B {..._props2}>
-                    <Switch>
-                      <Route
-                        path={_props2.match.path + '/'}
-                        exact
-                        render={props => {
-                          return <Redirect to=\\"/c\\" />;
-                        }}
-                      />
-                      <Route
-                        path={_props2.match.path + '/c'}
-                        component={_CWithData}
-                        trackingId=\\"c\\"
-                        exact
-                      />
-                      <Route
-                        path={_props2.match.path + '/e'}
-                        component={_EWithData}
-                        trackingId=\\"E\\"
-                        exact
-                      />
-                      <Route
-                        path={_props2.match.path + '/d'}
-                        exact
-                        render={props => {
-                          return <Redirect to=\\"/c\\" />;
-                        }}
-                      />
-                    </Switch>
-                  </B>
-                );
-              }}
-              exact
-            />
-          </Switch>
-        </AppContainer>
-      );
+  <AppContainer
+    match={{
+      params: {},
     }}
-    exact
-  />
+  >
+    <Route
+      path=\\"/\\"
+      exact
+      component={_HomeContainerWithData2}
+      trackingId=\\"home\\"
+    />
+    <Route path=\\"/a\\" component={A} trackingId=\\"a\\" exact />
+    <Route
+      path=\\"/b\\"
+      trackingId=\\"b\\"
+      render={_props => {
+        return (
+          <B {..._props}>
+            <Switch>
+              <Route
+                path={_props.match.path + '/'}
+                exact
+                render={props => {
+                  return <Redirect to=\\"/c\\" />;
+                }}
+              />
+              <Route
+                path={_props.match.path + '/c'}
+                component={_CWithData}
+                trackingId=\\"c\\"
+                exact
+              />
+              <Route
+                path={_props.match.path + '/e'}
+                component={_EWithData}
+                trackingId=\\"E\\"
+                exact
+              />
+              <Route
+                path={_props.match.path + '/d'}
+                exact
+                render={props => {
+                  return <Redirect to=\\"/c\\" />;
+                }}
+              />
+            </Switch>
+          </B>
+        );
+      }}
+      exact
+    />
+  </AppContainer>
 );
 
 export default _routes;

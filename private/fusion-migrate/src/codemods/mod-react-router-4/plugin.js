@@ -9,6 +9,7 @@ module.exports = () => {
       refPaths.forEach(refPath => {
         const elementPath = refPath.parentPath.parentPath;
         const openingElement = elementPath.node.openingElement;
+        const closingElement = elementPath.node.closingElement;
         const props = openingElement.attributes;
         const children = elementPath.node.children;
         // Ensure leading slash
@@ -25,6 +26,33 @@ module.exports = () => {
           });
           if (!componentName) {
             return;
+          }
+          const pathProp = openingElement.attributes.find(
+            p => p.name.name === 'path'
+          );
+          if (pathProp) {
+            const value =
+              pathProp.value.type === 'JSXExpressionContainer'
+                ? pathProp.value.expression
+                : pathProp.value;
+            if (value.type === 'StringLiteral' && value.value === '/') {
+              openingElement.name.name = componentName;
+              closingElement.name.name = componentName;
+              openingElement.attributes = [
+                t.JSXAttribute(
+                  t.JSXIdentifier('match'),
+                  t.JSXExpressionContainer(
+                    t.ObjectExpression([
+                      t.ObjectProperty(
+                        t.Identifier('params'),
+                        t.ObjectExpression([])
+                      ),
+                    ])
+                  )
+                ),
+              ];
+              return;
+            }
           }
           const {name} = elementPath.scope.generateUidIdentifier('props');
           const propsId = t.Identifier(name);
