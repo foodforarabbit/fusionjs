@@ -1,6 +1,9 @@
 // @flow
 import {types as t} from '@babel/core';
-import {withJsFiles, step, readFile, exec} from '@dubstep/core';
+import {step, readFile, writeFile} from '@dubstep/core';
+import {withJsFiles} from '../../utils/with-js-files';
+import log from '../../utils/log';
+import {getLatestVersion} from '../../utils/get-latest-version';
 
 export default (target: string, replacement: string) =>
   step('codemod-replace-package', async () => {
@@ -12,12 +15,13 @@ export default (target: string, replacement: string) =>
     if (!deps[target]) {
       return;
     }
-    await exec(`yarn remove ${target} --ignore-engines`);
-    if (!deps[replacement]) {
-      await exec(`yarn add ${replacement} --ignore-engines`);
-    }
 
-    await withJsFiles('src/**/*.js', path => {
+    log.title(`Replacing ${target} with ${target}`);
+    delete pkg.dependencies[target];
+    delete pkg.devDependencies[target];
+    pkg.dependencies[replacement] = await getLatestVersion(replacement);
+    await writeFile('package.json', JSON.stringify(pkg, null, 2));
+    await withJsFiles(path => {
       let shouldUpdate = false;
       path.traverse({
         ImportDeclaration(ipath) {

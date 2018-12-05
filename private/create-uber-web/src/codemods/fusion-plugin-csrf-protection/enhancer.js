@@ -1,15 +1,17 @@
 // @flow
 import {types as t} from '@babel/core';
 import {
-  withJsFiles,
   step,
-  exec,
   parseJs,
   removeJsImports,
   ensureJsImports,
   visitJsImport,
   readFile,
+  writeFile,
 } from '@dubstep/core';
+import log from '../../utils/log';
+import {withJsFiles} from '../../utils/with-js-files';
+import {getLatestVersion} from '../../utils/get-latest-version';
 
 export default step(
   'fusion-plugin-csrf-protection-enhancer-codemod',
@@ -18,10 +20,14 @@ export default step(
     if (!pkg.dependencies['fusion-plugin-csrf-protection-react']) {
       return;
     }
-    await exec(
-      `yarn remove fusion-plugin-csrf-protection-react --ignore-engines && yarn add fusion-plugin-csrf-protection@latest fusion-react@latest --ignore-engines`
+    log.title('Csrf Protection Codemod');
+    delete pkg.dependencies['fusion-plugin-csrf-protection-react'];
+    pkg.dependencies['fusion-plugin-csrf-protection'] = await getLatestVersion(
+      'fusion-plugin-csrf-protection'
     );
-    await withJsFiles('src/**/*.js', path => {
+    pkg.dependencies['fusion-react'] = await getLatestVersion('fusion-react');
+    writeFile('package.json', JSON.stringify(pkg, null, 2));
+    await withJsFiles(path => {
       let shouldUpdate = false;
       visitJsImport(
         path,

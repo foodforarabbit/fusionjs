@@ -10,6 +10,7 @@ jest.mock('@dubstep/core', () => {
     readFile: jest.fn(() => {
       return JSON.stringify({
         dependencies: {},
+        devDependencies: {},
       });
     }),
   };

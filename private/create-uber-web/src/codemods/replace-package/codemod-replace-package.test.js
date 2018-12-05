@@ -12,15 +12,30 @@ jest.mock('@dubstep/core', () => {
         dependencies: {
           'fusion-react-async': '1',
         },
+        devDependencies: {},
       });
     }),
+    writeFile: jest.fn(),
     exec: jest.fn(),
-    withJsFiles: (glob, handler) => {
+  };
+});
+
+jest.mock('../../utils/with-js-files.js', () => {
+  // $FlowFixMe
+  const actual = require.requireActual('@dubstep/core');
+  return {
+    withJsFiles: handler => {
       return actual.withJsFiles(
         './fixtures/fusion-react-async/fixture.js',
         handler
       );
     },
+  };
+});
+
+jest.mock('../../utils/get-latest-version.js', () => {
+  return {
+    getLatestVersion: () => Promise.resolve('^1.0.0'),
   };
 });
 

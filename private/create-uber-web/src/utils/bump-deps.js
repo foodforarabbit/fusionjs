@@ -1,9 +1,13 @@
 /* @flow */
 
-import {readFile, exec, writeFile} from '@dubstep/core';
+import {readFile, writeFile} from '@dubstep/core';
 import {install, test} from './yarn';
+import log from './log';
+import {getProgress} from './progress';
+import {getLatestVersion} from './get-latest-version';
 
 export const bumpDeps = async (dir: string, match: string, force: boolean) => {
+  log.title('Updating dependencies');
   const file = `${dir}/package.json`;
   const data = await read(file).catch(() => null);
   if (data) {
@@ -30,10 +34,6 @@ const installAndTest = async dir => {
   await test(dir);
 };
 
-function getLatestVersion(dep: string): Promise<string> {
-  return exec(`npm info ${dep} version`).then(v => `^${v}`);
-}
-
 const batchUpgrade = async (dir, match, file, data) => {
   const keys = ['dependencies', 'devDependencies', 'peerDependencies'];
   const promises = [];
@@ -44,10 +44,15 @@ const batchUpgrade = async (dir, match, file, data) => {
       if (!new RegExp(match).test(dep)) continue;
       promises.push(
         getLatestVersion(dep).then(v => {
+          progress.tick();
           data[key][dep] = v;
         })
       );
     }
+  });
+  const progress = getProgress({
+    total: promises.length,
+    title: 'Updating package.json',
   });
   await Promise.all(promises);
   await write(file, data);

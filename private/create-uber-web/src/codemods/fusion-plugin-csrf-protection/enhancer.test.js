@@ -14,8 +14,21 @@ jest.mock('@dubstep/core', () => {
         },
       });
     }),
-    exec: jest.fn(),
-    withJsFiles: (glob, handler) => {
+    writeFile: jest.fn(),
+  };
+});
+
+jest.mock('../../utils/get-latest-version.js', () => {
+  return {
+    getLatestVersion: () => Promise.resolve('^1.0.0'),
+  };
+});
+
+jest.mock('../../utils/with-js-files.js', () => {
+  // $FlowFixMe
+  const actual = require.requireActual('@dubstep/core');
+  return {
+    withJsFiles: handler => {
       return actual.withJsFiles('./fixtures/csrf-enhancer/fixture.js', handler);
     },
   };

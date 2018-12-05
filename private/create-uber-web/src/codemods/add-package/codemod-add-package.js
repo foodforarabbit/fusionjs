@@ -1,5 +1,6 @@
 // @flow
-import {step, readFile, exec} from '@dubstep/core';
+import {getLatestVersion} from '../../utils/get-latest-version';
+import {step, readFile, writeFile} from '@dubstep/core';
 
 export default (name: string) =>
   step('codemod-replace-package', async () => {
@@ -11,5 +12,6 @@ export default (name: string) =>
     if (deps[name]) {
       return;
     }
-    await exec(`yarn add ${name} --ignore-engines`);
+    pkg.dependencies[name] = await getLatestVersion(name);
+    writeFile('package.json', JSON.stringify(pkg, null, 2));
   });

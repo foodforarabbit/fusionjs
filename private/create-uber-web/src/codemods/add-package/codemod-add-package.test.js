@@ -6,7 +6,7 @@ jest.mock('@dubstep/core', () => {
   const actual = require.requireActual('@dubstep/core');
   return {
     ...actual,
-    exec: jest.fn(),
+    writeFile: jest.fn(),
     readFile: jest.fn(),
   };
 });
@@ -17,9 +17,10 @@ test('codemod-add-package, no existing', async () => {
       dependencies: {},
     });
   });
+  require('@dubstep/core').writeFile.mockClear();
   await codemod('test').step();
   const dubstep = require('@dubstep/core');
-  expect(dubstep.exec).toHaveBeenCalled();
+  expect(dubstep.writeFile).toHaveBeenCalled();
 });
 
 test('replace-codemod, existing', async () => {
@@ -30,8 +31,8 @@ test('replace-codemod, existing', async () => {
       },
     });
   });
-  require('@dubstep/core').exec.mockClear();
+  require('@dubstep/core').writeFile.mockClear();
   await codemod('test').step();
   const dubstep = require('@dubstep/core');
-  expect(dubstep.exec).not.toBeCalled();
+  expect(dubstep.writeFile).not.toBeCalled();
 });
