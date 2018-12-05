@@ -1,4 +1,4 @@
-// @noflow
+// @flow
 import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import {GalileoToken} from '@uber/fusion-plugin-galileo';
@@ -24,11 +24,11 @@ tape('exports api', t => {
 tape('provides', async t => {
   const app = new App('el', () => 'hello');
   app.register(BedrockCompatToken, Plugin);
-  app.register(LoggerToken, 'logger');
+  app.register(LoggerToken, ('logger': any));
   app.register(AtreyuToken, 'atreyu');
-  app.register(M3Token, 'm3');
+  app.register(M3Token, ('m3': any));
   app.register(GalileoToken, {galileo: 'galileo'});
-  app.register(FliprToken, 'flipr');
+  app.register(FliprToken, ('flipr': any));
   app.register(InitializeServerToken, (server, cb) => {
     t.equal(server.config.test, true);
     t.equal(server.logger, 'logger');
@@ -68,7 +68,7 @@ tape('provides', async t => {
     );
     return next();
   });
-  const server = http.createServer(app.callback());
+  const server = http.createServer((app.callback(): any));
   const port = await getPort();
   server.listen(port);
   const res = JSON.parse(await request(`http://localhost:${port}/`));

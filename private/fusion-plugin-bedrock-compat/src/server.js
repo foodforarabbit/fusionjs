@@ -1,6 +1,6 @@
-// @noflow
+// @flow
 /* eslint-env node */
-import {createPlugin, createToken} from 'fusion-core';
+import {createPlugin} from 'fusion-core';
 import bedrock from '@uber/bedrock-14-compat';
 import {LoggerToken} from 'fusion-tokens';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
@@ -9,11 +9,17 @@ import {GalileoToken} from '@uber/fusion-plugin-galileo';
 import {FliprToken} from '@uber/fusion-plugin-flipr';
 import zeroConfig from 'zero-config';
 
-export const InitializeServerToken = createToken('InitializeServer');
-export const BedrockCompatToken = createToken('BedrockCompat');
+import {InitializeServerToken} from './tokens';
 
-export default __NODE__ &&
-  createPlugin({
+import type {FusionPlugin} from 'fusion-core';
+import type {
+  BedrockCompatPluginDepsType,
+  BedrockCompatPluginServiceType,
+} from './types';
+
+const plugin =
+  __NODE__ &&
+  createPlugin<BedrockCompatPluginDepsType, BedrockCompatPluginServiceType>({
     deps: {
       initServer: InitializeServerToken.optional,
       logger: LoggerToken,
@@ -67,3 +73,8 @@ export default __NODE__ &&
       return deps.initServer ? deps.initServer(server, () => {}) : server;
     },
   });
+
+export default ((plugin: any): FusionPlugin<
+  BedrockCompatPluginDepsType,
+  BedrockCompatPluginServiceType
+>);
