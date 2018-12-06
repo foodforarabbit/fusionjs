@@ -1,5 +1,4 @@
 // @flow
-/* eslint-env browser */
 import App, {ProviderPlugin} from 'fusion-react';
 import {getSimulator} from 'fusion-test-utils';
 import {mock as mockM3Plugin} from '@uber/fusion-plugin-m3';
@@ -8,12 +7,6 @@ import test from 'tape-cup';
 
 import {M3Token} from '../index';
 import withM3 from '../hoc';
-
-if (__BROWSER__) {
-  const root = document.createElement('div');
-  root.id = 'root';
-  document.body && document.body.appendChild(root);
-}
 
 test('HOC', async t => {
   let didRender = false;
