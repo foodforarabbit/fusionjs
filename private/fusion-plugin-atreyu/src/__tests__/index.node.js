@@ -42,43 +42,51 @@ function createAtreyuPlugin(t) {
         },
       };
     }
+    createAsyncGraph(arg, arg2) {}
+    createAsyncRequest(arg, arg2) {}
   }
-  const m3 = 'm3';
-  const logger = 'logger';
-  const tracer = {tracer: 'tracer'};
-  const galileo = {galileo: 'galileo'};
-  const tchannel = {hyperbahn: 'hyperbahn'};
+  const m3: any = 'm3';
+  const logger: any = 'logger';
+  const tracer: any = {tracer: 'tracer'};
+  const galileo: any = {galileo: 'galileo'};
+  const tchannel: any = {hyperbahn: 'hyperbahn'};
 
-  const atreyu = plugin.provides({
-    config: {a: true},
-    m3,
-    logger,
-    tracer,
-    galileo,
-    tchannel,
-    options: {a: 'b'},
-    Client,
-  });
+  if (plugin.provides) {
+    // make flow happy
+    const atreyu = plugin.provides({
+      config: {a: true},
+      m3,
+      logger,
+      tracer,
+      galileo,
+      tchannel,
+      options: {a: 'b'},
+      Client,
+    });
 
-  t.ok(atreyu instanceof Client, 'passes through context');
+    t.ok(atreyu instanceof Client, 'passes through context');
 
-  return atreyu;
+    return atreyu;
+  }
 }
 
 test('Atreyu Plugin Interface', async t => {
   t.equals(typeof plugin, 'object');
   const atreyu = createAtreyuPlugin(t);
-  t.equals(
-    await atreyu.createAsyncGraph('graph-arg', 'graph-arg2')(
-      'graph-resolve-arg'
-    ),
-    'graph-result'
-  );
-  t.equals(
-    await atreyu.createAsyncRequest('req-arg', 'req-arg2')('req-resolve-arg'),
-    'req-result'
-  );
-  t.end();
+  if (atreyu) {
+    // make flow happy
+    t.equals(
+      await atreyu.createAsyncGraph('graph-arg', 'graph-arg2')(
+        'graph-resolve-arg'
+      ),
+      'graph-result'
+    );
+    t.equals(
+      await atreyu.createAsyncRequest('req-arg', 'req-arg2')('req-resolve-arg'),
+      'req-result'
+    );
+    t.end();
+  }
 });
 
 test('Atreyu Plugin optional deps', async t => {
@@ -92,19 +100,28 @@ test('Atreyu Plugin optional deps', async t => {
     }
   }
 
-  const m3 = 'm3';
-  const logger = 'logger';
-  const tchannel = {hyperbahn: 'hyperbahn'};
+  const m3: any = 'm3';
+  const logger: any = 'logger';
+  const galileo: any = undefined;
+  const tracer: any = undefined;
+  const tchannel: any = {hyperbahn: 'hyperbahn'};
 
-  const atreyu = plugin.provides({
-    config: {a: true},
-    m3,
-    logger,
-    tchannel,
-    options: {a: 'b'},
-    Client: OptDepsClient,
-  });
+  if (plugin.provides) {
+    const atreyu = plugin.provides({
+      config: {a: true},
+      m3,
+      logger,
+      galileo,
+      tracer,
+      tchannel,
+      options: {a: 'b'},
+      Client: OptDepsClient,
+    });
 
-  t.ok(atreyu instanceof OptDepsClient, 'atreyu instance successfully created');
-  t.end();
+    t.ok(
+      atreyu instanceof OptDepsClient,
+      'atreyu instance successfully created'
+    );
+    t.end();
+  }
 });

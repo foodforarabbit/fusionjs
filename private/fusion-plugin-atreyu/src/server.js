@@ -14,8 +14,11 @@ import {
   AtreyuOptionsToken,
 } from './tokens';
 
-export default __NODE__ &&
-  createPlugin({
+import type {FusionPlugin} from 'fusion-core';
+import type {AtreyuDepsType, AtreyuType} from './types.js';
+
+export default ((__NODE__ &&
+  createPlugin<AtreyuDepsType, AtreyuType>({
     deps: {
       config: AtreyuConfigToken.optional,
       options: AtreyuOptionsToken.optional,
@@ -63,4 +66,4 @@ export default __NODE__ &&
       return client;
     },
     cleanup: atreyu => atreyu.cleanup(),
-  });
+  }): any): FusionPlugin<AtreyuDepsType, AtreyuType>);
