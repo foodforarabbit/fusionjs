@@ -15,7 +15,7 @@ export const BedrockCompatToken = createToken('BedrockCompat');
 export default __NODE__ &&
   createPlugin({
     deps: {
-      initServer: InitializeServerToken,
+      initServer: InitializeServerToken.optional,
       logger: LoggerToken,
       atreyu: AtreyuToken,
       m3: M3Token,
@@ -64,6 +64,6 @@ export default __NODE__ &&
         });
         return next();
       });
-      return deps.initServer(server, () => {});
+      return deps.initServer ? deps.initServer(server, () => {}) : server;
     },
   });
