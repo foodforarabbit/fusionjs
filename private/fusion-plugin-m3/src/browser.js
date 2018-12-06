@@ -4,7 +4,7 @@ import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import type {FusionPlugin} from 'fusion-core';
-import type {DepsType, ServiceType} from './types.js';
+import type {M3DepsType, ServiceType} from './types.js';
 
 const plugin =
   __BROWSER__ &&
@@ -31,4 +31,4 @@ const plugin =
     },
   });
 
-export default ((plugin: any): FusionPlugin<DepsType, ServiceType>);
+export default ((plugin: any): FusionPlugin<M3DepsType, ServiceType>);

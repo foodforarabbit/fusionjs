@@ -6,7 +6,7 @@ import {createPlugin} from 'fusion-core';
 import {M3ClientToken, CommonTagsToken} from './tokens.js';
 
 import type {FusionPlugin} from 'fusion-core';
-import type {DepsType, ServiceType} from './types.js';
+import type {M3DepsType, ServiceType} from './types.js';
 
 const plugin =
   __NODE__ &&
@@ -99,4 +99,4 @@ const plugin =
     cleanup: m3 => m3.close(),
   });
 
-export default ((plugin: any): FusionPlugin<DepsType, ServiceType>);
+export default ((plugin: any): FusionPlugin<M3DepsType, ServiceType>);

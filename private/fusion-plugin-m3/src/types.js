@@ -4,7 +4,7 @@ import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import {M3ClientToken, CommonTagsToken} from './tokens.js';
 
-export type DepsType = {
+export type M3DepsType = {
   events: typeof UniversalEventsToken,
   Client: typeof M3ClientToken,
   commonTags: typeof CommonTagsToken,

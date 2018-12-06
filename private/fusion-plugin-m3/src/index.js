@@ -9,4 +9,8 @@ export {default as mock} from './mock';
 
 export default (__NODE__ ? server : browser);
 export {M3Token, M3ClientToken, CommonTagsToken} from './tokens.js';
-export type {ServiceType as M3Type, TagsType as M3TagsType} from './types.js';
+export type {
+  ServiceType as M3Type,
+  TagsType as M3TagsType,
+  M3DepsType,
+} from './types.js';
