@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`routing codemods 1`] = `
-"import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
+"import {withRouter, Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';

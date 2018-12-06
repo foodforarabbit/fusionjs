@@ -25,6 +25,8 @@ module.exports = () => {
           return;
         }
 
+        const isTopLevel = path.parentPath.type !== 'JSXElement';
+
         const program = getProgram(path);
         const body = program.node.body;
         ensureImportDeclaration(body, `import {compose} from 'redux';`);
@@ -36,6 +38,10 @@ module.exports = () => {
         ensureImportDeclaration(
           body,
           `import {prepared} from 'fusion-react-async';`
+        );
+        ensureImportDeclaration(
+          body,
+          `import {withRouter} from 'fusion-plugin-react-router'`
         );
         const componentOldIdentifier = component.value.expression;
         const newIdentifier = path.scope.generateUidIdentifier(
@@ -79,10 +85,14 @@ module.exports = () => {
             t.VariableDeclarator(
               newIdentifier,
               t.CallExpression(
-                t.CallExpression(t.identifier('compose'), [
-                  getConnectFunction(dependencyName),
-                  getPrepareFunction(dataDependency),
-                ]),
+                t.CallExpression(
+                  t.identifier('compose'),
+                  [
+                    isTopLevel && t.identifier('withRouter'),
+                    getConnectFunction(dependencyName),
+                    getPrepareFunction(dataDependency),
+                  ].filter(Boolean)
+                ),
                 [componentOldIdentifier]
               )
             ),

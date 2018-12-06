@@ -29,6 +29,7 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
@@ -137,6 +138,7 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
@@ -237,6 +239,7 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
@@ -340,6 +343,7 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
@@ -400,6 +404,7 @@ const getUser = args => {
 
 // TODO: You may want to move this into the container component file
 const _AppWithData = compose(
+  withRouter,
   connect(
     state => {
       // TODO: get things from state you need here
@@ -460,6 +465,7 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
@@ -497,6 +503,7 @@ const getUser = args => {
 
 // TODO: You may want to move this into the container component file
 const _AppContainerWithData = compose(
+  withRouter,
   connect(
     state => {
       // TODO: get things from state you need here
@@ -564,6 +571,7 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
@@ -601,6 +609,7 @@ const getUser = args => {
 
 // TODO: You may want to move this into the container component file
 const _AppContainerWithData = compose(
+  withRouter,
   connect(
     state => {
       // TODO: get things from state you need here
@@ -671,6 +680,7 @@ const routes = (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
@@ -708,6 +718,7 @@ const getUser = args => {
 
 // TODO: You may want to move this into the container component file
 const _AppContainerWithData = compose(
+  withRouter,
   connect(
     state => {
       // TODO: get things from state you need here
@@ -771,6 +782,7 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import {prepared} from 'fusion-react-async';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
@@ -808,6 +820,7 @@ const getUser = args => {
 
 // TODO: You may want to move this into the container component file
 const _AppContainerWithData = compose(
+  withRouter,
   connect(
     state => {
       // TODO: get things from state you need here

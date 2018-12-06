@@ -5,13 +5,15 @@ module.exports = () => {
   const namedModuleVisitor = visitNamedModule({
     moduleName: 'Route',
     packageName: 'react-router',
-    refsHandler: (t, state, refPaths) => {
+    refsHandler: (t, state, refPaths, path) => {
       refPaths.forEach(refPath => {
         const elementPath = refPath.parentPath.parentPath;
+        const isTopLevel = refPath.parentPath.type !== 'JSXElement';
         const openingElement = elementPath.node.openingElement;
         const closingElement = elementPath.node.closingElement;
         const props = openingElement.attributes;
         const children = elementPath.node.children;
+
         // Ensure leading slash
         ensureLeadingSlash(openingElement.attributes);
         // Handle nested routes
@@ -26,6 +28,31 @@ module.exports = () => {
           });
           if (!componentName) {
             return;
+          }
+
+          const componentBinding = path.scope.bindings[componentName];
+          // Wrap to level route component in withRouter
+          // This should only be triggered in the case where there was no dataDependency
+          if (isTopLevel && componentBinding) {
+            if (
+              componentBinding.path.type === 'ImportDefaultSpecifier' ||
+              componentBinding.path.type === 'ImportNamespaceSpecifier'
+            ) {
+              const identifier = path.scope.generateUidIdentifier(
+                componentName
+              );
+              componentBinding.path.parentPath.insertAfter(
+                t.VariableDeclaration('const', [
+                  t.VariableDeclarator(
+                    identifier,
+                    t.callExpression(t.identifier('withRouter'), [
+                      t.identifier(componentName),
+                    ])
+                  ),
+                ])
+              );
+              componentName = identifier.name;
+            }
           }
           const pathProp = openingElement.attributes.find(
             p => p.name.name === 'path'
