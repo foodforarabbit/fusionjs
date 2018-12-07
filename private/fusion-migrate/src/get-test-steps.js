@@ -50,7 +50,7 @@ module.exports = function getTestSteps(options) {
         codemodStep({
           ...options,
           plugin: modNormalizeTape,
-          filter: f => f.includes('src/test'),
+          glob: 'src/test/**/*.js',
         }),
     },
     {
@@ -59,7 +59,7 @@ module.exports = function getTestSteps(options) {
         codemodStep({
           ...options,
           plugin: modDeepLooseEqual,
-          filter: f => f.includes('src/test'),
+          glob: 'src/test/**/*.js',
         }),
     },
     {
@@ -68,7 +68,7 @@ module.exports = function getTestSteps(options) {
         codemodStep({
           ...options,
           plugin: modUpgradeEnzyme,
-          filter: f => f.includes('src/test'),
+          glob: 'src/test/**/*.js',
         }),
     },
     {
@@ -77,7 +77,7 @@ module.exports = function getTestSteps(options) {
         codemodStep({
           ...options,
           plugin: modRemoveEnzymeAdapter,
-          filter: f => f.includes('src/test-utils/test-app.js'),
+          glob: 'src/test-utils/test-app.js',
         }),
     },
     {id: 'jest-codemods', step: () => jestCodemods(options)},
@@ -88,8 +88,7 @@ module.exports = function getTestSteps(options) {
         codemodStep({
           ...options,
           plugin: modTestCleanup,
-          filter: f =>
-            f.includes('src/__tests__') || f.includes('src/test-utils'),
+          glob: 'src/__tests__/**/*.js|src/test-utils/**/*.js',
         }),
     },
     modFixTestImports,

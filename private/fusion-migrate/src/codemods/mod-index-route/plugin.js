@@ -20,7 +20,7 @@ module.exports = () => {
               ],
               true
             ),
-            t.JSXClosingElement(t.JSXIdentifier('Route')),
+            null,
             []
           )
         );

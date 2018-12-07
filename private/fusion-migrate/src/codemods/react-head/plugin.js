@@ -83,7 +83,7 @@ module.exports = babel => {
           }),
           true
         ),
-        t.JSXClosingElement(t.JSXIdentifier(type)),
+        null,
         []
       );
     });
@@ -102,7 +102,7 @@ module.exports = babel => {
         }),
         true
       ),
-      t.JSXClosingElement(t.JSXIdentifier('html')),
+      null,
       []
     );
   }

@@ -1,44 +1,29 @@
-const {promisify} = require('util');
 const babel = require('@babel/core');
-
-const getJSFiles = require('./get-js-files.js');
-const parserOpts = require('../parser-opts.js');
-const genericStep = require('./generic-step.js');
-
-const transformFile = promisify(babel.transformFile);
+const {withJsFile, findFiles} = require('@dubstep/core');
 
 module.exports = async function codemodStep({
   destDir,
-  filter,
+  glob = 'src/**/*.js',
   plugin,
   plugins,
 }) {
-  const files = await getJSFiles(destDir);
   if (!plugins) {
     plugins = [plugin];
   }
 
-  const transform = async (joinedPath, file) => {
-    return transformFile(joinedPath, {
-      plugins,
-      babelrc: false,
-      parserOpts,
-      generatorOpts: {
-        retainLines: true,
-      },
-    }).then(({code}) => {
-      return {
-        file: file,
-        joinedPath,
-        content: code,
+  const files = await findFiles(glob);
+  for (const file of files) {
+    await withJsFile(file, path => {
+      let state = {
+        file: {
+          opts: {
+            filename: file,
+          },
+        },
       };
+      plugins.forEach(plugin => {
+        path.traverse(plugin(babel).visitor, state);
+      });
     });
-  };
-
-  return await genericStep({
-    destDir,
-    filter,
-    files,
-    transform,
-  });
+  }
 };

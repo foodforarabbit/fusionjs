@@ -10,20 +10,22 @@ module.exports = () => {
     name: 'data-dependency',
     visitor: {
       JSXElement: path => {
-        const attributes = path.node.openingElement.attributes;
+        const attributes = path.node.openingElement.attributes.filter(
+          attr => attr.type !== 'JSXSpreadAttribute'
+        );
         const {component, dataDependency} = attributes.reduce((obj, attr) => {
           obj[attr.name.name] = attr;
           return obj;
         }, {});
+        if (!component || !dataDependency) {
+          return;
+        }
         path.node.openingElement.attributes = attributes.filter(attr => {
           if (attr.name.name === 'dataDependency') {
             return false;
           }
           return true;
         });
-        if (!component || !dataDependency) {
-          return;
-        }
 
         const isTopLevel = path.parentPath.type !== 'JSXElement';
 

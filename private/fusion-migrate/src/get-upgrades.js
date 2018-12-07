@@ -28,7 +28,7 @@ module.exports = function getUpgrades({srcDir, destDir}) {
       await codemodStep({
         destDir,
         plugin: modCsrfIgnoreRoutes,
-        filter: f => f.endsWith('src/main.js'),
+        glob: 'src/main.js',
       });
     },
     async () => {
@@ -38,7 +38,7 @@ module.exports = function getUpgrades({srcDir, destDir}) {
         codemodStep({
           destDir,
           plugin: modHelmet,
-          filter: f => f.endsWith('src/main.js'),
+          glob: 'src/main.js',
         }),
       ]);
     },
@@ -49,7 +49,7 @@ module.exports = function getUpgrades({srcDir, destDir}) {
         codemodStep({
           destDir,
           plugin: modHeatpipePlugin,
-          filter: f => f.endsWith('src/main.js'),
+          glob: 'src/main.js',
         }),
       ]);
     },
@@ -57,33 +57,33 @@ module.exports = function getUpgrades({srcDir, destDir}) {
       await codemodStep({
         destDir,
         plugin: modReduxEnhancer,
-        filter: f => f.endsWith('src/main.js'),
+        glob: 'src/main.js',
       });
     },
     async () => {
       await codemodStep({
         destDir,
         plugin: modHealthPathCheck,
-        filter: f => f.endsWith('src/plugins/health.js'),
+        glob: 'src/plugins/health.js',
       });
     },
     async () => {
       await codemodStep({
         destDir,
         plugin: modLogtronBackend,
-        filter: f => f.endsWith('src/main.js'),
+        glob: 'src/main.js',
       });
     },
     async () => {
       await codemodStep({
         destDir,
         plugin: modHelmetMigrations,
-        filter: f => f.endsWith('src/components/root.js'),
+        glob: 'src/components/root.js',
       });
       await codemodStep({
         destDir,
         plugin: modPluginRemovals,
-        filter: f => f.endsWith('src/app.js'),
+        glob: 'src/app.js',
       });
       await updateFiles({
         srcDir,
@@ -101,7 +101,7 @@ module.exports = function getUpgrades({srcDir, destDir}) {
       await codemodStep({
         destDir,
         plugin: modMoveAuthHeadersConfigFromMain,
-        filter: f => f.endsWith('src/main.js'),
+        glob: 'src/main.js',
       });
     },
     async () => format(destDir),

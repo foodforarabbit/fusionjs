@@ -100,6 +100,7 @@ module.exports = () => {
           );
           elementPath.node.children = [];
           openingElement.selfClosing = true;
+          elementPath.node.closingElement = null;
         } else {
           // Add exact prop
           const exactProp = props.find(p => {

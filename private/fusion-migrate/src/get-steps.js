@@ -80,13 +80,9 @@ module.exports = function getSteps(options) {
     .reduce(addDiffSteps(options), []);
 };
 
-const filterMatchMain = filterMatchFile('src/main.js');
-
 function get14Steps(options) {
   const {config} = options;
   const state = {};
-  const filterMatchRoutes = f =>
-    state.routesFile && state.routesFile.endsWith(f);
   const hasProxies =
     get(config, 'dev.server.proxies') ||
     get(config, 'common.server.proxies') ||
@@ -105,14 +101,14 @@ function get14Steps(options) {
     getStep('redux-state-compat', () =>
       codemodStep({
         ...options,
-        filter: filterMatchFile('src/app.js'),
+        glob: 'src/app.js',
         plugin: modInitialStateCompat,
       })
     ),
     getStep('team-name', () =>
       codemodStep({
         ...options,
-        filter: filterMatchMain,
+        glob: 'src/main.js',
         plugin: modTeamName(teamName),
       })
     ),
@@ -141,7 +137,7 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modCompatUniversalLogger,
-        filter: filterMatchMain,
+        glob: 'src/main.js',
       })
     ),
     getStep(
@@ -151,7 +147,7 @@ function get14Steps(options) {
         codemodStep({
           ...options,
           plugin: modCompatHttpHandler,
-          filter: filterMatchMain,
+          glob: 'src/main.js',
         })
     ),
     getStep('mod-universal-m3', () =>
@@ -161,14 +157,14 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modCompatUniversalM3,
-        filter: filterMatchMain,
+        glob: 'src/main.js',
       })
     ),
     getStep('mod-sentry-config', () =>
       codemodStep({
         ...options,
         plugin: modSentryConfig(config),
-        filter: filterMatchFile('src/config/sentry.js'),
+        glob: 'src/config/sentry.js',
       })
     ),
     getStep('mod-remove-bedrock-renderer', () =>
@@ -181,14 +177,13 @@ function get14Steps(options) {
         codemodStep({
           ...options,
           plugin: modRenderPageSkeletonCompat(state),
-          filter: filterMatchMain,
+          glob: 'src/main.js',
         })
     ),
     getStep('mod-data-dependency', () =>
       codemodStep({
         ...options,
         plugin: modDataDependency,
-        filter: filterMatchRoutes,
       })
     ),
     getStep('mod-react-head', () =>
@@ -198,37 +193,34 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modRedirect,
-        filter: filterMatchRoutes,
       })
     ),
     getStep('mod-index-redirect', () =>
       codemodStep({
         ...options,
         plugin: modIndexRedirect,
-        filter: filterMatchRoutes,
       })
     ),
     getStep('mod-index-route', () =>
       codemodStep({
         ...options,
         plugin: modIndexRoute,
-        filter: filterMatchRoutes,
       })
     ),
     getStep('mod-react-router', () =>
       codemodStep({
         ...options,
         plugin: modReactRouter,
-        filter: filterMatchRoutes,
       })
     ),
-    getStep('mod-hoist-routes', () =>
-      codemodStep({
+    getStep('mod-hoist-routes', () => {
+      return codemodStep({
         ...options,
         plugin: modHoistRoutes(routePrefix),
-        filter: filterMatchRoutes,
-      })
-    ),
+        glob: state.routesFile,
+        // glob: state.routesFile || 'src/components/routes.js',
+      });
+    }),
     getStep('mod-replace-router-imports', () =>
       codemodStep({
         ...options,
@@ -242,21 +234,21 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modCompatRPC,
-        filter: filterMatchMain,
+        glob: 'src/main.js',
       })
     ),
     getStep('mod-main-imports', () =>
       codemodStep({
         ...options,
         plugin: modMainImports(state),
-        filter: filterMatchFile('src/main.js', 'src/app.js'),
+        glob: 'src/main.js|src/app.js',
       })
     ),
     getStep('mod-redux', () =>
       codemodStep({
         ...options,
         plugin: modRedux,
-        filter: filterMatchFile('src/shared/store.js'),
+        glob: 'src/shared/store.js',
       })
     ),
     getStep('mod-isomorphic-i18n', () =>
@@ -275,7 +267,7 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modUberXhrCompat,
-        filter: filterMatchMain,
+        glob: 'src/main.js',
       })
     ),
     hasProxies &&
@@ -290,14 +282,14 @@ function get14Steps(options) {
         codemodStep({
           ...options,
           plugin: modProxies,
-          filter: filterMatchMain,
+          glob: 'src/main.js',
         })
       ),
     getStep('remove-styletron-plugin', () =>
       codemodStep({
         ...options,
         plugin: modRemoveStyletron,
-        filter: filterMatchMain,
+        glob: 'src/main.js',
       })
     ),
     getStep('fix-tracer', () =>
@@ -312,7 +304,7 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modAddLegacyStyletronMixin,
-        filter: filterMatchMain,
+        glob: 'src/main.js',
       })
     ),
     getStep('add-no-flow-annotation', () => addNoFlowAnnotation(options)),
@@ -348,13 +340,7 @@ function getConfigCodemodStep(options, keyPath, file) {
       codemodStep({
         ...options,
         plugin: mod,
-        filter: filterMatchFile(file),
+        glob: file,
       }),
-  };
-}
-
-function filterMatchFile(...files) {
-  return function _filterMatchFile(f) {
-    return files.includes(f);
   };
 }

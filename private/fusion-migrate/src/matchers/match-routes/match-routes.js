@@ -1,35 +1,23 @@
+const visitNamedModule = require('../../utils/visit-named-module.js');
+
 module.exports = state => () => {
   return {
     name: 'match-routes',
-    visitor: {
-      ExportDefaultDeclaration(path, s) {
+    visitor: visitNamedModule({
+      moduleName: 'Route',
+      packageName: 'react-router',
+      refsHandler: (t, s, refPaths, importPath) => {
         if (state.routesFile) {
           return;
         }
-        const declaration = path.node.declaration;
         const filename = s.file.opts.filename;
-        if (isRouteElement(declaration)) {
-          state.routesFile = filename;
-        } else if (
-          declaration.type === 'FunctionDeclaration' ||
-          declaration.type === 'ArrowFunctionExpression'
+        if (
+          refPaths.some(ref => ref.type === 'JSXIdentifier') &&
+          !filename.includes('test')
         ) {
-          const body = declaration.body.body;
-          if (!Array.isArray(body)) {
-            return;
-          }
-          const returnStatement = body.find(
-            node => node.type === 'ReturnStatement'
-          );
-          if (returnStatement && isRouteElement(returnStatement.argument)) {
-            state.routesFile = filename;
-          }
+          state.routesFile = filename;
         }
       },
-    },
+    }),
   };
 };
-
-function isRouteElement(node) {
-  return node.type == 'JSXElement' && node.openingElement.name.name === 'Route';
-}

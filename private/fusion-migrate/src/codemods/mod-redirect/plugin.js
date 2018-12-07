@@ -40,7 +40,7 @@ module.exports = () => {
                               ),
                               true
                             ),
-                            t.JSXClosingElement(t.JSXIdentifier('Redirect')),
+                            null,
                             []
                           )
                         ),
@@ -51,7 +51,7 @@ module.exports = () => {
               ],
               true
             ),
-            t.JSXClosingElement(t.JSXIdentifier('Route')),
+            null,
             []
           )
         );
