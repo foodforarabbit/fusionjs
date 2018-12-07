@@ -53,7 +53,7 @@ export type EventsAdapterDepsType = {
   logger: typeof LoggerToken,
 };
 export type EventsAdapterType = {
-  logTiming: (string, Array<string>) => string => void,
+  logTiming: (string, {[string]: mixed}) => number => void,
 };
 
 export type EventsAdapterAnalyticsType = {
