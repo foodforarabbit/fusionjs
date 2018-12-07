@@ -1,2 +1,4 @@
 // @flow
-export default null;
+import type {TChannelPluginType} from './types.js';
+
+export default ((null: any): TChannelPluginType);
