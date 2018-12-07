@@ -4,6 +4,7 @@ const exec = require('execa');
 const semver = require('semver');
 
 const defaultModulesToRemove = [
+  '@uber/urate-widget',
   'livereactload',
   'react-proxy',
   'fusion-plugin-styletron-react',
@@ -41,6 +42,7 @@ const defaultCompatModules = [
   '@uber/fusion-plugin-page-skeleton-compat',
   '@uber/fusion-plugin-uber-xhr-compat',
   '@uber/fusion-plugin-react-router-v3-compat',
+  '@uber/fusion-plugin-urate',
   'fusion-plugin-http-handler',
 ];
 
