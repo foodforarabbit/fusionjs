@@ -30,7 +30,7 @@ export default function() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react-async';
+import {prepared} from 'fusion-react';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
@@ -139,7 +139,7 @@ export default function() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react-async';
+import {prepared} from 'fusion-react';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
@@ -240,7 +240,7 @@ export default function() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react-async';
+import {prepared} from 'fusion-react';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
@@ -344,7 +344,7 @@ export default function() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react-async';
+import {prepared} from 'fusion-react';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
@@ -466,7 +466,7 @@ export default (
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react-async';
+import {prepared} from 'fusion-react';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
@@ -572,7 +572,7 @@ export default function() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react-async';
+import {prepared} from 'fusion-react';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
@@ -681,7 +681,7 @@ const routes = (
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react-async';
+import {prepared} from 'fusion-react';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';
@@ -783,7 +783,7 @@ export default function() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react-async';
+import {prepared} from 'fusion-react';
 import {connect} from 'react-redux';
 import {createRPCPromise} from '@uber/web-rpc-redux';
 import {compose} from 'redux';

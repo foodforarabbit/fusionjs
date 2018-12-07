@@ -35,10 +35,7 @@ module.exports = () => {
           `import {createRPCPromise} from '@uber/web-rpc-redux';`
         );
         ensureImportDeclaration(body, `import {connect} from 'react-redux';`);
-        ensureImportDeclaration(
-          body,
-          `import {prepared} from 'fusion-react-async';`
-        );
+        ensureImportDeclaration(body, `import {prepared} from 'fusion-react';`);
         ensureImportDeclaration(
           body,
           `import {withRouter} from 'fusion-plugin-react-router'`
