@@ -28,16 +28,14 @@ function ussh() {
 }
 
 async function promptForCerberus() {
-  let choices = [1, 2, 3];
-  const message =
-    'Cerberus is not running. Would you like to start cerberus in the background? [Y/n]';
-  const result = await prompt.confirm(message, {default: 'Y'});
-  if (result) {
-    console.log('Starting up cerberus...');
+  let isRunning = await isCerberusRunning();
+  if (!isRunning) {
+    console.log('Cerberus is not running. Attempting to start Cerberus');
     runCerberus();
     delay(2000);
   }
-  let isRunning = await isCerberusRunning()
+
+  isRunning = await isCerberusRunning();
   let numTries = 0;
   const ms = 1000;
   while (!isRunning && numTries < 30) {
@@ -57,10 +55,9 @@ function delay(ms) {
 }
 
 function runCerberus() {
-  cp.spawn('cerberus', {
+  cp.spawn('cerberus', ['--no-status-page'], {
     stdio: ['inherit', 'ignore', 'ignore']
   });
-
 }
 
 function isCerberusRunning() {
