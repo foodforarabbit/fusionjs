@@ -1,3 +1,4 @@
+// @flow
 import plugin from '../index.js';
 
 test('plugin', () => {

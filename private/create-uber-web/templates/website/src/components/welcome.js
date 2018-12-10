@@ -38,9 +38,7 @@ const FadeIn = styled('div', props => ({
 }));
 
 function ChevronIcon(props) {
-  return (
-    <ChevronRight size={24}/>
-  );
+  return <ChevronRight size={24} />;
 }
 
 type ButtonProps = {
@@ -74,12 +72,12 @@ class ButtonLink extends React.Component<ButtonProps, ButtonState> {
             props: {
               $as: 'a',
               href: 'http://t.uber.com/web',
-              target: '_blank'
+              target: '_blank',
             },
             style: {
               paddingRight: this.state.hovered ? '10px' : '16px',
               transitionProperty: 'background padding',
-            }
+            },
           },
           EndEnhancer: {
             style: ({$theme}) => ({
@@ -87,12 +85,12 @@ class ButtonLink extends React.Component<ButtonProps, ButtonState> {
               transitionProperty: 'margin',
               transitionDuration: $theme.animation.timing100,
               transitionTimingFunction: $theme.animation.easeOutCurve,
-            })
-          }
+            }),
+          },
         }}
       >
-      {this.props.children}
-    </Button>
+        {this.props.children}
+      </Button>
     );
   }
 }
@@ -106,9 +104,7 @@ export default function Hello() {
         </FadeIn>
         <AlignRight>
           <FadeIn $delay="1.5s">
-            <ButtonLink>
-              Let&apos;s get started
-            </ButtonLink>
+            <ButtonLink>Let&apos;s get started</ButtonLink>
           </FadeIn>
         </AlignRight>
       </div>

@@ -45,9 +45,8 @@ import AnalyticsSession, {
 import HeatpipePlugin, {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
 
 import CsrfProtectionPlugin, {
-  FetchForCsrfToken,
   CsrfIgnoreRoutesToken,
-} from 'fusion-plugin-csrf-protection-react';
+} from 'fusion-plugin-csrf-protection';
 
 import UniversalEvents, {
   UniversalEventsToken,
@@ -104,8 +103,8 @@ export default async function start(options: any = {}) {
   const root = options.root || DefaultRoot;
   const app = new App(root, options.render);
   app.register(HelmetPlugin);
-  // Universal Plugins
-  app.register(FetchToken, CsrfProtectionPlugin);
+  app.enhance(FetchToken, CsrfProtectionPlugin);
+  app.register(FetchToken, unfetch);
   __NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors']);
   // eslint-disable-next-line no-unused-vars
   app.register(UniversalEventsToken, UniversalEvents);
@@ -159,8 +158,6 @@ export default async function start(options: any = {}) {
     app.register(RPCHandlersToken, RPCHandlersPlugin);
     app.register(I18nToken, I18n);
   } else {
-    // browser specific plugins
-    app.register(FetchForCsrfToken, unfetch);
     app.register(RPCToken, RPC);
     app.register(I18nToken, I18n);
   }

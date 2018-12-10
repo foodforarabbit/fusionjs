@@ -1,6 +1,8 @@
 yarn build
 for d in ./templates/*/ ; do (
   cd "$d";
+  echo "Upgrading $d";
+  yarn;
   node ../../dist/cli upgrade --force
   yarn test;
   rm -rf node_modules;

@@ -63,6 +63,9 @@
     "npm-watch": "^0.4.0",
     "prettier": "^1.14.3"
   },
+  "resolutions": {
+    "event-stream": "3.3.5"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
   "browser": {
