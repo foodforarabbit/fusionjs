@@ -2,11 +2,14 @@
 import tape from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+import {
+  UniversalEventsToken,
+  type UniversalEventsType,
+} from 'fusion-plugin-universal-events';
 import {M3Token, M3ClientToken, CommonTagsToken} from '../index';
 import M3Plugin from '../server';
 
-tape('m3 server plugin', t => {
+tape.test('m3 server plugin', t => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
@@ -22,11 +25,11 @@ tape('m3 server plugin', t => {
     immediateGauge: false,
     close: false,
   };
-  const events = {
+  const events = (({
     on(type) {
       t.equal(type, `m3:${types.shift()}`, 'adds event handler correctly');
     },
-  };
+  }: any): UniversalEventsType);
   class Client {
     constructor(config) {
       t.equal(typeof config.commonTags.dc, 'string', 'passes in common tag dc');
@@ -136,7 +139,6 @@ tape('m3 server plugin', t => {
   const app = new App('el', el => el);
   app.register(M3ClientToken, Client);
   app.register(M3Token, M3Plugin);
-  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   app.middleware({m3: M3Token}, ({m3}) => {
@@ -170,7 +172,7 @@ tape('m3 server plugin', t => {
   t.end();
 });
 
-tape('m3 server plugin - event handlers', t => {
+tape.test('m3 server plugin - event handlers', t => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
@@ -179,7 +181,7 @@ tape('m3 server plugin - event handlers', t => {
     timing: false,
     gauge: false,
   };
-  const events = {
+  const events = (({
     on(type, handler) {
       const m3Type = types.shift();
       t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
@@ -190,7 +192,7 @@ tape('m3 server plugin - event handlers', t => {
         tags: {something: 'value'},
       });
     },
-  };
+  }: any): UniversalEventsType);
 
   class Client {
     counter(key, value, {tags}) {
@@ -250,7 +252,6 @@ tape('m3 server plugin - event handlers', t => {
   const app = new App('el', el => el);
   app.register(M3ClientToken, Client);
   app.register(M3Token, M3Plugin);
-  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
@@ -262,7 +263,7 @@ tape('m3 server plugin - event handlers', t => {
   t.end();
 });
 
-tape('m3 server plugin - event handlers with __url__', t => {
+tape.test('m3 server plugin - event handlers with __url__', t => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
@@ -271,7 +272,7 @@ tape('m3 server plugin - event handlers with __url__', t => {
     timing: false,
     gauge: false,
   };
-  const events = {
+  const events = (({
     emit() {},
     on(type, handler) {
       const m3Type = types.shift();
@@ -284,7 +285,7 @@ tape('m3 server plugin - event handlers with __url__', t => {
         __url__: '/test',
       });
     },
-  };
+  }: any): UniversalEventsType);
 
   class Client {
     counter(key, value, {tags}) {
@@ -348,7 +349,6 @@ tape('m3 server plugin - event handlers with __url__', t => {
   const app = new App('el', el => el);
   app.register(M3ClientToken, Client);
   app.register(M3Token, M3Plugin);
-  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
@@ -360,7 +360,7 @@ tape('m3 server plugin - event handlers with __url__', t => {
   t.end();
 });
 
-tape('m3 server plugin - event handlers with __url__ and no tags', t => {
+tape.test('m3 server plugin - event handlers with __url__ and no tags', t => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
@@ -369,7 +369,7 @@ tape('m3 server plugin - event handlers with __url__ and no tags', t => {
     timing: false,
     gauge: false,
   };
-  const events = {
+  const events = (({
     on(type, handler) {
       const m3Type = types.shift();
       t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
@@ -380,7 +380,7 @@ tape('m3 server plugin - event handlers with __url__ and no tags', t => {
         __url__: '/test',
       });
     },
-  };
+  }: any): UniversalEventsType);
 
   class Client {
     counter(key, value, {tags}) {
@@ -424,7 +424,6 @@ tape('m3 server plugin - event handlers with __url__ and no tags', t => {
   const app = new App('el', el => el);
   app.register(M3ClientToken, Client);
   app.register(M3Token, M3Plugin);
-  // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);

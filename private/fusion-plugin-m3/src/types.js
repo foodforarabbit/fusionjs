@@ -6,8 +6,12 @@ import {M3ClientToken, CommonTagsToken} from './tokens.js';
 
 export type M3DepsType = {
   events: typeof UniversalEventsToken,
-  Client: typeof M3ClientToken,
-  commonTags: typeof CommonTagsToken,
+  Client?: typeof M3ClientToken,
+  commonTags?: typeof CommonTagsToken,
+};
+
+export type M3BrowserDepsType = {
+  events: typeof UniversalEventsToken,
 };
 
 export type TagsType = {
@@ -42,4 +46,12 @@ export type ServiceType = {
   immediateTiming: (string, ?number, ?TagsType) => void,
   immediateGauge: (string, ?number, ?TagsType) => void,
   close: string => Promise<void>,
+};
+
+export type BrowserServiceType = {
+  counter: (string, number, TagsType) => void,
+  increment: (string, TagsType) => void,
+  decrement: (string, TagsType) => void,
+  timing: (string, number, TagsType) => void,
+  gauge: (string, number, TagsType) => void,
 };
