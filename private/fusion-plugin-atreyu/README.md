@@ -27,11 +27,11 @@ Atreyu is data querying/aggregation library similar to GraphQL, but designed to 
   * [Service API](#service-api)
     * [`createAsyncRequest`](#createAsyncRequest)
     * [`createAsyncGraph`](#createAsyncGraph)
-  * [Tracing](#tracing)
+  * [`Tracing Request`](#tracing-request)
 * [Other examples](#other-examples)
   * [Making a request](#making-a-request)
   * [Defining a graph](#defining-a-graph)
-  * [Tracing request](#tracing-request)
+  * [Tracing a rpc request](#tracing-a-rpc-request)
   * [Testing](#testing)
 
 ---
