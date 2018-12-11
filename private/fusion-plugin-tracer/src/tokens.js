@@ -9,6 +9,7 @@ export const TracerToken: Token<Tracer> = createToken('Tracer');
 
 type MockConfig = {|
   mock: boolean,
+  sampler: any,
 |};
 type TracerConfig = $Shape<{
   ...MockConfig,

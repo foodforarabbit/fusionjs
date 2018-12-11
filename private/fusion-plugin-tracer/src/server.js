@@ -36,6 +36,10 @@ const pluginFactory: () => TracerPluginType = () =>
 
       if (mock) {
         options.reporter = new JaegerClient.InMemoryReporter();
+        config.sampler = {
+          type: 'const',
+          param: 1,
+        };
       }
 
       if (!tracerConfig.serviceName) {
@@ -79,6 +83,7 @@ const pluginFactory: () => TracerPluginType = () =>
         tags[opentracing.Tags.HTTP_METHOD] = request.method;
         tags[opentracing.Tags.PEER_SERVICE] = 'web_client';
 
+        // TODO: Normalize path to remove unique identifiers
         const span = tracer.startSpan(`${request.method}_${request.path}`, {
           childOf: context,
           tags: tags,
