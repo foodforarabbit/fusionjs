@@ -1,53 +1,21 @@
 // @flow
-import codemod from './codemod-replace-package';
-import {writeFile, readFile, remove} from 'fs-extra';
-
-jest.mock('@dubstep/core', () => {
-  // $FlowFixMe
-  const actual = require.requireActual('@dubstep/core');
-  return {
-    ...actual,
-    readFile: jest.fn(() => {
-      return JSON.stringify({
-        dependencies: {
-          'fusion-react-async': '1',
-        },
-        devDependencies: {},
-      });
-    }),
-    writeFile: jest.fn(),
-    exec: jest.fn(),
-  };
-});
-
-jest.mock('../../utils/with-js-files.js', () => {
-  // $FlowFixMe
-  const actual = require.requireActual('@dubstep/core');
-  return {
-    withJsFiles: handler => {
-      return actual.withJsFiles(
-        './fixtures/fusion-react-async/fixture.js',
-        handler
-      );
-    },
-  };
-});
-
-jest.mock('../../utils/get-latest-version.js', () => {
-  return {
-    getLatestVersion: () => Promise.resolve('^1.0.0'),
-  };
-});
+import {replacePackage} from './codemod-replace-package.js';
+import {writeFile, readFile, removeFile} from '@dubstep/core';
 
 test('codemod-replace simple', async () => {
   const contents = `
 import {prepared} from "fusion-react-async";
 prepared('test');
 `;
-  const fixture = 'fixtures/fusion-react-async/fixture.js';
+  const root = 'fixtures/replace-simple';
+  const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
-  await codemod('fusion-react-async', 'fusion-react').step();
-  const newContents = (await readFile(fixture)).toString();
+  await replacePackage({
+    target: 'fusion-react-async',
+    replacement: 'fusion-react',
+    dir: root,
+  });
+  const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
 "
@@ -55,7 +23,7 @@ import {prepared} from \\"fusion-react\\";
 prepared('test');
 "
 `);
-  await remove(fixture);
+  await removeFile(root);
 });
 
 test('codemod-replace complex', async () => {
@@ -64,10 +32,15 @@ import {prepared, dispatched as d} from "fusion-react-async";
 prepared('test');
 d();
 `;
-  const fixture = 'fixtures/fusion-react-async/fixture.js';
+  const root = 'fixtures/replace-complex';
+  const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
-  await codemod('fusion-react-async', 'fusion-react').step();
-  const newContents = (await readFile(fixture)).toString();
+  await replacePackage({
+    target: 'fusion-react-async',
+    replacement: 'fusion-react',
+    dir: root,
+  });
+  const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
 "
@@ -76,5 +49,5 @@ prepared('test');
 d();
 "
 `);
-  await remove(fixture);
+  await removeFile(root);
 });

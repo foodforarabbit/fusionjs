@@ -1,38 +1,6 @@
 // @flow
-import codemod from './enhancer';
-import {writeFile, readFile, remove} from 'fs-extra';
-
-jest.mock('@dubstep/core', () => {
-  // $FlowFixMe
-  const actual = require.requireActual('@dubstep/core');
-  return {
-    ...actual,
-    readFile: jest.fn(() => {
-      return JSON.stringify({
-        dependencies: {
-          'fusion-plugin-csrf-protection-react': '1',
-        },
-      });
-    }),
-    writeFile: jest.fn(),
-  };
-});
-
-jest.mock('../../utils/get-latest-version.js', () => {
-  return {
-    getLatestVersion: () => Promise.resolve('^1.0.0'),
-  };
-});
-
-jest.mock('../../utils/with-js-files.js', () => {
-  // $FlowFixMe
-  const actual = require.requireActual('@dubstep/core');
-  return {
-    withJsFiles: handler => {
-      return actual.withJsFiles('./fixtures/csrf-enhancer/fixture.js', handler);
-    },
-  };
-});
+import {migrateCsrfProtectionToV2} from './enhancer.js';
+import {writeFile, readFile, removeFile} from '@dubstep/core';
 
 test('csrf protection enhancer codemod', async () => {
   const contents = `
@@ -51,10 +19,11 @@ export default async function start() {
   }
   return app;
 }`;
-  const fixture = 'fixtures/csrf-enhancer/fixture.js';
+  const root = 'fixtures/csrf-enhancer-registration';
+  const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
-  await codemod.step();
-  const newContents = (await readFile(fixture)).toString();
+  await migrateCsrfProtectionToV2({dir: root});
+  const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
 "
@@ -70,7 +39,7 @@ export default async function start() {
   return app;
 }"
 `);
-  await remove(fixture);
+  await removeFile(root);
 });
 
 test('csrf protection codemod withServices', async () => {
@@ -81,10 +50,11 @@ import {withFetch} from "fusion-plugin-csrf-protection-react";
 export default withFetch(function start() {
   return (<div>Hello</div>);
 })`;
-  const fixture = 'fixtures/csrf-enhancer/fixture.js';
+  const root = 'fixtures/csrf-enhancer-hoc';
+  const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
-  await codemod.step();
-  const newContents = (await readFile(fixture)).toString();
+  await migrateCsrfProtectionToV2({dir: root});
+  const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
 "
@@ -96,5 +66,5 @@ export default withServices({fetch: FetchToken})(function start() {
   return (<div>Hello</div>);
 })"
 `);
-  await remove(fixture);
+  await removeFile(root);
 });

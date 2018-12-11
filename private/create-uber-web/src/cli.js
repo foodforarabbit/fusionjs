@@ -77,10 +77,16 @@ cli
   .describe('Upgrade dependencies')
   .option('--dir', 'Project folder', '.')
   .option('--match', 'Only upgrade deps whose name match this regex', '')
+  .option('--codemod', 'Also run Fusion.js codemods?', 'true')
   .option('--force', 'Force deps to latest version, ignoring tests', 'false')
   .action(args => {
-    const {dir, match, force} = args;
-    upgrade({dir, match, force: force !== 'false'});
+    const {dir, match, codemod, force} = args;
+    upgrade({
+      dir,
+      match,
+      codemod: codemod === 'true',
+      force: force !== 'false',
+    });
   });
 
 cli

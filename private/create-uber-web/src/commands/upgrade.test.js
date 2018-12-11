@@ -1,23 +1,20 @@
 /* @flow */
 
 import {upgrade} from './upgrade.js';
+import {writeFile, readFile, removeFile} from '@dubstep/core';
 
-jest.mock('@dubstep/core', () => {
-  // $FlowFixMe
-  const actual = require.requireActual('@dubstep/core');
-  return {
-    ...actual,
-    step: jest.fn(id => {
-      return {
-        id,
-        step: () => true,
-      };
-    }),
-  };
-});
+jest.mock('../utils/get-latest-version.js', () => ({
+  getLatestVersion: () => Promise.resolve('^1.0.0'),
+}));
 
 test('upgrade', async () => {
-  await upgrade({dir: 'some/dir', match: '', force: true});
-  const {step} = require('@dubstep/core');
-  expect(step).toHaveBeenCalled();
+  const root = 'fixtures/upgrade';
+  const file = `${root}/package.json`;
+  await writeFile(file, '{"dependencies": {"no-bugs": "0.0.0"}}');
+  await upgrade({dir: root, match: '', codemod: true, force: true});
+  const data = await readFile(file);
+  await removeFile(root);
+
+  expect(data.includes('0.0.0')).toBe(false);
+  expect(data.includes('styletron-react')).toBe(true);
 });

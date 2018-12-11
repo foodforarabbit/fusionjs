@@ -1,7 +1,7 @@
 /* @flow */
 
 import {readFile, writeFile} from '@dubstep/core';
-import {install, test} from './yarn';
+import {install, test as runTests} from './yarn';
 import log from './log';
 import {getProgress} from './progress';
 import {getLatestVersion} from './get-latest-version';
@@ -14,7 +14,7 @@ export const bumpDeps = async (dir: string, match: string, force: boolean) => {
     if (force) {
       await batchUpgrade(dir, match, file, data);
     } else {
-      await test(dir);
+      await runTests(dir);
       await upgrade(dir, match, file, data, 'dependencies');
       await upgrade(dir, match, file, data, 'devDependencies');
       await upgrade(dir, match, file, data, 'peerDependencies');
@@ -31,7 +31,7 @@ const write = async (file, data) => {
 
 const installAndTest = async dir => {
   await install(dir);
-  await test(dir);
+  await runTests(dir);
 };
 
 const batchUpgrade = async (dir, match, file, data) => {

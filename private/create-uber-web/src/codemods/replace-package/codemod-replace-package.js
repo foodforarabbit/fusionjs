@@ -1,36 +1,43 @@
 // @flow
 import {types as t} from '@babel/core';
-import {step, readFile, writeFile} from '@dubstep/core';
-import {withJsFiles} from '../../utils/with-js-files';
-import log from '../../utils/log';
-import {getLatestVersion} from '../../utils/get-latest-version';
+import {withJsonFile} from '@dubstep/core';
+import {withJsFiles} from '../../utils/with-js-files.js';
+import log from '../../utils/log.js';
+import {getLatestVersion} from '../../utils/get-latest-version.js';
 
-export default (target: string, replacement: string) =>
-  step('codemod-replace-package', async () => {
-    const pkg = JSON.parse(await readFile('package.json'));
-    const deps = Object.assign(
-      pkg.dependencies || {},
-      pkg.devDependencies || {}
-    );
-    if (!deps[target]) {
-      return;
-    }
+type ReplaceOptions = {
+  target: string,
+  replacement: string,
+  dir: string,
+};
 
-    log.title(`Replacing ${target} with ${target}`);
-    delete pkg.dependencies[target];
-    delete pkg.devDependencies[target];
-    pkg.dependencies[replacement] = await getLatestVersion(replacement);
-    await writeFile('package.json', JSON.stringify(pkg, null, 2));
-    await withJsFiles(path => {
-      let shouldUpdate = false;
-      path.traverse({
-        ImportDeclaration(ipath) {
-          if (ipath.node.source.value === target) {
-            ipath.node.source = t.stringLiteral(replacement);
-            shouldUpdate = true;
-          }
-        },
-      });
-      return shouldUpdate;
-    });
+export const replacePackage = async ({
+  target,
+  replacement,
+  dir,
+}: ReplaceOptions) => {
+  await withJsonFile(`${dir}/package.json`, async pkg => {
+    await replace(pkg, 'dependencies', target, replacement);
+    await replace(pkg, 'devDependencies', target, replacement);
   });
+  await withJsFiles(dir, path => {
+    let shouldUpdate = false;
+    path.traverse({
+      ImportDeclaration(ipath) {
+        if (ipath.node.source.value === target) {
+          ipath.node.source = t.stringLiteral(replacement);
+          shouldUpdate = true;
+        }
+      },
+    });
+    return shouldUpdate;
+  });
+};
+
+async function replace(pkg, group, target, replacement) {
+  if (pkg[group] && pkg[group][target]) {
+    log.title(`Replacing ${target} with ${replacement}`);
+    delete pkg[group][target];
+    pkg[group][replacement] = await getLatestVersion(replacement);
+  }
+}

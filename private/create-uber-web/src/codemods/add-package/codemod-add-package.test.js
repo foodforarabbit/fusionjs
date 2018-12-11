@@ -1,38 +1,25 @@
 // @flow
-import codemod from './codemod-add-package';
-
-jest.mock('@dubstep/core', () => {
-  // $FlowFixMe
-  const actual = require.requireActual('@dubstep/core');
-  return {
-    ...actual,
-    writeFile: jest.fn(),
-    readFile: jest.fn(),
-  };
-});
+import {writeFile, readFile, removeFile} from '@dubstep/core';
+import {addPackage} from './codemod-add-package.js';
 
 test('codemod-add-package, no existing', async () => {
-  require('@dubstep/core').readFile.mockImplementationOnce(() => {
-    return JSON.stringify({
-      dependencies: {},
-    });
-  });
-  require('@dubstep/core').writeFile.mockClear();
-  await codemod('test').step();
-  const dubstep = require('@dubstep/core');
-  expect(dubstep.writeFile).toHaveBeenCalled();
+  const root = 'fixtures/add-new';
+  const file = `${root}/package.json`;
+  await writeFile(file, '{"dependencies": {}}');
+  await addPackage({name: 'no-bugs', dir: root});
+  const data = await readFile(file);
+  await removeFile(root);
+
+  expect(data.includes('no-bugs')).toBe(true);
 });
 
-test('replace-codemod, existing', async () => {
-  require('@dubstep/core').readFile.mockImplementationOnce(() => {
-    return JSON.stringify({
-      dependencies: {
-        test: '1',
-      },
-    });
-  });
-  require('@dubstep/core').writeFile.mockClear();
-  await codemod('test').step();
-  const dubstep = require('@dubstep/core');
-  expect(dubstep.writeFile).not.toBeCalled();
+test('codemod-add-package, existing', async () => {
+  const root = 'fixtures/overwrite';
+  const file = `${root}/package.json`;
+  await writeFile(file, '{"dependencies": {"no-bugs": "0.0.0"}}');
+  await addPackage({name: 'no-bugs', dir: root});
+  const data = await readFile(file);
+  await removeFile(root);
+
+  expect(data.includes('0.0.0')).toBe(false);
 });
