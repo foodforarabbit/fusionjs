@@ -10,6 +10,7 @@ import {
   AtreyuConfigToken,
   AtreyuOptionsToken,
 } from './tokens';
+import type {FusionPlugin} from 'fusion-core';
 
 export type AtreyuDepsType = {
   config: typeof AtreyuConfigToken.optional,
@@ -26,3 +27,5 @@ export type AtreyuType = typeof Atreyu & {
   createAsyncGraph: Object => (...any) => Promise<any>,
   createAsyncRequest: Object => (...any) => Promise<any>,
 };
+
+export type AtreyuPluginType = FusionPlugin<AtreyuDepsType, AtreyuType>;

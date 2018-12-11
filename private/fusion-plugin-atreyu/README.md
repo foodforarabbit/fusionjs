@@ -27,9 +27,11 @@ Atreyu is data querying/aggregation library similar to GraphQL, but designed to 
   * [Service API](#service-api)
     * [`createAsyncRequest`](#createAsyncRequest)
     * [`createAsyncGraph`](#createAsyncGraph)
+  * [Tracing](#tracing)
 * [Other examples](#other-examples)
   * [Making a request](#making-a-request)
   * [Defining a graph](#defining-a-graph)
+  * [Tracing request](#tracing-request)
   * [Testing](#testing)
 
 ---
@@ -202,7 +204,7 @@ const request:Function = atreyu.createAsyncRequest(definition: Object);
 ```
 
 * `definition: Object` - an atreyu request definition. See [https://engdocs.uberinternal.com/atreyu/graphs.html#simple-request](https://engdocs.uberinternal.com/atreyu/graphs.html#simple-request)
-* returns `request: () => Promise<any>`
+* returns `request: (data) => Promise<any>`
 
 ##### `createAsyncGraph`
 
@@ -213,7 +215,19 @@ const graph: Function = atreyu.createAsyncGraph((definition: Object));
 ```
 
 * `definition: Object` - an atreyu request definition. See [https://engdocs.uberinternal.com/atreyu/graphs.html#create-graph](https://engdocs.uberinternal.com/atreyu/graphs.html#create-graph)
-* returns `request: () => Promise<any>`
+* returns `request: (data) => Promise<any>`
+
+#### Tracing
+
+Automatically enable end to end tracing by passing in `context` to your rpc calls
+
+```js
+// Create async graph
+const graph: Function = atreyu.createAsyncGraph((definition: Object));
+
+// Resolve async graph with ctx
+graph(data, ctx)
+```
 
 ---
 
@@ -272,6 +286,36 @@ export default createPlugin({
         return await getInviter({myUUID: 'abcd'});
       },
     };
+  },
+});
+```
+
+#### Tracing request
+
+```js
+import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
+import {createPlugin} from 'fusion-core';
+
+export default createPlugin({
+  deps: {atreyu: AtreyuToken},
+  middleware({atreyu}) {
+    const graphDefinition = {
+      user: {
+        service: 'populous',
+        method: 'UserService::getUser',
+        args: {uuid: '{data.id}'},
+      }
+    };
+    const getUserInfo = atreyu.createAsyncGraph(graphDefinition);
+    return async (ctx, next) => {
+      if (ctx.path === '/userinfo') {
+        const {id} = ctx.request.body;
+        // Pass in ctx to enable end to end tracing
+        const result = await getUserInfo({id}, ctx);
+        ctx.response.body = result;
+      }
+      next();
+    }
   },
 });
 ```

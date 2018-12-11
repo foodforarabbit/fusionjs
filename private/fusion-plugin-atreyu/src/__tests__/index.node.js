@@ -26,7 +26,7 @@ function createAtreyuPlugin(t) {
       t.equal(arg, 'graph-arg');
       t.equal(arg2, 'graph-arg2');
       return {
-        resolve: (resolveArg1, cb) => {
+        resolve: (resolveArg1, options, cb) => {
           t.equal(resolveArg1, 'graph-resolve-arg');
           cb(null, 'graph-result');
         },
@@ -36,7 +36,7 @@ function createAtreyuPlugin(t) {
       t.equal(arg, 'req-arg');
       t.equal(arg2, 'req-arg2');
       return {
-        resolve: (resolveArg1, cb) => {
+        resolve: (resolveArg1, options, cb) => {
           t.equal(resolveArg1, 'req-resolve-arg');
           cb(null, 'req-result');
         },

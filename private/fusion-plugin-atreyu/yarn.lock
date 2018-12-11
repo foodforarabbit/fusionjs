@@ -875,8 +875,8 @@
     "@uber/node-m3-client-addon" "^1.4.4"
 
 "@uber/fusion-plugin-tchannel@^1.1.1-0":
-  version "1.1.1-0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-tchannel/-/private/%40uber%2Ffusion-plugin-tchannel-1.1.1-0.tgz#387ef3e6565a872efcdcb7f9cd7c05e175d66a37"
+  version "1.1.1-1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-tchannel/-/private/%40uber%2Ffusion-plugin-tchannel-1.1.1-1.tgz#8d731f524b16096ae1cbe108085f8ea7aada8b45"
   dependencies:
     my-local-ip "^1.0.0"
     tchannel "^3.9.12"
@@ -1172,7 +1172,7 @@ assert-plus@1.0.0, assert-plus@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/assert-plus/-/assert-plus-1.0.0.tgz#f12e0f3c5d77b0b1cdd9146942e4e96c1e4dd525"
 
-assert@^1.1.1, assert@^1.3.0:
+assert@^1.1.1, assert@^1.3.0, assert@^1.4.1:
   version "1.4.1"
   resolved "https://unpm.uberinternal.com/assert/-/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"
   dependencies:
@@ -2783,6 +2783,14 @@ fusion-plugin-universal-events@^1.3.0:
   dependencies:
     koa-bodyparser "4.2.1"
 
+fusion-test-utils@^1.3.0:
+  version "1.3.0"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.3.0.tgz#36ae6a3cac6cfbe34b85003cb79e11b3ea442483"
+  dependencies:
+    assert "^1.4.1"
+    koa "^2.6.2"
+    node-mocks-http "^1.6.6"
+
 fusion-tokens@^1.1.1:
   version "1.1.1"
   resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.1.tgz#5b29b7d8397d186ed3d459c4e7bbd2de3f3303b6"
@@ -3534,6 +3542,16 @@ jaeger-client@^3.11.0, jaeger-client@^3.5.3:
     uuid "^3.2.1"
     xorshift "^0.2.0"
 
+jaeger-client@^3.13.0:
+  version "3.13.0"
+  resolved "https://unpm.uberinternal.com/jaeger-client/-/jaeger-client-3.13.0.tgz#c5b228242d65389a13eb24eeb56a55409d72c94e"
+  dependencies:
+    node-int64 "^0.4.0"
+    opentracing "^0.13.0"
+    thriftrw "^3.5.0"
+    uuid "^3.2.1"
+    xorshift "^0.2.0"
+
 jest-worker@^22.4.3:
   version "22.4.3"
   resolved "https://unpm.uberinternal.com/jest-worker/-/jest-worker-22.4.3.tgz#5c421417cba1c0abf64bf56bd5fb7968d79dd40b"
@@ -3693,7 +3711,7 @@ koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
 
-koa@^2.6.1:
+koa@^2.6.1, koa@^2.6.2:
   version "2.6.2"
   resolved "https://unpm.uberinternal.com/koa/-/koa-2.6.2.tgz#57ba4d049b0a99cae0d594e6144e2931949a7ce1"
   dependencies:
@@ -4213,7 +4231,7 @@ node-libs-browser@^2.0.0:
     util "^0.10.3"
     vm-browserify "0.0.4"
 
-node-mocks-http@^1.7.3:
+node-mocks-http@^1.6.6, node-mocks-http@^1.7.3:
   version "1.7.3"
   resolved "https://unpm.uberinternal.com/node-mocks-http/-/node-mocks-http-1.7.3.tgz#1c744189f012c1977f4d97443495931a7cd5b4d3"
   dependencies:
