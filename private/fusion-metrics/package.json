@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-metrics",
   "description": "Metrics tracking for Fusion apps",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scaffold-version": "0.2.5",
   "author": " <lhorie@uber.com>",
   "repository": {

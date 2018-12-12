@@ -2,32 +2,52 @@
 
 Metrics tracking for Fusion apps
 
+This library is meant to be used as the production data sink for fusion-plugin-introspect data. It sends runtime data to heatpipe.
+
 ## Usage
 
-Clone this project:
-
 ```
-$ git clone gitolite@code.uber.internal:web/fusion-metrics
+import App from 'fusion-react';
+import HeatpipePlugin, {
+  HeatpipeToken,
+  HeatpipeConfigToken
+} from '@uber/fusion-plugin-heatpipe';
+import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
+
+import introspect from 'fusion-plugin-introspect';
+import store from '@uber/fusion-metrics';
+
+export default async () => {
+  const app = new App(root);
+  app.register(HeatpipeToken, HeatpipePlugin);
+  app.register(UniversalEventsToken, UniversalEvents);
+
+  app.register(
+    introspect({
+      deps: {heatpipe: HeatpipeToken},
+      store: !__DEV__ ? store({service: 'my-service'}) : undefined,
+    })
+  )
+
+  return app;
+}
 ```
 
-Install the dependencies via `yarn`:
+Data is collected on application start (for server data) and upon first request (for browser data).
 
-```
-$ yarn install
-```
+Runtime data is sent to these heatpipe topic:
 
-Run your project and watch the file changes:
-
-```
-$ yarn dev
-```
-
-## Developing fusion-metrics
-
-Write tests. Add **lhorie@uber.com** to your diffs as a code reviewer.
-
-## Ownership
-
-This template is authored by **Leo Horie** <lhorie@uber.com> and is owned by **web** team. For On-Call and support information, see **[uBlame Project Page](https://ublame.uberinternal.com/TODO)**
-
-DANGER: Remove this label when uBlame information is complete. Do not deploy services without ownership and On-Call information.
+- https://watchtower.uberinternal.com/datasets/hp-unified-logging-fusion-runtime-metadata/2/overview
+  - service name
+  - node version
+  - npm version
+  - yarn version
+  - lock file type
+  - server instance uuid (unique id per server start)
+  - git ref
+- https://watchtower.uberinternal.com/datasets/hp-unified-logging-fusion-runtime-dependency-version-usage/2/overview
+  - service name
+  - dependency name
+  - version (as specified package.json)
+  - server instance uuid (unique id per server start)
+  - git ref
