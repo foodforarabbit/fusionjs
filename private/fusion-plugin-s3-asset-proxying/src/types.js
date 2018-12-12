@@ -1,7 +1,7 @@
 // @flow
 import {S3ConfigToken, AssetProxyingResponseHeaderOverrides} from './tokens.js';
 
-import LRU from 'lru-cache';
+import type {LRU} from 'lru-cache';
 
 export type S3ConfigType = {
   bucket: string,
