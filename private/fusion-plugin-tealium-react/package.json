@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-tealium-react",
   "description": "Tealium plugin for FusionJS app with React",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
