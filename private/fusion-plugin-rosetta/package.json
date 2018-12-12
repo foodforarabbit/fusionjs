@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-rosetta",
   "description": "Rosetta plugin for fusion",
-  "version": "1.1.4-0",
+  "version": "1.1.4",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
