@@ -14,6 +14,7 @@ import AtreyuPlugin, {AtreyuToken, AtreyuConfigToken} from '../index';
 import {getSimulator} from 'fusion-test-utils';
 import jaeger from 'jaeger-client';
 import test from 'tape-cup';
+import unique from 'array-unique';
 
 const mockLogger = {
   log: (msg: any): any => {},
@@ -32,36 +33,36 @@ const MockLogger = {
   },
 };
 
-const TestPlugin = createPlugin({
-  deps: {
-    atreyu: AtreyuToken,
-    tracer: TracerToken,
-  },
-  middleware: ({atreyu, tracer}) => {
-    const userInfo = atreyu.createAsyncGraph({
-      user: {
-        service: 'api',
-        method: 'GET',
-        path: '/user',
-        response: (err, result, cb) => {
-          cb(null, {name: 'Uber', id: 123});
+const getPlugin = passContext =>
+  createPlugin({
+    deps: {
+      atreyu: AtreyuToken,
+      tracer: TracerToken,
+    },
+    middleware: ({atreyu, tracer}) => {
+      const userInfo = atreyu.createAsyncGraph({
+        user: {
+          service: 'api',
+          method: 'GET',
+          path: '/user',
+          response: (err, result, cb) => {
+            cb(null, {name: 'Uber', id: 123});
+          },
         },
-      },
-    });
-    return async (ctx, next) => {
-      if (ctx.path === '/userinfo') {
-        const data = {id: 123};
-        const result = await userInfo(data, ctx);
-        ctx.body = result.user;
-      }
-      next();
-    };
-  },
-});
+      });
+      return async (ctx, next) => {
+        if (ctx.path === '/userinfo') {
+          const data = {id: 123};
+          const result = await userInfo(data, passContext ? ctx : undefined);
+          ctx.body = result.user;
+        }
+        next();
+      };
+    },
+  });
 
-test('Support end to end tracing', async t => {
-  const inMemoryReporter = new jaeger.InMemoryReporter();
-
+const inMemoryReporter = new jaeger.InMemoryReporter();
+const getServer = () => {
   const app = new App('test', el => el);
   app.register(LoggerToken, MockLogger);
   app.register(M3Token, M3Plugin);
@@ -82,7 +83,13 @@ test('Support end to end tracing', async t => {
     appName: 'test-app',
     serviceNames: ['api'],
   });
-  app.register(TestPlugin);
+
+  return app;
+};
+
+test('Should support end to end tracing', async t => {
+  const app = getServer();
+  app.register(getPlugin(true));
 
   const sim = getSimulator(app);
   const response = await sim.request('/userinfo', {
@@ -109,6 +116,59 @@ test('Support end to end tracing', async t => {
     'should have all traces end to end'
   );
 
+  const traceIds = inMemoryReporter._spans.map(function m(span) {
+    return span._spanContext._traceId.toString('hex');
+  });
+  t.equals(
+    unique(traceIds).length,
+    1,
+    'should have the same traceId for all spans'
+  );
+
+  inMemoryReporter.clear();
+  app.cleanup();
+  t.end();
+});
+
+test('Should individually trace when context is not passed', async t => {
+  const app = getServer();
+  app.register(getPlugin(false));
+
+  const sim = getSimulator(app);
+  const response = await sim.request('/userinfo', {
+    headers: {'x-uber-source': 'fusion'},
+  });
+
+  t.deepEquals(
+    response.body,
+    {name: 'Uber', id: 123},
+    'should receive a successful response'
+  );
+
+  const spans = inMemoryReporter._spans.map(function m(span) {
+    return span._operationName;
+  });
+  t.deepEquals(
+    spans,
+    [
+      'GET.api.user',
+      'atreyu.node.user',
+      'atreyu.graph.atreyu',
+      'GET_/userinfo',
+    ],
+    'should have all traces end to end'
+  );
+
+  const traceIds = inMemoryReporter._spans.map(function m(span) {
+    return span._spanContext._traceId.toString('hex');
+  });
+  t.equals(
+    unique(traceIds).length,
+    2,
+    'should have two traceIds (fusion server and atreyu)'
+  );
+
+  inMemoryReporter.clear();
   app.cleanup();
   t.end();
 });
