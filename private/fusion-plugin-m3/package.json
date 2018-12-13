@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-m3",
   "description": "M3 plugin for fusion",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -56,7 +56,7 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/node-m3-client-addon": "^1.4.4"
+    "@uber/node-m3-client-addon": "^2.0.0"
   },
   "peerDependencies": {
     "fusion-core": "^1.3.1",
@@ -64,7 +64,7 @@
     "fusion-tokens": "^1.0.3"
   },
   "engines": {
-    "node": "^8.11.3",
+    "node": ">=8.x",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },

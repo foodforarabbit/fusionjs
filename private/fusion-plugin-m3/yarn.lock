@@ -799,12 +799,12 @@
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
   integrity sha1-VWJRm8eWPKyoq/fxKMrjtZTUHQY=
 
-"@uber/node-m3-client-addon@^1.4.4":
-  version "1.4.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-m3-client-addon/-/private/%40uber%2Fnode-m3-client-addon-1.4.4.tgz#6352f9693072e9e0da9f89ce1906d82ebdf5c5f6"
-  integrity sha1-Y1L5aTBy6eDan4nOGQbYLr31xfY=
+"@uber/node-m3-client-addon@^2.0.0":
+  version "2.0.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-m3-client-addon/-/private/%40uber%2Fnode-m3-client-addon-2.0.0.tgz#b2e6120888a599e9350c3c5f8b338329e2273e6b"
+  integrity sha512-kK0hKe8lxqhMjIDMFCSQn9hhR1eV+wUpxMwbO6BB+bkcpUY4kpJxom2ItXoueUAZQpQ91XOS6RnxGNjEPF+nCA==
   dependencies:
-    nan "^2.2.0"
+    nan "^2.11.1"
     xtend "^4.0.1"
 
 abbrev@1:
@@ -3861,7 +3861,7 @@ mute-stream@0.0.7:
   resolved "https://unpm.uberinternal.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-nan@^2.2.0, nan@^2.9.2:
+nan@^2.11.1, nan@^2.9.2:
   version "2.11.1"
   resolved "https://unpm.uberinternal.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
   integrity sha512-iji6k87OSXa0CcrLl9z+ZiYSuR2o+c0bGuNmXdrhTQTakxytAFsC56SArGYoiHlJlFoHSnvmhpceZJaXkVuOtA==
