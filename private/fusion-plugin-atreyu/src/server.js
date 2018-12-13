@@ -57,6 +57,7 @@ const plugin =
         });
         const atreyuResolve = resolve => {
           return (data, options, ctx) => {
+            options = options || {};
             if (!ctx && options && options.request && options.response) {
               ctx = options;
               options = {};
