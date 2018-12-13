@@ -7,8 +7,8 @@ type Store = {
   storeSync(IntrospectionSchema): void,
 };
 
-export default ({service}: {service: string}): Store =>
-  __NODE__
+export default ({service}: {service: string}): Store => {
+  return __NODE__
     ? {
         // data shape is defined here: https://github.com/fusionjs/fusion-plugin-introspect#data-schema
         // FIXME add proper type for heatpipe when available
@@ -55,6 +55,7 @@ export default ({service}: {service: string}): Store =>
         },
       }
     : ((undefined: any): Store);
+};
 
 function fail(e) {
   // eslint-disable-next-line
