@@ -9,6 +9,10 @@ export const SecureHeadersUseFrameguardConfigToken: Token<boolean> = createToken
   'SecureHeadersUseFrameguardConfigToken'
 );
 
+export const SecureHeadersFrameguardAllowFromDomainConfigToken: Token<
+  (Context) => ?string
+> = createToken('SecureHeadersFrameguardAllowFromDomainConfigToken');
+
 export const SecureHeadersCSPConfigToken: Token<
   CSPConfigType | (Context => CSPConfigType)
 > = createToken('SecureHeadersCSPConfigToken');

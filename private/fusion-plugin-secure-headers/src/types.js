@@ -2,6 +2,7 @@
 
 import {
   SecureHeadersUseFrameguardConfigToken,
+  SecureHeadersFrameguardAllowFromDomainConfigToken,
   SecureHeadersCSPConfigToken,
 } from './tokens.js';
 
@@ -17,5 +18,6 @@ export type CSPConfigType = {
 
 export type SecureHeadersDepsType = {
   useFrameGuard: typeof SecureHeadersUseFrameguardConfigToken.optional,
+  frameGuardAllowFromDomain: typeof SecureHeadersFrameguardAllowFromDomainConfigToken.optional,
   cspConfig: typeof SecureHeadersCSPConfigToken.optional,
 };

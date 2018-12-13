@@ -6,6 +6,7 @@ import koaHelmet from 'koa-helmet';
 
 import {
   SecureHeadersUseFrameguardConfigToken,
+  SecureHeadersFrameguardAllowFromDomainConfigToken,
   SecureHeadersCSPConfigToken,
 } from './tokens.js';
 
@@ -21,9 +22,15 @@ const pluginFactory: () => PluginType = () =>
   createPlugin({
     deps: {
       useFrameGuard: SecureHeadersUseFrameguardConfigToken.optional,
+      frameGuardAllowFromDomain:
+        SecureHeadersFrameguardAllowFromDomainConfigToken.optional,
       cspConfig: SecureHeadersCSPConfigToken.optional,
     },
-    middleware: ({useFrameGuard = true, cspConfig = {}}) => {
+    middleware: ({
+      useFrameGuard = true,
+      frameGuardAllowFromDomain = null,
+      cspConfig = {},
+    }) => {
       const serviceName = process.env.SVC_ID || '';
       return async (ctx, next) => {
         const secureHeaderMiddlewares = [];
@@ -37,11 +44,26 @@ const pluginFactory: () => PluginType = () =>
             cspConfig,
           })
         );
+
         if (useFrameGuard !== false) {
-          secureHeaderMiddlewares.push(
-            koaHelmet.frameguard({action: 'sameorigin'})
-          );
+          // Default to sameorigin
+          let frameguard = koaHelmet.frameguard({
+            action: 'sameorigin',
+          });
+
+          if (frameGuardAllowFromDomain != null) {
+            let allowedDomain = await frameGuardAllowFromDomain(ctx);
+            if (allowedDomain != null) {
+              frameguard = koaHelmet.frameguard({
+                action: 'allow-from',
+                domain: allowedDomain,
+              });
+            }
+          }
+
+          secureHeaderMiddlewares.push(frameguard);
         }
+
         secureHeaderMiddlewares.push(koaHelmet.xssFilter());
 
         await compose(secureHeaderMiddlewares)(ctx, next);

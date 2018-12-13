@@ -9,6 +9,7 @@ import {
   SecureHeadersToken,
   SecureHeadersCSPConfigToken,
   SecureHeadersUseFrameguardConfigToken,
+  SecureHeadersFrameguardAllowFromDomainConfigToken,
 } from '../tokens';
 
 const fixtureHeaders = {
@@ -121,6 +122,39 @@ test('basics - disabling frameguard does not add x-frame-origin header', async t
     fixtureCSP(ctx.nonce)
   );
   t.equal(ctx.response.header['x-frame-options'], undefined);
+  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
+  t.end();
+});
+
+test('basics - frameGuardAllowFromDomain override', async t => {
+  const app = createTestFixture();
+  const overrideFunc = function() {
+    return 'http://localhost:3000';
+  };
+  // $FlowFixMe
+  app.register(SecureHeadersFrameguardAllowFromDomainConfigToken, overrideFunc);
+  t.plan(2);
+  const simulator = getSimulator(app);
+  const ctx = await simulator.render('/test-url', fixtureHeaders);
+  t.equal(
+    ctx.response.header['x-frame-options'],
+    'ALLOW-FROM http://localhost:3000'
+  );
+  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
+  t.end();
+});
+
+test('basics - frameGuardAllowFromDomain override non-matching domain', async t => {
+  const app = createTestFixture();
+  const overrideFunc = function() {
+    return null;
+  };
+  // $FlowFixMe
+  app.register(SecureHeadersFrameguardAllowFromDomainConfigToken, overrideFunc);
+  t.plan(2);
+  const simulator = getSimulator(app);
+  const ctx = await simulator.render('/test-url', fixtureHeaders);
+  t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
   t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
   t.end();
 });

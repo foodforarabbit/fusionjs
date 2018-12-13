@@ -21,6 +21,7 @@ This library uses `koa-helmet`.
     * [`SecureHeadersToken`](#secureheaderstoken)
   * [Dependencies](#dependencies)
     * [`SecureHeadersUseFrameguardConfigToken`](#secureheadersuseframeguardconfigtoken)
+    * [`SecureHeadersFrameguardAllowFromDomainConfigToken`](#secureheadersframeguardallowfromdomainconfigtoken)
     * [`SecureHeadersCSPConfigToken`](#secureheaderscspconfigtoken)
 
 ---
@@ -117,6 +118,16 @@ import {SecureHeadersUseFrameguardConfigToken} from 'fusion-plugin-secure-header
 ```
 
 Optional. Server-only. Determines whether to use x-frame-options headers. Defaults to `true`.
+
+
+##### `SecureHeadersFrameguardAllowFromDomainConfigToken`
+
+```js
+import {SecureHeadersFrameguardAllowFromDomainConfigToken} from 'fusion-plugin-secure-headers';
+```
+
+Optional. Server-only. A plugin that returns a string that is set as the domain/origin for x-frame-options ALLOW-FROM.
+If the plugin returns null, defaults to SAMEORIGIN. If `SecureHeadersUseFrameguardConfigToken` is false, this token is ignored.
 
 ##### `SecureHeadersCSPConfigToken`
 
