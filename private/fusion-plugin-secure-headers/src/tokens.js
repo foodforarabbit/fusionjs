@@ -10,7 +10,7 @@ export const SecureHeadersUseFrameguardConfigToken: Token<boolean> = createToken
 );
 
 export const SecureHeadersFrameguardAllowFromDomainConfigToken: Token<
-  (Context) => ?string
+  (Context) => Promise<?string>
 > = createToken('SecureHeadersFrameguardAllowFromDomainConfigToken');
 
 export const SecureHeadersCSPConfigToken: Token<
