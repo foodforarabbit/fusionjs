@@ -26,6 +26,7 @@ const mockLogger = {
   silly: (msg: any): any => {},
   trace: (msg: any): any => {},
 };
+
 const MockLogger = {
   ...mockLogger,
   createChild() {
@@ -33,28 +34,40 @@ const MockLogger = {
   },
 };
 
-const getPlugin = passContext =>
+const userInfoDef = {
+  user: {
+    service: 'api',
+    method: 'GET',
+    path: '/user',
+    response: (err, result, cb) => {
+      cb(null, {name: 'Uber', id: 123});
+    },
+  },
+};
+
+const getPlugin = (type, passContext) =>
   createPlugin({
     deps: {
       atreyu: AtreyuToken,
       tracer: TracerToken,
     },
     middleware: ({atreyu, tracer}) => {
-      const userInfo = atreyu.createAsyncGraph({
-        user: {
-          service: 'api',
-          method: 'GET',
-          path: '/user',
-          response: (err, result, cb) => {
-            cb(null, {name: 'Uber', id: 123});
-          },
-        },
-      });
+      const isRequest = type === 'request';
+      const userInfo = isRequest
+        ? atreyu.createAsyncRequest(userInfoDef.user)
+        : atreyu.createAsyncGraph(userInfoDef);
       return async (ctx, next) => {
         if (ctx.path === '/userinfo') {
           const data = {id: 123};
-          const result = await userInfo(data, passContext ? ctx : undefined);
-          ctx.body = result.user;
+          const options =
+            typeof passContext === 'boolean'
+              ? passContext
+                ? ctx
+                : {tracing: {span: tracer.from(ctx).span}}
+              : undefined;
+
+          const result = await userInfo(data, options);
+          ctx.body = isRequest ? result : result.user;
         }
         next();
       };
@@ -87,10 +100,33 @@ const getServer = () => {
   return app;
 };
 
-test('Should support end to end tracing', async t => {
-  const app = getServer();
-  app.register(getPlugin(true));
+const verifyTrace = (t, type, traceSpans, singleTrace) => {
+  const isRequest = type === 'request';
+  const spans = traceSpans.map(function m(span) {
+    return span._operationName;
+  });
+  t.deepEquals(
+    spans,
+    [
+      isRequest ? 'GET.api.request' : 'GET.api.user',
+      isRequest ? 'atreyu.node.request' : 'atreyu.node.user',
+      'atreyu.graph.atreyu',
+      'GET_/userinfo',
+    ],
+    'should have all traces end to end'
+  );
 
+  const traceIds = traceSpans.map(function m(span) {
+    return span._spanContext._traceId.toString('hex');
+  });
+  t.equals(
+    unique(traceIds).length,
+    singleTrace ? 1 : 2,
+    'should have the same traceId for all spans'
+  );
+};
+
+const fireAndVerifyResponse = async (t, app) => {
   const sim = getSimulator(app);
   const response = await sim.request('/userinfo', {
     headers: {'x-uber-source': 'fusion'},
@@ -101,72 +137,74 @@ test('Should support end to end tracing', async t => {
     {name: 'Uber', id: 123},
     'should receive a successful response'
   );
+};
 
-  const spans = inMemoryReporter._spans.map(function m(span) {
-    return span._operationName;
-  });
-  t.deepEquals(
-    spans,
-    [
-      'GET.api.user',
-      'atreyu.node.user',
-      'atreyu.graph.atreyu',
-      'GET_/userinfo',
-    ],
-    'should have all traces end to end'
-  );
+test('graph should support end to end tracing', async t => {
+  const app = getServer();
+  app.register(getPlugin('graph', true));
+  await fireAndVerifyResponse(t, app);
 
-  const traceIds = inMemoryReporter._spans.map(function m(span) {
-    return span._spanContext._traceId.toString('hex');
-  });
-  t.equals(
-    unique(traceIds).length,
-    1,
-    'should have the same traceId for all spans'
-  );
+  verifyTrace(t, 'graph', inMemoryReporter._spans, true);
 
   inMemoryReporter.clear();
   app.cleanup();
   t.end();
 });
 
-test('Should individually trace when context is not passed', async t => {
+test('graph should support end to end tracing when options are passed', async t => {
   const app = getServer();
-  app.register(getPlugin(false));
+  app.register(getPlugin('graph', false));
+  await fireAndVerifyResponse(t, app);
 
-  const sim = getSimulator(app);
-  const response = await sim.request('/userinfo', {
-    headers: {'x-uber-source': 'fusion'},
-  });
+  verifyTrace(t, 'graph', inMemoryReporter._spans, true);
 
-  t.deepEquals(
-    response.body,
-    {name: 'Uber', id: 123},
-    'should receive a successful response'
-  );
+  inMemoryReporter.clear();
+  app.cleanup();
+  t.end();
+});
 
-  const spans = inMemoryReporter._spans.map(function m(span) {
-    return span._operationName;
-  });
-  t.deepEquals(
-    spans,
-    [
-      'GET.api.user',
-      'atreyu.node.user',
-      'atreyu.graph.atreyu',
-      'GET_/userinfo',
-    ],
-    'should have all traces end to end'
-  );
+test('graph should individually trace', async t => {
+  const app = getServer();
+  app.register(getPlugin('graph'));
+  await fireAndVerifyResponse(t, app);
 
-  const traceIds = inMemoryReporter._spans.map(function m(span) {
-    return span._spanContext._traceId.toString('hex');
-  });
-  t.equals(
-    unique(traceIds).length,
-    2,
-    'should have two traceIds (fusion server and atreyu)'
-  );
+  verifyTrace(t, 'graph', inMemoryReporter._spans, false);
+
+  inMemoryReporter.clear();
+  app.cleanup();
+  t.end();
+});
+
+test('request should support end to end tracing', async t => {
+  const app = getServer();
+  app.register(getPlugin('request', true));
+  await fireAndVerifyResponse(t, app);
+
+  verifyTrace(t, 'request', inMemoryReporter._spans, true);
+
+  inMemoryReporter.clear();
+  app.cleanup();
+  t.end();
+});
+
+test('request should support end to end tracing when options are passed', async t => {
+  const app = getServer();
+  app.register(getPlugin('request', false));
+  await fireAndVerifyResponse(t, app);
+
+  verifyTrace(t, 'request', inMemoryReporter._spans, true);
+
+  inMemoryReporter.clear();
+  app.cleanup();
+  t.end();
+});
+
+test('request should individually trace', async t => {
+  const app = getServer();
+  app.register(getPlugin('request'));
+  await fireAndVerifyResponse(t, app);
+
+  verifyTrace(t, 'request', inMemoryReporter._spans, false);
 
   inMemoryReporter.clear();
   app.cleanup();
