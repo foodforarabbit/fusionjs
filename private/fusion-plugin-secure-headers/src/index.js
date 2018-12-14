@@ -7,6 +7,7 @@ import type {CSPConfigType, SecureHeadersDepsType} from './types';
 export {
   SecureHeadersToken,
   SecureHeadersUseFrameguardConfigToken,
+  SecureHeadersFrameguardAllowFromDomainConfigToken,
   SecureHeadersCSPConfigToken,
 } from './tokens.js';
 
