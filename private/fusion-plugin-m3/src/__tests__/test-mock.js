@@ -1,9 +1,11 @@
 // @flow
 import tape from 'tape-cup';
+
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import mock from '../mock';
-import {M3Token} from '../index';
+
+import mock from '../mock.js';
+import {M3Token} from '../index.js';
 
 tape('mock with ensure methods are called', async t => {
   const methods = [

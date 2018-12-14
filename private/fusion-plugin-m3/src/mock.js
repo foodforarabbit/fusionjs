@@ -1,7 +1,9 @@
 // @flow
 import {createPlugin, type FusionPlugin} from 'fusion-core';
 
-const plugin: FusionPlugin<any, any> = createPlugin({
+import type {M3DepsType, ServiceType} from './types.js';
+
+const plugin: FusionPlugin<M3DepsType, ServiceType> = createPlugin({
   provides: () => {
     const calls = [];
     const callbackFunc = (methodName, ...args) => {
@@ -15,7 +17,7 @@ const plugin: FusionPlugin<any, any> = createPlugin({
       scope(...args) {
         callbackFunc('scope', ...args);
       },
-      close(...args) {
+      async close(...args) {
         callbackFunc('close', ...args);
       },
       increment(...args) {
