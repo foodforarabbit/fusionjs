@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-secure-headers",
   "description": "A fusion plugin to improve the security by setting headers, such as Content Security Policy, X-Frame-Options...etc.",
-  "version": "3.1.4",
+  "version": "3.2.0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
