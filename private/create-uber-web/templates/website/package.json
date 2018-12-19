@@ -29,6 +29,7 @@
     "@uber/fusion-plugin-secure-headers": "^3.1.4",
     "@uber/fusion-plugin-tchannel": "^1.1.1-1",
     "@uber/fusion-plugin-tracer": "^1.0.5",
+    "@uber/icons": "^1.0.5",
     "@uber/node-heatpipe-publisher": "^2.0.1",
     "baseui": "^5.2.3",
     "clear-module": "^3.0.0",
