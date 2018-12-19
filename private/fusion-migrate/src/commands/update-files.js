@@ -40,9 +40,6 @@ module.exports = async function updateFiles({
   const addFiles = add.map(fileToAdd => {
     let destAddPath = path.join(destDir, fileToAdd);
     const srcAddPath = path.join(srcDir, fileToAdd);
-    if (fs.existsSync(destAddPath)) {
-      destAddPath = path.join(destDir, `${fileToAdd}-new`);
-    }
     return ncp(srcAddPath, destAddPath);
   });
   return Promise.all([...removeFiles, ...addFiles]);

@@ -1,5 +1,6 @@
 const babel = require('@babel/core');
 const {withJsFile, findFiles} = require('@dubstep/core');
+const {join} = require('path');
 
 module.exports = async function codemodStep({
   destDir,
@@ -17,7 +18,7 @@ module.exports = async function codemodStep({
       let state = {
         file: {
           opts: {
-            filename: file,
+            filename: join(destDir, file),
           },
         },
       };
