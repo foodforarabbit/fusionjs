@@ -31,7 +31,7 @@
     "@uber/fusion-plugin-tracer": "^1.0.5",
     "@uber/icons": "^1.0.5",
     "@uber/node-heatpipe-publisher": "^2.0.1",
-    "baseui": "^5.2.3",
+    "baseui": "^5.4.1",
     "clear-module": "^3.0.0",
     "fusion-cli": "^1.13.1",
     "fusion-core": "^1.10.1",

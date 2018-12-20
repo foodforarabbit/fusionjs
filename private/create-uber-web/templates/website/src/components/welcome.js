@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-import type {ElementType} from 'react';
 import {styled} from 'baseui';
 import {Button} from 'baseui/button';
 import {ChevronRight} from '@uber/icons';

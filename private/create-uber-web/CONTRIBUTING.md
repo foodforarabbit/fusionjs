@@ -16,6 +16,10 @@ To upgrade dependencies, run `./renovate.sh`
 
 Note: this will also patch this package's version
 
+### Release verification
+
+Run `./verify.sh` to ensure that templates test/lint/flow without errors.
+
 ### Gotchas
 
 Each template is a folder in in the `/templates` folder. The package.json file of each template supports nunjucks interpolations, but some fields are codemodded separately.
