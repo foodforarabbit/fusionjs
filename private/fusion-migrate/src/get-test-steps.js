@@ -9,7 +9,6 @@ const updateDeps = require('./commands/update-deps.js');
 const updateScripts = require('./commands/update-scripts.js');
 const updateFiles = require('./commands/update-files.js');
 const modTestCleanup = require('./codemods/test-cleanup/plugin.js');
-const addDiffSteps = require('./utils/add-diff-steps.js');
 const lintFix = require('./utils/lint-fix.js');
 const removeEmptyTestFiles = require('./commands/remove-empty-test-files.js');
 const modFixTestImports = require('./codemods/fix-test-imports/plugin.js');
@@ -97,5 +96,5 @@ module.exports = function getTestSteps(options) {
       step: () => removeEmptyTestFiles(options),
     },
     {id: 'prettier', step: () => lintFix(options.destDir)},
-  ].reduce(addDiffSteps(options), []);
+  ];
 };

@@ -113,7 +113,11 @@ async function migrate({destDir, steps, report, migrationPart}) {
     } else {
       fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
     }
-    await execa.shell('git add . && git commit --amend --no-edit');
+    await execa.shell(
+      `git add . && git commit --no-edit --no-verify -m "Fusion migration step ${migrationPart}/${
+        megaSteps.length
+      }"`
+    );
     return true;
   }
   return false;

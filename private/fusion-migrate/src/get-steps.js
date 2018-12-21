@@ -55,7 +55,6 @@ const addNoFlowAnnotation = require('./commands/no-flow.js');
 const updateGitignore = require('./commands/update-gitignore.js');
 const setRoutePrefix = require('./commands/route-prefix.js');
 const setServiceId = require('./commands/svc-id.js');
-const addDiffSteps = require('./utils/add-diff-steps.js');
 
 module.exports = function getSteps(options) {
   options.config = loadConfig(options.destDir);
@@ -76,8 +75,8 @@ module.exports = function getSteps(options) {
   }
   return sharedSteps
     .concat(versionSpecificSteps)
-    .concat(getStep('update-deps', () => updateDeps(options)))
-    .reduce(addDiffSteps(options), []);
+    .concat(getStep('update-deps', () => updateDeps(options)));
+  // .reduce(addDiffSteps(options), []);
 };
 
 function get14Steps(options) {
