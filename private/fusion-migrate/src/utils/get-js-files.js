@@ -1,6 +1,6 @@
-const getTrackedFiles = require('./get-tracked-files.js');
+const {findFiles} = require('@dubstep/core');
 
-module.exports = async function getJSFiles(destDir) {
-  const files = await getTrackedFiles(destDir);
-  return files.filter(f => f.endsWith('.js') || f.endsWith('.jsx'));
+module.exports = async function getJSFiles() {
+  const files = await findFiles('src/**/*.js');
+  return files;
 };

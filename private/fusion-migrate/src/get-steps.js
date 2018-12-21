@@ -55,10 +55,13 @@ const addNoFlowAnnotation = require('./commands/no-flow.js');
 const updateGitignore = require('./commands/update-gitignore.js');
 const setRoutePrefix = require('./commands/route-prefix.js');
 const setServiceId = require('./commands/svc-id.js');
+const replaceExportDefaultTemplate = require('./codemods/export-default-template/replace.js');
+const resetExportDefaultTemplate = require('./codemods/export-default-template/reset.js');
 
 module.exports = function getSteps(options) {
   options.config = loadConfig(options.destDir);
   const sharedSteps = [
+    replaceExportDefaultTemplate,
     getStep('update-gitignore', () => updateGitignore(options)),
     getStep('update-files', () => updateFiles(options)),
     getStep('update-engines', () => updateEngines(options)),
@@ -75,8 +78,8 @@ module.exports = function getSteps(options) {
   }
   return sharedSteps
     .concat(versionSpecificSteps)
-    .concat(getStep('update-deps', () => updateDeps(options)));
-  // .reduce(addDiffSteps(options), []);
+    .concat(getStep('update-deps', () => updateDeps(options)))
+    .concat(resetExportDefaultTemplate);
 };
 
 function get14Steps(options) {
@@ -240,7 +243,14 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modMainImports(state),
-        glob: 'src/main.js|src/app.js',
+        glob: 'src/main.js',
+      })
+    ),
+    getStep('mod-app-imports', () =>
+      codemodStep({
+        ...options,
+        plugin: modMainImports(state),
+        glob: 'src/app.js',
       })
     ),
     getStep('mod-redux', () =>

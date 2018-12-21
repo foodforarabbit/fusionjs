@@ -12,9 +12,12 @@ const modTestCleanup = require('./codemods/test-cleanup/plugin.js');
 const lintFix = require('./utils/lint-fix.js');
 const removeEmptyTestFiles = require('./commands/remove-empty-test-files.js');
 const modFixTestImports = require('./codemods/fix-test-imports/plugin.js');
+const replaceExportDefaultTemplate = require('./codemods/export-default-template/replace.js');
+const resetExportDefaultTemplate = require('./codemods/export-default-template/reset.js');
 
 module.exports = function getTestSteps(options) {
   return [
+    replaceExportDefaultTemplate,
     {
       id: 'add-deps',
       step: () =>
@@ -96,5 +99,6 @@ module.exports = function getTestSteps(options) {
       step: () => removeEmptyTestFiles(options),
     },
     {id: 'prettier', step: () => lintFix(options.destDir)},
+    resetExportDefaultTemplate,
   ];
 };
