@@ -2,7 +2,8 @@
 /* eslint-env node */
 import {createPlugin, dangerouslySetHTML, html} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
-import request from 'request-promise';
+import request from 'request';
+import requestPromise from 'request-promise';
 import url from 'url';
 import path from 'path';
 import {MagellanUriToken, JarvisUriToken} from './tokens';
@@ -50,7 +51,7 @@ const plugin =
         try {
           const results = await Promise.all(
             fragments.map(fragmentUri => {
-              return request(fragmentUri);
+              return requestPromise(fragmentUri);
             })
           );
           const markup = results[0];
