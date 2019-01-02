@@ -5,7 +5,6 @@ import {LoggerToken} from 'fusion-tokens';
 import request from 'request';
 import requestPromise from 'request-promise';
 import url from 'url';
-import path from 'path';
 import {MagellanUriToken, JarvisUriToken} from './tokens';
 import type {PluginType} from './types';
 
@@ -37,11 +36,11 @@ const plugin =
       ];
       return async (ctx, next) => {
         if (ctx.url.startsWith('/magellan')) {
-          const proxyUrl = ctx.url.replace(path.join(prefix, '/magellan'), '');
+          const proxyUrl = ctx.url.replace('/magellan', '');
           ctx.body = ctx.req.pipe(request(url.resolve(magellanUri, proxyUrl)));
           return next();
         } else if (ctx.url.startsWith('/jarvis-standalone')) {
-          const proxyUrl = ctx.url.replace(prefix, '');
+          const proxyUrl = ctx.url;
           ctx.body = ctx.req.pipe(request(url.resolve(jarvisUri, proxyUrl)));
           return next();
         }
