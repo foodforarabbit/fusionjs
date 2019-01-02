@@ -80,7 +80,7 @@ const plugin =
             jarvisResults.scripts.forEach(src => {
               ctx.template.body.push(
                 dangerouslySetHTML(
-                  `<script nonce='${ctx.nonce}' src='${src}' />`
+                  `<script nonce='${ctx.nonce}' src='${src}'></script>`
                 )
               );
             });
