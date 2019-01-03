@@ -2,7 +2,7 @@
 import * as React from 'react';
 import {styled} from 'baseui';
 import {Button} from 'baseui/button';
-import {ChevronRight} from '@uber/icons';
+import {ChevronRight} from 'baseui/icon';
 import {withMoveTextLight} from '../config/fonts';
 
 const Centered = styled('div', {
@@ -37,7 +37,7 @@ const FadeIn = styled('div', props => ({
 }));
 
 function ChevronIcon(props) {
-  return <ChevronRight size="24px" />;
+  return <ChevronRight size={24} />;
 }
 
 type ButtonProps = {
