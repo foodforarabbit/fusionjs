@@ -807,10 +807,10 @@
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
   integrity sha1-VWJRm8eWPKyoq/fxKMrjtZTUHQY=
 
-"@uber/fusion-plugin-m3@^1.1.10-0":
-  version "1.1.10-0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.10-0.tgz#c447231354c87f0b518e0786b613c9165e9fff7a"
-  integrity sha512-In84wAYzEEKK59rkusZMUQuWeteUMk2tWVqbiJTLQ6fjuo9JIHU2WDjs9ykrq2/8+r1GicbOwbtMUr/uhQU5Ow==
+"@uber/fusion-plugin-m3@^1.1.10-1":
+  version "1.1.10-1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.10-1.tgz#809d8ad4779af522354aa972c58663b80a554a07"
+  integrity sha512-0PrC4AXp//Y4Se6m2XNFgZRwAULnqcqYuu+P7ZpwmfQyb1r/jQSin7PpU9Pr9ktKT3GzNGkeARpIYpEkIAArlA==
   dependencies:
     "@uber/m3-client" "^1.1.8"
 
