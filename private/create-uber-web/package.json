@@ -1,6 +1,6 @@
 {
   "name": "@uber/create-uber-web",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "CLI to scaffold a new Uber web application or library",
   "repository": {
     "type": "git",
@@ -11,9 +11,6 @@
     "create-uber-web": "dist/cli.js"
   },
   "main": "dist/index.js",
-  "files": [
-    "*"
-  ],
   "scripts": {
     "dev": "npm-watch | grep --invert-match nodemon",
     "build": "babel src -d dist -q",
