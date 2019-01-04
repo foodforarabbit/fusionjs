@@ -7,6 +7,7 @@ import {M3ClientToken, CommonTagsToken} from './tokens.js';
 
 import type {FusionPlugin} from 'fusion-core';
 import type {M3Type, M3DepsType, ServiceType} from './types.js';
+import M3Client from '@uber/m3-client';
 
 const plugin =
   __NODE__ &&
@@ -17,7 +18,6 @@ const plugin =
       commonTags: CommonTagsToken.optional,
     },
     provides: ({events, Client, commonTags}) => {
-      const M3Client = require('@uber/m3-client');
       Client = ((Client || M3Client: any): M3Type);
       const service = __DEV__ ? 'dev-service' : process.env.SVC_ID;
       const m3 = new Client({
