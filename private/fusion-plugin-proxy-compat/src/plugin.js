@@ -42,6 +42,10 @@ const plugin /*: ProxyCompatPluginType */ = createPlugin({
       const match = matchFn(ctx);
       if (!match) return;
       const {proxyConfig} = match;
+      ctx.req.m3Tags = {
+        route: proxyConfig.m3Key || 'unknown_route',
+        ...(ctx.req.m3Tags || {}),
+      };
       const {span} = Tracer.from(ctx);
       const proxyHeaders = getProxyHeaders(ctx, proxyConfig);
       await new Promise((
