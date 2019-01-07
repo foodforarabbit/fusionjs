@@ -97,6 +97,9 @@ import RPCHandlersPlugin from './rpc/handlers.js';
 
 import registerPlugins from './app.js';
 
+import introspect from 'fusion-plugin-introspect';
+import metricsStore from '@uber/fusion-metrics';
+
 const team = '{{team}}';
 
 export default async function start(options: any = {}) {
@@ -105,7 +108,8 @@ export default async function start(options: any = {}) {
   app.register(HelmetPlugin);
   app.enhance(FetchToken, CsrfProtectionPlugin);
   app.register(FetchToken, unfetch);
-  __NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors']);
+  __NODE__ &&
+    app.register(CsrfIgnoreRoutesToken, ['/_errors', '/_diagnostics']);
   // eslint-disable-next-line no-unused-vars
   app.register(UniversalEventsToken, UniversalEvents);
   app.register(M3Token, M3Plugin);
@@ -162,5 +166,20 @@ export default async function start(options: any = {}) {
     app.register(I18nToken, I18n);
   }
   registerPlugins(app);
+
+  app.register(
+    introspect(app, {
+      deps: {
+        heatpipe: HeatpipeToken,
+      },
+
+      store: !__DEV__
+        ? metricsStore({
+            service: 'website-template',
+          })
+        : undefined,
+    })
+  );
+
   return app;
 }

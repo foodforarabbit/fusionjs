@@ -3,7 +3,8 @@ for d in ./templates/*/ ; do (
   cd "$d";
   echo "Upgrading $d";
   yarn;
-  if [ "$d" = "website" ]; then
+  npm rebuild;
+  if [ "$d" = "./templates/website/" ]; then
     node ../../dist/cli upgrade --force
   else
     node ../../dist/cli upgrade --force --codemod false
