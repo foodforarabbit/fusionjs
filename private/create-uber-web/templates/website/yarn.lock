@@ -957,6 +957,11 @@
     uuid "2.0.1"
     winston "0.8.3"
 
+"@uber/icons@^1.0.5":
+  version "1.0.5"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ficons/-/private/%40uber%2Ficons-1.0.5.tgz#f95bce67b096ff9ede60d58b60c11cc7c7062b7e"
+  integrity sha512-RtEN3O2CPpYtcktRM7OcgR6phYRlTLd0hdy0FNx0EBmI2YGEnVe2SIedWbrrAxM8xeZqKHliBDANG4Sywxb+vQ==
+
 "@uber/jaeger-client-adapter@^3.4.0":
   version "3.4.0"
   resolved "https://unpm.uberinternal.com/%40uber%2Fjaeger-client-adapter/-/private/%40uber%2Fjaeger-client-adapter-3.4.0.tgz#27452f211206a1490a25228213cda699dcb1b8c9"
