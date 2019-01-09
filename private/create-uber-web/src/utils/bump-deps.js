@@ -6,18 +6,25 @@ import log from './log';
 import {getProgress} from './progress';
 import {getLatestVersion} from './get-latest-version';
 
-export const bumpDeps = async (dir: string, match: string, force: boolean) => {
+type BumpOptions = {
+  dir: string,
+  match: string,
+  force: boolean,
+  edge: boolean,
+};
+
+export const bumpDeps = async ({dir, match, force, edge}: BumpOptions) => {
   log.title('Updating dependencies');
   const file = `${dir}/package.json`;
   const data = await read(file).catch(() => null);
   if (data) {
     if (force) {
-      await batchUpgrade(dir, match, file, data);
+      await batchUpgrade({dir, match, file, data, edge});
     } else {
       await runTests(dir);
-      await upgrade(dir, match, file, data, 'dependencies');
-      await upgrade(dir, match, file, data, 'devDependencies');
-      await upgrade(dir, match, file, data, 'peerDependencies');
+      await upgrade({dir, match, file, data, edge, key: 'dependencies'});
+      await upgrade({dir, match, file, data, edge, key: 'devDependencies'});
+      await upgrade({dir, match, file, data, edge, key: 'peerDependencies'});
     }
   }
 };
@@ -34,7 +41,7 @@ const installAndTest = async dir => {
   await runTests(dir);
 };
 
-const batchUpgrade = async (dir, match, file, data) => {
+const batchUpgrade = async ({dir, match, file, data, edge}) => {
   const keys = ['dependencies', 'devDependencies', 'peerDependencies'];
   const promises = [];
   keys.forEach(key => {
@@ -43,7 +50,7 @@ const batchUpgrade = async (dir, match, file, data) => {
       if (['babel-core'].includes(dep)) continue;
       if (!new RegExp(match).test(dep)) continue;
       promises.push(
-        getLatestVersion(dep).then(v => {
+        getLatestVersion(dep, edge).then(v => {
           progress.tick();
           data[key][dep] = v;
         })
@@ -59,13 +66,13 @@ const batchUpgrade = async (dir, match, file, data) => {
   await install(dir);
 };
 
-const upgrade = async (dir, match, file, data, key) => {
+const upgrade = async ({dir, match, file, data, key, edge}) => {
   if (!data[key]) return;
   for (const dep in data[key]) {
     const version = data[key][dep];
     if (['babel-core'].includes(dep)) continue;
     if (!new RegExp(match).test(dep)) continue;
-    data[key][dep] = await getLatestVersion(dep);
+    data[key][dep] = await getLatestVersion(dep, edge);
     if (data[key][dep] === version) continue;
     await write(file, data);
     await installAndTest(dir).catch(e => {

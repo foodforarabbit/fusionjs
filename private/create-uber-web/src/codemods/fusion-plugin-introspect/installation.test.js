@@ -17,7 +17,7 @@ export default async function start() {
   const fixture = `${root}/src/main.js`;
   await writeFile(`${root}/package.json`, '{"name": "foo"}');
   await writeFile(fixture, contents);
-  await installIntrospect({dir: root});
+  await installIntrospect({dir: root, edge: false});
   const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
@@ -55,7 +55,7 @@ export default async function start() {
   const fixture = `${root}/src/main.js`;
   await writeFile(`${root}/package.json`, '{"name": "foo"}');
   await writeFile(fixture, contents);
-  await installIntrospect({dir: root});
+  await installIntrospect({dir: root, edge: false});
   const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
@@ -96,7 +96,7 @@ export default async function start() {
   const fixture = `${root}/src/main.js`;
   await writeFile(`${root}/package.json`, '{"name": "foo"}');
   await writeFile(fixture, contents);
-  await installIntrospect({dir: root});
+  await installIntrospect({dir: root, edge: false});
   const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
@@ -128,7 +128,7 @@ test('introspect codemod csrf protection whitelist', async () => {
   const fixture = `${root}/src/main.js`;
   await writeFile(`${root}/package.json`, '{"name": "foo"}');
   await writeFile(fixture, contents);
-  await installIntrospect({dir: root});
+  await installIntrospect({dir: root, edge: false});
   const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(

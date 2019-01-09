@@ -9,16 +9,18 @@ type ReplaceOptions = {
   target: string,
   replacement: string,
   dir: string,
+  edge: boolean,
 };
 
 export const replacePackage = async ({
   target,
   replacement,
   dir,
+  edge,
 }: ReplaceOptions) => {
   await withJsonFile(`${dir}/package.json`, async pkg => {
-    await replace(pkg, 'dependencies', target, replacement);
-    await replace(pkg, 'devDependencies', target, replacement);
+    await replace(pkg, 'dependencies', target, replacement, edge);
+    await replace(pkg, 'devDependencies', target, replacement, edge);
   });
   await withJsFiles(dir, path => {
     let shouldUpdate = false;
@@ -34,10 +36,10 @@ export const replacePackage = async ({
   });
 };
 
-async function replace(pkg, group, target, replacement) {
+async function replace(pkg, group, target, replacement, edge) {
   if (pkg[group] && pkg[group][target]) {
     log.title(`Replacing ${target} with ${replacement}`);
     delete pkg[group][target];
-    pkg[group][replacement] = await getLatestVersion(replacement);
+    pkg[group][replacement] = await getLatestVersion(replacement, edge);
   }
 }

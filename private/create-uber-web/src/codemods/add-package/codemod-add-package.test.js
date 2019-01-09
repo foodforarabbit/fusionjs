@@ -6,7 +6,7 @@ test('codemod-add-package, no existing', async () => {
   const root = 'fixtures/add-new';
   const file = `${root}/package.json`;
   await writeFile(file, '{"dependencies": {}}');
-  await addPackage({name: 'no-bugs', dir: root});
+  await addPackage({name: 'no-bugs', dir: root, edge: false});
   const data = await readFile(file);
   await removeFile(root);
 
@@ -17,7 +17,7 @@ test('codemod-add-package, existing', async () => {
   const root = 'fixtures/overwrite';
   const file = `${root}/package.json`;
   await writeFile(file, '{"dependencies": {"no-bugs": "0.0.0"}}');
-  await addPackage({name: 'no-bugs', dir: root});
+  await addPackage({name: 'no-bugs', dir: root, edge: false});
   const data = await readFile(file);
   await removeFile(root);
 

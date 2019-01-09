@@ -11,7 +11,13 @@ test('upgrade', async () => {
   const root = 'fixtures/upgrade';
   const file = `${root}/package.json`;
   await writeFile(file, '{"dependencies": {"no-bugs": "0.0.0"}}');
-  await upgrade({dir: root, match: '', codemod: true, force: true});
+  await upgrade({
+    dir: root,
+    match: '',
+    codemod: true,
+    force: true,
+    edge: false,
+  });
   const data = await readFile(file);
   await removeFile(root);
 

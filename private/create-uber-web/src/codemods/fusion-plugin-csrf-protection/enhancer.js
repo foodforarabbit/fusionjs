@@ -13,9 +13,13 @@ import {getLatestVersion} from '../../utils/get-latest-version.js';
 
 type MigrateOptions = {
   dir: string,
+  edge: boolean,
 };
 
-export const migrateCsrfProtectionToV2 = async ({dir}: MigrateOptions) => {
+export const migrateCsrfProtectionToV2 = async ({
+  dir,
+  edge,
+}: MigrateOptions) => {
   await withJsonFile(`${dir}/package.json`, async pkg => {
     if (
       !pkg.dependencies ||
@@ -26,9 +30,13 @@ export const migrateCsrfProtectionToV2 = async ({dir}: MigrateOptions) => {
     log.title('Csrf Protection Codemod');
     delete pkg.dependencies['fusion-plugin-csrf-protection-react'];
     pkg.dependencies['fusion-plugin-csrf-protection'] = await getLatestVersion(
-      'fusion-plugin-csrf-protection'
+      'fusion-plugin-csrf-protection',
+      edge
     );
-    pkg.dependencies['fusion-react'] = await getLatestVersion('fusion-react');
+    pkg.dependencies['fusion-react'] = await getLatestVersion(
+      'fusion-react',
+      edge
+    );
   });
   await withJsFiles(dir, path => {
     let shouldUpdate = false;

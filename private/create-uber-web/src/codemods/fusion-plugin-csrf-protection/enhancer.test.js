@@ -22,7 +22,7 @@ export default async function start() {
   const root = 'fixtures/csrf-enhancer-registration';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
-  await migrateCsrfProtectionToV2({dir: root});
+  await migrateCsrfProtectionToV2({dir: root, edge: false});
   const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`
@@ -53,7 +53,7 @@ export default withFetch(function start() {
   const root = 'fixtures/csrf-enhancer-hoc';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
-  await migrateCsrfProtectionToV2({dir: root});
+  await migrateCsrfProtectionToV2({dir: root, edge: false});
   const newContents = await readFile(fixture);
   // $FlowFixMe
   expect(newContents).toMatchInlineSnapshot(`

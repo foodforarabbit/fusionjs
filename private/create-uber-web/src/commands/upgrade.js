@@ -13,27 +13,35 @@ export type UpgradeOptions = {
   match: string,
   codemod: boolean,
   force: boolean,
+  edge: boolean,
 };
 
-export const upgrade = async ({dir, match, codemod, force}: UpgradeOptions) => {
+export const upgrade = async ({
+  dir,
+  match,
+  codemod,
+  force,
+  edge,
+}: UpgradeOptions) => {
   const steps = [
     // generic steps
-    step('upgrade', async () => await bumpDeps(dir, match, force)),
+    step('upgrade', async () => await bumpDeps({dir, match, force, edge})),
   ];
   if (codemod) {
     // web app specific steps
     steps.push(
       step('migrate fusion-plugin-csrf-protection', async () => {
-        await migrateCsrfProtectionToV2({dir});
+        await migrateCsrfProtectionToV2({dir, edge});
       }),
       step('install fusion-introspect', async () => {
-        await installIntrospect({dir});
+        await installIntrospect({dir, edge});
       }),
       step('remove fusion-react-async', async () => {
         await replacePackage({
           target: 'fusion-react-async',
           replacement: 'fusion-react',
           dir,
+          edge,
         });
       }),
       step('use fusion-plugin-universal-events-react', async () => {
@@ -41,6 +49,7 @@ export const upgrade = async ({dir, match, codemod, force}: UpgradeOptions) => {
           target: 'fusion-plugin-universal-events',
           replacement: 'fusion-plugin-universal-events-react',
           dir,
+          edge,
         });
       }),
       step('use fusion-plugin-m3-react', async () => {
@@ -48,6 +57,7 @@ export const upgrade = async ({dir, match, codemod, force}: UpgradeOptions) => {
           target: '@uber/fusion-plugin-m3',
           replacement: '@uber/fusion-plugin-m3-react',
           dir,
+          edge,
         });
       }),
       step('use fusion-plugin-i18n-react', async () => {
@@ -55,6 +65,7 @@ export const upgrade = async ({dir, match, codemod, force}: UpgradeOptions) => {
           target: 'fusion-plugin-i18n',
           replacement: 'fusion-plugin-i18n-react',
           dir,
+          edge,
         });
       }),
       step('use fusion-plugin-logtron-react', async () => {
@@ -62,10 +73,11 @@ export const upgrade = async ({dir, match, codemod, force}: UpgradeOptions) => {
           target: '@uber/fusion-plugin-logtron',
           replacement: '@uber/fusion-plugin-logtron-react',
           dir,
+          edge,
         });
       }),
       step('ensure styletron-react peer dep', async () => {
-        await addPackage({name: 'styletron-react', dir});
+        await addPackage({name: 'styletron-react', dir, edge: false});
       }),
       step('format', async () => {
         await format(dir);

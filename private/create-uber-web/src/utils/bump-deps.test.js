@@ -11,14 +11,14 @@ test('bumpDeps', async () => {
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}'
   );
-  await bumpDeps(dir, '', true);
+  await bumpDeps({dir, match: '', force: true, edge: false});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
   await remove(dir);
 });
 
 test('bumpDeps bails out if untestable', async () => {
-  const dir = 'fixtures/bump';
+  const dir = 'fixtures/bump-bails';
   const file = `${dir}/package.json`;
   await writeFile(
     file,
@@ -31,14 +31,14 @@ test('bumpDeps bails out if untestable', async () => {
       }
     }`
   );
-  await bumpDeps(dir, '', false).catch(() => {});
+  await bumpDeps({dir, match: '', force: false, edge: false}).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await remove(dir);
 });
 
 test('bumpDeps rolls back if regression', async () => {
-  const dir = 'fixtures/bump';
+  const dir = 'fixtures/bump-regression';
   const file = `${dir}/package.json`;
   await writeFile(
     file,
@@ -51,14 +51,14 @@ test('bumpDeps rolls back if regression', async () => {
       }
     }`
   );
-  await bumpDeps(dir, '', false).catch(() => {});
+  await bumpDeps({dir, match: '', force: false, edge: false}).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await remove(dir);
 });
 
 test('bumpDeps force', async () => {
-  const dir = 'fixtures/bump';
+  const dir = 'fixtures/bump-force';
   const file = `${dir}/package.json`;
   await writeFile(
     file,
@@ -71,21 +71,34 @@ test('bumpDeps force', async () => {
       }
     }`
   );
-  await bumpDeps(dir, '', true).catch(() => {});
+  await bumpDeps({dir, match: '', force: true, edge: false}).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
   await remove(dir);
 });
 
 test('bumpDeps match', async () => {
-  const dir = 'fixtures/bump';
+  const dir = 'fixtures/bump-match';
   const file = `${dir}/package.json`;
   await writeFile(
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}'
   );
-  await bumpDeps(dir, 'asd', false);
+  await bumpDeps({dir, match: 'asd', force: false, edge: false});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
+  await remove(dir);
+});
+
+test('bumpDeps edge', async () => {
+  const dir = 'fixtures/bump-edge';
+  const file = `${dir}/package.json`;
+  await writeFile(
+    file,
+    '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}'
+  );
+  await bumpDeps({dir, match: '', force: true, edge: true});
+  const data = await readFile(file);
+  expect(data.includes('0.0.0')).toEqual(false);
   await remove(dir);
 });

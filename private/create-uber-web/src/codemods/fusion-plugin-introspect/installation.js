@@ -10,9 +10,10 @@ import {stringLiteral} from '@babel/types';
 
 type InstallOptions = {
   dir: string,
+  edge: boolean,
 };
 
-export const installIntrospect = async ({dir}: InstallOptions) => {
+export const installIntrospect = async ({dir, edge}: InstallOptions) => {
   let serviceName = '';
   await withJsonFile(`${dir}/package.json`, async pkg => {
     serviceName = pkg.name;
@@ -24,7 +25,7 @@ export const installIntrospect = async ({dir}: InstallOptions) => {
     if (!pkg.dependencies) pkg.dependencies = {};
     for (const dep of deps) {
       if (!pkg.dependencies[dep]) {
-        pkg.dependencies[dep] = await getLatestVersion(dep);
+        pkg.dependencies[dep] = await getLatestVersion(dep, edge);
       }
     }
   });
