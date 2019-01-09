@@ -807,10 +807,10 @@
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
   integrity sha1-VWJRm8eWPKyoq/fxKMrjtZTUHQY=
 
-"@uber/m3-client@^1.1.8":
-  version "1.1.8"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fm3-client/-/private/%40uber%2Fm3-client-1.1.8.tgz#571cabfa59b7ffd5cc86057fd9c4b189376661d4"
-  integrity sha512-aqMpGSiWqUKilnE9Ar+ky8tPdKg3Uk7rwFO9xLiaJ0YB9oJw5zFlN89X9wCnz++x9zLJzeQWOWVxN09k0MCdug==
+"@uber/m3-client@^1.2.0-0":
+  version "1.2.0-0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fm3-client/-/private/%40uber%2Fm3-client-1.2.0-0.tgz#c957fb93fa94b60c2a52a8bef94262d30ba8bd23"
+  integrity sha512-bRGsQTN9tn9Gm0n2SFv0wU9ozZlhBS+X4+rwBYofTqVFx5l+tgRsPk/ix8unxTRFdcVycGqiYeUUbKrwGTCk+w==
   dependencies:
     "@babel/polyfill" "^7.0.0"
     babel-core "7.0.0-bridge.0"
