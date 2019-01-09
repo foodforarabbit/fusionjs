@@ -4,7 +4,7 @@ An M3 plugin for FusionJS.
 
 M3 is Uber's internal metrics system.  Leverage this plugin to emit metrics to M3 for storage and later querying.  See [M3 documentation](https://engdocs.uberinternal.com/m3_and_umonitor/what_is_m3.html) for more details.
 
-This plugin is primarily a wrapper on top of [m3-client](https://code.uberinternal.com/diffusion/WEMCLXD/).
+This plugin is primarily a wrapper on top of [node-m3-client-addon](https://code.uberinternal.com/diffusion/INNODEM/).
 
 If you're using React, you should use [fusion-plugin-m3-react](https://code.uberinternal.com/diffusion/WEFUSVD/) instead of this package.
 
@@ -122,42 +122,42 @@ If no common tags are provided, or values are missing for some expected keys, de
 
 #### Service API
 
-This plugin is a wrapper on top of [m3-client](https://code.uberinternal.com/diffusion/WEMCLXD/).  As such, this plugin exports a very similar API.
+This plugin is a wrapper on top of [node-m3-client-addon](https://code.uberinternal.com/diffusion/INNODEM/).  As such, this plugin exports a very similar API.
 
 ```js
 M3.scope(tags: Object) => M3Client
 ```
-Provides a new client with additional common tags supplied.  See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$23-25) for more details.
+Provides a new client with additional common tags supplied.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$135) for more details.
 
 ```js
 M3.close() => void
 ```
-Writes queued messages and closes the socket.  See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$125-127) for more details.
+Writes queued messages and closes the socket.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$261) for more details.
 
 ```js
 M3.counter(key: string, value: number, tags?: Object) => void
 ```
-Sets count for provided tags.  A [counter](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#counter) should be a cumulative metric that repesents an ever increasing value (e.g. requests served) during a certain time frame.  See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$65) for more details.
+Sets count for provided tags.  A [counter](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#counter) should be a cumulative metric that repesents an ever increasing value (e.g. requests served) during a certain time frame.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$153) for more details.
 
 ```js
 M3.increment(key: string, tags?: Object) => void
 ```
-Increments value for provided tags.  Unlike the [`m3-client`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$80) client API, `increment` does not allow for incrementing by values other than 1.
+Increments value for provided tags.  Unlike the [`node-m3-client-addon`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$160) client API, `increment` does not allow for incrementing by values other than 1.
 
 ```js
 M3.decrement(key: string, tags?: Object) => void
 ```
-Decrements value for provided tags.  See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$95) for more details.
+Decrements value for provided tags.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$167) for more details.
 
 ```js
 M3.timing(key: string, duration: number, tags?: Object) => void
 ```
-Time something, in milliseconds.  A [timer](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#timer) represents a group of measures summarizing the duration of an event.  See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$129) for more details.
+Time something, in milliseconds.  A [timer](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#timer) represents a group of measures summarizing the duration of an event.  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$174) for more details.
 
 ```js
 M3.gauge(key: string, value: number, tags?: Object) => void
 ```
-Take a gauge reading of something.  A [gauge](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#gauge) value represents a single numerical value at the time of reading that can go up or down (e.g. current memory usage).  See [`m3-client/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$110) for more details.
+Take a gauge reading of something.  A [gauge](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#gauge) value represents a single numerical value at the time of reading that can go up or down (e.g. current memory usage).  See [`node-m3-client-addon/client.js`](https://code.uberinternal.com/diffusion/INNODEM/browse/master/client.js$146) for more details.
 
 ###### Immediate flush
 
