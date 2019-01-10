@@ -25,9 +25,9 @@ export type CookieModuleType = {
   get: (key: string) => ?Object,
 };
 
-export type CookieTypeType = {
+export type CookieTypeType = {|
   name: string,
   options?: $Shape<CookiesSetOptions>,
   data: {[string]: Symbol | string} | Symbol,
   rolling?: boolean,
-};
+|};
