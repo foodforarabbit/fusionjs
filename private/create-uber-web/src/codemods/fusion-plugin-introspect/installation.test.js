@@ -136,3 +136,18 @@ test('introspect codemod csrf protection whitelist', async () => {
   );
   await removeFile(root);
 });
+
+test('introspect codemod csrf protection whitelist idempotency', async () => {
+  const contents = `__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors', '/_diagnostics']);`;
+  const root = 'fixtures/introspect-registration-csrf-whitelist';
+  const fixture = `${root}/src/main.js`;
+  await writeFile(`${root}/package.json`, '{"name": "foo"}');
+  await writeFile(fixture, contents);
+  await installIntrospect({dir: root, edge: false});
+  const newContents = await readFile(fixture);
+  // $FlowFixMe
+  expect(newContents).toMatchInlineSnapshot(
+    `"import introspect from 'fusion-plugin-introspect';import metricsStore from '@uber/fusion-metrics';import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors', '/_diagnostics']);"`
+  );
+  await removeFile(root);
+});

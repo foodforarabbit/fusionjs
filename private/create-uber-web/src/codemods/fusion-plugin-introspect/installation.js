@@ -71,7 +71,11 @@ export const installIntrospect = async ({dir, edge}: InstallOptions) => {
     // CSRF protection whitelist
     program.traverse({
       ArrayExpression({node}) {
-        if (node.elements.find(el => el.value === '/_errors')) {
+        const hasErrors = node.elements.find(el => el.value === '/_errors');
+        const hasDiagnostics = node.elements.find(
+          el => el.value === '/_diagnostics'
+        );
+        if (hasErrors && !hasDiagnostics) {
           node.elements.push(stringLiteral('/_diagnostics'));
         }
       },
