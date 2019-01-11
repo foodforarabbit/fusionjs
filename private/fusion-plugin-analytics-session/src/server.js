@@ -53,7 +53,9 @@ const plugin =
             safeJSONStringify(data),
             ({
               ...cookieType.options,
-              expires: expiresMs && new Date(Date.now() + expiresMs),
+              expires:
+                expiresMs &&
+                new Date(Date.now() + new Date(expiresMs).getTime()),
             }: $Shape<CookiesSetOptions>)
           );
         }
