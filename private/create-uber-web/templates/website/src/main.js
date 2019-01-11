@@ -109,7 +109,10 @@ export default async function start(options: any = {}) {
   app.enhance(FetchToken, CsrfProtectionPlugin);
   app.register(FetchToken, unfetch);
   __NODE__ &&
-    app.register(CsrfIgnoreRoutesToken, ['/_errors', '/_diagnostics']);
+    app.register(CsrfIgnoreRoutesToken, [
+      '/_errors',
+      '/_diagnostics',
+    ]);
   // eslint-disable-next-line no-unused-vars
   app.register(UniversalEventsToken, UniversalEvents);
   app.register(M3Token, M3Plugin);

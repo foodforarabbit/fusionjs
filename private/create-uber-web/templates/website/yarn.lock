@@ -965,12 +965,12 @@
     uuid "2.0.1"
     winston "0.8.3"
 
-"@uber/heatpipejs@^6.0.0":
-  version "6.0.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fheatpipejs/-/private/%40uber%2Fheatpipejs-6.0.0.tgz#7ad7164965e294b4baa4ed1c71427d2399e169ea"
-  integrity sha1-etcWSWXilLS6pO0ccUJ9I5nhaeo=
+"@uber/heatpipejs@^6.0.1":
+  version "6.0.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fheatpipejs/-/private/%40uber%2Fheatpipejs-6.0.1.tgz#0ab7051ab4041749011f3cef4f887a157884d40e"
+  integrity sha1-CrcFGrQEF0kBHzzvT4h6FXiE1A4=
   dependencies:
-    "@uber/node-avro-io" "git+ssh://code.uber.internal:data/node-avro-io#v1.0.2"
+    "@uber/node-avro-io" "^2.0.0"
     "@uber/node-m3-client-addon" "^2.0.0"
     airlock "2.3.0"
     inherits "^2.0.3"
@@ -1048,9 +1048,10 @@
     lodash "^2.4.1"
     snappy "^6.0.4"
 
-"@uber/node-avro-io@git+ssh://code.uber.internal:data/node-avro-io#v1.0.2":
-  version "1.0.2"
-  resolved "git+ssh://code.uber.internal:data/node-avro-io#25a5627ffe6b893806cd129ffab42e913f25d72a"
+"@uber/node-avro-io@^2.0.0":
+  version "2.0.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-avro-io/-/private/%40uber%2Fnode-avro-io-2.0.0.tgz#d64fae714c6b862da6afd5c496a8657f46b4ebfd"
+  integrity sha512-Xcyr5ZNU8akQJYZEFNLkou3VOMvTF7I+F9dyp/p5LRGlQKaaTDrUE7LnQsQxHTWx1gXRGxjbFvN279sVeKT4ew==
   dependencies:
     buffer-crc32 "^0.2.13"
     int64-native "0.5.0"
@@ -1076,12 +1077,12 @@
     "@uber/heatpipejs" "^5.0.1"
     kafka-rest-client "^1.11.7"
 
-"@uber/node-heatpipe-publisher@^3.0.0":
-  version "3.0.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-heatpipe-publisher/-/private/%40uber%2Fnode-heatpipe-publisher-3.0.0.tgz#b910147f7e5b3642aad7613c3fd90a684478fc30"
-  integrity sha512-oxxmfqGoclGqjeioEG8sYgP4aX0qNN3SnfxDfnuLHPj9HS0rEwoOZdpaCojmLhBD7hfgxJmFQeqaWJt7X681ug==
+"@uber/node-heatpipe-publisher@^3.0.1":
+  version "3.0.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-heatpipe-publisher/-/private/%40uber%2Fnode-heatpipe-publisher-3.0.1.tgz#d4bef3f651262bf1817fecb1a2b5a83a71fe9e9e"
+  integrity sha1-1L7z9lEmK/GBf+yxorWoOnH+np4=
   dependencies:
-    "@uber/heatpipejs" "^6.0.0"
+    "@uber/heatpipejs" "^6.0.1"
     kafka-rest-client "^1.11.7"
 
 "@uber/node-m3-client-addon@^1.4.3":
@@ -1927,10 +1928,10 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^5.5.0:
-  version "5.5.0"
-  resolved "https://unpm.uberinternal.com/baseui/-/baseui-5.5.0.tgz#af5a718d399003b541d33610a98ee163abfb93b5"
-  integrity sha512-BnvDd7QGwv3yfcuqAiinxZBJtMlmmdd6jZymvvFswr25KbDHlmOdDSL49K3wbnScy+j/TFW0rjLYNSubmUlVKg==
+baseui@^5.6.0:
+  version "5.6.0"
+  resolved "https://unpm.uberinternal.com/baseui/-/baseui-5.6.0.tgz#0a3cfff14afe9ed5ac28deaee29f41ce6ee669b1"
+  integrity sha512-J31iJ9lSYmpO/qbxHepV+kDPqVCYaT8s8yMzFNzPgzHbcHkJsJXUcIqHi7AQl/9N/uSSSmgIjazFOZquj7JRQA==
   dependencies:
     date-fns "2.0.0-alpha.26"
     memoize-one "^5.0.0"
@@ -3560,10 +3561,10 @@ eslint-plugin-cup@^2.0.0:
   dependencies:
     globals "^11.5.0"
 
-eslint-plugin-flowtype@^3.2.0:
-  version "3.2.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.2.0.tgz#824364ed5940a404b91326fdb5a313a2a74760df"
-  integrity sha512-baJmzngM6UKbEkJ5OY3aGw2zjXBt5L2QKZvTsOlXX7yHKIjNRrlJx2ods8Rng6EdqPR9rVNIQNYHpTs0qfn2qA==
+eslint-plugin-flowtype@^3.2.1:
+  version "3.2.1"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.2.1.tgz#45e032aee54e695dfc41a891e92b7afedfc62c77"
+  integrity sha512-1lymqM8Cawxu5xsS8TaCrLWJYUmUdoG4hCfa7yWOhCf0qZn/CvI8FxqkhdOP6bAosBn5zeYxKe3Q/4rfKN8a+A==
   dependencies:
     lodash "^4.17.10"
 
@@ -4179,10 +4180,10 @@ flatten@0.0.1:
   resolved "https://unpm.uberinternal.com/flatten/-/flatten-0.0.1.tgz#554440766da0a0d603999f433453f6c2fc6a75c1"
   integrity sha1-VURAdm2goNYDmZ9DNFP2wvxqdcE=
 
-flow-bin@^0.89.0:
-  version "0.89.0"
-  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.89.0.tgz#6bd29c2af7e0f429797f820662f33749105c32fa"
-  integrity sha512-DkO4PsXYrl53V6G5+t5HbRMC5ajYUQej2LEGPUZ+j9okTb41Sn5j9vfxsCpXMEAslYnQoysHhYu4GUZsQX/DrQ==
+flow-bin@^0.90.0:
+  version "0.90.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.90.0.tgz#733b6d29a8c8a22b9a5d273611d9a8402faf3445"
+  integrity sha512-/syDchjhLLL7nELK1ggyWJifGXuMCTz74kvkjR1t9DcmasMrilLl9qAAotsACcNb98etEEJpsCrvP7WL64kadw==
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
@@ -4398,10 +4399,10 @@ fusion-plugin-font-loader-react@^1.1.1:
   dependencies:
     prop-types "^15.6.2"
 
-fusion-plugin-i18n-react@^1.2.2-0:
-  version "1.2.2-0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n-react/-/fusion-plugin-i18n-react-1.2.2-0.tgz#871d4d0b1f1036e7c227c272d851e21fdc143e6a"
-  integrity sha512-cX84a1cXwHqwW5ANyVqmM77Np/5tRofkU8/DcFS1klIrgAVHy5i1KZW4HFWoFqKDv3LkZ/4bBlnIMfERSPvfKw==
+fusion-plugin-i18n-react@^1.2.2:
+  version "1.2.2"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-i18n-react/-/fusion-plugin-i18n-react-1.2.2.tgz#cbfdc9b9091245c23f248997f87abcb58a39e37d"
+  integrity sha512-LfcjlhCPL850nwoqM3UeTBBakIeiYs7R0xRDfBk9ycYQW83d7BDAAnHQMiya7GLT71Tor90Lga6pWJ0+Llpa9A==
   dependencies:
     fusion-cli "^1.13.1"
     fusion-plugin-i18n "1.1.6"
@@ -4455,10 +4456,10 @@ fusion-plugin-react-redux@^1.1.0:
   dependencies:
     eslint-plugin-jest "^22.1.0"
 
-fusion-plugin-react-router@^1.4.2:
-  version "1.4.2"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-react-router/-/fusion-plugin-react-router-1.4.2.tgz#78ef98a5cb61a49a42f209f171971e3660b5ec04"
-  integrity sha512-lLWnYnDmFaOJv8bvejAQooOEVOcUWp4HjocdC0T4Bow+ZCf/OX1QAkhaUQ/ylGIrEZAjsCpmb2H/yH43iSeCZA==
+fusion-plugin-react-router@^1.5.0:
+  version "1.5.0"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-react-router/-/fusion-plugin-react-router-1.5.0.tgz#fc456d907103e87adccf47166417f29d1ea644e1"
+  integrity sha512-20elur+pEDDAUC+BpbxvbnLQ8Nk2XklrPpXQx+x/Q+rWp/vkgJN2dIQ8QDiR71LO2G7b0AwpDw/8qzH8/ZB0vQ==
   dependencies:
     history "^4.7.2"
     prop-types "^15.6.2"
@@ -4471,10 +4472,10 @@ fusion-plugin-redux-action-emitter-enhancer@^2.0.1:
   dependencies:
     eslint-plugin-jest "^22.0.0"
 
-fusion-plugin-rpc-redux-react@^2.0.3-0:
-  version "2.0.3-0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-rpc-redux-react/-/fusion-plugin-rpc-redux-react-2.0.3-0.tgz#07285b7de882e0a95750d43a55bc18b4129cb035"
-  integrity sha512-Mx5wfLGysT5FedjK2tR1NZljV5OTfa6TaYcODTDBCxVM9DBIEHjlbY3MRA+GfqO6RTLgz9ZjjAibbbC6E4KgZg==
+fusion-plugin-rpc-redux-react@^2.0.3:
+  version "2.0.3"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-rpc-redux-react/-/fusion-plugin-rpc-redux-react-2.0.3.tgz#42d7690e4347ccd9e3569457d0bb497b05ac9ae0"
+  integrity sha512-IH53h0MmA2kvyCxADgNeqghEprfLGR1wePijCyD4rDs/IESUolridet41yZjApIqFqx2bFyunxY7kL4JsfbzRQ==
   dependencies:
     fusion-plugin-rpc "^2.3.0"
     fusion-rpc-redux "^1.3.0"
@@ -4514,10 +4515,10 @@ fusion-plugin-universal-events@^1.3.0:
   dependencies:
     koa-bodyparser "4.2.1"
 
-fusion-react@^1.3.5:
-  version "1.3.5"
-  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.3.5.tgz#3a8d3f13c9e3f8a9bcbc8a67428bfadcd9269b3c"
-  integrity sha512-EJMeWoggsyA0jZSQFClECY6FuG9RPNzjqrkUB+8pCg5vBwta1/uUgDNEyMuy8myrxXlYz6lOMOLY5NO/NkO43A==
+fusion-react@^1.3.6:
+  version "1.3.6"
+  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.3.6.tgz#53f60b778da952312431828f8bb52e1e6e6e603a"
+  integrity sha512-02fJLeowDeWKmeRohOzDrW8pS+bE82l7n90DtKuLEOUrno9jlr8uACsMgd4vaVJIwBio0/UZwaFRPGNjDojT4A==
   dependencies:
     prop-types "^15.6.2"
     react-is "^16.6.3"
