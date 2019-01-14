@@ -1,6 +1,7 @@
 /* @flow */
 
 import {readFile, writeFile} from '@dubstep/core';
+import semver from 'semver';
 import {install, test as runTests} from './yarn';
 import log from './log';
 import {getProgress} from './progress';
@@ -52,7 +53,9 @@ const batchUpgrade = async ({dir, match, file, data, edge}) => {
       promises.push(
         getLatestVersion(dep, edge).then(v => {
           progress.tick();
-          data[key][dep] = v;
+          const old = data[key][dep].replace(/\^/, '');
+          const curr = v.replace(/\^/, '');
+          if (semver.gt(curr, old)) data[key][dep] = v;
         })
       );
     }
@@ -78,7 +81,9 @@ const upgrade = async ({dir, match, file, data, key, edge}) => {
     await installAndTest(dir).catch(e => {
       // eslint-disable-next-line no-console
       console.log(`Could not upgrade ${dep}`);
-      data[key][dep] = version;
+      const old = data[key][dep].replace(/\^/, '');
+      const curr = version.replace(/\^/, '');
+      if (semver.gt(curr, old)) data[key][dep] = version;
       return write(file, data);
     });
   }

@@ -5,16 +5,12 @@ for d in ./templates/*/ ; do (
   yarn;
   npm rebuild;
   if [ "$d" = "./templates/website/" ]; then
-    node ../../dist/cli upgrade --force
+    node ../../dist/index upgrade --force
   else
     node ../../dist/index upgrade --force --codemod false
   fi
-  yarn test;
-  rm -rf node_modules;
-  rm -rf dist;
-  rm -f yarn-error.log;
-  rm -rf .fusion;
   cp .gitignore dotgitignore
 ); done
 node dist/index upgrade --force --codemod false
-npm version patch --no-git-tag-version
+clear
+./verify.sh && npm version patch --no-git-tag-version
