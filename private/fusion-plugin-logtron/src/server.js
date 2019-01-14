@@ -39,6 +39,10 @@ const plugin =
       if (backends.console !== false) {
         backends.console = true;
       }
+      // Default json logs to true in production for integration with healthline/elk via filebeat
+      if (env === 'production' && backends.json !== false) {
+        backends.json = true;
+      }
       if (backends.sentry != null) {
         if (__DEV__) {
           delete backends.sentry;
