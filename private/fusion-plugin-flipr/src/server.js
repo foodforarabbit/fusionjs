@@ -71,7 +71,7 @@ export class FliprService {
     });
 
     for (const key in flipr) {
-      if (typeof flipr[key] === 'function') {
+      if (flipr[key] instanceof Function) {
         const func = flipr[key].bind(flipr);
         Object.defineProperty(this, key, {
           value: (...args): any => func(...args),
@@ -79,7 +79,7 @@ export class FliprService {
       }
     }
 
-    if (typeof flipr.startUpdating === 'function') {
+    if (flipr.startUpdating instanceof Function) {
       flipr.startUpdating(function onUpdating(err): void {
         if (err) {
           throw err;
