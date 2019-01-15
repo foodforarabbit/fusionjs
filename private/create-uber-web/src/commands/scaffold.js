@@ -151,7 +151,7 @@ async function runWebsiteSteps({
       }
     }),
     step('codemod main.js', async () => {
-      await replaceNunjucksFile(`${name}/src/main.js`, {team});
+      await replaceNunjucksFile(`${name}/src/main.js`, {name, team});
     }),
     step('codemod udeploy config file', async () => {
       await replaceNunjucksFile(`${name}/udeploy/config/udeploy.yaml`, {

@@ -175,7 +175,7 @@ export default async function start(options: any = {}) {
 
       store: !__DEV__
         ? metricsStore({
-            service: 'website-template',
+            service: '{{name}}',
           })
         : undefined,
     })
