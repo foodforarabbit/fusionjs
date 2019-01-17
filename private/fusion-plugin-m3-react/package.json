@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-m3-react",
   "description": "M3 plugin for FusionJS app with React",
-  "version": "1.0.8-1",
+  "version": "1.0.8-2",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -59,7 +59,7 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.10-1"
+    "@uber/fusion-plugin-m3": "^1.1.11-1"
   },
   "peerDependencies": {
     "fusion-core": "^1.10.1-0",
