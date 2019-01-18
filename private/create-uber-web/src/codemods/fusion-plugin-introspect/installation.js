@@ -28,6 +28,7 @@ export const installIntrospect = async ({dir, edge}: InstallOptions) => {
         pkg.dependencies[dep] = await getLatestVersion(dep, edge);
       }
     }
+    return pkg;
   });
   await withJsFile(`${dir}/src/main.js`, program => {
     // add imports

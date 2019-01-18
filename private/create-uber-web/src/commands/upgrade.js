@@ -6,6 +6,10 @@ import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protecti
 import {installIntrospect} from '../codemods/fusion-plugin-introspect/installation.js';
 import {replacePackage} from '../codemods/replace-package/codemod-replace-package.js';
 import {addPackage} from '../codemods/add-package/codemod-add-package.js';
+import {removePackage} from '../codemods/remove-package/codemod-remove-package.js';
+import {addCreateTokenGenerics} from '../codemods/flow/create-token-generics.js';
+import {addCreatePluginGenerics} from '../codemods/flow/create-plugin-generics.js';
+import {fixMeTchannelMock} from '../codemods/flow/fixme-tchannel-mock.js';
 import {format} from '../utils/format.js';
 
 export type UpgradeOptions = {
@@ -44,6 +48,12 @@ export const upgrade = async ({
           edge,
         });
       }),
+      step('remove enzyme-context-patch', async () => {
+        await removePackage({name: 'enzyme-context-patch', dir});
+      }),
+      step('add eslint-plugin-jest', async () => {
+        await addPackage({name: 'eslint-plugin-jest', dir, edge});
+      }),
       step('use fusion-plugin-universal-events-react', async () => {
         await replacePackage({
           target: 'fusion-plugin-universal-events',
@@ -79,8 +89,19 @@ export const upgrade = async ({
       step('ensure styletron-react peer dep', async () => {
         await addPackage({name: 'styletron-react', dir, edge: false});
       }),
+      step('add explicit flow generics for fusion', async () => {
+        await addCreateTokenGenerics({dir});
+        await addCreatePluginGenerics({dir});
+      }),
+      step('stop tchannel mock flow error', async () => {
+        await fixMeTchannelMock({dir});
+      }),
       step('format', async () => {
         await format(dir);
+      }),
+      step('Remind about new deps', () => {
+        // eslint-disable-next-line no-console
+        console.log('Codemods completed. Run `yarn install`');
       })
     );
   }
