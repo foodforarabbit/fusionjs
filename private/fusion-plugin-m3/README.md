@@ -16,6 +16,7 @@ If you're using React, you should use [fusion-plugin-m3-react](https://code.uber
 - [Usage](#usage)
   - [Timing a service request](#timing-a-service-request)
 - [Setup](#setup)
+  - [Debugging](#debugging)
 - [API](#api)
   - [Registration API](#registration-api)
     - [`M3`](#m3)
@@ -79,6 +80,10 @@ export default () => {
   return app;
 };
 ```
+
+#### Debugging
+
+Setting the `process.env.DEBUG_M3` environment variable will log the parameters passed to the M3 client to the console in `DEV`.
 
 ---
 

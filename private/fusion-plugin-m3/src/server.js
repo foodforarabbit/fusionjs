@@ -9,6 +9,22 @@ import type {FusionPlugin} from 'fusion-core';
 import type {M3Type, M3DepsType, ServiceType} from './types.js';
 import M3Client from '@uber/m3-client';
 
+const logM3ClientParams = (type, key, value, tags) => {
+  if (__DEV__ && process.env.DEBUG_M3) {
+    try {
+      //eslint-disable-next-line
+      console.log(
+        `[m3] ${type} - ${key} - ${value} - ${JSON.stringify(tags)}`
+      );
+    } catch (e) {
+      //eslint-disable-next-line
+      console.log(
+        `[m3] ${type} - ${key} - ${value} - unable to serialize tags`
+      );
+    }
+  }
+};
+
 const plugin =
   __NODE__ &&
   createPlugin({
@@ -43,18 +59,24 @@ const plugin =
         if (__url__) {
           Object.assign(tags, {route: __url__});
         }
+        logM3ClientParams('value', key, value, {tags});
         return original(key, value, {tags});
       };
       const makeIncrementHandler = original => ({key, tags = {}, __url__}) => {
         if (__url__) {
           Object.assign(tags, {route: __url__});
         }
+        logM3ClientParams('increment', key, 1, {tags});
         return original(key, 1, {tags});
       };
-      const makeValueFunction = original => (key, value, tags) =>
-        original(key, value, {tags});
-      const makeIncrementFunction = original => (key, tags) =>
-        original(key, 1, {tags});
+      const makeValueFunction = original => (key, value, tags) => {
+        logM3ClientParams('value', key, value, {tags});
+        return original(key, value, {tags});
+      };
+      const makeIncrementFunction = original => (key, tags) => {
+        logM3ClientParams('increment', key, 1, {tags});
+        return original(key, 1, {tags});
+      };
 
       const boundM3 = {
         scope: m3.scope.bind(m3),
