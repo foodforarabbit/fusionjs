@@ -28,9 +28,7 @@ const plugin =
         }
 
         refreshCookie(cookieType) {
-          const {ctx} = this;
-
-          const incomingCookieData = ctx.cookies.get(cookieType.name);
+          const incomingCookieData = this.get(cookieType);
           if (!incomingCookieData || cookieType.rolling) {
             this.set(
               cookieType,

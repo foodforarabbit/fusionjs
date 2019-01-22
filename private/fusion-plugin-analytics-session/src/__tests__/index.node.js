@@ -93,8 +93,9 @@ test('AnalyticsSessions server plugin - rolling session', async () => {
   const cookieSets = [];
   const ctx: any = {
     cookies: {
-      get: () => (cookieSets.length ? cookieSets[0] : null),
-      set: (name, value, options) => cookieSets.push(options),
+      get: () =>
+        cookieSets.length ? cookieSets[cookieSets.length - 1].value : null,
+      set: (name, value, options) => cookieSets.push({value, options}),
     },
     memoized: new Map(),
   };
@@ -116,10 +117,16 @@ test('AnalyticsSessions server plugin - rolling session', async () => {
   await new Promise(res => setTimeout(res, 200)); // add a small time delay
   middleware(ctx, next);
 
-  expect(Object.prototype.toString.call(cookieSets[0].expires)).toBe(
+  expect(Object.prototype.toString.call(cookieSets[0].options.expires)).toBe(
     '[object Date]'
   );
-  expect(cookieSets[0].expires < cookieSets[1].expires).toBeTruthy();
+  expect(
+    cookieSets[0].options.expires < cookieSets[1].options.expires
+  ).toBeTruthy();
+
+  expect(cookieSets[0].value).toEqual(cookieSets[1].value);
+  const parsed = JSON.parse(cookieSets[1].value);
+  expect(parsed.id).toBeTruthy();
 });
 
 test('AnalyticsSessions server plugin - data scheme as non-object(single value)', () => {

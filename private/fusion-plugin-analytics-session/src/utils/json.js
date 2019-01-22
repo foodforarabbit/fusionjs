@@ -7,11 +7,11 @@ function safeJSONStringify(stuff: any): string {
   }
 }
 
-function safeJSONParse(str?: string): Object {
+function safeJSONParse(str?: string): ?Object {
   try {
-    return JSON.parse(str || '') || {};
+    return JSON.parse(str || '') || null;
   } catch (e) {
-    return {};
+    return null;
   }
 }
 
