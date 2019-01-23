@@ -122,7 +122,7 @@
         "testURL": "http://localhost",
         "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js",
         "globals": {
-          "__DEV__": true,
+          "__DEV__": false,
           "__NODE__": false,
           "__BROWSER__": true
         }
@@ -138,7 +138,7 @@
         ],
         "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js",
         "globals": {
-          "__DEV__": true,
+          "__DEV__": false,
           "__NODE__": true,
           "__BROWSER__": false
         }

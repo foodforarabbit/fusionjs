@@ -8,7 +8,7 @@ type Store = {
 };
 
 export default ({service}: {service: string}): Store => {
-  return __NODE__
+  return __NODE__ && !__DEV__
     ? {
         // data shape is defined here: https://github.com/fusionjs/fusion-plugin-introspect#data-schema
         // FIXME add proper type for heatpipe when available
