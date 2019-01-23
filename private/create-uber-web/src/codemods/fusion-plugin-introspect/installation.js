@@ -17,6 +17,7 @@ export const installIntrospect = async ({dir, edge}: InstallOptions) => {
   let serviceName = '';
   await withJsonFile(`${dir}/package.json`, async pkg => {
     serviceName = pkg.name;
+    if (serviceName === '{{website-template}}') serviceName = '{{name}}';
     const deps = [
       'fusion-plugin-introspect',
       '@uber/fusion-metrics',

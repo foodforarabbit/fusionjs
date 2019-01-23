@@ -22,7 +22,7 @@ export default (app: FusionApp) => {
     // Handle redux hot reloading for redux.
     __DEV__ &&
       app.enhance(ReduxToken, redux => {
-        return createPlugin({
+        return createPlugin<*, *>({
           provides() {
             return redux;
           },
