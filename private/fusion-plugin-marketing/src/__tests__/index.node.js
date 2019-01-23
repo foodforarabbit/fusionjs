@@ -47,6 +47,7 @@ function createMockApp({
   const app = new App({}, () => 'ok');
   // $FlowFixMe
   app.register(testPlugin);
+  // $FlowFixMe
   app.register(HeatpipeToken, heatpipeMock);
   // $FlowFixMe
   app.register(LoggerToken, loggerMock);
@@ -138,12 +139,17 @@ function BasicPublishTest(
 ) {
   const mockUuid = '7f51756d-053d-43e3-9de3-1b103fffc625';
   const testPlugin = createPlugin({
-    deps: {Marketing: UberMarketingToken, heatpipeMock: HeatpipeToken},
-    middleware({Marketing, heatpipeMock}) {
+    deps: {
+      Marketing: UberMarketingToken,
+      heatpipeMock: HeatpipeToken,
+      loggerMock: LoggerToken,
+    },
+    middleware({Marketing, heatpipeMock, loggerMock}) {
       return async (ctx, next) => {
         await next();
         setTimeout(() => {
           expect(heatpipeMock.publish.mock.calls[0]).toMatchSnapshot();
+          expect(loggerMock.info).not.toHaveBeenCalled();
           done();
         }, 100);
       };
@@ -182,4 +188,40 @@ test('should skip - /health', async done => {
 
 test('should skip - assets', async done => {
   BasicPublishTest(done, {requestUrl: '/_static/foo.aaa'});
+});
+
+test('log when debugLogging is enabled', async done => {
+  const mockUuid = '7f51756d-053d-43e3-9de3-1b103fffc625';
+  const mockConfig = {
+    debugLogging: true,
+  };
+  const testPlugin = createPlugin({
+    deps: {
+      Marketing: UberMarketingToken,
+      heatpipeMock: HeatpipeToken,
+      loggerMock: LoggerToken,
+    },
+    middleware({Marketing, heatpipeMock, loggerMock}) {
+      return async (ctx, next) => {
+        await next();
+        setTimeout(() => {
+          expect(heatpipeMock.publish.mock.calls[0]).toMatchSnapshot();
+          expect(loggerMock.info).toHaveBeenCalled();
+          done();
+        }, 100);
+      };
+    },
+  });
+
+  const simulator = createMockApp({testPlugin, config: mockConfig});
+  simulator.render(
+    '/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked',
+    {
+      headers: {
+        cookie: `marketing_vistor_id=${mockUuid}`,
+        'user-agent': mockUA.desktop,
+        referer: 'https://awesome.com/',
+      },
+    }
+  );
 });

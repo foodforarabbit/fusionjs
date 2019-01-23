@@ -40,10 +40,11 @@ const plugin =
 
           this.config = {
             cookieAge: 31536000,
-            cookieIdKey: 'marketing_vistor_id',
+            cookieIdKey: 'marketing_vistor_id', // intentional typo
             cookieDomain: rootDomain,
             serverDomain: reqHostname,
             disableHeatpipe: false,
+            debugLogging: false,
             ...userConfig,
           };
 
@@ -76,9 +77,11 @@ const plugin =
                 config
               );
               if (!shouldSkipTracking(ctx, trackingInfo)) {
-                logger.info('[fusion-plugin-marketing] Tracking', {
-                  data: stringify(trackingInfo),
-                });
+                if (config.debugLogging) {
+                  logger.info('[fusion-plugin-marketing] Tracking', {
+                    marketingTrackingPayload: stringify(trackingInfo),
+                  });
+                }
                 heatpipe.publish(TRACK_TOPIC, trackingInfo);
               }
             } catch (e) {

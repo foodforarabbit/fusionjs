@@ -8,6 +8,7 @@ export type PluginConfig = {
   cookieDomain: string | null,
   serverDomain: string,
   disableHeatpipe: boolean,
+  debugLogging: boolean,
 };
 
 export type PluginServiceType = {

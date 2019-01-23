@@ -74,6 +74,42 @@ Array [
 ]
 `;
 
+exports[`log when debugLogging is enabled 1`] = `
+Array [
+  Object {
+    "topic": "hp-clay_marketing_tracking-track",
+    "version": 10,
+  },
+  Object {
+    "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
+    "ip": "127.0.0.1",
+    "optimizely_cookie": Object {
+      "campaign_id": null,
+      "experiment_id": null,
+      "project_id": null,
+      "variation_id": null,
+    },
+    "original_url": "https://UNKNOWN/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
+    "prefetched": false,
+    "referrer": "https://awesome.com/",
+    "status_code": 200,
+    "timestamp": 1536789961.819,
+    "url": "https://UNKNOWN/app",
+    "user_agent": Object {
+      "browser_family": "Chrome",
+      "browser_version": "64.0.3282.189",
+      "is_bot": false,
+      "is_mobile": false,
+      "os_family": "Mac OS",
+      "os_version": "10.13.4",
+      "string": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.189 Safari/537.36 Viv/1.95.1077.60",
+    },
+    "utm_campaign": "bar",
+    "utm_source": "foo",
+  },
+]
+`;
+
 exports[`should skip - /health 1`] = `undefined`;
 
 exports[`should skip - assets 1`] = `undefined`;

@@ -68,6 +68,7 @@ export type PluginConfig = {
   serverDomain: string, // by default derived from the HTTP `host` header OR 'UNKNOWN'
   cookieDomain: string, // by default derived root domain from serverDomain OR null
   disableHeatpipe: boolean,
+  debugLogging: boolean, // by default will not log on successful heatpipe publish
 };
 ```
 
