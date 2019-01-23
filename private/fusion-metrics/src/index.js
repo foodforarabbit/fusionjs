@@ -7,13 +7,14 @@ type Store = {
   storeSync(IntrospectionSchema): void,
 };
 
-export default ({service}: {service: string}): Store => {
+export default (): Store => {
   return __NODE__ && !__DEV__
     ? {
         // data shape is defined here: https://github.com/fusionjs/fusion-plugin-introspect#data-schema
         // FIXME add proper type for heatpipe when available
         async store(data: IntrospectionSchema, {heatpipe}: Object) {
           const uuid = (Math.random() * 1e17).toString(16);
+          const service = process.env.SVC_ID;
           const gitRef = process.env.GIT_REF || '';
           await heatpipe
             .asyncPublish(

@@ -1,8 +1,10 @@
 // @flow
+/* eslint-env node */
 import createStore from '../index.js';
 
 test('store', async () => {
-  const store = createStore({service: 'foo'});
+  process.env.SVC_ID = 'foo';
+  const store = createStore();
 
   const timeline = [];
   const heatpipe = {
@@ -71,7 +73,8 @@ test('store', async () => {
 });
 
 test('storeSync', () => {
-  const store = createStore({service: 'foo'});
+  process.env.SVC_ID = 'foo';
+  const store = createStore();
 
   const timeline = [];
 

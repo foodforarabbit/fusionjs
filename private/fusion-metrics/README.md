@@ -25,7 +25,7 @@ export default async () => {
   app.register(
     introspect({
       deps: {heatpipe: HeatpipeToken},
-      store: store({service: 'my-service'}),
+      store: store(),
     })
   )
 
