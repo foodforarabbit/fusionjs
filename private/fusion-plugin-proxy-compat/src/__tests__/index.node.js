@@ -219,6 +219,7 @@ tape('galileo error handling', async (t) /*: Promise<void> */ => {
   });
   const proxyConnection = proxyServer.listen(proxyPort);
 
+  // $FlowFixMe
   const appServer = http.createServer(app.callback());
   const connection = appServer.listen(appPort);
 
@@ -314,6 +315,7 @@ tape('proxies POST requests', async (t) /*: Promise<void> */ => {
   });
   const proxyConnection = proxyServer.listen(proxyPort);
 
+  // $FlowFixMe
   const appServer = http.createServer(app.callback());
   const connection = appServer.listen(appPort);
 
