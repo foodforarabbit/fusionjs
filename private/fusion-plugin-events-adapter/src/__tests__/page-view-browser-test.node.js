@@ -15,6 +15,8 @@ tape('page-view-browser handler', t => {
         {
           topicInfo: webTopicInfo,
           message: {
+            app_name: 'test',
+            app_runtime: 'development',
             type: 'view',
             name: 'ttt',
             page: 'ppp',
@@ -29,6 +31,7 @@ tape('page-view-browser handler', t => {
   const heatpipeEmitter = HeatpipeEmitter({
     heatpipe: mockHeatpipe,
     serviceName: 'test',
+    runtime: 'development',
   });
 
   pageViewBrowser({events, heatpipeEmitter});

@@ -26,6 +26,8 @@ const expectedHeatpipeEvents = [
   {
     topicInfo: webTopicInfo,
     message: {
+      app_name: 'test',
+      app_runtime: 'development',
       type: 'stat',
       name: 'time_to_first_byte',
       value_number:
@@ -35,6 +37,8 @@ const expectedHeatpipeEvents = [
   {
     topicInfo: webTopicInfo,
     message: {
+      app_name: 'test',
+      app_runtime: 'development',
       type: 'stat',
       name: 'resources_avg_load_time',
       value_number:
@@ -46,6 +50,8 @@ const expectedHeatpipeEvents = [
   {
     topicInfo: webTopicInfo,
     message: {
+      app_name: 'test',
+      app_runtime: 'development',
       type: 'stat',
       name: 'resource_load_time',
       value_number: Math.round(
@@ -112,6 +118,7 @@ tape('browser-performance handler', t => {
     heatpipe: mockHeatpipe,
     events,
     serviceName: 'test',
+    runtime: 'development',
   });
 
   browserPerformance({events, m3: mockM3, heatpipeEmitter});
@@ -149,6 +156,7 @@ tape('browser-performance handler with __url__', t => {
     heatpipe: mockHeatpipe,
     events,
     serviceName: 'test',
+    runtime: 'development',
   });
 
   browserPerformance({events, m3: mockM3, heatpipeEmitter});

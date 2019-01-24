@@ -49,6 +49,7 @@ const plugin =
       logger,
     }) => {
       const serviceName = process.env.SVC_ID || 'dev-service';
+      const runtime = process.env.UBER_RUNTIME_ENVIRONMENT || 'development';
 
       const heatpipeEmitter = HeatpipeEmitter({
         heatpipe,
@@ -57,6 +58,7 @@ const plugin =
         AuthHeaders,
         I18n,
         serviceName,
+        runtime,
       });
 
       nodePerformance({events, m3});

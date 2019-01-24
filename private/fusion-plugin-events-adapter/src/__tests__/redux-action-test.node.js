@@ -24,6 +24,8 @@ tape('redux-action handler', t => {
         {
           topicInfo: webTopicInfo,
           message: {
+            app_name: 'test',
+            app_runtime: 'development',
             type: 'action',
             name: 'foo',
             meta: {s: 'str'},
@@ -39,7 +41,8 @@ tape('redux-action handler', t => {
   // $FlowFixMe
   const heatpipeEmitter = HeatpipeEmitter({
     heatpipe: mockHeatpipe,
-    service: 'test',
+    serviceName: 'test',
+    runtime: 'development',
   });
 
   reactAction({events, heatpipeEmitter, m3: mockM3});
@@ -102,6 +105,8 @@ tape('redux-action handler - nested _trackingMeta', t => {
         {
           topicInfo: webTopicInfo,
           message: {
+            app_name: 'test',
+            app_runtime: 'development',
             type: 'action',
             name: 'foo',
             meta: {s: 'str'},
@@ -117,7 +122,8 @@ tape('redux-action handler - nested _trackingMeta', t => {
   // $FlowFixMe
   const heatpipeEmitter = HeatpipeEmitter({
     heatpipe: mockHeatpipe,
-    service: 'test',
+    serviceName: 'test',
+    runtime: 'development',
   });
 
   reactAction({events, heatpipeEmitter, m3: mockM3});

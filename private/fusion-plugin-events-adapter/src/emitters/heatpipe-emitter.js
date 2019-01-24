@@ -1,4 +1,5 @@
 // @flow
+/* eslint-env node */
 import type {
   AnalyticsSessionPlugin,
   GeolocationPlugin,
@@ -12,7 +13,7 @@ type AuthHeadersService = $Call<typeof AuthHeadersToken, ExtractReturnType>;
 
 export const webTopicInfo = {
   topic: 'hp-event-web',
-  version: 8,
+  version: 13,
 };
 
 type HeatpipeArgs = {
@@ -23,6 +24,7 @@ type HeatpipeArgs = {
   Geolocation?: GeolocationPlugin,
   I18n?: I18nServiceType,
   serviceName: string,
+  runtime: string,
 };
 
 type WebEventsMeta = {
@@ -47,6 +49,7 @@ export default function({
   Geolocation,
   I18n,
   serviceName,
+  runtime,
 }: HeatpipeArgs) {
   const HeatpipeEmitter: HeatpipeEmitter = {
     publish: (payload: {topicInfo: Object, message: Object}) => {
@@ -57,11 +60,14 @@ export default function({
       ctx?: Object,
       webEventsMeta?: WebEventsMeta,
     }) => {
-      heatpipe.publish(webTopicInfo, {
+      const finalizedPayload = {
+        app_name: serviceName,
+        app_runtime: runtime,
         ...payload.message,
         ...getWebEventsMetaFields(payload.webEventsMeta),
         ...getContextFields(payload.ctx),
-      });
+      };
+      heatpipe.publish(webTopicInfo, finalizedPayload);
     },
   };
 
@@ -107,13 +113,12 @@ export default function({
           ...uaInfo,
           locale: (locale && locale.toString()) || '',
         },
-        app_name: serviceName,
         user_id:
           (AuthHeaders && AuthHeaders.from(ctx).get('uuid')) || 'unknown',
         session_id,
         session_time_ms,
         time_ms: Date.now(),
-        ...geolocation,
+        geolocation,
       };
     }
     return {};

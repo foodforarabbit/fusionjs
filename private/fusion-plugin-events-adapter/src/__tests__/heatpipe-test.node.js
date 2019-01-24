@@ -52,6 +52,7 @@ tape('heatpipe emitter publish', t => {
 
 const webEventsFixture = {
   serviceName: 'dev-service',
+  runtime: 'development',
   eventMessage: {
     type: 'stat',
     name: 'need_for_speed',
@@ -136,11 +137,14 @@ const webEventsFixture = {
       locale: webEventsFixture.I18n._localeString,
     },
     app_name: webEventsFixture.serviceName,
+    app_runtime: webEventsFixture.runtime,
     user_id: webEventsFixture.ctx.request.headers['x-auth-params-user-uuid'],
     session_id: webEventsFixture.AnalyticsSession._ua.session_id,
     session_time_ms: webEventsFixture.AnalyticsSession._ua.session_time_ms,
-    latitude: webEventsFixture.Geolocation._geoObject.latitude,
-    longitude: webEventsFixture.Geolocation._geoObject.longitude,
+    geolocation: {
+      latitude: webEventsFixture.Geolocation._geoObject.latitude,
+      longitude: webEventsFixture.Geolocation._geoObject.longitude,
+    },
   }),
 };
 
@@ -160,6 +164,7 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
         },
         'publishWebEvents message transformed correctly'
       );
+
       t.end();
     },
   };
@@ -171,6 +176,7 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
     serviceName: webEventsFixture.serviceName,
+    runtime: webEventsFixture.runtime,
   });
   hp.publishWebEvents({
     message: webEventsFixture.eventMessage,
@@ -213,6 +219,7 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
     I18n: webEventsFixture.I18n,
     Geolocation: webEventsFixture.Geolocation,
     serviceName: webEventsFixture.serviceName,
+    runtime: webEventsFixture.runtime,
   });
   const ctx = {
     ...webEventsFixture.ctx,
@@ -230,7 +237,11 @@ tape('heatpipe emitter publishWebEvents missing dependencies', t => {
     publish(topicInfo, message) {
       t.deepEqual(
         message,
-        webEventsFixture.eventMessage,
+        {
+          ...webEventsFixture.eventMessage,
+          app_name: webEventsFixture.serviceName,
+          app_runtime: webEventsFixture.runtime,
+        },
         'publish passes payload through and no transforms'
       );
       t.end();
@@ -238,7 +249,11 @@ tape('heatpipe emitter publishWebEvents missing dependencies', t => {
   };
 
   // $FlowFixMe
-  const hp = HeatpipeEmitter({heatpipe: mockHeatpipe, service: 'test'});
+  const hp = HeatpipeEmitter({
+    heatpipe: mockHeatpipe,
+    serviceName: webEventsFixture.serviceName,
+    runtime: webEventsFixture.runtime,
+  });
   hp.publishWebEvents({
     message: webEventsFixture.eventMessage,
   });
