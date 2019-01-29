@@ -20,7 +20,7 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "peerDependencies": {
-    "@uber/atreyu": "^5.5.3",
+    "@uber/atreyu": "^6.0.2",
     "@uber/fusion-plugin-galileo": "^1.0.4",
     "@uber/fusion-plugin-m3": "^1.1.6",
     "@uber/fusion-plugin-tchannel": "^1.1.1-0",
@@ -29,6 +29,7 @@
     "fusion-tokens": "^1.1.1"
   },
   "devDependencies": {
+    "@uber/atreyu": "^6.0.2",
     "@uber/atreyu-test": "^1.3.0",
     "@uber/fusion-plugin-galileo": "^1.0.4",
     "@uber/fusion-plugin-m3": "^1.1.6",
@@ -70,9 +71,6 @@
     "just-cover": "nyc --reporter=cobertura npm run just-test",
     "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html",
     "prepublish": "npm run transpile"
-  },
-  "dependencies": {
-    "@uber/atreyu": "^6.0.2"
   },
   "engines": {
     "node": ">=8.3.0 <9.0.0",
