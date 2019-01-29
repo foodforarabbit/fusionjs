@@ -810,30 +810,6 @@
   resolved "https://unpm.uberinternal.com/@types%2fq/-/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"
   integrity sha512-eqz8c/0kwNi/OEHQfvIuJVLTst3in0e7uTKeuY+WL/zfKn0xVujOTp42bS/vUUokhK5P2BppLd9JXMOMHcgbjA==
 
-"@uber/atreyu-graph@^4.16.2":
-  version "4.16.2"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-graph/-/private/%40uber%2Fatreyu-graph-4.16.2.tgz#bbe4ae0b483316db87d6597d77cb473a51832774"
-  integrity sha1-u+SuC0gzFtuH1ll9d8tHOlGDJ3Q=
-  dependencies:
-    "@uber/node-uber-context" "^1.6.1"
-    async "^1.5.0"
-    auto-async "^1.0.1"
-    deep-extend "^0.4.1"
-    dotty "0.0.2"
-    error "^7.0.2"
-    fclone "^1.0.11"
-    flatten "0.0.1"
-    getports "^1.0.2"
-    is-object "^1.0.1"
-    jaeger-client "^3.5.3"
-    jsgraph "^0.6.1"
-    null-logtron "^2.2.0"
-    object.map "^0.2.0"
-    object.omit "^3.0.0"
-    omit-empty "^0.3.6"
-    string-format "^0.5.0"
-    xtend "^4.0.1"
-
 "@uber/atreyu-graph@^5.0.2":
   version "5.0.2"
   resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-graph/-/private/%40uber%2Fatreyu-graph-5.0.2.tgz#c5fe6f8df2d6b7e4f1d8217955caadfc84cc4e14"
@@ -858,20 +834,6 @@
     string-format "^0.5.0"
     xtend "^4.0.1"
 
-"@uber/atreyu-request@^3.0.0":
-  version "3.3.5"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-request/-/private/%40uber%2Fatreyu-request-3.3.5.tgz#4d213ce97fe25dfe24397fe12088387a54ef05e4"
-  integrity sha1-TSE86X/iXf4kOX/hIIg4elTvBeQ=
-  dependencies:
-    "@uber/node-uber-context" "^1.6.0"
-    "@uber/request-statsd" "^1.0.4"
-    bluebird "^2.10.2"
-    error "^7.0.2"
-    json-stable-stringify "^1.0.0"
-    request "^2.65.0"
-    trycatch "^1.5.20"
-    xtend "^4.0.1"
-
 "@uber/atreyu-request@^4.0.1":
   version "4.0.1"
   resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-request/-/private/%40uber%2Fatreyu-request-4.0.1.tgz#d50ffed6a297ad08348ed870dfe1b7be256782c3"
@@ -885,32 +847,6 @@
     request "^2.65.0"
     trycatch "^1.5.20"
     xtend "^4.0.1"
-
-"@uber/atreyu-transport@^4.6.7":
-  version "4.6.7"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-transport/-/private/%40uber%2Fatreyu-transport-4.6.7.tgz#5ecd96931910fd836e9f5609e12ee93468bb0f55"
-  integrity sha1-Xs2WkxkQ/YNun1YJ4S7pNGi7D1U=
-  dependencies:
-    "@uber/atreyu-request" "^3.0.0"
-    assert "^1.3.0"
-    bluebird "^3.1.1"
-    deep-extend "^0.4.0"
-    dotty "0.0.2"
-    glob "^6.0.3"
-    is-plain-object "^2.0.1"
-    jaeger-client "^3.5.3"
-    joi "^6.6.1"
-    just-omit "^1.0.1"
-    lodash.compact "^3.0.0"
-    my-local-ip "^1.0.0"
-    null-logtron "^2.2.0"
-    object.omit "^3.0.0"
-    object.pick "^1.1.1"
-    process "^0.11.2"
-    safe-json-parse "^4.0.0"
-    tchannel "^3.6.24"
-    thrift "^0.9.2"
-    xtend "^4.0.0"
 
 "@uber/atreyu-transport@^5.0.4":
   version "5.0.4"
@@ -942,15 +878,6 @@
     tchannel "^3.6.24"
     thrift "^0.9.2"
     xtend "^4.0.0"
-
-"@uber/atreyu@^5.5.4":
-  version "5.5.5"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-5.5.5.tgz#547a80b2e4f99384032073a65ad681e7fe150c68"
-  integrity sha1-VHqAsuT5k4QDIHOmWtaB5/4VDGg=
-  dependencies:
-    "@uber/atreyu-graph" "^4.16.2"
-    "@uber/atreyu-transport" "^4.6.7"
-    inherits "^2.0.1"
 
 "@uber/atreyu@^6.0.2":
   version "6.0.2"
@@ -986,12 +913,10 @@
     just-map-values "^1.1.0"
     uuid "^3.3.2"
 
-"@uber/fusion-plugin-atreyu@^1.2.4":
-  version "1.2.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-atreyu/-/private/%40uber%2Ffusion-plugin-atreyu-1.2.4.tgz#f86bfee622f908beaf902d5450f337e3ccc4939f"
-  integrity sha512-BcuqJUcNk10tiS45dSc3rsE7VP5myORb0vCnbIr7pEUBguqQozjXZUuEUlamt7jzObfVdqmwVDM4u/pKGONMyQ==
-  dependencies:
-    "@uber/atreyu" "^5.5.4"
+"@uber/fusion-plugin-atreyu@^1.3.1":
+  version "1.3.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-atreyu/-/private/%40uber%2Ffusion-plugin-atreyu-1.3.1.tgz#9ab9a81be7c6d7ef0d8bb08baa28946a80114d77"
+  integrity sha512-7+1TUBaurZeMKXqLPeuzzb8pl3QTrAitZCvMQrLIkDWSdLqV+nP1eupmSBW8zfV1wssNdvYFZiV2ggaxTQSm6A==
 
 "@uber/fusion-plugin-auth-headers@^1.1.3":
   version "1.1.3"
