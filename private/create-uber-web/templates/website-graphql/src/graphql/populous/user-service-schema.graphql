@@ -1,0 +1,4 @@
+# TODO: Remove this and implement a real schema. Only exists because empty schemas are invalid
+type Query {
+  dummy: String
+}

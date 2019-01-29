@@ -1,0 +1,12 @@
+service_type: website
+service_name: {{project}}
+
+# Set this to true for sites that need access to langley secrets at build time.
+# This should be true for sites scaffolded with 'uber-web'.
+uses_langley_build_secrets: true
+
+website:
+  workflow_version: 1
+  {% if isExternal %}
+  command: 'CDN_URL="{{assetBase}}" npm start'
+  {% endif %}

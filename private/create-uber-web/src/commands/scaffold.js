@@ -54,6 +54,7 @@ export const scaffold = async ({
       if (project.type === '') {
         project.type = await promptChoice('Choose a template:', {
           'Web Application': 'website',
+          'GraphQL Web Application [!! BETA !!]': 'website-graphql',
           'Fusion.js Plugin': 'fusion-plugin',
           'React Component': 'react-component',
           'Generic Library': 'library',
@@ -103,7 +104,7 @@ export const scaffold = async ({
       await codemodReadme(project);
     }),
     step('run', async () => {
-      if (project.type === 'website') {
+      if (project.type === 'website' || project.type === 'website-graphql') {
         await runWebsiteSteps({...project, external});
       }
     }),
@@ -123,6 +124,17 @@ export const scaffold = async ({
           // eslint-disable-next-line no-console
           console.log(`Run \`cd ${project.name} && yarn\` to troubleshoot`);
         }
+      }
+      if (project.type === 'website') {
+        // eslint-disable-next-line no-console
+        console.log(
+          'Check out the documentation: https://engdocs.uberinternal.com/web'
+        );
+      } else if (project.type === 'website-graphql') {
+        // eslint-disable-next-line no-console
+        console.log(
+          'Check out the documentation: https://engdocs.uberinternal.com/web/docs/guides/graphql'
+        );
       }
     }),
     step('init repo', () => initRepo(project.name, project.team)),

@@ -10,8 +10,8 @@ jest.setTimeout(100000);
 
 jest.spyOn(console, 'log').mockImplementation(() => {});
 
-test('scaffold website', async () => {
-  const name = 'fixtures/website';
+test('scaffold website-grapqhl', async () => {
+  const name = 'fixtures/website-graphql';
   try {
     await remove(name).catch(() => {});
 
@@ -50,26 +50,5 @@ test('scaffold website', async () => {
     expect(main.includes('{{')).toBe(false);
   } finally {
     await remove(name).catch(() => {});
-  }
-});
-
-test('prevents bad name', async () => {
-  const name = 'fixtures/fixture-staging';
-
-  try {
-    await expect(
-      scaffold({
-        type: 'website',
-        name: name,
-        description: name,
-        team: 'web',
-        external: true,
-        localPath: null,
-        skipInstall: true,
-        hoistDeps: false,
-      })
-    ).rejects.toThrow(/Do not add `-staging`/);
-  } finally {
-    await remove(name);
   }
 });

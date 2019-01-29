@@ -1,0 +1,13 @@
+{
+    "time": "2019-01-18T21:28:02.000Z",
+    "version": 1547846882000,
+    "remotes": {
+        "code.uber.internal/infra/populous": {
+            "time": "2019-01-18T21:28:02Z",
+            "version": 1547846882388,
+            "shasums": {
+                "populous.thrift": "16db8a51a88e08a76bb7d2b5e976e4336691332c"
+            }
+        }
+    }
+}
