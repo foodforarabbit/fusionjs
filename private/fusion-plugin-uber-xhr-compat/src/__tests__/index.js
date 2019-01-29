@@ -1,6 +1,7 @@
 // @noflow
 import tape from 'tape-cup';
 import createXhrPlugin from '../plugin.js';
+import {UberXhr} from '../index';
 
 tape('xhr get request using bind', t => {
   const {xhr, plugin} = createXhrPlugin();
@@ -197,5 +198,11 @@ tape('xhr calling setFetch multiple times', async t => {
     plugin.provides({fetch: mockFetch});
   });
 
+  t.end();
+});
+
+tape('export can be called with new', async t => {
+  const xhr = new UberXhr();
+  t.equal(typeof xhr, 'function', 'returns a function from the constructor');
   t.end();
 });

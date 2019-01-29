@@ -3,5 +3,7 @@ import createXhrPlugin from './plugin.js';
 
 const {xhr, plugin} = createXhrPlugin();
 
-export const UberXhr = () => xhr;
+export function UberXhr() {
+  return xhr;
+}
 export default plugin;
