@@ -72,7 +72,7 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/atreyu": "^5.5.4"
+    "@uber/atreyu": "^6.0.2"
   },
   "engines": {
     "node": ">=8.3.0 <9.0.0",
