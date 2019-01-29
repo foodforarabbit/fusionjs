@@ -952,10 +952,10 @@
     "@uber/atreyu-transport" "^4.6.7"
     inherits "^2.0.1"
 
-"@uber/atreyu@^6.0.0":
-  version "6.0.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-6.0.0.tgz#e46ab93589d4767d99f6435c2d8ffb5bd0a055a5"
-  integrity sha512-3+5PoVZU2RU9kmoOHuaw/5Rk/8HTNoCGZZfRrrby80Vwisny3L69L056lbBCkXkJF6/zp8tAfrRAM0AQFSabpQ==
+"@uber/atreyu@^6.0.1":
+  version "6.0.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-6.0.1.tgz#2af4332c24b5c5139a8110c89269d0e85a148a9b"
+  integrity sha512-AfGe2CEjmm+5ocs7CWcFH0KsbOXnSLiTI5CAEFpYgsc1gVGsYBJ1yAQG8qUcPOFZ6op/BlcdGo3CZnNrKUJncA==
   dependencies:
     "@uber/atreyu-graph" "^5.0.0"
     "@uber/atreyu-transport" "^5.0.1"
