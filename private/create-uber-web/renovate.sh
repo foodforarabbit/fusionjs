@@ -1,3 +1,4 @@
+yarn
 yarn build
 for d in ./templates/*/ ; do (
   cd "$d";
