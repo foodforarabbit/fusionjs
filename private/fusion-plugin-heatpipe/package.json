@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-heatpipe",
   "description": "Heatpipe publisher plugin for fusion",
-  "version": "1.1.1-4",
+  "version": "1.1.1-5",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -22,7 +22,7 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.1-1",
+    "@uber/fusion-plugin-m3": "^1.1.11-1",
     "babel-eslint": "^10.0.1",
     "create-universal-package": "^3.4.0",
     "eslint": "^5.6.1",
@@ -65,7 +65,7 @@
     "@uber/node-heatpipe-publisher": "^3.0.2"
   },
   "peerDependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.1-1",
+    "@uber/fusion-plugin-m3": "^1.1.11-1",
     "fusion-core": "^1.0.0",
     "fusion-plugin-universal-events": "^1.0.0",
     "fusion-tokens": "^1.0.0"
