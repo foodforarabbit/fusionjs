@@ -791,11 +791,12 @@
   version "0.0.28"
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
 
-"@uber/fusion-plugin-m3@^1.0.0":
-  version "1.1.6"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.6.tgz#dce20b9fe2d496cad18ca0efd3bde676b67932a6"
+"@uber/fusion-plugin-m3@^1.1.1-1":
+  version "1.1.10"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.10.tgz#7ee536a29b84590d8ce87b6d0b161f580d0949d7"
+  integrity sha512-uuJ7h/TLF1KMKL5JQ2HSQahHK2hXsPwd1h1f1ff1jEUROojzLysgStqEZVMNEv9NA6z//k3qXuSVAHEyzH4HZg==
   dependencies:
-    "@uber/node-m3-client-addon" "^1.4.4"
+    "@uber/node-m3-client-addon" "^2.0.0"
 
 "@uber/heatpipejs@^6.0.2":
   version "6.0.3"
@@ -838,11 +839,12 @@
     "@uber/heatpipejs" "^6.0.2"
     kafka-rest-client "^1.11.7"
 
-"@uber/node-m3-client-addon@^1.4.4":
-  version "1.4.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-m3-client-addon/-/private/%40uber%2Fnode-m3-client-addon-1.4.4.tgz#6352f9693072e9e0da9f89ce1906d82ebdf5c5f6"
+"@uber/node-m3-client-addon@^2.0.0":
+  version "2.0.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-m3-client-addon/-/private/%40uber%2Fnode-m3-client-addon-2.0.0.tgz#b2e6120888a599e9350c3c5f8b338329e2273e6b"
+  integrity sha512-kK0hKe8lxqhMjIDMFCSQn9hhR1eV+wUpxMwbO6BB+bkcpUY4kpJxom2ItXoueUAZQpQ91XOS6RnxGNjEPF+nCA==
   dependencies:
-    nan "^2.2.0"
+    nan "^2.11.1"
     xtend "^4.0.1"
 
 abbrev@1:
@@ -3674,7 +3676,12 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://unpm.uberinternal.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
-nan@^2.2.0, nan@^2.9.2:
+nan@^2.11.1:
+  version "2.12.1"
+  resolved "https://unpm.uberinternal.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
+  integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
+
+nan@^2.9.2:
   version "2.11.1"
   resolved "https://unpm.uberinternal.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
 
