@@ -60,7 +60,11 @@ test('missing auth param', t => {
     deps: {authHeaders: AuthHeadersToken},
     provides: deps => {
       const {authHeaders} = deps;
-      t.notok(authHeaders.from(mockContext).get('uuid'));
+      t.equal(
+        authHeaders.from(mockContext).get('uuid'),
+        '',
+        'should return empty string if field is not present in headers'
+      );
     },
   });
   app.register(testPlugin);

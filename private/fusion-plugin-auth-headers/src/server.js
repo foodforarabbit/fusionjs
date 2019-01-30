@@ -48,7 +48,12 @@ class AuthHeaders {
       //$FlowFixMe
       this.devOverrideConfig[key] ||
       this.ctx.request.headers[breezeHeaderMapping[key]] ||
-      this.ctx.request.headers[`${authHeaderPrefix}${key}`];
+      this.ctx.request.headers[`${authHeaderPrefix}${key}`] ||
+      '';
+    /**
+     * should return a string not `undefined` in the default case per the docs
+     * https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-auth-headers
+     */
 
     return xAuthValue;
   }
