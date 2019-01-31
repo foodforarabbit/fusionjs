@@ -221,7 +221,7 @@ type AuthHeadersService = {from: (ctx: Context) => AuthHeaders};
 
 * `service.from(ctx: Context) => AuthHeaders` - provides a `Context`-scoped instance of `AuthHeaders`.
   * `ctx: FusionContext` - Required. A [FusionJS context](https://github.com/fusionjs/fusion-core#context) object.
-  * `instance.get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Throws `MissingXAuthParamError` otherwise.
+  * `instance.get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Returns an empty string `''` otherwise.
 
 ---
 
