@@ -554,6 +554,14 @@
     "@babel/helper-regex" "7.0.0-beta.31"
     regexpu-core "^4.1.3"
 
+"@babel/polyfill@^7.0.0":
+  version "7.2.5"
+  resolved "https://unpm.uberinternal.com/@babel%2fpolyfill/-/polyfill-7.2.5.tgz#6c54b964f71ad27edddc567d065e57e87ed7fa7d"
+  integrity sha512-8Y/t3MWThtMLYr0YNC/Q76tqN1w30+b0uQMeFUYauG2UGTR19zyUtFrAzT23zNtBxPp+LbE5E/nwV/q/r3y6ug==
+  dependencies:
+    core-js "^2.5.7"
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@7.0.0-beta.31":
   version "7.0.0-beta.31"
   resolved "https://unpm.uberinternal.com/@babel%2ftemplate/-/template-7.0.0-beta.31.tgz#577bb29389f6c497c3e7d014617e7d6713f68bda"
@@ -703,11 +711,12 @@
   version "0.0.28"
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
 
-"@uber/fusion-plugin-m3@^1.1.5-0":
-  version "1.1.5-0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.5-0.tgz#27ce81ad03a95598dda5753ab5fce134c360123e"
+"@uber/fusion-plugin-m3@^1.1.11-3":
+  version "1.1.11-3"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.11-3.tgz#901c9f35bcdb2c5c628b127d180e12f7e2435a6f"
+  integrity sha512-njXGIFw7pne3gNij/A0LkNDmv6FB27h/6eSQuKQiT+m41NQ0h1dSgbxMSn7WHZ9TYoeleWC8Nak6lWyIu4A86w==
   dependencies:
-    "@uber/node-m3-client-addon" "^1.4.4"
+    "@uber/m3-client" "^1.2.1"
 
 "@uber/fusion-plugin-tracer@^1.0.5":
   version "1.0.5"
@@ -726,28 +735,33 @@
   version "0.13.1"
   resolved "https://unpm.uberinternal.com/%40uber%2Flibwonka/-/private/%40uber%2Flibwonka-0.13.1.tgz#79aa5cb0868827f52b9854ce0e97c26d85c466bb"
 
-"@uber/node-m3-client-addon@^1.4.4":
-  version "1.4.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-m3-client-addon/-/private/%40uber%2Fnode-m3-client-addon-1.4.4.tgz#6352f9693072e9e0da9f89ce1906d82ebdf5c5f6"
+"@uber/m3-client@^1.2.1":
+  version "1.2.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fm3-client/-/private/%40uber%2Fm3-client-1.2.1.tgz#371afe513c9141b59fc3f6ae918e8b2446724559"
+  integrity sha512-nTEepKX/Q1pppv327yl6wTjSj4SgX1L4TMbSonkwkgdp5dzY2t4qgkHKHbOu01zjl5sk2JNpW3tZnYZkNvsfDg==
   dependencies:
-    nan "^2.2.0"
-    xtend "^4.0.1"
+    "@babel/polyfill" "^7.0.0"
+    babel-core "7.0.0-bridge.0"
+    node-int64 "^0.4.0"
+    thriftrw "^3.11.3"
 
-"@uber/unpm-galileo@^1.3.2":
-  version "1.3.2"
-  resolved "https://unpm.uberinternal.com/%40uber%2Funpm-galileo/-/private/%40uber%2Funpm-galileo-1.3.2.tgz#6d7ea1a98334c6bad15337c9e9edd26a7f63a6e4"
+"@uber/unpm-galileo@^1.4.0":
+  version "1.4.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Funpm-galileo/-/private/%40uber%2Funpm-galileo-1.4.0.tgz#03027ce0f0dfdb04d9c410d72a4e4b90e518a2df"
+  integrity sha1-AwJ84PDf2wTZxBDXKk5LkOUYot8=
   dependencies:
-    "@uber/unpm-wonka" "^2.2.0"
+    "@uber/unpm-wonka" "^2.3.0"
     lru-cache "^4.1.1"
 
-"@uber/unpm-wonka@^2.2.0":
-  version "2.2.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Funpm-wonka/-/private/%40uber%2Funpm-wonka-2.2.0.tgz#b9f8c9416ca434274552a665b4378908a41c1528"
+"@uber/unpm-wonka@^2.3.0":
+  version "2.3.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Funpm-wonka/-/private/%40uber%2Funpm-wonka-2.3.0.tgz#c6a7eb31555b697c2274bdec3817862e28b5a8c0"
+  integrity sha512-4wOLsQDor9UrOKCgrZZa16AyyeNGrgeEvSdpP69sN41p8p5qg+Gfc1SI8e9LEyEDaEUYO7VB/mQrcuYATheolA==
   dependencies:
     "@uber/libwonka" "^0.13.1"
     es6-promise "^3.0.2"
-    ffi "^2.2.0"
-    ref "^1.3.4"
+    ffi "^2.3.0"
+    ref "^1.3.5"
     ref-struct "^1.1.0"
 
 abbrev@1:
@@ -953,6 +967,11 @@ async@^2.1.2, async@^2.5.0:
 atob@^2.1.1:
   version "2.1.2"
   resolved "https://unpm.uberinternal.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
+
+babel-core@7.0.0-bridge.0:
+  version "7.0.0-bridge.0"
+  resolved "https://unpm.uberinternal.com/babel-core/-/babel-core-7.0.0-bridge.0.tgz#95a492ddd90f9b4e9a4a1da14eb335b87b634ece"
+  integrity sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==
 
 babel-eslint@^10.0.1:
   version "10.0.1"
@@ -1435,6 +1454,11 @@ copy-descriptor@^0.1.0:
 copy-to@^2.0.1:
   version "2.0.1"
   resolved "https://unpm.uberinternal.com/copy-to/-/copy-to-2.0.1.tgz#2680fbb8068a48d08656b6098092bdafc906f4a5"
+
+core-js@^2.5.7:
+  version "2.6.3"
+  resolved "https://unpm.uberinternal.com/core-js/-/core-js-2.6.3.tgz#4b70938bdffdaf64931e66e2db158f0892289c49"
+  integrity sha512-l00tmFFZOBHtYhN4Cz7k32VM7vTn3rE2ANjQDxdEN6zmXZ/xq1jQuutnmHvMG1ZJ7xd72+TA5YpUK8wz3rWsfQ==
 
 core-util-is@~1.0.0:
   version "1.0.2"
@@ -2168,9 +2192,10 @@ fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://unpm.uberinternal.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
 
-ffi@^2.2.0:
-  version "2.2.0"
-  resolved "https://unpm.uberinternal.com/ffi/-/ffi-2.2.0.tgz#bf18b04666a29f71227ed56895d5430af47042fa"
+ffi@^2.3.0:
+  version "2.3.0"
+  resolved "https://unpm.uberinternal.com/ffi/-/ffi-2.3.0.tgz#fa1a7b3d85c0fa8c83d96947a64b5192bc47f858"
+  integrity sha512-vkPA9Hf9CVuQ5HeMZykYvrZF2QNJ/iKGLkyDkisBnoOOFeFXZQhUPxBARPBIZMJVulvBI2R+jgofW03gyPpJcQ==
   dependencies:
     bindings "~1.2.0"
     debug "2"
@@ -3451,7 +3476,7 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://unpm.uberinternal.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
-nan@2, nan@^2.0.0, nan@^2.0.5, nan@^2.2.0, nan@^2.9.2:
+nan@2, nan@^2.0.0, nan@^2.0.5, nan@^2.9.2:
   version "2.11.1"
   resolved "https://unpm.uberinternal.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
 
@@ -4153,7 +4178,7 @@ ref-struct@1, ref-struct@^1.1.0:
     debug "2"
     ref "1"
 
-ref@1, ref@^1.3.4:
+ref@1, ref@^1.3.5:
   version "1.3.5"
   resolved "https://unpm.uberinternal.com/ref/-/ref-1.3.5.tgz#0e33f080cdb94a3d95312b2b3b1fd0f82044ca0f"
   dependencies:
@@ -4170,6 +4195,11 @@ regenerate-unicode-properties@^7.0.0:
 regenerate@^1.4.0:
   version "1.4.0"
   resolved "https://unpm.uberinternal.com/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
+
+regenerator-runtime@^0.12.0:
+  version "0.12.1"
+  resolved "https://unpm.uberinternal.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
+  integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
 
 regenerator-transform@^0.11.0:
   version "0.11.1"
@@ -4764,7 +4794,7 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://unpm.uberinternal.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
-thriftrw@^3.11.0, thriftrw@^3.5.0:
+thriftrw@^3.11.0, thriftrw@^3.11.3, thriftrw@^3.5.0:
   version "3.11.3"
   resolved "https://unpm.uberinternal.com/thriftrw/-/thriftrw-3.11.3.tgz#2cef6b4d089b7ba6275198b86582881582907d45"
   dependencies:
@@ -5119,7 +5149,7 @@ xorshift@^0.2.0:
   version "0.2.1"
   resolved "https://unpm.uberinternal.com/xorshift/-/xorshift-0.2.1.tgz#fcd82267e9351c13f0fb9c73307f25331d29c63a"
 
-xtend@^4.0.0, xtend@^4.0.1, xtend@~4.0.0:
+xtend@^4.0.0, xtend@~4.0.0:
   version "4.0.1"
   resolved "https://unpm.uberinternal.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
 
