@@ -691,6 +691,14 @@
     "@babel/helper-regex" "7.0.0-beta.31"
     regexpu-core "^4.1.3"
 
+"@babel/polyfill@^7.0.0":
+  version "7.2.5"
+  resolved "https://unpm.uberinternal.com/@babel%2fpolyfill/-/polyfill-7.2.5.tgz#6c54b964f71ad27edddc567d065e57e87ed7fa7d"
+  integrity sha512-8Y/t3MWThtMLYr0YNC/Q76tqN1w30+b0uQMeFUYauG2UGTR19zyUtFrAzT23zNtBxPp+LbE5E/nwV/q/r3y6ug==
+  dependencies:
+    core-js "^2.5.7"
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@7.0.0-beta.31":
   version "7.0.0-beta.31"
   resolved "https://unpm.uberinternal.com/@babel%2ftemplate/-/template-7.0.0-beta.31.tgz#577bb29389f6c497c3e7d014617e7d6713f68bda"
@@ -889,17 +897,22 @@
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
   integrity sha1-VWJRm8eWPKyoq/fxKMrjtZTUHQY=
 
-"@uber/fusion-plugin-m3@^1.1.6":
-  version "1.1.6"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.6.tgz#dce20b9fe2d496cad18ca0efd3bde676b67932a6"
-  integrity sha512-NF0fc9C4ePc2cqLTESe0lfw+JAs4JZM16rX61KtzDbqsfqqiQr8vcMGzSTI/gI8moSbhxgc8S9/PGbV/QjYnfA==
+"@uber/fusion-plugin-m3@^1.1.11-3":
+  version "1.1.11-3"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.11-3.tgz#901c9f35bcdb2c5c628b127d180e12f7e2435a6f"
+  integrity sha512-njXGIFw7pne3gNij/A0LkNDmv6FB27h/6eSQuKQiT+m41NQ0h1dSgbxMSn7WHZ9TYoeleWC8Nak6lWyIu4A86w==
   dependencies:
-    "@uber/node-m3-client-addon" "^1.4.4"
+    "@uber/m3-client" "^1.2.1"
 
-"@uber/node-m3-client-addon@^1.4.4":
-  version "1.4.4"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-m3-client-addon/-/private/%40uber%2Fnode-m3-client-addon-1.4.4.tgz#6352f9693072e9e0da9f89ce1906d82ebdf5c5f6"
-  integrity sha1-Y1L5aTBy6eDan4nOGQbYLr31xfY=
+"@uber/m3-client@^1.2.1":
+  version "1.2.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fm3-client/-/private/%40uber%2Fm3-client-1.2.1.tgz#371afe513c9141b59fc3f6ae918e8b2446724559"
+  integrity sha512-nTEepKX/Q1pppv327yl6wTjSj4SgX1L4TMbSonkwkgdp5dzY2t4qgkHKHbOu01zjl5sk2JNpW3tZnYZkNvsfDg==
+  dependencies:
+    "@babel/polyfill" "^7.0.0"
+    babel-core "7.0.0-bridge.0"
+    node-int64 "^0.4.0"
+    thriftrw "^3.11.3"
 
 abbrev@1:
   version "1.1.1"
@@ -1173,6 +1186,11 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://unpm.uberinternal.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
+
+babel-core@7.0.0-bridge.0:
+  version "7.0.0-bridge.0"
+  resolved "https://unpm.uberinternal.com/babel-core/-/babel-core-7.0.0-bridge.0.tgz#95a492ddd90f9b4e9a4a1da14eb335b87b634ece"
+  integrity sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==
 
 babel-eslint@10.0.1:
   version "10.0.1"
@@ -1753,6 +1771,11 @@ copy-to@^2.0.1:
   version "2.0.1"
   resolved "https://unpm.uberinternal.com/copy-to/-/copy-to-2.0.1.tgz#2680fbb8068a48d08656b6098092bdafc906f4a5"
   integrity sha1-JoD7uAaKSNCGVrYJgJK9r8kG9KU=
+
+core-js@^2.5.7:
+  version "2.6.3"
+  resolved "https://unpm.uberinternal.com/core-js/-/core-js-2.6.3.tgz#4b70938bdffdaf64931e66e2db158f0892289c49"
+  integrity sha512-l00tmFFZOBHtYhN4Cz7k32VM7vTn3rE2ANjQDxdEN6zmXZ/xq1jQuutnmHvMG1ZJ7xd72+TA5YpUK8wz3rWsfQ==
 
 core-util-is@~1.0.0:
   version "1.0.2"
@@ -4310,6 +4333,11 @@ nice-try@^1.0.4:
   resolved "https://unpm.uberinternal.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
+node-int64@^0.4.0:
+  version "0.4.0"
+  resolved "https://unpm.uberinternal.com/node-int64/-/node-int64-0.4.0.tgz#87a9065cdb355d3182d8f94ce11188b825c68a3b"
+  integrity sha1-h6kGXNs1XTGC2PlM4RGIuCXGijs=
+
 node-libs-browser@^2.0.0:
   version "2.1.0"
   resolved "https://unpm.uberinternal.com/node-libs-browser/-/node-libs-browser-2.1.0.tgz#5f94263d404f6e44767d726901fff05478d600df"
@@ -5101,6 +5129,11 @@ regenerate@^1.4.0:
   resolved "https://unpm.uberinternal.com/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
   integrity sha512-1G6jJVDWrt0rK99kBjvEtziZNCICAuvIPkSiUFIQxVP06RCVpq3dmDo2oi6ABpYaDYaTRr67BEhL8r1wgEZZKg==
 
+regenerator-runtime@^0.12.0:
+  version "0.12.1"
+  resolved "https://unpm.uberinternal.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
+  integrity sha512-odxIc1/vDlo4iZcfXqRYFj0vpXFNoGdKMAUieAlFYO6m/nl5e9KR/beGf41z4a1FI+aQgtjhuaSlDxQ0hmkrHg==
+
 regenerator-transform@^0.11.0:
   version "0.11.1"
   resolved "https://unpm.uberinternal.com/regenerator-transform/-/regenerator-transform-0.11.1.tgz#d3548a723f30bb9d69f2d17c4d0609516ac3f0e2"
@@ -5840,7 +5873,7 @@ text-table@0.2.0, text-table@^0.2.0:
   resolved "https://unpm.uberinternal.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-thriftrw@^3.11.0:
+thriftrw@^3.11.0, thriftrw@^3.11.3:
   version "3.11.3"
   resolved "https://unpm.uberinternal.com/thriftrw/-/thriftrw-3.11.3.tgz#2cef6b4d089b7ba6275198b86582881582907d45"
   integrity sha512-mnte80Go5MCfYyOQ9nk6SljaEicCXlwLchupHR+/zlx0MKzXwAiyt38CHjLZVvKtoyEzirasXuNYtkEjgghqCw==

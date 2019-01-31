@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-tchannel",
-  "version": "1.1.1",
+  "version": "1.1.2-0",
   "description": "fusion plugin for tchannel",
   "files": [
     "dist",
@@ -20,12 +20,12 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "peerDependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.6",
+    "@uber/fusion-plugin-m3": "^1.1.11-3",
     "fusion-core": "^1.0.0",
     "fusion-tokens": "^1.0.0"
   },
   "devDependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.6",
+    "@uber/fusion-plugin-m3": "^1.1.11-3",
     "babel-eslint": "10.0.1",
     "create-universal-package": "^3.4.6",
     "eslint": "^5.9.0",
@@ -61,7 +61,7 @@
     "prepublish": "npm run transpile"
   },
   "engines": {
-    "node": "^8.3.0",
+    "node": ">=8.3.0 <11",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
