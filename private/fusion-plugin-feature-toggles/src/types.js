@@ -1,12 +1,34 @@
 // @flow
 
-import type {Context} from 'fusion-core';
+import type {Context, FusionPlugin} from 'fusion-core';
+import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 
-export type PluginServiceType = {
-  from: (
-    ctx?: Context
-  ) => {
-    ctx?: Context,
-    value?: string,
-  },
+import {
+  FeatureTogglesClientToken,
+  FeatureTogglesToggleNamesToken,
+} from './tokens.js';
+
+export type FeatureTogglesDepsType = {
+  toggleNames: typeof FeatureTogglesToggleNamesToken,
+  Client: typeof FeatureTogglesClientToken.optional,
+  atreyu: typeof AtreyuToken.optional,
 };
+
+export type ToggleDetailsType = {|
+  +enabled: boolean,
+  +metadata?: {[string]: any},
+|};
+
+export interface IFeatureTogglesClient {
+  constructor(...params?: any): IFeatureTogglesClient;
+  +get: (toggleName: string) => Promise<?ToggleDetailsType>;
+}
+
+export type FeatureTogglesServiceType = {|
+  +from: (ctx?: Context) => IFeatureTogglesClient,
+|};
+
+export type FeatureTogglesPluginType = FusionPlugin<
+  FeatureTogglesDepsType,
+  FeatureTogglesServiceType
+>;
