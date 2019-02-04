@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-google-analytics-react",
   "description": "Google Analytics plugin for FusionJS app with React",
-  "version": "1.0.2",
+  "version": "1.0.3-0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
