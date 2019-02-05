@@ -1,7 +1,7 @@
 // @flow
 import {LoggerToken} from 'fusion-tokens';
 
-export type TealiumConfigType = any => any;
+export type TealiumConfigType = any;
 export type TealiumType = {
   +identify: string => void,
   +track: any => void,
