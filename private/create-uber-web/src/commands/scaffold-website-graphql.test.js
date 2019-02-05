@@ -30,7 +30,7 @@ test('scaffold website-grapqhl', async () => {
     });
 
     await scaffold({
-      type: '',
+      type: 'website-graphql',
       name: '',
       description: '',
       team: '',
@@ -48,6 +48,9 @@ test('scaffold website-grapqhl', async () => {
 
     const main = await readFile(join(name, 'src/main.js'));
     expect(main.includes('{{')).toBe(false);
+
+    const apolloConfig = await readFile(join(name, 'apollo.config.js'));
+    expect(apolloConfig.includes('{{')).toBe(false);
   } finally {
     await remove(name).catch(() => {});
   }

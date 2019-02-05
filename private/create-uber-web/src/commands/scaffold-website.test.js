@@ -30,7 +30,7 @@ test('scaffold website', async () => {
     });
 
     await scaffold({
-      type: '',
+      type: 'website',
       name: '',
       description: '',
       team: '',

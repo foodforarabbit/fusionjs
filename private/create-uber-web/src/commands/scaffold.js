@@ -11,6 +11,7 @@ import {removeConfigFiles} from '../utils/remove-config-files.js';
 import {codemodReadme} from '../utils/codemod-readme.js';
 import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
 import {initRepo} from '../utils/init-repo.js';
+import fs from 'fs';
 
 export type ScaffoldOptions = {
   type: string,
@@ -169,6 +170,11 @@ async function runWebsiteSteps({
       await replaceNunjucksFile(`${name}/udeploy/config/udeploy.yaml`, {
         project: name,
       });
+    }),
+    step('codemod apollo config', async () => {
+      if (fs.existsSync(`${name}/apollo.config.js`)) {
+        await replaceNunjucksFile(`${name}/apollo.config.js`, {name});
+      }
     }),
     step('codemod pinocchio file', async () => {
       const file = `${name}/udeploy/pinocchio.yaml`;
