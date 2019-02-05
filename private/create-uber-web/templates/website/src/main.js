@@ -172,6 +172,7 @@ export default async function start(options: any = {}) {
       deps: {
         heatpipe: HeatpipeToken,
       },
+
       store: metricsStore(),
     })
   );

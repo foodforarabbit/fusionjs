@@ -19,6 +19,7 @@ export default async function start({render = defaultRender, root}: * = {}) {
 
   if (__NODE__) {
     // $FlowFixMe mock it out
+    // $FlowFixMe
     app.register(TChannelToken, {});
     !__DEV__ &&
       app.register(GalileoConfigToken, {
