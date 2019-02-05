@@ -64,7 +64,7 @@ export const installIntrospect = async ({dir, edge}: InstallOptions) => {
       app.register(
         ${introspect}(app, {
           deps: {heatpipe: ${HeatpipeToken}},
-          store: !__DEV__ ? ${store}({service: '${serviceName}'}) : undefined,
+          store: ${store}(),
         })
       );
     `

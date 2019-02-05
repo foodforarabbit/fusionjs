@@ -32,9 +32,7 @@ export default async function start() {
       heatpipe: HeatpipeToken
     },
 
-    store: !__DEV__ ? metricsStore({
-      service: \\"foo\\"
-    }) : undefined
+    store: metricsStore()
   }));
 
   return app;
@@ -71,9 +69,7 @@ export default async function start() {
       heatpipe: HeatpipeToken
     },
 
-    store: !__DEV__ ? metricsStore({
-      service: \\"foo\\"
-    }) : undefined
+    store: metricsStore()
   }));
 
   return app;
@@ -111,9 +107,7 @@ export default async function start() {
       heatpipe: HeatpipeToken
     },
 
-    store: !__DEV__ ? metricsStore({
-      service: \\"foo\\"
-    }) : undefined
+    store: metricsStore()
   }));
 
   return app;

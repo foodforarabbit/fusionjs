@@ -172,12 +172,7 @@ export default async function start(options: any = {}) {
       deps: {
         heatpipe: HeatpipeToken,
       },
-
-      store: !__DEV__
-        ? metricsStore({
-            service: '{{name}}',
-          })
-        : undefined,
+      store: metricsStore(),
     })
   );
 
