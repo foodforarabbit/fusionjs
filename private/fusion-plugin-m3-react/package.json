@@ -59,7 +59,7 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.11-3"
+    "@uber/fusion-plugin-m3": "^1.2.0"
   },
   "peerDependencies": {
     "fusion-core": "^1.10.1-0",
