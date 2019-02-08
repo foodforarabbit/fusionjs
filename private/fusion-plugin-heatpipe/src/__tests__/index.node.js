@@ -15,32 +15,41 @@ import {
 } from '../tokens';
 import HeatpipePlugin from '../server';
 
-tape('heatpipe-plugin in __DEV__', async t => {
-  const mockM3ServiceInstance = {};
-  const mockLoggerServiceInstance = {};
-  const app = new App('content', el => el);
+import {mock} from './mock';
+import HeatpipePublisher from '@uber/node-heatpipe-publisher';
+
+const {test} = tape;
+
+test('heatpipe-plugin in __DEV__', async t => {
   const events = {
     on(type) {
       t.equal(type, `heatpipe:publish`, 'adds event handler correctly');
     },
   };
+  const app = new App('content', el => el);
   app.register(HeatpipeToken, HeatpipePlugin);
   // $FlowFixMe
-  app.register(LoggerToken, mockLoggerServiceInstance);
+  app.register(LoggerToken, {});
   // $FlowFixMe
-  app.register(M3Token, mockM3ServiceInstance);
+  app.register(M3Token, {});
   // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(
     createPlugin({
       deps: {
-        hp: HeatpipeToken,
+        heatpipe: HeatpipeToken,
       },
-      provides: ({hp}) => {
-        t.doesNotThrow(hp.publish, 'publish does not throw');
-        t.doesNotThrow(hp.destroy, 'destroy does not throw');
-        hp.asyncPublish({topic: 'foo', version: 43}, 'thing')
-          .then(() => t.pass('asyncPublish works'))
+      provides: ({heatpipe}) => {
+        t.doesNotThrow(heatpipe.publish, 'publish does not throw');
+        t.doesNotThrow(() => {
+          heatpipe.publish({topic: 'foo', version: 1}, {bar: 'baz'});
+        }, 'publish does not throw');
+        t.doesNotThrow(heatpipe.destroy, 'destroy does not throw');
+        heatpipe
+          .asyncPublish({topic: 'foo', version: 43}, {msg: 'thing'})
+          .then(() => {
+            t.pass('asyncPublish works');
+          })
           .catch(t.ifError)
           .then(() => t.end());
       },
@@ -49,126 +58,180 @@ tape('heatpipe-plugin in __DEV__', async t => {
   getSimulator(app);
 });
 
-tape('[fusion] heatpipe-plugin', async t => {
-  const fixture = {
-    heatpipeConfig: {foo: 'bar'},
-    topicInfo: {
-      topic: 'awesome-topic',
-      version: 99,
-    },
-    message: {
-      hello: 'world',
-    },
-    error: {
-      message: 'end of the world',
-    },
-  };
-
-  const events = {
-    on(type) {
-      t.equal(type, `heatpipe:publish`, 'adds event handler correctly');
-    },
-  };
-
-  const called = {connect: false, destroy: false};
-
-  const mockM3ServiceInstance = {};
-  const mockLoggerServiceInstance = {};
-
-  class MockClient {
-    constructor(configDep) {
-      t.equal(
-        configDep.foo,
-        fixture.heatpipeConfig.foo,
-        'passes config through'
-      );
-      t.equal(
-        configDep.statsd,
-        mockM3ServiceInstance,
-        'passes M3 service to statsd'
-      );
-      t.equal(
-        configDep.m3Client,
-        mockM3ServiceInstance,
-        'passes M3 service to m3Client'
-      );
-      t.equal(
-        configDep.logger,
-        mockLoggerServiceInstance,
-        'passes Logger service'
-      );
-    }
-    connect() {
-      called.connect = true;
-    }
-    publish(topicInfo, message, cb) {
-      t.equal(
-        topicInfo,
-        fixture.topicInfo,
-        'HeatpipePublisher.publish() - topicInfo passes through'
-      );
-      t.equal(
-        message,
-        fixture.message,
-        'HeatpipePublisher.publish() - message passes through'
-      );
-      if (cb) {
-        cb(fixture.error);
-      }
-    }
-    destroy() {
-      called.destroy = true;
-    }
-  }
-
-  const app = new App('content', el => el);
-  app.register(HeatpipeToken, HeatpipePlugin);
-  app.register(HeatpipeConfigToken, fixture.heatpipeConfig);
-  app.register(HeatpipeClientToken, MockClient);
-  // $FlowFixMe
-  app.register(LoggerToken, mockLoggerServiceInstance);
-  // $FlowFixMe
-  app.register(M3Token, mockM3ServiceInstance);
-  // $FlowFixMe
-  app.register(UniversalEventsToken, events);
-
+test('heatpipe-plugin, successful publish', async t => {
+  const {app, MockHeatpipeClient} = bootstrapTest();
   getSimulator(
     app,
     createPlugin({
       deps: {
-        heatpipe: HeatpipeToken,
+        api: HeatpipeToken,
       },
-      provides({heatpipe}) {
-        t.ok(
-          called.connect,
-          'HeatpipePublisher.connect() - invoked upon service instantiation'
+      provides({api}) {
+        // successful heatpipe.publish() returns undefined when complete
+        MockHeatpipeClient.mock.instances[0].publish.mockImplementation(
+          (topicInfo, message, cb) => undefined
+        );
+        const topicInfo = {topic: 'awesome-topic', version: 99};
+        const message = {hello: 'world'};
+
+        // test api.publish
+        const result = api.publish(topicInfo, message);
+        t.equals(result, undefined, 'publish successful!');
+
+        // test api.asyncPublish
+        api
+          .asyncPublish(topicInfo, message)
+          .then(() => t.pass('asyncPublish successful!'));
+
+        // checks argument forwarding to underlying client
+        const [
+          _topicInfo,
+          _message,
+          _callback,
+        ] = MockHeatpipeClient.mock.instances[0].publish.mock.calls[0];
+
+        t.deepEqual(
+          topicInfo,
+          _topicInfo,
+          'topicInfo passed through to heatpipe.publish'
         );
 
-        heatpipe.asyncPublish(fixture.topicInfo, fixture.message).catch(err => {
-          t.equal(
-            err,
-            fixture.error,
-            'service instance asyncPublish() - throws error'
-          );
-        });
+        t.deepEqual(
+          message,
+          _message,
+          'message passed through to heatpipe.publish'
+        );
 
-        heatpipe.publish(fixture.topicInfo, fixture.message, err => {
-          t.equal(
-            err,
-            fixture.error,
-            'service instance publish() - throws error'
-          );
-        });
-
-        heatpipe.destroy && heatpipe.destroy();
-
-        t.ok(
-          called.destroy,
-          'HeatpipePublisher.destroy() - invoked upon service instance destroy'
+        t.equals(
+          'function',
+          typeof _callback,
+          'callback passed through to heatpipe.publish'
         );
       },
     })
   );
-
   t.end();
 });
+
+test('heatpipe-plugin, unsuccessful publish', async t => {
+  const {app, MockHeatpipeClient} = bootstrapTest();
+  getSimulator(
+    app,
+    createPlugin({
+      deps: {
+        api: HeatpipeToken,
+      },
+      provides({api}) {
+        const error = new Error('HeatpipeClient message queue is oversized');
+        // a failed heatpipe.publish() returns cb(errorObject)
+        MockHeatpipeClient.mock.instances[0].publish.mockImplementation(
+          (topicInfo, message, cb) => cb(error)
+        );
+        const topicInfo = {topic: 'awesome-topic', version: 99};
+        const message = {hello: 'world'};
+        const failureTypeA = api.publish(topicInfo, message);
+        t.deepEquals(
+          failureTypeA,
+          error,
+          'unsuccessful publish should return an error object'
+        );
+
+        // another type of failed publish invokes cb(error), but returns undefined!!!
+        MockHeatpipeClient.mock.instances[0].publish.mockImplementation(
+          (topicInfo, message, cb) => {
+            cb(error);
+            return;
+          }
+        );
+        const failureTypeB = api.publish(topicInfo, message);
+        t.deepEquals(
+          failureTypeB,
+          error,
+          'unsuccessful publish should return an error object'
+        );
+
+        // test api.asyncPublish
+        api
+          .asyncPublish(topicInfo, message)
+          .catch(err =>
+            t.deepEquals(error, err, 'asyncPublish rejects with error')
+          );
+
+        // checks argument forwarding to underlying client
+        const [
+          _topicInfo,
+          _message,
+          _callback,
+        ] = MockHeatpipeClient.mock.instances[0].publish.mock.calls[0];
+
+        t.deepEqual(
+          topicInfo,
+          _topicInfo,
+          'topicInfo passed through to heatpipe.publish'
+        );
+
+        t.deepEqual(
+          message,
+          _message,
+          'message passed through to heatpipe.publish'
+        );
+
+        t.equals(
+          'function',
+          typeof _callback,
+          'callback passed through to heatpipe.publish'
+        );
+      },
+    })
+  );
+  t.end();
+});
+
+test('heatpipe-plugin destroy', async t => {
+  const {app, MockHeatpipeClient} = bootstrapTest();
+  getSimulator(
+    app,
+    createPlugin({
+      deps: {
+        api: HeatpipeToken,
+      },
+      provides({api}) {
+        let called = false;
+        const afterDestroy = () => {
+          called = true;
+        };
+
+        MockHeatpipeClient.mock.instances[0].destroy.mockImplementation(cb =>
+          cb()
+        );
+
+        // test api.asyncPublish
+        api.destroy(afterDestroy);
+
+        t.ok(called, 'post-destroy callback was called');
+      },
+    })
+  );
+  t.end();
+});
+
+function bootstrapTest() {
+  const events = {
+    on(type) {},
+  };
+  const mockM3 = {};
+  const mockLogger = {};
+  const MockHeatpipeClient = mock(HeatpipePublisher);
+
+  const app = new App('content', el => el);
+  app.register(HeatpipeToken, HeatpipePlugin);
+  app.register(HeatpipeConfigToken, {foo: 'bar'});
+  app.register(HeatpipeClientToken, MockHeatpipeClient);
+  // $FlowFixMe
+  app.register(LoggerToken, mockLogger);
+  // $FlowFixMe
+  app.register(M3Token, mockM3);
+  // $FlowFixMe
+  app.register(UniversalEventsToken, events);
+  return {app, MockHeatpipeClient};
+}

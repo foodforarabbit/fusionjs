@@ -3,26 +3,24 @@ import type {FusionPlugin} from 'fusion-core';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {LoggerToken} from 'fusion-tokens';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+import HeatpipePublisher from '@uber/node-heatpipe-publisher';
 
 export type TopicInfoType = {
   topic: string,
   version: number,
 };
-export type MessageType = any;
+export type MessageType = {[string]: any};
+export type EventPayload = {
+  topicInfo: TopicInfoType,
+  message: MessageType,
+};
 
-export type HeatpipeClientType = Class<HeatpipeClientServiceType>;
-
-export interface HeatpipeClientServiceType {
-  +constructor: any => any;
-  +connect: any => any;
-  +publish: (TopicInfoType, MessageType, callback?: Function) => any;
-  +destroy: (callback?: Function) => any;
-}
+export type HeatpipeClientType = HeatpipePublisher;
 
 export type HeatpipePluginServiceType = {
-  asyncPublish: (TopicInfoType, MessageType) => Promise<any>,
-  publish: $Call<<T>({+publish: T}) => T, HeatpipeClientServiceType>,
-  destroy?: $Call<<T>({+destroy: T}) => T, HeatpipeClientServiceType>,
+  asyncPublish: (TopicInfoType, MessageType) => Promise<void>,
+  publish: (TopicInfoType, MessageType) => Error | void,
+  destroy: (cb?: () => void) => void,
 };
 
 export type HeatpipePluginDepsType = {

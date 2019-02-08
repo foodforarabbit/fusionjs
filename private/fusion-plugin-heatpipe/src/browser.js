@@ -2,8 +2,7 @@
 /* eslint-env browser */
 import {createPlugin} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
-
-import type {HeatpipePluginType} from './types';
+import type {HeatpipePluginType, TopicInfoType, MessageType} from './types';
 
 const plugin =
   __BROWSER__ &&
@@ -14,13 +13,20 @@ const plugin =
     provides({UniversalEvents}) {
       const emitter = UniversalEvents;
 
-      function publish(topicInfo, message) {
+      function publish(topicInfo: TopicInfoType, message: MessageType): void {
         emitter.emit('heatpipe:publish', {topicInfo, message});
+      }
+
+      async function asyncPublish(
+        topicInfo: TopicInfoType,
+        message: MessageType
+      ): Promise<void> {
+        publish(topicInfo, message);
       }
 
       return {
         publish,
-        asyncPublish: (...args) => Promise.resolve(publish(...args)),
+        asyncPublish,
       };
     },
   });

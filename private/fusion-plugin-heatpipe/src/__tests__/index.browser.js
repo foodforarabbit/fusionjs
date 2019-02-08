@@ -19,11 +19,8 @@ const fixture = {
   },
 };
 
-tape('heatpipe:publish', t => {
+tape.test('heatpipe:publish', t => {
   const MockUniversalEvents = {
-    from() {
-      return this;
-    },
     emit(type, {topicInfo, message}) {
       t.equal(type, 'heatpipe:publish', 'calls with correct event type');
       t.equal(topicInfo, fixture.topicInfo, 'topicInfo passes through');
