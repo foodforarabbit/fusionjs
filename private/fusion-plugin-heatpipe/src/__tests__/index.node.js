@@ -196,19 +196,36 @@ test('heatpipe-plugin destroy', async t => {
         api: HeatpipeToken,
       },
       provides({api}) {
-        let called = false;
-        const afterDestroy = () => {
-          called = true;
+        let called = {
+          a: false,
+          b: false,
         };
 
         MockHeatpipeClient.mock.instances[0].destroy.mockImplementation(cb =>
           cb()
         );
 
-        // test api.asyncPublish
-        api.destroy(afterDestroy);
+        // test api.destroy
+        api.destroy(() => {
+          called.a = true;
+        });
 
-        t.ok(called, 'post-destroy callback was called');
+        t.ok(called.a, 'post-destroy callback was called');
+
+        // destroy callback not called
+        MockHeatpipeClient.mock.instances[0].destroy.mockImplementation(cb => {
+          return;
+        });
+
+        // test api.destroy
+        api.destroy(() => {
+          called.b = true;
+        });
+
+        t.ok(
+          called.b,
+          'post-destroy callback was called, even when client.destroy(cb) not called'
+        );
       },
     })
   );

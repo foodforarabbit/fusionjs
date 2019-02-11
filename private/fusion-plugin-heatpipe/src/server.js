@@ -97,6 +97,7 @@ const plugin =
       function destroy(cb?: () => void): void {
         // see https://code.uberinternal.com/diffusion/MENODE/browse/master/lib/heatpipe_publisher.js$213 for heatpipe.destroy signature
         heatpipe.destroy(cb || (() => {}));
+        cb && cb();
       }
 
       return {
