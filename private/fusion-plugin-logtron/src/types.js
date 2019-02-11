@@ -19,6 +19,7 @@ export type PayloadMetaType = {
 };
 
 export type PayloadType = {
+  callback?: Function,
   level: string,
   message: string,
   meta: PayloadMetaType,

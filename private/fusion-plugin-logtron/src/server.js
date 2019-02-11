@@ -79,14 +79,14 @@ const plugin =
       wrappedLogger.destroy = () => logtron.destroy();
 
       // We process all log methods through the error transformer.
-      const logEmitter = (level, message, meta) => {
-        events.emit('logtron:log', {level, message, meta});
+      const logEmitter = (level, message, meta, callback) => {
+        events.emit('logtron:log', {callback, level, message, meta});
         return wrappedLogger;
       };
 
       Object.keys(levelMap).forEach(tokenLevel => {
-        wrappedLogger[tokenLevel] = (message, meta) => {
-          logEmitter(levelMap[tokenLevel], message, meta);
+        wrappedLogger[tokenLevel] = (message, meta, callback) => {
+          logEmitter(levelMap[tokenLevel], message, meta, callback);
           return wrappedLogger;
         };
       });
@@ -117,6 +117,8 @@ export const handleLog = async (
   transformError: PayloadMetaType => {},
   payload: PayloadType
 ) => {
+  const {callback} = payload;
+
   if (validateItem(payload)) {
     const {level} = payload;
     let {meta, message} = payload;
@@ -131,9 +133,14 @@ export const handleLog = async (
         message = '';
       }
     }
-    logger[level](message, meta);
+    logger[level](message, meta, callback);
   } else {
     const error = new Error('Invalid data in log event');
+
+    if (callback && typeof callback === 'function') {
+      callback(error);
+    }
+
     logger.error(error.message, error);
   }
 };
