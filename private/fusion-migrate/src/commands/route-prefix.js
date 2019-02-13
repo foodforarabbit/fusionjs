@@ -8,8 +8,10 @@ module.exports = function updateDeps({destDir, routePrefix}) {
   const oldDev = destPackage.scripts.dev;
   const oldStart = destPackage.scripts.start;
 
-  destPackage.scripts.dev = `ROUTE_PREFIX=${routePrefix} ${oldDev}`;
-  destPackage.scripts.start = `ROUTE_PREFIX=${routePrefix} ${oldStart}`;
+  if (routePrefix && routePrefix !== '/') {
+    destPackage.scripts.dev = `ROUTE_PREFIX=${routePrefix} ${oldDev}`;
+    destPackage.scripts.start = `ROUTE_PREFIX=${routePrefix} ${oldStart}`;
+  }
 
   fs.writeFileSync(destPackagePath, JSON.stringify(destPackage, null, 2));
 };

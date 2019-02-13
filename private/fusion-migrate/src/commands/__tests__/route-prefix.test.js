@@ -23,3 +23,17 @@ test('routePrefix', async () => {
   expect(finalPackage.scripts.dev).toEqual('ROUTE_PREFIX=test SVC_ID=tmp dev');
   expect(finalPackage.scripts.start).toEqual('ROUTE_PREFIX=test start');
 });
+
+test('routePrefix with plain slash', async () => {
+  const dir = tmp.dirSync().name;
+  await ncp(srcFixtureDir, dir);
+  await routePrefix({
+    destDir: dir,
+    routePrefix: '/',
+  });
+  const finalPackage = JSON.parse(
+    fs.readFileSync(path.join(dir, 'package.json'))
+  );
+  expect(finalPackage.scripts.dev).toEqual('SVC_ID=tmp dev');
+  expect(finalPackage.scripts.start).toEqual('start');
+});
