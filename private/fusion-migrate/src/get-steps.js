@@ -4,7 +4,7 @@ const get = require('just-safe-get');
 const codemodStep = require('./utils/codemod-step.js');
 const composeSteps = require('./utils/compose-steps.js');
 const fixEslintConfig = require('./utils/fix-eslint-config.js');
-const fixFusionRC = require('./utils/fix-fusionrc.js');
+const addFusionRC = require('./commands/add-fusionrc.js');
 const format = require('./utils/lint-fix.js');
 const getConfigCodemod = require('./codemods/config/plugin.js');
 const loadConfig = require('./utils/load-config.js');
@@ -67,7 +67,7 @@ module.exports = function getSteps(options) {
     getStep('update-engines', () => updateEngines(options)),
     getStep('update-scripts', () => updateScripts(options)),
     getStep('fix-eslint-config', () => fixEslintConfig(options.destDir)),
-    getStep('fix-fusionrc', () => fixFusionRC(options.destDir)),
+    getStep('add-fusionrc', () => addFusionRC(options)),
     getStep('prettier', () => format(options.destDir)),
   ];
   let versionSpecificSteps = [];

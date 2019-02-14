@@ -22,11 +22,6 @@ module.exports = async function updateScripts({srcDir, destDir, filter}) {
       destPackage.scripts[script] = srcPackage.scripts[script];
     });
 
-  destPackage.node = {
-    process: 'mock',
-    Buffer: true,
-  };
-
   const trackedFiles = await getTrackedFiles(destDir);
   const sassFiles = trackedFiles.filter(f => {
     const ext = path.extname(f);
