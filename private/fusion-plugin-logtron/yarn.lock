@@ -858,10 +858,10 @@
     lb_pool "^1.7.1"
     pkginfo "^0.4.1"
 
-"@uber/logtron@^9.0.9-1":
-  version "9.0.9-1"
-  resolved "https://unpm.uberinternal.com/%40uber%2Flogtron/-/private/%40uber%2Flogtron-9.0.9-1.tgz#b5600e2e4d230b295b019fce435c70e2759ab127"
-  integrity sha1-tWAOLk0jCylbAZ/OQ1xw4nWasSc=
+"@uber/logtron@^9.0.9":
+  version "9.0.9"
+  resolved "https://unpm.uberinternal.com/%40uber%2Flogtron/-/private/%40uber%2Flogtron-9.0.9.tgz#7524fa203bcf3ec05abeee6eafc308cca33cec4e"
+  integrity sha1-dST6IDvPPsBavu5ur8MIzKM87E4=
   dependencies:
     "@uber/kafka-logger" "^7.0.1"
     airlock "^2.1.1"
