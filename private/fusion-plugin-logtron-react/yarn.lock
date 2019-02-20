@@ -897,12 +897,12 @@
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
   integrity sha1-VWJRm8eWPKyoq/fxKMrjtZTUHQY=
 
-"@uber/fusion-plugin-logtron@1.4.8-2":
-  version "1.4.8-2"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-logtron/-/private/%40uber%2Ffusion-plugin-logtron-1.4.8-2.tgz#f69c1b430070a0ec1c56830d68ee9a79f0bf41f8"
-  integrity sha512-+spZeP4WeUc7fjA2fw08I8T8MbawU9lvS19j8sgNXHY42twDGzGQYzur8yuhWP+h6ZaPRXc/sK3fiuRCZm4/ug==
+"@uber/fusion-plugin-logtron@1.4.9-1":
+  version "1.4.9-1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-logtron/-/private/%40uber%2Ffusion-plugin-logtron-1.4.9-1.tgz#73ba6f0fc77f1c51bced9189cd72fcd1c69f944e"
+  integrity sha512-YTDDOAJkUlooscUskJT1c/3M0uwNXbwwrDW1XJZPAxuB6ERwuTL9rT1XMQfcfGS4PqDlr2lw7MSxWmR2ZuuZRg==
   dependencies:
-    "@uber/logtron" "^9.0.9-1"
+    "@uber/logtron" "^9.0.9"
     error-stack-parser "^2.0.2"
     koa-bodyparser "4.2.1"
     source-map "^0.7.3"
@@ -932,10 +932,10 @@
     lb_pool "^1.7.1"
     pkginfo "^0.4.1"
 
-"@uber/logtron@^9.0.9-1":
-  version "9.0.9-1"
-  resolved "https://unpm.uberinternal.com/%40uber%2Flogtron/-/private/%40uber%2Flogtron-9.0.9-1.tgz#b5600e2e4d230b295b019fce435c70e2759ab127"
-  integrity sha1-tWAOLk0jCylbAZ/OQ1xw4nWasSc=
+"@uber/logtron@^9.0.9":
+  version "9.0.9"
+  resolved "https://unpm.uberinternal.com/%40uber%2Flogtron/-/private/%40uber%2Flogtron-9.0.9.tgz#7524fa203bcf3ec05abeee6eafc308cca33cec4e"
+  integrity sha1-dST6IDvPPsBavu5ur8MIzKM87E4=
   dependencies:
     "@uber/kafka-logger" "^7.0.1"
     airlock "^2.1.1"
@@ -2967,13 +2967,13 @@ fusion-react@^1.3.4:
     prop-types "^15.6.2"
     react-is "^16.6.3"
 
-fusion-test-utils@^1.2.3:
-  version "1.2.3"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.2.3.tgz#b48fe0adc7896163bf9d05c6bf51d3e6cfd4e8aa"
-  integrity sha512-BDPpOKWHnPbKXzSg47RietZAHbDee2ZzujWAsb6paye9dmrTI6JaDhIlVUpkpekaHGzjwnA2vCANkffNavFIVw==
+fusion-test-utils@^1.4.0-0:
+  version "1.4.0-1"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.4.0-1.tgz#dab3bb0b01c0eed8c7f7dd0c0cbc67e8df11611b"
+  integrity sha512-kNX53/BIV8uA+BZ+k+LDKVhcQjH2GZESjnUXs7Gg2huWVEpVUrmKlECMxyJ0GdkoFp8jSvYrGSnjbJFD9MIa1w==
   dependencies:
     assert "^1.4.1"
-    koa "^2.4.1"
+    koa "^2.6.2"
     node-mocks-http "^1.6.6"
 
 fusion-tokens@^1.1.0:
@@ -3907,10 +3907,10 @@ koa-is-json@^1.0.0:
   resolved "https://unpm.uberinternal.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
   integrity sha1-JzwH7c3Ljfaiwat9We52SRRR7BQ=
 
-koa@^2.4.1:
-  version "2.5.3"
-  resolved "https://unpm.uberinternal.com/koa/-/koa-2.5.3.tgz#0b0c37eee3aac807a0a6ad36bc0b8660f12d83f1"
-  integrity sha512-U6rgy2kwlfO+3P1phAidDrRZpGfwcpHCxl33wFe+fHXalpzEshHGnMaSU7I/ZeDFpGRQkbQOYsXkXfUjn+AtdQ==
+koa@^2.6.1:
+  version "2.6.2"
+  resolved "https://unpm.uberinternal.com/koa/-/koa-2.6.2.tgz#57ba4d049b0a99cae0d594e6144e2931949a7ce1"
+  integrity sha512-KdnBFhTgh9ysMMoYe4J4fLvaKjT7mF3nRYV8MjxLzx6qywFNeptqi4xevyUltg1fZl2CFJ+HeLXuCGx07Yvl/A==
   dependencies:
     accepts "^1.3.5"
     cache-content-type "^1.0.0"
@@ -3937,10 +3937,10 @@ koa@^2.4.1:
     type-is "^1.6.16"
     vary "^1.1.2"
 
-koa@^2.6.1:
-  version "2.6.2"
-  resolved "https://unpm.uberinternal.com/koa/-/koa-2.6.2.tgz#57ba4d049b0a99cae0d594e6144e2931949a7ce1"
-  integrity sha512-KdnBFhTgh9ysMMoYe4J4fLvaKjT7mF3nRYV8MjxLzx6qywFNeptqi4xevyUltg1fZl2CFJ+HeLXuCGx07Yvl/A==
+koa@^2.6.2:
+  version "2.7.0"
+  resolved "https://unpm.uberinternal.com/koa/-/koa-2.7.0.tgz#7e00843506942b9d82c6cc33749f657c6e5e7adf"
+  integrity sha512-7ojD05s2Q+hFudF8tDLZ1CpCdVZw8JQELWSkcfG9bdtoTDzMmkRF6BQBU7JzIzCCOY3xd3tftiy/loHBUYaY2Q==
   dependencies:
     accepts "^1.3.5"
     cache-content-type "^1.0.0"
