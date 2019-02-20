@@ -57,7 +57,6 @@ export const scaffold = async ({
           'Web Application': 'website',
           'GraphQL Web Application [!! BETA !!]': 'website-graphql',
           'Fusion.js Plugin': 'fusion-plugin',
-          'React Component': 'react-component',
           'Generic Library': 'library',
         });
       }

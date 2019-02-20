@@ -12,7 +12,7 @@ cli.version(require('../package.json').version);
 cli
   .command('scaffold')
   .describe('Scaffold a new project structure locally')
-  .option('--type', 'website, fusion-plugin, react-component or library', '')
+  .option('--type', 'website, fusion-plugin or library', '')
   .option('--name', 'Project name', '')
   .option('--description', 'Project description', '')
   .option('--team', 'Team name', '')

@@ -15,7 +15,7 @@ test('scaffold plugin', async () => {
 
     jest.spyOn(inquirer, 'prompt').mockImplementation(options => {
       if (options.message.match(/template/)) {
-        return {value: options.choices[1]};
+        return {value: options.choices[2]};
       } else if (options.message.match(/name/)) {
         return {value: name};
       } else if (options.message.match(/description/)) {
