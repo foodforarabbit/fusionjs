@@ -2847,10 +2847,10 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@^0.87.0:
-  version "0.87.0"
-  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.87.0.tgz#fab7f984d8cc767e93fa9eb01cf7d57ed744f19d"
-  integrity sha512-mnvBXXZkUp4y6A96bR5BHa3q1ioIIN2L10w5osxJqagAakTXFYZwjl0t9cT3y2aCEf1wnK6n91xgYypQS/Dqbw==
+flow-bin@^0.93.0:
+  version "0.93.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.93.0.tgz#9192a08d88db2a8da0ff55e42420f44539791430"
+  integrity sha512-p8yq4ocOlpyJgOEBEj0v0GzCP25c9WP0ilFQ8hXSbrTR7RPKuR+Whr+OitlVyp8ocdX0j1MrIwQ8x28dacy1pg==
 
 for-each@~0.3.3:
   version "0.3.3"
@@ -2940,32 +2940,32 @@ functional-red-black-tree@^1.0.1:
   resolved "https://unpm.uberinternal.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha1-GwqzvVU7Kg1jmdKcDj6gslIHgyc=
 
-fusion-core@^1.10.0:
-  version "1.10.0"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.10.0.tgz#4c568671f622d47be0483c9a9d2ae5ed509ef570"
-  integrity sha512-i6JtWKH4jLZMjHRUoLWUei8h4Wpl9h1NQDyZjUarDH+of2ikP2ymxMbiMEclXQMolrsyCTF3SrJBsCmld7OPgw==
+fusion-core@^1.10.3:
+  version "1.10.3"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.10.3.tgz#a38ed16ac03ae11dda50faa5c2a69ccdc0f1c3d5"
+  integrity sha512-Nf6EpfxKrUTTkN2NuHd3N5ZJsmXQQTRt+mMMIOTTKBj1j2RNjKY1VPY3BEHpnpDGVXwtpq5hNcBW7iDGbxy6Fw==
   dependencies:
-    koa "^2.6.1"
+    koa "^2.6.2"
     koa-compose "^4.1.0"
     node-mocks-http "^1.7.3"
     toposort "^2.0.2"
     ua-parser-js "^0.7.19"
     uuid "^3.3.2"
 
-fusion-plugin-universal-events@^1.2.0:
-  version "1.2.0"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.2.0.tgz#8636c4bf97c68efa0b5c7808ebfa459214a5a55d"
-  integrity sha512-Cy0cbg36hdHJWPP2nw+ODJLIpx1yQcloXzBN+5C/FG3Nfcdr4aO8bcJXbhiYAw0DI7mxp9bN2Mmz1HpzUTe4JQ==
+fusion-plugin-universal-events@^1.3.2:
+  version "1.3.2"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.3.2.tgz#b97463547c733405741c12711bb4bcdcd391beb0"
+  integrity sha512-O5xDe5EfjKuCaCqAXhnCzjzVeXGdbbkUSXMDBcCuwnXvLUQJ77nW7fWZrscR9CNyNLger0G7dp/etW3BCpMmWw==
   dependencies:
     koa-bodyparser "4.2.1"
 
-fusion-react@^1.3.4:
-  version "1.3.4"
-  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.3.4.tgz#10265436f4616e8e6e5c4e9d6f267e8350033b83"
-  integrity sha512-fxQQxnx3ligjgwEdVO0Z77YnTgJNr9Md6gQgkwLOlxpS6J4l6s/ePcrTAxfT0e1VTKROTYLQCiMmxbUrzgWz6A==
+fusion-react@^1.3.7:
+  version "1.3.7"
+  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.3.7.tgz#7ece897feff9ef67c33f13f376929fd5a1e471f6"
+  integrity sha512-Zs60GxwkjEkDb2jqcdxnWmGDxUDtD8VJmT6ipnr66oXQHSDl3iMtUDQIXFFg9mZG6jeRFF+BAK1Bhf3SMKt2PQ==
   dependencies:
     prop-types "^15.6.2"
-    react-is "^16.6.3"
+    react-is "^16.7.0"
 
 fusion-test-utils@^1.4.0-0:
   version "1.4.0-1"
@@ -2976,10 +2976,10 @@ fusion-test-utils@^1.4.0-0:
     koa "^2.6.2"
     node-mocks-http "^1.6.6"
 
-fusion-tokens@^1.1.0:
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.0.tgz#d4d3147be4a3bdb1ebc4c59196e927f60fe73097"
-  integrity sha512-QsBCkXZc3tXR1DawUT1NlADi5TZlVdFiFasz2jLkzTfGlA9+fk7kvDoC2N7mM9Vd1WU5K2ISbkxNRg+Ty3xWFg==
+fusion-tokens@^1.1.1:
+  version "1.1.1"
+  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-1.1.1.tgz#5b29b7d8397d186ed3d459c4e7bbd2de3f3303b6"
+  integrity sha512-AQ0edpYQqstPMHnWhFb+Kgi4JY7aJ/koH4wFmMMY8U8UwqR4S8MED72fF+O0ynj4cykuiJdCNZXKKn8Qa+OK6A==
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -3906,36 +3906,6 @@ koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
   integrity sha1-JzwH7c3Ljfaiwat9We52SRRR7BQ=
-
-koa@^2.6.1:
-  version "2.6.2"
-  resolved "https://unpm.uberinternal.com/koa/-/koa-2.6.2.tgz#57ba4d049b0a99cae0d594e6144e2931949a7ce1"
-  integrity sha512-KdnBFhTgh9ysMMoYe4J4fLvaKjT7mF3nRYV8MjxLzx6qywFNeptqi4xevyUltg1fZl2CFJ+HeLXuCGx07Yvl/A==
-  dependencies:
-    accepts "^1.3.5"
-    cache-content-type "^1.0.0"
-    content-disposition "~0.5.2"
-    content-type "^1.0.4"
-    cookies "~0.7.1"
-    debug "~3.1.0"
-    delegates "^1.0.0"
-    depd "^1.1.2"
-    destroy "^1.0.4"
-    error-inject "^1.0.0"
-    escape-html "^1.0.3"
-    fresh "~0.5.2"
-    http-assert "^1.3.0"
-    http-errors "^1.6.3"
-    is-generator-function "^1.0.7"
-    koa-compose "^4.1.0"
-    koa-convert "^1.2.0"
-    koa-is-json "^1.0.0"
-    on-finished "^2.3.0"
-    only "~0.0.2"
-    parseurl "^1.3.2"
-    statuses "^1.5.0"
-    type-is "^1.6.16"
-    vary "^1.1.2"
 
 koa@^2.6.2:
   version "2.7.0"
@@ -5189,10 +5159,10 @@ react-dom@^16.5.2:
     prop-types "^15.6.2"
     schedule "^0.5.0"
 
-react-is@^16.6.3:
-  version "16.6.3"
-  resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.6.3.tgz#d2d7462fcfcbe6ec0da56ad69047e47e56e7eac0"
-  integrity sha512-u7FDWtthB4rWibG/+mFbVd5FvdI20yde86qKGx4lVUTWmPlSWQ4QxbBIrrs+HnXGbxOUlUzTAP/VDmvCwaP2yA==
+react-is@^16.7.0:
+  version "16.8.3"
+  resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.8.3.tgz#4ad8b029c2a718fc0cfc746c8d4e1b7221e5387d"
+  integrity sha512-Y4rC1ZJmsxxkkPuMLwvKvlL1Zfpbcu+Bf4ZigkHup3v9EfdYhAlWAaVyA19olXq2o2mGn0w+dFKvk3pVVlYcIA==
 
 react@^16.5.2:
   version "16.5.2"
