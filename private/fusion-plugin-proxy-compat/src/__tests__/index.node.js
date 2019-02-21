@@ -80,6 +80,7 @@ tape('proxies GET requests', async (t) /*: Promise<void> */ => {
         next /*: () => Promise<void> */
       ) /*: Promise<void> */ => {
         await next();
+        // $FlowFixMe
         t.equal(ctx.req.m3Tags.route, 'root', 'sets route tag');
         M3 = m3;
       },

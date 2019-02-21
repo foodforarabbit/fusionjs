@@ -119,7 +119,7 @@ function getProxyHeaders(ctx /*: Context */, proxyConfig = {}) {
   // Varnish doesn't like chunked encoding.
   // Let's always send a body for non-get requests
   if (ctx.method !== 'GET' && !headers['content-length']) {
-    headers['content-length'] = 0;
+    headers['content-length'] = '0';
   }
 
   delete headers['x-csrf-token'];
