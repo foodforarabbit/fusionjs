@@ -20,23 +20,22 @@ tape(
     });
     const sim = getSimulator(app);
     const ctx = await sim.render('/');
+    const body = ctx.body.replace(/\s+/gm, ' ');
     t.ok(
-      ctx.body.includes(
-        "<link rel='stylesheet' href='https://d1a3f4spazzrp4.cloudfront.net/uber-icons/3.15.0/uber-icons.css' />"
+      body.includes(
+        '<link rel="stylesheet" href="https://d1a3f4spazzrp4.cloudfront.net/uber-icons/3.15.0/uber-icons.css" />'
       )
     );
-    t.ok(ctx.body.includes("<link rel='stylesheet' href='test.css' />"));
+    t.ok(ctx.body.includes('<link rel="stylesheet" href="test.css" />'));
     t.ok(
-      ctx.body.includes(
-        "<link rel='stylesheet' href='https://d1a3f4spazzrp4.cloudfront.net/uber-fonts/4.0.0/superfine.css' />"
+      body.includes(
+        '<link rel="stylesheet" href="https://d1a3f4spazzrp4.cloudfront.net/uber-fonts/4.0.0/superfine.css" />'
       )
     );
     t.ok(
-      ctx.body.includes(
-        "<link rel='icon' type='image/x-icon' href='test.ico' />"
-      )
+      body.includes('<link rel="icon" type="image/x-icon" href="test.ico" />')
     );
-    t.ok(ctx.body.includes("<div id='root'></div>"));
+    t.ok(body.includes("<div id='root'></div>"));
     t.end();
   }
 );
@@ -53,13 +52,12 @@ tape(
     });
     const sim = getSimulator(app);
     const ctx = await sim.render('/');
-    t.notok(ctx.body.includes("<link rel='stylesheet'"));
+    const body = ctx.body.replace(/\s+/gm, ' ');
+    t.notok(body.includes('<link rel="stylesheet"'));
     t.notok(
-      ctx.body.includes(
-        "<link rel='icon' type='image/x-icon' href='test.ico' />"
-      )
+      body.includes('<link rel="icon" type="image/x-icon" href="test.ico" />')
     );
-    t.ok(ctx.body.includes("<div id='root'></div>"));
+    t.ok(body.includes("<div id='root'></div>"));
     t.end();
   }
 );

@@ -17,24 +17,36 @@ export default createPlugin({
       }
       if (config.faviconUrl) {
         ctx.template.head.push(
-          html`<link rel='icon' type='image/x-icon' href='${
-            config.faviconUrl
-          }' />`
+          html`
+            <link rel="icon" type="image/x-icon" href="${config.faviconUrl}" />
+          `
         );
       }
       if (config.stylesheetUrl) {
         ctx.template.head.push(
-          html`<link rel='stylesheet' href='${config.stylesheetUrl}' />`
+          html`
+            <link rel="stylesheet" href="${config.stylesheetUrl}" />
+          `
         );
       }
       if (config.includeIcons) {
         ctx.template.head.push(
-          html`<link rel='stylesheet' href='https://d1a3f4spazzrp4.cloudfront.net/uber-icons/3.15.0/uber-icons.css' />`
+          html`
+            <link
+              rel="stylesheet"
+              href="https://d1a3f4spazzrp4.cloudfront.net/uber-icons/3.15.0/uber-icons.css"
+            />
+          `
         );
       }
       if (config.includeFonts) {
         ctx.template.head.push(
-          html`<link rel='stylesheet' href='https://d1a3f4spazzrp4.cloudfront.net/uber-fonts/4.0.0/superfine.css' />`
+          html`
+            <link
+              rel="stylesheet"
+              href="https://d1a3f4spazzrp4.cloudfront.net/uber-fonts/4.0.0/superfine.css"
+            />
+          `
         );
       }
     };
