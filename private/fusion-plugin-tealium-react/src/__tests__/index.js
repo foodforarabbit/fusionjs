@@ -53,7 +53,7 @@ test('HOC', async t => {
   const res = await sim.render('/');
   t.ok(
     __NODE__
-      ? res.body.includes('hello')
+      ? String(res.body).includes('hello')
       : document.body && document.body.innerHTML.includes('hello'),
     'Test content rendered correctly'
   );
