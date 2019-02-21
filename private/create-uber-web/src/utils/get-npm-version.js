@@ -1,7 +1,6 @@
 /* @flow */
 
-import packageJson from '../../package.json';
-
 export const getNpmVersion = async () => {
-  return packageJson.engines.npm;
+  // TODO: search for latest version
+  return '6.8.0';
 };

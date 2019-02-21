@@ -1,7 +1,6 @@
 /* @flow */
 
-import packageJson from '../../package.json';
-
 export const getYarnVersion = async () => {
-  return packageJson.engines.yarn;
+  // TODO search for latest version
+  return '1.14.0';
 };

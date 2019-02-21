@@ -41,6 +41,13 @@ test('scaffold plugin', async () => {
     expect(await pathExists(name)).toBe(true);
 
     const data = await readJson(`${name}/package.json`);
+    expect(data.engines).toMatchInlineSnapshot(`
+Object {
+  "node": ">=8.9.4 <9.0.0",
+  "npm": ">=5.6.0",
+  "yarn": ">=1.4.0",
+}
+`);
 
     expect(data.name.includes('{{')).toEqual(false);
   } finally {

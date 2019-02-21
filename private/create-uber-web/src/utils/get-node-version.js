@@ -1,7 +1,6 @@
 /* @flow */
 
-import packageJson from '../../package.json';
-
 export const getNodeVersion = async () => {
-  return packageJson.engines.node;
+  // TODO: Search lts versions
+  return '8.15.0';
 };

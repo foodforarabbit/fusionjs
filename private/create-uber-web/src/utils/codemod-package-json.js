@@ -33,10 +33,14 @@ export const codemodPackageJson = async ({
     version: packageJson.version,
   });
   await withJsonFile(`${name}/package.json`, async data => {
-    data.name = type === 'website' ? name : `@uber/${name}`;
-    data.engines.node = await getNodeVersion();
-    data.engines.npm = await getNpmVersion();
-    data.engines.yarn = await getYarnVersion();
+    if (type.startsWith('website')) {
+      data.engines.node = await getNodeVersion();
+      data.engines.npm = await getNpmVersion();
+      data.engines.yarn = await getYarnVersion();
+    } else {
+      data.name = `@uber/${name}`;
+      data.engines = packageJson.engines;
+    }
 
     if (data.__files) {
       // Don't npmignore the files in the templates when publishing create-uber-web

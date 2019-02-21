@@ -48,6 +48,10 @@ test('scaffold website-grapqhl', async () => {
 
     const main = await readFile(join(name, 'src/main.js'));
     expect(main.includes('{{')).toBe(false);
+    // Ensure engines does not use semver
+    expect(data.engines.node).toMatch(/^[0-9]/);
+    expect(data.engines.npm).toMatch(/^[0-9]/);
+    expect(data.engines.yarn).toMatch(/^[0-9]/);
 
     const apolloConfig = await readFile(join(name, 'apollo.config.js'));
     expect(apolloConfig.includes('{{')).toBe(false);
