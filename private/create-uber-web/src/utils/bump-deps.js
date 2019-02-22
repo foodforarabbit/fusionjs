@@ -7,6 +7,8 @@ import log from './log';
 import {getProgress} from './progress';
 import {getLatestVersion} from './get-latest-version';
 
+const BLACKLIST = ['babel-core', 'react-redux', 'create-universal-package'];
+
 type BumpOptions = {
   dir: string,
   match: string,
@@ -48,7 +50,7 @@ const batchUpgrade = async ({dir, match, file, data, edge}) => {
   keys.forEach(key => {
     if (!data[key]) return;
     for (const dep in data[key]) {
-      if (['babel-core'].includes(dep)) continue;
+      if (BLACKLIST.includes(dep)) continue;
       if (!new RegExp(match).test(dep)) continue;
       promises.push(
         getLatestVersion(dep, edge).then(v => {
@@ -73,8 +75,7 @@ const upgrade = async ({dir, match, file, data, key, edge}) => {
   if (!data[key]) return;
   for (const dep in data[key]) {
     const version = data[key][dep];
-    if (['babel-core', 'react-redux', 'create-universal-package'].includes(dep))
-      continue;
+    if (BLACKLIST.includes(dep)) continue;
     if (!new RegExp(match).test(dep)) continue;
     data[key][dep] = await getLatestVersion(dep, edge);
     if (data[key][dep] === version) continue;
