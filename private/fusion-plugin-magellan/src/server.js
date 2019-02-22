@@ -75,7 +75,11 @@ const plugin =
             );
           });
           ctx.template.body.push(dangerouslySetHTML(noncedScripts));
-          ctx.template.body.push(html`<div id='jarvis-content'></div>`);
+          ctx.template.body.push(
+            html`
+              <div id="jarvis-content"></div>
+            `
+          );
           if (jarvisResults.scripts) {
             jarvisResults.scripts.forEach(src => {
               ctx.template.body.push(
