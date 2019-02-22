@@ -71,6 +71,7 @@
     "fusion-tokens": "^1.1.1",
     "jest": "^24.1.0",
     "jest-environment-jsdom-global": "^1.1.0",
+    "koa": "^2.7.0",
     "npm-watch": "^0.5.0",
     "prettier": "^1.15.3"
   },
