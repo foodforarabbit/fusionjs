@@ -55,7 +55,12 @@ function createMockApp({
   app.register(
     UberMarketingConfigToken,
     config || {
+      cookieAge: 31536000,
+      cookieIdKey: 'marketing_vistor_id',
+      cookieDomain: '.uber.com',
       serverDomain: 'www.uber.com',
+      disableHeatpipe: false,
+      debugLogging: false,
     }
   );
 

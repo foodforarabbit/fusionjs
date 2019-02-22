@@ -16,5 +16,7 @@ export type PluginServiceType = {
     ctx: Context
   ) => {
     ctx: Context,
+    config: PluginConfig,
+    getCookieId: () => string,
   },
 };
