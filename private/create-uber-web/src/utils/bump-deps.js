@@ -73,7 +73,8 @@ const upgrade = async ({dir, match, file, data, key, edge}) => {
   if (!data[key]) return;
   for (const dep in data[key]) {
     const version = data[key][dep];
-    if (['babel-core', 'react-redux'].includes(dep)) continue;
+    if (['babel-core', 'react-redux', 'create-universal-package'].includes(dep))
+      continue;
     if (!new RegExp(match).test(dep)) continue;
     data[key][dep] = await getLatestVersion(dep, edge);
     if (data[key][dep] === version) continue;
