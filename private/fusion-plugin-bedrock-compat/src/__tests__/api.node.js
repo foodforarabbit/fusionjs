@@ -60,14 +60,6 @@ tape('provides', async t => {
     })
   );
   app.register(HttpHandlerPlugin);
-  app.middleware((ctx, next) => {
-    t.equal(
-      ctx.req.headers['x-test'],
-      'test-value',
-      'sets mock headers for other fusion plugins'
-    );
-    return next();
-  });
   const server = http.createServer((app.callback(): any));
   const port = await getPort();
   server.listen(port);
