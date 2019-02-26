@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-flipr",
   "description": "Flipr client plugin for fusion",
-  "version": "1.0.12",
+  "version": "1.0.13-0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "private": true,
   "license": "UNLICENSED",
