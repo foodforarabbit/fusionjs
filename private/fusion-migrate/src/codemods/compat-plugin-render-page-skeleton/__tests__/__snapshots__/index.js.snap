@@ -22,11 +22,11 @@ function thing() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import App from 'fusion-react';
-import {createPlugin, RenderToken} from 'fusion-core';
 import PageSkeletonRenderer, {
   PageSkeletonConfigToken,
 } from '@uber/fusion-plugin-page-skeleton-compat';
+import App from 'fusion-react';
+import {createPlugin, RenderToken} from 'fusion-core';
 import {SomeToken, SomePlugin} from 'some-plugin';
 import {OtherToken, OtherPlugin} from 'other-plugin';
 console.log(App);
