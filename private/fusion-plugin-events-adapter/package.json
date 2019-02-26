@@ -28,8 +28,8 @@
   "devDependencies": {
     "@uber/fusion-plugin-analytics-session": "^1.4.1",
     "@uber/fusion-plugin-auth-headers": "^1.1.3",
-    "@uber/fusion-plugin-heatpipe": "^1.1.1-5",
-    "@uber/fusion-plugin-m3": "^1.1.11-3",
+    "@uber/fusion-plugin-heatpipe": "^1.2.0",
+    "@uber/fusion-plugin-m3": "^1.2.0",
     "@uber/node-heatpipe-publisher": "^3.0.2",
     "babel-eslint": "^10.0.1",
     "create-universal-package": "^3.4.6",
@@ -65,8 +65,8 @@
   "peerDependencies": {
     "@uber/fusion-plugin-analytics-session": "^1.0.0",
     "@uber/fusion-plugin-auth-headers": "^1.1.2",
-    "@uber/fusion-plugin-heatpipe": "^1.1.1-5",
-    "@uber/fusion-plugin-m3": "^1.1.11-3",
+    "@uber/fusion-plugin-heatpipe": "^1.2.0",
+    "@uber/fusion-plugin-m3": "^1.2.0",
     "fusion-core": "^1.2.2",
     "fusion-plugin-i18n": "^1.0.0",
     "fusion-plugin-universal-events": "^1.0.2",

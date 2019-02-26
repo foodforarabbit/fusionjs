@@ -832,17 +832,17 @@
   dependencies:
     eslint-plugin-jest "^21.24.1"
 
-"@uber/fusion-plugin-heatpipe@^1.1.1-5":
-  version "1.1.1-5"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-1.1.1-5.tgz#c13f1df2878d717ad7ae2e72c1381ff135ea6c86"
-  integrity sha512-iINtvffGdq/TwZZz2b/oFvkUJal4ItWu194YI64Np0aaLHRoTG9QnDPq0At4potbI58L/NVvaR1fQRKRxtsr+w==
+"@uber/fusion-plugin-heatpipe@^1.2.0":
+  version "1.2.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-1.2.0.tgz#66b17c5ad4a37803987462ca8d46c6616c28db1c"
+  integrity sha512-vJNSrme3YOA1eHVT214XRnfziK0spd4BcwUFIkE0bZ9gdvpKr/20RisBG3+zspiqK5Jq0xkbDXnovlFsQISHDg==
   dependencies:
     "@uber/node-heatpipe-publisher" "^3.0.2"
 
-"@uber/fusion-plugin-m3@^1.1.11-3":
-  version "1.1.11-3"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.1.11-3.tgz#901c9f35bcdb2c5c628b127d180e12f7e2435a6f"
-  integrity sha512-njXGIFw7pne3gNij/A0LkNDmv6FB27h/6eSQuKQiT+m41NQ0h1dSgbxMSn7WHZ9TYoeleWC8Nak6lWyIu4A86w==
+"@uber/fusion-plugin-m3@^1.2.0":
+  version "1.2.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-m3/-/private/%40uber%2Ffusion-plugin-m3-1.2.0.tgz#51ae00c29a1fb03e1d59186d21665532bb3a7221"
+  integrity sha512-Aqd73tjfwziAb4ZAIM4dRuCygd8lHEwTjEzi4HD14xmV0+mkATdSq1Qct7yw+6e7JHSxUuUeMB+s/0/X1Qqgcg==
   dependencies:
     "@uber/m3-client" "^1.2.1"
 

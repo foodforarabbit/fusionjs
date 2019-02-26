@@ -114,7 +114,7 @@ Gets cookies for analytics events. Typically, it should be registered with [`Ana
 ##### `M3Token`
 
 ```js
-import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
+import {M3Token} from '@uber/fusion-plugin-m3';
 ```
 
 Sink for metrics. Typically should be registered with `M3` from [`@uber/fusion-plugin-m3`](https://code.uberinternal.com/diffusion/WEFUSHE/#m3)
