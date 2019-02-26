@@ -1,11 +1,19 @@
 const visitNamedModule = require('../../utils/visit-named-module.js');
 const t = require('@babel/types');
+const ensureImportDeclaration = require('../../utils/ensure-import-declaration.js');
+const getProgram = require('../../utils/get-program.js');
 
 module.exports = () => {
   const namedModuleVisitor = visitNamedModule({
     moduleName: 'Route',
     packageName: 'react-router',
     refsHandler: (t, state, refPaths, path) => {
+      const program = getProgram(path);
+      const body = program.node.body;
+      ensureImportDeclaration(
+        body,
+        `import {withRouter} from 'fusion-plugin-react-router';`
+      );
       refPaths.forEach(refPath => {
         const elementPath = refPath.parentPath.parentPath;
         const isTopLevel = refPath.parentPath.type !== 'JSXElement';
@@ -78,6 +86,14 @@ module.exports = () => {
                   )
                 ),
               ];
+              elementPath.node.children = [
+                t.JSXElement(
+                  t.JSXOpeningElement(t.JSXIdentifier('Switch'), [], false),
+                  t.JSXClosingElement(t.JSXIdentifier('Switch')),
+                  children
+                ),
+              ];
+
               return;
             }
           }

@@ -21,6 +21,7 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
@@ -101,40 +102,43 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
-import AppContainer from '../containers/app-container';
 
 const _AppContainer = withRouter(AppContainer);
 
+import AppContainer from '../containers/app-container';
 export default (
   <_AppContainer
     match={{
       params: {},
     }}
   >
-    <Route path=\\"/counter\\" component={CounterContainer} exact />
-    <Route path=\\"/counter\\" component={CounterContainer} exact />
-    <Route path={getThing()} component={CounterContainer} exact />
-    <Route
-      path=\\"/test\\"
-      render={_props => {
-        return (
-          <Test {..._props}>
-            <Switch>
-              <Route
-                path={_props.match.path + '/LOL'}
-                component={Other}
-                exact
-              />
-            </Switch>
-          </Test>
-        );
-      }}
-      exact
-    />
-    <Route path=\\"/*\\" component={FourOhFour} statusCode={404} exact />
+    <Switch>
+      <Route path=\\"/counter\\" component={CounterContainer} exact />
+      <Route path=\\"/counter\\" component={CounterContainer} exact />
+      <Route path={getThing()} component={CounterContainer} exact />
+      <Route
+        path=\\"/test\\"
+        render={_props => {
+          return (
+            <Test {..._props}>
+              <Switch>
+                <Route
+                  path={_props.match.path + '/LOL'}
+                  component={Other}
+                  exact
+                />
+              </Switch>
+            </Test>
+          );
+        }}
+        exact
+      />
+      <Route path=\\"/*\\" component={FourOhFour} statusCode={404} exact />
+    </Switch>
   </_AppContainer>
 );
 "
@@ -161,40 +165,43 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
-import AppContainer from '../containers/app-container';
 
 const _AppContainer = withRouter(AppContainer);
 
+import AppContainer from '../containers/app-container';
 export default (
   <_AppContainer
     match={{
       params: {},
     }}
   >
-    <Route path=\\"/counter\\" component={CounterContainer} exact />
-    <Route path=\\"/counter\\" component={CounterContainer} exact />
-    <Route path={getThing()} component={CounterContainer} exact />
-    <Route
-      path=\\"/test\\"
-      render={_props => {
-        return (
-          <Test {..._props}>
-            <Switch>
-              <Route
-                path={_props.match.path + '/LOL'}
-                component={Other}
-                exact
-              />
-            </Switch>
-          </Test>
-        );
-      }}
-      exact
-    />
-    <Route path=\\"/*\\" component={FourOhFour} statusCode={404} exact />
+    <Switch>
+      <Route path=\\"/counter\\" component={CounterContainer} exact />
+      <Route path=\\"/counter\\" component={CounterContainer} exact />
+      <Route path={getThing()} component={CounterContainer} exact />
+      <Route
+        path=\\"/test\\"
+        render={_props => {
+          return (
+            <Test {..._props}>
+              <Switch>
+                <Route
+                  path={_props.match.path + '/LOL'}
+                  component={Other}
+                  exact
+                />
+              </Switch>
+            </Test>
+          );
+        }}
+        exact
+      />
+      <Route path=\\"/*\\" component={FourOhFour} statusCode={404} exact />
+    </Switch>
   </_AppContainer>
 );
 "
@@ -221,13 +228,14 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
+import {withRouter} from 'fusion-plugin-react-router';
 import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
-import AppContainer from '../containers/app-container';
 
 const _AppContainer = withRouter(AppContainer);
 
+import AppContainer from '../containers/app-container';
 export default (
   <Route
     path=\\"/prefix\\"

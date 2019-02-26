@@ -84,52 +84,54 @@ const _routes = (
       params: {},
     }}
   >
-    <Route
-      path=\\"/\\"
-      exact
-      component={_HomeContainerWithData2}
-      trackingId=\\"home\\"
-    />
-    <Route path=\\"/a\\" component={A} trackingId=\\"a\\" exact />
-    <Route
-      path=\\"/b\\"
-      trackingId=\\"b\\"
-      render={_props => {
-        return (
-          <B {..._props}>
-            <Switch>
-              <Route
-                path={_props.match.path + '/'}
-                exact
-                render={props => {
-                  return <Redirect to=\\"/c\\" />;
-                }}
-              />
-              <Route
-                path={_props.match.path + '/c'}
-                component={_CWithData}
-                trackingId=\\"c\\"
-                exact
-              />
-              <Route
-                path={_props.match.path + '/e'}
-                component={_EWithData}
-                trackingId=\\"E\\"
-                exact
-              />
-              <Route
-                path={_props.match.path + '/d'}
-                exact
-                render={props => {
-                  return <Redirect to=\\"/c\\" />;
-                }}
-              />
-            </Switch>
-          </B>
-        );
-      }}
-      exact
-    />
+    <Switch>
+      <Route
+        path=\\"/\\"
+        exact
+        component={_HomeContainerWithData2}
+        trackingId=\\"home\\"
+      />
+      <Route path=\\"/a\\" component={A} trackingId=\\"a\\" exact />
+      <Route
+        path=\\"/b\\"
+        trackingId=\\"b\\"
+        render={_props => {
+          return (
+            <B {..._props}>
+              <Switch>
+                <Route
+                  path={_props.match.path + '/'}
+                  exact
+                  render={props => {
+                    return <Redirect to=\\"/c\\" />;
+                  }}
+                />
+                <Route
+                  path={_props.match.path + '/c'}
+                  component={_CWithData}
+                  trackingId=\\"c\\"
+                  exact
+                />
+                <Route
+                  path={_props.match.path + '/e'}
+                  component={_EWithData}
+                  trackingId=\\"E\\"
+                  exact
+                />
+                <Route
+                  path={_props.match.path + '/d'}
+                  exact
+                  render={props => {
+                    return <Redirect to=\\"/c\\" />;
+                  }}
+                />
+              </Switch>
+            </B>
+          );
+        }}
+        exact
+      />
+    </Switch>
   </AppContainer>
 );
 
