@@ -16,10 +16,9 @@ module.exports = async function() {
   await unlink('dist-test/').catch(() => {});
   await move('src/test/node', 'src/__tests__/node').catch(() => {});
   await move('src/test/browser', 'src/__tests__/browser').catch(e => {});
-  await move('src/test', 'src/test-utils').catch(e => {});
   await moveNonTestFiles();
   await move('src/test-utils/e2e', 'src/test/e2e').catch(e => {});
-  await renameFiles('src/__tests__/');
+  await renameFiles('src/__tests__');
   await removeRedundantFiles();
   await updateGulpfile();
 };
@@ -73,12 +72,12 @@ async function renameFiles(root) {
       const replaced = root
         .replace(/.browser.js/, '.js')
         .replace(/\.js$/, '.browser.js');
-      if (root !== replaced) await rename(root, replaced).catch(() => {});
+      if (root !== replaced) await rename(root, replaced);
     } else if (root.includes('src/__tests__/node')) {
       const replaced = root
         .replace(/.node.js/, '.js')
         .replace(/\.js$/, '.node.js');
-      if (root !== replaced) await rename(root, replaced).catch(() => {});
+      if (root !== replaced) await rename(root, replaced);
     }
   }
 }

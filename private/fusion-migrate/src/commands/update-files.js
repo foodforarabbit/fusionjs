@@ -4,6 +4,7 @@ const util = require('util');
 const ncp = util.promisify(require('ncp'));
 
 const unlink = util.promisify(fs.unlink);
+const writeFile = util.promisify(fs.writeFile);
 
 const defaultFilesToAdd = [
   'src/main.js',
@@ -15,6 +16,7 @@ const defaultFilesToAdd = [
   'src/static',
   'src/plugins',
   'src/test-utils',
+  'src/plugins/get-initial-state.js',
 ];
 const defaultFilesToRemove = [
   '.babelrc',
@@ -23,6 +25,10 @@ const defaultFilesToRemove = [
   'gulpfile-dev.js',
   'server.js',
 ];
+
+const initialStatePlugin = fs
+  .readFileSync(path.join(__dirname, './initial-state-plugin.txt'))
+  .toString();
 
 module.exports = async function updateFiles({
   remove = defaultFilesToRemove,
@@ -37,10 +43,19 @@ module.exports = async function updateFiles({
       }
     });
   });
-  const addFiles = add.map(fileToAdd => {
-    let destAddPath = path.join(destDir, fileToAdd);
-    const srcAddPath = path.join(srcDir, fileToAdd);
-    return ncp(srcAddPath, destAddPath);
-  });
-  return Promise.all([...removeFiles, ...addFiles]);
+  const addFiles = add
+    .filter(f => f !== 'src/plugins/get-initial-state.js')
+    .map(fileToAdd => {
+      const srcAddPath = path.join(srcDir, fileToAdd);
+      const destAddPath = path.join(destDir, fileToAdd);
+      return ncp(srcAddPath, destAddPath);
+    });
+
+  await Promise.all([...removeFiles, ...addFiles]);
+  if (add.includes('src/plugins/get-initial-state.js')) {
+    await writeFile(
+      path.join(destDir, 'src/plugins/get-initial-state.js'),
+      initialStatePlugin
+    );
+  }
 };

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`register-initial-state-plugin positive-match: positive-match 1`] = `
+"import ReactReduxPlugin, {ReduxToken} from 'fusion-plugin-react-redux';
+
+app.register(ReduxToken, ReactReduxPlugin);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import GetInitialStatePlugin from './plugins/get-initial-state';
+import {GetInitialStateToken} from 'fusion-plugin-redux-react';
+import ReactReduxPlugin, {ReduxToken} from 'fusion-plugin-react-redux';
+app.register(ReduxToken, ReactReduxPlugin);
+__NODE__ && app.register(GetInitialStateToken, GetInitialStatePlugin);
+"
+`;

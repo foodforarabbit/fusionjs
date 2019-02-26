@@ -36,6 +36,7 @@ const modRedirect = require('./codemods/mod-redirect/plugin.js');
 const modIndexRoute = require('./codemods/mod-index-route/plugin.js');
 const modReactRouter = require('./codemods/mod-react-router-4/plugin.js');
 const modMainImports = require('./codemods/main-imports/plugin.js');
+const modRegisterInitialStatePlugin = require('./codemods/register-initial-state-plugin/plugin.js');
 const modSentryConfig = require('./codemods/sentry-config/plugin.js');
 const modUniversalLogger = require('./codemods/bedrock-universal-logger/plugin.js');
 const modUniversalM3 = require('./codemods/bedrock-universal-m3/plugin.js');
@@ -305,6 +306,13 @@ function get14Steps(options) {
       codemodStep({
         ...options,
         plugin: modFixTracer,
+      })
+    ),
+    getStep('mod-register-initial-state-plugin', () =>
+      codemodStep({
+        ...options,
+        plugin: modRegisterInitialStatePlugin,
+        glob: 'src/app.js',
       })
     ),
     // This should be the final codemod as it changes the new App expression,

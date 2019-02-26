@@ -1,0 +1,36 @@
+// @flow
+import {AuthHeadersToken} from '@uber/fusion-plugin-auth-headers';
+import {createPlugin, type Context} from 'fusion-core';
+
+type DepsType = {
+  AuthHeaders: typeof AuthHeadersToken,
+};
+type InitialStateType = {
+  bedrock: {
+    auth: {
+      uuid: ?string,
+      groups: ?string,
+      email: ?string,
+    },
+  },
+};
+type ProvidesType = (ctx: Context) => Promise<InitialStateType>;
+export default createPlugin<DepsType, ProvidesType>({
+  deps: {
+    AuthHeaders: AuthHeadersToken,
+  },
+  provides: ({AuthHeaders}) => {
+    return async ctx => {
+      const authHeaders = AuthHeaders.from(ctx);
+      return {
+        bedrock: {
+          auth: {
+            uuid: authHeaders.get('uuid'),
+            groups: authHeaders.get('groups'),
+            email: authHeaders.get('email'),
+          },
+        },
+      };
+    };
+  },
+});
