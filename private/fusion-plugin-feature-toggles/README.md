@@ -200,3 +200,27 @@ We are also opinionated on the constraints used to identify (and optionally segm
    * `deviceLanguage: string` - Locale string from the request's 'accept-language' header
    * `ipAddress: string` - IP address from the request
    * `cookieID: string` - UUID4 corresponding to a specific user
+
+##### Installation
+
+The default Morpheus client leverages Atreyu for its server-side communication with backend services.  This requires additional set-up outlined in the [Fusion.js fetching data guide](https://engdocs.uberinternal.com/web/docs/guides/fetching-data).
+
+###### Fetch Treatment service Thrift definition
+
+Run the following code:
+```
+$ npm install idl -g
+$ idl fetch code.uber.internal/data/treatment
+```
+
+###### Configure Fusion.js app
+
+Update `src/config/atreyu.js` to include the `treatment` service.  For example:
+```
+export default {
+  // Enumerate what backend services you are communicating with.
+  // Find services at https://infra.uberinternal.com/apps/
+  // Fetch the IDL files when you add new services via [idl command](t.uber.com/idl)
+  serviceNames: ['treatment'], // list of downstream service names
+};
+```
