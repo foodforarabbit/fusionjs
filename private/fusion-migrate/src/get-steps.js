@@ -58,6 +58,7 @@ const setRoutePrefix = require('./commands/route-prefix.js');
 const setServiceId = require('./commands/svc-id.js');
 const replaceExportDefaultTemplate = require('./codemods/export-default-template/replace.js');
 const resetExportDefaultTemplate = require('./codemods/export-default-template/reset.js');
+const modRemoveI18nPlugins = require('./codemods/remove-i18n-plugins/plugin.js');
 
 module.exports = function getSteps(options) {
   options.config = loadConfig(options.destDir);
@@ -90,6 +91,11 @@ function get14Steps(options) {
     get(config, 'dev.server.proxies') ||
     get(config, 'common.server.proxies') ||
     get(config, 'prod.server.proxies');
+
+  const rosettaEnabled =
+    get(config, 'prod.clients.rosetta.enabled') ||
+    get(config, 'common.clients.rosetta.enabled') ||
+    get(config, 'dev.clients.rosetta.enabled');
 
   const teamName = get(config, 'common.meta.team');
   const routePrefix = get(config, 'common.server.routePrefix');
@@ -324,6 +330,13 @@ function get14Steps(options) {
         glob: 'src/main.js',
       })
     ),
+    !rosettaEnabled &&
+      getStep('remove-i18n-plugins', () => {
+        codemodStep({
+          ...options,
+          plugin: modRemoveI18nPlugins,
+        });
+      }),
     getStep('add-no-flow-annotation', () => addNoFlowAnnotation(options)),
     getStep('lint-fix', () => lintFix(options)),
   ].filter(Boolean);
