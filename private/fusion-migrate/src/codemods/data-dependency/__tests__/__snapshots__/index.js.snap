@@ -29,15 +29,15 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react';
-import {connect} from 'react-redux';
-import {createRPCPromise} from '@uber/web-rpc-redux';
-import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import App from '../app';
 import Trips from '../trips';
+import {compose} from 'redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {connect} from 'react-redux';
+import {prepared} from 'fusion-react';
+import {withRouter} from 'fusion-plugin-react-router';
 import rpcIds from './rpcids';
 
 const other = args => {
@@ -138,15 +138,15 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react';
-import {connect} from 'react-redux';
-import {createRPCPromise} from '@uber/web-rpc-redux';
-import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import App from '../app';
 import Trips from '../trips';
+import {compose} from 'redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {connect} from 'react-redux';
+import {prepared} from 'fusion-react';
+import {withRouter} from 'fusion-plugin-react-router';
 import rpcIds from './rpcids';
 
 const getUser = args => {
@@ -239,15 +239,15 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react';
-import {connect} from 'react-redux';
-import {createRPCPromise} from '@uber/web-rpc-redux';
-import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import App from '../app';
 import Trips from '../trips';
+import {compose} from 'redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {connect} from 'react-redux';
+import {prepared} from 'fusion-react';
+import {withRouter} from 'fusion-plugin-react-router';
 import rpcIds from './rpcids';
 
 const getPartners = args => {
@@ -343,15 +343,15 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react';
-import {connect} from 'react-redux';
-import {createRPCPromise} from '@uber/web-rpc-redux';
-import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import App from '../app';
 import Trips from '../trips';
+import {compose} from 'redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {connect} from 'react-redux';
+import {prepared} from 'fusion-react';
+import {withRouter} from 'fusion-plugin-react-router';
 import rpcIds from './rpcids';
 
 const test = args => {
@@ -465,14 +465,14 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react';
-import {connect} from 'react-redux';
-import {createRPCPromise} from '@uber/web-rpc-redux';
-import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
+import {compose} from 'redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {connect} from 'react-redux';
+import {prepared} from 'fusion-react';
+import {withRouter} from 'fusion-plugin-react-router';
 import TripsContainer from '../containers/trips-container';
 
 const getTrips = args => {
@@ -571,14 +571,14 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react';
-import {connect} from 'react-redux';
-import {createRPCPromise} from '@uber/web-rpc-redux';
-import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
+import {compose} from 'redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {connect} from 'react-redux';
+import {prepared} from 'fusion-react';
+import {withRouter} from 'fusion-plugin-react-router';
 import TripsContainer from '../containers/trips-container';
 
 const getTrips = args => {
@@ -680,14 +680,14 @@ const routes = (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react';
-import {connect} from 'react-redux';
-import {createRPCPromise} from '@uber/web-rpc-redux';
-import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
+import {compose} from 'redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {connect} from 'react-redux';
+import {prepared} from 'fusion-react';
+import {withRouter} from 'fusion-plugin-react-router';
 import TripsContainer from '../containers/trips-container';
 
 const getTrips = args => {
@@ -782,14 +782,14 @@ export default function() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
-import {prepared} from 'fusion-react';
-import {connect} from 'react-redux';
-import {createRPCPromise} from '@uber/web-rpc-redux';
-import {compose} from 'redux';
 import React from 'react';
 import {Route, IndexRedirect} from 'react-router';
 import AppContainer from '../containers/app-container';
+import {compose} from 'redux';
+import {createRPCPromise} from '@uber/web-rpc-redux';
+import {connect} from 'react-redux';
+import {prepared} from 'fusion-react';
+import {withRouter} from 'fusion-plugin-react-router';
 import TripsContainer from '../containers/trips-container';
 
 const getTrips = args => {

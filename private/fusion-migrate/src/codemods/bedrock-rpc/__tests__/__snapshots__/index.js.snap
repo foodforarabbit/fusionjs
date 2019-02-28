@@ -33,8 +33,6 @@ export default function(server) {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
-import {createPlugin} from 'fusion-core';
 import M3 from '@uber/bedrock/universal-m3';
 import Logger from '@uber/bedrock/universal-logger';
 import WebRpcAtreyu from '@uber/web-rpc-atreyu';
@@ -42,6 +40,8 @@ import getAuthParams from '@uber/get-auth-params';
 import {rpcIds} from '../shared/rpc-constants';
 import atreyuGraphs from './atreyu/graphs';
 import atreyuSeeds from './atreyu/seeds';
+import {createPlugin} from 'fusion-core';
+import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
 import atreyuTransforms from './atreyu/transforms';
 
 function getRPCHandlers(server) {
@@ -111,8 +111,6 @@ export default server => {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
-import {createPlugin} from 'fusion-core';
 import M3 from '@uber/bedrock/universal-m3';
 import Logger from '@uber/bedrock/universal-logger';
 import WebRpcAtreyu from '@uber/web-rpc-atreyu';
@@ -120,6 +118,8 @@ import getAuthParams from '@uber/get-auth-params';
 import {rpcIds} from '../shared/rpc-constants';
 import atreyuGraphs from './atreyu/graphs';
 import atreyuSeeds from './atreyu/seeds';
+import {createPlugin} from 'fusion-core';
+import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
 import atreyuTransforms from './atreyu/transforms';
 
 const getRPCHandlers = server => {
@@ -188,8 +188,6 @@ export default function rpc(server) {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
-import {createPlugin} from 'fusion-core';
 import M3 from '@uber/bedrock/universal-m3';
 import Logger from '@uber/bedrock/universal-logger';
 import WebRpcAtreyu from '@uber/web-rpc-atreyu';
@@ -197,6 +195,8 @@ import getAuthParams from '@uber/get-auth-params';
 import {rpcIds} from '../shared/rpc-constants';
 import atreyuGraphs from './atreyu/graphs';
 import atreyuSeeds from './atreyu/seeds';
+import {createPlugin} from 'fusion-core';
+import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
 import atreyuTransforms from './atreyu/transforms';
 
 function rpc(server) {

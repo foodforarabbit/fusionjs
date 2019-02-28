@@ -21,10 +21,10 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
 import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
+import {withRouter} from 'fusion-plugin-react-router';
 import {AppContainer} from '../containers/app-container';
 export default (
   <Route
@@ -102,10 +102,10 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
 import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
+import {withRouter} from 'fusion-plugin-react-router';
 
 const _AppContainer = withRouter(AppContainer);
 
@@ -165,10 +165,10 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
 import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
+import {withRouter} from 'fusion-plugin-react-router';
 
 const _AppContainer = withRouter(AppContainer);
 
@@ -228,10 +228,10 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {withRouter} from 'fusion-plugin-react-router';
 import React from 'react';
 import {Route, IndexRoute, Redirect, IndexRedirect} from 'react-router';
 import FourOhFour from './not-found';
+import {withRouter} from 'fusion-plugin-react-router';
 
 const _AppContainer = withRouter(AppContainer);
 

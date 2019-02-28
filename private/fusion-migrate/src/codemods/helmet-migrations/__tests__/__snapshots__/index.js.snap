@@ -24,10 +24,10 @@ export default <Root />;
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // @flow
-import {Helmet} from 'fusion-plugin-react-helmet-async';
-import {assetUrl} from 'fusion-core';
 import React from 'react';
 import {Route, Switch, NotFound} from 'fusion-plugin-react-router';
+import {assetUrl} from 'fusion-core';
+import {Helmet} from 'fusion-plugin-react-helmet-async';
 import Welcome from './welcome.js';
 
 const PageNotFound = () => (

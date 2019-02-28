@@ -22,14 +22,14 @@ function thing() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';
+import App from 'fusion-react';
+import {createPlugin} from 'fusion-core';
+import SomePlugin, {SomeToken} from '@uber/fusion-plugin-secure-headers';
 import BedrockCompatPlugin, {
   InitializeServerToken,
   BedrockCompatToken,
 } from '@uber/fusion-plugin-bedrock-compat';
-import App from 'fusion-react';
-import {createPlugin} from 'fusion-core';
-import SomePlugin, {SomeToken} from '@uber/fusion-plugin-secure-headers';
+import HttpHandlerPlugin, {HttpHandlerToken} from 'fusion-plugin-http-handler';
 import {OtherToken, OtherPlugin} from 'other-plugin';
 console.log(App);
 

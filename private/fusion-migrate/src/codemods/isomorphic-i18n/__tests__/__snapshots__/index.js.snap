@@ -29,8 +29,8 @@ function Test() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Translate} from 'fusion-plugin-i18n-react';
 import i18n from '@uber/isomorphic-i18n-compat';
+import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
@@ -100,8 +100,8 @@ function Test() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Translate} from 'fusion-plugin-i18n-react';
 import i18n from '@uber/isomorphic-i18n-compat';
+import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
@@ -170,8 +170,8 @@ function Test() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Translate} from 'fusion-plugin-i18n-react';
 import {t} from '@uber/isomorphic-i18n-compat';
+import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
@@ -240,8 +240,8 @@ function Test() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Translate} from 'fusion-plugin-i18n-react';
 import {t} from '@uber/isomorphic-i18n-compat';
+import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
@@ -354,8 +354,8 @@ function Test() {
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // @flow
-import {Translate} from 'fusion-plugin-i18n-react';
 import foo from 'foo';
+import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
@@ -447,8 +447,8 @@ function Test() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
+import {Translate} from 'fusion-plugin-i18n-react';
 
 function Test() {
   const nonJSX = <Translate id=\\"thing\\" />;

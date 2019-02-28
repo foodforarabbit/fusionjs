@@ -28,12 +28,12 @@ export default function getRoutes() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import React from 'react';
 import FourOhFour from './not-found';
 import AppContainer from '../containers/app-container';
 import TagsEditorContainer from '../containers/tags-editor-container';
 import CounterContainer from '../containers/counter-container';
+import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import ExampleErrorContainer from '../containers/example-error-container';
 const test = 'hello';
 
@@ -82,12 +82,12 @@ export default function getRoutes() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import React from 'react';
 import FourOhFour from './not-found';
 import AppContainer from '../containers/app-container';
 import TagsEditorContainer from '../containers/tags-editor-container';
 import CounterContainer from '../containers/counter-container';
+import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import ExampleErrorContainer from '../containers/example-error-container';
 const test = 'hello';
 
@@ -133,12 +133,12 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import React from 'react';
 import FourOhFour from './not-found';
 import AppContainer from '../containers/app-container';
 import TagsEditorContainer from '../containers/tags-editor-container';
 import CounterContainer from '../containers/counter-container';
+import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import ExampleErrorContainer from '../containers/example-error-container';
 
 const _routes = (
@@ -183,12 +183,12 @@ export default (
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import React from 'react';
 import FourOhFour from './not-found';
 import AppContainer from '../containers/app-container';
 import TagsEditorContainer from '../containers/tags-editor-container';
 import CounterContainer from '../containers/counter-container';
+import {Redirect, Route, Switch} from 'fusion-plugin-react-router';
 import ExampleErrorContainer from '../containers/example-error-container';
 
 const _routes = (

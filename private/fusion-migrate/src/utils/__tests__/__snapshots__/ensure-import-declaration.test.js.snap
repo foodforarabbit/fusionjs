@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ensureImportDeclaration default, no existing 1`] = `
-"import Test from 'test';
-import A from 'A';
+"import A from 'A';
+import Test from 'test';
 import B, { C } from 'C';
 export default function test() {}"
 `;
@@ -29,8 +29,8 @@ export default function test() {}"
 `;
 
 exports[`ensureImportDeclaration, specifier, no existing 1`] = `
-"import { Test } from 'test';
-import A from 'A';
+"import A from 'A';
+import { Test } from 'test';
 import B, { C } from 'C';
 export default function test() {}"
 `;

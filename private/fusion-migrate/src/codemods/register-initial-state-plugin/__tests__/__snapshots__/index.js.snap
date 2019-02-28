@@ -8,8 +8,8 @@ app.register(ReduxToken, ReactReduxPlugin);
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import GetInitialStatePlugin from './plugins/get-initial-state';
 import {GetInitialStateToken} from 'fusion-plugin-redux-react';
+import GetInitialStatePlugin from './plugins/get-initial-state';
 import ReactReduxPlugin, {ReduxToken} from 'fusion-plugin-react-redux';
 app.register(ReduxToken, ReactReduxPlugin);
 __NODE__ && app.register(GetInitialStateToken, GetInitialStatePlugin);

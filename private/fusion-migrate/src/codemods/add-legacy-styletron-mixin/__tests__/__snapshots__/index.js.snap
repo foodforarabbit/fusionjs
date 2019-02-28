@@ -13,8 +13,8 @@ export default function start() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {legacyStyling} from '@uber/fusion-legacy-styling-compat-mixin';
 import App from 'fusion-react';
+import {legacyStyling} from '@uber/fusion-legacy-styling-compat-mixin';
 import StyletronPlugin from 'fusion-plugin-styletron-react';
 export default function start() {
   const LegacyStyledApp = legacyStyling(App);

@@ -11,19 +11,11 @@ module.exports = function ensureImportDeclaration(body, importString) {
     );
   });
   if (!matchingNode) {
-    if (
-      body[0] &&
-      body[0].leadingComments &&
-      body[0].leadingComments[0] &&
-      body[0].leadingComments[0].value.match(/@flow/)
-    ) {
-      const flowComment = body[0].leadingComments.shift();
-      declaration.leadingComments = [
-        flowComment,
-        ...(declaration.leadingComments || []),
-      ];
+    let index = 0;
+    while (index < body.length && body[index].type === 'ImportDeclaration') {
+      index++;
     }
-    body.unshift(declaration);
+    body.splice(Math.max(index - 1, 0), 0, declaration);
     return;
   }
   declaration.specifiers.forEach(newSpecifier => {
