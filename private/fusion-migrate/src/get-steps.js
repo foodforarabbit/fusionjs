@@ -59,6 +59,7 @@ const setServiceId = require('./commands/svc-id.js');
 const replaceExportDefaultTemplate = require('./codemods/export-default-template/replace.js');
 const resetExportDefaultTemplate = require('./codemods/export-default-template/reset.js');
 const modRemoveI18nPlugins = require('./codemods/remove-i18n-plugins/plugin.js');
+const modNavRouter = require('./codemods/react-router-nav-link/plugin.js');
 
 module.exports = function getSteps(options) {
   options.config = loadConfig(options.destDir);
@@ -321,6 +322,19 @@ function get14Steps(options) {
         glob: 'src/app.js',
       })
     ),
+    getStep('mod-nav-link', () => {
+      codemodStep({
+        ...options,
+        plugin: modNavRouter,
+      });
+    }),
+    !rosettaEnabled &&
+      getStep('remove-i18n-plugins', () => {
+        codemodStep({
+          ...options,
+          plugin: modRemoveI18nPlugins,
+        });
+      }),
     // This should be the final codemod as it changes the new App expression,
     // which means other codemods won't be able to find the new App expression
     getStep('add-legacy-styletron-mixin', () =>
@@ -330,13 +344,6 @@ function get14Steps(options) {
         glob: 'src/main.js',
       })
     ),
-    !rosettaEnabled &&
-      getStep('remove-i18n-plugins', () => {
-        codemodStep({
-          ...options,
-          plugin: modRemoveI18nPlugins,
-        });
-      }),
     getStep('add-no-flow-annotation', () => addNoFlowAnnotation(options)),
     getStep('lint-fix', () => lintFix(options)),
   ].filter(Boolean);
