@@ -66,6 +66,21 @@ export const provision = async () => {
   let awdToken = '';
 
   const stepper = new Stepper([
+    step('Intro message to user', async () => {
+      console.log(`
+INFORMATION:
+  * This command should be run from within the root directory of the service you wish to provision.
+  * Provisioning will create docker instances, build and deploy your code on uDeploy, set up associated traffic groups and endpoints to route to your application, and set up Jenkins and uMonitor.
+  * This process will collect information upfront, then work in the background. Expect this to take about an hour, possibly longer.
+  * Provisioning may pause at certain points. Follow the directions sent to you to get the process unpaused.
+  * You may re-run 'uber-web provision' at any time to check on the status of your provisioning.
+
+LIMITATIONS:
+  * Only tier 3-5 services are supported using this tool. If you require a more critical tier, ensure you have an approved ERD and contact Web Platform.
+  * Only 1 machine is provisioned per zone by default. A maximum of 2 per zone is available for services in the prototype stage. You can adjust this post provision within Infraportal.
+  * Breeze integration for external sites is not supported. If you require onboarding visit https://engdocs.uberinternal.com/arch/onboarding.html and manually configure within Pathfinder.
+`);
+    }),
     step('Precheck - Git and service directory', async () => {
       console.log('Now checking service directory status...');
       await checkGitRepository();
