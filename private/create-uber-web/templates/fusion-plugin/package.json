@@ -43,12 +43,12 @@
     }
   },
   "dependencies": {
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.2.0",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/plugin-transform-runtime": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
@@ -56,8 +56,8 @@
     "babel-jest": "^24.1.0",
     "create-universal-package": "^3.4.6",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.9.1",
-    "eslint": "^5.14.1",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "eslint": "^5.15.1",
     "eslint-config-fusion": "^4.0.0",
     "eslint-plugin-cup": "^2.0.1",
     "eslint-plugin-flowtype": "^3.4.2",
@@ -65,9 +65,9 @@
     "eslint-plugin-jest": "^22.3.0",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
-    "flow-bin": "^0.92.1",
-    "fusion-core": "^1.10.3",
-    "fusion-test-utils": "^1.4.0",
+    "flow-bin": "^0.94.0",
+    "fusion-core": "^1.10.4",
+    "fusion-test-utils": "^1.4.1",
     "fusion-tokens": "^1.1.1",
     "jest": "^24.1.0",
     "jest-environment-jsdom-global": "^1.1.1",
@@ -75,7 +75,7 @@
     "prettier": "^1.16.4"
   },
   "peerDependencies": {
-    "fusion-core": "^1.10.3",
+    "fusion-core": "^1.10.4",
     "fusion-tokens": "^1.1.1"
   },
   "resolutions": {

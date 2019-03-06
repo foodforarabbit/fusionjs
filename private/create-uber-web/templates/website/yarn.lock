@@ -996,10 +996,10 @@
   dependencies:
     eslint-plugin-jest "^22.0.0"
 
-"@uber/fusion-plugin-events-adapter@^1.12.0":
-  version "1.12.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-events-adapter/-/private/%40uber%2Ffusion-plugin-events-adapter-1.12.0.tgz#a86d7d8cf584809dfa54814079faf1b96f4518c3"
-  integrity sha512-CK6an93z8xBgEdQw42ZNkRaZfvppTj506iTClLLKnixuPENxCjk/nQpy3t/VvarXKgK+GlMbk6zl2qOhWAbVUw==
+"@uber/fusion-plugin-events-adapter@^1.12.1":
+  version "1.12.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-events-adapter/-/private/%40uber%2Ffusion-plugin-events-adapter-1.12.1.tgz#3c8ad0c1723ec937acb5cb69d98786d6c67f303c"
+  integrity sha512-wagUOIXDEszlCnBwRQG2YaW0WdjLK1BRdVIO7jsGE9K0OHumYoknd6/utXO3uSqYmHxOhRuyatU6asaksndY+A==
   dependencies:
     "@uber/web-perf-collector" "0.9.0"
     request "^2.88.0"
@@ -2103,15 +2103,17 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^6.1.0:
-  version "6.1.0"
-  resolved "https://unpm.uberinternal.com/baseui/-/baseui-6.1.0.tgz#45952a85f48b15bdea39478c0180a9e8b056896c"
-  integrity sha512-QGDF1UjPrvkvjWvhARoapSVrsWdEO/DM8uIc9hMOmoXRJC2ybTxQtv6IqHMAP23i2ENXnlwtBhx5UjgDCIEUHg==
+baseui@^6.4.2:
+  version "6.4.2"
+  resolved "https://unpm.uberinternal.com/baseui/-/baseui-6.4.2.tgz#a9d358ae531c9c1944edc19628b5e90b6b594732"
+  integrity sha512-hbTEX3ys9/ndHfSxf3QF8Sc9GLBclh/IjrEsYptAeRDU/PuAJkit7nWKYa9DQW6E3T62FKIGD3NaeaQKoHMqLA==
   dependencies:
     date-fns "2.0.0-alpha.27"
+    focus-trap "^4.0.2"
+    just-extend "^4.0.2"
     memoize-one "^5.0.0"
     popper.js "^1.14.3"
-    react-dropzone "^8.0.0"
+    react-dropzone "^9.0.0"
     react-input-mask "^2.0.4"
     react-movable "^2.0.1"
     react-range "^1.0.4"
@@ -3583,6 +3585,18 @@ env-variable@0.0.x:
   resolved "https://unpm.uberinternal.com/env-variable/-/env-variable-0.0.5.tgz#913dd830bef11e96a039c038d4130604eba37f88"
   integrity sha512-zoB603vQReOFvTg5xMl9I1P2PnHsHQQKTEowsKKD7nseUfJq6UWzK+4YtlWUO1nhiQUxe6XMkk+JleSZD1NZFA==
 
+enzyme-adapter-react-16@^1.10.0:
+  version "1.10.0"
+  resolved "https://unpm.uberinternal.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.10.0.tgz#12e5b6f4be84f9a2ef374acc2555f829f351fc6e"
+  integrity sha512-0QqwEZcBv1xEEla+a3H7FMci+y4ybLia9cZzsdIrId7qcig4MK0kqqf6iiCILH1lsKS6c6AVqL3wGPhCevv5aQ==
+  dependencies:
+    enzyme-adapter-utils "^1.10.0"
+    object.assign "^4.1.0"
+    object.values "^1.1.0"
+    prop-types "^15.6.2"
+    react-is "^16.7.0"
+    react-test-renderer "^16.0.0-0"
+
 enzyme-adapter-react-16@^1.7.0:
   version "1.7.1"
   resolved "https://unpm.uberinternal.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.7.1.tgz#c37c4cb0fd75e88a063154a7a88096474914496a"
@@ -3594,19 +3608,6 @@ enzyme-adapter-react-16@^1.7.0:
     object.values "^1.0.4"
     prop-types "^15.6.2"
     react-is "^16.6.1"
-    react-test-renderer "^16.0.0-0"
-
-enzyme-adapter-react-16@^1.9.1:
-  version "1.9.1"
-  resolved "https://unpm.uberinternal.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.9.1.tgz#6d49a3a31c3a0fccf527610f31b837e0f307128a"
-  integrity sha512-Egzogv1y77DUxdnq/CyHxLHaNxmSSKDDSDNNB/EiAXCZVFXdFibaNy2uUuRQ1n24T2m6KH/1Rw16XDRq+1yVEg==
-  dependencies:
-    enzyme-adapter-utils "^1.10.0"
-    function.prototype.name "^1.1.0"
-    object.assign "^4.1.0"
-    object.values "^1.1.0"
-    prop-types "^15.6.2"
-    react-is "^16.7.0"
     react-test-renderer "^16.0.0-0"
 
 enzyme-adapter-utils@^1.10.0, enzyme-adapter-utils@^1.9.0:
@@ -3886,6 +3887,14 @@ eslint-scope@^4.0.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
+eslint-scope@^4.0.2:
+  version "4.0.2"
+  resolved "https://unpm.uberinternal.com/eslint-scope/-/eslint-scope-4.0.2.tgz#5f10cd6cabb1965bf479fa65745673439e21cb0e"
+  integrity sha512-5q1+B/ogmHl8+paxtOKx38Z8LtWkVGuNt3+GQNErqwLl6ViNp/gdJGMCjZNxZ8j/VYjDNZ2Fo+eQc1TAVPIzbg==
+  dependencies:
+    esrecurse "^4.1.0"
+    estraverse "^4.1.1"
+
 eslint-utils@^1.3.1:
   version "1.3.1"
   resolved "https://unpm.uberinternal.com/eslint-utils/-/eslint-utils-1.3.1.tgz#9a851ba89ee7c460346f97cf8939c7298827e512"
@@ -3896,10 +3905,10 @@ eslint-visitor-keys@^1.0.0:
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
   integrity sha512-qzm/XxIbxm/FHyH341ZrbnMUpe+5Bocte9xkmFMzPMjRaZMcXww+MpBptFvtU+79L362nqiLhekCxCxDPaUMBQ==
 
-eslint@^5.14.1:
-  version "5.14.1"
-  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.14.1.tgz#490a28906be313685c55ccd43a39e8d22efc04ba"
-  integrity sha512-CyUMbmsjxedx8B0mr79mNOqetvkbij/zrXnFeK2zc3pGRn3/tibjiNAv/3UxFEyfMDjh+ZqTrJrEGBFiGfD5Og==
+eslint@^5.15.1:
+  version "5.15.1"
+  resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.15.1.tgz#8266b089fd5391e0009a047050795b1d73664524"
+  integrity sha512-NTcm6vQ+PTgN3UBsALw5BMhgO6i5EpIjQF/Xb5tIh3sk9QhrFafujUOczGz4J24JBlzWclSB9Vmx8d+9Z6bFCg==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.9.1"
@@ -3907,7 +3916,7 @@ eslint@^5.14.1:
     cross-spawn "^6.0.5"
     debug "^4.0.1"
     doctrine "^3.0.0"
-    eslint-scope "^4.0.0"
+    eslint-scope "^4.0.2"
     eslint-utils "^1.3.1"
     eslint-visitor-keys "^1.0.0"
     espree "^5.0.1"
@@ -4360,6 +4369,13 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
+file-selector@^0.1.8:
+  version "0.1.10"
+  resolved "https://unpm.uberinternal.com/file-selector/-/file-selector-0.1.10.tgz#5e39e07fb330de63143e4be90d207358ea39e28e"
+  integrity sha512-wr0KDRkIZPDUc5zHsBEbtIa0A5apzA15aYGdDFYzUnGFVF+uXO5izWTRtA3oj+HO7+RMi76XqKdcx66gNmsBcw==
+  dependencies:
+    tslib "^1.9.0"
+
 file-type@^10.7.0:
   version "10.7.1"
   resolved "https://unpm.uberinternal.com/file-type/-/file-type-10.7.1.tgz#bcfdd618fddfa7f7e5fc504e08b62cfec7bda8f2"
@@ -4467,10 +4483,10 @@ flatten@0.0.1:
   resolved "https://unpm.uberinternal.com/flatten/-/flatten-0.0.1.tgz#554440766da0a0d603999f433453f6c2fc6a75c1"
   integrity sha1-VURAdm2goNYDmZ9DNFP2wvxqdcE=
 
-flow-bin@^0.92.1:
-  version "0.92.1"
-  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.92.1.tgz#32c136c07235f30c42dc0549a0790f370fad4070"
-  integrity sha512-F5kC5oQOR2FXROAeybJHFqgZP+moKV9fa/53QK4Q4WayTQHdA0KSl48KD1gP0A9mioRLiKUegTva/7I15cX3Iw==
+flow-bin@^0.94.0:
+  version "0.94.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.94.0.tgz#b5d58fe7559705b73a18229f97edfc3ab6ffffcb"
+  integrity sha512-DYF7r9CJ/AksfmmB4+q+TyLMoeQPRnqtF1Pk7KY3zgfkB/nVuA3nXyzqgsIPIvnMSiFEXQcFK4z+iPxSLckZhQ==
 
 flush-write-stream@^1.0.0:
   version "1.0.3"
@@ -4479,6 +4495,14 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
+
+focus-trap@^4.0.2:
+  version "4.0.2"
+  resolved "https://unpm.uberinternal.com/focus-trap/-/focus-trap-4.0.2.tgz#4ee2b96547c9ea0e4252a2d4b2cca68944194663"
+  integrity sha512-HtLjfAK7Hp2qbBtLS6wEznID1mPT+48ZnP2nkHzgjpL4kroYHg0CdqJ5cTXk+UO5znAxF5fRUkhdyfgrhh8Lzw==
+  dependencies:
+    tabbable "^3.1.2"
+    xtend "^4.0.1"
 
 follow-redirects@^1.0.0:
   version "1.6.1"
@@ -4648,10 +4672,10 @@ fusion-cli@^1.13.1:
     webpack-hot-middleware "^2.24.3"
     winston "^3.1.0"
 
-fusion-cli@^1.17.0:
-  version "1.17.0"
-  resolved "https://unpm.uberinternal.com/fusion-cli/-/fusion-cli-1.17.0.tgz#bd5bbcaddf49b37d855d2b29db441e70a7f507fe"
-  integrity sha512-QxzHh3F+k/6QWUt/I08aSX6lhOEjvSN8Ly2m8NyW1aFRj4RukpmK7KVMJomqToifJuReu75WH3ybvMeeex6sAA==
+fusion-cli@^1.18.0:
+  version "1.18.0"
+  resolved "https://unpm.uberinternal.com/fusion-cli/-/fusion-cli-1.18.0.tgz#2d737adc7f71646e1c829562a0abe8e174bd39f0"
+  integrity sha512-QFquTcqleV9hQYsip3FhJGSELJysqbJmCc/cZi+mIjBuOOQ9bYOjCI2Gp5UL/3OdVIMf+kfNtpJS7cj8zBXn3A==
   dependencies:
     "@babel/core" "^7.1.6"
     "@babel/plugin-syntax-dynamic-import" "7.2.0"
@@ -4700,10 +4724,10 @@ fusion-cli@^1.17.0:
     webpack-hot-middleware "^2.24.3"
     winston "^3.1.0"
 
-fusion-core@^1.10.3:
-  version "1.10.3"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.10.3.tgz#a38ed16ac03ae11dda50faa5c2a69ccdc0f1c3d5"
-  integrity sha512-Nf6EpfxKrUTTkN2NuHd3N5ZJsmXQQTRt+mMMIOTTKBj1j2RNjKY1VPY3BEHpnpDGVXwtpq5hNcBW7iDGbxy6Fw==
+fusion-core@^1.10.4:
+  version "1.10.4"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.10.4.tgz#4e0f4e54d4b9992e1a8a31f3dcf2f5e2c8cde8d0"
+  integrity sha512-KAbIXOKLSwek8lKjnx6ChaFE9JgMvhazMh/tmWlDYPtebu3s/JL++I7qZ8chJ8BcO7IhdhjueRZ0IM/2oqFDGA==
   dependencies:
     koa "^2.6.2"
     koa-compose "^4.1.0"
@@ -4796,10 +4820,10 @@ fusion-plugin-react-redux@^1.1.1:
   dependencies:
     eslint-plugin-jest "^22.1.0"
 
-fusion-plugin-react-router@^1.5.2:
-  version "1.5.2"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-react-router/-/fusion-plugin-react-router-1.5.2.tgz#147e871485675461c790c35fa370678c18404f98"
-  integrity sha512-16lyAmhQhJx9AfqbhDa5H4h2jk1DF47BbED3IeSMcx/rKYMSbMWMlTgcG+S839sFXJUTWpESVVROvjfmqRZTsA==
+fusion-plugin-react-router@^1.5.3:
+  version "1.5.3"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-react-router/-/fusion-plugin-react-router-1.5.3.tgz#90fe0f750f71edaeead28a131e3d4d5c8e0bd51c"
+  integrity sha512-tpP+rOdrD/cIAJ5jWuv5ZdHgac6JCkn73ZEFmYlv2f/eTOhGk8VuyFWIXhB/g9SBRia00JuWs9L/QfCFj1yiTA==
   dependencies:
     history "^4.7.2"
     prop-types "^15.6.2"
@@ -4812,10 +4836,10 @@ fusion-plugin-redux-action-emitter-enhancer@^2.0.1:
   dependencies:
     eslint-plugin-jest "^22.0.0"
 
-fusion-plugin-rpc-redux-react@^2.0.6:
-  version "2.0.6"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-rpc-redux-react/-/fusion-plugin-rpc-redux-react-2.0.6.tgz#9213448ff558bede9ba251cdab70e862e4de0b3a"
-  integrity sha512-fJDdGE+wTGc2V/C3j6c9PX/regVCimoXZhoX0NDrBHpjHACNtImB46qQyvhQrFRlYwZ0TSpQt8TngVHOsif9KQ==
+fusion-plugin-rpc-redux-react@^2.1.0:
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-rpc-redux-react/-/fusion-plugin-rpc-redux-react-2.1.0.tgz#2dddde65b21b837dd8f586189d8e299a3ea9304c"
+  integrity sha512-gpYW8Y93Pd9wcsCSYz0qQsIqk9IQDOF2/DWrtcVorCP60MSoW20iz47NaS3NPThonhCJOLntWu7N37ffj9gARA==
   dependencies:
     fusion-plugin-rpc "^2.3.0"
     fusion-rpc-redux "^1.4.0"
@@ -4840,12 +4864,12 @@ fusion-plugin-styletron-react@^2.5.4:
     css-to-js-sourcemap-worker "^2.0.2"
     styletron-engine-atomic "^1.0.8"
 
-fusion-plugin-universal-events-react@^1.0.8:
-  version "1.0.8"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events-react/-/fusion-plugin-universal-events-react-1.0.8.tgz#2bce40086c15bb3dbd4c0ae3d083c6db4fc2b0fa"
-  integrity sha512-w3tJ2+G8rpb0s03a1CBIM8kP1f2oht9xqSj15Nun2SzP/hVz5zTcBT71p4pYmlqdjRnLOqOLbGdEHIu7ew5nRw==
+fusion-plugin-universal-events-react@^1.0.9:
+  version "1.0.9"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events-react/-/fusion-plugin-universal-events-react-1.0.9.tgz#686114719315809d4c320a63e31b34ad84c64c2f"
+  integrity sha512-zAzE3GJjsnJ+hEWecDA5AKpPiUjVrkjhaI1U4GKRvRgPwxIOx/0dZldBAKnPif1cPB9D/pzNdr6eAPESd3YqkA==
   dependencies:
-    fusion-plugin-universal-events "^1.3.2"
+    fusion-plugin-universal-events "^1.3.3"
     fusion-test-utils "^1.3.1"
 
 fusion-plugin-universal-events@^1.3.0:
@@ -4855,20 +4879,19 @@ fusion-plugin-universal-events@^1.3.0:
   dependencies:
     koa-bodyparser "4.2.1"
 
-fusion-plugin-universal-events@^1.3.2:
-  version "1.3.2"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.3.2.tgz#b97463547c733405741c12711bb4bcdcd391beb0"
-  integrity sha512-O5xDe5EfjKuCaCqAXhnCzjzVeXGdbbkUSXMDBcCuwnXvLUQJ77nW7fWZrscR9CNyNLger0G7dp/etW3BCpMmWw==
+fusion-plugin-universal-events@^1.3.3:
+  version "1.3.3"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-universal-events/-/fusion-plugin-universal-events-1.3.3.tgz#14b6095fb62549ec7e88483f7eb58f9018a66aca"
+  integrity sha512-VQHagBH2dQazo+hZVT61cvcdor5L5iBGsqLuKq0C0LxCHCq1z8VFN6kY7vd32wOgeD6NJPPXA6chFqWOxy+jLw==
   dependencies:
     koa-bodyparser "4.2.1"
 
-fusion-react@^1.3.7:
-  version "1.3.7"
-  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-1.3.7.tgz#7ece897feff9ef67c33f13f376929fd5a1e471f6"
-  integrity sha512-Zs60GxwkjEkDb2jqcdxnWmGDxUDtD8VJmT6ipnr66oXQHSDl3iMtUDQIXFFg9mZG6jeRFF+BAK1Bhf3SMKt2PQ==
+fusion-react@^2.0.0:
+  version "2.0.0"
+  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-2.0.0.tgz#74c0a9787c6b1db03af2195cb45a8ec27fbc1191"
+  integrity sha512-eN2miThQCo7iGYvjaJtRv7qZBwSX9rUje1RNIp/NvVYHuBPvdfg3DmXlg8OWBx5y4tMFMOOu2DepcyUlrgVSbg==
   dependencies:
     prop-types "^15.6.2"
-    react-is "^16.7.0"
 
 fusion-rpc-redux@^1.4.0:
   version "1.4.1"
@@ -4886,14 +4909,14 @@ fusion-test-utils@^1.3.1:
     koa "^2.6.2"
     node-mocks-http "^1.6.6"
 
-fusion-test-utils@^1.4.0:
-  version "1.4.0"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.4.0.tgz#beac28366b6f717f9ca35887ba8208f0ca7e1e4c"
-  integrity sha512-rPgz1Ac+/iXWB1HMRPgI0wAswznEUaQpM9gch/xeuKpFSLtzojKOhni5w/yPHghdE3V4NQTqTCXch2Ge9yhYUg==
+fusion-test-utils@^1.4.1:
+  version "1.4.1"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-1.4.1.tgz#d376d1a8fffbc111c866010eeae96a06497db537"
+  integrity sha512-ZX5ILEbX7iVUCg2v5Vx5bRRl5KtXi3nGdIefTEN+3wsYxoLop0cFVr5UYA48/I/7Ndmg+4Hmwu22NfQavwmIDA==
   dependencies:
     assert "^1.4.1"
-    koa "^2.6.2"
-    node-mocks-http "^1.6.6"
+    koa "^2.7.0"
+    node-mocks-http "^1.7.3"
 
 fusion-tokens@^1.1.1:
   version "1.1.1"
@@ -7094,6 +7117,11 @@ jsx-ast-utils@^2.0.1:
   dependencies:
     array-includes "^3.0.3"
 
+just-extend@^4.0.2:
+  version "4.0.2"
+  resolved "https://unpm.uberinternal.com/just-extend/-/just-extend-4.0.2.tgz#f3f47f7dfca0f989c55410a7ebc8854b07108afc"
+  integrity sha512-FrLwOgm+iXrPV+5zDU6Jqu4gCRXbWEQg2O3SKONsWE4w7AXFRkryS53bpWdaL9cNol+AmR3AEYz6kn+o0fCPnw==
+
 just-map-object@^1.2.0:
   version "1.2.0"
   resolved "https://unpm.uberinternal.com/just-map-object/-/just-map-object-1.2.0.tgz#2e523497bf95ac5c00ea620bb462446bdb721a81"
@@ -7259,6 +7287,36 @@ koa@^2.6.2:
   version "2.6.2"
   resolved "https://unpm.uberinternal.com/koa/-/koa-2.6.2.tgz#57ba4d049b0a99cae0d594e6144e2931949a7ce1"
   integrity sha512-KdnBFhTgh9ysMMoYe4J4fLvaKjT7mF3nRYV8MjxLzx6qywFNeptqi4xevyUltg1fZl2CFJ+HeLXuCGx07Yvl/A==
+  dependencies:
+    accepts "^1.3.5"
+    cache-content-type "^1.0.0"
+    content-disposition "~0.5.2"
+    content-type "^1.0.4"
+    cookies "~0.7.1"
+    debug "~3.1.0"
+    delegates "^1.0.0"
+    depd "^1.1.2"
+    destroy "^1.0.4"
+    error-inject "^1.0.0"
+    escape-html "^1.0.3"
+    fresh "~0.5.2"
+    http-assert "^1.3.0"
+    http-errors "^1.6.3"
+    is-generator-function "^1.0.7"
+    koa-compose "^4.1.0"
+    koa-convert "^1.2.0"
+    koa-is-json "^1.0.0"
+    on-finished "^2.3.0"
+    only "~0.0.2"
+    parseurl "^1.3.2"
+    statuses "^1.5.0"
+    type-is "^1.6.16"
+    vary "^1.1.2"
+
+koa@^2.7.0:
+  version "2.7.0"
+  resolved "https://unpm.uberinternal.com/koa/-/koa-2.7.0.tgz#7e00843506942b9d82c6cc33749f657c6e5e7adf"
+  integrity sha512-7ojD05s2Q+hFudF8tDLZ1CpCdVZw8JQELWSkcfG9bdtoTDzMmkRF6BQBU7JzIzCCOY3xd3tftiy/loHBUYaY2Q==
   dependencies:
     accepts "^1.3.5"
     cache-content-type "^1.0.0"
@@ -8968,6 +9026,14 @@ prompts@^2.0.1:
     kleur "^3.0.0"
     sisteransi "^1.0.0"
 
+prop-types-extra@^1.1.0:
+  version "1.1.0"
+  resolved "https://unpm.uberinternal.com/prop-types-extra/-/prop-types-extra-1.1.0.tgz#32609910ea2dcf190366bacd3490d5a6412a605f"
+  integrity sha512-QFyuDxvMipmIVKD2TwxLVPzMnO4e5oOf1vr3tJIomL8E7d0lr6phTHd5nkPhFIzTD1idBLLEPeylL9g+rrTzRg==
+  dependencies:
+    react-is "^16.3.2"
+    warning "^3.0.0"
+
 prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://unpm.uberinternal.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
@@ -9102,10 +9168,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://unpm.uberinternal.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-puppeteer@^1.12.2:
-  version "1.12.2"
-  resolved "https://unpm.uberinternal.com/puppeteer/-/puppeteer-1.12.2.tgz#dbc36afc3ba2d7182b1a37523c0081a0e8507c9a"
-  integrity sha512-xWSyCeD6EazGlfnQweMpM+Hs6X6PhUYhNTHKFj/axNZDq4OmrVERf70isBf7HsnFgB3zOC1+23/8+wCAZYg+Pg==
+puppeteer@^1.13.0:
+  version "1.13.0"
+  resolved "https://unpm.uberinternal.com/puppeteer/-/puppeteer-1.13.0.tgz#187ccf5ed5caf08ed1291b262d033cc364bf88ab"
+  integrity sha512-LUXgvhjfB/P6IOUDAKxOcbCz9ISwBLL9UpKghYrcBDwrOGx1m60y0iN2M64mdAUbT4+7oZM5DTxOW7equa2fxQ==
   dependencies:
     debug "^4.1.0"
     extract-zip "^1.6.6"
@@ -9267,23 +9333,25 @@ react-dom@^16.6.3:
     prop-types "^15.6.2"
     scheduler "^0.12.0"
 
-react-dom@^16.8.3:
-  version "16.8.3"
-  resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.8.3.tgz#ae236029e66210783ac81999d3015dfc475b9c32"
-  integrity sha512-ttMem9yJL4/lpItZAQ2NTFAbV7frotHk5DZEHXUOws2rMmrsvh1Na7ThGT0dTzUIl6pqTOi5tYREfL8AEna3lA==
+react-dom@^16.8.4:
+  version "16.8.4"
+  resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.8.4.tgz#1061a8e01a2b3b0c8160037441c3bf00a0e3bc48"
+  integrity sha512-Ob2wK7XG2tUDt7ps7LtLzGYYB6DXMCLj0G5fO6WeEICtT4/HdpOi7W/xLzZnR6RCG1tYza60nMdqtxzA8FaPJQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.3"
+    scheduler "^0.13.4"
 
-react-dropzone@^8.0.0:
-  version "8.0.3"
-  resolved "https://unpm.uberinternal.com/react-dropzone/-/react-dropzone-8.0.3.tgz#1fe14a5ce58c390327273c6e766fb0429d51300e"
-  integrity sha512-3zvEH4szxTHjpNIbuSXY3aIByv6fUao8ZYOqtYucmgduRR+r0c94xMJvrPKyAj9hgWZTJ/0I//PMq+SDZp3MCw==
+react-dropzone@^9.0.0:
+  version "9.0.0"
+  resolved "https://unpm.uberinternal.com/react-dropzone/-/react-dropzone-9.0.0.tgz#4f5223cdcb4d3bd8a66e3298c4041eb0c75c4634"
+  integrity sha512-wZ2o9B2qkdE3RumWhfyZT9swgJYJPeU5qHEcMU8weYpmLex1eeWX0CC32/Y0VutB+BBi2D+iePV/YZIiB4kZGw==
   dependencies:
     attr-accept "^1.1.3"
+    file-selector "^0.1.8"
     prop-types "^15.6.2"
+    prop-types-extra "^1.1.0"
 
 react-error-overlay@^5.1.0:
   version "5.1.2"
@@ -9313,12 +9381,17 @@ react-input-mask@^2.0.4:
     invariant "^2.2.4"
     warning "^4.0.2"
 
+react-is@^16.3.2, react-is@^16.8.4:
+  version "16.8.4"
+  resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.8.4.tgz#90f336a68c3a29a096a3d648ab80e87ec61482a2"
+  integrity sha512-PVadd+WaUDOAciICm/J1waJaSvgq+4rHE/K70j0PFqKhkTBsPv/82UGQJNXAngz1fOQLLxI6z1sEDmJDQhCTAA==
+
 react-is@^16.6.1, react-is@^16.6.3, react-is@^16.7.0:
   version "16.7.0"
   resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.7.0.tgz#c1bd21c64f1f1364c6f70695ec02d69392f41bfa"
   integrity sha512-Z0VRQdF4NPDoI0tsXVMLkJLiwEBa+RP66g0xDHxgxysxSoCUccSten4RTF/UFvZF1dZvZ9Zu1sx+MDXwcOR34g==
 
-react-is@^16.8.1, react-is@^16.8.3:
+react-is@^16.8.1:
   version "16.8.3"
   resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.8.3.tgz#4ad8b029c2a718fc0cfc746c8d4e1b7221e5387d"
   integrity sha512-Y4rC1ZJmsxxkkPuMLwvKvlL1Zfpbcu+Bf4ZigkHup3v9EfdYhAlWAaVyA19olXq2o2mGn0w+dFKvk3pVVlYcIA==
@@ -9380,15 +9453,15 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.7.0"
     scheduler "^0.12.0"
 
-react-test-renderer@^16.8.3:
-  version "16.8.3"
-  resolved "https://unpm.uberinternal.com/react-test-renderer/-/react-test-renderer-16.8.3.tgz#230006af264cc46aeef94392e04747c21839e05e"
-  integrity sha512-rjJGYebduKNZH0k1bUivVrRLX04JfIQ0FKJLPK10TAb06XWhfi4gTobooF9K/DEFNW98iGac3OSxkfIJUN9Mdg==
+react-test-renderer@^16.8.4:
+  version "16.8.4"
+  resolved "https://unpm.uberinternal.com/react-test-renderer/-/react-test-renderer-16.8.4.tgz#abee4c2c3bf967a8892a7b37f77370c5570d5329"
+  integrity sha512-jQ9Tf/ilIGSr55Cz23AZ/7H3ABEdo9oy2zF9nDHZyhLHDSLKuoILxw2ifpBfuuwQvj4LCoqdru9iZf7gwFH28A==
   dependencies:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    react-is "^16.8.3"
-    scheduler "^0.13.3"
+    react-is "^16.8.4"
+    scheduler "^0.13.4"
 
 react@^16.6.3:
   version "16.7.0"
@@ -9400,15 +9473,15 @@ react@^16.6.3:
     prop-types "^15.6.2"
     scheduler "^0.12.0"
 
-react@^16.8.3:
-  version "16.8.3"
-  resolved "https://unpm.uberinternal.com/react/-/react-16.8.3.tgz#c6f988a2ce895375de216edcfaedd6b9a76451d9"
-  integrity sha512-3UoSIsEq8yTJuSu0luO1QQWYbgGEILm+eJl2QN/VLDi7hL+EN18M3q3oVZwmVzzBJ3DkM7RMdRwBmZZ+b4IzSA==
+react@^16.8.4:
+  version "16.8.4"
+  resolved "https://unpm.uberinternal.com/react/-/react-16.8.4.tgz#fdf7bd9ae53f03a9c4cd1a371432c206be1c4768"
+  integrity sha512-0GQ6gFXfUH7aZcjGVymlPOASTuSjlQL4ZtVC5YKH+3JL6bBLCVO21DknzmaPlI90LN253ojj02nsapy+j7wIjg==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.3"
+    scheduler "^0.13.4"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
@@ -9983,10 +10056,10 @@ scheduler@^0.12.0:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
-scheduler@^0.13.3:
-  version "0.13.3"
-  resolved "https://unpm.uberinternal.com/scheduler/-/scheduler-0.13.3.tgz#bed3c5850f62ea9c716a4d781f9daeb9b2a58896"
-  integrity sha512-UxN5QRYWtpR1egNWzJcVLk8jlegxAugswQc984lD3kU7NuobsO37/sRfbpTdBjtnD5TBNFA2Q2oLV5+UmPSmEQ==
+scheduler@^0.13.4:
+  version "0.13.4"
+  resolved "https://unpm.uberinternal.com/scheduler/-/scheduler-0.13.4.tgz#8fef05e7a3580c76c0364d2df5e550e4c9140298"
+  integrity sha512-cvSOlRPxOHs5dAhP9yiS/6IDmVAVxmk33f0CtTJRkmUWcb1Us+t7b1wqdzoC0REw2muC9V5f1L/w5R5uKGaepA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -10572,19 +10645,26 @@ styletron-engine-atomic@^1.0.8:
     inline-style-prefixer "^4.0.0"
     styletron-standard "^2.0.1"
 
-styletron-react@^4.4.4:
-  version "4.4.4"
-  resolved "https://unpm.uberinternal.com/styletron-react/-/styletron-react-4.4.4.tgz#5d68d8ed81286ee502a61191a5d6a2169ffdcb72"
-  integrity sha512-MdXCITPtqjKu+5bbWXjCEZ8VTvYEezEx8a1GgvWbdUhLwR1J+N0Sw6PExUi/O2iJJgQBM4reaoIadbczWJu45Q==
+styletron-react@^4.4.5:
+  version "4.4.5"
+  resolved "https://unpm.uberinternal.com/styletron-react/-/styletron-react-4.4.5.tgz#622e77ce953af633ce00ca61fc6079e8595b21b2"
+  integrity sha512-vE0bcZgwLskun8ixuVoroJ82WNFpoDWYwF8ql/CPAalfEwi/thu7OXag3HPam44FUXNLscXvX/SbZLSBUtLbbQ==
   dependencies:
     create-react-context "^0.2.2"
     prop-types "^15.6.0"
-    styletron-standard "^2.0.1"
+    styletron-standard "^2.0.2"
 
 styletron-standard@^2.0.1:
   version "2.0.1"
   resolved "https://unpm.uberinternal.com/styletron-standard/-/styletron-standard-2.0.1.tgz#09ea1e339876f56d80e3e0bf1cbc62490c9ac03f"
   integrity sha512-yLUdUk9HDpXtuORy1VQqdc77idC2ayuTt2/F5FXy66u4VyDSAi4L0MDveZoUnkJf66wMErO8Pb70eHa1J5R8JQ==
+  dependencies:
+    inline-style-prefixer "^4.0.0"
+
+styletron-standard@^2.0.2:
+  version "2.0.2"
+  resolved "https://unpm.uberinternal.com/styletron-standard/-/styletron-standard-2.0.2.tgz#24bbbdfb353dc0f4ce6ffe6077bae7ec204c27cd"
+  integrity sha512-GceZ3uBtRYKl6FS5ZxsAG8zP0BzDfj5DISnjLMleQrZsjE00eyuwn7Lr2KlQ4u7AtPdr3SO037cyc/8TCDotmg==
   dependencies:
     inline-style-prefixer "^4.0.0"
 
@@ -10643,6 +10723,11 @@ symbol-tree@^3.2.2:
   version "3.2.2"
   resolved "https://unpm.uberinternal.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
   integrity sha1-rifbOPZgp64uHDt9G8KQgZuFGeY=
+
+tabbable@^3.1.2:
+  version "3.1.2"
+  resolved "https://unpm.uberinternal.com/tabbable/-/tabbable-3.1.2.tgz#f2d16cccd01f400e38635c7181adfe0ad965a4a2"
+  integrity sha512-wjB6puVXTYO0BSFtCmWQubA/KIn7Xvajw0x0l6eJUudMG/EAiJvIUnyNX6xO4NpGrJ16lbD0eUseB9WxW0vlpQ==
 
 table@^5.2.3:
   version "5.2.3"
@@ -11030,10 +11115,10 @@ uglify-js@^3.1.4:
     commander "~2.17.1"
     source-map "~0.6.1"
 
-unfetch@^4.0.1:
-  version "4.0.1"
-  resolved "https://unpm.uberinternal.com/unfetch/-/unfetch-4.0.1.tgz#8750c4c7497ade75d40387d7dbc4ba024416b8f6"
-  integrity sha512-HzDM9NgldcRvHVDb/O9vKoUszVij30Yw5ePjOZJig8nF/YisG7QN/9CBXZ8dsHLouXMeLZ82r+Jod9M2wFkEbQ==
+unfetch@^4.1.0:
+  version "4.1.0"
+  resolved "https://unpm.uberinternal.com/unfetch/-/unfetch-4.1.0.tgz#6ec2dd0de887e58a4dee83a050ded80ffc4137db"
+  integrity sha512-crP/n3eAPUJxZXM9T80/yv0YhkTEx2K1D3h7D1AJM6fzsWZrxdyRuLN0JH/dkZh1LNH8LxCnBzoPFCPbb2iGpg==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
