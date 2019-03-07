@@ -124,6 +124,7 @@ export const handleLog = async (
     let {meta, message} = payload;
     if (isErrorMeta(meta)) {
       meta = {...meta, ...(await transformError(meta))};
+      meta.error = createError(meta);
     }
     if (typeof message !== 'string') {
       if (message && typeof message == 'object' && !meta) {
@@ -144,6 +145,17 @@ export const handleLog = async (
     logger.error(error.message, error);
   }
 };
+
+function createError(meta) {
+  const err = meta.error || {};
+  if (err instanceof Error) {
+    return err;
+  }
+
+  const newErr = new Error(err.message);
+  newErr.stack = String(err.stack);
+  return newErr;
+}
 
 function isErrorMeta(meta) {
   if (!meta) {
