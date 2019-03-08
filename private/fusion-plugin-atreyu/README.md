@@ -46,27 +46,33 @@ yarn add @uber/fusion-plugin-atreyu
 
 ### Usage
 
+Below is a basic example of how you might set up a Fusion plugin that fetches and responds to data at some url.
+
+If you want to have a more useful integration where you are making calls from the client-side and, in turn, making backend service calls using Atreyu in the web server layer, we recommend using [fusion-plugin-rpc-react-redux](https://github.com/fusionjs/fusion-plugin-rpc-redux-react) along with this plugin.
+
 ```js
-// src/rpc/handlers.js
+// src/example-plugin.js
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 
 export default createPlugin({
   deps: {atreyu: AtreyuToken},
-  provides({atreyu}) {
-    const getCountries = atreyu.createGraph({
-      all: {
+  middleware({atreyu}) {
+    const getCountries = atreyu.createAsyncGraph({
+      countries: {
         service: 'safari',
         method: 'Safari::searchCountries',
         args: {
-          request: {},
+          request: {}
         },
       },
     });
-    return {
-      async getCountries() {
-        return getCountries();
-      },
-    };
+    return async (ctx, next) => {
+      if (ctx.path === '/countries') {
+        const result = await getCountries();
+        ctx.response.body = result;
+      }
+      next();
+    }
   },
 });
 ```
@@ -83,12 +89,14 @@ import Atreyu, {
   AtreyuConfigToken,
 } from '@uber/fusion-plugin-atreyu';
 import {config} from './atreyu/config';
+import ExamplePlugin from './example-plugin';
 
 export default () => {
   const app = new App();
 
   app.register(AtreyuToken, AtreyuPlugin);
   app.register(AtreyuConfigToken, config);
+  app.register(ExamplePlugin);
 
   return app;
 };
@@ -236,7 +244,6 @@ graph(data, ctx)
 #### Making a request
 
 ```js
-// src/rpc/handlers.js
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import {createPlugin} from 'fusion-core';
 
