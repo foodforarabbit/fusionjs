@@ -44,6 +44,7 @@ const plugin =
         backends.json = true;
       }
       if (backends.sentry != null) {
+        //Override default `backends.sentry.computeErrLoc` in sentry config
         if (__DEV__) {
           delete backends.sentry;
         }
@@ -123,8 +124,11 @@ export const handleLog = async (
     const {level} = payload;
     let {meta, message} = payload;
     if (isErrorMeta(meta)) {
-      meta = {...meta, ...(await transformError(meta))};
-      meta.error = createError(meta);
+      const parsedMeta = await transformError(meta);
+      meta = {...meta, ...parsedMeta};
+      if (!isError(meta.error)) {
+        meta.error = createError(parsedMeta);
+      }
     }
     if (typeof message !== 'string') {
       if (message && typeof message == 'object' && !meta) {
@@ -146,14 +150,19 @@ export const handleLog = async (
   }
 };
 
-function createError(meta) {
-  const err = meta.error || {};
-  if (err instanceof Error) {
-    return err;
-  }
+function isError(err) {
+  const errString = Object.prototype.toString.call(err);
+  return errString === '[object Error]' || err instanceof Error;
+}
 
-  const newErr = new Error(err.message);
-  newErr.stack = String(err.stack);
+function createError(meta) {
+  // $FlowFixMe
+  const message = meta.message || 'unknown error occurred';
+  const newErr = new Error(message);
+  // $FlowFixMe
+  if (meta.stack) {
+    newErr.stack = meta.stack;
+  }
   return newErr;
 }
 
