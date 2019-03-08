@@ -2,5 +2,5 @@
 
 export const getNodeVersion = async () => {
   // TODO: Search lts versions
-  return '8.15.0';
+  return '10.15.3';
 };

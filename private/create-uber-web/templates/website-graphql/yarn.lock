@@ -1515,10 +1515,10 @@
     lynx "0.0.11"
     obj-extend "~0.1.0"
 
-"@uber/typed-rpc-cli@^1.7.5":
-  version "1.7.5"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ftyped-rpc-cli/-/private/%40uber%2Ftyped-rpc-cli-1.7.5.tgz#566348fb88001e721e779203f7c6d96b3b282fae"
-  integrity sha512-akzoG5V58gJkM0KpQetw6/bIZtH/mJpegb71m2LODPET6MS9jV7BXVwCTmu0QSFJVzkVUUDjeYAonxoA+5z4iQ==
+"@uber/typed-rpc-cli@^1.7.7-0":
+  version "1.7.7-0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ftyped-rpc-cli/-/private/%40uber%2Ftyped-rpc-cli-1.7.7-0.tgz#321834082f6fda1e9944b3051721d985d09dd7b1"
+  integrity sha512-k84ZRwNRQReqKJ1361j6V90nwV60vkkdqCmTu9uH3pmrP3aZw39I/Rsw/JZvwC/Q6ZYcV/CbG0tes6r+CokBKw==
   dependencies:
     "@babel/core" "^7.0.0-beta.51"
     "@babel/generator" "^7.0.0-beta.51"
@@ -1533,6 +1533,7 @@
     fs-readdir-recursive "^1.1.0"
     fusion-apollo "^1.5.2"
     inquirer "^6.2.1"
+    just-unique "^3.2.0"
     mkdirp "^0.5.1"
     prettier "^1.15.3"
     sade "^1.4.1"
@@ -8136,6 +8137,11 @@ just-snake-case@^1.1.0:
   version "1.1.0"
   resolved "https://unpm.uberinternal.com/just-snake-case/-/just-snake-case-1.1.0.tgz#763316911c89a96b6f765bccddbe930d032939e0"
   integrity sha512-yoz5c0ivDkYrrJm1qN1MLbNGl9BfUg3BwSDkPflVCW287OoV8JY3V6vUtdO1EhucPqayLS4SuhvLYyqJYk9Dmw==
+
+just-unique@^3.2.0:
+  version "3.2.0"
+  resolved "https://unpm.uberinternal.com/just-unique/-/just-unique-3.2.0.tgz#4157dc66a8e9056f3eb90272469ec06126b4b780"
+  integrity sha512-BWZgvsUVNCP5nMyqq0RQfebwfM+gez+hY+ruDVQZLOMMOmQioMs4ly2AkEylf3cW9Na/lH06dNfQr3GTUj0Dtg==
 
 jwa@^1.1.5:
   version "1.1.6"

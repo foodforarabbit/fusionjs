@@ -43,7 +43,7 @@ test('scaffold plugin', async () => {
     const data = await readJson(`${name}/package.json`);
     expect(data.engines).toMatchInlineSnapshot(`
 Object {
-  "node": ">=8.9.4 <9.0.0",
+  "node": ">=8.9.4 <11",
   "npm": ">=5.6.0",
   "yarn": ">=1.4.0",
 }
