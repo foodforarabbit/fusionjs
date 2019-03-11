@@ -5,7 +5,8 @@ import {scaffold} from './commands/scaffold.js';
 import {upgrade} from './commands/upgrade.js';
 import {provision} from './commands/provision.js';
 
-const whitelist = 'fusion|@uber|styletron|eslint|flow-bin';
+const whitelist =
+  'fusion|@uber|styletron|eslint|flow-bin|baseui|react|prop-types|redux|unfetch|enzyme|babel|prettier|puppeteer|jest';
 
 const cli = sade('uber-web');
 
