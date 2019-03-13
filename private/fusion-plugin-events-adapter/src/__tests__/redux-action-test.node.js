@@ -18,7 +18,7 @@ tape('redux-action handler', t => {
   };
 
   const mockHeatpipe = {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       t.deepEqual(
         {topicInfo, message},
         {
@@ -65,7 +65,7 @@ tape('redux-action handler - action is not a plain-object', t => {
   };
 
   const mockHeatpipe = {
-    publish() {
+    asyncPublish() {
       t.fail('should not emit non-plain-object actions');
     },
   };
@@ -99,7 +99,7 @@ tape('redux-action handler - nested _trackingMeta', t => {
   };
 
   const mockHeatpipe = {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       t.deepEqual(
         {topicInfo, message},
         {

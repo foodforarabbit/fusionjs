@@ -24,7 +24,7 @@ tape('custom-event handler', t => {
   };
 
   const mockHeatpipe = {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       t.deepEqual(
         {topicInfo, message},
         {

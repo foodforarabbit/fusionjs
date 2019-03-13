@@ -53,7 +53,7 @@ export default function({
 }: HeatpipeArgs) {
   const HeatpipeEmitter: HeatpipeEmitter = {
     publish: (payload: {topicInfo: Object, message: Object}) => {
-      heatpipe.publish(payload.topicInfo, payload.message);
+      heatpipe.asyncPublish(payload.topicInfo, payload.message);
     },
     publishWebEvents: (payload: {
       message: Object,
@@ -67,7 +67,7 @@ export default function({
         ...getWebEventsMetaFields(payload.webEventsMeta),
         ...getContextFields(payload.ctx),
       };
-      heatpipe.publish(webTopicInfo, finalizedPayload);
+      heatpipe.asyncPublish(webTopicInfo, finalizedPayload);
     },
   };
 

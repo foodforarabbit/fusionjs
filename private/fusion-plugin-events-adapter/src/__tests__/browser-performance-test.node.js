@@ -82,7 +82,7 @@ function createMockHeatpipe(t, expectedEvents) {
   let _heatpipeEventsCount = 0;
 
   return {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       const currentExpected = expectedEvents.heatpipe[_heatpipeEventsCount++];
       t.deepEqual(
         {topicInfo, message},

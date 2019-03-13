@@ -30,7 +30,7 @@ tape('heatpipe emitter publish', t => {
   };
 
   const mockHeatpipe = {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       t.deepEqual(
         {topicInfo, message},
         fixturePayload,
@@ -150,7 +150,7 @@ const webEventsFixture = {
 
 tape('heatpipe emitter publishWebEvents with dependencies', t => {
   const mockHeatpipe = {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       t.deepEqual(
         topicInfo,
         webTopicInfo,
@@ -187,7 +187,7 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
 
 tape('heatpipe emitter publishWebEvents with no useragent', t => {
   const mockHeatpipe = {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       t.deepEqual(
         topicInfo,
         webTopicInfo,
@@ -234,7 +234,7 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
 
 tape('heatpipe emitter publishWebEvents missing dependencies', t => {
   const mockHeatpipe = {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       t.deepEqual(
         message,
         {

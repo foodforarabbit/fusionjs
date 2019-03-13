@@ -9,7 +9,7 @@ import pageViewBrowser from '../handlers/page-view-browser';
 tape('page-view-browser handler', t => {
   const events = new EventEmitter();
   const mockHeatpipe = {
-    publish(topicInfo, message) {
+    asyncPublish(topicInfo, message) {
       t.deepEqual(
         {topicInfo, message},
         {
