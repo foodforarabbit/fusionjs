@@ -8,13 +8,11 @@ const plugin =
   __BROWSER__ &&
   createPlugin({
     deps: {
-      UniversalEvents: UniversalEventsToken,
+      events: UniversalEventsToken,
     },
-    provides({UniversalEvents}) {
-      const emitter = UniversalEvents;
-
+    provides({events}) {
       function publish(topicInfo: TopicInfoType, message: MessageType): void {
-        emitter.emit('heatpipe:publish', {topicInfo, message});
+        events.emit('heatpipe:publish', {topicInfo, message});
       }
 
       async function asyncPublish(

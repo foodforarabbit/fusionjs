@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-heatpipe",
   "description": "Heatpipe publisher plugin for fusion",
-  "version": "1.2.0",
+  "version": "2.0.0-0",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -63,7 +63,7 @@
   },
   "private": true,
   "dependencies": {
-    "@uber/node-heatpipe-publisher": "^3.0.2"
+    "node-fetch": "^2.3.0"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "^1.1.11-1",

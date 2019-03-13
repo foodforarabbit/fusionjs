@@ -1,112 +1,104 @@
 // @flow
 /* eslint-env node */
 import {createPlugin} from 'fusion-core';
-import HeatpipePublisher from '@uber/node-heatpipe-publisher';
-
-import {LoggerToken} from 'fusion-tokens';
-import {M3Token} from '@uber/fusion-plugin-m3';
+import {FetchToken, LoggerToken} from 'fusion-tokens';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
-
-import {HeatpipeClientToken, HeatpipeConfigToken} from './tokens';
 
 import type {
   EventPayload,
   HeatpipePluginType,
   TopicInfoType,
   MessageType,
+  PublishResponse,
 } from './types';
 
-class NoopClient {
-  constructor(...args) {}
-  connect() {}
-  publish(info, message, cb) {}
-  destroy(cb: () => void) {}
+// note that the payload needs to be escaped properly since it is json inside of json
+export function getBody(
+  appId: string,
+  topic: string,
+  version: number,
+  message: MessageType
+) {
+  return JSON.stringify({
+    appId,
+    topic,
+    version,
+    payload: JSON.stringify(message),
+  });
 }
+
+export function getRequestOptions(
+  appId: string,
+  topicInfo: TopicInfoType,
+  message: MessageType
+) {
+  const {topic, version} = topicInfo;
+  return {
+    method: 'POST',
+    body: getBody(appId, topic, version, message),
+    headers: {
+      'rpc-service': 'web-heatpipe',
+      'rpc-procedure': 'com.uber.go.webheatpipe.WebHeatpipe::Publish',
+      'rpc-caller': appId,
+      'rpc-encoding': 'json',
+      'context-ttl-ms': '5000',
+    },
+  };
+}
+
+const requestURL = 'http://127.0.0.1:5436';
 
 const plugin =
   __NODE__ &&
   createPlugin({
     deps: {
-      heatpipeConfig: HeatpipeConfigToken.optional,
-      M3: M3Token,
-      Logger: LoggerToken,
       events: UniversalEventsToken,
-      Client: HeatpipeClientToken.optional,
+      fetch: FetchToken,
+      Logger: LoggerToken,
     },
-    provides({heatpipeConfig = {}, M3, Logger, events, Client}) {
-      const defaultClient = __DEV__ ? NoopClient : HeatpipePublisher;
-      const HeatpipeClient = Client || defaultClient;
-      const heatpipe = new HeatpipeClient({
-        statsd: M3,
-        m3Client: M3,
-        logger: Logger,
-        appId: process.env.SVC_ID || 'dev-service',
-        schemaService: {
-          host: 'localhost',
-          port: 14040,
-        },
-        kafka: {
-          proxyHost: 'localhost',
-          proxyPort: 18084,
-          maxRetries: 3,
-        },
-        exact: false,
-        debugMode: __DEV__,
-        publishToKafka: true,
-        ...heatpipeConfig,
-      });
-
-      heatpipe.connect();
+    provides({events, fetch, Logger}) {
+      const appId = process.env.SVC_ID || 'dev-service';
 
       events.on<EventPayload>('heatpipe:publish', ({topicInfo, message}) => {
-        publish(topicInfo, message);
+        asyncPublish(topicInfo, message);
       });
+
+      function noopPublish(topicInfo: TopicInfoType, message: MessageType) {
+        return Promise.resolve();
+      }
 
       function asyncPublish(
         topicInfo: TopicInfoType,
         message: MessageType
       ): Promise<void> {
-        return new Promise((resolve, reject) => {
-          const result = publish(topicInfo, message);
-          result instanceof Error ? reject(result) : resolve();
-        });
+        if (__DEV__) return noopPublish(topicInfo, message);
+        return fetch(requestURL, getRequestOptions(appId, topicInfo, message))
+          .then(res => res.json())
+          .then((res: PublishResponse) => {
+            const {code, msg} = res;
+            Logger.info(`Heatpipe Publish [${code}]: ${msg}`);
+            if (code !== 1) {
+              throw new Error(`[${code}]: ${msg}`);
+            }
+          });
       }
 
       function publish(
         topicInfo: TopicInfoType,
         message: MessageType
       ): Error | void {
-        try {
-          /*
-            See https://code.uberinternal.com/diffusion/MENODE/browse/master/lib/heatpipe_publisher.js$107 for heatpipe.publish signature
-            Ideal solution is to rewrite heatpipe.publish to not return 3 flavors of output.
-            For now, we need to cover these returns from heatpipe.publish:
-            1) undefined (publish succeeded)
-            2) undefined (published failed, but callback(error) not returned)
-            3) callback(error) (publish failed)
-          */
-          const result = heatpipe.publish(topicInfo, message, (e: Error) => {
-            throw e;
-          });
-          return result;
-        } catch (e) {
-          return e;
-        }
-      }
-
-      function destroy(cb?: () => void): void {
-        // see https://code.uberinternal.com/diffusion/MENODE/browse/master/lib/heatpipe_publisher.js$213 for heatpipe.destroy signature
-        heatpipe.destroy(cb || (() => {}));
-        cb && cb();
+        Logger.warn(
+          `publish() is deprecated and will be removed in future versions. Please use asyncPublish() instead.`
+        );
+        asyncPublish(topicInfo, message);
       }
 
       return {
         asyncPublish,
         publish,
-        destroy,
       };
     },
-    cleanup: hp => new Promise(resolve => hp.destroy(resolve)),
+    cleanup: hp => Promise.resolve(),
   });
 
 export default ((plugin: any): HeatpipePluginType);
