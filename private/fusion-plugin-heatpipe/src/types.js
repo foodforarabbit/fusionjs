@@ -20,7 +20,7 @@ export type EventPayload = {
   https://code.uberinternal.com/diffusion/WEWEBGU/browse/master/idl/code.uber.internal/web/web-heatpipe/webheatpipe.proto$29-32
 */
 export type PublishResponse = {
-  code: number,
+  code: string,
   msg: string,
 };
 

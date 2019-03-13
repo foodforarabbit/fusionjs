@@ -77,7 +77,7 @@ const plugin =
           .then((res: PublishResponse) => {
             const {code, msg} = res;
             Logger.info(`Heatpipe Publish [${code}]: ${msg}`);
-            if (code !== 1) {
+            if (code !== 'CODE_SUCCESS') {
               throw new Error(`[${code}]: ${msg}`);
             }
           });
