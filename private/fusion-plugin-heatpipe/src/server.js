@@ -1,7 +1,8 @@
 // @flow
 /* eslint-env node */
 import {createPlugin} from 'fusion-core';
-import {FetchToken, LoggerToken} from 'fusion-tokens';
+import {LoggerToken} from 'fusion-tokens';
+import fetch from 'node-fetch';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import type {
@@ -53,10 +54,9 @@ const plugin =
   createPlugin({
     deps: {
       events: UniversalEventsToken,
-      fetch: FetchToken,
       Logger: LoggerToken,
     },
-    provides({events, fetch, Logger}) {
+    provides({events, Logger}) {
       const appId = process.env.SVC_ID || 'dev-service';
 
       events.on<EventPayload>('heatpipe:publish', ({topicInfo, message}) => {

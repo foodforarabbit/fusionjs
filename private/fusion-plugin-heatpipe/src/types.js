@@ -1,6 +1,6 @@
 // @flow
 import type {FusionPlugin} from 'fusion-core';
-import {FetchToken, LoggerToken} from 'fusion-tokens';
+import {LoggerToken} from 'fusion-tokens';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 export type TopicInfoType = {
@@ -31,7 +31,6 @@ export type HeatpipePluginServiceType = {
 
 export type HeatpipePluginDepsType = {
   events: typeof UniversalEventsToken,
-  fetch?: typeof FetchToken,
   Logger?: typeof LoggerToken,
 };
 

@@ -3,7 +3,7 @@
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import tape from 'tape-cup';
-import {FetchToken, LoggerToken} from 'fusion-tokens';
+import {LoggerToken} from 'fusion-tokens';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {HeatpipeToken} from '../tokens';
 import HeatpipePlugin, {getRequestOptions} from '../server';
@@ -50,8 +50,6 @@ test('heatpipe-plugin no-op in __DEV__ mode', async t => {
   app.register(HeatpipeToken, HeatpipePlugin);
   // $FlowFixMe
   app.register(LoggerToken, {});
-  // $FlowFixMe
-  app.register(FetchToken, () => {});
   // $FlowFixMe
   app.register(UniversalEventsToken, events);
   app.register(
