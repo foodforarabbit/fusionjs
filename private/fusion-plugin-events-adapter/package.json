@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-events-adapter",
   "description": "An adapter for all uber specific events",
-  "version": "1.12.2-1",
+  "version": "1.12.2-2",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -28,7 +28,7 @@
   "devDependencies": {
     "@uber/fusion-plugin-analytics-session": "^1.4.1",
     "@uber/fusion-plugin-auth-headers": "^1.1.3",
-    "@uber/fusion-plugin-heatpipe": "^2.0.0-1",
+    "@uber/fusion-plugin-heatpipe": "^2.0.0-2",
     "@uber/fusion-plugin-m3": "^1.2.0",
     "babel-eslint": "^10.0.1",
     "create-universal-package": "^3.4.6",
@@ -64,7 +64,7 @@
   "peerDependencies": {
     "@uber/fusion-plugin-analytics-session": "^1.0.0",
     "@uber/fusion-plugin-auth-headers": "^1.1.2",
-    "@uber/fusion-plugin-heatpipe": "^2.0.0-1",
+    "@uber/fusion-plugin-heatpipe": "^2.0.0-2",
     "@uber/fusion-plugin-m3": "^1.2.0",
     "fusion-core": "^1.2.2",
     "fusion-plugin-i18n": "^1.0.0",
