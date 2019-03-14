@@ -897,10 +897,10 @@
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
   integrity sha1-VWJRm8eWPKyoq/fxKMrjtZTUHQY=
 
-"@uber/fusion-plugin-logtron@1.4.9":
-  version "1.4.9"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-logtron/-/private/%40uber%2Ffusion-plugin-logtron-1.4.9.tgz#aaa619d4af655f21b20986bc362e5171a75817d7"
-  integrity sha512-hqxnWu0gGUXIUF3XY4ip5bNKhaGcCHcSApG5z1YNpYboMRknq2rpB5nIkL313DmTBpz508UwejytfPkfkX+l4Q==
+"@uber/fusion-plugin-logtron@1.5.0":
+  version "1.5.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-logtron/-/private/%40uber%2Ffusion-plugin-logtron-1.5.0.tgz#f6c048e47b3ad41b9fd48559434ba287f6f2118a"
+  integrity sha512-pvrwmNp3qOaiNtU2XDk+vAd6zpTPTBGSLbbj2DRIdw1yWNJDOzn8zg/CT2YeiNekxQMU7m6K2+gJVRd2BHtCOQ==
   dependencies:
     "@uber/logtron" "^9.0.9"
     error-stack-parser "^2.0.2"
