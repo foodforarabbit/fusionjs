@@ -25,7 +25,7 @@ export default function browserPerformance({events, m3, heatpipeEmitter}) {
             message: {
               type: STAT_EVENT,
               name: key,
-              value_number: calculatedStats[key],
+              value_number: Math.round(calculatedStats[key]),
             },
             ctx,
             webEventsMeta,
@@ -47,7 +47,7 @@ export default function browserPerformance({events, m3, heatpipeEmitter}) {
           message: {
             type: STAT_EVENT,
             name: 'resources_avg_load_time',
-            value_number: resourceLoadTimes[resourceType],
+            value_number: Math.round(resourceLoadTimes[resourceType]),
             value: resourceType,
           },
           ctx,
