@@ -75,13 +75,18 @@ const plugin =
         return fetch(requestURL, getRequestOptions(appId, topicInfo, message))
           .then(res => res.json())
           .then((res: PublishResponse) => {
-            const {code} = res;
+            const {code, msg} = res;
             const {topic, version} = topicInfo;
-            const requestBody = getBody(appId, topic, version, message);
-            const msg = `requestBody=${requestBody}`;
-            Logger.info(`Heatpipe Publish [${code}]: ${msg}`);
-            if (code !== 'CODE_SUCCESS') {
-              throw new Error(`[${code}]: ${msg}`);
+            if (code === 'CODE_SUCCESS') {
+              Logger.info(
+                `Heatpipe Publish Success: ${appId}, ${topic}, v${version}`
+              );
+            } else {
+              const errorMessage = `Heatpipe Publish Error [${code}, ${msg}]: ${appId}, ${topic}, v${version}, ${JSON.stringify(
+                message
+              )}`;
+              Logger.info(errorMessage);
+              throw new Error(errorMessage);
             }
           });
       }
