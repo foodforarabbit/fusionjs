@@ -75,7 +75,10 @@ const plugin =
         return fetch(requestURL, getRequestOptions(appId, topicInfo, message))
           .then(res => res.json())
           .then((res: PublishResponse) => {
-            const {code, msg} = res;
+            const {code} = res;
+            const {topic, version} = topicInfo;
+            const requestBody = getBody(appId, topic, version, message);
+            const msg = `requestBody=${requestBody}`;
             Logger.info(`Heatpipe Publish [${code}]: ${msg}`);
             if (code !== 'CODE_SUCCESS') {
               throw new Error(`[${code}]: ${msg}`);
