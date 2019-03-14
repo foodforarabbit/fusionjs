@@ -832,10 +832,10 @@
   dependencies:
     eslint-plugin-jest "^21.24.1"
 
-"@uber/fusion-plugin-heatpipe@^2.0.0-3":
-  version "2.0.0-3"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-2.0.0-3.tgz#1deb92304f0be1bbae6c205b34a4697e138f4850"
-  integrity sha512-Rnua9lytgJ8HoPnIB5awUZl2vD14ZK14z/J+4WI1ZxGQfONRhPUqk+gyTp7/c9amO2BUcQdqlf3odVN2Jdbqng==
+"@uber/fusion-plugin-heatpipe@^2.0.0-4":
+  version "2.0.0-4"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-heatpipe/-/private/%40uber%2Ffusion-plugin-heatpipe-2.0.0-4.tgz#20f9926a399d8daae35e8dae11f86f64a1a1fd9c"
+  integrity sha512-xv9v0r9x2Rk4ozWHpmCLG4/ZvCV5bxX7XOCOO3g6NijV7+2Ju0vf5dSlxCOT9fWDjIqjNs/bCwZBFTNjFNbhJg==
   dependencies:
     node-fetch "^2.3.0"
 
