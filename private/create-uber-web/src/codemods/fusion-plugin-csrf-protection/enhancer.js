@@ -10,15 +10,16 @@ import {
 import log from '../../utils/log.js';
 import {withJsFiles} from '../../utils/with-js-files.js';
 import {getLatestVersion} from '../../utils/get-latest-version.js';
+import type {UpgradeStrategy} from '../../types.js';
 
 type MigrateOptions = {
   dir: string,
-  edge: boolean,
+  strategy: UpgradeStrategy,
 };
 
 export const migrateCsrfProtectionToV2 = async ({
   dir,
-  edge,
+  strategy,
 }: MigrateOptions) => {
   await withJsonFile(`${dir}/package.json`, async pkg => {
     if (
@@ -31,11 +32,11 @@ export const migrateCsrfProtectionToV2 = async ({
     delete pkg.dependencies['fusion-plugin-csrf-protection-react'];
     pkg.dependencies['fusion-plugin-csrf-protection'] = await getLatestVersion(
       'fusion-plugin-csrf-protection',
-      edge
+      strategy
     );
     pkg.dependencies['fusion-react'] = await getLatestVersion(
       'fusion-react',
-      edge
+      strategy
     );
   });
   await withJsFiles(dir, path => {

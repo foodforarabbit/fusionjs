@@ -14,7 +14,7 @@ prepared('test');
     target: 'fusion-react-async',
     replacement: 'fusion-react',
     dir: root,
-    edge: false,
+    strategy: 'default',
   });
   const newContents = await readFile(fixture);
   // $FlowFixMe
@@ -40,7 +40,7 @@ d();
     target: 'fusion-react-async',
     replacement: 'fusion-react',
     dir: root,
-    edge: false,
+    strategy: 'default',
   });
   const newContents = await readFile(fixture);
   // $FlowFixMe

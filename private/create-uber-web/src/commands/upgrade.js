@@ -11,13 +11,14 @@ import {addCreateTokenGenerics} from '../codemods/flow/create-token-generics.js'
 import {addCreatePluginGenerics} from '../codemods/flow/create-plugin-generics.js';
 import {fixMeTchannelMock} from '../codemods/flow/fixme-tchannel-mock.js';
 import {format} from '../utils/format.js';
+import type {UpgradeStrategy} from '../types.js';
 
 export type UpgradeOptions = {
   dir: string,
   match: string,
   codemod: boolean,
   force: boolean,
-  edge: boolean,
+  strategy: UpgradeStrategy,
 };
 
 export const upgrade = async ({
@@ -25,41 +26,41 @@ export const upgrade = async ({
   match,
   codemod,
   force,
-  edge,
+  strategy,
 }: UpgradeOptions) => {
   const steps = [
     // generic steps
-    step('upgrade', async () => await bumpDeps({dir, match, force, edge})),
+    step('upgrade', async () => await bumpDeps({dir, match, force, strategy})),
   ];
   if (codemod) {
     // web app specific steps
     steps.push(
       step('migrate fusion-plugin-csrf-protection', async () => {
-        await migrateCsrfProtectionToV2({dir, edge});
+        await migrateCsrfProtectionToV2({dir, strategy});
       }),
       step('install fusion-introspect', async () => {
-        await installIntrospect({dir, edge});
+        await installIntrospect({dir, strategy});
       }),
       step('remove fusion-react-async', async () => {
         await replacePackage({
           target: 'fusion-react-async',
           replacement: 'fusion-react',
           dir,
-          edge,
+          strategy,
         });
       }),
       step('remove enzyme-context-patch', async () => {
         await removePackage({name: 'enzyme-context-patch', dir});
       }),
       step('add eslint-plugin-jest', async () => {
-        await addPackage({name: 'eslint-plugin-jest', dir, edge});
+        await addPackage({name: 'eslint-plugin-jest', dir, strategy});
       }),
       step('use fusion-plugin-universal-events-react', async () => {
         await replacePackage({
           target: 'fusion-plugin-universal-events',
           replacement: 'fusion-plugin-universal-events-react',
           dir,
-          edge,
+          strategy,
         });
       }),
       step('use fusion-plugin-m3-react', async () => {
@@ -67,7 +68,7 @@ export const upgrade = async ({
           target: '@uber/fusion-plugin-m3',
           replacement: '@uber/fusion-plugin-m3-react',
           dir,
-          edge,
+          strategy,
         });
       }),
       step('use fusion-plugin-i18n-react', async () => {
@@ -75,7 +76,7 @@ export const upgrade = async ({
           target: 'fusion-plugin-i18n',
           replacement: 'fusion-plugin-i18n-react',
           dir,
-          edge,
+          strategy,
         });
       }),
       step('use fusion-plugin-logtron-react', async () => {
@@ -83,11 +84,11 @@ export const upgrade = async ({
           target: '@uber/fusion-plugin-logtron',
           replacement: '@uber/fusion-plugin-logtron-react',
           dir,
-          edge,
+          strategy,
         });
       }),
       step('ensure styletron-react peer dep', async () => {
-        await addPackage({name: 'styletron-react', dir, edge: false});
+        await addPackage({name: 'styletron-react', dir, strategy});
       }),
       step('add explicit flow generics for fusion', async () => {
         await addCreateTokenGenerics({dir});

@@ -4,23 +4,24 @@ import {withJsonFile} from '@dubstep/core';
 import {withJsFiles} from '../../utils/with-js-files.js';
 import log from '../../utils/log.js';
 import {getLatestVersion} from '../../utils/get-latest-version.js';
+import type {UpgradeStrategy} from '../../types.js';
 
 type ReplaceOptions = {
   target: string,
   replacement: string,
   dir: string,
-  edge: boolean,
+  strategy: UpgradeStrategy,
 };
 
 export const replacePackage = async ({
   target,
   replacement,
   dir,
-  edge,
+  strategy,
 }: ReplaceOptions) => {
   await withJsonFile(`${dir}/package.json`, async pkg => {
-    await replace(pkg, 'dependencies', target, replacement, edge);
-    await replace(pkg, 'devDependencies', target, replacement, edge);
+    await replace(pkg, 'dependencies', target, replacement, strategy);
+    await replace(pkg, 'devDependencies', target, replacement, strategy);
   });
   await withJsFiles(dir, path => {
     let shouldUpdate = false;
@@ -36,10 +37,11 @@ export const replacePackage = async ({
   });
 };
 
-async function replace(pkg, group, target, replacement, edge) {
+async function replace(pkg, group, target, replacement, strategy) {
+  if (strategy === 'curated') strategy = 'default';
   if (pkg[group] && pkg[group][target]) {
     log.title(`Replacing ${target} with ${replacement}`);
     delete pkg[group][target];
-    pkg[group][replacement] = await getLatestVersion(replacement, edge);
+    pkg[group][replacement] = await getLatestVersion(replacement, strategy);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@uber/create-uber-web",
-  "version": "1.1.14",
+  "version": "2.0.0",
   "description": "CLI to scaffold a new Uber web application or library",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
     "dev": "npm-watch | grep --invert-match nodemon",
     "build": "babel src -d dist -q",
     "lint": "eslint src",
-    "test": "ussh && jest",
+    "test": "ussh && jest --maxWorkers 1",
     "cover": "jest --coverage",
     "flow": "flow check",
     "prepublish": "babel src -d dist -s"

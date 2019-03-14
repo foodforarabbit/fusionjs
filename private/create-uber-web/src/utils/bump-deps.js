@@ -6,6 +6,7 @@ import {install, test as runTests} from './yarn';
 import log from './log';
 import {getProgress} from './progress';
 import {getLatestVersion} from './get-latest-version';
+import type {UpgradeStrategy} from '../types.js';
 
 const BLACKLIST = ['babel-core', 'react-redux', 'create-universal-package'];
 
@@ -13,21 +14,22 @@ type BumpOptions = {
   dir: string,
   match: string,
   force: boolean,
-  edge: boolean,
+  strategy: UpgradeStrategy,
 };
 
-export const bumpDeps = async ({dir, match, force, edge}: BumpOptions) => {
+export const bumpDeps = async ({dir, match, force, strategy}: BumpOptions) => {
   log.title('Updating dependencies');
   const file = `${dir}/package.json`;
   const data = await read(file).catch(() => null);
   if (data) {
     if (force) {
-      await batchUpgrade({dir, match, file, data, edge});
+      await batchUpgrade({dir, match, file, data, strategy});
     } else {
+      const options = {dir, match, file, data, strategy};
       await runTests(dir);
-      await upgrade({dir, match, file, data, edge, key: 'dependencies'});
-      await upgrade({dir, match, file, data, edge, key: 'devDependencies'});
-      await upgrade({dir, match, file, data, edge, key: 'peerDependencies'});
+      await upgrade({...options, key: 'dependencies'});
+      await upgrade({...options, key: 'devDependencies'});
+      await upgrade({...options, key: 'peerDependencies'});
     }
   }
 };
@@ -44,7 +46,7 @@ const installAndTest = async dir => {
   await runTests(dir);
 };
 
-const batchUpgrade = async ({dir, match, file, data, edge}) => {
+const batchUpgrade = async ({dir, match, file, data, strategy}) => {
   const keys = ['dependencies', 'devDependencies', 'peerDependencies'];
   const promises = [];
   keys.forEach(key => {
@@ -53,7 +55,7 @@ const batchUpgrade = async ({dir, match, file, data, edge}) => {
       if (BLACKLIST.includes(dep)) continue;
       if (!new RegExp(match).test(dep)) continue;
       promises.push(
-        getLatestVersion(dep, edge).then(v => {
+        getLatestVersion(dep, strategy, data[key][dep]).then(v => {
           progress.tick();
           const old = data[key][dep].replace(/\^/, '');
           const curr = v.replace(/\^/, '');
@@ -71,13 +73,13 @@ const batchUpgrade = async ({dir, match, file, data, edge}) => {
   await install(dir);
 };
 
-const upgrade = async ({dir, match, file, data, key, edge}) => {
+const upgrade = async ({dir, match, file, data, key, strategy}) => {
   if (!data[key]) return;
   for (const dep in data[key]) {
     const version = data[key][dep];
     if (BLACKLIST.includes(dep)) continue;
     if (!new RegExp(match).test(dep)) continue;
-    data[key][dep] = await getLatestVersion(dep, edge);
+    data[key][dep] = await getLatestVersion(dep, strategy, data[key][dep]);
     if (data[key][dep] === version) continue;
     await write(file, data);
     await installAndTest(dir).catch(e => {

@@ -5,9 +5,6 @@ import {scaffold} from './commands/scaffold.js';
 import {upgrade} from './commands/upgrade.js';
 import {provision} from './commands/provision.js';
 
-const whitelist =
-  'fusion|@uber|styletron|eslint|flow-bin|baseui|react|prop-types|redux|unfetch|enzyme|babel|prettier|puppeteer|jest';
-
 const cli = sade('uber-web');
 
 cli.version(require('../package.json').version);
@@ -54,18 +51,22 @@ cli
   .command('upgrade')
   .describe('Upgrade dependencies')
   .option('--dir', 'Project folder', '.')
-  .option('--match', 'Only upgrade deps whose name match this regex', whitelist)
+  .option('--match', 'Only upgrade deps whose name match this regex', '.*')
   .option('--codemod', 'Also run Fusion.js codemods?', 'true')
   .option('--force', 'Skip tests', 'true')
-  .option('--edge', 'Upgrade to prerelease if available', 'false')
+  .option(
+    '--strategy',
+    'default = updates to latest, curated = matches scaffold, edge = updates to prerelease',
+    'curated'
+  )
   .action(args => {
-    const {dir, match, codemod, force, edge} = args;
+    const {dir, match, codemod, force, strategy} = args;
     upgrade({
       dir,
       match,
       codemod: codemod === 'true',
       force: force !== 'false',
-      edge: edge !== 'false',
+      strategy,
     });
   });
 

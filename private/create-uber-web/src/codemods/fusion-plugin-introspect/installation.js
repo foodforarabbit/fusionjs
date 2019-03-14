@@ -7,13 +7,15 @@ import {
 } from '@dubstep/core';
 import {getLatestVersion} from '../../utils/get-latest-version.js';
 import {stringLiteral} from '@babel/types';
+import type {UpgradeStrategy} from '../../types.js';
 
 type InstallOptions = {
   dir: string,
-  edge: boolean,
+  strategy: UpgradeStrategy,
 };
 
-export const installIntrospect = async ({dir, edge}: InstallOptions) => {
+export const installIntrospect = async ({dir, strategy}: InstallOptions) => {
+  if (strategy === 'curated') strategy = 'default';
   let serviceName = '';
   await withJsonFile(`${dir}/package.json`, async pkg => {
     serviceName = pkg.name;
@@ -26,7 +28,7 @@ export const installIntrospect = async ({dir, edge}: InstallOptions) => {
     if (!pkg.dependencies) pkg.dependencies = {};
     for (const dep of deps) {
       if (!pkg.dependencies[dep]) {
-        pkg.dependencies[dep] = await getLatestVersion(dep, edge);
+        pkg.dependencies[dep] = await getLatestVersion(dep, strategy);
       }
     }
     return pkg;

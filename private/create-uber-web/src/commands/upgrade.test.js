@@ -3,6 +3,8 @@
 import {upgrade} from './upgrade.js';
 import {writeFile, readFile, removeFile} from '@dubstep/core';
 
+jest.setTimeout(10000);
+
 jest.mock('../utils/get-latest-version.js', () => ({
   getLatestVersion: () => Promise.resolve('^1.0.0'),
 }));
@@ -16,7 +18,7 @@ test('upgrade', async () => {
     match: '',
     codemod: true,
     force: true,
-    edge: false,
+    strategy: 'default',
   });
   const data = await readFile(file);
   await removeFile(root);

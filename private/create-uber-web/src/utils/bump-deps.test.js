@@ -4,6 +4,8 @@ import {readFile, writeFile} from '@dubstep/core';
 import {remove} from 'fs-extra';
 import {bumpDeps} from './bump-deps.js';
 
+jest.setTimeout(15000);
+
 test('bumpDeps', async () => {
   const dir = 'fixtures/bump';
   const file = `${dir}/package.json`;
@@ -11,7 +13,7 @@ test('bumpDeps', async () => {
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}'
   );
-  await bumpDeps({dir, match: '', force: true, edge: false});
+  await bumpDeps({dir, match: '', force: true, strategy: 'default'});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
   await remove(dir);
@@ -31,7 +33,9 @@ test('bumpDeps bails out if untestable', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: false, edge: false}).catch(() => {});
+  await bumpDeps({dir, match: '', force: false, strategy: 'default'}).catch(
+    () => {}
+  );
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await remove(dir);
@@ -51,7 +55,9 @@ test('bumpDeps rolls back if regression', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: false, edge: false}).catch(() => {});
+  await bumpDeps({dir, match: '', force: false, strategy: 'default'}).catch(
+    () => {}
+  );
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await remove(dir);
@@ -71,7 +77,9 @@ test('bumpDeps force', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: true, edge: false}).catch(() => {});
+  await bumpDeps({dir, match: '', force: true, strategy: 'default'}).catch(
+    () => {}
+  );
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
   await remove(dir);
@@ -84,7 +92,7 @@ test('bumpDeps match', async () => {
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}'
   );
-  await bumpDeps({dir, match: 'asd', force: false, edge: false});
+  await bumpDeps({dir, match: 'asd', force: false, strategy: 'default'});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await remove(dir);
@@ -97,8 +105,21 @@ test('bumpDeps edge', async () => {
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}'
   );
-  await bumpDeps({dir, match: '', force: true, edge: true});
+  await bumpDeps({dir, match: '', force: true, strategy: 'edge'});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
+  await remove(dir);
+});
+
+test('bumpDeps curated', async () => {
+  const dir = 'fixtures/bump-curated';
+  const file = `${dir}/package.json`;
+  await writeFile(
+    file,
+    '{"dependencies": {"no-bugs": "1.0.0"}, "scripts": {"test": "echo ok"}}'
+  );
+  await bumpDeps({dir, match: '', force: true, strategy: 'curated'});
+  const data = await readFile(file);
+  expect(data.includes('1.0.0')).toEqual(true);
   await remove(dir);
 });
