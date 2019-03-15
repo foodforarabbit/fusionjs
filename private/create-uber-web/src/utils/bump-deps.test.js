@@ -13,7 +13,7 @@ test('bumpDeps', async () => {
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}'
   );
-  await bumpDeps({dir, match: '', force: true, strategy: 'default'});
+  await bumpDeps({dir, match: '', force: true, strategy: 'latest'});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
   await remove(dir);
@@ -33,7 +33,7 @@ test('bumpDeps bails out if untestable', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: false, strategy: 'default'}).catch(
+  await bumpDeps({dir, match: '', force: false, strategy: 'latest'}).catch(
     () => {}
   );
   const data = await readFile(file);
@@ -55,7 +55,7 @@ test('bumpDeps rolls back if regression', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: false, strategy: 'default'}).catch(
+  await bumpDeps({dir, match: '', force: false, strategy: 'latest'}).catch(
     () => {}
   );
   const data = await readFile(file);
@@ -77,7 +77,7 @@ test('bumpDeps force', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: true, strategy: 'default'}).catch(
+  await bumpDeps({dir, match: '', force: true, strategy: 'latest'}).catch(
     () => {}
   );
   const data = await readFile(file);
@@ -92,7 +92,7 @@ test('bumpDeps match', async () => {
     file,
     '{"dependencies": {"no-bugs": "0.0.0"}, "scripts": {"test": "echo ok"}}'
   );
-  await bumpDeps({dir, match: 'asd', force: false, strategy: 'default'});
+  await bumpDeps({dir, match: 'asd', force: false, strategy: 'latest'});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await remove(dir);

@@ -18,7 +18,7 @@ test('upgrade', async () => {
     match: '',
     codemod: true,
     force: true,
-    strategy: 'default',
+    strategy: 'latest',
   });
   const data = await readFile(file);
   await removeFile(root);

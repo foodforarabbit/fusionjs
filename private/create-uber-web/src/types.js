@@ -1,3 +1,3 @@
 /* @flow */
 
-export type UpgradeStrategy = 'edge' | 'curated' | 'default';
+export type UpgradeStrategy = 'edge' | 'curated' | 'latest';

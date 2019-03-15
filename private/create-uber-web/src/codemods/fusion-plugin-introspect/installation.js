@@ -15,7 +15,7 @@ type InstallOptions = {
 };
 
 export const installIntrospect = async ({dir, strategy}: InstallOptions) => {
-  if (strategy === 'curated') strategy = 'default';
+  if (strategy === 'curated') strategy = 'latest';
   let serviceName = '';
   await withJsonFile(`${dir}/package.json`, async pkg => {
     serviceName = pkg.name;

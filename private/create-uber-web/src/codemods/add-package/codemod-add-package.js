@@ -10,7 +10,7 @@ type AddOptions = {
 };
 
 export const addPackage = async ({name, dir, strategy}: AddOptions) => {
-  if (strategy === 'curated') strategy = 'default';
+  if (strategy === 'curated') strategy = 'latest';
   await withJsonFile(`${dir}/package.json`, async pkg => {
     pkg.dependencies = {
       ...(pkg.dependencies || {}),

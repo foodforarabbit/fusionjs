@@ -38,7 +38,7 @@ export const replacePackage = async ({
 };
 
 async function replace(pkg, group, target, replacement, strategy) {
-  if (strategy === 'curated') strategy = 'default';
+  if (strategy === 'curated') strategy = 'latest';
   if (pkg[group] && pkg[group][target]) {
     log.title(`Replacing ${target} with ${replacement}`);
     delete pkg[group][target];

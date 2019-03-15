@@ -56,7 +56,7 @@ cli
   .option('--force', 'Skip tests', 'true')
   .option(
     '--strategy',
-    'default = updates to latest, curated = matches scaffold, edge = updates to prerelease',
+    'latest = updates to latest stable, curated = matches scaffold, edge = updates to prerelease',
     'curated'
   )
   .action(args => {

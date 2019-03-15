@@ -9,22 +9,34 @@ const meta = JSON.parse(
   fs.readFileSync(`${process.cwd()}/templates/website/package.json`, 'utf8')
 );
 
-export function getLatestVersion(
+const cache = {};
+
+export async function getLatestVersion(
   dep: string,
   strategy: UpgradeStrategy,
   current: ?string
 ): Promise<string> {
   if (strategy === 'edge') {
-    return exec(`npm info ${dep} versions --json`).then(list => {
-      return `^${JSON.parse(list).pop()}`;
-    });
-  } else if (strategy === 'curated') {
-    return Promise.resolve(
-      (meta.dependencies && meta.dependencies[dep]) ||
-        (meta.devDependencies && meta.devDependencies[dep]) ||
-        current
+    return (
+      cache[dep] ||
+      exec(`npm info ${dep} versions --json`).then(list => {
+        cache[dep] = `^${JSON.parse(list).pop()}`;
+        return cache[dep];
+      })
     );
+  } else if (strategy === 'curated') {
+    cache[dep] =
+      (meta.dependencies && meta.dependencies[dep]) ||
+      (meta.devDependencies && meta.devDependencies[dep]) ||
+      current;
+    return cache[dep];
   } else {
-    return exec(`npm info ${dep} version`).then(v => `^${v}`);
+    return (
+      cache[dep] ||
+      exec(`npm info ${dep} version`).then(v => {
+        cache[dep] = `^${v}`;
+        return cache[dep];
+      })
+    );
   }
 }

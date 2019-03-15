@@ -6,12 +6,12 @@ for d in ./templates/*/ ; do (
   yarn;
   npm rebuild;
   if [ "$d" = "./templates/website/" ]; then
-    node ../../dist/index upgrade --strategy=default
+    node ../../dist/index upgrade --strategy latest
   else
-    node ../../dist/index upgrade --strategy=default --codemod false
+    node ../../dist/index upgrade --strategy latest --codemod false
   fi
   cp .gitignore dotgitignore
 ); done
-node dist/index upgrade --strategy=default --codemod false
+node dist/index upgrade --strategy latest --codemod false
 clear
 ./verify.sh && npm version patch --no-git-tag-version
