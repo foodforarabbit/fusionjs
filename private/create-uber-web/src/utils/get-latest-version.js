@@ -3,8 +3,6 @@ import {exec} from '@dubstep/core';
 import fs from 'fs';
 import type {UpgradeStrategy} from '../types.js';
 
-jest.setTimeout(15000);
-
 const meta = JSON.parse(
   fs.readFileSync(`${process.cwd()}/templates/website/package.json`, 'utf8')
 );
