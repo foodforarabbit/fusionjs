@@ -9,10 +9,11 @@ import get from 'just-safe-get';
 import path from 'path';
 import {promptChoice} from '../utils/prompt-choice.js';
 import {prompt} from '../utils/prompt.js';
+import Table from 'cli-table3';
 
-// TODO: Should pull from Infraportal configs instead of hard coding in case available zones changes
-// Not a super high priority since this happens infrequently
-const VALID_DCS = ['phx2', 'irn1', 'dca1', 'dca4'];
+// TODO: Should pull from Infraportal configs instead of hard coding in case available zones change
+// See: mesos_cluster_host, auth, and deprecated_zones config keys for latest values
+const VALID_DCS = ['phx3', 'irn1', 'dca1', 'dca4', 'sjc4'];
 
 type ProvisionOptions = {
   infraportalConfig: {
@@ -20,7 +21,6 @@ type ProvisionOptions = {
     repo: string,
     serviceTier: number,
     team: string,
-    usentryTeam: string,
     zones: Array<string>,
   },
   pathfinderConfig: {
@@ -34,23 +34,12 @@ type ProvisionOptions = {
 };
 
 export const provision = async () => {
-  // eslint-disable-next-line no-constant-condition
-  if (true) {
-    return console.log(
-      `Automated provisioning is currently disabled. ` +
-        `Please visit the Web Platform Team's documentation on ` +
-        `how to provision and deploy your project: ` +
-        `https://engdocs.uberinternal.com/web/docs/getting-started/provision-and-deploy`
-    );
-  }
-
   const options: ProvisionOptions = {
     infraportalConfig: {
       conduitToken: '',
       repo: '',
       serviceTier: 5,
       team: '',
-      usentryTeam: '',
       zones: [],
     },
     pathfinderConfig: {
@@ -66,21 +55,6 @@ export const provision = async () => {
   let awdToken = '';
 
   const stepper = new Stepper([
-    step('Intro message to user', async () => {
-      console.log(`
-INFORMATION:
-  * This command should be run from within the root directory of the service you wish to provision.
-  * Provisioning will create docker instances, build and deploy your code on uDeploy, set up associated traffic groups and endpoints to route to your application, and set up Jenkins and uMonitor.
-  * This process will collect information upfront, then work in the background. Expect this to take about an hour, possibly longer.
-  * Provisioning may pause at certain points. Follow the directions sent to you to get the process unpaused.
-  * You may re-run 'uber-web provision' at any time to check on the status of your provisioning.
-
-LIMITATIONS:
-  * Only tier 3-5 services are supported using this tool. If you require a more critical tier, ensure you have an approved ERD and contact Web Platform.
-  * Only 1 machine is provisioned per zone by default. A maximum of 2 per zone is available for services in the prototype stage. You can adjust this post provision within Infraportal.
-  * Breeze integration for external sites is not supported. If you require onboarding visit https://engdocs.uberinternal.com/arch/onboarding.html and manually configure within Pathfinder.
-`);
-    }),
     step('Precheck - Git and service directory', async () => {
       console.log('Now checking service directory status...');
       await checkGitRepository();
@@ -124,15 +98,53 @@ LIMITATIONS:
           awdToken,
           options.serviceName
         );
+
         if (status === awdClient.STATUS_IN_PROGRESS) {
           printStatusReport(data);
           process.exit();
+        } else if (status === awdClient.STATUS_PAUSED) {
+          console.log(
+            'Provisioning has been paused. Make sure you have followed the steps to unpause!'
+          );
+        } else if (status === awdClient.STATUS_COMPLETED) {
+          console.log('Provisioning has been completed.');
+          process.exit();
+        } else if (status === awdClient.STATUS_DISABLED) {
+          console.log(
+            `Automated provisioning is currently disabled. ` +
+              `Please visit the Web Platform Team's documentation on ` +
+              `how to provision and deploy your project: ` +
+              `https://engdocs.uberinternal.com/web/docs/getting-started/provision-and-deploy`
+          );
+          process.exit();
+        } else {
+          console.log('No in progress provisions detected.');
         }
-        console.log('No in progress provisions detected.');
       } catch (e) {
         console.log(e);
         throw new Error('Could not reach AWD. Please try again.');
       }
+    }),
+    step('Intro message to user', async () => {
+      console.log(`
+INFORMATION:
+  * This command should be run from within the root directory of the service you wish to provision.
+  * Provisioning will create docker instances, build and deploy your code on uDeploy, set up
+    associated traffic groups and endpoints to route to your application, and set up uMonitor.
+  * This process will collect information upfront, then work in the background. Expect this to take
+    about an hour, possibly longer.
+  * Provisioning may pause at certain points. Follow the directions sent to you to get the process
+    unpaused.
+  * You may re-run 'uber-web provision' at any time to check on the status of your provisioning.
+
+LIMITATIONS:
+  * Only tier 3-5 services are supported using this tool. If you require a more critical tier,
+    you will need ERD and SRE approval and need to manually provision.
+  * Only 1 machine is provisioned per zone by default. A maximum of 2 per zone is available for
+    services in the prototype stage. You can adjust this post provision within Infraportal.
+  * Breeze integration for external sites is not supported. If you require onboarding visit
+    https://engdocs.uberinternal.com/arch/onboarding.html and manually configure within Pathfinder.
+`);
     }),
     step('Pathfinder configuration', async () => {
       Object.assign(options.pathfinderConfig, await validateServiceUrlFlow());
@@ -171,7 +183,7 @@ LIMITATIONS:
     }),
     step('Infraportal configuration - Service tier', async () => {
       options.infraportalConfig.serviceTier = await promptChoice(
-        'What service tier is your service?',
+        'What service tier is your web application?',
         ['3', '4', '5']
       );
     }),
@@ -181,15 +193,15 @@ LIMITATIONS:
     step(
       'Traffic controller configuration - rINCONF config directory',
       async () => {
-        console.log(
-          '\nIn order to set up routing, a traffic controller configuration will need to be written to the rINCONF repository.'
-        );
-        console.log(
-          'Traffic controller needs the directory name in order to save the configuration. Browse the rINCONF repo to find the appropriate namespace for your web application.'
-        );
-        console.log(
-          'Link to repo: https://code.uberinternal.com/diffusion/INCONF/browse/master/net/traffic'
-        );
+        console.log(`
+\nIn order to set up routing, a traffic controller configuration will need to be written to the
+rINCONF repository.
+
+Traffic controller needs the directory name in order to save the configuration. Browse the rINCONF
+repo to find the appropriate namespace for your web application.
+
+Link to repo: https://code.uberinternal.com/diffusion/INCONF/browse/master/net/traffic
+`);
         options.trafficControllerConfig.configDir = await prompt(
           'What is the directory name within the rINCONF repo? (e.g. infra and NOT net/traffic/infra/config.yaml)'
         );
@@ -197,7 +209,10 @@ LIMITATIONS:
     ),
     step('Send request to AWD', async () => {
       // console.log('options to send to awd are', options);
-      await awdClient.start(options);
+      await awdClient.start(awdToken, options);
+      console.log(
+        'Provisioning is now underway. Check the status at any time by invoking the provision command.'
+      );
     }),
   ]);
   await stepper.run().catch(e => {
@@ -259,9 +274,10 @@ async function createSentryDSN(awdToken: string): Promise<boolean> {
       }
 
       if (returnWithFail) {
-        console.log(
-          'That project already exists. If it is your project, visit https://infra.uberinternal.com/usentry/manage to find the DSN and copy it into src/config/sentry.js.'
-        );
+        console.log(`
+That project already exists. If it is your project, visit https://infra.uberinternal.com/usentry/manage
+to find the DSN and copy it into src/config/sentry.js.
+        `);
         return false;
       }
     } else {
@@ -327,14 +343,15 @@ async function validateServiceUrlFlow(): Promise<Object> {
 }
 
 async function infraZoneFlow(): Promise<Array<string>> {
-  console.log(
-    '\nEnter as a comma separated list which zones to instantiate Mesos instances.'
-  );
-  console.log('Available zones to create instances are: ', VALID_DCS);
-  console.log(
-    'Note that only 1 instance will be created in the specified zones. You are also limited to 2 zones max per instance while your service is in the prototype phase.'
-  );
-  console.log('If you are unsure, specify "phx2, dca1".');
+  console.log(`
+\nEnter as a comma separated list which zones to instantiate Mesos instances.
+Available zones to create instances are: ${VALID_DCS.join(', ')}
+
+Note that only 1 instance will be created in the specified zones. You are also limited to 2 zones
+max per instance while your service is in the prototype phase.
+
+If you are unsure, specify "phx3, dca1".
+  `);
   const zones = await prompt(
     'Which zones do you want to create new instances?'
   );
@@ -343,15 +360,15 @@ async function infraZoneFlow(): Promise<Array<string>> {
   if (!zones) {
     return await infraZoneFlow();
   }
-  const splitZones = zones.split(',');
-  console.log(splitZones);
+  const splitZones = zones.split(',').map(zone => zone.trim());
+
   for (let i = 0; i < splitZones.length; i++) {
     if (!VALID_DCS.includes(splitZones[i])) {
       return await infraZoneFlow();
     }
   }
 
-  return zones.split(',');
+  return splitZones;
 }
 
 function printStatusReport(data: Object[]) {
@@ -376,23 +393,19 @@ function printStatusReport(data: Object[]) {
     };
   });
 
-  const nodeVersionMatch = process.version.match(/v(\d+)\./);
-  // Use console.table since it exists
-  if (nodeVersionMatch && Number(nodeVersionMatch[1]) >= 10) {
-    return console.table(augmentedData);
-  }
-
-  // Manually console log as an ugly table
-  console.log(Object.keys(augmentedData[0]).join('  |  ') + '\n');
-  augmentedData.forEach((row: Object) => {
-    console.log(
-      [
-        row['Task Name'],
-        row['Completed'],
-        row['Status'],
-        row['Current Step'],
-        row['Step %'],
-      ].join('  |  ') + '\n'
-    );
+  const table = new Table({
+    head: ['Task Name', 'Completed', 'Status', 'Current Step', 'Step %'],
   });
+
+  augmentedData.forEach((row: Object) => {
+    table.push([
+      row['Task Name'],
+      row['Completed'],
+      row['Status'],
+      row['Current Step'],
+      row['Step %'],
+    ]);
+  });
+
+  console.log(table.toString());
 }
