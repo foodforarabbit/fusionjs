@@ -4,7 +4,7 @@ import fs from 'fs';
 import type {UpgradeStrategy} from '../types.js';
 
 const meta = JSON.parse(
-  fs.readFileSync(`${process.cwd()}/templates/website/package.json`, 'utf8')
+  fs.readFileSync(`${__dirname}/../../templates/website/package.json`, 'utf8')
 );
 
 const cache = {};
