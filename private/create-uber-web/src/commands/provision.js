@@ -103,9 +103,12 @@ export const provision = async () => {
           printStatusReport(data);
           process.exit();
         } else if (status === awdClient.STATUS_PAUSED) {
-          console.log(
-            'Provisioning has been paused. Make sure you have followed the steps to unpause!'
+          const canUnPause = await prompt(
+            'Provisioning has been paused. Have you taken the steps to unpause? [y/n]'
           );
+          if (canUnPause !== 'y') {
+            process.exit();
+          }
         } else if (status === awdClient.STATUS_COMPLETED) {
           console.log('Provisioning has been completed.');
           process.exit();
@@ -176,9 +179,18 @@ LIMITATIONS:
     }),
     step('Infraportal configuration - uBlame team', async () => {
       console.log('Fetching uBlame teams...');
+      const teams = await awdClient.getUBlameTeams(awdToken);
+
+      if (!teams || (Array.isArray(teams) && teams.length === 0)) {
+        console.log(`
+uBlame teams were not able to be fetched. This may be a temporary problem so please try again.
+If this error persists, contact Web Platform.
+        `);
+        process.exit();
+      }
       options.infraportalConfig.team = await promptChoice(
         'What is the uBlame team responsible for this service?',
-        await awdClient.getUBlameTeams(awdToken)
+        teams
       );
     }),
     step('Infraportal configuration - Service tier', async () => {
