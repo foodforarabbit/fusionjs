@@ -2,7 +2,7 @@
 import {writeFile, readFile, removeFile} from '@dubstep/core';
 import {addPackage} from './codemod-add-package.js';
 
-jest.mock('../utils/get-latest-version.js', () => ({
+jest.mock('../../utils/get-latest-version.js', () => ({
   getLatestVersion: () => Promise.resolve('^1.0.0'),
 }));
 
