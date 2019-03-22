@@ -10,6 +10,16 @@ jest.setTimeout(100000);
 
 jest.spyOn(console, 'log').mockImplementation(() => {});
 
+jest.mock('../utils/get-user-name.js', () => ({
+  getUserName: () => 'John Doe',
+}));
+jest.mock('../utils/get-user-email.js', () => ({
+  getUserEmail: () => 'johndoe@uber.com',
+}));
+jest.mock('../utils/get-teams.js', () => ({
+  getTeams: () => ['web'],
+}));
+
 test('scaffold website', async () => {
   const name = 'fixtures/website';
   try {

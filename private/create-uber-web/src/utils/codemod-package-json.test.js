@@ -4,6 +4,10 @@ import {remove} from 'fs-extra';
 import {writeFile, readFile} from '@dubstep/core';
 import {codemodPackageJson} from './codemod-package-json.js';
 
+jest.mock('../utils/get-teams.js', () => ({
+  getTeams: () => ['web'],
+}));
+
 test('codemodPackageJson', async () => {
   const dir = '__codemodded_package_json__';
   const file = `${dir}/package.json`;

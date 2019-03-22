@@ -9,6 +9,10 @@ jest.mock('../utils/get-latest-version.js', () => ({
   getLatestVersion: () => Promise.resolve('^1.0.0'),
 }));
 
+jest.mock('../utils/get-teams.js', () => ({
+  getTeams: () => ['web'],
+}));
+
 test('upgrade', async () => {
   const root = 'fixtures/upgrade';
   const file = `${root}/package.json`;

@@ -15,7 +15,7 @@
     "dev": "npm-watch | grep --invert-match nodemon",
     "build": "babel src -d dist -q",
     "lint": "eslint src",
-    "test": "ussh && jest --maxWorkers 1",
+    "test": "$(find templates -name node_modules -prune -exec rm -rf {} \\;); jest --maxWorkers 1",
     "cover": "jest --coverage",
     "flow": "flow check",
     "prepublish": "babel src -d dist -s"

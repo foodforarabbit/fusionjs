@@ -6,6 +6,10 @@ import {bumpDeps} from './bump-deps.js';
 
 jest.setTimeout(15000);
 
+jest.mock('../utils/get-latest-version.js', () => ({
+  getLatestVersion: () => Promise.resolve('^1.0.0'),
+}));
+
 test('bumpDeps', async () => {
   const dir = 'fixtures/bump';
   const file = `${dir}/package.json`;
