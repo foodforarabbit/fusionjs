@@ -37,10 +37,7 @@
       "quiet": true
     }
   },
-  "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-flow": "^7.0.0",
@@ -68,12 +65,16 @@
     "jest": "^23.6.0",
     "jest-environment-jsdom-global": "^1.1.0",
     "npm-watch": "^0.5.0",
-    "prettier": "^1.15.3"
+    "prettier": "^1.15.3",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5"
   },
   "peerDependencies": {
     "fusion-core": "^1.8.0",
     "fusion-plugin-introspect": "^0.2.4",
-    "fusion-tokens": "^1.1.0"
+    "fusion-tokens": "^1.1.0",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
