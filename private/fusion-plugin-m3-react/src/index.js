@@ -9,6 +9,7 @@ export {
   CommonTagsToken,
   mock,
 } from '@uber/fusion-plugin-m3';
+export type {M3Type, M3TagsType, M3DepsType} from '@uber/fusion-plugin-m3';
 
 export default plugin;
 export {withM3};
