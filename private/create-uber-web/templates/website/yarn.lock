@@ -1938,13 +1938,13 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^6.7.2:
-  version "6.7.2"
-  resolved "https://unpm.uberinternal.com/baseui/-/baseui-6.7.2.tgz#9c495c012fec2765a319fb893ddeb6fe4f5f8f05"
-  integrity sha512-YmLJyCst059IMRoe2RwEvQ9rOHc3fPhHhp7yrKs6nnl12MDAKul6ZyEySwXsBKF2NaMTg4RQudYApT3DWxaNSQ==
+baseui@^6.11.0:
+  version "6.11.0"
+  resolved "https://unpm.uberinternal.com/baseui/-/baseui-6.11.0.tgz#a349aacea78dd062911ae58bbae409f2c24e979f"
+  integrity sha512-dBxqOakbQ1GIW0AeKXFziWebT+QlzR/774bdFhc/GJTefuzUmef9kN+IIQgfkcdTL7SjQm+ETCTs1E4vocJFjg==
   dependencies:
     date-fns "2.0.0-alpha.27"
-    focus-trap "^4.0.2"
+    focus-trap "^5.0.0"
     just-extend "^4.0.2"
     memoize-one "^5.0.0"
     popper.js "^1.14.3"
@@ -4228,12 +4228,12 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-focus-trap@^4.0.2:
-  version "4.0.2"
-  resolved "https://unpm.uberinternal.com/focus-trap/-/focus-trap-4.0.2.tgz#4ee2b96547c9ea0e4252a2d4b2cca68944194663"
-  integrity sha512-HtLjfAK7Hp2qbBtLS6wEznID1mPT+48ZnP2nkHzgjpL4kroYHg0CdqJ5cTXk+UO5znAxF5fRUkhdyfgrhh8Lzw==
+focus-trap@^5.0.0:
+  version "5.0.0"
+  resolved "https://unpm.uberinternal.com/focus-trap/-/focus-trap-5.0.0.tgz#b0d535b4669714e29880d294d13c8c7bbee6a085"
+  integrity sha512-ECigB+4yoFBIpzQ0uO+ReM1yU4I4pVxuRSe2W24ElcWo4nJLRCb6amo2wLYEaPXgZ/mt0sSAW0ZNYkgiMrz4fQ==
   dependencies:
-    tabbable "^3.1.2"
+    tabbable "^4.0.0"
     xtend "^4.0.1"
 
 follow-redirects@^1.0.0:
@@ -9770,10 +9770,10 @@ symbol-tree@^3.2.2:
   resolved "https://unpm.uberinternal.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
   integrity sha1-rifbOPZgp64uHDt9G8KQgZuFGeY=
 
-tabbable@^3.1.2:
-  version "3.1.2"
-  resolved "https://unpm.uberinternal.com/tabbable/-/tabbable-3.1.2.tgz#f2d16cccd01f400e38635c7181adfe0ad965a4a2"
-  integrity sha512-wjB6puVXTYO0BSFtCmWQubA/KIn7Xvajw0x0l6eJUudMG/EAiJvIUnyNX6xO4NpGrJ16lbD0eUseB9WxW0vlpQ==
+tabbable@^4.0.0:
+  version "4.0.0"
+  resolved "https://unpm.uberinternal.com/tabbable/-/tabbable-4.0.0.tgz#5bff1d1135df1482cf0f0206434f15eadbeb9261"
+  integrity sha512-H1XoH1URcBOa/rZZWxLxHCtOdVUEev+9vo5YdYhC9tCY4wnybX+VQrCYuy9ubkg69fCBxCONJOSLGfw0DWMffQ==
 
 table@^5.2.3:
   version "5.2.3"

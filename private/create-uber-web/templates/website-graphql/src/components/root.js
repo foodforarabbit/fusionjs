@@ -3,6 +3,27 @@ import React from 'react';
 import {assetUrl} from 'fusion-core';
 import {Helmet} from 'fusion-plugin-react-helmet-async';
 import {Route, Switch, NotFound} from 'fusion-plugin-react-router';
+import {ThemeProvider, createTheme, lightThemePrimitives} from 'baseui';
+import {
+  AlertFilled,
+  ArrowLeftFilled,
+  ArrowRightFilled,
+  ArrowDownFilled,
+  ArrowUpFilled,
+  CheckmarkFilled,
+  ChevronLeftSmallFilled,
+  ChevronRightSmallFilled,
+  ChevronDownSmallFilled,
+  ChevronUpSmallFilled,
+  CircleXFilled,
+  FilterFilled,
+  PlusSmallFilled,
+  SearchFilled,
+  ThreeDotsHorizontalFilled,
+  ThreeLinesFilled,
+  UploadFilled,
+  XSmallFilled,
+} from '@uber/icons';
 import Welcome from './welcome.js';
 
 const PageNotFound = () => (
@@ -12,6 +33,31 @@ const PageNotFound = () => (
 );
 
 const faviconPath = assetUrl('../static/favicon.ico');
+
+const theme = createTheme(lightThemePrimitives, {
+  icons: {
+    Alert: AlertFilled,
+    ArrowLeft: ArrowLeftFilled,
+    ArrowRight: ArrowRightFilled,
+    ArrowUp: ArrowUpFilled,
+    ArrowDown: ArrowDownFilled,
+    Check: CheckmarkFilled,
+    ChevronLeft: ChevronLeftSmallFilled,
+    ChevronRight: ChevronRightSmallFilled,
+    Delete: XSmallFilled,
+    DeleteAlt: CircleXFilled,
+    Filter: FilterFilled,
+    Menu: ThreeLinesFilled,
+    Overflow: ThreeDotsHorizontalFilled,
+    Plus: PlusSmallFilled,
+    Search: SearchFilled,
+    TriangleLeft: ChevronLeftSmallFilled,
+    TriangleRight: ChevronRightSmallFilled,
+    TriangleDown: ChevronDownSmallFilled,
+    TriangleUp: ChevronUpSmallFilled,
+    Upload: UploadFilled,
+  },
+});
 
 export const Root = () => (
   <div id="wrapper">
@@ -26,10 +72,12 @@ button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
 input::-webkit-inner-spin-button,input::-webkit-outer-spin-button,input::-webkit-search-cancel-button,input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none;}
       `}</style>
     </Helmet>
-    <Switch>
-      <Route exact path="/" component={Welcome} />
-      <Route component={PageNotFound} />
-    </Switch>
+    <ThemeProvider theme={theme}>
+      <Switch>
+        <Route exact path="/" component={Welcome} />
+        <Route component={PageNotFound} />
+      </Switch>
+    </ThemeProvider>
   </div>
 );
 export default <Root />;
