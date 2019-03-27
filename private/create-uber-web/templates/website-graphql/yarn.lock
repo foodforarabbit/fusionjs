@@ -2843,10 +2843,10 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^6.11.0:
-  version "6.11.0"
-  resolved "https://unpm.uberinternal.com/baseui/-/baseui-6.11.0.tgz#a349aacea78dd062911ae58bbae409f2c24e979f"
-  integrity sha512-dBxqOakbQ1GIW0AeKXFziWebT+QlzR/774bdFhc/GJTefuzUmef9kN+IIQgfkcdTL7SjQm+ETCTs1E4vocJFjg==
+baseui@^6.12.1:
+  version "6.12.1"
+  resolved "https://unpm.uberinternal.com/baseui/-/baseui-6.12.1.tgz#8be8496169afb31cc58acede9237cde82079005d"
+  integrity sha512-4fv86TaiCP688shLeAS5cOn1xdQFZKRP0beuKj7sTID4AlJTQppZaLX9oiIVQYyWZPoPX0EFXv5HE0O4DCB+Tw==
   dependencies:
     date-fns "2.0.0-alpha.27"
     focus-trap "^5.0.0"

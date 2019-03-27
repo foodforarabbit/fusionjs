@@ -34,7 +34,7 @@
     "@uber/graphql-scripts": "^0.1.3",
     "@uber/icons": "^1.0.8",
     "apollo-client": "^2.5.1",
-    "baseui": "^6.11.0",
+    "baseui": "^6.12.1",
     "delay": "^4.1.0",
     "fusion-apollo": "^1.6.1",
     "fusion-apollo-universal-client": "^2.2.0",
