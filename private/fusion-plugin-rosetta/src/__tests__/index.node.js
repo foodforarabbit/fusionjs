@@ -27,6 +27,7 @@ tape('Rosetta plugin', async t => {
     }
     load() {
       t.ok('calls the load function');
+      return Promise.resolve();
     }
     setLoadInterval() {
       t.ok('calls the setLoadIntervalFunction');

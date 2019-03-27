@@ -4,17 +4,18 @@ import type {RosettaDepsType, RosettaType} from './types';
 
 import {Locales} from 'locale';
 
-import Genghis from '@uber/node-genghis';
+import Rosetta from '@uber/node-rosetta';
 
 import {createPlugin, memoize} from 'fusion-core';
 import type {Context} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 
 import {ClientToken, ConfigToken, LocaleNegotiationToken} from './tokens';
+import getTranslations from './fallback';
 
 type ExtractReturnType = <R>(() => R) => R;
 type LoggerType = $Call<ExtractReturnType, typeof LoggerToken>;
-type ClientType = typeof Genghis;
+type ClientType = typeof Rosetta;
 type ConfigType = $Call<ExtractReturnType, typeof ConfigToken.optional>;
 type LocaleNegotiationType = $Call<
   ExtractReturnType,
@@ -61,9 +62,8 @@ function translationsLoaderFactory(
     const locale = localeNegotiationStrategy(ctx, supportedLocales);
 
     const normalizedLocale = locale.normalized;
-    const translations =
-      client.translations[normalizedLocale] ||
-      client.translations[normalizedLocale.replace('_', '-')];
+    // getTranslations gets the translation with a fallback strategy
+    const translations = getTranslations(client, normalizedLocale);
 
     return new TranslationsLoader({locale, translations});
   };
@@ -80,7 +80,7 @@ const pluginFactory = () =>
 
     provides: ({
       logger,
-      Client = Genghis,
+      Client = Rosetta,
       config = {},
       localeNegotiation,
     }: {
@@ -91,16 +91,29 @@ const pluginFactory = () =>
     }) => {
       config.service = config.service || process.env.SVC_ID || 'dev-service';
       const client: any = new Client({logger, ...config});
-      client.load();
-      client.setLoadInterval();
 
-      const realLocaleNegotiationStrategy =
-        localeNegotiation || defaultLocaleNegotiationStrategy;
+      client._loadPromise = client.load().catch(e => {
+        logger.error('Failed to load translations', e);
+        throw e;
+      });
 
-      client.from = memoize(
-        translationsLoaderFactory(client, realLocaleNegotiationStrategy)
-      );
       return client;
+    },
+
+    middleware: ({localeNegotiation}, client) => {
+      return async (ctx, next) => {
+        await client._loadPromise;
+        client.setLoadInterval();
+
+        const realLocaleNegotiationStrategy =
+          localeNegotiation || defaultLocaleNegotiationStrategy;
+
+        client.from = memoize(
+          translationsLoaderFactory(client, realLocaleNegotiationStrategy)
+        );
+
+        await next();
+      };
     },
 
     cleanup: client => client.clearInterval(),

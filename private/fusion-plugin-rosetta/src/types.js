@@ -2,7 +2,7 @@
 import type {Context} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {ClientToken, ConfigToken, LocaleNegotiationToken} from './tokens';
-import Genghis from '@uber/node-genghis';
+import Rosetta from '@uber/node-rosetta';
 
 export type RosettaDepsType = {
   logger: typeof LoggerToken,
@@ -10,9 +10,9 @@ export type RosettaDepsType = {
   config: typeof ConfigToken.optional,
   localeNegotiation: typeof LocaleNegotiationToken.optional,
 };
-export type RosettaType = Genghis;
+export type RosettaType = Rosetta;
 
-export type RosettaClientType = typeof Genghis;
+export type RosettaClientType = typeof Rosetta;
 export type RosettaConfigType = {
   service: string,
 };
