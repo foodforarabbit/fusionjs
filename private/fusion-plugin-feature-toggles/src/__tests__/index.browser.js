@@ -48,5 +48,9 @@ test('hydration from element', async () => {
   expect(offResult).toHaveProperty('enabled');
   expect(offResult.enabled).not.toBeTruthy();
 
-  expect(await instance.get('missingToggle')).toBeNull();
+  const missingResult = await instance.get('missingToggle');
+  expect(missingResult).not.toBeNull();
+  if (!missingResult) throw new Error('missingResult is null!'); // necessary to appease Flow
+  expect(missingResult).toHaveProperty('enabled');
+  expect(missingResult.enabled).not.toBeTruthy();
 });

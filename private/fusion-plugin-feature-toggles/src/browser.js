@@ -15,21 +15,23 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
       class ToggleService implements IFeatureTogglesClient {
         data: {[string]: ToggleDetailsType};
 
-        constructor(data: {[string]: ToggleDetailsType}) {
-          this.data = data;
-
+        constructor() {
+          this.load();
           return this;
         }
-        async get(toggleName: string): Promise<?ToggleDetailsType> {
-          if (!this.data || !this.data[toggleName]) return null;
-          return this.data[toggleName];
+
+        async load(): Promise<void> {
+          this.data = loadToggleData() || [];
+        }
+
+        async get(toggleName: string): Promise<ToggleDetailsType> {
+          return this.data[toggleName] || {enabled: false};
         }
       }
 
-      const data = loadToggleData();
       return {
         from: () => {
-          return new ToggleService(data);
+          return new ToggleService();
         },
       };
     },

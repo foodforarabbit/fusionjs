@@ -21,7 +21,8 @@ export type ToggleDetailsType = {|
 
 export interface IFeatureTogglesClient {
   constructor(...params?: any): IFeatureTogglesClient;
-  +get: (toggleName: string) => Promise<?ToggleDetailsType>;
+  +load: () => Promise<void>;
+  +get: (toggleName: string) => Promise<ToggleDetailsType>;
 }
 
 export type FeatureTogglesServiceType = {|

@@ -44,10 +44,12 @@ type MorpheusResponseType = {|
 
 export default class MorpheusClient implements IFeatureTogglesClient {
   ctx: Context;
+  toggleNames: Array<string>;
   getTreatmentGroupsByNames: Function;
   experiments: {[experimentName: string]: MorpheusTreatmentGroupType};
+  hasLoaded: boolean;
 
-  constructor(ctx: Context, params: {atreyu: any}) {
+  constructor(ctx: Context, toggleNames: Array<string>, params: {atreyu: any}) {
     const {atreyu} = params;
     const graphDefinition = {
       treatments: {
@@ -62,9 +64,19 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     };
 
     this.ctx = ctx;
+    this.toggleNames = toggleNames;
     this.getTreatmentGroupsByNames = atreyu.createAsyncGraph(graphDefinition);
+    this.hasLoaded = false;
 
     return this;
+  }
+
+  /*
+   * Asynchronously loads all of the toggle details from those provided to the constructor.
+   */
+  async load() {
+    this.experiments = await this.getExperiments(this.toggleNames, this.ctx);
+    this.hasLoaded = true;
   }
 
   /**
@@ -72,8 +84,13 @@ export default class MorpheusClient implements IFeatureTogglesClient {
    */
   async get(toggleName: string): Promise<ToggleDetailsType> {
     // Lazily load experiments upon first request
-    if (!this.experiments) {
-      this.experiments = await this.getExperiments([toggleName], this.ctx);
+    if (!this.hasLoaded) {
+      throw new Error('Ensure this service has been initialized via .load.');
+    }
+    if (!this.toggleNames.includes(toggleName)) {
+      throw new Error(
+        `Could not find provided toggle (${toggleName}).  Ensure it has been registered to FeatureTogglesToggleNamesToken.`
+      );
     }
 
     const toggleDetails = this.experiments[toggleName];
@@ -92,11 +109,16 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     experimentNames: Array<string>,
     ctx: Context
   ): Promise<{[experimentName: string]: MorpheusTreatmentGroupType}> {
-    const result: MorpheusResponseType = await this.getTreatmentGroupsByNames({
-      experimentNames,
-      context: this.getContext(ctx),
-      disableLogging: true,
-    });
+    let result: MorpheusResponseType = ({}: any);
+    try {
+      result = await this.getTreatmentGroupsByNames({
+        experimentNames,
+        context: this.getContext(ctx),
+        disableLogging: true,
+      });
+    } catch (e) {
+      throw e;
+    }
 
     return result.treatments;
   }
@@ -109,7 +131,8 @@ export default class MorpheusClient implements IFeatureTogglesClient {
    *   - urlParameters {{[key: string]: string}} - parameters embedded in the request URL
    *   - deviceLanguage {string} - Locale string from the request's 'accept-language' header
    *   - ipAddress {string} - IP address from the request
-   *   - cookieID {string} - UUID4 corresponding to a specific user
+   *   - cookieID {string} - UUID4 corresponding to a specific user, if available, otherwise
+   *        the the user's 'marketing_vistor_id'.  Defaults to the empty string otherwise.
    */
   getContext(ctx: Context): MorpheusContextType {
     return {
@@ -119,7 +142,9 @@ export default class MorpheusClient implements IFeatureTogglesClient {
       deviceLanguage: ctx.headers['accept-language'],
       ipAddress: ctx.ip,
       cookieID:
-        ctx.headers['user-uuid'] || '00000000-0000-0000-0000-0000000000000', // TODO Create a new cookie value if not found
+        ctx.headers['user-uuid'] ||
+        ctx.cookies.get('marketing_vistor_id') ||
+        '',
     };
   }
 }

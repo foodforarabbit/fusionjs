@@ -23,20 +23,21 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
       Client: FeatureTogglesClientToken.optional,
       atreyu: AtreyuToken.optional,
     },
-    provides({Client, atreyu}) {
+    provides({toggleNames, Client, atreyu}) {
       if (!Client) {
         if (!atreyu) throw new Error(generateErrorMessage('AtreyuToken'));
         Client = MorpheusClient;
       }
 
       const C = Client; // TODO: Remove this and ensure Flow does not complain
+      const scoper = memoize(ctx => new C(ctx, toggleNames, {atreyu}));
       const service: FeatureTogglesServiceType = {
         from: (ctx?: Context) => {
           if (!ctx)
             throw new Error(
               '[fusion-plugin-feature-toggles] Context not supplied.'
             );
-          return memoize(ctx => new C(ctx, {atreyu}))(ctx);
+          return scoper(ctx);
         },
       };
       return service;
@@ -44,9 +45,11 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
     middleware({toggleNames}, service) {
       return async (ctx: Context, next) => {
         if (!ctx.element) return next();
-        await next();
 
         const scoped = service.from(ctx);
+        await scoped.load();
+
+        await next();
 
         // Load all feature toggles data into an easily serializable object
         const data: {[string]: ToggleDetailsType} = {};

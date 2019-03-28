@@ -145,12 +145,17 @@ Optional.  An optional client to provide details on requested toggles.  Should i
 
 ```js
 interface IFeatureTogglesClient {
-  +get: (toggleName: string) => Promise<?{|
+  constructor(...params?: any): IFeatureTogglesClient;
+  +load: () => Promise<void>;
+  +get: (toggleName: string) => Promise<{|
     +enabled: boolean,
     +metadata?: {[string]: any},
   |}>;
 }
 ```
+
+- `load` is called once as part of the plugin middleware prior to rendering.  See the [documentation](https://engdocs.uberinternal.com/web/docs/guides/creating-a-plugin#request-lifecycle) for more details on the life cycle of an HTTP request.
+- `get` provides details on toggle corresponding to the supplied `toggleName`.  In the simplest case, this yields whether the toggle is enabled.  Additional metadata may be supplied by the client implementation.
 
 ###### Default value
 
@@ -199,7 +204,7 @@ We are also opinionated on the constraints used to identify (and optionally segm
    * `urlParameters: {[key: string]: string}` - parameters embedded in the request URL
    * `deviceLanguage: string` - Locale string from the request's 'accept-language' header
    * `ipAddress: string` - IP address from the request
-   * `cookieID: string` - UUID4 corresponding to a specific user
+   * `cookieID: string` - UUID4 corresponding to a specific user, if available, otherwise the the user's 'marketing_vistor_id'.  Defaults to the empty string otherwise.
 
 ##### Installation
 

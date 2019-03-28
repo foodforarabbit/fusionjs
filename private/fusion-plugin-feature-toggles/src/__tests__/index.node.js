@@ -31,8 +31,9 @@ const mockClientFactory: (
     constructor(ctx: Context): IFeatureTogglesClient {
       return this;
     }
-    async get(toggleName: string): Promise<?ToggleDetailsType> {
-      if (!data || !data[toggleName]) return null;
+    async load(): Promise<void> {}
+    async get(toggleName: string): Promise<ToggleDetailsType> {
+      if (!data || !data[toggleName]) return {enabled: false};
       return data[toggleName];
     }
   }
@@ -76,7 +77,11 @@ test('simple service sanity check - toggle on/off with mocked dependencies', asy
   expect(offResult).toHaveProperty('enabled');
   expect(offResult.enabled).not.toBeTruthy();
 
-  expect(await instance.get('missingToggle')).toBeNull();
+  const missingResult = await instance.get('missingToggle');
+  expect(missingResult).not.toBeNull();
+  if (!missingResult) throw new Error('missingResult is null!'); // necessary to appease Flow
+  expect(missingResult).toHaveProperty('enabled');
+  expect(missingResult.enabled).not.toBeTruthy();
 });
 
 test('test service metadata with mocked dependencies', async () => {
