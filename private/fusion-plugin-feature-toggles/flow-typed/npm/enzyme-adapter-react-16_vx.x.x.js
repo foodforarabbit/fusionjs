@@ -1,3 +1,4 @@
+// @flow
 // flow-typed signature: f324cb832e309a884f04fe4a780ebf27
 // flow-typed version: <<STUB>>/enzyme-adapter-react-16_v1.x.x/flow_v0.78.0
 
@@ -43,11 +44,15 @@ declare module 'enzyme-adapter-react-16/build/index.js' {
   declare module.exports: $Exports<'enzyme-adapter-react-16/build/index'>;
 }
 declare module 'enzyme-adapter-react-16/build/ReactSixteenAdapter.js' {
-  declare module.exports: $Exports<'enzyme-adapter-react-16/build/ReactSixteenAdapter'>;
+  declare module.exports: $Exports<
+    'enzyme-adapter-react-16/build/ReactSixteenAdapter'
+  >;
 }
 declare module 'enzyme-adapter-react-16/src/index.js' {
   declare module.exports: $Exports<'enzyme-adapter-react-16/src/index'>;
 }
 declare module 'enzyme-adapter-react-16/src/ReactSixteenAdapter.js' {
-  declare module.exports: $Exports<'enzyme-adapter-react-16/src/ReactSixteenAdapter'>;
+  declare module.exports: $Exports<
+    'enzyme-adapter-react-16/src/ReactSixteenAdapter'
+  >;
 }
