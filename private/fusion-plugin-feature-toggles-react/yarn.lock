@@ -1791,10 +1791,10 @@
   resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-atreyu/-/private/%40uber%2Ffusion-plugin-atreyu-1.4.0.tgz#37c162469bf63035b848f0f7b2f011c8f25e57dc"
   integrity sha512-xNYEP3jb95bFmN2jQUDdTWFm/LSDsbjNBMZm+5zzONShQoKNs7X/qkOsxyw0TjkfM+unAynVLxowojtKTZXeLQ==
 
-"@uber/fusion-plugin-feature-toggles@0.1.1-1":
-  version "0.1.1-1"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-feature-toggles/-/private/%40uber%2Ffusion-plugin-feature-toggles-0.1.1-1.tgz#7af86f3fc55fc3dc4f3d4c5688b43ca023421084"
-  integrity sha512-V1sucu9doJDRdRbwB6E+WZ1r2ezrUZ5BbVWAYGVki9GenGSTDY7/h+UmZjjgYzZPVi3479SGu2GoxKqgEZ0N+A==
+"@uber/fusion-plugin-feature-toggles@0.1.1":
+  version "0.1.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-feature-toggles/-/private/%40uber%2Ffusion-plugin-feature-toggles-0.1.1.tgz#e4ef9acb2c1f6b1085c72765ea0bd34d482879b6"
+  integrity sha512-SvQ4/leLaEZIUOjOJsOwMdp5fUYGoJa4wRPGarS9U/AgeGzRbq9L4wc65+odNTLxpyYhn2AuPOB+8y8TO24r7A==
   dependencies:
     react "^16.8.6"
     react-dom "^16.8.6"
