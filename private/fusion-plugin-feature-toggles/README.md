@@ -10,6 +10,8 @@ Feature toggles (also known as feature flags) provide developers with the abilit
 * Runtime Toggles, or operations toggles, are similar to rollout toggles in that they can rapidly disable recently shipped code at runtime if issues arise (e.g. broken or non-performant code).  Lifetime is generally short and tied to specific releases.
 * Permissioning Toggles allow certain production-ready code to be enabled for only a subset of consumers.  Lifetime is generally long, as these may persist as long as the feature in question is in production.
 
+If you're using React, you should use [fusion-plugin-feature-toggles-react](https://code.uberinternal.com/diffusion/WEFUSSK/) instead of this package.
+
 ---
 
 ### Table of contents
@@ -87,7 +89,7 @@ export default () => {
 
   app.register(FeatureTogglesToken, FeatureTogglesPlugin);
   if(__NODE__) {
-    app.register(AtreyuToken, AtreyuPlugin);
+    app.register(AtreyuToken, AtreyuPlugin); // required only if using default Morpheus client
     app.register(FeatureTogglesToggleNamesToken, ['some-toggle-name']);
   }
   
