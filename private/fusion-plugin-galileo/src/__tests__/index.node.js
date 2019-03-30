@@ -17,6 +17,7 @@ import {
   GalileoConfigToken as ConfigToken,
   GalileoClientToken as ClientToken,
 } from '../tokens.js';
+import type {GalileoServiceType} from '../types';
 
 const mockLogger = {
   createChild: (): string => 'logger',
@@ -61,6 +62,31 @@ test('Galileo Plugin', (t): void => {
   t.end();
 });
 
+function assertPlugin(
+  config: {},
+  MockGalileo: any,
+  assert: GalileoServiceType => void
+) {
+  const gToken = createToken('Galileo');
+  const app = new App('el', el => el);
+  app.register(LoggerToken, mockLogger);
+  app.register(M3Token, mockM3);
+  app.register(TracerToken, mockTracer);
+  app.register(ClientToken, MockGalileo);
+  app.register(ConfigToken, config);
+  app.register(gToken, GalileoPlugin);
+  app.middleware(
+    {Galileo: gToken},
+    ({
+      Galileo,
+    }): ((ctx: Context, next: () => Promise<void>) => Promise<void>) => {
+      assert(Galileo);
+      return (ctx: Context, next: () => Promise<void>): Promise<void> => next();
+    }
+  );
+  getSimulator(app);
+}
+
 test('fusion Galileo Plugin', (t): void => {
   const config = {test: 'test'};
 
@@ -86,25 +112,38 @@ test('fusion Galileo Plugin', (t): void => {
     return Object.freeze({});
   }
 
-  const gToken = createToken('Galileo');
-  const app = new App('el', el => el);
-  app.register(LoggerToken, mockLogger);
-  app.register(M3Token, mockM3);
-  app.register(TracerToken, mockTracer);
-  app.register(ClientToken, MockGalileo);
-  app.register(ConfigToken, config);
-  app.register(gToken, GalileoPlugin);
-  app.middleware(
-    {Galileo: gToken},
-    ({
-      Galileo,
-    }): ((ctx: Context, next: () => Promise<void>) => Promise<void>) => {
-      t.ok(Galileo.galileo, 'should have galileo instance created');
-      t.ok(Galileo.destroy(), 'should destory the galileo instance');
-      return (ctx: Context, next: () => Promise<void>): Promise<void> => next();
-    }
-  );
-  getSimulator(app);
+  assertPlugin(config, MockGalileo, Galileo => {
+    t.ok(Galileo.galileo, 'should have galileo instance created');
+    t.ok(Galileo.destroy(), 'should destory the galileo instance');
+  });
+  t.end();
+});
+
+test('fusion Galileo Plugin custom appName', t => {
+  const config = {appName: 'my-app-name', test: 'test'};
+
+  function MockGalileo(cfg, tracer, format, logger, m3): {||} {
+    t.looseEquals(
+      cfg,
+      {
+        appName: 'my-app-name',
+        galileo: {
+          enabled: true,
+          test: 'test',
+          allowedEntities: ['EVERYONE'],
+          enforcePercentage: 0.0,
+          wonkamasterUrl: 'https://wonkabar.uberinternal.com',
+        },
+      },
+      'config is passed down'
+    );
+    return Object.freeze({});
+  }
+
+  assertPlugin(config, MockGalileo, Galileo => {
+    t.ok(Galileo.galileo, 'should have galileo instance created');
+    t.ok(Galileo.destroy(), 'should destory the galileo instance');
+  });
   t.end();
 });
 
@@ -115,27 +154,12 @@ test('fusion Galileo Plugin disabled', (t): void => {
     t.fail('should not instantiate galileo client');
   }
 
-  const gToken = createToken('Galileo');
-  const app = new App('el', el => el);
-  app.register(LoggerToken, mockLogger);
-  app.register(M3Token, mockM3);
-  app.register(TracerToken, mockTracer);
-  app.register(ClientToken, MockGalileo);
-  app.register(ConfigToken, config);
-  app.register(gToken, GalileoPlugin);
-  app.middleware(
-    {Galileo: gToken},
-    ({
-      Galileo,
-    }): ((ctx: Context, next: () => Promise<void>) => Promise<void>) => {
-      t.equal(Galileo.galileo, null, 'should have null galileo client');
-      t.doesNotThrow(
-        (): boolean | void => Galileo.destroy(),
-        'should have destroy function'
-      );
-      return (ctx: Context, next: () => Promise<void>): Promise<void> => next();
-    }
-  );
-  getSimulator(app);
+  assertPlugin(config, MockGalileo, Galileo => {
+    t.equal(Galileo.galileo, null, 'should have null galileo client');
+    t.doesNotThrow(
+      (): boolean | void => Galileo.destroy(),
+      'should have destroy function'
+    );
+  });
   t.end();
 });

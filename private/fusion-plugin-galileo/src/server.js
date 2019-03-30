@@ -16,6 +16,10 @@ import type {
   GalileoClient,
 } from './types.js';
 
+function getAppName() {
+  return __DEV__ ? process.env.UBER_OWNER : process.env.SVC_ID;
+}
+
 const pluginFactory: () => GalileoPluginType = (): GalileoPluginType =>
   createPlugin({
     deps: {
@@ -36,7 +40,7 @@ const pluginFactory: () => GalileoPluginType = (): GalileoPluginType =>
       // $FlowFixMe
       logger = logger.createChild('galileo');
       const tracer = Tracer.tracer;
-      let appName = __DEV__ ? process.env.UBER_OWNER : process.env.SVC_ID;
+      const {appName = getAppName(), ...overrides} = config;
       const galileoConfig = {
         appName,
         galileo: {
@@ -44,7 +48,7 @@ const pluginFactory: () => GalileoPluginType = (): GalileoPluginType =>
           allowedEntities: ['EVERYONE'],
           enforcePercentage: 0.0,
           wonkamasterUrl: __DEV__ && 'https://wonkabar.uberinternal.com',
-          ...config,
+          ...overrides,
         },
       };
       if (!galileoConfig.galileo.enabled) {
