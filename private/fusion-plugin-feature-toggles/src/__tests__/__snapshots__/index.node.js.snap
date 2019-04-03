@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`__FEATURE_TOGGLES__ populated: __FEATURE_TOGGLES__ 1`] = `
+"<script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
+            {\\\\u0022data\\\\u0022:{\\\\u0022weatherToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:true,\\\\u0022metadata\\\\u0022:{\\\\u0022isItSunnyToday\\\\u0022:true,\\\\u0022areThereWaves\\\\u0022:false}}}}
+          </script>"
+`;

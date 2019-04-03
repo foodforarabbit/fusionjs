@@ -1,7 +1,9 @@
 // @flow
 /* eslint-env node */
 
-import {getService} from 'fusion-test-utils';
+import {JSDOM} from 'jsdom';
+
+import {getService, getSimulator} from 'fusion-test-utils';
 import App from 'fusion-core';
 import type {Context} from 'fusion-core';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
@@ -136,4 +138,48 @@ test('test ssr', async () => {
   expect(metadata.isItSunnyToday).toBeTruthy();
   expect(metadata).toHaveProperty('areThereWaves');
   expect(metadata.areThereWaves).not.toBeTruthy();
+});
+
+test('test default client dependencies', async () => {
+  const appFactory = () => {
+    const app = new App('el', el => el);
+    app.register(FeatureTogglesPlugin);
+    app.register(FeatureTogglesToggleNamesToken, []);
+    return app;
+  };
+
+  // Without required (for default) AtreyuToken registration
+  expect(() => getService(appFactory, FeatureTogglesPlugin)).toThrow();
+
+  // With Atrey client
+  const app = appFactory();
+  app.register(AtreyuToken, mockAtreyuFactory());
+  expect(() => getService(() => app, FeatureTogglesPlugin)).not.toThrow();
+});
+
+test('__FEATURE_TOGGLES__ populated', async () => {
+  const mockToggles = {
+    weatherToggle: {
+      enabled: true,
+      metadata: {
+        isItSunnyToday: true,
+        areThereWaves: false,
+      },
+    },
+  };
+  const app = appCreator(mockToggles)();
+  const result = await getSimulator(app).render('/');
+
+  const dom = new JSDOM(result.body);
+  const elem = dom.window.document.querySelector(
+    "script[id='__FEATURE_TOGGLES__'"
+  );
+  expect(elem).toBeTruthy();
+  expect(elem).toHaveProperty('outerHTML');
+  expect(elem.outerHTML).toMatchSnapshot('__FEATURE_TOGGLES__');
+});
+
+test('context is required on server', async () => {
+  const service = getService(appCreator(), FeatureTogglesPlugin);
+  expect(() => service.from()).toThrow();
 });

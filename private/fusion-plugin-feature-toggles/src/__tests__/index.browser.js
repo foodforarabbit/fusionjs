@@ -13,6 +13,21 @@ const appCreator = () => () => {
   return app;
 };
 
+function setScriptContent(content: string): HTMLScriptElement {
+  const scriptElem = document.createElement('script');
+  scriptElem.setAttribute('type', 'application/json');
+  scriptElem.setAttribute('id', '__FEATURE_TOGGLES__');
+  scriptElem.textContent = content;
+  if (!document.body) throw new Error('Missing document.body');
+  document.body.appendChild(scriptElem);
+
+  return scriptElem;
+}
+function cleanupScriptContent(elem: HTMLScriptElement): void {
+  if (!document.body) throw new Error('Missing document.body');
+  document.body.removeChild(elem);
+}
+
 test('hydration from element', async () => {
   // Set up __FEATURE_TOGGLES__ element
   const mockHydrationState = {
@@ -25,12 +40,8 @@ test('hydration from element', async () => {
       },
     },
   };
-  const scriptElem = document.createElement('script');
-  scriptElem.setAttribute('type', 'application/json');
-  scriptElem.setAttribute('id', '__FEATURE_TOGGLES__');
-  scriptElem.textContent = JSON.stringify(mockHydrationState);
-  if (!document.body) throw new Error('Missing document.body');
-  document.body.appendChild(scriptElem);
+
+  const scriptElem = setScriptContent(JSON.stringify(mockHydrationState));
 
   // Check that the Feature Toggles service can resolve toggle data
   const service = getService(appCreator(), FeatureTogglesPlugin);
@@ -53,4 +64,26 @@ test('hydration from element', async () => {
   if (!missingResult) throw new Error('missingResult is null!'); // necessary to appease Flow
   expect(missingResult).toHaveProperty('enabled');
   expect(missingResult.enabled).not.toBeTruthy();
+
+  cleanupScriptContent(scriptElem);
+});
+
+test('missing hydration failure', async () => {
+  const service = getService(appCreator(), FeatureTogglesPlugin);
+  const instance = service.from();
+
+  // Should throw -- no __FEATURE_TOGGLES__ element
+  await expect(instance.load()).rejects.toThrow();
+
+  // Should throw -- unable to parse __FEATURE_TOGGLES__ element
+  let scriptElem = setScriptContent('INVALID_CONTENT');
+  await expect(instance.load()).rejects.toThrow();
+  cleanupScriptContent(scriptElem);
+
+  // Should not throw, and fallback to empty (i.e. no data)
+  scriptElem = setScriptContent(JSON.stringify({}));
+  await instance.load();
+  // $FlowFixMe
+  expect(instance.data).toEqual([]);
+  cleanupScriptContent(scriptElem);
 });
