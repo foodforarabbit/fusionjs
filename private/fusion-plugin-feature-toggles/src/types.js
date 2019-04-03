@@ -4,23 +4,33 @@ import type {Context, FusionPlugin} from 'fusion-core';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 
 import {
-  FeatureTogglesClientToken,
   FeatureTogglesToggleNamesToken,
+  FeatureTogglesClientToken,
+  FeatureTogglesClientConfigToken,
 } from './tokens.js';
 
 export type FeatureTogglesDepsType = {
-  toggleNames: typeof FeatureTogglesToggleNamesToken,
-  Client: typeof FeatureTogglesClientToken.optional,
-  atreyu: typeof AtreyuToken.optional,
+  +toggleNames: typeof FeatureTogglesToggleNamesToken,
+  +Client: typeof FeatureTogglesClientToken.optional,
+  +clientConfig: typeof FeatureTogglesClientConfigToken.optional,
+  +atreyu: typeof AtreyuToken.optional,
 };
 
 export type ToggleDetailsType = {|
   +enabled: boolean,
-  +metadata?: {[string]: any},
+  +metadata?: {+[string]: any},
 |};
 
+export type ClientConfigType = {+[string]: any};
+
 export interface IFeatureTogglesClient {
-  constructor(...params?: any): IFeatureTogglesClient;
+  constructor(
+    ctx: Context,
+    toggleNames: Array<string>,
+    deps: any,
+    config: ClientConfigType,
+    ...rest?: any
+  ): IFeatureTogglesClient;
   +load: () => Promise<void>;
   +get: (toggleName: string) => Promise<ToggleDetailsType>;
 }

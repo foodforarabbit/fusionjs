@@ -4,43 +4,52 @@ import type {Context} from 'fusion-core';
 
 import type {IFeatureTogglesClient, ToggleDetailsType} from '../types.js';
 
-type MorpheusContextType = {|
-  browser: string,
-  url: string,
-  urlParameters: {[key: string]: string},
-  deviceLanguage: string,
-  ipAddress: string,
-  cookieID: string,
-|};
+export type MorpheusContextType = {
+  +browser: string,
+  +url: string,
+  +urlParameters: {[key: string]: string},
+  +deviceLanguage: string,
+  +ipAddress: string,
+  +cookieID: string,
+};
+
+type EnhancedMorpheusContextType = {+[string]: any};
 
 type MorpheusTreatmentGroupType = {|
-  id: number, // e.g. 1125855
-  name: string, // e.g. 'test_key'
-  segmentUUID: string, // e.g. 'ab46b7e9-0669-4e77-86b6-5d47e7f239b4'
-  experimentID: number, // e.g. 4368069
-  experimentName: string, // e.g. 'amsmith_test_experiment'
-  parameters: Object, // e.g. {}
-  logTreatments: number, // e.g. 0
-  segmentKey: string, // e.g. 'teamfooding'
-  uuid: string, // e.g. '6ba9651b-5283-4277-a3d6-707e8365b1fb'
-  bucketBy: string, // e.g. '$device'
-  inclusionLoggingToken: string, // e.g. 'eyJ0cmVhdG1lbnRH..."
-  segmentID: number, // e.g. 1126863
-  morlogActivated: boolean, // e.g. false
-  configNamespace: null,
-  treatedUuids: null,
+  +id: number, // e.g. 1125855
+  +name: string, // e.g. 'test_key'
+  +segmentUUID: string, // e.g. 'ab46b7e9-0669-4e77-86b6-5d47e7f239b4'
+  +experimentID: number, // e.g. 4368069
+  +experimentName: string, // e.g. 'amsmith_test_experiment'
+  +parameters: Object, // e.g. {}
+  +logTreatments: number, // e.g. 0
+  +segmentKey: string, // e.g. 'teamfooding'
+  +uuid: string, // e.g. '6ba9651b-5283-4277-a3d6-707e8365b1fb'
+  +bucketBy: string, // e.g. '$device'
+  +inclusionLoggingToken: string, // e.g. 'eyJ0cmVhdG1lbnRH..."
+  +segmentID: number, // e.g. 1126863
+  +morlogActivated: boolean, // e.g. false
+  +configNamespace: null,
+  +treatedUuids: null,
 |};
 
 type MorpheusResponseType = {|
-  data: {
-    experimentNames: Array<string>,
-    context: MorpheusContextType,
-    disableLogging: boolean,
+  +data: {
+    +experimentNames: Array<string>,
+    +context: MorpheusContextType,
+    +disableLogging: boolean,
   },
-  treatments: {
-    [experimentName: string]: MorpheusTreatmentGroupType,
+  +treatments: {
+    +[experimentName: string]: MorpheusTreatmentGroupType,
   },
 |};
+
+type MorpheusConfigType = {
+  +enhanceContext?: (
+    ctx: Context,
+    defaultMorpheusContext: MorpheusContextType
+  ) => EnhancedMorpheusContextType,
+};
 
 export default class MorpheusClient implements IFeatureTogglesClient {
   ctx: Context;
@@ -48,9 +57,18 @@ export default class MorpheusClient implements IFeatureTogglesClient {
   getTreatmentGroupsByNames: Function;
   experiments: {[experimentName: string]: MorpheusTreatmentGroupType};
   hasLoaded: boolean;
+  enhanceContext: ?(
+    ctx: Context,
+    defaultMorpheusContext: MorpheusContextType
+  ) => EnhancedMorpheusContextType;
 
-  constructor(ctx: Context, toggleNames: Array<string>, params: {atreyu: any}) {
-    const {atreyu} = params;
+  constructor(
+    ctx: Context,
+    toggleNames: Array<string>,
+    deps: {atreyu: any},
+    config: MorpheusConfigType
+  ) {
+    const {atreyu} = deps;
     const graphDefinition = {
       treatments: {
         service: 'treatment',
@@ -65,6 +83,7 @@ export default class MorpheusClient implements IFeatureTogglesClient {
 
     this.ctx = ctx;
     this.toggleNames = toggleNames;
+    this.enhanceContext = config.enhanceContext;
     this.getTreatmentGroupsByNames = atreyu.createAsyncGraph(graphDefinition);
     this.hasLoaded = false;
 
@@ -134,8 +153,8 @@ export default class MorpheusClient implements IFeatureTogglesClient {
    *   - cookieID {string} - UUID4 corresponding to a specific user, if available, otherwise
    *        the the user's 'marketing_vistor_id'.  Defaults to the empty string otherwise.
    */
-  getContext(ctx: Context): MorpheusContextType {
-    return {
+  getContext(ctx: Context): MorpheusContextType | EnhancedMorpheusContextType {
+    const defaultContext: MorpheusContextType = {
       browser: ctx.headers['user-agent'],
       url: ctx.url,
       urlParameters: ctx.query,
@@ -146,5 +165,9 @@ export default class MorpheusClient implements IFeatureTogglesClient {
         ctx.cookies.get('marketing_vistor_id') ||
         '',
     };
+
+    return this.enhanceContext
+      ? this.enhanceContext(ctx, defaultContext)
+      : defaultContext;
   }
 }

@@ -4,9 +4,10 @@ import server from './server.js';
 import browser from './browser.js';
 
 import {
-  FeatureTogglesClientToken,
-  FeatureTogglesToggleNamesToken,
   FeatureTogglesToken,
+  FeatureTogglesToggleNamesToken,
+  FeatureTogglesClientToken,
+  FeatureTogglesClientConfigToken,
 } from './tokens.js';
 
 import type {
@@ -26,9 +27,10 @@ export type {
 };
 
 export {
-  FeatureTogglesClientToken,
-  FeatureTogglesToggleNamesToken,
   FeatureTogglesToken,
+  FeatureTogglesToggleNamesToken,
+  FeatureTogglesClientToken,
+  FeatureTogglesClientConfigToken,
 };
 
 export default (__NODE__ ? server : browser);

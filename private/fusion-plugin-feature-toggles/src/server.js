@@ -9,6 +9,7 @@ import MorpheusClient from './clients/morpheus.js';
 import {
   FeatureTogglesClientToken,
   FeatureTogglesToggleNamesToken,
+  FeatureTogglesClientConfigToken,
 } from './tokens.js';
 import type {
   ToggleDetailsType,
@@ -21,16 +22,19 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
     deps: {
       toggleNames: FeatureTogglesToggleNamesToken,
       Client: FeatureTogglesClientToken.optional,
+      clientConfig: FeatureTogglesClientConfigToken.optional,
       atreyu: AtreyuToken.optional,
     },
-    provides({toggleNames, Client, atreyu}) {
+    provides({toggleNames, Client, clientConfig, atreyu}) {
+      const config = clientConfig || Object.freeze({});
+
       if (!Client) {
         if (!atreyu) throw new Error(generateErrorMessage('AtreyuToken'));
         Client = MorpheusClient;
       }
 
       const C = Client; // TODO: Remove this and ensure Flow does not complain
-      const scoper = memoize(ctx => new C(ctx, toggleNames, {atreyu}));
+      const scoper = memoize(ctx => new C(ctx, toggleNames, {atreyu}, config));
       const service: FeatureTogglesServiceType = {
         from: (ctx?: Context) => {
           if (!ctx)
