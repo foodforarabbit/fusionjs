@@ -6,7 +6,7 @@ type FixMeTchannelMockOptions = {
 };
 
 export const fixMeTchannelMock = async ({dir}: FixMeTchannelMockOptions) => {
-  await withTextFile(`${dir}/src/test-utils/test-app.js`, code => {
+  await withTextFile(`${dir}/src/test-utils/test-app.js`, async code => {
     return code
       .replace(
         /( +)(app.register\(TChannelToken, \{\}\));/m,

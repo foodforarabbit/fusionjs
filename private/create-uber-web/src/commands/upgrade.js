@@ -49,11 +49,24 @@ export const upgrade = async ({
           strategy,
         });
       }),
+      step('add eslint-plugin-react-hooks', async () => {
+        await addPackage({
+          name: 'eslint-plugin-react-hooks',
+          dev: true,
+          dir,
+          strategy,
+        });
+      }),
       step('remove enzyme-context-patch', async () => {
         await removePackage({name: 'enzyme-context-patch', dir});
       }),
       step('add eslint-plugin-jest', async () => {
-        await addPackage({name: 'eslint-plugin-jest', dir, strategy});
+        await addPackage({
+          name: 'eslint-plugin-jest',
+          dir,
+          strategy,
+          dev: true,
+        });
       }),
       step('use fusion-plugin-universal-events-react', async () => {
         await replacePackage({
@@ -100,7 +113,7 @@ export const upgrade = async ({
       step('format', async () => {
         await format(dir);
       }),
-      step('Remind about new deps', () => {
+      step('Remind about new deps', async () => {
         // eslint-disable-next-line no-console
         console.log('Codemods completed. Run `yarn install`');
       })

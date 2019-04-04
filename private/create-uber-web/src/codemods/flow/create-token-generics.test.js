@@ -9,7 +9,6 @@ test('addCreateTokenGenerics', async () => {
   await addCreateTokenGenerics({dir: root});
   const data = await readFile(file);
   await removeFile(root);
-
   expect(data.includes('createToken<*>(')).toBe(true);
 });
 

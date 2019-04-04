@@ -23,7 +23,9 @@ export default async function start() {
   expect(newContents).toMatchInlineSnapshot(`
 "
 import App from 'fusion-core';
-import introspect from 'fusion-plugin-introspect';import metricsStore from '@uber/fusion-metrics';import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+import introspect from 'fusion-plugin-introspect';
+import metricsStore from '@uber/fusion-metrics';
+import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
 export default async function start() {
   const app = new App('test', el => el);
 
@@ -60,7 +62,8 @@ export default async function start() {
 "
 import App from 'fusion-core';
 import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
-import introspect from 'fusion-plugin-introspect';import metricsStore from '@uber/fusion-metrics';
+import introspect from 'fusion-plugin-introspect';
+import metricsStore from '@uber/fusion-metrics';
 export default async function start() {
   const app = new App('test', el => el);
 
@@ -98,7 +101,9 @@ export default async function start() {
   expect(newContents).toMatchInlineSnapshot(`
 "
 import App from 'fusion-core';
-import introspect from 'fusion-plugin-introspect';import metricsStore from '@uber/fusion-metrics';import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+import introspect from 'fusion-plugin-introspect';
+import metricsStore from '@uber/fusion-metrics';
+import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
 export default async function start() {
   const app = new App('test', el => el);
 
@@ -125,9 +130,12 @@ test('introspect codemod csrf protection whitelist', async () => {
   await installIntrospect({dir: root, strategy: 'latest'});
   const newContents = await readFile(fixture);
   // $FlowFixMe
-  expect(newContents).toMatchInlineSnapshot(
-    `"import introspect from 'fusion-plugin-introspect';import metricsStore from '@uber/fusion-metrics';import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors', \\"/_diagnostics\\"]);"`
-  );
+  expect(newContents).toMatchInlineSnapshot(`
+"import introspect from 'fusion-plugin-introspect';
+import metricsStore from '@uber/fusion-metrics';
+import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors', \\"/_diagnostics\\"]);"
+`);
   await removeFile(root);
 });
 
@@ -140,8 +148,11 @@ test('introspect codemod csrf protection whitelist idempotency', async () => {
   await installIntrospect({dir: root, strategy: 'latest'});
   const newContents = await readFile(fixture);
   // $FlowFixMe
-  expect(newContents).toMatchInlineSnapshot(
-    `"import introspect from 'fusion-plugin-introspect';import metricsStore from '@uber/fusion-metrics';import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors', '/_diagnostics']);"`
-  );
+  expect(newContents).toMatchInlineSnapshot(`
+"import introspect from 'fusion-plugin-introspect';
+import metricsStore from '@uber/fusion-metrics';
+import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors', '/_diagnostics']);"
+`);
   await removeFile(root);
 });

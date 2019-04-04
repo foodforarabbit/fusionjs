@@ -300,16 +300,12 @@ to find the DSN and copy it into src/config/sentry.js.
   // Replace the default DSN in config/sentry.js
   await withJsFile(
     path.join(process.cwd(), 'src', 'config', 'sentry.js'),
-    p => {
-      return new Promise(resolve => {
-        resolve(
-          replaceJs(
-            p,
-            `export default { id: 'Sentry project DSN goes here' };`,
-            `export default { id: '${createdDsn}' };`
-          )
-        );
-      });
+    async p => {
+      replaceJs(
+        p,
+        `export default { id: 'Sentry project DSN goes here' };`,
+        `export default { id: '${createdDsn}' };`
+      );
     }
   );
 

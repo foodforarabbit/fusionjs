@@ -40,12 +40,10 @@ export const migrateCsrfProtectionToV2 = async ({
     );
   });
   await withJsFiles(dir, path => {
-    let shouldUpdate = false;
     visitJsImport(
       path,
       `import {withFetch} from 'fusion-plugin-csrf-protection-react'`,
       (importPath, refs) => {
-        shouldUpdate = true;
         refs.forEach(ref => {
           if (ref.parentPath.type !== 'CallExpression') {
             // eslint-disable-next-line no-console
@@ -69,7 +67,6 @@ export const migrateCsrfProtectionToV2 = async ({
       path,
       `import CsrfProtection from 'fusion-plugin-csrf-protection-react'`,
       (path, refs) => {
-        shouldUpdate = true;
         const defaultSpecifier = path.node.specifiers.find(
           spec => spec.type === 'ImportDefaultSpecifier'
         );
@@ -79,6 +76,7 @@ export const migrateCsrfProtectionToV2 = async ({
           );
           r.parentPath.insertAfter(
             parseJs(
+              // $FlowFixMe
               `app.enhance(FetchToken, ${defaultSpecifier.local.name});\n`
             ).node.body[0]
           );
@@ -97,7 +95,6 @@ export const migrateCsrfProtectionToV2 = async ({
       path,
       `import {CsrfIgnoreRoutesToken} from 'fusion-plugin-csrf-protection-react'`,
       ipath => {
-        shouldUpdate = true;
         ipath.node.source = t.stringLiteral('fusion-plugin-csrf-protection');
       }
     );
@@ -105,10 +102,8 @@ export const migrateCsrfProtectionToV2 = async ({
       path,
       `import CsrfProtectionPlugin from 'fusion-plugin-csrf-protection-react'`,
       ipath => {
-        shouldUpdate = true;
         ipath.node.source = t.stringLiteral('fusion-plugin-csrf-protection');
       }
     );
-    return shouldUpdate;
   });
 };

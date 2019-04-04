@@ -12,7 +12,7 @@ export const addCreatePluginGenerics = async ({
   const files = await findFiles(dir + '/src/**/*.js');
   return Promise.all(
     files.map(file => {
-      return withTextFile(file, code => {
+      return withTextFile(file, async code => {
         return code.replace(/createPlugin\(/g, 'createPlugin<*, *>(');
       });
     })

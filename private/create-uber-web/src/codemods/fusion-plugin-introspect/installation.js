@@ -33,7 +33,7 @@ export const installIntrospect = async ({dir, strategy}: InstallOptions) => {
     }
     return pkg;
   });
-  await withJsFile(`${dir}/src/main.js`, program => {
+  await withJsFile(`${dir}/src/main.js`, async program => {
     // add imports
     const [{default: introspect}] = ensureJsImports(
       program,
@@ -43,6 +43,7 @@ export const installIntrospect = async ({dir, strategy}: InstallOptions) => {
       program,
       `import metricsStore from '@uber/fusion-metrics';`
     );
+    // $FlowFixMe
     const [{HeatpipeToken}] = ensureJsImports(
       program,
       `import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';`
