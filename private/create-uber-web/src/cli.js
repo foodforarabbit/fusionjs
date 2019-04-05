@@ -15,7 +15,7 @@ const latest = proc
 const version = require('../package.json').version;
 
 if (latest !== version) {
-  // do a clean install because upgrades can break with stupid errors e.g. EISGIT
+  // do a clean install because upgrades can break with stupid errors e.g. EISGIT.
   proc.execSync(`
     yarn global remove @uber/create-uber-web || true;
     npm uninstall @uber/create-uber-web --global || true;
