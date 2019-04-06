@@ -139,7 +139,7 @@
           ".*\\.node\\.js"
         ],
         "testURL": "http://localhost",
-        "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js",
+        "setupFilesAfterEnv": ["<rootDir>enzyme.config.js"],
         "globals": {
           "__DEV__": true,
           "__NODE__": false,
@@ -155,7 +155,7 @@
           "/dist/",
           ".*\\.browser\\.js"
         ],
-        "setupTestFrameworkScriptFile": "<rootDir>enzyme.config.js",
+        "setupFilesAfterEnv": ["<rootDir>enzyme.config.js"],
         "globals": {
           "__DEV__": true,
           "__NODE__": true,
