@@ -703,14 +703,15 @@
   version "0.0.28"
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
 
-"@uber/node-rosetta@^1.0.0":
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.0.0.tgz#d5bc992e07ae573db8d42fe9fedf78dbe535fab6"
+"@uber/node-rosetta@^1.0.1":
+  version "1.0.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.0.1.tgz#51f2cd77c43fc9bb6da36a9d11c77800b00b951c"
+  integrity sha512-yPL5GHNvFvkHPEfzh5mc9ld+j40SzRldvE5nt+4NK4lNlXCEgSnSOB+ynl7JCw67ePcpzqEDIMiuMxSI7ngdcA==
   dependencies:
     axios "^0.18.0"
     decompress "^4.2.0"
     fs-extra "^6.0.1"
-    node-lmdb "^0.6.0"
+    node-lmdb "^0.6.2"
     node-mkdirp "^0.0.1"
     path-is-absolute "^1.0.0"
     process "^0.11.2"
@@ -3544,9 +3545,10 @@ node-libs-browser@^2.0.0:
     util "^0.10.3"
     vm-browserify "0.0.4"
 
-node-lmdb@^0.6.0:
+node-lmdb@^0.6.2:
   version "0.6.2"
   resolved "https://unpm.uberinternal.com/node-lmdb/-/node-lmdb-0.6.2.tgz#2adc8b3907b067b25a3cfd2ea093253aada54ebd"
+  integrity sha512-j9K0qVBSZ1YqP2hg++zxvxKL8mDYAhaprlH2VdfCI2Y+Pfr11kFXLfZ9lXs/H5gMq+Xy39zSR2Kh/DWU8+bUUQ==
   dependencies:
     bindings "^1.2.1"
     nan "^2.12.0"
