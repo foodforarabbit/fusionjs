@@ -18,6 +18,7 @@ Feature toggles (also known as feature flags) provide developers with the abilit
 * [Usage](#usage)
   * [React component](#react-component)
   * [Simple middleware](#simple-middleware)
+  * [Default client](#default-client)
 * [Setup](#setup)
 * [API](#api)
   * [Registration API](#registration-api)
@@ -26,9 +27,11 @@ Feature toggles (also known as feature flags) provide developers with the abilit
   * [Dependencies](#dependencies)
     * [`FeatureTogglesToggleNamesToken`](#feature-toggles-toggle-names-token)
     * [`FeatureTogglesClientToken`](#feature-toggles-client-token)
+    * [`FeatureTogglesClientConfigToken`](#feature-toggles-client-config-token)
     * [`AtreyuToken`](#atreyutoken)
   * [Service API](#service-api)
 * [Morpheus](#morpheus)
+  * [Configuration](#configuration)
 
 ---
 
@@ -177,6 +180,22 @@ interface IFeatureTogglesClient {
 
 If no client is provided, the default client interfaces with Morpheus. See [src/clients/morpheus.js](https://github.com/fusionjs/fusion-plugin-feature-toggles/blob/master/src/clients/morpheus.js) for more details.
 
+##### `FeatureTogglesClientConfigToken`
+
+```js
+import {FeatureTogglesClientConfigToken} from '@uber/fusion-plugin-feature-toggles-react';
+```
+
+Optional.  An optional client configuration objects that is passed into the Client (registered to `FeatureToggleClientToken`) during instantiation.
+
+The default Morpheus client supports some [configuration](#configuration).
+
+###### Type
+
+```js
+type FeatureTogglesClientConfigToken = {+[string]: any};
+```
+
 ##### `AtreyuToken`
 
 ```js
@@ -214,13 +233,47 @@ If no client is registered to the `FeatureTogglesClientToken`, this plugin defau
 
 A toggle is always in a binary state of on or off.  For the default client, we consider users in a treatment group as "on" and those in control as "off".  In both of these cases, additional metadata is provided by Morpheus and returned by the plugin service.  If a user is not a part of any treatment or control group, the toggle defaults to "off" and no additional metadata is provided.
 
-We are also opinionated on the constraints used to identify (and optionally segment) users.  These are:
+We are also opinionated on the constraints used to identify (and optionally segment) users by default.  These are:
    * `browser: string` - browser client from the request
    * `url: string` - request URL
    * `urlParameters: {[key: string]: string}` - parameters embedded in the request URL
    * `deviceLanguage: string` - Locale string from the request's 'accept-language' header
    * `ipAddress: string` - IP address from the request
    * `cookieID: string` - UUID4 corresponding to a specific user, if available, otherwise the the user's 'marketing_vistor_id'.  Defaults to the empty string otherwise.
+
+##### Configuration
+
+```js
+type MorpheusContextType = { // detailed above
+  +browser: string,
+  +url: string,
+  +urlParameters: {[key: string]: string},
+  +deviceLanguage: string,
+  +ipAddress: string,
+  +cookieID: string,
+};
+
+type MorpheusConfigType = {
+  +enhanceContext?: (
+    ctx: Context,
+    defaultContext: MorpheusContextType
+  ) => {+[string]: any},
+};
+```
+
+An `enhanceContext` function can be supplied for the default Morpheus client in order to extend the opinionated constraints from above.  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to overwrite the `cookieID` property and add a `marketingID` property, we might do something like:
+
+```js
+const config = {
+  enhanceContext: (ctx, defaultContext) => ({
+    ...defaults,
+    cookieID: ctx.headers['user-uuid'],
+    marketingID: ctx.cookies.get('some_marketing_id'),
+  })
+};
+
+app.register(FeatureTogglesClientConfigToken, config);
+```
 
 ##### Installation
 
@@ -229,7 +282,7 @@ The default Morpheus client leverages Atreyu for its server-side communication w
 ###### Fetch Treatment service Thrift definition
 
 Run the following code:
-```
+```sh
 $ npm install idl -g
 $ idl fetch code.uber.internal/data/treatment
 ```
@@ -237,7 +290,7 @@ $ idl fetch code.uber.internal/data/treatment
 ###### Configure Fusion.js app
 
 Update `src/config/atreyu.js` to include the `treatment` service.  For example:
-```
+```js
 export default {
   // Enumerate what backend services you are communicating with.
   // Find services at https://infra.uberinternal.com/apps/
