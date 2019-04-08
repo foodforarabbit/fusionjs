@@ -54,7 +54,7 @@
     "prepublish": "npm run transpile"
   },
   "dependencies": {
-    "@uber/node-rosetta": "^1.0.1",
+    "@uber/node-rosetta": "^1.0.2",
     "locale": "^0.1.0"
   },
   "peerDependencies": {
