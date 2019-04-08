@@ -80,7 +80,7 @@ export const provision = async () => {
         /(https?:\/\/.*@usentry.local.uber.internal.*)/
       );
       if (!sentryDsn) {
-        const success = await createSentryDSN(awdToken);
+        const success = await createSentryDSN(options.serviceName);
         if (success) {
           // Exit prematurely since the user needs to commit and push the DSN
           process.exit();
@@ -234,68 +234,10 @@ Link to repo: https://code.uberinternal.com/diffusion/INCONF/browse/master/net/t
   });
 };
 
-async function createSentryDSN(awdToken: string): Promise<boolean> {
+async function createSentryDSN(serviceName: string): Promise<boolean> {
   console.log(
-    'No Sentry DSN was found in src/config/sentry.js. A Sentry DSN is required for provisioning.'
+    'No Sentry DSN was found in src/config/sentry.js. Generating one now.'
   );
-  console.log("Let's create one now.");
-  console.log('Fetching uSentry teams...');
-
-  // Create the data
-  const allUSentryTeams = await awdClient.getUSentryTeams(awdToken);
-  const uSentryTeamsByName = allUSentryTeams.reduce(
-    (accumulator: Object, data: Object) => {
-      accumulator[data.name] = data.value;
-      return accumulator;
-    },
-    {}
-  );
-
-  const uSentryTeamName = await promptChoice(
-    'What uSentry team does your service fall under?',
-    allUSentryTeams.map((data: Object) => data.name)
-  );
-  const uSentryTeamValue = uSentryTeamsByName[uSentryTeamName];
-  const projectDisplayName = await prompt(
-    'What is your project display name? (can contain capital letters and/or spaces)'
-  );
-
-  let createdDsn = '';
-  try {
-    createdDsn = await awdClient.createUSentryTeam(
-      awdToken,
-      uSentryTeamValue,
-      projectDisplayName
-    );
-    console.log(`\nA new DSN was created for your project: ${createdDsn}`);
-  } catch (e) {
-    if (e.statusCode && e.statusCode === 409) {
-      // TODO: Currently uSentry sometimes returns a 409 even though the DSN's were successfully created
-      // The team is looking into it but in the meantime, if we get a conflict, check if the response actually includes
-      // any DSN's and if so, use them
-      let returnWithFail = true;
-      if (e.error) {
-        const dsn = get(e.error, 'dca1.dsn');
-        if (dsn) {
-          createdDsn = dsn;
-          console.log(
-            `\nA new DSN was created for your project: ${createdDsn}`
-          );
-          returnWithFail = false;
-        }
-      }
-
-      if (returnWithFail) {
-        console.log(`
-That project already exists. If it is your project, visit https://infra.uberinternal.com/usentry/manage
-to find the DSN and copy it into src/config/sentry.js.
-        `);
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
 
   // Replace the default DSN in config/sentry.js
   await withJsFile(
@@ -304,7 +246,7 @@ to find the DSN and copy it into src/config/sentry.js.
       replaceJs(
         p,
         `export default { id: 'Sentry project DSN goes here' };`,
-        `export default { id: '${createdDsn}' };`
+        `export default { id: 'http://uber:uber@usentry.local.uber.internal/${serviceName}' };`
       );
     }
   );

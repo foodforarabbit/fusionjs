@@ -9,6 +9,7 @@ import {prompt} from '../utils/prompt.js';
 import {codemodPackageJson} from '../utils/codemod-package-json.js';
 import {removeConfigFiles} from '../utils/remove-config-files.js';
 import {codemodReadme} from '../utils/codemod-readme.js';
+import {codemodSentry} from '../utils/codemod-sentry.js';
 import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
 import {initRepo} from '../utils/init-repo.js';
 import fs from 'fs';
@@ -102,6 +103,9 @@ export const scaffold = async ({
     }),
     step('codemod readme file', async () => {
       await codemodReadme(project);
+    }),
+    step('codemod sentry configuration', async () => {
+      await codemodSentry(project);
     }),
     step('run', async () => {
       if (project.type === 'website' || project.type === 'website-graphql') {

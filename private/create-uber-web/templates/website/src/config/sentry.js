@@ -1,4 +1,4 @@
 // @flow
 export default {
-  id: 'Sentry project DSN goes here',
+  id: 'http://uber:uber@usentry.local.uber.internal/{{name}}',
 };
