@@ -70,20 +70,20 @@ test('hydration from element', async () => {
 
 test('missing hydration failure', async () => {
   const service = getService(appCreator(), FeatureTogglesPlugin);
+
+  // Should not throw, and fallback to empty (i.e. no data)
+  let scriptElem = setScriptContent(JSON.stringify({}));
   const instance = service.from();
+  await instance.load();
+  // $FlowFixMe
+  expect(instance.data).toEqual([]);
+  cleanupScriptContent(scriptElem);
 
   // Should throw -- no __FEATURE_TOGGLES__ element
   await expect(instance.load()).rejects.toThrow();
 
   // Should throw -- unable to parse __FEATURE_TOGGLES__ element
-  let scriptElem = setScriptContent('INVALID_CONTENT');
+  scriptElem = setScriptContent('INVALID_CONTENT');
   await expect(instance.load()).rejects.toThrow();
-  cleanupScriptContent(scriptElem);
-
-  // Should not throw, and fallback to empty (i.e. no data)
-  scriptElem = setScriptContent(JSON.stringify({}));
-  await instance.load();
-  // $FlowFixMe
-  expect(instance.data).toEqual([]);
   cleanupScriptContent(scriptElem);
 });

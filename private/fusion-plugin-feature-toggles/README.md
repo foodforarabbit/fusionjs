@@ -19,6 +19,7 @@ If you're using React, you should use [fusion-plugin-feature-toggles-react](http
 * [Installation](#installation)
 * [Usage](#usage)
   * [Simple middleware](#simple-middleware)
+  * [Default client](#default-client)
 * [Setup](#setup)
 * [API](#api)
   * [Registration API](#registration-api)
@@ -70,6 +71,8 @@ export default createPlugin({
   },
 });
 ```
+
+#### Default client
 
 The default backend service for this plugin is Morpheus.  See [Morpheus](#morpheus) for more details.
 
