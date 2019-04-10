@@ -19,7 +19,7 @@
     "flow": "flow check || true",
     "build": "cup build && eslint src",
     "dev": "npm-watch | grep --invert-match nodemon",
-    "test": "jest && yarn flow",
+    "test": "jest",
     "cover": "yarn lint && yarn flow && yarn test",
     "prepublish": "cup build && eslint src"
   },
@@ -118,7 +118,8 @@
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/**/type.js"
+      "!src/**/types.js",
+      "!src/**/__tests__/*.js"
     ],
     "coverageDirectory": "coverage",
     "coverageReporters": [

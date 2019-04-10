@@ -17,6 +17,7 @@ Feature toggles (also known as feature flags) provide developers with the abilit
 * [Installation](#installation)
 * [Usage](#usage)
   * [React component](#react-component)
+  * [Server-side only](#server-side-only)
   * [Simple middleware](#simple-middleware)
   * [Default client](#default-client)
 * [Setup](#setup)
@@ -51,12 +52,40 @@ If you are using React, we recommend using the supplied `Toggle` component.
 
 ```js
 import * as React from 'react';
-import {Translate, withTranslations} from 'fusion-plugin-feature-toggles-react';
+import {Toggle} from 'fusion-plugin-feature-toggles-react';
 
 export default () => {
   return <Toggle toggleName='some-toggle'>Show me only if enabled!</Toggle>;
 });
 ```
+
+#### Server-side only
+
+If you wish to avoid the disabled path from shipping to the client, you can leverage `fusion-react`'s [`split`](https://github.com/fusionjs/fusion-react#split) helper:
+
+```js
+import * as React from 'react';
+import {Toggle} from 'fusion-plugin-feature-toggles-react';
+import {split} from 'fusion-react';
+
+const Feature = split({
+  load: async () => import('./some-feature.js'),
+  LoadingComponent: () => <div>Loading...</div>,
+  ErrorComponent: () => <div>Error loading component</div>,
+});
+
+export default () => {
+  return (
+    <Toggle toggleName="some-toggle">
+      <Feature />
+    </Toggle>
+  );
+};
+```
+
+`split` ensures that the code for your feature (i.e. `./some-feature.js`) is loaded in the browser only if the corresponding toggle is enabled.  In the off case, the browser will have no knowledge of `Feature`.
+
+**Note** that this is not a replacement for robust security.  Clever sleuthing will still allow consumers to request other bundles.
 
 #### Simple middleware
 
