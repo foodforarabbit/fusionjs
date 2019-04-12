@@ -1,5 +1,5 @@
 // @noflow
-import postToCatalyst from '../utils/post-to-catalyst';
+import publishToHeatpipe from '../utils/publish-to-heatpipe';
 import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
 
 const STAT_EVENT = 'stat';
@@ -15,7 +15,7 @@ export default function browserPerformance({events, m3, heatpipeEmitter}) {
     } = payload;
 
     // post enhanced stats to heatpipe
-    enhancedMetrics && postToCatalyst({enhancedMetrics, __url__}, ctx);
+    enhancedMetrics && publishToHeatpipe({enhancedMetrics, __url__}, ctx);
 
     if (!isEmpty(calculatedStats)) {
       Object.keys(calculatedStats).forEach(key => {
