@@ -12,9 +12,13 @@ import FeatureTogglesPlugin from '../server.js';
 
 import {
   FeatureTogglesClientToken,
-  FeatureTogglesToggleNamesToken,
+  FeatureTogglesTogglesConfigToken,
 } from '../index.js';
-import type {ToggleDetailsType, IFeatureTogglesClient} from '../index.js';
+import type {
+  ToggleDetailsType,
+  IFeatureTogglesClient,
+  FeatureToggleConfigType,
+} from '../index.js';
 
 type AtreyuType = any;
 
@@ -43,13 +47,19 @@ const mockClientFactory: (
 };
 
 /* App Creator(s) */
-const appCreator = (data?: MockDataType) => () => {
+const appCreator = (
+  data?: MockDataType,
+  toggleConfigs?: ?Array<FeatureToggleConfigType | string>
+) => () => {
   const app = new App('el', el => el);
 
   app.register(FeatureTogglesPlugin);
   app.register(AtreyuToken, mockAtreyuFactory());
   app.register(FeatureTogglesClientToken, mockClientFactory(data));
-  app.register(FeatureTogglesToggleNamesToken, ['weatherToggle']);
+  app.register(
+    FeatureTogglesTogglesConfigToken,
+    toggleConfigs ? toggleConfigs : ['weatherToggle']
+  );
 
   return app;
 };
@@ -144,7 +154,7 @@ test('test default client dependencies', async () => {
   const appFactory = () => {
     const app = new App('el', el => el);
     app.register(FeatureTogglesPlugin);
-    app.register(FeatureTogglesToggleNamesToken, []);
+    app.register(FeatureTogglesTogglesConfigToken, []);
     return app;
   };
 
@@ -182,4 +192,38 @@ test('__FEATURE_TOGGLES__ populated', async () => {
 test('context is required on server', async () => {
   const service = getService(appCreator(), FeatureTogglesPlugin);
   expect(() => service.from()).toThrow();
+});
+
+test('only client-safe toggles exposed in __FEATURE_TOGGLES__ ', async () => {
+  const mockToggles = {
+    weatherToggle: {
+      enabled: true,
+      metadata: {
+        isItSunnyToday: true,
+        areThereWaves: false,
+      },
+    },
+    serverOnly: {
+      enabled: true,
+      metadata: {
+        shouldNotBeOnClient: false,
+      },
+    },
+  };
+
+  const app = appCreator(mockToggles, [
+    {name: 'serverOnly', exposeToClient: false},
+    'weatherToggle',
+  ])();
+  const result = await getSimulator(app).render('/');
+
+  const dom = new JSDOM(result.body);
+  const elem = dom.window.document.querySelector(
+    "script[id='__FEATURE_TOGGLES__'"
+  );
+  expect(elem).toBeTruthy();
+  expect(elem).toHaveProperty('outerHTML');
+  expect(elem.outerHTML).toMatchSnapshot(
+    '__FEATURE_TOGGLES__-limited-client-side'
+  );
 });

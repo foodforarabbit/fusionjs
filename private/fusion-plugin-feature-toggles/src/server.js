@@ -8,10 +8,11 @@ import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import MorpheusClient from './clients/morpheus.js';
 import {
   FeatureTogglesClientToken,
-  FeatureTogglesToggleNamesToken,
+  FeatureTogglesTogglesConfigToken,
   FeatureTogglesClientConfigToken,
 } from './tokens.js';
 import type {
+  FeatureToggleConfigType,
   ToggleDetailsType,
   FeatureTogglesServiceType,
   FeatureTogglesPluginType,
@@ -20,12 +21,12 @@ import type {
 const pluginFactory: () => FeatureTogglesPluginType = () =>
   createPlugin({
     deps: {
-      toggleNames: FeatureTogglesToggleNamesToken,
+      toggleConfigs: FeatureTogglesTogglesConfigToken,
       Client: FeatureTogglesClientToken.optional,
       clientConfig: FeatureTogglesClientConfigToken.optional,
       atreyu: AtreyuToken.optional,
     },
-    provides({toggleNames, Client, clientConfig, atreyu}) {
+    provides({toggleConfigs, Client, clientConfig, atreyu}) {
       const config = clientConfig || Object.freeze({});
 
       if (!Client) {
@@ -33,6 +34,9 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
         Client = MorpheusClient;
       }
 
+      const toggleNames = toggleConfigs.map(config =>
+        typeof config === 'string' ? config : config.name
+      );
       const C = Client; // TODO: Remove this and ensure Flow does not complain
       const scoper = memoize(ctx => new C(ctx, toggleNames, {atreyu}, config));
       const service: FeatureTogglesServiceType = {
@@ -46,7 +50,7 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
       };
       return service;
     },
-    middleware({toggleNames}, service) {
+    middleware({toggleConfigs}, service) {
       return async (ctx: Context, next) => {
         if (!ctx.element) return next();
 
@@ -57,11 +61,24 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
 
         // Load all feature toggles data into an easily serializable object
         const data: {[string]: ToggleDetailsType} = {};
-        for (let i = 0; i < toggleNames.length; i++) {
-          const name = toggleNames[i];
-          const details = await scoped.get(name);
+        for (let i = 0; i < toggleConfigs.length; i++) {
+          // Construct 'FeatureToggleConfigType' if a string is provided
+          let config = toggleConfigs[i];
+          if (typeof config === 'string') {
+            config = ({
+              name: config,
+              exposeToClient: true, // if not defined, defaults to true
+            }: FeatureToggleConfigType);
+          }
+
+          // Determine whether to expose token to client
+          if (!config.exposeToClient) {
+            continue;
+          }
+
+          const details = await scoped.get(config.name);
           if (details) {
-            data[name] = details;
+            data[config.name] = details;
           }
         }
 

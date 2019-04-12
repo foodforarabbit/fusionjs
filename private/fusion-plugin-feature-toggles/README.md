@@ -26,7 +26,7 @@ If you're using React, you should use [fusion-plugin-feature-toggles-react](http
     * [`FeatureTogglesPlugin`](#feature-toggles-plugin)
     * [`FeatureTogglesToken`](#feature-toggles-token)
   * [Dependencies](#dependencies)
-    * [`FeatureTogglesToggleNamesToken`](#feature-toggles-toggle-names-token)
+    * [`FeatureTogglesTogglesConfigToken`](#feature-toggles-toggles-config-token)
     * [`FeatureTogglesClientToken`](#feature-toggles-client-token)
     * [`FeatureTogglesClientConfigToken`](#feature-toggles-client-config-token)
     * [`AtreyuToken`](#atreyutoken)
@@ -126,18 +126,25 @@ The canonical token for the feature toggles plugin. Typically, it should be regi
 
 #### Dependencies
 
-##### `FeatureTogglesToggleNamesToken`
+##### `FeatureTogglesTogglesConfigToken`
 
 ```js
-import {FeatureTogglesToggleNamesToken} from '@uber/fusion-plugin-feature-toggles';
+import {FeatureTogglesTogglesConfigToken} from '@uber/fusion-plugin-feature-toggles';
 ```
 
-Required.  A list of names corresponding to the toggles used in the app.
+Required.  A list of names or configuration objects corresponding to the toggles used in the app.
+
+If a config object is supplied, an optional `exposeToClient` property can be set which limits the exposure of the toggle details to the server-only.
 
 ###### Type
 
 ```js
-type FeatureTogglesToggleNames = Array<string>;
+type FeatureToggleConfigType = {
+  +name: string,
+  +exposeToClient?: boolean,
+};
+
+type FeatureTogglesToggleNames = Array<FeatureToggleConfigType | string>;
 ```
 
 ##### `FeatureTogglesClientToken`
@@ -246,8 +253,11 @@ type MorpheusConfigType = {
     ctx: Context,
     defaultContext: MorpheusContextType
   ) => {+[string]: any},
+  +metadataTransform?: MorpheusTreatmentGroupType => {+[string]: any},
 };
 ```
+
+###### `enhanceContext`
 
 An `enhanceContext` function can be supplied for the default Morpheus client in order to extend the opinionated constraints from above.  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to overwrite the `cookieID` property and add a `marketingID` property, we might do something like:
 
@@ -257,6 +267,20 @@ const config = {
     ...defaults,
     cookieID: ctx.headers['user-uuid'],
     marketingID: ctx.cookies.get('some_marketing_id'),
+  })
+};
+
+app.register(FeatureTogglesClientConfigToken, config);
+```
+
+###### `metadataTransform`
+
+A `metadataTransform` function can be supplied that transforms Morpheus details (see [MorpheusTreatmentGroupType](https://sourcegraph.uberinternal.com/code.uber.internal/web/fusion-plugin-feature-toggles@f1b254926848cd960c4bb4952ccb22356f6108fb/-/blob/src/clients/morpheus.js#L18)).  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to only expose `experimentID`, we might do something like:
+
+```js
+const config = {
+  metadataTransform: (details) => ({
+    experimentID: details.experimentID
   })
 };
 

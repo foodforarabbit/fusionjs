@@ -20,7 +20,7 @@
     "build": "cup build && eslint src",
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest",
-    "cover": "yarn lint && yarn flow && yarn test",
+    "cover": "yarn lint && yarn test",
     "prepublish": "cup build && eslint src"
   },
   "watch": {

@@ -5,7 +5,7 @@ import browser from './browser.js';
 
 import {
   FeatureTogglesToken,
-  FeatureTogglesToggleNamesToken,
+  FeatureTogglesTogglesConfigToken,
   FeatureTogglesClientToken,
   FeatureTogglesClientConfigToken,
 } from './tokens.js';
@@ -16,6 +16,7 @@ import type {
   IFeatureTogglesClient,
   FeatureTogglesServiceType,
   FeatureTogglesPluginType,
+  FeatureToggleConfigType,
 } from './types.js';
 
 export type {
@@ -24,11 +25,12 @@ export type {
   IFeatureTogglesClient,
   FeatureTogglesServiceType,
   FeatureTogglesPluginType,
+  FeatureToggleConfigType,
 };
 
 export {
   FeatureTogglesToken,
-  FeatureTogglesToggleNamesToken,
+  FeatureTogglesTogglesConfigToken,
   FeatureTogglesClientToken,
   FeatureTogglesClientConfigToken,
 };

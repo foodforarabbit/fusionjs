@@ -49,6 +49,7 @@ type MorpheusConfigType = {
     ctx: Context,
     defaultMorpheusContext: MorpheusContextType
   ) => EnhancedMorpheusContextType,
+  +metadataTransform?: MorpheusTreatmentGroupType => {+[string]: any},
 };
 
 export default class MorpheusClient implements IFeatureTogglesClient {
@@ -61,6 +62,7 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     ctx: Context,
     defaultMorpheusContext: MorpheusContextType
   ) => EnhancedMorpheusContextType;
+  metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: any};
 
   constructor(
     ctx: Context,
@@ -86,6 +88,7 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     this.enhanceContext = config.enhanceContext;
     this.getTreatmentGroupsByNames = atreyu.createAsyncGraph(graphDefinition);
     this.hasLoaded = false;
+    this.metadataTransform = config.metadataTransform;
 
     return this;
   }
@@ -94,7 +97,11 @@ export default class MorpheusClient implements IFeatureTogglesClient {
    * Asynchronously loads all of the toggle details from those provided to the constructor.
    */
   async load() {
-    this.experiments = await this.getExperiments(this.toggleNames, this.ctx);
+    this.experiments = await this.getExperiments(
+      this.toggleNames,
+      this.ctx,
+      this.metadataTransform
+    );
     this.hasLoaded = true;
   }
 
@@ -126,20 +133,32 @@ export default class MorpheusClient implements IFeatureTogglesClient {
    */
   async getExperiments(
     experimentNames: Array<string>,
-    ctx: Context
-  ): Promise<{[experimentName: string]: MorpheusTreatmentGroupType}> {
-    let result: MorpheusResponseType = ({}: any);
+    ctx: Context,
+    metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: any}
+  ): Promise<{+[experimentName: string]: MorpheusTreatmentGroupType}> {
+    let result: MorpheusResponseType;
     try {
-      result = await this.getTreatmentGroupsByNames({
+      result = (await this.getTreatmentGroupsByNames({
         experimentNames,
         context: this.getContext(ctx),
         disableLogging: true,
-      });
+      }): MorpheusResponseType);
     } catch (e) {
       throw e;
     }
 
-    return result.treatments;
+    // Transform metadata, if applicable
+    let treatments = result.treatments;
+    if (metadataTransform) {
+      const transform = metadataTransform; // necessary to appease Flow
+      treatments = Object.keys(treatments).reduce((result, key) => {
+        const treatment = treatments[key];
+        result[key] = transform(treatment);
+        return result;
+      }, {});
+    }
+
+    return treatments;
   }
 
   /**

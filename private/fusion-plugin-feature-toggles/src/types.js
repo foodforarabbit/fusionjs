@@ -4,13 +4,18 @@ import type {Context, FusionPlugin} from 'fusion-core';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 
 import {
-  FeatureTogglesToggleNamesToken,
+  FeatureTogglesTogglesConfigToken,
   FeatureTogglesClientToken,
   FeatureTogglesClientConfigToken,
 } from './tokens.js';
 
+export type FeatureToggleConfigType = {
+  +name: string,
+  +exposeToClient?: boolean,
+};
+
 export type FeatureTogglesDepsType = {
-  +toggleNames: typeof FeatureTogglesToggleNamesToken,
+  +toggleConfigs: typeof FeatureTogglesTogglesConfigToken,
   +Client: typeof FeatureTogglesClientToken.optional,
   +clientConfig: typeof FeatureTogglesClientConfigToken.optional,
   +atreyu: typeof AtreyuToken.optional,
@@ -26,7 +31,7 @@ export type ClientConfigType = {+[string]: any};
 export interface IFeatureTogglesClient {
   constructor(
     ctx: Context,
-    toggleNames: Array<string>,
+    toggleConfig: Array<string>,
     deps: any,
     config: ClientConfigType,
     ...rest?: any

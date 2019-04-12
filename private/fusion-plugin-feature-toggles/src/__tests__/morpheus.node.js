@@ -203,3 +203,73 @@ test('simple enhance Morpheus context', async () => {
   expect(call.context.newProp).toBe(5);
   expect(call.context).not.toHaveProperty('urlParameters');
 });
+
+test('simple transform metadata', async () => {
+  const mockContext: Context = ({
+    headers: {
+      'user-agent': 'some-user-agent',
+      'accept-language': 'en-US',
+    },
+    cookies: {
+      get: name => (name === 'marketing_vistor_id' ? '0000' : null),
+    },
+    url: 'some-url',
+    query: '',
+    ip: '192.168.0.0',
+  }: any);
+  const mockAtreyu = {
+    createAsyncGraph: jest.fn(() =>
+      jest.fn(() => ({
+        treatments: {
+          someExperiment: {
+            id: 12345,
+            name: 'treatment',
+          },
+        },
+      }))
+    ),
+  };
+
+  const transform = data => {
+    expect(data).not.toBeNull();
+    expect(data).toHaveProperty('id');
+    expect(data.id).toBe(12345);
+    expect(data).toHaveProperty('name');
+    expect(data.name).toBe('treatment');
+
+    return {
+      id: data.id + 1,
+      inchesOfRain: 'ten',
+    };
+  };
+
+  const client = new MorpheusClient(
+    mockContext,
+    ['someExperiment'],
+    {atreyu: mockAtreyu},
+    {metadataTransform: transform}
+  );
+
+  await client.load();
+
+  // Existing experiment in treatment group
+  let details = await client.get('someExperiment');
+  expect(details).not.toBeNull();
+  expect(details.enabled).toBe(true);
+  expect(details).toHaveProperty('metadata');
+
+  // Transformed property
+  expect(details.metadata).toHaveProperty('id');
+  if (details.metadata && details.metadata.id) {
+    expect(details.metadata.id).toBe(12345 + 1);
+  }
+
+  // Removed property
+  expect(details.metadata).not.toHaveProperty('name');
+
+  // New property
+  expect(details.metadata).toHaveProperty('inchesOfRain');
+  if (details.metadata && details.metadata.inchesOfRain) {
+    expect(details.metadata.inchesOfRain).toBe('ten');
+  }
+});

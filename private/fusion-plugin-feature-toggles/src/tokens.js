@@ -4,6 +4,7 @@ import {createToken} from 'fusion-core';
 import type {Token} from 'fusion-core';
 
 import type {
+  FeatureToggleConfigType,
   IFeatureTogglesClient,
   FeatureTogglesServiceType,
   ClientConfigType,
@@ -17,9 +18,9 @@ export const FeatureTogglesClientConfigToken: Token<ClientConfigType> = createTo
   'FeatureTogglesClientConfigToken'
 );
 
-export const FeatureTogglesToggleNamesToken: Token<Array<string>> = createToken(
-  'FeatureTogglesToggleNamesToken'
-);
+export const FeatureTogglesTogglesConfigToken: Token<
+  Array<FeatureToggleConfigType | string>
+> = createToken('FeatureTogglesTogglesConfigToken');
 
 export const FeatureTogglesToken: Token<FeatureTogglesServiceType> = createToken(
   'FeatureTogglesToken'
