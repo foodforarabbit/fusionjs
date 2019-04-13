@@ -1,0 +1,6 @@
+node_modules/
+dist/
+dist-tests/
+.nyc_output
+*.log
+.idea/

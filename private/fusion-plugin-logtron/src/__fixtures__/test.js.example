@@ -1,0 +1,6 @@
+function test(foo, ...other) {
+  const err = new Error('hello world');
+  console.log(other, err.stack);
+}
+
+test(1, 2, 3);

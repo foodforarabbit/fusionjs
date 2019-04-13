@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Basic publish(UA desktop) 1`] = `
+Array [
+  Object {
+    "topic": "hp-clay_marketing_tracking-track",
+    "version": 10,
+  },
+  Object {
+    "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
+    "ip": "127.0.0.1",
+    "optimizely_cookie": Object {
+      "campaign_id": null,
+      "experiment_id": null,
+      "project_id": null,
+      "variation_id": null,
+    },
+    "original_url": "https://www.uber.com/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
+    "prefetched": false,
+    "referrer": "https://awesome.com/",
+    "status_code": 200,
+    "timestamp": 1536789961.819,
+    "url": "https://www.uber.com/app",
+    "user_agent": Object {
+      "browser_family": "Chrome",
+      "browser_version": "64.0.3282.189",
+      "is_bot": false,
+      "is_mobile": false,
+      "os_family": "Mac OS",
+      "os_version": "10.13.4",
+      "string": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.189 Safari/537.36 Viv/1.95.1077.60",
+    },
+    "utm_campaign": "bar",
+    "utm_source": "foo",
+  },
+]
+`;
+
+exports[`User Agent - isBot(should skip) 1`] = `undefined`;
+
+exports[`User Agent - isMobile 1`] = `
+Array [
+  Object {
+    "topic": "hp-clay_marketing_tracking-track",
+    "version": 10,
+  },
+  Object {
+    "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
+    "ip": "127.0.0.1",
+    "optimizely_cookie": Object {
+      "campaign_id": null,
+      "experiment_id": null,
+      "project_id": null,
+      "variation_id": null,
+    },
+    "original_url": "https://www.uber.com/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
+    "prefetched": false,
+    "referrer": "https://awesome.com/",
+    "status_code": 200,
+    "timestamp": 1536789961.819,
+    "url": "https://www.uber.com/app",
+    "user_agent": Object {
+      "browser_family": "Chrome WebView",
+      "browser_version": "60.0.3112.107",
+      "is_bot": false,
+      "is_mobile": true,
+      "os_family": "Android",
+      "os_version": "7.0",
+      "string": "Mozilla/5.0 (Linux; Android 7.0; SM-G892A Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/60.0.3112.107 Mobile Safari/537.36",
+    },
+    "utm_campaign": "bar",
+    "utm_source": "foo",
+  },
+]
+`;
+
+exports[`log when debugLogging is enabled 1`] = `
+Array [
+  Object {
+    "topic": "hp-clay_marketing_tracking-track",
+    "version": 10,
+  },
+  Object {
+    "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
+    "ip": "127.0.0.1",
+    "optimizely_cookie": Object {
+      "campaign_id": null,
+      "experiment_id": null,
+      "project_id": null,
+      "variation_id": null,
+    },
+    "original_url": "https://UNKNOWN/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
+    "prefetched": false,
+    "referrer": "https://awesome.com/",
+    "status_code": 200,
+    "timestamp": 1536789961.819,
+    "url": "https://UNKNOWN/app",
+    "user_agent": Object {
+      "browser_family": "Chrome",
+      "browser_version": "64.0.3282.189",
+      "is_bot": false,
+      "is_mobile": false,
+      "os_family": "Mac OS",
+      "os_version": "10.13.4",
+      "string": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.189 Safari/537.36 Viv/1.95.1077.60",
+    },
+    "utm_campaign": "bar",
+    "utm_source": "foo",
+  },
+]
+`;
+
+exports[`should skip - /health 1`] = `undefined`;
+
+exports[`should skip - assets 1`] = `undefined`;

@@ -1,0 +1,6 @@
+{
+  "test": true,
+  "mockHeaders": {
+    "x-test": "test-value"
+  }
+}
