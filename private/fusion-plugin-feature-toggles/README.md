@@ -61,7 +61,7 @@ export default createPlugin({
     return (ctx, next) => {
       if (__NODE__ && ctx.path === '/some-path') {
         const instance = featureToggles.from(ctx);
-        const showHelloWorld = instance.get('showHelloWorldToggle');
+        const showHelloWorld = await instance.get('showHelloWorldToggle');
         if(showHelloWorld.enabled) {
           ctx.body = { message: 'hello world!' };
         }
