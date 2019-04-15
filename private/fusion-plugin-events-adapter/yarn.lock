@@ -758,9 +758,9 @@
     node-int64 "^0.4.0"
     thriftrw "^3.11.3"
 
-"@uber/web-perf-collector@0.10.3":
-  version "0.10.3"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fweb-perf-collector/-/private/%40uber%2Fweb-perf-collector-0.10.3.tgz#f2e10e9b9ff061807eb23e8b321dd9597d7d84e8"
+"@uber/web-perf-collector@0.10.4":
+  version "0.10.4"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fweb-perf-collector/-/private/%40uber%2Fweb-perf-collector-0.10.4.tgz#1b5da46d6a9758c3ed0fd4b0f1efe5ae1aaa5af8"
   dependencies:
     just-map-keys "^1.1.0"
     just-pick "^2.1.0"
