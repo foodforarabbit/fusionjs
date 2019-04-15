@@ -1,4 +1,3 @@
-// @flow
 /**
  ╔══════════════════════════════════════════════════════╗
  ║                                                      ║
@@ -13,7 +12,7 @@
  ║                                                      ║
  ╚══════════════════════════════════════════════════════╝
 */
-import App from 'fusion-apollo';
+// @flow
 import type {Render} from 'fusion-core';
 import type {Element} from 'react';
 import DefaultRoot from './components/root.js';
@@ -27,8 +26,17 @@ import initUI from './uber/ui.js';
 import initGraphQL from './uber/graphql.js';
 import initIntrospect from './uber/introspect.js';
 
+import introspect from 'fusion-plugin-introspect';
+import metricsStore from '@uber/fusion-metrics';
+import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+
+import App from 'fusion-react';
+import {ApolloRenderEnhancer} from 'fusion-plugin-apollo';
+import {RenderToken} from 'fusion-core';
+
 export default async function start(root?: Element<*>, render?: Render) {
   const app = new App(root || DefaultRoot, render);
+  app.enhance(RenderToken, ApolloRenderEnhancer);
   // initialize default uber plugins
   initLogging(app);
   initSecurity(app);
@@ -40,5 +48,16 @@ export default async function start(root?: Element<*>, render?: Render) {
   initUserPlugins(app);
   // NOTE: This must be registered last
   initIntrospect(app);
+
+  app.register(
+    introspect(app, {
+      deps: {
+        heatpipe: HeatpipeToken,
+      },
+
+      store: metricsStore(),
+    })
+  );
+
   return app;
 }

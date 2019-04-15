@@ -38,7 +38,7 @@ const read = async file => {
   return JSON.parse(await readFile(file));
 };
 const write = async (file, data) => {
-  writeFile(file, JSON.stringify(data, null, 2));
+  return writeFile(file, JSON.stringify(data, null, 2));
 };
 
 const installAndTest = async dir => {

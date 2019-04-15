@@ -1,6 +1,6 @@
 /* @flow */
 
-import {Stepper, step} from '@dubstep/core';
+import {Stepper, step, type Step} from '@dubstep/core';
 import {bumpDeps} from '../utils/bump-deps.js';
 import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protection/enhancer.js';
 import {installIntrospect} from '../codemods/fusion-plugin-introspect/installation.js';
@@ -12,6 +12,8 @@ import {addCreatePluginGenerics} from '../codemods/flow/create-plugin-generics.j
 import {fixMeTchannelMock} from '../codemods/flow/fixme-tchannel-mock.js';
 import {format} from '../utils/format.js';
 import type {UpgradeStrategy} from '../types.js';
+import {codemodFusionApollo} from '../codemods/fusion-plugin-apollo/codemod-fusion-apollo';
+import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cli';
 
 export type UpgradeOptions = {
   dir: string,
@@ -28,13 +30,16 @@ export const upgrade = async ({
   force,
   strategy,
 }: UpgradeOptions) => {
-  const steps = [
-    // generic steps
-    step('upgrade', async () => await bumpDeps({dir, match, force, strategy})),
-  ];
+  const steps: Array<Step> = [];
   if (codemod) {
     // web app specific steps
     steps.push(
+      step('migrate fusion-apollo', async () => {
+        await codemodFusionApollo({dir, strategy});
+      }),
+      step('migrate typed-rpc-cli', async () => {
+        await codemodTypedRPCCLI({dir, strategy});
+      }),
       step('migrate fusion-plugin-csrf-protection', async () => {
         await migrateCsrfProtectionToV2({dir, strategy});
       }),
@@ -119,6 +124,10 @@ export const upgrade = async ({
       })
     );
   }
+  steps.push(
+    // generic steps
+    step('upgrade', async () => await bumpDeps({dir, match, force, strategy}))
+  );
   const stepper = new Stepper(steps);
   await stepper.run();
 };

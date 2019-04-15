@@ -1,7 +1,7 @@
 // @flow
-import {GraphQLSchemaToken} from 'fusion-apollo';
+import {GraphQLSchemaToken} from 'fusion-plugin-apollo';
 import gql from 'graphql-tag';
-import {UserServiceToken} from '../../../gen/infra/populous/user-service-plugin.js';
+import {UserServiceToken} from '../../../__generated__/infra/populous/user-service-plugin.js';
 import UserServiceResolverPlugin from '../user-service-resolver.js';
 import gqlTest from '../../../test-utils/graphql-test'; // TODO: implement this test
 

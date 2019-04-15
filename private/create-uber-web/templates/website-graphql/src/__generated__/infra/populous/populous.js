@@ -1,8 +1,8 @@
 // @flow
 
 /* istanbul ignore file */
-//@generated
-import type {UserServiceType} from './populous.flow.js';
+// @generated
+import type {UserService} from './populous.flow.js';
 import util from 'util';
 
 export function createUserService(
@@ -10,7 +10,7 @@ export function createUserService(
   tracer: any,
   logger: any,
   serviceName: string
-): UserServiceType {
+): UserService {
   const reqs = {};
 
   function log(err: Error, method: string) {
@@ -1939,5 +1939,5 @@ export function createUserService(
         options
       );
     },
-  }: any): UserServiceType);
+  }: any): UserService);
 }

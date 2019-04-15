@@ -1,6 +1,3 @@
-// flow-typed signature: 6834361f8e8bf3189282ec9320206060
-// flow-typed version: e3b214ebb0/apollo-client_v2.x.x/flow_>=v0.57.x
-
 declare module "apollo-client" {
   /**
    * Types From graphql
@@ -273,7 +270,7 @@ declare module "apollo-client" {
   };
 
   declare interface ModifiableWatchQueryOptions {
-    variables?: { [key: string]: any };
+    variables?: any;
     pollInterval?: number;
     fetchPolicy?: FetchPolicy;
     errorPolicy?: ErrorPolicy;
@@ -313,7 +310,7 @@ declare module "apollo-client" {
 
   declare export interface SubscriptionOptions {
     query: DocumentNode;
-    variables?: { [key: string]: any };
+    variables?: any;
   }
 
   declare export type FetchPolicy =
@@ -371,7 +368,7 @@ declare module "apollo-client" {
 
   declare export type PureQueryOptions = {
     query: DocumentNode,
-    variables?: { [key: string]: any }
+    variables?: any,
   };
 
   declare export type ApolloQueryResult<T> = {
@@ -498,7 +495,7 @@ declare module "apollo-client" {
 
   declare interface GraphQLRequest {
     query: DocumentNode;
-    variables?: { [key: string]: any };
+    variables?: any;
     operationName?: string;
     context?: { [key: string]: any };
     extensions?: { [key: string]: any };
@@ -514,7 +511,7 @@ declare module "apollo-client" {
     toKey: () => string;
   }
 
-  declare type FetchResult<
+  declare export type FetchResult<
     C = { [key: string]: any },
     E = { [key: string]: any }
   > = ExecutionResult<C> & { extension?: E, context?: C };

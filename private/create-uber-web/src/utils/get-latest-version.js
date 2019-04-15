@@ -3,9 +3,22 @@ import {exec} from '@dubstep/core';
 import fs from 'fs';
 import type {UpgradeStrategy} from '../types.js';
 
-const meta = JSON.parse(
+const websitePkg = JSON.parse(
   fs.readFileSync(`${__dirname}/../../templates/website/package.json`, 'utf8')
 );
+const gqlPkg = JSON.parse(
+  fs.readFileSync(
+    `${__dirname}/../../templates/website-graphql/package.json`,
+    'utf8'
+  )
+);
+
+const deps = {
+  ...gqlPkg.dependencies,
+  ...gqlPkg.devDependencies,
+  ...websitePkg.dependencies,
+  ...websitePkg.devDependencies,
+};
 
 const cache = {};
 
@@ -23,11 +36,11 @@ export async function getLatestVersion(
       })
     );
   } else if (strategy === 'curated') {
-    cache[dep] =
-      (meta.dependencies && meta.dependencies[dep]) ||
-      (meta.devDependencies && meta.devDependencies[dep]) ||
-      current;
-    return cache[dep];
+    cache[dep] = deps[dep] || current;
+    if (cache[dep]) {
+      return cache[dep];
+    }
+    return getLatestVersion(dep, 'latest');
   } else {
     return (
       cache[dep] ||

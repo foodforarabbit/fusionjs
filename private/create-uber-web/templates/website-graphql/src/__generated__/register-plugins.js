@@ -1,7 +1,7 @@
 // @flow
 
 /* istanbul ignore file */
-//@generated
+// @generated
 import type App from 'fusion-core';
 import UserServicePlugin, {
   UserServiceToken,
