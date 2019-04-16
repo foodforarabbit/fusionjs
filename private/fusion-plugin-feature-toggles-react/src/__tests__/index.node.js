@@ -10,7 +10,7 @@ import FeatureTogglesPlugin from '../plugin.js';
 
 import {
   FeatureTogglesClientToken,
-  FeatureTogglesToggleNamesToken,
+  FeatureTogglesTogglesConfigToken,
 } from '../index.js';
 import type {ToggleDetailsType, IFeatureTogglesClient} from '../index.js';
 
@@ -47,7 +47,7 @@ const appCreator = (data?: MockDataType) => () => {
   app.register(FeatureTogglesPlugin);
   app.register(AtreyuToken, mockAtreyuFactory());
   app.register(FeatureTogglesClientToken, mockClientFactory(data));
-  app.register(FeatureTogglesToggleNamesToken, ['weatherToggle']);
+  app.register(FeatureTogglesTogglesConfigToken, ['weatherToggle']);
 
   return app;
 };

@@ -26,7 +26,7 @@ Feature toggles (also known as feature flags) provide developers with the abilit
     * [`FeatureTogglesPlugin`](#feature-toggles-plugin)
     * [`FeatureTogglesToken`](#feature-toggles-token)
   * [Dependencies](#dependencies)
-    * [`FeatureTogglesToggleNamesToken`](#feature-toggles-toggle-names-token)
+    * [`FeatureTogglesTogglesConfigToken`](#feature-toggles-toggles-config-token)
     * [`FeatureTogglesClientToken`](#feature-toggles-client-token)
     * [`FeatureTogglesClientConfigToken`](#feature-toggles-client-config-token)
     * [`AtreyuToken`](#atreyutoken)
@@ -102,7 +102,7 @@ export default createPlugin({
     return (ctx, next) => {
       if (__NODE__ && ctx.path === '/some-path') {
         const instance = featureToggles.from(ctx);
-        const showHelloWorld = instance.get('showHelloWorldToggle');
+        const showHelloWorld = await instance.get('showHelloWorldToggle');
         if(showHelloWorld.enabled) {
           ctx.body = { message: 'hello world!' };
         }
@@ -125,7 +125,7 @@ The default backend service for this plugin is Morpheus.  See [Morpheus](#morphe
 // src/app.js
 import App from 'fusion-core';
 import FeatureTogglesPlugin, {
-  FeatureTogglesToggleNamesToken,
+  FeatureTogglesTogglesConfigToken,
   FeatureTogglesToken,
 } from '@uber/fusion-plugin-feature-toggles-react';
 import AtreyuPlugin, {AtreyuToken} from '@uber/fusion-plugin-atreyu';
@@ -136,7 +136,7 @@ export default () => {
   app.register(FeatureTogglesToken, FeatureTogglesPlugin);
   if(__NODE__) {
     app.register(AtreyuToken, AtreyuPlugin); // required only if using default Morpheus client
-    app.register(FeatureTogglesToggleNamesToken, ['some-toggle-name']);
+    app.register(FeatureTogglesTogglesConfigToken, ['some-toggle-name']);
   }
   
   return app;
@@ -157,7 +157,7 @@ import FeatureTogglesPlugin from '@uber/fusion-plugin-feature-toggles-react';
 
 The feature toggles plugin. Typically, it should be registered to [`FeatureTogglesToken`](#feature-toggles-token). Provides the [feature toggles service](#service-api).
 
-##### `FeatureTogglesToken`
+##### `FeatureTogglesToken `
 
 ```js
 import {FeatureTogglesToken} from '@uber/fusion-plugin-feature-toggles-react';
@@ -167,18 +167,25 @@ The canonical token for the feature toggles plugin. Typically, it should be regi
 
 #### Dependencies
 
-##### `FeatureTogglesToggleNamesToken`
+##### `FeatureTogglesTogglesConfigToken`
 
 ```js
-import {FeatureTogglesToggleNamesToken} from '@uber/fusion-plugin-feature-toggles-react';
+import {FeatureTogglesTogglesConfigToken} from '@uber/fusion-plugin-feature-toggles-react';
 ```
 
-Required.  A list of names corresponding to the toggles used in the app.
+Required.  A list of names or configuration objects corresponding to the toggles used in the app.
+
+If a config object is supplied, an optional `exposeToClient` property can be set which limits the exposure of the toggle details to the server-only.
 
 ###### Type
 
 ```js
-type FeatureTogglesToggleNames = Array<string>;
+type FeatureToggleConfigType = {
+  +name: string,
+  +exposeToClient?: boolean,
+};
+
+type FeatureTogglesToggleNames = Array<FeatureToggleConfigType | string>;
 ```
 
 ##### `FeatureTogglesClientToken`
@@ -287,8 +294,11 @@ type MorpheusConfigType = {
     ctx: Context,
     defaultContext: MorpheusContextType
   ) => {+[string]: any},
+  +metadataTransform?: MorpheusTreatmentGroupType => {+[string]: any},
 };
 ```
+
+###### `enhanceContext`
 
 An `enhanceContext` function can be supplied for the default Morpheus client in order to extend the opinionated constraints from above.  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to overwrite the `cookieID` property and add a `marketingID` property, we might do something like:
 
@@ -298,6 +308,20 @@ const config = {
     ...defaults,
     cookieID: ctx.headers['user-uuid'],
     marketingID: ctx.cookies.get('some_marketing_id'),
+  })
+};
+
+app.register(FeatureTogglesClientConfigToken, config);
+```
+
+###### `metadataTransform`
+
+A `metadataTransform` function can be supplied that transforms Morpheus details (see [MorpheusTreatmentGroupType](https://sourcegraph.uberinternal.com/code.uber.internal/web/fusion-plugin-feature-toggles@f1b254926848cd960c4bb4952ccb22356f6108fb/-/blob/src/clients/morpheus.js#L18)).  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to only expose `experimentID`, we might do something like:
+
+```js
+const config = {
+  metadataTransform: (details) => ({
+    experimentID: details.experimentID
   })
 };
 

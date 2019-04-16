@@ -11,12 +11,14 @@ export type {
   IFeatureTogglesClient,
   FeatureTogglesServiceType,
   FeatureTogglesPluginType,
+  FeatureToggleConfigType,
 } from '@uber/fusion-plugin-feature-toggles';
 
 export {
-  FeatureTogglesClientToken,
-  FeatureTogglesToggleNamesToken,
   FeatureTogglesToken,
+  FeatureTogglesTogglesConfigToken,
+  FeatureTogglesClientToken,
+  FeatureTogglesClientConfigToken,
 } from '@uber/fusion-plugin-feature-toggles';
 
 export {Toggle};
