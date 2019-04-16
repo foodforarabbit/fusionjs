@@ -84,7 +84,7 @@ The default backend service for this plugin is Morpheus.  See [Morpheus](#morphe
 // src/app.js
 import App from 'fusion-core';
 import FeatureTogglesPlugin, {
-  FeatureTogglesToggleNamesToken,
+  FeatureTogglesTogglesConfigToken,
   FeatureTogglesToken,
 } from '@uber/fusion-plugin-feature-toggles';
 import AtreyuPlugin, {AtreyuToken} from '@uber/fusion-plugin-atreyu';
@@ -95,7 +95,7 @@ export default () => {
   app.register(FeatureTogglesToken, FeatureTogglesPlugin);
   if(__NODE__) {
     app.register(AtreyuToken, AtreyuPlugin); // required only if using default Morpheus client
-    app.register(FeatureTogglesToggleNamesToken, ['some-toggle-name']);
+    app.register(FeatureTogglesTogglesConfigToken, ['some-toggle-name']);
   }
   
   return app;
