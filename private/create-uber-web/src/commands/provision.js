@@ -177,19 +177,20 @@ LIMITATIONS:
       }
       options.infraportalConfig.conduitToken = conduitToken;
     }),
-    step('Infraportal configuration - uBlame team', async () => {
-      console.log('Fetching uBlame teams...');
+    step('Infraportal configuration - uOwn team', async () => {
+      console.log('Fetching uOwn teams...');
       const teams = await awdClient.getUBlameTeams(awdToken);
 
       if (!teams || (Array.isArray(teams) && teams.length === 0)) {
         console.log(`
-uBlame teams were not able to be fetched. This may be a temporary problem so please try again.
-If this error persists, contact Web Platform.
+No uOwn teams were returned. Check the following:
+1) Ensure you have Manage permissions in any uOwn groups
+2) Ensure you a member of the Pullo group corresponding to those uOwn groups
         `);
         process.exit();
       }
       options.infraportalConfig.team = await promptChoice(
-        'What is the uBlame team responsible for this service?',
+        'What is the uOwn team responsible for this service?',
         teams
       );
     }),
