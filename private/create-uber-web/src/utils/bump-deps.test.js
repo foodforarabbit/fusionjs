@@ -4,10 +4,16 @@ import {readFile, writeFile} from '@dubstep/core';
 import {remove} from 'fs-extra';
 import {bumpDeps} from './bump-deps.js';
 
-jest.setTimeout(15000);
-
 jest.mock('../utils/get-latest-version.js', () => ({
   getLatestVersion: () => Promise.resolve('^1.0.0'),
+}));
+
+jest.mock('../utils/yarn.js', () => ({
+  install() {
+    return Promise.resolve();
+  },
+  // $FlowFixMe
+  test: require.requireActual('../utils/yarn.js').test,
 }));
 
 test('bumpDeps', async () => {
