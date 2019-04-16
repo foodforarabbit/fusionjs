@@ -27,7 +27,12 @@ export default function publishToHeatpipe(
     .then(() =>
       console.log('Succesfully published performance metrics to heatpipe!')
     )
-    .catch(err =>
-      console.log('Error publishing performance metrics to to heatpipe:', err)
-    );
+    .catch(err => {
+      if (process.env['NODE_ENV'] !== 'development') {
+        console.log(
+          'Error publishing performance metrics to to heatpipe:',
+          err
+        );
+      }
+    });
 }
