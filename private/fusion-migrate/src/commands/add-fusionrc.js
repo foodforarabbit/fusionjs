@@ -43,8 +43,8 @@ module.exports = async function addFusionRC({destDir}) {
     destFusionRCPath,
     `module.exports = ${JSON.stringify(fusionConfig, null, 2)};`
   );
-  removeBabelDeps(destPackage.dependencies);
-  removeBabelDeps(destPackage.devDependencies);
+  removeBabelDeps(destPackage.dependencies || {});
+  removeBabelDeps(destPackage.devDependencies || {});
   fs.writeFileSync(destPackagePath, JSON.stringify(destPackage, null, 2));
 };
 

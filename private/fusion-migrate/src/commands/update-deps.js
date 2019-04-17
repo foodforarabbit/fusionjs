@@ -69,6 +69,14 @@ module.exports = async function updateDeps({
   if (destPackage.dependencies == null) return; // in monorepo, skip
   if (destPackage.devDependencies == null) return; // in monorepo, skip
 
+  if (
+    destPackage.dependencies['react'] &&
+    !destPackage.dependencies['react'].startsWith('^16') &&
+    !destPackage.dependencies['react'].startsWith('16')
+  ) {
+    defaultUpgradeModules['fusion-react'] = '1.3.7';
+  }
+
   const opts = {
     cwd: destDir,
     stdio,
