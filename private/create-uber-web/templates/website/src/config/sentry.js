@@ -1,4 +1,5 @@
 // @flow
-export default {
-  id: 'http://uber:uber@usentry.local.uber.internal/{{name}}',
-};
+export default (zone: string) => ({
+  id:
+    `http://uber:uber@healthline-production.${zone}.uber.internal/{{name}}`,
+});

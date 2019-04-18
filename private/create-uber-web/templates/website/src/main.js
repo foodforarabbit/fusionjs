@@ -88,7 +88,7 @@ import authHeadersDevConfig from './config/auth-headers-dev.js';
 import devSecretsConfig from './config/dev-sec.js';
 import jwtSessionConfig from './config/session.js';
 import secureHeadersConfig from './config/secure-headers';
-import sentryConfig from './config/sentry.js';
+import getSentryConfig from './config/sentry.js';
 import fontConfig from './config/fonts';
 
 // other
@@ -136,7 +136,7 @@ export default async function start(options: any = {}) {
     app.register(SecureHeadersCSPConfigToken, secureHeadersConfig.csp);
     app.register(AuthHeadersToken, AuthHeadersPlugin);
     app.register(LogtronTeamToken, team);
-    app.register(LogtronBackendsToken, {sentry: sentryConfig});
+    app.register(LogtronBackendsToken, {sentry: getSentryConfig(process.env.UBER_DATACENTER || 'local')});
     app.register(SecretsToken, SecretsPlugin);
     app.register(SessionToken, Session);
     app.register(SessionSecretToken, jwtSessionConfig);
