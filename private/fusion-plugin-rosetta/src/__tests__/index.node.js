@@ -45,8 +45,9 @@ tape('Rosetta plugin', async t => {
   // $FlowFixMe
   app.register(ConfigToken, {thing: 'test'});
   app.middleware({rosetta: RosettaToken}, ({rosetta}) => {
-    t.ok(rosetta instanceof Client, 'exposes the client');
-    rosetta.clearInterval();
+    const {client} = rosetta;
+    t.ok(client instanceof Client, 'exposes the client');
+    client.clearInterval();
     return (ctx, next) => {
       const {translations, locale} = rosetta.from(ctx);
       t.deepLooseEqual(translations, {hello: 'world'});

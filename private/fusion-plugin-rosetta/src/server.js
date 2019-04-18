@@ -1,6 +1,6 @@
 // @flow
 /* eslint-env node */
-import type {RosettaDepsType, RosettaType} from './types';
+import type {RosettaDepsType, ProvidesType} from './types';
 
 import {Locales} from 'locale';
 
@@ -14,13 +14,6 @@ import {ClientToken, ConfigToken, LocaleNegotiationToken} from './tokens';
 import getTranslations from './fallback';
 
 type ExtractReturnType = <R>(() => R) => R;
-type LoggerType = $Call<ExtractReturnType, typeof LoggerToken>;
-type ClientType = typeof Rosetta;
-type ConfigType = $Call<ExtractReturnType, typeof ConfigToken.optional>;
-type LocaleNegotiationType = $Call<
-  ExtractReturnType,
-  typeof LocaleNegotiationToken.optional
->;
 
 class TranslationsLoader {
   locale: any;
@@ -70,7 +63,7 @@ function translationsLoaderFactory(
 }
 
 const pluginFactory = () =>
-  createPlugin<RosettaDepsType, RosettaType>({
+  createPlugin<RosettaDepsType, ProvidesType>({
     deps: {
       logger: LoggerToken,
       Client: ClientToken.optional,
@@ -78,45 +71,47 @@ const pluginFactory = () =>
       localeNegotiation: LocaleNegotiationToken.optional,
     },
 
-    provides: ({
-      logger,
-      Client = Rosetta,
-      config = {},
-      localeNegotiation,
-    }: {
-      logger: LoggerType,
-      Client: ClientType,
-      config: ConfigType,
-      localeNegotiation: LocaleNegotiationType,
-    }) => {
+    provides: ({logger, Client = Rosetta, config = {}, localeNegotiation}) => {
       config.service = config.service || process.env.SVC_ID || 'dev-service';
-      const client: any = new Client({logger, ...config});
+      const client = new Client({logger, ...config});
 
-      client._loadPromise = client.load().catch(e => {
-        logger.error('Failed to load translations', e);
-        throw e;
-      });
+      const API = {
+        client,
+        from: (ctx: Context): TranslationsLoader => {
+          throw new Error('Cannot call from until client has loaded');
+        },
+      };
 
-      return client;
+      client._loadPromise = client
+        .load()
+        .catch(e => {
+          logger.error('Failed to load translations', e);
+          throw e;
+        })
+        .then(() => {
+          client.setLoadInterval();
+          const realLocaleNegotiationStrategy =
+            localeNegotiation || defaultLocaleNegotiationStrategy;
+          API.from = memoize(
+            translationsLoaderFactory(client, realLocaleNegotiationStrategy)
+          );
+        });
+
+      return API;
     },
 
-    middleware: ({localeNegotiation}, client) => {
+    middleware: ({localeNegotiation}, api) => {
       return async (ctx, next) => {
-        await client._loadPromise;
-        client.setLoadInterval();
-
-        const realLocaleNegotiationStrategy =
-          localeNegotiation || defaultLocaleNegotiationStrategy;
-
-        client.from = memoize(
-          translationsLoaderFactory(client, realLocaleNegotiationStrategy)
-        );
-
-        await next();
+        // Ensures client is loaded before other middleware are executed
+        await api.client._loadPromise;
+        return next();
       };
     },
 
-    cleanup: client => client.clearInterval(),
+    cleanup: ({client}) => {
+      client.clearInterval();
+      return Promise.resolve();
+    },
   });
 
 type PluginType = $Call<ExtractReturnType, typeof pluginFactory>;

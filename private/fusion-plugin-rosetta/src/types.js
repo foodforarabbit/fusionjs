@@ -17,3 +17,13 @@ export type RosettaConfigType = {
   service: string,
 };
 export type RosettaLocaleNegotiationType = (Context, any) => any;
+
+export type ProvidesType = {
+  client: RosettaType,
+  from: (
+    ctx: Context
+  ) => {
+    locale: any,
+    translations: {[key: string]: string},
+  },
+};
