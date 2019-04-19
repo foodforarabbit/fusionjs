@@ -71,22 +71,21 @@ export const provision = async () => {
       }
       awdToken = token;
     }),
-    step('Verify Sentry DSN', async () => {
+    step('Verify Healthline DSN', async () => {
       const sentryConfig = await readFile(
         process.cwd() + '/src/config/sentry.js'
       ).catch(() => '');
-      // Look for the existance of a proper sentry DSN
-      const sentryDsn = sentryConfig.match(
-        /(https?:\/\/.*@usentry.local.uber.internal.*)/
-      );
-      if (!sentryDsn) {
+
+      // Old scaffolded apps have no DSN at all and had placeholder text
+      const noDsn = sentryConfig.match(/Sentry project DSN goes here/);
+      if (noDsn) {
         const success = await createSentryDSN(options.serviceName);
         if (success) {
           // Exit prematurely since the user needs to commit and push the DSN
           process.exit();
         } else {
           throw new Error(
-            'There was an error while attempting to create a new uSentry project. Please try again.'
+            'There was an error while attempting to create a new DSN. Please try again.'
           );
         }
       }
