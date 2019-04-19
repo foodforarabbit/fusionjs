@@ -13,7 +13,7 @@ import Table from 'cli-table3';
 
 // TODO: Should pull from Infraportal configs instead of hard coding in case available zones change
 // See: mesos_cluster_host, auth, and deprecated_zones config keys for latest values
-const VALID_DCS = ['phx3', 'irn1', 'dca1', 'dca4', 'sjc4'];
+const VALID_DCS = ['phx3', 'irn1', 'dca1', 'dca4'];
 
 type ProvisionOptions = {
   infraportalConfig: {
@@ -299,16 +299,15 @@ Available zones to create instances are: ${VALID_DCS.join(', ')}
 
 Note that only 1 instance will be created in the specified zones. You are also limited to 2 zones
 max per instance while your service is in the prototype phase.
-
-If you are unsure, specify "phx3, dca1".
   `);
-  const zones = await prompt(
-    'Which zones do you want to create new instances?'
+  let zones = await prompt(
+    'Which zones do you want to create new instances? (phx3, dca4)'
   );
 
   // Validate
   if (!zones) {
-    return await infraZoneFlow();
+    zones = 'phx3, dca4';
+    console.log('phx3 and dca4 selected as the default.');
   }
   const splitZones = zones.split(',').map(zone => zone.trim());
 
