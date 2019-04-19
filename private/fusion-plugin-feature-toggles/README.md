@@ -33,6 +33,7 @@ If you're using React, you should use [fusion-plugin-feature-toggles-react](http
   * [Service API](#service-api)
 * [Morpheus](#morpheus)
   * [Configuration](#configuration)
+* [Roadmap](#roadmap)
 
 ---
 
@@ -325,3 +326,16 @@ export default {
   serviceNames: ['treatment'], // list of downstream service names
 };
 ```
+
+---
+
+#### Roadmap
+
+A number of potential enhancements and improvements coming in the future:
+- **Support server-side only toggles** to limit exposure from client side.
+- **[Morpheus] Timeout threshold for requests** to mitigate slowing down generating responses.
+- **Support for React Hooks** to expose toggle service for direct consumption.
+- **Improved out-of-the-box metric logging** for downstream analysis of toggle states (e.g. for A/B experimentation).
+- **Support for Flipr back-end** as toggle configuration service.
+- **Improved code splitting to only relevant toggles** for each bundle to cut down on bundle size.
+- **Back-end agnostic portal to change toggle states** to improve developer experience.
