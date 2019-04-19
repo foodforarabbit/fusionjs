@@ -50,6 +50,7 @@ type MorpheusConfigType = {
     defaultMorpheusContext: MorpheusContextType
   ) => EnhancedMorpheusContextType,
   +metadataTransform?: MorpheusTreatmentGroupType => {+[string]: any},
+  +timeoutThreshold?: number,
 };
 
 export default class MorpheusClient implements IFeatureTogglesClient {
@@ -63,6 +64,7 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     defaultMorpheusContext: MorpheusContextType
   ) => EnhancedMorpheusContextType;
   metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: any};
+  timeoutThreshold: number;
 
   constructor(
     ctx: Context,
@@ -89,6 +91,7 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     this.getTreatmentGroupsByNames = atreyu.createAsyncGraph(graphDefinition);
     this.hasLoaded = false;
     this.metadataTransform = config.metadataTransform;
+    this.timeoutThreshold = config.timeoutThreshold || 0;
 
     return this;
   }
@@ -97,11 +100,11 @@ export default class MorpheusClient implements IFeatureTogglesClient {
    * Asynchronously loads all of the toggle details from those provided to the constructor.
    */
   async load() {
-    this.experiments = await this.getExperiments(
-      this.toggleNames,
-      this.ctx,
-      this.metadataTransform
-    );
+    this.experiments =
+      (await resolveWithTimeout(
+        this.getExperiments(this.toggleNames, this.ctx, this.metadataTransform),
+        this.timeoutThreshold
+      )) || {};
     this.hasLoaded = true;
   }
 
@@ -189,4 +192,24 @@ export default class MorpheusClient implements IFeatureTogglesClient {
       ? this.enhanceContext(ctx, defaultContext)
       : defaultContext;
   }
+}
+
+/**
+ * Helper to attempt to resolve the provided Promise.  If it cannot be resolved within the
+ * provided timeout (in milliseconds), resolve to `void`.
+ *
+ * Note, a timeout of zero implies no limit on the time to complete the task.
+ */
+async function resolveWithTimeout<TResult>(
+  task: Promise<TResult>,
+  timeout: number
+): Promise<TResult | void> {
+  return timeout === 0 ? await task : Promise.race([task, delay(timeout)]);
+}
+
+/**
+ * Helper that asynchronously delays for the provided time, ms, in milliseconds.
+ */
+async function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

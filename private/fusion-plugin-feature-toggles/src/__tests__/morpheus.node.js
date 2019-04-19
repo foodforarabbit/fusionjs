@@ -6,16 +6,11 @@ import type {Context} from 'fusion-core';
 import MorpheusClient, {type MorpheusContextType} from '../clients/morpheus.js';
 
 test('ensure .load works as expected', async () => {
-  const mockContext: Context = ({
-    headers: {
-      'user-agent': 'some-user-agent',
-      'accept-language': 'en-US',
-      'user-uuid': '0000',
-    },
-    url: 'some-url',
-    query: '',
-    ip: '192.168.0.0',
-  }: any);
+  const mockContext = createMockContext({
+    headers: {'user-uuid': '0000'},
+    cookies: undefined,
+  });
+
   const mockAtreyu = {
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => ({
@@ -51,16 +46,10 @@ test('ensure .load works as expected', async () => {
 });
 
 test('simple service sanity check - toggle on/off with mocked dependencies', async () => {
-  const mockContext: Context = ({
-    headers: {
-      'user-agent': 'some-user-agent',
-      'accept-language': 'en-US',
-      'user-uuid': '0000',
-    },
-    url: 'some-url',
-    query: '',
-    ip: '192.168.0.0',
-  }: any);
+  const mockContext = createMockContext({
+    headers: {'user-uuid': '0000'},
+    cookies: undefined,
+  });
   const mockAtreyu = {
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => ({
@@ -124,15 +113,7 @@ test('simple service sanity check - toggle on/off with mocked dependencies', asy
 });
 
 test('test atreyu "getTreatmentGroupsByNames" failure', async () => {
-  const mockContext: Context = ({
-    headers: {
-      'user-agent': 'some-user-agent',
-      'accept-language': 'en-US',
-    },
-    url: 'some-url',
-    query: '',
-    ip: '192.168.0.0',
-  }: any);
+  const mockContext = createMockContext();
   const mockAtreyu = {
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => {
@@ -146,18 +127,7 @@ test('test atreyu "getTreatmentGroupsByNames" failure', async () => {
 });
 
 test('simple enhance Morpheus context', async () => {
-  const mockContext: Context = ({
-    headers: {
-      'user-agent': 'some-user-agent',
-      'accept-language': 'en-US',
-    },
-    cookies: {
-      get: name => (name === 'marketing_vistor_id' ? '0000' : null),
-    },
-    url: 'some-url',
-    query: '',
-    ip: '192.168.0.0',
-  }: any);
+  const mockContext = createMockContext();
   const mockAtreyu = {
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => ({
@@ -205,18 +175,7 @@ test('simple enhance Morpheus context', async () => {
 });
 
 test('simple transform metadata', async () => {
-  const mockContext: Context = ({
-    headers: {
-      'user-agent': 'some-user-agent',
-      'accept-language': 'en-US',
-    },
-    cookies: {
-      get: name => (name === 'marketing_vistor_id' ? '0000' : null),
-    },
-    url: 'some-url',
-    query: '',
-    ip: '192.168.0.0',
-  }: any);
+  const mockContext = createMockContext();
   const mockAtreyu = {
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => ({
@@ -273,3 +232,72 @@ test('simple transform metadata', async () => {
     expect(details.metadata.inchesOfRain).toBe('ten');
   }
 });
+
+test('timeout threshold exceeded', async () => {
+  const mockContext = createMockContext();
+  const createMockAtreyu = (ms: number) => ({
+    createAsyncGraph: jest.fn(() =>
+      jest.fn(async () => {
+        await delay(ms);
+
+        return {
+          treatments: {
+            someExperiment: {},
+          },
+        };
+      })
+    ),
+  });
+
+  /* Atreyu call resolves  before timeout */
+  let client = new MorpheusClient(
+    mockContext,
+    ['someExperiment'],
+    {atreyu: createMockAtreyu(150)},
+    {timeoutThreshold: 200}
+  );
+  await client.load();
+  expect(client.experiments).toHaveProperty('someExperiment');
+
+  /* Atreyu call resolves  after timeout */
+  client = new MorpheusClient(
+    mockContext,
+    ['someExperiment'],
+    {atreyu: createMockAtreyu(250)},
+    {timeoutThreshold: 200}
+  );
+  await client.load();
+  expect(client.experiments).toEqual({});
+});
+
+/* HELPER FUNCTIONS */
+
+/**
+ * Helper that asynchronously delays for the provided time, ms, in milliseconds.
+ */
+async function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Helper that generates a basic mock Context object.
+ */
+function createMockContext(ctx?: {[string]: any} = {}): Context {
+  const def = {
+    headers: {
+      'user-agent': 'some-user-agent',
+      'accept-language': 'en-US',
+    },
+    cookies: {
+      get: name => (name === 'marketing_vistor_id' ? '0000' : null),
+    },
+    url: 'some-url',
+    query: '',
+    ip: '192.168.0.0',
+  };
+
+  return {
+    ...def,
+    ...ctx,
+  };
+}

@@ -251,15 +251,16 @@ type MorpheusContextType = { // detailed above
 type MorpheusConfigType = {
   +enhanceContext?: (
     ctx: Context,
-    defaultContext: MorpheusContextType
+    defaultMorpheusContext: MorpheusContextType
   ) => {+[string]: any},
   +metadataTransform?: MorpheusTreatmentGroupType => {+[string]: any},
+  +timeoutThreshold?: number,
 };
 ```
 
 ###### `enhanceContext`
 
-An `enhanceContext` function can be supplied for the default Morpheus client in order to extend the opinionated constraints from above.  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to overwrite the `cookieID` property and add a `marketingID` property, we might do something like:
+An optional `enhanceContext` function can be supplied for the default Morpheus client in order to extend the opinionated constraints from above.  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to overwrite the `cookieID` property and add a `marketingID` property, we might do something like:
 
 ```js
 const config = {
@@ -275,13 +276,27 @@ app.register(FeatureTogglesClientConfigToken, config);
 
 ###### `metadataTransform`
 
-A `metadataTransform` function can be supplied that transforms Morpheus details (see [MorpheusTreatmentGroupType](https://sourcegraph.uberinternal.com/code.uber.internal/web/fusion-plugin-feature-toggles@f1b254926848cd960c4bb4952ccb22356f6108fb/-/blob/src/clients/morpheus.js#L18)).  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to only expose `experimentID`, we might do something like:
+An optional `metadataTransform` function can be supplied that transforms Morpheus details (see [MorpheusTreatmentGroupType](https://sourcegraph.uberinternal.com/code.uber.internal/web/fusion-plugin-feature-toggles@f1b254926848cd960c4bb4952ccb22356f6108fb/-/blob/src/clients/morpheus.js#L18)).  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to only expose `experimentID`, we might do something like:
 
 ```js
 const config = {
   metadataTransform: (details) => ({
     experimentID: details.experimentID
   })
+};
+
+app.register(FeatureTogglesClientConfigToken, config);
+```
+
+###### `timeoutThreshold`
+
+An optional timeout threshold number (in milliseconds) can be supplied to limit the amount of time to wait for a response from Morpheus.  If the threshold is exceeded, no Morpheus experiment data will be used in a request's response.  This would be the equivalent to the corresponding user not being in any active experiments.
+
+This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, limiting the request time to Morpheus to under 200ms, we might do something like:
+
+```js
+const config = {
+  timeoutThreshold: 200,
 };
 
 app.register(FeatureTogglesClientConfigToken, config);
