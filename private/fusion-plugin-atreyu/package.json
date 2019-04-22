@@ -29,7 +29,7 @@
     "fusion-tokens": "^1.1.1"
   },
   "devDependencies": {
-    "@uber/atreyu": "^6.1.0",
+    "@uber/atreyu": "^6.1.2",
     "@uber/atreyu-test": "^1.3.0",
     "@uber/fusion-plugin-galileo": "^1.0.6",
     "@uber/fusion-plugin-m3": "^1.2.0",
