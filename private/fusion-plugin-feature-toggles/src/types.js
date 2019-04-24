@@ -37,7 +37,7 @@ export interface IFeatureTogglesClient {
     ...rest?: any
   ): IFeatureTogglesClient;
   +load: () => Promise<void>;
-  +get: (toggleName: string) => Promise<ToggleDetailsType>;
+  +get: (toggleName: string) => ToggleDetailsType;
 }
 
 export type FeatureTogglesServiceType = {|

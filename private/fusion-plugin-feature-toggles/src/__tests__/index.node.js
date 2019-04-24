@@ -38,7 +38,7 @@ const mockClientFactory: (
       return this;
     }
     async load(): Promise<void> {}
-    async get(toggleName: string): Promise<ToggleDetailsType> {
+    get(toggleName: string): ToggleDetailsType {
       if (!data || !data[toggleName]) return {enabled: false};
       return data[toggleName];
     }

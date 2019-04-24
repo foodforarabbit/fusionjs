@@ -62,7 +62,7 @@ export default createPlugin({
     return (ctx, next) => {
       if (__NODE__ && ctx.path === '/some-path') {
         const instance = featureToggles.from(ctx);
-        const showHelloWorld = await instance.get('showHelloWorldToggle');
+        const showHelloWorld = instance.get('showHelloWorldToggle');
         if(showHelloWorld.enabled) {
           ctx.body = { message: 'hello world!' };
         }
@@ -162,10 +162,10 @@ Optional.  An optional client to provide details on requested toggles.  Should i
 interface IFeatureTogglesClient {
   constructor(...params?: any): IFeatureTogglesClient;
   +load: () => Promise<void>;
-  +get: (toggleName: string) => Promise<{|
+  +get: (toggleName: string) => {|
     +enabled: boolean,
     +metadata?: {[string]: any},
-  |}>;
+  |};
 }
 ```
 
@@ -206,10 +206,10 @@ See
 ```js
 type FeatureTogglesServiceType = {|
   +from: (ctx?: Context) => {|
-    +get: (toggleName: string) => Promise<?{|
+    +get: (toggleName: string) => {|
       +enabled: boolean,
       +metadata?: {[string]: any}, 
-    |}>;
+    |};
   |},
 |};
 ```

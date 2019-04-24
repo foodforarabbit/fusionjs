@@ -76,7 +76,7 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
             continue;
           }
 
-          const details = await scoped.get(config.name);
+          const details = scoped.get(config.name);
           if (details) {
             data[config.name] = details;
           }

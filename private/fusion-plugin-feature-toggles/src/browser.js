@@ -24,7 +24,7 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
           this.data = loadToggleData() || [];
         }
 
-        async get(toggleName: string): Promise<ToggleDetailsType> {
+        get(toggleName: string): ToggleDetailsType {
           return this.data[toggleName] || {enabled: false};
         }
       }

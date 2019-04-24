@@ -111,7 +111,7 @@ export default class MorpheusClient implements IFeatureTogglesClient {
   /**
    * Gets whether the toggle is enabled, and optionally provides Morpheus-metadata if applicable.
    */
-  async get(toggleName: string): Promise<ToggleDetailsType> {
+  get(toggleName: string): ToggleDetailsType {
     // Lazily load experiments upon first request
     if (!this.hasLoaded) {
       throw new Error('Ensure this service has been initialized via .load.');

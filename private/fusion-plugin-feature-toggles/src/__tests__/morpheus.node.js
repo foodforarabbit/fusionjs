@@ -33,7 +33,7 @@ test('ensure .load works as expected', async () => {
   expect(client.experiments).toBeUndefined();
 
   // Ensure .get fails if client has not yet been loaded
-  await expect(client.get('some-toggle')).rejects.toThrow();
+  expect(() => client.get('some-toggle')).toThrow();
 
   // Load data
   await client.load();
@@ -109,7 +109,7 @@ test('simple service sanity check - toggle on/off with mocked dependencies', asy
   expect(details).not.toHaveProperty('metadata');
 
   // Nonexistent experiment
-  await expect(client.get('someMissingExperiment')).rejects.toThrow();
+  expect(() => client.get('someMissingExperiment')).toThrow();
 });
 
 test('test atreyu "getTreatmentGroupsByNames" failure', async () => {
