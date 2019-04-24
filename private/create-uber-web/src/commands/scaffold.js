@@ -105,9 +105,6 @@ export const scaffold = async ({
     step('codemod readme file', async () => {
       await codemodReadme(project);
     }),
-    step('codemod sentry configuration', async () => {
-      await codemodSentry(project);
-    }),
     step('run', async () => {
       if (project.type === 'website' || project.type === 'website-graphql') {
         await runWebsiteSteps({...project, external});
@@ -187,6 +184,9 @@ async function runWebsiteSteps({
         isExternal: project.external || false,
         assetBase: `https://d3i4yxtzktqr9n.cloudfront.net/${name}`,
       });
+    }),
+    step('codemod sentry configuration', async () => {
+      await codemodSentry({name});
     }),
   ]);
   await stepper.run();

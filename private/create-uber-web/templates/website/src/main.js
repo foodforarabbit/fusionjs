@@ -136,7 +136,9 @@ export default async function start(options: any = {}) {
     app.register(SecureHeadersCSPConfigToken, secureHeadersConfig.csp);
     app.register(AuthHeadersToken, AuthHeadersPlugin);
     app.register(LogtronTeamToken, team);
-    app.register(LogtronBackendsToken, {sentry: getSentryConfig(process.env.UBER_DATACENTER || 'local')});
+    app.register(LogtronBackendsToken, {
+      sentry: getSentryConfig(process.env.UBER_DATACENTER || 'local'),
+    });
     app.register(SecretsToken, SecretsPlugin);
     app.register(SessionToken, Session);
     app.register(SessionSecretToken, jwtSessionConfig);
