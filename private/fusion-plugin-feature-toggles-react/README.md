@@ -17,6 +17,7 @@ Feature toggles (also known as feature flags) provide developers with the abilit
 * [Installation](#installation)
 * [Usage](#usage)
   * [React component](#react-component)
+  * [Custom react component](#custom-react-component)
   * [Server-side only](#server-side-only)
   * [Simple middleware](#simple-middleware)
   * [Default client](#default-client)
@@ -58,6 +59,28 @@ export default () => {
   return <Toggle toggleName='some-toggle'>Show me only if enabled!</Toggle>;
 });
 ```
+
+#### Custom React component
+
+*React Hooks were introduced in React v16.8. Make sure you are using a compatible version.*
+
+If you are using React you may want to access the toggle service in a custom component.
+
+```js
+import {useContext} from 'react';
+import {useService, FusionContext} from 'fusion-react';
+import {FeatureTogglesToken} from 'fusion-plugin-feature-toggles-react';
+
+function MyToggleComponent() {
+  const context = useContext(FusionContext);
+  const featureToggles = useService(FeatureTogglesToken).from(context);
+
+  const someToggle = featureToggles.get('someToggle');
+  return <>Is enabled: {someToggle.enabled}</>;
+});
+```
+
+Ensure that you have registered the `FeatureTogglePlugin` to the `FeatureTogglesToken`.
 
 #### Server-side only
 

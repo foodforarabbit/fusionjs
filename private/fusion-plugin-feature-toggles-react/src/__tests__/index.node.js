@@ -1,14 +1,19 @@
 // @flow
 /* eslint-env node */
 
-import {getService} from 'fusion-test-utils';
-import App from 'fusion-core';
+import * as React from 'react';
+import {JSDOM} from 'jsdom';
+
+import {getService, getSimulator} from 'fusion-test-utils';
+import App, {useService, FusionContext} from 'fusion-react';
 import type {Context} from 'fusion-core';
+
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 
-import FeatureTogglesPlugin from '../plugin.js';
-
+// import FeatureTogglesPlugin from '../plugin.js';
+import FeatureTogglesPlugin from '@uber/fusion-plugin-feature-toggles';
 import {
+  FeatureTogglesToken,
   FeatureTogglesClientToken,
   FeatureTogglesTogglesConfigToken,
 } from '../index.js';
@@ -32,7 +37,7 @@ const mockClientFactory: (
       return this;
     }
     async load(): Promise<void> {}
-    async get(toggleName: string): Promise<ToggleDetailsType> {
+    get(toggleName: string): ToggleDetailsType {
       if (!data || !data[toggleName]) return {enabled: false};
       return data[toggleName];
     }
@@ -41,10 +46,10 @@ const mockClientFactory: (
 };
 
 /* App Creator(s) */
-const appCreator = (data?: MockDataType) => () => {
-  const app = new App('el', el => el);
+const appCreator = (data?: MockDataType, root?: React.Element<*>) => () => {
+  const app = new App(root || React.createElement('div'));
 
-  app.register(FeatureTogglesPlugin);
+  app.register(FeatureTogglesToken, FeatureTogglesPlugin);
   app.register(AtreyuToken, mockAtreyuFactory());
   app.register(FeatureTogglesClientToken, mockClientFactory(data));
   app.register(FeatureTogglesTogglesConfigToken, ['weatherToggle']);
@@ -136,4 +141,39 @@ test('test ssr', async () => {
   expect(metadata.isItSunnyToday).toBeTruthy();
   expect(metadata).toHaveProperty('areThereWaves');
   expect(metadata.areThereWaves).not.toBeTruthy();
+});
+
+test('useService usage', async () => {
+  const mockToggles = {
+    weatherToggle: {
+      enabled: true,
+      metadata: {
+        isItSunnyToday: true,
+        areThereWaves: false,
+      },
+    },
+  };
+
+  const ComponentUsingService = () => {
+    const featureToggles = useService(FeatureTogglesToken);
+    const context = React.useContext(FusionContext);
+    const weatherToggle = featureToggles.from(context).get('weatherToggle');
+
+    expect(weatherToggle).not.toBeNull();
+    expect(weatherToggle).toBe(mockToggles.weatherToggle);
+
+    return <>Enabled: {weatherToggle.enabled}</>;
+  };
+
+  const app = appCreator(
+    mockToggles,
+    React.createElement(ComponentUsingService)
+  )();
+  const result = await getSimulator(app).render('/');
+
+  const dom = new JSDOM(result.body);
+  const body = dom.window.document.querySelector('body');
+  expect(body).toBeTruthy();
+  expect(body).toHaveProperty('outerHTML');
+  expect(body.outerHTML).toMatchSnapshot('simple useService usage');
 });

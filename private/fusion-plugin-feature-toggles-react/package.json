@@ -38,7 +38,7 @@
     }
   },
   "dependencies": {
-    "@uber/fusion-plugin-feature-toggles": "0.2.0-2",
+    "@uber/fusion-plugin-feature-toggles": "0.3.0-0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
@@ -47,10 +47,10 @@
     "@babel/preset-env": "7.4.3",
     "@babel/preset-flow": "7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "@uber/atreyu": "^6.1.1",
-    "@uber/fusion-plugin-atreyu": "^1.3.1",
+    "@uber/atreyu": "^6.1.2",
+    "@uber/fusion-plugin-atreyu": "^1.4.1",
     "@uber/fusion-plugin-galileo": "^1.0.5",
-    "@uber/fusion-plugin-m3": "^1.1.10",
+    "@uber/fusion-plugin-m3": "^1.3.2",
     "@uber/fusion-plugin-tchannel": "^1.1.1",
     "@uber/fusion-plugin-tracer": "^1.0.6",
     "babel-core": "7.0.0-bridge.0",
@@ -71,11 +71,12 @@
     "flow-bin": "^0.97.0",
     "fusion-core": "^1.10.6",
     "fusion-plugin-universal-events": "^1.3.4",
-    "fusion-react": "^2.0.0",
+    "fusion-react": "^2.1.0-1",
     "fusion-test-utils": "^1.4.1",
     "fusion-tokens": "^1.1.1",
     "jest": "^24.7.1",
     "jest-environment-jsdom-global": "^1.2.0",
+    "jsdom": "^15.0.0",
     "npm-watch": "^0.6.0",
     "prettier": "^1.17.0"
   },
@@ -83,7 +84,7 @@
     "fusion-core": "^1.10.3",
     "fusion-react": "^1.3.7",
     "fusion-tokens": "^1.1.1",
-    "react": "14.x - 16.x"
+    "react": "^16.8.x"
   },
   "resolutions": {
     "event-stream": "3.3.5"
