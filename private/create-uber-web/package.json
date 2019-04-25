@@ -16,7 +16,7 @@
     "build": "babel src -d dist -q",
     "lint": "eslint src",
     "test": "$(find templates -name node_modules -prune -exec rm -rf {} \\;); jest --maxWorkers 1",
-    "cover": "jest --coverage",
+    "cover": "yarn run test --coverage",
     "flow": "flow check",
     "prepublish": "babel src -d dist -s"
   },
@@ -87,6 +87,9 @@
     ]
   },
   "jest": {
+    "setupFiles": [
+      "<rootDir>/test-setup.js"
+    ],
     "testRegex": "src/(commands|utils|codemods)/.*?.test.js",
     "coverageReporters": [
       "text",

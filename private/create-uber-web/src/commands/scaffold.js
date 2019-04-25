@@ -1,7 +1,7 @@
 /* @flow */
 
 import {Stepper, step, exec} from '@dubstep/core';
-import {copy, move, pathExists, remove} from 'fs-extra';
+import {copy, move, pathExists} from 'fs-extra';
 import {checkYarnRegistry} from '../utils/check-yarn-registry.js';
 import {getTeams} from '../utils/get-teams.js';
 import {promptChoice} from '../utils/prompt-choice.js';
@@ -91,7 +91,6 @@ export const scaffold = async ({
       const templatePath =
         localPath || `${__dirname}/../../templates/${project.type}`;
       await copy(templatePath, project.name);
-      await remove(`${project.name}/.gitignore`);
       await move(`${project.name}/dotgitignore`, `${project.name}/.gitignore`, {
         overwrite: true,
       });

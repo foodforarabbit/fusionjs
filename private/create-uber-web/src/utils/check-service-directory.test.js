@@ -21,13 +21,18 @@ test('checkServiceDirectory when all files exist', async () => {
 });
 
 test('checkServiceDirectory when one file does not exist', async () => {
+  pathExists.mockReturnValueOnce(Promise.resolve(false));
   pathExists.mockReturnValueOnce(Promise.resolve(true));
-  await expect(checkServiceDirectory()).rejects;
+  await expect(checkServiceDirectory()).rejects.toMatchInlineSnapshot(
+    `[Error: Provisioning must be run from within your root project directory.]`
+  );
 });
 
 test('checkServiceDirectory when service_name does not exist in yaml file', async () => {
   pathExists.mockReturnValue(Promise.resolve(true));
   readFile.mockReturnValue(Promise.resolve(true));
   yaml.safeLoad.mockReturnValue({});
-  await expect(checkServiceDirectory()).rejects;
+  await expect(checkServiceDirectory()).rejects.toMatchInlineSnapshot(
+    `[Error: Error reading from udeploy/pinocchio.yaml file. Please ensure that the file includes a service_name field.]`
+  );
 });

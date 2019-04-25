@@ -1,4 +1,4 @@
 // @flow
 export default {
-  id: 'Sentry project DSN goes here',
-};
+  id: __NODE__ && `http://uber:uber@healthline-production.${process.env.UBER_DATACENTER || 'local'}.uber.internal/{{name}}`,
+}
