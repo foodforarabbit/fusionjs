@@ -13,6 +13,7 @@ export function setCookieId(
 ) {
   const options: $Shape<CookiesSetOptions> = {
     expires: new Date(Date.now() + cookieAge * 1000),
+    httpOnly: false,
   };
   if (cookieDomain) {
     options.domain = cookieDomain;
