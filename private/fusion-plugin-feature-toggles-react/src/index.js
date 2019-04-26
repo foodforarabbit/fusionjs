@@ -1,9 +1,9 @@
 // @flow
 
-import plugin from './plugin.js';
-
 import Toggle from './toggle.js';
 import type {TogglePropsType} from './toggle.js';
+
+import FeatureTogglesPlugin from '@uber/fusion-plugin-feature-toggles';
 
 export type {
   FeatureTogglesDepsType,
@@ -24,4 +24,4 @@ export {
 export {Toggle};
 export type {TogglePropsType};
 
-export default plugin;
+export default FeatureTogglesPlugin;

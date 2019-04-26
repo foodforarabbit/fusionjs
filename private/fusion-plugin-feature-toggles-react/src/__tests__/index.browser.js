@@ -4,7 +4,7 @@
 import {getService} from 'fusion-test-utils';
 import App from 'fusion-core';
 
-import FeatureTogglesPlugin from '../plugin.js';
+import FeatureTogglesPlugin from '../index.js';
 
 /* App Creator(s) */
 const appCreator = () => () => {
