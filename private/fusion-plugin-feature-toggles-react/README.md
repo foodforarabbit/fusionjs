@@ -53,7 +53,7 @@ If you are using React, we recommend using the supplied `Toggle` component.
 
 ```js
 import * as React from 'react';
-import {Toggle} from 'fusion-plugin-feature-toggles-react';
+import {Toggle} from '@uber/fusion-plugin-feature-toggles-react';
 
 export default () => {
   return <Toggle toggleName='some-toggle'>Show me only if enabled!</Toggle>;
@@ -69,7 +69,7 @@ If you are using React you may want to access the toggle service in a custom com
 ```js
 import {useContext} from 'react';
 import {useService, FusionContext} from 'fusion-react';
-import {FeatureTogglesToken} from 'fusion-plugin-feature-toggles-react';
+import {FeatureTogglesToken} from '@uber/fusion-plugin-feature-toggles-react';
 
 function MyToggleComponent() {
   const context = useContext(FusionContext);
@@ -88,7 +88,7 @@ If you wish to avoid the disabled path from shipping to the client, you can leve
 
 ```js
 import * as React from 'react';
-import {Toggle} from 'fusion-plugin-feature-toggles-react';
+import {Toggle} from '@uber/fusion-plugin-feature-toggles-react';
 import {split} from 'fusion-react';
 
 const Feature = split({
@@ -180,7 +180,7 @@ import FeatureTogglesPlugin from '@uber/fusion-plugin-feature-toggles-react';
 
 The feature toggles plugin. Typically, it should be registered to [`FeatureTogglesToken`](#feature-toggles-token). Provides the [feature toggles service](#service-api).
 
-##### `FeatureTogglesToken `
+##### `FeatureTogglesToken`
 
 ```js
 import {FeatureTogglesToken} from '@uber/fusion-plugin-feature-toggles-react';
