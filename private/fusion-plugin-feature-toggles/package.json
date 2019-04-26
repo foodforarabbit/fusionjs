@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-feature-toggles",
   "description": "The 'fusion-plugin-feature-toggles' package provides a universal feature toggles plugin for Fusion.js",
-  "version": "0.3.0-0",
+  "version": "1.0.0",
   "scaffold-version": "0.0.19",
   "author": " <amsmith@uber.com>",
   "repository": {
