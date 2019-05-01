@@ -1,4 +1,10 @@
 // @flow
-export default {
-  id: __NODE__ && `http://uber:uber@healthline-production.${process.env.UBER_DATACENTER || 'local'}.uber.internal/{{name}}`,
+const sentryId = __NODE__ ? process.env.UBER_DATACENTER || 'local' : '';
+
+if (sentryId === '') {
+  throw new Error('Sentry Id not found in src/config/sentry.js');
 }
+
+export default {
+  id: `http://uber:uber@healthline-production.${sentryId}.uber.internal/{{name}}`,
+};
