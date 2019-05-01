@@ -1,53 +1,12 @@
-# Test private monorepo
+# uber/fusionjs
 
-This is a test for embedding a public (OSS) monorepo into a private monorepo via a git submodule and linking projects together via Rush.
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
 
-### Things you can try
+> The entire fusionjs codebase, including the [open source fusionjs monorepo](https://github.com/fusionjs/fusionjs) synced into the `public` directory
 
-##### Clone this repo:
+### Contributing
 
-```sh
-git clone git@github.com:uber/fusionjs.git
-yarn git checkout monorepo # yes, yarn git, not just git
-```
-
-##### Bootstrap
-
-```sh
-rush update
-rush build
-```
-
-##### Rebuild after changes
-
-```
-rush update
-rush rebuild
-```
-
-Note: `rush build` will sometimes skip packages. Use `rebuild` instead.
-
-##### Clean up local copy
-
-```
-rush purge
-```
-
-##### Run synchronized git commands via:
-
-The [public repo](https://github.com/fusionjs/fusion-react/tree/monorepo) is a submodule of the private repo. By default, submodules don't stay in sync with the parent repo. In order to keep both in sync, use `yarn git` instead of just `git`.
-
-```sh
-yarn git [...]
-```
-
-Commiting everything would dirty the index since commiting to the submodule creates a change in the parent repo, so a convenience helper is provided for atomically committing all changes:
-
-```
-yarn commit -m "hello world"
-```
-
-This runs the same commands in the private repo and the [public repo](https://github.com/lhorie/test-public-monorepo) and ensures the submodule points to the correct commit at all times.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) and the [Fusion.js Monorepo Runbook](https://docs.google.com/document/d/1gvmU9Q2HUe0HTdfOQAVZoJyiDTa4uVF-9te1v21P3AI) before developing in the fusionjs codebase
 
 ### Docker
 
@@ -62,8 +21,6 @@ docker-compose run ci node install-run-rush flow # flow
 ### CI
 
 CI is setup in buildkite. Ask keving@uber.com for an invite for the `uber` organization in Buildkite and the `WebPlatformInfrastructure` account in AWS. To login to AWS, use [https://aws.uberinternal.com](https://aws.uberinternal.com)
-
-The CI pipeline is here: [https://buildkite.com/uber/fusion-monorepo](https://buildkite.com/uber/fusion-monorepo)
 
 Secrets are stored here: [https://s3.console.aws.amazon.com/s3/buckets/buildkite-private-managedsecretsbucket-001/fusion-monorepo/?region=us-west-1&tab=overview](https://s3.console.aws.amazon.com/s3/buckets/buildkite-private-managedsecretsbucket-001/fusion-monorepo/?region=us-west-1&tab=overview), in the `env` file.
 

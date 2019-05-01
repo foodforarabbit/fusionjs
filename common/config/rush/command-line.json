@@ -121,8 +121,8 @@
     {
       "parameterKind": "flag",
       "longName": "--fix",
-      "description": "fix linting errors",
-      "associatedCommands": ["lint"]
+      "description": "Fix eslint errors",
+      "associatedCommands": ["lint"],
     },
     // {
     //   /**

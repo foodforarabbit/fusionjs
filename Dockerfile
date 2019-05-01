@@ -11,6 +11,5 @@ RUN echo "registry = https://unpm.uberinternal.com/" > .npmrc && \
     echo "email = unpm@uber.com" >> .npmrc && \
     echo "always-auth = true" >> .npmrc && \
     echo "loglevel = http" >> .npmrc && \
-    node common/scripts/install-run-rush update && \
-    node scripts/fix-symlinks && \
+    node common/scripts/install-run-rush install && \
     node common/scripts/install-run-rush build

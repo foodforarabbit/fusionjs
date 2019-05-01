@@ -16,7 +16,7 @@
    * path segment in the "$schema" field for all your Rush config files.  This will ensure
    * correct error-underlining and tab-completion for editors such as VS Code.
    */
-  "rushVersion": "5.5.4",
+  "rushVersion": "5.7.1",
 
   /**
    * The next field selects which package manager should be installed and determines its version.
@@ -57,7 +57,7 @@
    * Specify a SemVer range to ensure developers use a NodeJS version that is appropriate
    * for your repo.
    */
-  "nodeSupportedVersionRange": ">=8.9.4",
+  "nodeSupportedVersionRange": ">=8.9.0 <11",
 
   /**
    * If you would like the version specifiers for your dependencies to be consistent, then
@@ -186,7 +186,9 @@
     /**
      * The list of shell commands to run after the Rush installation finishes
      */
-    "postRushInstall": [],
+    "postRushInstall": [
+      "node common/scripts/post-rush-install.js",
+    ],
 
     /**
      * The list of shell commands to run before the Rush build command starts
@@ -254,273 +256,5 @@
    * 3. It's useful to have a centralized inventory of all projects and their important metadata.
    */
   "projects": [
-    {
-      "packageName": "@uber/fusion-plugin-events-adapter",
-      "projectFolder": "private/fusion-plugin-events-adapter"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-bedrock-compat",
-      "projectFolder": "private/fusion-plugin-bedrock-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-analytics-session",
-      "projectFolder": "private/fusion-plugin-analytics-session"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-marketing",
-      "projectFolder": "private/fusion-plugin-marketing"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-magellan",
-      "projectFolder": "private/fusion-plugin-magellan"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-web-rpc-compat",
-      "projectFolder": "private/fusion-plugin-web-rpc-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-universal-m3-compat",
-      "projectFolder": "private/fusion-plugin-universal-m3-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-universal-logger-compat",
-      "projectFolder": "private/fusion-plugin-universal-logger-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-uber-xhr-compat",
-      "projectFolder": "private/fusion-plugin-uber-xhr-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-tracer",
-      "projectFolder": "private/fusion-plugin-tracer"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-tealium-react",
-      "projectFolder": "private/fusion-plugin-tealium-react"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-tealium",
-      "projectFolder": "private/fusion-plugin-tealium"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-tchannel",
-      "projectFolder": "private/fusion-plugin-tchannel"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-secure-headers",
-      "projectFolder": "private/fusion-plugin-secure-headers"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-secrets",
-      "projectFolder": "private/fusion-plugin-secrets"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-s3-asset-proxying",
-      "projectFolder": "private/fusion-plugin-s3-asset-proxying"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-rosetta",
-      "projectFolder": "private/fusion-plugin-rosetta"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-react-router-v3-compat",
-      "projectFolder": "private/fusion-plugin-react-router-v3-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-proxy-compat",
-      "projectFolder": "private/fusion-plugin-proxy-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-page-skeleton-compat",
-      "projectFolder": "private/fusion-plugin-page-skeleton-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-m3-react",
-      "projectFolder": "private/fusion-plugin-m3-react"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-m3",
-      "projectFolder": "private/fusion-plugin-m3"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-logtron-react",
-      "projectFolder": "private/fusion-plugin-logtron-react"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-logtron",
-      "projectFolder": "private/fusion-plugin-logtron"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-initial-state-compat",
-      "projectFolder": "private/fusion-plugin-initial-state-compat"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-heatpipe-performance-logger",
-      "projectFolder": "private/fusion-plugin-heatpipe-performance-logger"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-heatpipe",
-      "projectFolder": "private/fusion-plugin-heatpipe"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-google-analytics-react",
-      "projectFolder": "private/fusion-plugin-google-analytics-react"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-google-analytics",
-      "projectFolder": "private/fusion-plugin-google-analytics"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-galileo",
-      "projectFolder": "private/fusion-plugin-galileo"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-flipr",
-      "projectFolder": "private/fusion-plugin-flipr"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-error-handling",
-      "projectFolder": "private/fusion-plugin-error-handling"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-auth-headers",
-      "projectFolder": "private/fusion-plugin-auth-headers"
-    },
-    {
-      "packageName": "@uber/fusion-plugin-atreyu",
-      "projectFolder": "private/fusion-plugin-atreyu"
-    },
-    {
-      "packageName": "fusion-plugin-http-handler",
-      "projectFolder": "public/fusion-plugin-http-handler"
-    },
-    {
-      "packageName": "fusion-plugin-i18n-react",
-      "projectFolder": "public/fusion-plugin-i18n-react"
-    },
-    {
-      "packageName": "create-fusion-app",
-      "projectFolder": "public/create-fusion-app"
-    },
-    {
-      "packageName": "fusion-plugin-service-worker",
-      "projectFolder": "public/fusion-plugin-service-worker"
-    },
-    {
-      "packageName": "eslint-config-fusion",
-      "projectFolder": "public/eslint-config-fusion"
-    },
-    {
-      "packageName": "fusion-plugin-rpc-redux-react",
-      "projectFolder": "public/fusion-plugin-rpc-redux-react"
-    },
-    {
-      "packageName": "fusion-cli",
-      "projectFolder": "public/fusion-cli"
-    },
-    {
-      "packageName": "fusion-core",
-      "projectFolder": "public/fusion-core"
-    },
-    {
-      "packageName": "fusion-plugin-apollo-server",
-      "projectFolder": "public/fusion-plugin-apollo-server"
-    },
-    {
-      "packageName": "fusion-tokens",
-      "projectFolder": "public/fusion-tokens"
-    },
-    {
-      "packageName": "fusion-test-utils",
-      "projectFolder": "public/fusion-test-utils"
-    },
-    {
-      "packageName": "fusion-react",
-      "projectFolder": "public/fusion-react"
-    },
-    {
-      "packageName": "fusion-scaffolder",
-      "projectFolder": "public/fusion-scaffolder"
-    },
-    {
-      "packageName": "fusion-apollo",
-      "projectFolder": "public/fusion-apollo"
-    },
-    {
-      "packageName": "fusion-apollo-universal-client",
-      "projectFolder": "public/fusion-apollo-universal-client"
-    },
-    {
-      "packageName": "fusion-plugin-rpc",
-      "projectFolder": "public/fusion-plugin-rpc"
-    },
-    {
-      "packageName": "fusion-plugin-error-handling",
-      "projectFolder": "public/fusion-plugin-error-handling"
-    },
-    {
-      "packageName": "fusion-plugin-i18n",
-      "projectFolder": "public/fusion-plugin-i18n"
-    },
-    {
-      "packageName": "fusion-plugin-node-performance-emitter",
-      "projectFolder": "public/fusion-plugin-node-performance-emitter"
-    },
-    {
-      "packageName": "fusion-plugin-browser-performance-emitter",
-      "projectFolder": "public/fusion-plugin-browser-performance-emitter"
-    },
-    {
-      "packageName": "fusion-plugin-universal-events",
-      "projectFolder": "public/fusion-plugin-universal-events"
-    },
-    {
-      "packageName": "fusion-plugin-universal-events-react",
-      "projectFolder": "public/fusion-plugin-universal-events-react"
-    },
-    {
-      "packageName": "fusion-rpc-redux",
-      "projectFolder": "public/fusion-rpc-redux"
-    },
-    {
-      "packageName": "fusion-plugin-redux-action-emitter-enhancer",
-      "projectFolder": "public/fusion-redux-action-emitter-enhancer"
-    },
-    {
-      "packageName": "fusion-plugin-react-redux",
-      "projectFolder": "public/fusion-plugin-react-redux"
-    },
-    {
-      "packageName": "fusion-plugin-introspect",
-      "projectFolder": "public/fusion-plugin-introspect"
-    },
-    {
-      "packageName": "fusion-plugin-universal-logger",
-      "projectFolder": "public/fusion-plugin-universal-logger"
-    },
-    {
-      "packageName": "fusion-plugin-csrf-protection",
-      "projectFolder": "public/fusion-plugin-csrf-protection"
-    },
-    {
-      "packageName": "fusion-plugin-font-loader-react",
-      "projectFolder": "public/fusion-plugin-font-loader-react"
-    },
-    {
-      "packageName": "fusion-plugin-react-helmet-async",
-      "projectFolder": "public/fusion-plugin-react-helmet-async"
-    },
-    {
-      "packageName": "fusion-plugin-jwt",
-      "projectFolder": "public/fusion-plugin-jwt"
-    },
-    {
-      "packageName": "fusion-plugin-react-router",
-      "projectFolder": "public/fusion-plugin-react-router"
-    },
-    {
-      "packageName": "fusion-plugin-styletron-react",
-      "projectFolder": "public/fusion-plugin-styletron-react"
-    },
   ]
 }
