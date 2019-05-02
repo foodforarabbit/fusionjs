@@ -266,7 +266,7 @@ An optional `enhanceContext` function can be supplied for the default Morpheus c
 ```js
 const config = {
   enhanceContext: (ctx, defaultContext) => ({
-    ...defaults,
+    ...defaultContext,
     cookieID: ctx.headers['user-uuid'],
     marketingID: ctx.cookies.get('some_marketing_id'),
   })
@@ -334,7 +334,9 @@ export default {
 A number of potential enhancements and improvements coming in the future:
 - **Support server-side only toggles** to limit exposure from client side.
 - **[Morpheus] Timeout threshold for requests** to mitigate slowing down generating responses.
+- **[Morpheus] Robust error handling** to mitigate Morpheus outages and issues.
 - **Support for React Hooks** to expose toggle service for direct consumption.
+- **Improve testing** through robust exporting of mocks and types.
 - **Improved out-of-the-box metric logging** for downstream analysis of toggle states (e.g. for A/B experimentation).
 - **Support for Flipr back-end** as toggle configuration service.
 - **Improved code splitting to only relevant toggles** for each bundle to cut down on bundle size.
