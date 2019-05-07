@@ -799,10 +799,10 @@
   resolved "https://unpm.uberinternal.com/@types%2frimraf/-/rimraf-0.0.28.tgz#5562519bc7963caca8abf7f128cae3b594d41d06"
   integrity sha1-VWJRm8eWPKyoq/fxKMrjtZTUHQY=
 
-"@uber/node-rosetta@^1.0.8":
-  version "1.0.8"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.0.8.tgz#9a4955b0eedbb8b59ba23d58fa41a9479c4c7423"
-  integrity sha512-9oEhgft6PLiOhOQOjdKYnac7dCLwi33W/YXtwjGO/L+w8AEGiftPSUFD/V06ak5QDPadolDVuag8B+1ZqsZPFw==
+"@uber/node-rosetta@^1.0.9":
+  version "1.0.9"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.0.9.tgz#7cb1dfecd43560b4a1631921714fc971eb72d70c"
+  integrity sha512-guBFiZQJoJe9Am3KwCr42x168PaJftgs+VCIpyZ4yI88BbfY53206k8OAIKSsX+AQQ1f5tFqXZViANNdcZC4Kw==
   dependencies:
     axios "^0.18.0"
     decompress "^4.2.0"
