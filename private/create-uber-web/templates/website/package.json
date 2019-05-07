@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@uber/fusion-dev-cli": "^1.1.0",
+    "@uber/typed-rpc-cli": "^2.0.6",
     "babel-eslint": "^10.0.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
@@ -84,6 +85,7 @@
   },
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
+    "codegen": "rpc-cli generate",
     "lint": "eslint src --fix",
     "flow": "flow check",
     "build": "fusion build",
