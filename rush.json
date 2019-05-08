@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-auth-headers",
+      "projectFolder": "private/fusion-plugin-auth-headers"
+    },
+    {
       "packageName": "@uber/fusion-plugin-atreyu",
       "projectFolder": "private/fusion-plugin-atreyu"
     },
