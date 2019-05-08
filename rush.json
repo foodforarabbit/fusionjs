@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-universal-logger-compat",
+      "projectFolder": "private/fusion-plugin-universal-logger-compat"
+    },
+    {
       "packageName": "@uber/fusion-plugin-uber-xhr-compat",
       "projectFolder": "private/fusion-plugin-uber-xhr-compat"
     },
