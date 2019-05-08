@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "fusion-plugin-jwt",
+      "projectFolder": "public/fusion-plugin-jwt"
+    },
+    {
       "packageName": "fusion-plugin-introspect",
       "projectFolder": "public/fusion-plugin-introspect"
     },
