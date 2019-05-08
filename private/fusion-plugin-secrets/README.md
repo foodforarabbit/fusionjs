@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-secrets
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 
 **Note: The plugin is currently [Langley](https://code.uberinternal.com/w/projects/security/langley/) based and will be migrated to [uSecret](https://engdocs.uberinternal.com/goldstar/how_to_items/secrets_access.html)**
 

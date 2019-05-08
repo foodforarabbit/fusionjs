@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-m3-react
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 An M3 plugin for FusionJS.
 
 M3 is Uber's internal metrics system.  Leverage this plugin to emit metrics to M3 for storage and later querying.  See [M3 documentation](https://engdocs.uberinternal.com/m3_and_umonitor/what_is_m3.html) for more details.
@@ -112,7 +114,7 @@ The canonical token for the M3 plugin. Typically, it should be registered with t
 
 ##### `UniversalEventsToken`
 
-Required. See https://github.com/fusionjs/fusion-plugin-universal-events
+Required. See https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events
 
 ##### `CommonTagsToken`
 

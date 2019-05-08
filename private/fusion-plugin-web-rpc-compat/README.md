@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-web-rpc-compat
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Web RPC compatability layer for bedrock 14 to fusion migration.
 
 --- 
@@ -40,4 +42,4 @@ export default () => {
 
 ##### `RPCToken`
 
-See [`RPCToken`](https://github.com/fusionjs/fusion-plugin-rpc#rpctoken)
+See [`RPCToken`](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-rpc#rpctoken)

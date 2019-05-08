@@ -1,9 +1,11 @@
 # @uber/fusion-plugin-events-adapter
 
-Pipes [universal events](https://github.com/fusionjs/fusion-plugin-universal-events) to Uber monitoring infrastructure.
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
+Pipes [universal events](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events) to Uber monitoring infrastructure.
 
 At Uber, we log several useful metrics/stats to M3 or Heapipe/Kafka for monitoring and further analysis.
-Plugins such as [fusion-plugin-browser-performance-emitter](https://github.com/fusionjs/fusion-plugin-browser-performance-emitter) produces the data and emits via [Universal Events](https://github.com/fusionjs/fusion-plugin-universal-events). The `EventsAdapter` plugin creates the event listeners that handle dispatching of data from those plugins to their appropriate destinations (i.e. M3 and Heatpipe/Kafka).
+Plugins such as [fusion-plugin-browser-performance-emitter](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-browser-performance-emitter) produces the data and emits via [Universal Events](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events). The `EventsAdapter` plugin creates the event listeners that handle dispatching of data from those plugins to their appropriate destinations (i.e. M3 and Heatpipe/Kafka).
 
 Many Fusion.js plugins emit data to the universal events bus, for example `fusion-plugin-react-router` and `fusion-plugin-i18n-react`.
 

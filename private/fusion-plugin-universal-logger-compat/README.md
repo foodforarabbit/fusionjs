@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-universal-logger-compat
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Universal Logger compatability layer for bedrock 14 to fusion migration.
 
 --- 
@@ -48,4 +50,4 @@ export default () => {
 
 ##### `LoggerToken`
 
-See [`LoggerToken`](https://github.com/fusionjs/fusion-tokens#loggertoken)
+See [`LoggerToken`](https://github.com/fusionjs/fusionjs/tree/master/fusion-tokens#loggertoken)

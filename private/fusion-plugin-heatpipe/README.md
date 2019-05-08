@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-heatpipe
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Heatpipe publisher plugin for Fusion.js apps.
 
 Heatpipe is Uber's structured data pipeline which formalizes the process for publishing and consuming data and runs on top of the Kafka messaging system. This involves naming and defining data schemas as well as associating them with  topics. For more details, see the [Heatpipe](https://code.uberinternal.com/w/projects/database/heatpipe/) and [Kafka](https://engdocs.uberinternal.com/Kafka-documentation/index.html) documentation.
@@ -99,15 +101,15 @@ The canonical token for the Heatpipe plugin. Typically, it should be registered 
 
 ##### `LoggerToken`
 
-Server only. A [type-compliant logger](https://github.com/fusionjs/fusion-tokens/blob/master/src/index.js#L23-L32). Typically, it is registered with [Logtron](https://code.uberinternal.com/diffusion/WEFUSTX/) for most cases at Uber.
+Server only. A [type-compliant logger](https://github.com/fusionjs/fusionjs/tree/master/fusion-tokens/blob/master/src/index.js#L23-L32). Typically, it is registered with [Logtron](https://code.uberinternal.com/diffusion/WEFUSTX/) for most cases at Uber.
 
 ###### Types
 
-See [fusion-tokens](https://github.com/fusionjs/fusion-tokens#loggertoken).
+See [fusion-tokens](https://github.com/fusionjs/fusionjs/tree/master/fusion-tokens#loggertoken).
 
 ##### `UniversalEventsToken`
 
-An event emitter plugin which emits the actions. Typically, it is registered with [`fusion-plugin-universal-events`](https://github.com/fusionjs/fusion-plugin-universal-events).
+An event emitter plugin which emits the actions. Typically, it is registered with [`fusion-plugin-universal-events`](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events).
 
 #### Service API
 

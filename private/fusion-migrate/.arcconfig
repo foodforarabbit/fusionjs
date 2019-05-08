@@ -1,8 +1,0 @@
-{
-  "phabricator.uri": "https://code.uberinternal.com/",
-  "unit.engine": "TAPTestEngine",
-  "unit.engine.tap.command": "yarn test",
-  "unit.engine.tap.cover": "yarn cover",
-  "unit.engine.tap.timeout": 60
-
-}

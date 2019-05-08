@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-secure-headers
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Improves the web application security by setting headers, such as Content Security Policy, X-Frame-Options, etc.
 
 By default it turns on [frameguard](https://helmetjs.github.io/docs/frameguard/) to protect against [clickjacking attacks](https://en.wikipedia.org/wiki/Clickjacking), and uses a default Uber content security policy to mitigate [cross-site scripting (XSS) attacks](https://en.wikipedia.org/wiki/Cross-site_scripting).

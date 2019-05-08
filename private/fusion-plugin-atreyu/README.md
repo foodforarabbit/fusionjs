@@ -1,5 +1,7 @@
 # Atreyu plugin for fusion
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Provides [Atreyu](https://code.uberinternal.com/diffusion/WEATREY/browse/master/#what-is-atreyu) to a Fusion.js app.
 
 Atreyu is data querying/aggregation library similar to GraphQL, but designed to be used with Uber's micro-service infrastructure.
@@ -48,7 +50,7 @@ yarn add @uber/fusion-plugin-atreyu
 
 Below is a basic example of how you might set up a Fusion plugin that fetches and responds to data at some url.
 
-If you want to have a more useful integration where you are making calls from the client-side and, in turn, making backend service calls using Atreyu in the web server layer, we recommend using [fusion-plugin-rpc-react-redux](https://github.com/fusionjs/fusion-plugin-rpc-redux-react) along with this plugin.
+If you want to have a more useful integration where you are making calls from the client-side and, in turn, making backend service calls using Atreyu in the web server layer, we recommend using [fusion-plugin-rpc-react-redux](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-rpc-redux-react) along with this plugin.
 
 ```js
 // src/example-plugin.js
@@ -151,7 +153,7 @@ The M3 client plugin, which is used to collect statistics. Server-only. Required
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 ```
 
-The universal events plugin, which is used as an event bus. Required for `@uber/fusion-plugin-logtron`. See [https://github.com/fusionjs/fusion-plugin-universal-events](https://github.com/fusionjs/fusion-plugin-universal-events)
+The universal events plugin, which is used as an event bus. Required for `@uber/fusion-plugin-logtron`. See [https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events)
 
 ##### `LoggerToken`
 

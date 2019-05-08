@@ -1,10 +1,12 @@
 module.exports = {
+  root: true,
   extends: [require.resolve('eslint-config-fusion')],
   env: {
     node: true,
   },
   rules: {
     'flowtype/require-valid-file-annotation': false,
+    'jest/no-disabled-tests': false,
   },
   globals: {
     test: true,

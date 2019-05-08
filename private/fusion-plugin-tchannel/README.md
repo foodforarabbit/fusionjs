@@ -1,5 +1,7 @@
 # TChannel plugin for fusion
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Sets up a server-side instance of [Tchannel](https://github.com/uber/tchannel-node) client, which allows you to make requests to Uber services. This plugin is a required dependency of [`@uber/fusion-plugin-atreyu`](/web/api/uber-fusion-plugin-atreyu)
 
 ---
@@ -91,7 +93,7 @@ The M3 client plugin, which is used to collect statistics. Server-only. Required
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 ```
 
-The universal events plugin, which is used as an event bus. Required for `@uber/fusion-plugin-logtron`. See [https://github.com/fusionjs/fusion-plugin-universal-events](https://github.com/fusionjs/fusion-plugin-universal-events)
+The universal events plugin, which is used as an event bus. Required for `@uber/fusion-plugin-logtron`. See [https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events)
 
 ##### `LoggerToken`
 

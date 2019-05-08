@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-rosetta
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Rosetta is a library to interact with [Genghis](https://code.uberinternal.com/w/projects/communicating_with_riders_drivers_and_the_general_public/genghis_-_old/), a i18n service developed by Uber.  The Rosetta plugin is meant to be used as a translation loader for [`fusion-plugin-i18n`](https://github.com/fusionjs/fusion-plugin-i18n-react).
 
 ---
@@ -108,7 +110,7 @@ See the `fusion-plugin-i18n` [documentation](https://github.com/fusionjs/fusion-
 import {LoggerToken} from 'fusion-tokens';
 ```
 
-See `fusion-token`'s [LoggerToken](https://github.com/fusionjs/fusion-tokens#loggertoken) documentation for more details.
+See `fusion-token`'s [LoggerToken](https://github.com/fusionjs/fusionjs/tree/master/fusion-tokens#loggertoken) documentation for more details.
 
 It is strongly recommended that [`@uber/fusion-plugin-logtron`](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-logtron) is used.
 
@@ -171,7 +173,7 @@ type RosettaLoader = {
 ```
 
 * `loader.from: (ctx) => ({locale, translations})` -
-  * `ctx: FusionContext` - Required. A [FusionJS context](https://github.com/fusionjs/fusion-core#context) object.
+  * `ctx: FusionContext` - Required. A [FusionJS context](https://github.com/fusionjs/fusionjs/tree/master/fusion-core#context) object.
   * `locale: Locale` - A [Locale](https://www.npmjs.com/package/locale)
   * `translations: Object` - A object that maps translation keys to translated values for the given locale
 

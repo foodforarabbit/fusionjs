@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-galileo
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Sets up Galileo, a mechanism to authorize RPC services at Uber. It helps enforce [Gold Star](https://engdocs.uberinternal.com/goldstar/index.html) compliance to ensure end-to-end security and privacy of data as it flows throughout the Uber stack.
 
 Galileo is a framework for presenting access controls to Uber applications. Galileo uses Wonka under the hood for personnel and service authentication and most applications and services will interact through Galileo li`aries rather than with Wonka directly. Galileo relies on [Jaeger](http://jaeger.readthedocs.io/en/latest/), Uber’s distributed context propagation system, for passing Wonka claims from service/personnel to service.

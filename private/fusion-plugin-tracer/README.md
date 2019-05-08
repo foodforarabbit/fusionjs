@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-tracer
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Enables distributed tracing via [Jaeger](https://github.com/jaegertracing/jaeger). Distributed tracing is useful for monitoring applications with a micro-service oriented backends because it creates visibility of events across services.
 
 This plugin provides a service that exposes the [OpenTracing API](https://github.com/opentracing/opentracing-javascript)

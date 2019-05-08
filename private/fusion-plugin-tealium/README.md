@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-tealium
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Tealium plugin for Fusion.js
 
 Tealium is a tag management tool for marketers that provides control over third-party tracking pixels, making it easier for non-engineers to tie ads and pages together and quantify conversions.  It also provides support for integrating with Google Analytics, Mixpanel, and other third-party tools.  For more details, see the [Tealium for engineers](https://code.uberinternal.com/w/tealium/) documentation.

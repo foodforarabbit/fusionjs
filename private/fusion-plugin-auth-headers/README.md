@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-auth-headers
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Provides a plugin that exposes a programmatic interface for accessing common Uber-specific authentication fields.
 
 At Uber, applications often need to know information about the authenticated user.  This server-side plugin provides a programatic interface that allows for accessing Uber-specific authentication fields.
@@ -220,7 +222,7 @@ type AuthHeadersService = {from: (ctx: Context) => AuthHeaders};
 ```
 
 * `service.from(ctx: Context) => AuthHeaders` - provides a `Context`-scoped instance of `AuthHeaders`.
-  * `ctx: FusionContext` - Required. A [FusionJS context](https://github.com/fusionjs/fusion-core#context) object.
+  * `ctx: FusionContext` - Required. A [FusionJS context](https://github.com/fusionjs/fusionjs/tree/master/fusion-core#context) object.
   * `instance.get(key: 'uuid' | 'email' | 'token' | 'roles' | 'groups') : string` - provides the associated authentication parameter value if found.  Returns an empty string `''` otherwise.
 
 ---

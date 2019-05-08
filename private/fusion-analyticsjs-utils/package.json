@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-analyticsjs-utils",
   "description": "Misc utils for Fusion analytics plugins",
-  "version": "1.0.3",
+  "version": "0.0.0-monorepo",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
@@ -22,39 +22,46 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
-    "@babel/preset-react": "7.0.0-beta.40",
-    "babel-eslint": "8.2.2",
-    "create-universal-package": "3.4.1",
-    "eslint": "4.18.1",
-    "eslint-config-fusion": "^1.0.0",
-    "eslint-plugin-cup": "1.0.0",
-    "eslint-plugin-flowtype": "2.46.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-prettier": "2.6.0",
-    "eslint-plugin-react": "7.7.0",
-    "flow-bin": "^0.83.0",
-    "nyc": "11.4.1",
-    "prettier": "1.11.1",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
-    "tape-cup": "4.7.1",
-    "unitest": "2.1.1"
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "create-universal-package": "^3.4.7",
+    "eslint": "^5.16.0",
+    "eslint-config-fusion": "0.0.0-monorepo",
+    "eslint-plugin-cup": "^2.0.1",
+    "eslint-plugin-flowtype": "^3.8.1",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.13.0",
+    "flow-bin": "^0.98.1",
+    "nyc": "^14.1.0",
+    "prettier": "^1.17.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "tape-cup": "^4.7.1",
+    "unitest": "^2.1.1"
   },
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "eslint . --ignore-path .gitignore",
-    "transpile": "npm run clean && cup build",
     "build-test": "rm -rf dist-tests && cup build-tests",
     "just-test": "node dist-tests/node.js",
     "cover": "npm run build-test && npm run just-cover",
     "just-cover": "nyc --reporter=cobertura --reporter=html npm run just-test",
     "test": "npm run build-test && npm run just-test",
-    "prepublish": "npm run transpile"
+    "prepublish": "npm run build",
+    "build": "npm run clean && cup build",
+    "flow": "flow check"
   },
   "engines": {
-    "node": ">=8.6.0",
+    "node": ">=8.9.0 <11",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
-  "private": true
+  "private": true,
+  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-analyticsjs-utils",
+  "repository": {
+    "directory": "private/fusion-analyticsjs-utils",
+    "type": "git",
+    "url": "https://github.com/uber/fusionjs"
+  }
 }

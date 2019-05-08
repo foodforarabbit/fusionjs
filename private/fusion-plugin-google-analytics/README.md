@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-google-analytics
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 This plugin provides a minimal wrapper on top of Google Analytics. Google Analytics are useful for understanding traffic volume and patterns.
 
 If you're using React, you should use [@uber/fusion-plugin-google-analytics-react](https://code.uberinternal.com/diffusion/WEFUSKK/) instead of this package.

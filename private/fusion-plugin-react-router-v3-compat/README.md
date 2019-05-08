@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-react-router-v3-compat
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Fusion.js plugin to provide backward support of react-router v3.x. Read the section ["Limitations and workarounds"](#limitations) to learn more.
 
 ---

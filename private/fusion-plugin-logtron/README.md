@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-logtron
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Provides a logger that can be connected to standard Uber log consumption services. Wraps over [@uber/logtron](https://code.uberinternal.com/diffusion/WELOGTK/) (which, in turn, is a fork of [https://github.com/uber/logtron](https://github.com/uber/logtron).
 
 ---
@@ -81,11 +83,11 @@ export default () => {
 import Logger from '@uber/fusion-plugin-logger';
 ```
 
-The plugin. Should typically be registered to [`LoggerToken`](https://github.com/fusionjs/fusion-tokens#loggertoken)
+The plugin. Should typically be registered to [`LoggerToken`](https://github.com/fusionjs/fusionjs/tree/master/fusion-tokens#loggertoken)
 
 ##### `LoggerToken`
 
-The token to register the plugin to. See [`LoggerToken`](https://github.com/fusionjs/fusion-tokens#loggertoken)
+The token to register the plugin to. See [`LoggerToken`](https://github.com/fusionjs/fusionjs/tree/master/fusion-tokens#loggertoken)
 
 #### Dependencies
 
@@ -103,7 +105,7 @@ The M3 client plugin, which is used to collect statistics. Server-only. Required
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 ```
 
-The universal events plugin, which is used as an event bus. See [https://github.com/fusionjs/fusion-plugin-universal-events](https://github.com/fusionjs/fusion-plugin-universal-events)
+The universal events plugin, which is used as an event bus. See [https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events)
 
 ##### `LogtronTeamToken`
 

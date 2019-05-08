@@ -2,8 +2,10 @@
 .*/node_modules/.*[^(package)]\.json
 
 [include]
+../../common/temp/node_modules
 
 [libs]
+./node_modules/fusion-core/flow-typed
 
 [lints]
 

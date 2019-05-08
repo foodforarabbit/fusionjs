@@ -1,5 +1,6 @@
 module.exports = {
-  extends: [
+  'extends': [
     require.resolve('eslint-config-fusion')
-  ]
+  ],
+  'root': true
 };

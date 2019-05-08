@@ -1,5 +1,7 @@
 # @uber/fusion-plugin-feature-toggles-react
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 Adds Feature Toggle support to a Fusion.js app.
 
 Feature toggles (also known as feature flags) provide developers with the ability to rapidly toggle specific features or code in their Fusion.js applications.  This package supports the following use cases:
@@ -84,7 +86,7 @@ Ensure that you have registered the `FeatureTogglePlugin` to the `FeatureToggles
 
 #### Server-side only
 
-If you wish to avoid the disabled path from shipping to the client, you can leverage `fusion-react`'s [`split`](https://github.com/fusionjs/fusion-react#split) helper:
+If you wish to avoid the disabled path from shipping to the client, you can leverage `fusion-react`'s [`split`](https://github.com/fusionjs/fusionjs/tree/master/fusion-react#split) helper:
 
 ```js
 import * as React from 'react';

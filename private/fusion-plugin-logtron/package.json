@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-plugin-logtron",
-  "version": "1.5.0",
+  "version": "0.0.0-monorepo",
   "description": "fusion plugin for universal logging via logtron",
   "files": [
     "dist",
@@ -22,34 +22,34 @@
   "dependencies": {
     "@uber/logtron": "^9.0.9",
     "error-stack-parser": "^2.0.2",
-    "koa-bodyparser": "4.2.1",
+    "koa-bodyparser": "^4.2.1",
     "source-map": "^0.7.3"
   },
   "peerDependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.11-3",
-    "fusion-core": "^1.4.0",
-    "fusion-plugin-universal-events": "^1.0.5",
-    "fusion-tokens": "^1.0.4-0"
+    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
+    "fusion-core": "0.0.0-monorepo",
+    "fusion-plugin-universal-events": "0.0.0-monorepo",
+    "fusion-tokens": "0.0.0-monorepo"
   },
   "devDependencies": {
-    "@uber/fusion-plugin-m3": "^1.1.11-3",
+    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "babel-eslint": "^10.0.1",
-    "create-universal-package": "^3.4.6",
-    "eslint": "^5.9.0",
-    "eslint-config-fusion": "^4.0.0",
-    "eslint-plugin-cup": "^2.0.0",
-    "eslint-plugin-flowtype": "^3.2.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^22.1.0",
-    "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-react": "^7.11.1",
-    "flow-bin": "^0.87.0",
-    "fusion-core": "^1.10.0",
-    "fusion-plugin-universal-events": "^1.3.0",
-    "fusion-test-utils": "^1.3.0",
-    "fusion-tokens": "^1.1.1",
-    "nyc": "^13.1.0",
-    "prettier": "1.15.2",
+    "create-universal-package": "^3.4.7",
+    "eslint": "^5.16.0",
+    "eslint-config-fusion": "0.0.0-monorepo",
+    "eslint-plugin-cup": "^2.0.1",
+    "eslint-plugin-flowtype": "^3.8.1",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^22.5.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.13.0",
+    "flow-bin": "^0.98.1",
+    "fusion-core": "0.0.0-monorepo",
+    "fusion-plugin-universal-events": "0.0.0-monorepo",
+    "fusion-test-utils": "0.0.0-monorepo",
+    "fusion-tokens": "0.0.0-monorepo",
+    "nyc": "^14.1.0",
+    "prettier": "^1.17.0",
     "sinon": "^7.1.1",
     "tape-cup": "^4.7.1",
     "unitest": "^2.1.1"
@@ -58,17 +58,23 @@
     "clean": "rm -rf dist",
     "flow": "flow",
     "lint": "eslint src/",
-    "transpile": "npm run clean && cup build",
     "build-test": "rm -rf dist-test && cup build-tests",
     "just-test": "unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
-    "test": "npm run build-test && npm run just-test && npm run flow",
+    "test": "npm run build-test && npm run just-test",
     "cover": "npm run build-test && npm run just-cover",
     "just-cover": "nyc --reporter=cobertura npm run just-test && nyc report",
-    "prepublish": "npm run transpile"
+    "prepublish": "npm run build",
+    "build": "npm run clean && cup build"
   },
   "engines": {
-    "node": ">=8.11.3 <11",
+    "node": ">=8.9.0 <11",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
+  },
+  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-logtron",
+  "repository": {
+    "directory": "private/fusion-plugin-logtron",
+    "type": "git",
+    "url": "https://github.com/uber/fusionjs"
   }
 }

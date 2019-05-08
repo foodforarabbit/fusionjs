@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-dev-cli",
   "description": "M3 plugin for fusion",
-  "version": "1.1.0",
+  "version": "0.0.0-monorepo",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "bin": {
@@ -11,15 +11,27 @@
   "dependencies": {
     "promptly": "^3.0.3",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.4"
   },
   "engines": {
-    "node": ">=8.3.0",
+    "node": ">=8.9.0 <11",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
   "private": true,
   "devDependencies": {
-    "flow-bin": "^0.85.0"
+    "flow-bin": "^0.98.1"
+  },
+  "scripts": {
+    "build": "echo ok",
+    "test": "echo ok",
+    "flow": "flow check",
+    "lint": "echo ok"
+  },
+  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-dev-cli",
+  "repository": {
+    "directory": "private/fusion-dev-cli",
+    "type": "git",
+    "url": "https://github.com/uber/fusionjs"
   }
 }
