@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-page-skeleton-compat",
+      "projectFolder": "private/fusion-plugin-page-skeleton-compat"
+    },
+    {
       "packageName": "@uber/fusion-plugin-marketing",
       "projectFolder": "private/fusion-plugin-marketing"
     },
