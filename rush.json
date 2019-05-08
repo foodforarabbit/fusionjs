@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-magellan",
+      "projectFolder": "private/fusion-plugin-magellan"
+    },
+    {
       "packageName": "@uber/fusion-plugin-m3",
       "projectFolder": "private/fusion-plugin-m3"
     },
