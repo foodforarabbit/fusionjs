@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-s3-asset-proxying",
+      "projectFolder": "private/fusion-plugin-s3-asset-proxying"
+    },
+    {
       "packageName": "@uber/fusion-plugin-rosetta",
       "projectFolder": "private/fusion-plugin-rosetta"
     },
