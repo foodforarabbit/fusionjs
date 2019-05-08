@@ -54,17 +54,18 @@ type MorpheusConfigType = {
 };
 
 export default class MorpheusClient implements IFeatureTogglesClient {
-  ctx: Context;
-  toggleNames: Array<string>;
-  getTreatmentGroupsByNames: Function;
-  experiments: {[experimentName: string]: MorpheusTreatmentGroupType};
-  hasLoaded: boolean;
-  enhanceContext: ?(
+  +ctx: Context;
+  +toggleNames: Array<string>;
+  +getTreatmentGroupsByNames: Function;
+  +enhanceContext: ?(
     ctx: Context,
     defaultMorpheusContext: MorpheusContextType
   ) => EnhancedMorpheusContextType;
-  metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: any};
-  timeoutThreshold: number;
+  +metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: any};
+  +timeoutThreshold: number;
+
+  hasLoaded: boolean;
+  experiments: {[experimentName: string]: MorpheusTreatmentGroupType};
 
   constructor(
     ctx: Context,

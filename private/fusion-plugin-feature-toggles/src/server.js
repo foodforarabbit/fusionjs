@@ -53,6 +53,10 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
     middleware({toggleConfigs}, service) {
       return async (ctx: Context, next) => {
         if (!ctx.element) return next();
+        if (toggleConfigs.length === 0) {
+          embedToggleData(ctx, {} /*no toggle details*/);
+          return next();
+        }
 
         const scoped = service.from(ctx);
         await scoped.load();
@@ -82,13 +86,7 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
           }
         }
 
-        const serialized = JSON.stringify({data});
-        const script = html`
-          <script type="application/json" id="__FEATURE_TOGGLES__">
-            ${serialized}
-          </script>
-        `; // to be consumed by ./browser.js
-        ctx.template.body.push(script);
+        embedToggleData(ctx, data);
       };
     },
   });
@@ -98,3 +96,16 @@ export default ((__NODE__ && pluginFactory(): any): FeatureTogglesPluginType);
 /* Helper functions */
 const generateErrorMessage = (tokenName: string): string =>
   `No client was provided.  The default client requires a registered value for the ${tokenName}.`;
+
+const embedToggleData = (
+  ctx: Context,
+  data: {[string]: ToggleDetailsType}
+): void => {
+  const serialized = JSON.stringify({data});
+  const script = html`
+    <script type="application/json" id="__FEATURE_TOGGLES__">
+      ${serialized}
+    </script>
+  `; // to be consumed by ./browser.js
+  ctx.template.body.push(script);
+};

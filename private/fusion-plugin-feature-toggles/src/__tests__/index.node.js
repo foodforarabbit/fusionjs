@@ -227,3 +227,39 @@ test('only client-safe toggles exposed in __FEATURE_TOGGLES__ ', async () => {
     '__FEATURE_TOGGLES__-limited-client-side'
   );
 });
+
+test('skip middleware if no toggle details provided', async () => {
+  const app = appCreator({}, [])();
+
+  // Override 'FeatureTogglesClientToken' registration to track .load call
+  const loadFn = jest.fn();
+  const getFn = jest.fn();
+  class MockCheckLoadClient implements IFeatureTogglesClient {
+    constructor(ctx: Context): IFeatureTogglesClient {
+      return this;
+    }
+    async load(): Promise<void> {
+      return loadFn();
+    }
+    get(toggleName: string): ToggleDetailsType {
+      return getFn();
+    }
+  }
+  app.register(FeatureTogglesClientToken, MockCheckLoadClient);
+
+  const result = await getSimulator(app).render('/');
+
+  // Ensure load and get were not called
+  expect(loadFn).toHaveBeenCalledTimes(0);
+  expect(getFn).toHaveBeenCalledTimes(0);
+
+  const dom = new JSDOM(result.body);
+  const elem = dom.window.document.querySelector(
+    "script[id='__FEATURE_TOGGLES__'"
+  );
+  expect(elem).toBeTruthy();
+  expect(elem).toHaveProperty('outerHTML');
+  expect(elem.outerHTML).toMatchSnapshot(
+    '__FEATURE_TOGGLES__-empty-no-details-provided'
+  );
+});
