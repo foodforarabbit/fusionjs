@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-events-adapter",
+      "projectFolder": "private/fusion-plugin-events-adapter"
+    },
+    {
       "packageName": "@uber/fusion-plugin-error-handling",
       "projectFolder": "private/fusion-plugin-error-handling"
     },
