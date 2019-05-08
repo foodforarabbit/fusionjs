@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-google-analytics",
+      "projectFolder": "private/fusion-plugin-google-analytics"
+    },
+    {
       "packageName": "@uber/fusion-plugin-google-analytics-react",
       "projectFolder": "private/fusion-plugin-google-analytics-react"
     },
