@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-secrets",
+      "projectFolder": "private/fusion-plugin-secrets"
+    },
+    {
       "packageName": "@uber/fusion-plugin-s3-asset-proxying",
       "projectFolder": "private/fusion-plugin-s3-asset-proxying"
     },
