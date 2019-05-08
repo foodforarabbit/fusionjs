@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-dev-cli",
+      "projectFolder": "private/fusion-dev-cli"
+    },
+    {
       "packageName": "@uber/fusion-analyticsjs-utils",
       "projectFolder": "private/fusion-analyticsjs-utils"
     },
