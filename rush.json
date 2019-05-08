@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-migrate",
+      "projectFolder": "private/fusion-migrate"
+    },
+    {
       "packageName": "@uber/fusion-metrics",
       "projectFolder": "private/fusion-metrics"
     },
