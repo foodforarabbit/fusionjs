@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-tealium-react",
+      "projectFolder": "private/fusion-plugin-tealium-react"
+    },
+    {
       "packageName": "@uber/fusion-plugin-tchannel",
       "projectFolder": "private/fusion-plugin-tchannel"
     },
