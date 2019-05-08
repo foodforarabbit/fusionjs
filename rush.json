@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-logtron",
+      "projectFolder": "private/fusion-plugin-logtron"
+    },
+    {
       "packageName": "@uber/fusion-plugin-logtron-react",
       "projectFolder": "private/fusion-plugin-logtron-react"
     },
