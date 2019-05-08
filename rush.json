@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-atreyu",
+      "projectFolder": "private/fusion-plugin-atreyu"
+    },
+    {
       "packageName": "@uber/fusion-plugin-analytics-session",
       "projectFolder": "private/fusion-plugin-analytics-session"
     },
