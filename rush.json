@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-m3",
+      "projectFolder": "private/fusion-plugin-m3"
+    },
+    {
       "packageName": "@uber/fusion-plugin-m3-react",
       "projectFolder": "private/fusion-plugin-m3-react"
     },
