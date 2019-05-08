@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-galileo",
+      "projectFolder": "private/fusion-plugin-galileo"
+    },
+    {
       "packageName": "@uber/fusion-plugin-flipr",
       "projectFolder": "private/fusion-plugin-flipr"
     },
