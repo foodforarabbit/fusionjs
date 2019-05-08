@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "fusion-plugin-styletron-react",
+      "projectFolder": "public/fusion-plugin-styletron-react"
+    },
+    {
       "packageName": "fusion-plugin-service-worker",
       "projectFolder": "public/fusion-plugin-service-worker"
     },
