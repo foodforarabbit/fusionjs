@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-legacy-styling-compat-mixin",
+      "projectFolder": "private/fusion-legacy-styling-compat-mixin"
+    },
+    {
       "packageName": "@uber/fusion-dev-cli",
       "projectFolder": "private/fusion-dev-cli"
     },
