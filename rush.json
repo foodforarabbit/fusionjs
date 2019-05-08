@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-tracer",
+      "projectFolder": "private/fusion-plugin-tracer"
+    },
+    {
       "packageName": "@uber/fusion-plugin-tealium",
       "projectFolder": "private/fusion-plugin-tealium"
     },
