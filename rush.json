@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-universal-m3-compat",
+      "projectFolder": "private/fusion-plugin-universal-m3-compat"
+    },
+    {
       "packageName": "@uber/fusion-plugin-universal-logger-compat",
       "projectFolder": "private/fusion-plugin-universal-logger-compat"
     },
