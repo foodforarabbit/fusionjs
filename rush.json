@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "fusion-plugin-browser-performance-emitter",
+      "projectFolder": "public/fusion-plugin-browser-performance-emitter"
+    },
+    {
       "packageName": "fusion-plugin-apollo",
       "projectFolder": "public/fusion-plugin-apollo"
     },
