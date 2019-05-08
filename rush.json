@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-heatpipe-performance-logger",
+      "projectFolder": "private/fusion-plugin-heatpipe-performance-logger"
+    },
+    {
       "packageName": "@uber/fusion-plugin-google-analytics",
       "projectFolder": "private/fusion-plugin-google-analytics"
     },
