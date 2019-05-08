@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-feature-toggles-react",
+      "projectFolder": "private/fusion-plugin-feature-toggles-react"
+    },
+    {
       "packageName": "@uber/fusion-plugin-events-adapter",
       "projectFolder": "private/fusion-plugin-events-adapter"
     },
