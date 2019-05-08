@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-analyticsjs-utils",
+      "projectFolder": "private/fusion-analyticsjs-utils"
+    },
+    {
       "packageName": "@uber/create-uber-web",
       "projectFolder": "private/create-uber-web"
     },
