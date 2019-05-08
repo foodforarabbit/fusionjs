@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-initial-state-compat",
+      "projectFolder": "private/fusion-plugin-initial-state-compat"
+    },
+    {
       "packageName": "@uber/fusion-plugin-heatpipe",
       "projectFolder": "private/fusion-plugin-heatpipe"
     },
