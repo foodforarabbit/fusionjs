@@ -33,6 +33,7 @@ tape('custom-event handler', t => {
         },
         `Heatpipe event published`
       );
+      return Promise.resolve();
     },
   };
 

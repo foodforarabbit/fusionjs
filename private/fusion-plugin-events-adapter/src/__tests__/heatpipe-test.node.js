@@ -37,6 +37,7 @@ tape('heatpipe emitter publish', t => {
         'publish passes payload through'
       );
       t.end();
+      return Promise.resolve();
     },
   };
 
@@ -48,6 +49,37 @@ tape('heatpipe emitter publish', t => {
     },
   });
   hp.publish(fixturePayload);
+});
+
+tape('heatpipe emitter error handling', t => {
+  const fixturePayload = {
+    topicInfo: {topic: 'awesome-topic', version: 33},
+    message: {foo: 1},
+  };
+
+  const mockLogger = {
+    error: msg => {
+      t.ok(msg, '');
+      t.end();
+    },
+  };
+
+  const mockHeatpipe = {
+    asyncPublish(topicInfo, message) {
+      return Promise.reject();
+    },
+  };
+
+  const hp = HeatpipeEmitter({
+    logger: mockLogger,
+    heatpipe: mockHeatpipe,
+    serviceName: 'test',
+    AnalyticsSession: {
+      from() {},
+    },
+  });
+  hp.publish(fixturePayload);
+  t.ok('does not throw');
 });
 
 const webEventsFixture = {
@@ -166,6 +198,7 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
       );
 
       t.end();
+      return Promise.resolve();
     },
   };
 
@@ -209,6 +242,7 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
         'publishWebEvents message transformed correctly'
       );
       t.end();
+      return Promise.resolve();
     },
   };
 
@@ -245,6 +279,7 @@ tape('heatpipe emitter publishWebEvents missing dependencies', t => {
         'publish passes payload through and no transforms'
       );
       t.end();
+      return Promise.resolve();
     },
   };
 

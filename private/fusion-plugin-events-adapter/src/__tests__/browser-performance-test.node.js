@@ -89,6 +89,7 @@ function createMockHeatpipe(t, expectedEvents) {
         currentExpected,
         `Heatpipe event published - ${currentExpected.message.name}`
       );
+      return Promise.resolve();
     },
   };
 }

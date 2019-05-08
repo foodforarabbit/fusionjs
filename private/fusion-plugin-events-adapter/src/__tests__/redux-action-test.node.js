@@ -35,6 +35,7 @@ tape('redux-action handler', t => {
         },
         `Heatpipe event published`
       );
+      return Promise.resolve();
     },
   };
 
@@ -116,6 +117,7 @@ tape('redux-action handler - nested _trackingMeta', t => {
         },
         `Heatpipe event published`
       );
+      return Promise.resolve();
     },
   };
 

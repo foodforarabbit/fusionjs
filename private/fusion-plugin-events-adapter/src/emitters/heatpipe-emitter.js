@@ -1,5 +1,6 @@
 // @flow
 /* eslint-env node */
+import type {Logger} from 'fusion-tokens';
 import type {
   AnalyticsSessionPlugin,
   GeolocationPlugin,
@@ -17,6 +18,7 @@ export const webTopicInfo = {
 };
 
 type HeatpipeArgs = {
+  logger: Logger,
   // TODO: HeatpipeEmitter Plugin typing
   heatpipe: any,
   AnalyticsSession: AnalyticsSessionPlugin,
@@ -43,6 +45,7 @@ type WebEventsMeta = {
 };
 
 export default function({
+  logger,
   heatpipe,
   AnalyticsSession,
   AuthHeaders,
@@ -53,7 +56,9 @@ export default function({
 }: HeatpipeArgs) {
   const HeatpipeEmitter: HeatpipeEmitter = {
     publish: (payload: {topicInfo: Object, message: Object}) => {
-      heatpipe.asyncPublish(payload.topicInfo, payload.message);
+      heatpipe.asyncPublish(payload.topicInfo, payload.message).catch(e => {
+        logger.error('Failed to publish events to heatpipe', e);
+      });
     },
     publishWebEvents: (payload: {
       message: Object,
@@ -67,7 +72,9 @@ export default function({
         ...getWebEventsMetaFields(payload.webEventsMeta),
         ...getContextFields(payload.ctx),
       };
-      heatpipe.asyncPublish(webTopicInfo, finalizedPayload);
+      heatpipe.asyncPublish(webTopicInfo, finalizedPayload).catch(e => {
+        logger.error('Failed to publish events to heatpipe', e);
+      });
     },
   };
 

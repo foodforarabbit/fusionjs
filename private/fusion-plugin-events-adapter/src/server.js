@@ -52,6 +52,7 @@ const plugin =
       const runtime = process.env.UBER_RUNTIME_ENVIRONMENT || 'development';
 
       const heatpipeEmitter = HeatpipeEmitter({
+        logger,
         heatpipe,
         // $FlowFixMe
         AnalyticsSession,

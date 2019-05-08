@@ -25,6 +25,7 @@ tape('page-view-browser handler', t => {
         `Heatpipe event published`
       );
       t.end();
+      return Promise.resolve();
     },
   };
   // $FlowFixMe
