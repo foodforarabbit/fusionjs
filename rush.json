@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-secure-headers",
+      "projectFolder": "private/fusion-plugin-secure-headers"
+    },
+    {
       "packageName": "@uber/fusion-plugin-secrets",
       "projectFolder": "private/fusion-plugin-secrets"
     },
