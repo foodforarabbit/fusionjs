@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-plugin-web-rpc-compat",
+      "projectFolder": "private/fusion-plugin-web-rpc-compat"
+    },
+    {
       "packageName": "@uber/fusion-plugin-universal-m3-compat",
       "projectFolder": "private/fusion-plugin-universal-m3-compat"
     },
