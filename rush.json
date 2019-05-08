@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "fusion-core",
+      "projectFolder": "public/fusion-core"
+    },
+    {
       "packageName": "fusion-cli",
       "projectFolder": "public/fusion-cli"
     },
