@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "fusion-plugin-rpc",
+      "projectFolder": "public/fusion-plugin-rpc"
+    },
+    {
       "packageName": "fusion-plugin-rpc-redux-react",
       "projectFolder": "public/fusion-plugin-rpc-redux-react"
     },
