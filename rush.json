@@ -257,6 +257,10 @@
    */
   "projects": [
     {
+      "packageName": "@uber/fusion-metrics",
+      "projectFolder": "private/fusion-metrics"
+    },
+    {
       "packageName": "@uber/fusion-legacy-styling-compat-mixin",
       "projectFolder": "private/fusion-legacy-styling-compat-mixin"
     },
