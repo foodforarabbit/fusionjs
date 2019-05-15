@@ -5,7 +5,7 @@ test() {
   CATEGORY=$1;
   for d in $CATEGORY/*/ ; do (
     PROJECT=$(basename "$d");
-    if [ -d "$d" ] && [ $PROJECT != "common" ] && [ $PROJECT != "scripts" ] && [ $PROJECT != "flow-typed" ]; then
+    if [ -d "$d" ] && [ $PROJECT != "common" ] && [ $PROJECT != "scripts" ] && [ $PROJECT != "flow-typed" ] && [ $PROJECT != "rfcs" ]; then
       if [ $PROJECT = "fusion-cli" ]; then
         echo "  - label: fusion-cli";
         echo "    command: cd public/fusion-cli && .buildkite/nodeTests";

@@ -36,13 +36,15 @@ module.exports = async function updateFiles({
   srcDir,
   destDir,
 }) {
-  const removeFiles = remove.map(r => path.join(destDir, r)).map(async r => {
-    return unlink(r).catch(e => {
-      if (e.code !== 'ENOENT') {
-        throw e;
-      }
+  const removeFiles = remove
+    .map(r => path.join(destDir, r))
+    .map(async r => {
+      return unlink(r).catch(e => {
+        if (e.code !== 'ENOENT') {
+          throw e;
+        }
+      });
     });
-  });
   const addFiles = add
     .filter(f => f !== 'src/plugins/get-initial-state.js')
     .map(fileToAdd => {

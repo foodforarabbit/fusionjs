@@ -41,9 +41,11 @@ test.skip('codemod-step', async () => {
     destDir,
     plugin: simpleCodemod,
   });
-  matchedFiles.map(f => path.join(destDir, f)).forEach(f => {
-    expect(fs.readFileSync(f).toString()).toMatchSnapshot();
-  });
+  matchedFiles
+    .map(f => path.join(destDir, f))
+    .forEach(f => {
+      expect(fs.readFileSync(f).toString()).toMatchSnapshot();
+    });
 });
 
 test.skip('codemod-step-filter', async () => {
@@ -58,7 +60,9 @@ test.skip('codemod-step-filter', async () => {
 
   assert.equal(matchedFiles.length, 1);
 
-  matchedFiles.map(f => path.join(destDir, f)).forEach(f => {
-    expect(fs.readFileSync(f).toString()).toMatchSnapshot();
-  });
+  matchedFiles
+    .map(f => path.join(destDir, f))
+    .forEach(f => {
+      expect(fs.readFileSync(f).toString()).toMatchSnapshot();
+    });
 });

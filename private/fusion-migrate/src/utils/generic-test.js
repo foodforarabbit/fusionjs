@@ -33,6 +33,7 @@ module.exports = function test(
 const separator = '\n\n      ↓ ↓ ↓ ↓ ↓ ↓\n\n';
 
 function pluginTester({pluginName, tests, transform, formatter}) {
+  // eslint-disable-next-line jest/valid-describe
   describe(pluginName, () => {
     tests.forEach(test => {
       const fixtureName = path.basename(path.dirname(test.fixture));

@@ -31,7 +31,9 @@ test.skip('flowconfig-step', async () => {
     destDir,
     plugin: simpleFlowconfigMod,
   });
-  matchedFiles.map(f => path.join(destDir, f)).forEach(f => {
-    expect(fs.readFileSync(f).toString()).toMatchSnapshot();
-  });
+  matchedFiles
+    .map(f => path.join(destDir, f))
+    .forEach(f => {
+      expect(fs.readFileSync(f).toString()).toMatchSnapshot();
+    });
 });
