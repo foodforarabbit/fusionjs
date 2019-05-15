@@ -3,5 +3,6 @@ export default ((ctx, next) => {
     ctx.status = 200;
     ctx.body = 'OK';
   }
+
   return next();
 });

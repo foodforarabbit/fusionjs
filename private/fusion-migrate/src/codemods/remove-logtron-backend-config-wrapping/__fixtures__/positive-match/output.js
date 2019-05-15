@@ -1,1 +1,3 @@
-app.register(LogtronBackendsToken, { foo: bar });
+app.register(LogtronBackendsToken, {
+  foo: bar
+});

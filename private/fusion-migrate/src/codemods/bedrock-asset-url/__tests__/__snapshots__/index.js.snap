@@ -25,7 +25,7 @@ import {assetUrl} from 'fusion-core';
 assetUrl('/javascripts/main.js');
 export default () => {
   const a = assetUrl('../../client/static/test.png');
-  const b = assetUrl('../../../../../dist-client/main.css');
+  const b = assetUrl('../../../../../../../dist-client/main.css');
   const c = assetUrl('../../client/stylesheets/test.css');
   console.log(assetUrl);
   return <div />;

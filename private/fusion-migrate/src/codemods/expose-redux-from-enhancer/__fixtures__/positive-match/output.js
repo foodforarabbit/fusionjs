@@ -11,9 +11,11 @@ __DEV__ && app.enhance(ReduxToken, redux => {
           module.hot.accept('./redux', () => {
             // eslint-disable-next-line cup/no-undef
             const nextReducer = require('./redux').default.reducer;
+
             redux.from(ctx).store.replaceReducer(nextReducer);
           });
         }
+
         return next();
       };
     }
