@@ -2,8 +2,8 @@
 
 exports[`useService usage: simple useService usage 1`] = `
 "<body><div id=\\"root\\">Enabled: </div>
-          <script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
-            {\\\\u0022data\\\\u0022:{\\\\u0022weatherToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:true,\\\\u0022metadata\\\\u0022:{\\\\u0022isItSunnyToday\\\\u0022:true,\\\\u0022areThereWaves\\\\u0022:false}}}}
-          </script>
-        </body>"
+    <script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
+      {\\\\u0022data\\\\u0022:{\\\\u0022weatherToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:true,\\\\u0022metadata\\\\u0022:{\\\\u0022isItSunnyToday\\\\u0022:true,\\\\u0022areThereWaves\\\\u0022:false}}}}
+    </script>
+  </body>"
 `;

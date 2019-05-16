@@ -2,16 +2,16 @@
 
 exports[`simple toggle component usage: Toggle component usage - enabled 1`] = `
 "<body><div id=\\"root\\"><div>Can you see my toggle? <!-- -->Yes!</div></div>
-          <script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
-            {\\\\u0022data\\\\u0022:{\\\\u0022enabledToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:true},\\\\u0022disabledToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:false}}}
-          </script>
-        </body>"
+    <script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
+      {\\\\u0022data\\\\u0022:{\\\\u0022enabledToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:true},\\\\u0022disabledToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:false}}}
+    </script>
+  </body>"
 `;
 
 exports[`simple toggle component usage: Toggle component usage - enabled 2`] = `
 "<body><div id=\\"root\\"><div>Can you see my toggle? </div></div>
-          <script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
-            {\\\\u0022data\\\\u0022:{\\\\u0022enabledToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:true},\\\\u0022disabledToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:false}}}
-          </script>
-        </body>"
+    <script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
+      {\\\\u0022data\\\\u0022:{\\\\u0022enabledToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:true},\\\\u0022disabledToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:false}}}
+    </script>
+  </body>"
 `;
