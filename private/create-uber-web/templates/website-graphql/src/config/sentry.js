@@ -1,10 +1,6 @@
 // @flow
-const sentryId = __NODE__ ? process.env.UBER_DATACENTER || 'local' : '';
-
-if (sentryId === '') {
-  throw new Error('Sentry Id not found in src/config/sentry.js');
-}
+const sentryEnv = __NODE__ ? process.env.UBER_DATACENTER || 'local' : 'local';
 
 export default {
-  id: `http://uber:uber@healthline-production.${sentryId}.uber.internal/{{name}}`,
+  id: `http://uber:uber@healthline-production.${sentryEnv}.uber.internal/{{name}}`,
 };
