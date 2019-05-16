@@ -30,7 +30,7 @@ export async function getLatestVersion(
   if (strategy === 'edge') {
     return (
       cache[dep] ||
-      exec(`npm info ${dep} versions --json`).then(list => {
+      exec(`yarn info ${dep} versions --json`).then(list => {
         cache[dep] = `^${JSON.parse(list).pop()}`;
         return cache[dep];
       })
@@ -44,7 +44,7 @@ export async function getLatestVersion(
   } else {
     return (
       cache[dep] ||
-      exec(`npm info ${dep} version`).then(v => {
+      exec(`yarn info ${dep} version`).then(v => {
         cache[dep] = `^${v}`;
         return cache[dep];
       })
