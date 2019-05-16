@@ -17,6 +17,7 @@ jest.mock('../utils/get-user-email.js', () => ({
 jest.mock('../utils/get-teams.js', () => ({
   getTeams: () => ['web'],
 }));
+jest.mock('../utils/init-repo.js');
 
 test('scaffold plugin', async () => {
   const name = 'fixtures/plugin';
@@ -52,12 +53,12 @@ test('scaffold plugin', async () => {
 
     const data = await readJson(`${name}/package.json`);
     expect(data.engines).toMatchInlineSnapshot(`
-Object {
-  "node": ">=8.9.4 <11",
-  "npm": ">=5.6.0",
-  "yarn": ">=1.4.0",
-}
-`);
+      Object {
+        "node": ">=8.9.0 <11",
+        "npm": ">=5.0.0",
+        "yarn": ">=1.0.0",
+      }
+    `);
 
     expect(data.name.includes('{{')).toEqual(false);
   } finally {

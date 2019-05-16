@@ -19,6 +19,7 @@ jest.mock('../utils/get-user-email.js', () => ({
 jest.mock('../utils/get-teams.js', () => ({
   getTeams: () => ['web'],
 }));
+jest.mock('../utils/init-repo.js');
 
 test('scaffold website', async () => {
   const name = 'fixtures/website';
