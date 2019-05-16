@@ -9,8 +9,8 @@
     apollo-env "0.5.0"
 
 "@apollographql/graphql-playground-html@^1.6.6":
-  version "1.6.6"
-  resolved "https://unpm.uberinternal.com/@apollographql%2fgraphql-playground-html/-/graphql-playground-html-1.6.6.tgz#022209e28a2b547dcde15b219f0c50f47aa5beb3"
+  version "1.6.18"
+  resolved "https://unpm.uberinternal.com/@apollographql%2fgraphql-playground-html/-/graphql-playground-html-1.6.18.tgz#c0763b4b5a64d4a5316ae6adc2a3a61af58df402"
 
 "@babel/cli@^7.1.5", "@babel/cli@^7.4.3":
   version "7.4.4"
@@ -1263,8 +1263,8 @@
   resolved "https://unpm.uberinternal.com/@ganemone%2fbabel-flow-types/-/babel-flow-types-2.0.6.tgz#adda45cca61814c44171382caab3fbb4357e2da8"
 
 "@gfx/zopfli@^1.0.10":
-  version "1.0.11"
-  resolved "https://unpm.uberinternal.com/@gfx%2fzopfli/-/zopfli-1.0.11.tgz#6ced06b4566a5feb0036fe6a1e0262ce6cb1d6c5"
+  version "1.0.12"
+  resolved "https://unpm.uberinternal.com/@gfx%2fzopfli/-/zopfli-1.0.12.tgz#32b20a96758a224f3a3756d72bbdaa0a4d69341c"
   dependencies:
     base64-js "^1.3.0"
 
@@ -1434,6 +1434,52 @@
   version "1.1.3"
   resolved "https://unpm.uberinternal.com/@nodelib%2ffs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
+"@octokit/app@^2.2.4":
+  version "2.2.4"
+  resolved "https://unpm.uberinternal.com/@octokit%2fapp/-/app-2.2.4.tgz#5104696b7acde1a8310fd8f14106fb2805b2900a"
+  dependencies:
+    "@octokit/request" "^3.0.0"
+    "@types/lru-cache" "^5.1.0"
+    jsonwebtoken "^8.3.0"
+    lru-cache "^5.1.1"
+
+"@octokit/endpoint@^5.1.0":
+  version "5.1.2"
+  resolved "https://unpm.uberinternal.com/@octokit%2fendpoint/-/endpoint-5.1.2.tgz#45fd879e33a25ee10fa4cffc4d098ee04135afe6"
+  dependencies:
+    deepmerge "3.2.0"
+    is-plain-object "^3.0.0"
+    universal-user-agent "^2.1.0"
+    url-template "^2.0.8"
+
+"@octokit/request@3.0.3", "@octokit/request@^3.0.0":
+  version "3.0.3"
+  resolved "https://unpm.uberinternal.com/@octokit%2frequest/-/request-3.0.3.tgz#ace63b5ea196cc00ad27f3fbe5c13a9698681ec8"
+  dependencies:
+    "@octokit/endpoint" "^5.1.0"
+    deprecation "^1.0.1"
+    is-plain-object "^3.0.0"
+    node-fetch "^2.3.0"
+    once "^1.4.0"
+    universal-user-agent "^2.0.1"
+
+"@octokit/rest@^16.25.5":
+  version "16.25.5"
+  resolved "https://unpm.uberinternal.com/@octokit%2frest/-/rest-16.25.5.tgz#9268afad252f72a1e39553cf87e1aa0493e355de"
+  dependencies:
+    "@octokit/request" "3.0.3"
+    atob-lite "^2.0.0"
+    before-after-hook "^1.4.0"
+    btoa-lite "^1.0.0"
+    deprecation "^2.0.0"
+    lodash.get "^4.4.2"
+    lodash.set "^4.3.2"
+    lodash.uniq "^4.5.0"
+    octokit-pagination-methods "^1.1.0"
+    once "^1.4.0"
+    universal-user-agent "^2.0.0"
+    url-template "^2.0.8"
+
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   version "1.1.2"
   resolved "https://unpm.uberinternal.com/@protobufjs%2faspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -1476,6 +1522,14 @@
 "@protobufjs/utf8@^1.1.0":
   version "1.1.0"
   resolved "https://unpm.uberinternal.com/@protobufjs%2futf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
+
+"@publisher/core@^0.1.0":
+  version "0.1.0"
+  resolved "https://unpm.uberinternal.com/@publisher%2fcore/-/core-0.1.0.tgz#b9c5774b112ea9e64b4b2541c96eee5ec6249f88"
+
+"@publisher/npm-helpers@^0.1.0":
+  version "0.1.0"
+  resolved "https://unpm.uberinternal.com/@publisher%2fnpm-helpers/-/npm-helpers-0.1.0.tgz#1bb1ed11406ea78c1f1b023d9e693f40b6ff0ccd"
 
 "@rpl/badge-up@2.2.0":
   version "2.2.0"
@@ -1553,6 +1607,10 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/helper-replace-supers" "^7.0.0"
     "@babel/plugin-syntax-class-properties" "^7.0.0"
+
+"@rtsao/scc@1.0.0", "@rtsao/scc@^1.0.0":
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/@rtsao%2fscc/-/scc-1.0.0.tgz#fe33974e74d31ac5bed4f427d843364aebabd5ab"
 
 "@rush-temp/create-fusion-app@file:./projects/create-fusion-app.tgz":
   version "0.0.0"
@@ -1674,7 +1732,7 @@
 
 "@rush-temp/fusion-cli@file:./projects/fusion-cli.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-cli.tgz#aee9815bdb4c6b6b365f67e6b0db21cd5db91f50"
+  resolved "file:./projects/fusion-cli.tgz#5e494c8c0c53fd90881ad87581b575d2f08244cd"
   dependencies:
     "@babel/core" "^7.4.4"
     "@babel/plugin-syntax-dynamic-import" "7.2.0"
@@ -1714,7 +1772,7 @@
     iltorb "^2.4.1"
     imagemin "^6.0.0"
     imagemin-svgo "^7.0.0"
-    istanbul-api "2.1.6"
+    istanbul-api "^2.0.6"
     istanbul-lib-coverage "^2.0.1"
     jest "^24.8.0"
     jest-environment-jsdom-global "^1.2.0"
@@ -3389,6 +3447,12 @@
     tape-cup "^4.7.1"
     unitest "^2.1.1"
 
+"@rush-temp/monorepo-actions@file:./projects/monorepo-actions.tgz":
+  version "0.0.0"
+  resolved "file:./projects/monorepo-actions.tgz#88de337de162d68e2b5d467d4347984fabe8d77b"
+  dependencies:
+    "@rtsao/scc" "1.0.0"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://unpm.uberinternal.com/@sindresorhus%2fis/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -3572,6 +3636,10 @@
   version "4.0.0"
   resolved "https://unpm.uberinternal.com/@types%2flong/-/long-4.0.0.tgz#719551d2352d301ac8b81db732acb6bdc28dbdef"
 
+"@types/lru-cache@^5.1.0":
+  version "5.1.0"
+  resolved "https://unpm.uberinternal.com/@types%2flru-cache/-/lru-cache-5.1.0.tgz#57f228f2b80c046b4a1bd5cac031f81f207f4f03"
+
 "@types/mime@*":
   version "2.0.1"
   resolved "https://unpm.uberinternal.com/@types%2fmime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
@@ -3670,8 +3738,8 @@
     xtend "^4.0.1"
 
 "@uber/atreyu-transport@^5.1.7":
-  version "5.1.7"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-transport/-/private/%40uber%2Fatreyu-transport-5.1.7.tgz#2ec48f51e815315bb3427159ffd5f712090b5118"
+  version "5.1.8"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-transport/-/private/%40uber%2Fatreyu-transport-5.1.8.tgz#8d6d0483a09df8527fd6630883c35a4237582a45"
   dependencies:
     "@grpc/grpc-js" "^0.3.6"
     "@grpc/proto-loader" "^0.5.0"
@@ -4675,6 +4743,10 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://unpm.uberinternal.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
+atob-lite@^2.0.0:
+  version "2.0.0"
+  resolved "https://unpm.uberinternal.com/atob-lite/-/atob-lite-2.0.0.tgz#0fef5ad46f1bd7a8502c65727f0367d5ee43d696"
+
 atob@^2.1.1:
   version "2.1.2"
   resolved "https://unpm.uberinternal.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
@@ -5477,6 +5549,10 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
+before-after-hook@^1.4.0:
+  version "1.4.0"
+  resolved "https://unpm.uberinternal.com/before-after-hook/-/before-after-hook-1.4.0.tgz#2b6bf23dca4f32e628fd2747c10a37c74a4b484d"
+
 benchmark@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/benchmark/-/benchmark-1.0.0.tgz#2f1e2fa4c359f11122aa183082218e957e390c73"
@@ -5717,6 +5793,10 @@ bser@^2.0.0:
   dependencies:
     node-int64 "^0.4.0"
 
+btoa-lite@^1.0.0:
+  version "1.0.0"
+  resolved "https://unpm.uberinternal.com/btoa-lite/-/btoa-lite-1.0.0.tgz#337766da15801210fdd956c22e9c6891ab9d0337"
+
 buffer-alloc-unsafe@^1.1.0:
   version "1.1.0"
   resolved "https://unpm.uberinternal.com/buffer-alloc-unsafe/-/buffer-alloc-unsafe-1.1.0.tgz#bd7dc26ae2972d0eda253be061dba992349c19f0"
@@ -5920,8 +6000,8 @@ camelize@1.0.0, camelize@^1.0.0:
   resolved "https://unpm.uberinternal.com/camelize/-/camelize-1.0.0.tgz#164a5483e630fa4321e5af07020e531831b2609b"
 
 caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000884, caniuse-lite@^1.0.30000967:
-  version "1.0.30000967"
-  resolved "https://unpm.uberinternal.com/caniuse-lite/-/caniuse-lite-1.0.30000967.tgz#a5039577806fccee80a04aaafb2c0890b1ee2f73"
+  version "1.0.30000969"
+  resolved "https://unpm.uberinternal.com/caniuse-lite/-/caniuse-lite-1.0.30000969.tgz#7664f571f2072657bde70b00a1fc1ba41f1942a9"
 
 capture-exit@^1.2.0:
   version "1.2.0"
@@ -6928,6 +7008,10 @@ deep-merge@^1.0.0:
   dependencies:
     xtend "~1.0.3"
 
+deepmerge@3.2.0:
+  version "3.2.0"
+  resolved "https://unpm.uberinternal.com/deepmerge/-/deepmerge-3.2.0.tgz#58ef463a57c08d376547f8869fdc5bcee957f44e"
+
 default-require-extensions@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/default-require-extensions/-/default-require-extensions-1.0.0.tgz#f37ea15d3e13ffd9b437d33e1a75b5fb97874cb8"
@@ -6988,6 +7072,14 @@ depd@^1.1.0, depd@^1.1.2, depd@~1.1.2:
 deprecated-decorator@^0.1.6:
   version "0.1.6"
   resolved "https://unpm.uberinternal.com/deprecated-decorator/-/deprecated-decorator-0.1.6.tgz#00966317b7a12fe92f3cc831f7583af329b86c37"
+
+deprecation@^1.0.1:
+  version "1.0.1"
+  resolved "https://unpm.uberinternal.com/deprecation/-/deprecation-1.0.1.tgz#2df79b79005752180816b7b6e079cbd80490d711"
+
+deprecation@^2.0.0:
+  version "2.0.0"
+  resolved "https://unpm.uberinternal.com/deprecation/-/deprecation-2.0.0.tgz#dd0427cd920c78bc575ec39dab2f22e7c304fb9d"
 
 des.js@^1.0.0:
   version "1.0.0"
@@ -9715,6 +9807,12 @@ is-plain-object@^2.0.1, is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   dependencies:
     isobject "^3.0.1"
 
+is-plain-object@^3.0.0:
+  version "3.0.0"
+  resolved "https://unpm.uberinternal.com/is-plain-object/-/is-plain-object-3.0.0.tgz#47bfc5da1b5d50d64110806c199359482e75a928"
+  dependencies:
+    isobject "^4.0.0"
+
 is-posix-bracket@^0.1.0:
   version "0.1.1"
   resolved "https://unpm.uberinternal.com/is-posix-bracket/-/is-posix-bracket-0.1.1.tgz#3334dc79774368e92f016e6fbc0a88f5cd6e6bc4"
@@ -9831,6 +9929,10 @@ isobject@^3.0.0, isobject@^3.0.1:
   version "3.0.1"
   resolved "https://unpm.uberinternal.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
 
+isobject@^4.0.0:
+  version "4.0.0"
+  resolved "https://unpm.uberinternal.com/isobject/-/isobject-4.0.0.tgz#3f1c9155e73b192022a80819bacd0343711697b0"
+
 isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
   version "2.2.1"
   resolved "https://unpm.uberinternal.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
@@ -9867,7 +9969,7 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://unpm.uberinternal.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-istanbul-api@2.1.6:
+istanbul-api@2.1.6, istanbul-api@^2.0.6:
   version "2.1.6"
   resolved "https://unpm.uberinternal.com/istanbul-api/-/istanbul-api-2.1.6.tgz#d61702a9d1c66ad89d92e66d401e16b0bda4a35f"
   dependencies:
@@ -10645,6 +10747,10 @@ jest@^24.8.0:
     import-local "^2.0.0"
     jest-cli "^24.8.0"
 
+jju@^1.4.0:
+  version "1.4.0"
+  resolved "https://unpm.uberinternal.com/jju/-/jju-1.4.0.tgz#a3abe2718af241a2b2904f84a625970f389ae32a"
+
 jmespath@0.15.0:
   version "0.15.0"
   resolved "https://unpm.uberinternal.com/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
@@ -10847,7 +10953,7 @@ jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://unpm.uberinternal.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
 
-jsonwebtoken@^8.4.0:
+jsonwebtoken@^8.3.0, jsonwebtoken@^8.4.0:
   version "8.5.1"
   resolved "https://unpm.uberinternal.com/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
   dependencies:
@@ -11123,8 +11229,8 @@ lazy-cache@^2.0.1:
     set-getter "^0.1.0"
 
 lb_pool@^1.7.1:
-  version "1.7.1"
-  resolved "https://unpm.uberinternal.com/lb_pool/-/lb_pool-1.7.1.tgz#bd3ceace8172d2dcfdfd5548558b095ab6c60147"
+  version "1.8.0"
+  resolved "https://unpm.uberinternal.com/lb_pool/-/lb_pool-1.8.0.tgz#eb52bc2752a4ddd9bb9bf8c3d05a0b40c1b01425"
 
 lcid@^1.0.0:
   version "1.0.0"
@@ -11248,6 +11354,10 @@ lodash.flattendeep@^4.4.0:
   version "4.4.0"
   resolved "https://unpm.uberinternal.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
 
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://unpm.uberinternal.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+
 lodash.includes@^4.3.0:
   version "4.3.0"
   resolved "https://unpm.uberinternal.com/lodash.includes/-/lodash.includes-4.3.0.tgz#60bb98a87cb923c68ca1e51325483314849f553f"
@@ -11288,9 +11398,17 @@ lodash.once@^4.0.0:
   version "4.1.1"
   resolved "https://unpm.uberinternal.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
 
+lodash.set@^4.3.2:
+  version "4.3.2"
+  resolved "https://unpm.uberinternal.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://unpm.uberinternal.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
+
+lodash.uniq@^4.5.0:
+  version "4.5.0"
+  resolved "https://unpm.uberinternal.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
 lodash@4.6.1:
   version "4.6.1"
@@ -11393,6 +11511,10 @@ lynx@0.0.11:
   dependencies:
     mersenne "~0.0.3"
     statsd-parser "~0.0.4"
+
+macos-release@^2.2.0:
+  version "2.2.0"
+  resolved "https://unpm.uberinternal.com/macos-release/-/macos-release-2.2.0.tgz#ab58d55dd4714f0a05ad4b0e90f4370fef5cdea8"
 
 make-dir@^1.0.0, make-dir@^1.3.0:
   version "1.3.0"
@@ -11844,8 +11966,8 @@ mz@^2.7.0:
     thenify-all "^1.0.0"
 
 nan@2, nan@^2.0.5, nan@^2.12.0, nan@^2.12.1, nan@^2.13.2:
-  version "2.13.2"
-  resolved "https://unpm.uberinternal.com/nan/-/nan-2.13.2.tgz#f51dc7ae66ba7d5d55e1e6d4d8092e802c9aefe7"
+  version "2.14.0"
+  resolved "https://unpm.uberinternal.com/nan/-/nan-2.14.0.tgz#7818f722027b2459a86f0295d434d1fc2336c52c"
 
 nan@2.11.0:
   version "2.11.0"
@@ -11967,8 +12089,8 @@ node-fetch@^1.0.1:
     is-stream "^1.0.1"
 
 node-fetch@^2.1.2, node-fetch@^2.2.0, node-fetch@^2.3.0:
-  version "2.5.0"
-  resolved "https://unpm.uberinternal.com/node-fetch/-/node-fetch-2.5.0.tgz#8028c49fc1191bba56a07adc6e2a954644a48501"
+  version "2.6.0"
+  resolved "https://unpm.uberinternal.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
 
 node-int64@^0.4.0:
   version "0.4.0"
@@ -12388,6 +12510,10 @@ object.values@^1.0.4, object.values@^1.1.0:
     function-bind "^1.1.1"
     has "^1.0.3"
 
+octokit-pagination-methods@^1.1.0:
+  version "1.1.0"
+  resolved "https://unpm.uberinternal.com/octokit-pagination-methods/-/octokit-pagination-methods-1.1.0.tgz#cf472edc9d551055f9ef73f6e42b4dbb4c80bea4"
+
 omit-empty@^0.3.6:
   version "0.3.6"
   resolved "https://unpm.uberinternal.com/omit-empty/-/omit-empty-0.3.6.tgz#6d38405f2aa61c911eb504fe68805c566d85c316"
@@ -12514,6 +12640,13 @@ os-locale@^3.0.0, os-locale@^3.1.0:
     execa "^1.0.0"
     lcid "^2.0.0"
     mem "^4.0.0"
+
+os-name@^3.0.0:
+  version "3.1.0"
+  resolved "https://unpm.uberinternal.com/os-name/-/os-name-3.1.0.tgz#dec19d966296e1cd62d701a5a66ee1ddeae70801"
+  dependencies:
+    macos-release "^2.2.0"
+    windows-release "^3.1.0"
 
 os-tmpdir@^1.0.0, os-tmpdir@^1.0.1, os-tmpdir@~1.0.2:
   version "1.0.2"
@@ -15619,6 +15752,12 @@ unitest@^2.1.1:
     tap-finished "0.0.1"
     tap-merge "^0.3.1"
 
+universal-user-agent@^2.0.0, universal-user-agent@^2.0.1, universal-user-agent@^2.1.0:
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/universal-user-agent/-/universal-user-agent-2.1.0.tgz#5abfbcc036a1ba490cb941f8fd68c46d3669e8e4"
+  dependencies:
+    os-name "^3.0.0"
+
 universalify@^0.1.0:
   version "0.1.2"
   resolved "https://unpm.uberinternal.com/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"
@@ -15703,6 +15842,10 @@ url-parse@^1.1.8, url-parse@^1.4.3:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
+
+url-template@^2.0.8:
+  version "2.0.8"
+  resolved "https://unpm.uberinternal.com/url-template/-/url-template-2.0.8.tgz#fc565a3cccbff7730c775f5641f9555791439f21"
 
 url-to-options@^1.0.1:
   version "1.0.1"
@@ -16001,6 +16144,12 @@ window-size@0.1.0:
 window-size@^0.1.4:
   version "0.1.4"
   resolved "https://unpm.uberinternal.com/window-size/-/window-size-0.1.4.tgz#f8e1aa1ee5a53ec5bf151ffa09742a6ad7697876"
+
+windows-release@^3.1.0:
+  version "3.2.0"
+  resolved "https://unpm.uberinternal.com/windows-release/-/windows-release-3.2.0.tgz#8122dad5afc303d833422380680a79cdfa91785f"
+  dependencies:
+    execa "^1.0.0"
 
 winston-transport@^4.2.0, winston-transport@^4.3.0:
   version "4.3.0"

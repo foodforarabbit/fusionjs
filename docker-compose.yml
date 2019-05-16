@@ -1,10 +1,16 @@
-version: '3'
+version: "3"
 services:
   ci:
     build: .
     environment:
+      - GH_TOKEN
       - CODECOV_TOKEN
       - CI=true
       - BUILDKITE
       - BUILDKITE_PARALLEL_JOB
       - BUILDKITE_PARALLEL_JOB_COUNT
+      - BUILDKITE_BRANCH
+      - BUILDKITE_COMMIT
+      - GH_CHECKS_APP_ID
+      - GH_CHECKS_APP_KEY_BASE64
+      - GH_CHECKS_APP_INSTALLATION_ID

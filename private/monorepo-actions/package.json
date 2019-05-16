@@ -1,0 +1,19 @@
+{
+  "name": "@uber/monorepo-actions",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo ok",
+    "lint": "echo ok",
+    "build": "echo ok"
+  },
+  "dependencies": {
+    "@octokit/app": "^2.2.4",
+    "@octokit/rest": "^16.25.5",
+    "@publisher/core": "^0.1.0",
+    "@publisher/npm-helpers": "^0.1.0",
+    "@rtsao/scc": "^1.0.0",
+    "jju": "^1.4.0"
+  }
+}
