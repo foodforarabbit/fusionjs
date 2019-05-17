@@ -1,5 +1,6 @@
 [ignore]
 .*/node_modules/.*[^(package)]\.json
+.*/common/temp/node_modules/@uber/node-rosetta/.*
 
 [include]
 ../../common/temp/node_modules

@@ -4,6 +4,7 @@ import type {RosettaDepsType, ProvidesType} from './types';
 
 import {Locales} from 'locale';
 
+// $FlowFixMe
 import Rosetta from '@uber/node-rosetta';
 
 import {createPlugin, memoize} from 'fusion-core';

@@ -2,6 +2,7 @@
 import type {Context} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {ClientToken, ConfigToken, LocaleNegotiationToken} from './tokens';
+// $FlowFixMe
 import Rosetta from '@uber/node-rosetta';
 
 export type RosettaDepsType = {
