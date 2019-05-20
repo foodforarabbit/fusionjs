@@ -30,7 +30,10 @@ type FliprClientOptionsType = {
 };
 export type FliprClientType = (
   options: FliprClientOptionsType
-) => {[string]: mixed};
+) => {
+  startUpdating?: (err: mixed) => void,
+  +[string]: mixed,
+};
 
 export const FliprToken: Token<FliprServiceType> = createToken('FliprToken');
 

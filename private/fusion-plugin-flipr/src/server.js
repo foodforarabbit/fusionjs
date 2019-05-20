@@ -72,6 +72,7 @@ export class FliprService {
 
     for (const key in flipr) {
       if (flipr[key] instanceof Function) {
+        // $FlowFixMe
         const func = flipr[key].bind(flipr);
         Object.defineProperty(this, key, {
           value: (...args): any => func(...args),

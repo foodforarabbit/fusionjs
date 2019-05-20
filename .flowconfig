@@ -5,6 +5,8 @@
 .*/templates/.*
 .*/test-artifacts/.*
 .*/fixture-apps/.*
+.*/resources/.*
+.*/common/temp/node_modules/@uber/node-rosetta/.*
 
 [include]
 
