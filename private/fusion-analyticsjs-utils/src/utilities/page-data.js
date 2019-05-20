@@ -1,10 +1,20 @@
+// @flow
 /* eslint-env browser */
+
+type PageDataType = {|
+  host: ?string,
+  href: ?string,
+  pathname: ?string,
+  referrer: string,
+  title: string,
+  url: ?string,
+|};
 
 /**
  * Extracts page related data from window/document
  * @returns {Object} - page data
  */
-function getPageData() {
+function getPageData(): PageDataType {
   var location = window.location || {};
 
   return {

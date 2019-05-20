@@ -1,3 +1,5 @@
+// @flow
+
 /* eslint-env browser */
 import cleanData from './utilities/clean-data';
 import compactArray from './utilities/compact-array';

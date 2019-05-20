@@ -1,3 +1,4 @@
+// @flow
 'use strict';
 
 /**
@@ -5,7 +6,7 @@
  * @param {Object} myVar - object to check
  * @returns {Boolean} - is empty object
  */
-function _isEmpty(myVar) {
+function _isEmpty(myVar: void | mixed): boolean %checks {
   return typeof myVar === 'undefined' || myVar === null || myVar.length === 0;
 }
 

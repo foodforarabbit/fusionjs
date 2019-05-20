@@ -1,7 +1,8 @@
+// @flow
 /* eslint-env browser */
 'use strict';
 
-function dataQueue(name) {
+function dataQueue(name: string): () => void {
   if (typeof name !== 'string') throw new Error('Invalid data queue name');
 
   window[name] = window[name] || [];

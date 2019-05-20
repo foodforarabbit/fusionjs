@@ -1,3 +1,4 @@
+// @flow
 'use strict';
 
 import isEmpty from './is-empty';
@@ -7,8 +8,8 @@ import isEmpty from './is-empty';
  * @param {Array} arr - array to process
  * @returns {Array} - new compact array
  */
-function _compactArray(arr) {
-  return arr.filter(function filter(item) {
+function _compactArray(arr: Array<mixed | void>): Array<mixed> {
+  return arr.filter(function filter(item: mixed): boolean {
     return !isEmpty(item);
   });
 }
