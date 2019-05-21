@@ -16,6 +16,7 @@ const plugin =
       config: ConfigToken,
       logger: LoggerToken,
     },
+    provides: () => ({}),
     middleware: deps => async (ctx, next) => {
       if (!ctx.element) {
         return next();
