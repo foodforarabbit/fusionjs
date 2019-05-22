@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@uber/heatpipe": "^1.0.0",
-    "@uber/web-perf-collector": "0.10.4",
+    "@uber/web-perf-collector": "0.10.5",
     "request": "^2.88.0"
   },
   "devDependencies": {
