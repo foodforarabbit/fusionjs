@@ -25,4 +25,3 @@ Secrets are stored here: [https://s3.console.aws.amazon.com/s3/buckets/buildkite
 Buildkite Agents run on two different AWS CloudFormation stacks (in the US East - Ohio region).
 
 The pipeline step is run on [`buildkite-private-builders`](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stack/detail?stackId=arn:aws:cloudformation:us-east-2:027047743804:stack%2Fbuildkite-private-builders%2F939ea260-4509-11e9-802f-069569a529ae). The test/lint/flow jobs are run on [`build-private-default`](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stack/detail?stackId=arn:aws:cloudformation:us-east-2:027047743804:stack%2Fbuildkite-private-default%2F65a2e370-5479-11e8-9e22-50a686f309d1)
-
