@@ -151,7 +151,7 @@
         },
         "moduleNameMapper": {
           "^(fusion-.*)$": "<rootDir>/node_modules/$1"
-        } 
+        }
       },
       {
         "displayName": "server",
@@ -178,7 +178,6 @@
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
-  "private": true,
   "files": [
     "dist",
     "src",

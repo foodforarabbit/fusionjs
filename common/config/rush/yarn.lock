@@ -1282,6 +1282,10 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
+"@iarna/toml@^2.2.3":
+  version "2.2.3"
+  resolved "https://unpm.uberinternal.com/@iarna%2ftoml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
+
 "@jest/console@^24.7.1":
   version "24.7.1"
   resolved "https://unpm.uberinternal.com/@jest%2fconsole/-/console-24.7.1.tgz#32a9e42535a97aedfe037e725bd67e954b459545"
@@ -1544,9 +1548,9 @@
   version "1.1.0"
   resolved "https://unpm.uberinternal.com/@protobufjs%2futf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
 
-"@publisher/core@^0.1.0":
-  version "0.1.0"
-  resolved "https://unpm.uberinternal.com/@publisher%2fcore/-/core-0.1.0.tgz#b9c5774b112ea9e64b4b2541c96eee5ec6249f88"
+"@publisher/core@^0.1.1":
+  version "0.1.1"
+  resolved "https://unpm.uberinternal.com/@publisher%2fcore/-/core-0.1.1.tgz#e00297aa11cc4fc427ffac980320470a608550a6"
 
 "@publisher/npm-helpers@^0.1.0":
   version "0.1.0"
@@ -1629,13 +1633,13 @@
     "@babel/helper-replace-supers" "^7.0.0"
     "@babel/plugin-syntax-class-properties" "^7.0.0"
 
-"@rtsao/scc@^1.0.0":
+"@rtsao/scc@1.0.0", "@rtsao/scc@^1.0.0":
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/@rtsao%2fscc/-/scc-1.0.0.tgz#fe33974e74d31ac5bed4f427d843364aebabd5ab"
 
 "@rush-temp/create-fusion-app@file:./projects/create-fusion-app.tgz":
   version "0.0.0"
-  resolved "file:./projects/create-fusion-app.tgz#3e4b87baaa08effcbc6e2c73442a5e2aa34b33cc"
+  resolved "file:./projects/create-fusion-app.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-jest "^24.8.0"
@@ -1657,7 +1661,7 @@
 
 "@rush-temp/create-fusion-plugin@file:./projects/create-fusion-plugin.tgz":
   version "0.0.0"
-  resolved "file:./projects/create-fusion-plugin.tgz#1195c2a05a9a14d218fbda0d307f07c9805f5edd"
+  resolved "file:./projects/create-fusion-plugin.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-jest "^24.8.0"
@@ -1675,7 +1679,7 @@
 
 "@rush-temp/create-uber-web@file:./projects/create-uber-web.tgz":
   version "0.0.0"
-  resolved "file:./projects/create-uber-web.tgz#b60058645ab502ea1a23488c7c5cf838e2f26684"
+  resolved "file:./projects/create-uber-web.tgz"
   dependencies:
     "@babel/cli" "^7.4.3"
     "@babel/core" "^7.4.4"
@@ -1715,7 +1719,7 @@
 
 "@rush-temp/eslint-config-fusion@file:./projects/eslint-config-fusion.tgz":
   version "0.0.0"
-  resolved "file:./projects/eslint-config-fusion.tgz#8c1aeb2749567f8515c2e316810369046e8500ae"
+  resolved "file:./projects/eslint-config-fusion.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     eslint "^5.16.0"
@@ -1732,7 +1736,7 @@
 
 "@rush-temp/fusion-analyticsjs-utils@file:./projects/fusion-analyticsjs-utils.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-analyticsjs-utils.tgz#7db55bb01139f397d4fa6f16fb709450d8262da5"
+  resolved "file:./projects/fusion-analyticsjs-utils.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -1753,7 +1757,7 @@
 
 "@rush-temp/fusion-cli@file:./projects/fusion-cli.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-cli.tgz#b40648d82d202966eb07993904440b9be428b2d8"
+  resolved "file:./projects/fusion-cli.tgz"
   dependencies:
     "@babel/core" "^7.4.4"
     "@babel/plugin-syntax-dynamic-import" "7.2.0"
@@ -1827,7 +1831,7 @@
 
 "@rush-temp/fusion-core@file:./projects/fusion-core.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-core.tgz#5f2ed7a706d5b56cfa208311fd42643915ad1a7e"
+  resolved "file:./projects/fusion-core.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
@@ -1854,7 +1858,7 @@
 
 "@rush-temp/fusion-dev-cli@file:./projects/fusion-dev-cli.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-dev-cli.tgz#6d22fa5a4246f39a6f89eb43f16a5624e915a859"
+  resolved "file:./projects/fusion-dev-cli.tgz"
   dependencies:
     flow-bin "^0.98.1"
     promptly "^3.0.3"
@@ -1863,7 +1867,7 @@
 
 "@rush-temp/fusion-legacy-styling-compat-mixin@file:./projects/fusion-legacy-styling-compat-mixin.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-legacy-styling-compat-mixin.tgz#1b2fb6a00eb3212a81605d47365cae1e8a655a4c"
+  resolved "file:./projects/fusion-legacy-styling-compat-mixin.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     clean-css "^4.1.11"
@@ -1884,7 +1888,7 @@
 
 "@rush-temp/fusion-metrics@file:./projects/fusion-metrics.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-metrics.tgz#116554d52526fdca2b70af1f5ff819780cec8666"
+  resolved "file:./projects/fusion-metrics.tgz"
   dependencies:
     "@babel/preset-env" "^7.4.4"
     "@babel/preset-flow" "^7.0.0"
@@ -1912,7 +1916,7 @@
 
 "@rush-temp/fusion-migrate@file:./projects/fusion-migrate.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-migrate.tgz#3d92f08aa59efa44d6334b1c4805978151fb3c41"
+  resolved "file:./projects/fusion-migrate.tgz"
   dependencies:
     "@babel/core" "^7.4.4"
     "@babel/generator" "^7.0.0"
@@ -1950,7 +1954,7 @@
 
 "@rush-temp/fusion-plugin-analytics-session@file:./projects/fusion-plugin-analytics-session.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-analytics-session.tgz#1e1e05fa5094fb72e61deaa3288467dc9b8e477d"
+  resolved "file:./projects/fusion-plugin-analytics-session.tgz"
   dependencies:
     "@babel/plugin-transform-runtime" "^7.2.0"
     "@babel/preset-env" "^7.4.4"
@@ -1981,7 +1985,7 @@
 
 "@rush-temp/fusion-plugin-apollo@file:./projects/fusion-plugin-apollo.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-apollo.tgz#162e535cab6fc61a48b1a1309e1066bc0a744edc"
+  resolved "file:./projects/fusion-plugin-apollo.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     apollo-cache-inmemory "^1.3.12"
@@ -2018,7 +2022,7 @@
 
 "@rush-temp/fusion-plugin-atreyu@file:./projects/fusion-plugin-atreyu.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-atreyu.tgz#5fd7211b06430f1e02799bfd385346264e9cd3fd"
+  resolved "file:./projects/fusion-plugin-atreyu.tgz"
   dependencies:
     "@uber/atreyu" "^6.1.2"
     "@uber/atreyu-test" "^1.3.0"
@@ -2043,7 +2047,7 @@
 
 "@rush-temp/fusion-plugin-auth-headers@file:./projects/fusion-plugin-auth-headers.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-auth-headers.tgz#5f565b9974c2eb509122acfba3ed6669c0fc2cd1"
+  resolved "file:./projects/fusion-plugin-auth-headers.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
@@ -2063,7 +2067,7 @@
 
 "@rush-temp/fusion-plugin-bedrock-compat@file:./projects/fusion-plugin-bedrock-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-bedrock-compat.tgz#0e9b6f32e9ad46435d1a6bf00c61c2232d11924e"
+  resolved "file:./projects/fusion-plugin-bedrock-compat.tgz"
   dependencies:
     "@uber/atreyu" "^6.1.0"
     "@uber/bedrock-14-compat" "^1.1.1"
@@ -2088,7 +2092,7 @@
 
 "@rush-temp/fusion-plugin-browser-performance-emitter@file:./projects/fusion-plugin-browser-performance-emitter.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-browser-performance-emitter.tgz#29c660cd616e94b6c5f0fb27d62ceb14bdc465ec"
+  resolved "file:./projects/fusion-plugin-browser-performance-emitter.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
@@ -2108,7 +2112,7 @@
 
 "@rush-temp/fusion-plugin-connected-react-router@file:./projects/fusion-plugin-connected-react-router.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-connected-react-router.tgz#62ef1e587147b5001220d17fd2acef19de33d739"
+  resolved "file:./projects/fusion-plugin-connected-react-router.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -2133,7 +2137,7 @@
 
 "@rush-temp/fusion-plugin-csrf-protection@file:./projects/fusion-plugin-csrf-protection.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-csrf-protection.tgz#032168eda90e2f09abc87e405163d6edc82010f7"
+  resolved "file:./projects/fusion-plugin-csrf-protection.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -2159,7 +2163,7 @@
 
 "@rush-temp/fusion-plugin-error-handling-1@file:./projects/fusion-plugin-error-handling-1.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-error-handling-1.tgz#b72b936f324b1768497c75e368c7245946f4debd"
+  resolved "file:./projects/fusion-plugin-error-handling-1.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
@@ -2180,7 +2184,7 @@
 
 "@rush-temp/fusion-plugin-error-handling@file:./projects/fusion-plugin-error-handling.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-error-handling.tgz#4600c631aea9e28723073cfa6aa31f3c1ec4dd55"
+  resolved "file:./projects/fusion-plugin-error-handling.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -2201,7 +2205,7 @@
 
 "@rush-temp/fusion-plugin-events-adapter@file:./projects/fusion-plugin-events-adapter.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-events-adapter.tgz#2481902160327a8b94106c9cf48e171b22d8ae8a"
+  resolved "file:./projects/fusion-plugin-events-adapter.tgz"
   dependencies:
     "@uber/heatpipe" "^1.0.0"
     "@uber/web-perf-collector" "0.10.5"
@@ -2222,7 +2226,7 @@
 
 "@rush-temp/fusion-plugin-feature-toggles-react@file:./projects/fusion-plugin-feature-toggles-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-feature-toggles-react.tgz#2ee78a709cf715245ae37c123a960cc928565606"
+  resolved "file:./projects/fusion-plugin-feature-toggles-react.tgz"
   dependencies:
     "@babel/preset-env" "^7.4.4"
     "@babel/preset-flow" "7.0.0"
@@ -2254,7 +2258,7 @@
 
 "@rush-temp/fusion-plugin-feature-toggles@file:./projects/fusion-plugin-feature-toggles.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-feature-toggles.tgz#6738143ab98bbf7a04751f3073a3b6186b7241ca"
+  resolved "file:./projects/fusion-plugin-feature-toggles.tgz"
   dependencies:
     "@babel/preset-env" "^7.4.4"
     "@babel/preset-flow" "^7.0.0"
@@ -2285,7 +2289,7 @@
 
 "@rush-temp/fusion-plugin-flipr@file:./projects/fusion-plugin-flipr.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-flipr.tgz#5e99a7408a323b6bb7aa81ee90766e4a9b7f2217"
+  resolved "file:./projects/fusion-plugin-flipr.tgz"
   dependencies:
     "@uber/flipr-client" "^17.0.12"
     babel-eslint "^10.0.1"
@@ -2306,7 +2310,7 @@
 
 "@rush-temp/fusion-plugin-font-loader-react@file:./projects/fusion-plugin-font-loader-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-font-loader-react.tgz#97e8e18af85fccefb77caee72a3127da2f6b3dff"
+  resolved "file:./projects/fusion-plugin-font-loader-react.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -2332,7 +2336,7 @@
 
 "@rush-temp/fusion-plugin-galileo@file:./projects/fusion-plugin-galileo.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-galileo.tgz#a3823ccb63d5843e256080a65f82a7d1bc1957a4"
+  resolved "file:./projects/fusion-plugin-galileo.tgz"
   dependencies:
     "@uber/jaeger-client-adapter" "^3.4.0"
     "@uber/unpm-galileo" "^1.4.0"
@@ -2354,7 +2358,7 @@
 
 "@rush-temp/fusion-plugin-google-analytics-react@file:./projects/fusion-plugin-google-analytics-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-google-analytics-react.tgz#003b204fb25fab979c6b67fb9c17294004efe783"
+  resolved "file:./projects/fusion-plugin-google-analytics-react.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -2376,7 +2380,7 @@
 
 "@rush-temp/fusion-plugin-google-analytics@file:./projects/fusion-plugin-google-analytics.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-google-analytics.tgz#e6eaed6a639788a709e15d08c65323fd793f57f5"
+  resolved "file:./projects/fusion-plugin-google-analytics.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -2396,7 +2400,7 @@
 
 "@rush-temp/fusion-plugin-heatpipe-performance-logger@file:./projects/fusion-plugin-heatpipe-performance-logger.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-heatpipe-performance-logger.tgz#4ff387e6a7eaab9569e192f1626d7cda073ff8ae"
+  resolved "file:./projects/fusion-plugin-heatpipe-performance-logger.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -2417,7 +2421,7 @@
 
 "@rush-temp/fusion-plugin-heatpipe@file:./projects/fusion-plugin-heatpipe.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-heatpipe.tgz#eb929441bd04089f698cad819b4ba15aa355cc6b"
+  resolved "file:./projects/fusion-plugin-heatpipe.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -2438,7 +2442,7 @@
 
 "@rush-temp/fusion-plugin-http-handler@file:./projects/fusion-plugin-http-handler.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-http-handler.tgz#530ff12a9f9e95b0aeb411d13c95d0017632d4c9"
+  resolved "file:./projects/fusion-plugin-http-handler.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -2460,7 +2464,7 @@
 
 "@rush-temp/fusion-plugin-i18n-react@file:./projects/fusion-plugin-i18n-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-i18n-react.tgz#ad8fa788ae1d70d0cfb65f7d75a9fa3b3dbaef08"
+  resolved "file:./projects/fusion-plugin-i18n-react.tgz"
   dependencies:
     "@babel/plugin-transform-modules-commonjs" "^7.2.0"
     "@babel/preset-flow" "^7.0.0"
@@ -2490,7 +2494,7 @@
 
 "@rush-temp/fusion-plugin-i18n@file:./projects/fusion-plugin-i18n.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-i18n.tgz#1354de07f9f9d1361ea1b0276d833db1a452776b"
+  resolved "file:./projects/fusion-plugin-i18n.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -2511,7 +2515,7 @@
 
 "@rush-temp/fusion-plugin-initial-state-compat@file:./projects/fusion-plugin-initial-state-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-initial-state-compat.tgz#d82a86a042562d37447412bccf577293ade43c70"
+  resolved "file:./projects/fusion-plugin-initial-state-compat.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -2531,7 +2535,7 @@
 
 "@rush-temp/fusion-plugin-introspect@file:./projects/fusion-plugin-introspect.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-introspect.tgz#cff6685ce14cac5574fbea954da7140af176c795"
+  resolved "file:./projects/fusion-plugin-introspect.tgz"
   dependencies:
     "@babel/core" "^7.4.4"
     "@babel/plugin-transform-modules-commonjs" "^7.2.0"
@@ -2558,7 +2562,7 @@
 
 "@rush-temp/fusion-plugin-jwt@file:./projects/fusion-plugin-jwt.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-jwt.tgz#7ecd2f6051d566262c80dd80b74ce9de4d8ef6f4"
+  resolved "file:./projects/fusion-plugin-jwt.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
@@ -2582,7 +2586,7 @@
 
 "@rush-temp/fusion-plugin-logtron-react@file:./projects/fusion-plugin-logtron-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-logtron-react.tgz#40da1bd14fcfb734083cdd40e1271dcbeecec25c"
+  resolved "file:./projects/fusion-plugin-logtron-react.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -2604,7 +2608,7 @@
 
 "@rush-temp/fusion-plugin-logtron@file:./projects/fusion-plugin-logtron.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-logtron.tgz#8226239b00077a253540f0f245e8829b950e9164"
+  resolved "file:./projects/fusion-plugin-logtron.tgz"
   dependencies:
     "@uber/logtron" "^9.0.9"
     babel-eslint "^10.0.1"
@@ -2628,7 +2632,7 @@
 
 "@rush-temp/fusion-plugin-m3-react@file:./projects/fusion-plugin-m3-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-m3-react.tgz#4cebd674cc7a73e12395476e4e31f446713c39d4"
+  resolved "file:./projects/fusion-plugin-m3-react.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -2650,7 +2654,7 @@
 
 "@rush-temp/fusion-plugin-m3@file:./projects/fusion-plugin-m3.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-m3.tgz#5fa176f869da61ebfb3ffd9f2ff11ee6eaab6203"
+  resolved "file:./projects/fusion-plugin-m3.tgz"
   dependencies:
     "@uber/m3-client" "^1.3.3"
     babel-eslint "^10.0.1"
@@ -2671,7 +2675,7 @@
 
 "@rush-temp/fusion-plugin-magellan@file:./projects/fusion-plugin-magellan.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-magellan.tgz#86096c4bd596de20dd088574a701a0cf49fd9a17"
+  resolved "file:./projects/fusion-plugin-magellan.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -2696,7 +2700,7 @@
 
 "@rush-temp/fusion-plugin-marketing@file:./projects/fusion-plugin-marketing.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-marketing.tgz#d226c5066a2edebe7417e003c0c4c860140e9e3e"
+  resolved "file:./projects/fusion-plugin-marketing.tgz"
   dependencies:
     "@babel/plugin-transform-runtime" "^7.4.0"
     "@babel/preset-env" "^7.4.4"
@@ -2728,7 +2732,7 @@
 
 "@rush-temp/fusion-plugin-node-performance-emitter@file:./projects/fusion-plugin-node-performance-emitter.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-node-performance-emitter.tgz#41a8cd010e44ea2e325b864582308088a724b3ae"
+  resolved "file:./projects/fusion-plugin-node-performance-emitter.tgz"
   dependencies:
     assert "^1.4.1"
     babel-eslint "^10.0.1"
@@ -2751,7 +2755,7 @@
 
 "@rush-temp/fusion-plugin-page-skeleton-compat@file:./projects/fusion-plugin-page-skeleton-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-page-skeleton-compat.tgz#844caa534bc4efa303d8622f2c6073ba5f4e17ad"
+  resolved "file:./projects/fusion-plugin-page-skeleton-compat.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -2772,7 +2776,7 @@
 
 "@rush-temp/fusion-plugin-proxy-compat@file:./projects/fusion-plugin-proxy-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-proxy-compat.tgz#b096c4e11fa1120559022a9c654a7461f2ffc8d5"
+  resolved "file:./projects/fusion-plugin-proxy-compat.tgz"
   dependencies:
     "@uber/request-m3-events" "^2.0.0"
     babel-eslint "^10.0.1"
@@ -2794,7 +2798,7 @@
 
 "@rush-temp/fusion-plugin-react-helmet-async@file:./projects/fusion-plugin-react-helmet-async.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-react-helmet-async.tgz#b0a70595d93f86f5720fa22aed083d610dc0311d"
+  resolved "file:./projects/fusion-plugin-react-helmet-async.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -2818,7 +2822,7 @@
 
 "@rush-temp/fusion-plugin-react-redux@file:./projects/fusion-plugin-react-redux.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-react-redux.tgz#880d7421ae8dc087bae79e70a49cf2abcde8f14c"
+  resolved "file:./projects/fusion-plugin-react-redux.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -2845,7 +2849,7 @@
 
 "@rush-temp/fusion-plugin-react-router-v3-compat@file:./projects/fusion-plugin-react-router-v3-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-react-router-v3-compat.tgz#2cf53541764f5dc5612f7ca446dd2eea9a05df27"
+  resolved "file:./projects/fusion-plugin-react-router-v3-compat.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -2872,7 +2876,7 @@
 
 "@rush-temp/fusion-plugin-react-router@file:./projects/fusion-plugin-react-router.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-react-router.tgz#8ff3200cb0e106524644c91e4216e3407a6445a7"
+  resolved "file:./projects/fusion-plugin-react-router.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -2897,7 +2901,7 @@
 
 "@rush-temp/fusion-plugin-redux-action-emitter-enhancer@file:./projects/fusion-plugin-redux-action-emitter-enhancer.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-redux-action-emitter-enhancer.tgz#c4d0c72f1183d6f5de253a83546a87064ed50c84"
+  resolved "file:./projects/fusion-plugin-redux-action-emitter-enhancer.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
@@ -2920,7 +2924,7 @@
 
 "@rush-temp/fusion-plugin-rosetta@file:./projects/fusion-plugin-rosetta.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-rosetta.tgz#78c70685188acffb23dd25dfdebc265dda15e7dd"
+  resolved "file:./projects/fusion-plugin-rosetta.tgz"
   dependencies:
     "@uber/node-rosetta" "^1.0.9"
     babel-eslint "^10.0.1"
@@ -2943,7 +2947,7 @@
 
 "@rush-temp/fusion-plugin-rpc-redux-react@file:./projects/fusion-plugin-rpc-redux-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-rpc-redux-react.tgz#ccf504e51b4e9677e20b0b161b7f3162a72d3c9a"
+  resolved "file:./projects/fusion-plugin-rpc-redux-react.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
@@ -2970,7 +2974,7 @@
 
 "@rush-temp/fusion-plugin-rpc@file:./projects/fusion-plugin-rpc.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-rpc.tgz#50161539853f8f770ed7ef1ba85efc7a06fabf10"
+  resolved "file:./projects/fusion-plugin-rpc.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     body-parser "^1.18.3"
@@ -2996,7 +3000,7 @@
 
 "@rush-temp/fusion-plugin-s3-asset-proxying@file:./projects/fusion-plugin-s3-asset-proxying.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-s3-asset-proxying.tgz#54a771fafd0e235f3f8a77068ec9dac776166f73"
+  resolved "file:./projects/fusion-plugin-s3-asset-proxying.tgz"
   dependencies:
     aws-sdk "^2.329.0"
     babel-eslint "^10.0.1"
@@ -3023,7 +3027,7 @@
 
 "@rush-temp/fusion-plugin-secrets@file:./projects/fusion-plugin-secrets.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-secrets.tgz#e2aadff0b57b5359e61bb8761401f2158b1baab9"
+  resolved "file:./projects/fusion-plugin-secrets.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -3044,7 +3048,7 @@
 
 "@rush-temp/fusion-plugin-secure-headers@file:./projects/fusion-plugin-secure-headers.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-secure-headers.tgz#1cdc5413d0547dbded374a39339c374926a1093d"
+  resolved "file:./projects/fusion-plugin-secure-headers.tgz"
   dependencies:
     "@uber/eslint-config-graphene" "^0.2.1"
     babel-eslint "^10.0.1"
@@ -3067,7 +3071,7 @@
 
 "@rush-temp/fusion-plugin-service-worker@file:./projects/fusion-plugin-service-worker.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-service-worker.tgz#a991859ff5111908cbc252b436d58e48981577a0"
+  resolved "file:./projects/fusion-plugin-service-worker.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -3098,7 +3102,7 @@
 
 "@rush-temp/fusion-plugin-styletron-react@file:./projects/fusion-plugin-styletron-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-styletron-react.tgz#30eedbcdf5caef300ec85653913f81ce53fd6f70"
+  resolved "file:./projects/fusion-plugin-styletron-react.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     "@rtsao/create-universal-package-4" "^4.1.0"
@@ -3123,7 +3127,7 @@
 
 "@rush-temp/fusion-plugin-tchannel@file:./projects/fusion-plugin-tchannel.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-tchannel.tgz#7bec460febe2a8775d4a9ff4f8b8f1be92e0eabf"
+  resolved "file:./projects/fusion-plugin-tchannel.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -3145,7 +3149,7 @@
 
 "@rush-temp/fusion-plugin-tealium-react@file:./projects/fusion-plugin-tealium-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-tealium-react.tgz#150b1eb856ba3b7803b4b7bb6a0d650741cea8e7"
+  resolved "file:./projects/fusion-plugin-tealium-react.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -3167,7 +3171,7 @@
 
 "@rush-temp/fusion-plugin-tealium@file:./projects/fusion-plugin-tealium.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-tealium.tgz#129b1862c8d66a8aafd4f0bce97b995b13b5dd77"
+  resolved "file:./projects/fusion-plugin-tealium.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -3188,7 +3192,7 @@
 
 "@rush-temp/fusion-plugin-tracer@file:./projects/fusion-plugin-tracer.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-tracer.tgz#faf910bcc00eb0dcf64298c492c482eb801c929f"
+  resolved "file:./projects/fusion-plugin-tracer.tgz"
   dependencies:
     "@uber/jaeger-client-adapter" "^3.4.0"
     babel-eslint "^10.0.1"
@@ -3208,7 +3212,7 @@
 
 "@rush-temp/fusion-plugin-uber-xhr-compat@file:./projects/fusion-plugin-uber-xhr-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-uber-xhr-compat.tgz#44a0cb938774dce01804ccc28916c35e9ec72602"
+  resolved "file:./projects/fusion-plugin-uber-xhr-compat.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -3227,7 +3231,7 @@
 
 "@rush-temp/fusion-plugin-universal-events-react@file:./projects/fusion-plugin-universal-events-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-universal-events-react.tgz#04da3c173297b86f3f73220d4b1d2515c3ac1d37"
+  resolved "file:./projects/fusion-plugin-universal-events-react.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -3247,7 +3251,7 @@
 
 "@rush-temp/fusion-plugin-universal-events@file:./projects/fusion-plugin-universal-events.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-universal-events.tgz#09023cd595d5d200a5095e387236f934eb1e177c"
+  resolved "file:./projects/fusion-plugin-universal-events.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -3267,7 +3271,7 @@
 
 "@rush-temp/fusion-plugin-universal-logger-compat@file:./projects/fusion-plugin-universal-logger-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-universal-logger-compat.tgz#682f8241af32f4287b10d0d1f4e6a83d3e766ee2"
+  resolved "file:./projects/fusion-plugin-universal-logger-compat.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -3286,7 +3290,7 @@
 
 "@rush-temp/fusion-plugin-universal-logger@file:./projects/fusion-plugin-universal-logger.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-universal-logger.tgz#7126949549ec26128a979606b88e00b05da16e5f"
+  resolved "file:./projects/fusion-plugin-universal-logger.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -3307,7 +3311,7 @@
 
 "@rush-temp/fusion-plugin-universal-m3-compat@file:./projects/fusion-plugin-universal-m3-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-universal-m3-compat.tgz#b00b8aa32fc6a91d005a21e74f17d035e868a4aa"
+  resolved "file:./projects/fusion-plugin-universal-m3-compat.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     create-universal-package "^3.4.7"
@@ -3326,7 +3330,7 @@
 
 "@rush-temp/fusion-plugin-web-rpc-compat@file:./projects/fusion-plugin-web-rpc-compat.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-web-rpc-compat.tgz#92398b2f0d66febb26af6e78b9397a00131ee3c5"
+  resolved "file:./projects/fusion-plugin-web-rpc-compat.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
@@ -3347,7 +3351,7 @@
 
 "@rush-temp/fusion-react@file:./projects/fusion-react.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-react.tgz#f9d13c709ade064c877eda21f6c3b004fc41978e"
+  resolved "file:./projects/fusion-react.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -3373,7 +3377,7 @@
 
 "@rush-temp/fusion-rpc-redux@file:./projects/fusion-rpc-redux.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-rpc-redux.tgz#d96582f31fe743c8800846d26f1cd4a55d750f30"
+  resolved "file:./projects/fusion-rpc-redux.tgz"
   dependencies:
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
@@ -3396,7 +3400,7 @@
 
 "@rush-temp/fusion-scaffolder@file:./projects/fusion-scaffolder.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-scaffolder.tgz#8e1997cc69f8db418f08da843b7a81b44aa1276b"
+  resolved "file:./projects/fusion-scaffolder.tgz"
   dependencies:
     "@babel/cli" "^7.1.5"
     "@babel/core" "^7.4.4"
@@ -3424,7 +3428,7 @@
 
 "@rush-temp/fusion-test-utils@file:./projects/fusion-test-utils.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-test-utils.tgz#81c5467532a009feffd69532f078beb96e1d9333"
+  resolved "file:./projects/fusion-test-utils.tgz"
   dependencies:
     "@babel/plugin-transform-flow-strip-types" "^7.3.4"
     "@babel/preset-env" "^7.4.4"
@@ -3450,7 +3454,7 @@
 
 "@rush-temp/fusion-tokens@file:./projects/fusion-tokens.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-tokens.tgz#27942508a4d348662f6df20d81fef08d48798c2f"
+  resolved "file:./projects/fusion-tokens.tgz"
   dependencies:
     "@babel/plugin-transform-flow-strip-types" "7.2.3"
     babel-eslint "^10.0.1"
@@ -3470,11 +3474,12 @@
 
 "@rush-temp/monorepo-actions@file:./projects/monorepo-actions.tgz":
   version "0.0.0"
-  resolved "file:./projects/monorepo-actions.tgz#3a357355b0f80fe82a118751867c323769acc8df"
+  resolved "file:./projects/monorepo-actions.tgz"
   dependencies:
+    "@iarna/toml" "^2.2.3"
     "@octokit/app" "^2.2.4"
     "@octokit/rest" "^16.25.5"
-    "@publisher/core" "^0.1.0"
+    "@publisher/core" "^0.1.1"
     "@publisher/npm-helpers" "^0.1.0"
     "@rtsao/scc" "^1.0.0"
     jju "^1.4.0"
@@ -3590,8 +3595,8 @@
   resolved "https://unpm.uberinternal.com/@types%2fevents/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
 
 "@types/express-serve-static-core@*":
-  version "4.16.4"
-  resolved "https://unpm.uberinternal.com/@types%2fexpress-serve-static-core/-/express-serve-static-core-4.16.4.tgz#56bb8be4559401d68af4a3624ae9dd3166103e60"
+  version "4.16.5"
+  resolved "https://unpm.uberinternal.com/@types%2fexpress-serve-static-core/-/express-serve-static-core-4.16.5.tgz#0e473cceae141c43320759b7ff4af0d4428b9cdd"
   dependencies:
     "@types/node" "*"
     "@types/range-parser" "*"
@@ -3636,8 +3641,8 @@
     "@types/koa" "*"
 
 "@types/koa-compose@*", "@types/koa-compose@^3.2.2":
-  version "3.2.3"
-  resolved "https://unpm.uberinternal.com/@types%2fkoa-compose/-/koa-compose-3.2.3.tgz#4e2981f7bc4ce0f4797219516a91bf6ff3a70fa1"
+  version "3.2.4"
+  resolved "https://unpm.uberinternal.com/@types%2fkoa-compose/-/koa-compose-3.2.4.tgz#76a461634a59c3e13449831708bb9b355fb1548e"
   dependencies:
     "@types/koa" "*"
 
@@ -3685,6 +3690,12 @@
 "@types/range-parser@*":
   version "1.2.3"
   resolved "https://unpm.uberinternal.com/@types%2frange-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
+
+"@types/redux@^3.6.0":
+  version "3.6.0"
+  resolved "https://unpm.uberinternal.com/@types%2fredux/-/redux-3.6.0.tgz#f1ebe1e5411518072e4fdfca5c76e16e74c1399a"
+  dependencies:
+    redux "*"
 
 "@types/serve-static@*":
   version "1.13.2"
@@ -3976,6 +3987,14 @@
     ffi-napi "^2.4.4"
     ref "^1.3.5"
     ref-struct "^1.1.0"
+
+"@uber/web-perf-collector@0.10.4":
+  version "0.10.4"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fweb-perf-collector/-/private/%40uber%2Fweb-perf-collector-0.10.4.tgz#1b5da46d6a9758c3ed0fd4b0f1efe5ae1aaa5af8"
+  dependencies:
+    just-map-keys "^1.1.0"
+    just-pick "^2.1.0"
+    ua-parser-js "^0.7.19"
 
 "@uber/web-perf-collector@0.10.5":
   version "0.10.5"
@@ -4779,8 +4798,8 @@ auto-async@^1.0.1:
     xtend "^4.0.0"
 
 aws-sdk@^2.329.0:
-  version "2.460.0"
-  resolved "https://unpm.uberinternal.com/aws-sdk/-/aws-sdk-2.460.0.tgz#8b0f8178235099e2586c9db87c233919776f242d"
+  version "2.461.0"
+  resolved "https://unpm.uberinternal.com/aws-sdk/-/aws-sdk-2.461.0.tgz#7c56162a28b7c143480183de1070e0cfe0971e11"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -5999,8 +6018,8 @@ camelize@1.0.0, camelize@^1.0.0:
   resolved "https://unpm.uberinternal.com/camelize/-/camelize-1.0.0.tgz#164a5483e630fa4321e5af07020e531831b2609b"
 
 caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000884, caniuse-lite@^1.0.30000967:
-  version "1.0.30000969"
-  resolved "https://unpm.uberinternal.com/caniuse-lite/-/caniuse-lite-1.0.30000969.tgz#7664f571f2072657bde70b00a1fc1ba41f1942a9"
+  version "1.0.30000971"
+  resolved "https://unpm.uberinternal.com/caniuse-lite/-/caniuse-lite-1.0.30000971.tgz#d1000e4546486a6977756547352bc96a4cfd2b13"
 
 capture-exit@^1.2.0:
   version "1.2.0"
@@ -7698,8 +7717,8 @@ eslint-plugin-import@^2.17.2:
     resolve "^1.10.0"
 
 eslint-plugin-jest@^22.5.1:
-  version "22.5.1"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.5.1.tgz#a31dfe9f9513c6af7c17ece4c65535a1370f060b"
+  version "22.6.3"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.6.3.tgz#6d06594153c9278e02916f96f544ebd7ba36a4c7"
 
 eslint-plugin-prettier@^3.0.1:
   version "3.1.0"
@@ -9954,7 +9973,7 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://unpm.uberinternal.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-istanbul-api@2.1.6:
+istanbul-api@2.1.6, istanbul-api@^2.0.6:
   version "2.1.6"
   resolved "https://unpm.uberinternal.com/istanbul-api/-/istanbul-api-2.1.6.tgz#d61702a9d1c66ad89d92e66d401e16b0bda4a35f"
   dependencies:
@@ -12188,8 +12207,8 @@ node-pre-gyp@^0.13.0:
     tar "^4"
 
 node-releases@^1.0.0-alpha.11, node-releases@^1.1.19:
-  version "1.1.19"
-  resolved "https://unpm.uberinternal.com/node-releases/-/node-releases-1.1.19.tgz#c492d1e381fea0350b338b646c27867e88e91b3d"
+  version "1.1.21"
+  resolved "https://unpm.uberinternal.com/node-releases/-/node-releases-1.1.21.tgz#46c86f9adaceae4d63c75d3c2f2e6eee618e55f3"
   dependencies:
     semver "^5.3.0"
 
@@ -13492,14 +13511,14 @@ rc@^1.0.1, rc@^1.1.1, rc@^1.1.6, rc@^1.2.7:
     strip-json-comments "~2.0.1"
 
 react-apollo@^2.5.5:
-  version "2.5.5"
-  resolved "https://unpm.uberinternal.com/react-apollo/-/react-apollo-2.5.5.tgz#0f27079a8fa9d9ceea8b29a5977eb42885f88fb9"
+  version "2.5.6"
+  resolved "https://unpm.uberinternal.com/react-apollo/-/react-apollo-2.5.6.tgz#98a59d0eea31432ed001e6a033e11a58139ffc31"
   dependencies:
-    apollo-utilities "^1.2.1"
+    apollo-utilities "^1.3.0"
     hoist-non-react-statics "^3.3.0"
     lodash.isequal "^4.5.0"
     prop-types "^15.7.2"
-    ts-invariant "^0.4.0"
+    ts-invariant "^0.4.2"
     tslib "^1.9.3"
 
 react-async-wrapper@^1.0.5:
@@ -13814,7 +13833,7 @@ redux-seamless-immutable@^0.4.0:
     react-router-redux "^4.0.0"
     seamless-immutable "^7.1.2"
 
-redux@^4.0.1:
+redux@*, redux@^4.0.1:
   version "4.0.1"
   resolved "https://unpm.uberinternal.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   dependencies:
@@ -14458,8 +14477,8 @@ semver@5.1.0:
   resolved "https://unpm.uberinternal.com/semver/-/semver-5.1.0.tgz#85f2cf8550465c4df000cf7d86f6b054106ab9e5"
 
 semver@^6.0.0:
-  version "6.0.0"
-  resolved "https://unpm.uberinternal.com/semver/-/semver-6.0.0.tgz#05e359ee571e5ad7ed641a6eec1e547ba52dea65"
+  version "6.1.0"
+  resolved "https://unpm.uberinternal.com/semver/-/semver-6.1.0.tgz#e95dc415d45ecf03f2f9f83b264a6b11f49c0cca"
 
 send@0.17.1:
   version "0.17.1"
@@ -15540,7 +15559,7 @@ ts-invariant@^0.3.2:
   dependencies:
     tslib "^1.9.3"
 
-ts-invariant@^0.4.0:
+ts-invariant@^0.4.0, ts-invariant@^0.4.2:
   version "0.4.2"
   resolved "https://unpm.uberinternal.com/ts-invariant/-/ts-invariant-0.4.2.tgz#8685131b8083e67c66d602540e78763408be9113"
   dependencies:

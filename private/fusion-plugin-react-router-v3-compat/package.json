@@ -71,7 +71,6 @@
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
-  "private": true,
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-react-router-v3-compat",
   "repository": {
     "directory": "private/fusion-plugin-react-router-v3-compat",

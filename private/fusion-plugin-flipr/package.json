@@ -3,7 +3,6 @@
   "description": "Flipr client plugin for fusion",
   "version": "0.0.0-monorepo",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
-  "private": true,
   "license": "UNLICENSED",
   "bin": {
     "update-flipr-bootstrap": "bin/update-flipr-bootstrap.sh"

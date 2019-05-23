@@ -68,7 +68,6 @@
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
-  "private": true,
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-m3",
   "repository": {
     "directory": "private/fusion-plugin-m3",

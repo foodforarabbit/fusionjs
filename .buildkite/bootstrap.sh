@@ -70,5 +70,8 @@ echo "    timeout_in_minutes: 5";
 echo "    plugins:";
 echo "      'docker-compose#v3.0.0':";
 echo "        run: ci";
+echo "        env:";
+echo "          - UNPM_TOKEN";
+echo "          - NPM_TOKEN";
 echo "    agents:";
 echo "      queue: private-default";
