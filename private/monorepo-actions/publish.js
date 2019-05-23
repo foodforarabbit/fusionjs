@@ -242,6 +242,7 @@ async function setupRegistryCredentials() {
   );
   contents += "@uber:registry = https://unpm.uberinternal.com\n";
   contents += "//registry.npmjs.org/:_authToken = ${NPM_TOKEN}\n";
+  contents += "access = public\n";
   await writeFile(npmrcPath, contents);
 }
 
