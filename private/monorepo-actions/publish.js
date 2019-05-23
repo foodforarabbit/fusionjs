@@ -194,17 +194,23 @@ async function publishRelease(packages) {
   const sorted = getTopologicalOrder(packages);
 
   console.log("=== Topological order ===");
-  console.log(sorted);
+  console.log(
+    sorted.map(pkg =>
+      packages[pkg].publish === false ? `${pkg} (publish: false)` : pkg
+    )
+  );
 
   const artifacts /* Array<{tarPath: string, distTag: string}> */ = [];
   console.log("Packing tarballs...");
   for (const pkg of sorted) {
-    const { dir, distTag } = packages[pkg];
-    const packed = await pack(dir);
-    artifacts.push({
-      tarPath: path.join(dir, packed.filename),
-      distTag
-    });
+    const { dir, distTag, publish } = packages[pkg];
+    if (publish) {
+      const packed = await pack(dir);
+      artifacts.push({
+        tarPath: path.join(dir, packed.filename),
+        distTag
+      });
+    }
   }
 
   console.log("Publishing...");
