@@ -12,7 +12,7 @@ steps:
   - wait
   - label: ":package: :npm:"
     command: node ./private/monorepo-actions/publish.js
-    timeout_in_minutes: 5
+    timeout_in_minutes: 20
     plugins:
       "docker-compose#v3.0.0":
         run: ci
