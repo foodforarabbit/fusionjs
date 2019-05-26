@@ -181,13 +181,15 @@ async function publishDeployment(
     });
     throw err;
   }
-
-  await github.repos.createDeploymentStatus({
-    owner,
-    repo,
-    deployment_id,
-    state: "success"
-  });
+  /* Buildkite already posts a success status automatically.
+   * No need to do it ourselves.
+   */
+  //   await github.repos.createDeploymentStatus({
+  //     owner,
+  //     repo,
+  //     deployment_id,
+  //     state: "success"
+  //   });
 }
 
 async function publishRelease(packages) {
