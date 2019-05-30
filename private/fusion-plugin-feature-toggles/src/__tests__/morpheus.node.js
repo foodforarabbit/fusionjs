@@ -23,7 +23,12 @@ test('ensure .load works as expected', async () => {
     ),
   };
 
-  const client = new MorpheusClient(mockContext, [], {atreyu: mockAtreyu}, {});
+  const client = new MorpheusClient(
+    mockContext,
+    [],
+    {atreyu: mockAtreyu},
+    {metadataTransform: metadata => metadata}
+  );
 
   // We should not have attempted to load any experimentation details prior
   // to .load call
@@ -71,7 +76,7 @@ test('simple service sanity check - toggle on/off with mocked dependencies', asy
     mockContext,
     ['someExperiment', 'controlExperiment', 'noDataExperiment'],
     {atreyu: mockAtreyu},
-    {}
+    {metadataTransform: metadata => metadata}
   );
   await client.load();
 
@@ -230,6 +235,50 @@ test('simple transform metadata', async () => {
   expect(details.metadata).toHaveProperty('inchesOfRain');
   if (details.metadata && details.metadata.inchesOfRain) {
     expect(details.metadata.inchesOfRain).toBe('ten');
+  }
+});
+
+test('default transform metadata', async () => {
+  const mockContext = createMockContext();
+  const mockAtreyu = {
+    createAsyncGraph: jest.fn(() =>
+      jest.fn(() => ({
+        treatments: {
+          someExperiment: {
+            id: 12345,
+            name: 'treatment',
+            parameters: {
+              color: 'green',
+            },
+          },
+        },
+      }))
+    ),
+  };
+
+  const client = new MorpheusClient(
+    mockContext,
+    ['someExperiment'],
+    {atreyu: mockAtreyu},
+    {}
+  );
+
+  await client.load();
+
+  // Existing experiment in treatment group
+  let details = await client.get('someExperiment');
+  expect(details).not.toBeNull();
+  expect(details.enabled).toBe(true);
+  expect(details).toHaveProperty('metadata');
+
+  // Transformed property
+  expect(details.metadata).not.toHaveProperty('id');
+  expect(details.metadata).not.toHaveProperty('name');
+  expect(details.metadata).toHaveProperty('parameters');
+  if (details.metadata && details.metadata.parameters) {
+    const params = details.metadata.parameters;
+    expect(params).toHaveProperty('color');
+    expect(params.color).toBe('green');
   }
 });
 

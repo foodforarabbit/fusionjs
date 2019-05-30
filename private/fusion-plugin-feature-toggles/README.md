@@ -279,7 +279,9 @@ app.register(FeatureTogglesClientConfigToken, config);
 
 ###### `metadataTransform`
 
-An optional `metadataTransform` function can be supplied that transforms Morpheus details (see [MorpheusTreatmentGroupType](https://sourcegraph.uberinternal.com/code.uber.internal/web/fusion-plugin-feature-toggles@f1b254926848cd960c4bb4952ccb22356f6108fb/-/blob/src/clients/morpheus.js#L18)).  This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to only expose `experimentID`, we might do something like:
+An optional `metadataTransform` function can be supplied that transforms Morpheus details (see [MorpheusTreatmentGroupType](https://sourcegraph.uberinternal.com/code.uber.internal/web/fusion-plugin-feature-toggles@f1b254926848cd960c4bb4952ccb22356f6108fb/-/blob/src/clients/morpheus.js#L18)).
+
+This config object must be registered to the `FeatureTogglesClientConfigToken` token.  For example, if it were necessary to only expose `experimentID`, we might do something like:
 
 ```js
 const config = {
@@ -289,6 +291,15 @@ const config = {
 };
 
 app.register(FeatureTogglesClientConfigToken, config);
+```
+
+If no metadata transform configuration is provided, a default is used.  The default removes all properties except the `parameters` property as a precaution to avoid leaking Morpheus internal details:
+
+```js
+const defaultMetadataTransform = (metadata) =>
+  metadata && metadata.parameters
+    ? { parameters: metadata.parameters }
+    : {};
 ```
 
 ###### `timeoutThreshold`

@@ -21,7 +21,7 @@ type MorpheusTreatmentGroupType = {|
   +segmentUUID: string, // e.g. 'ab46b7e9-0669-4e77-86b6-5d47e7f239b4'
   +experimentID: number, // e.g. 4368069
   +experimentName: string, // e.g. 'amsmith_test_experiment'
-  +parameters: Object, // e.g. {}
+  +parameters: {+[string]: mixed}, // e.g. {}
   +logTreatments: number, // e.g. 0
   +segmentKey: string, // e.g. 'teamfooding'
   +uuid: string, // e.g. '6ba9651b-5283-4277-a3d6-707e8365b1fb'
@@ -138,8 +138,22 @@ export default class MorpheusClient implements IFeatureTogglesClient {
   async getExperiments(
     experimentNames: Array<string>,
     ctx: Context,
-    metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: any}
-  ): Promise<{+[experimentName: string]: MorpheusTreatmentGroupType}> {
+    metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: mixed}
+  ): Promise<{+[experimentName: string]: MorpheusTreatmentGroupType | mixed}> {
+    /* For security, if no metadataTransform is provided, default to stripping
+     * out all metadata except those provided as parameters.
+     */
+    const defaultMetadataTransform = (
+      metadata: MorpheusTreatmentGroupType
+    ): {+[string]: mixed} =>
+      metadata && metadata.parameters
+        ? {
+            parameters: metadata.parameters,
+          }
+        : {};
+    const transform = metadataTransform || defaultMetadataTransform;
+
+    // Attempt to resolve treatment details
     let result: MorpheusResponseType;
     try {
       result = (await this.getTreatmentGroupsByNames({
@@ -151,16 +165,15 @@ export default class MorpheusClient implements IFeatureTogglesClient {
       throw e;
     }
 
-    // Transform metadata, if applicable
-    let treatments = result.treatments;
-    if (metadataTransform) {
-      const transform = metadataTransform; // necessary to appease Flow
-      treatments = Object.keys(treatments).reduce((result, key) => {
-        const treatment = treatments[key];
-        result[key] = transform(treatment);
-        return result;
-      }, {});
-    }
+    // Transform metadata
+    const treatments = Object.keys(result.treatments).reduce(
+      (prev: {[string]: mixed}, key: string) => {
+        const treatment = result.treatments[key];
+        prev[key] = transform(treatment);
+        return prev;
+      },
+      {}
+    );
 
     return treatments;
   }
