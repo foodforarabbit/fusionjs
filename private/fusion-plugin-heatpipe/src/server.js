@@ -2,7 +2,7 @@
 /* eslint-env node */
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
-import fetch from 'node-fetch';
+import heatpipePublish from '@uber/heatpipe';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import type {
@@ -12,42 +12,6 @@ import type {
   MessageType,
   PublishResponse,
 } from './types';
-
-// note that the payload needs to be escaped properly since it is json inside of json
-export function getBody(
-  appId: string,
-  topic: string,
-  version: number,
-  message: MessageType
-) {
-  return JSON.stringify({
-    appId,
-    topic,
-    version,
-    payload: JSON.stringify(message),
-  });
-}
-
-export function getRequestOptions(
-  appId: string,
-  topicInfo: TopicInfoType,
-  message: MessageType
-) {
-  const {topic, version} = topicInfo;
-  return {
-    method: 'POST',
-    body: getBody(appId, topic, version, message),
-    headers: {
-      'rpc-service': 'web-heatpipe',
-      'rpc-procedure': 'com.uber.go.webheatpipe.WebHeatpipe::Publish',
-      'rpc-caller': appId,
-      'rpc-encoding': 'json',
-      'context-ttl-ms': '5000',
-    },
-  };
-}
-
-const requestURL = 'http://127.0.0.1:5436';
 
 const plugin =
   __NODE__ &&
@@ -70,25 +34,22 @@ const plugin =
       function asyncPublish(
         topicInfo: TopicInfoType,
         message: MessageType
-      ): Promise<void> {
+      ): Promise<PublishResponse | void> {
         if (__DEV__) return noopPublish(topicInfo, message);
-        return fetch(requestURL, getRequestOptions(appId, topicInfo, message))
-          .then(res => res.json())
-          .then((res: PublishResponse) => {
+        return heatpipePublish(appId, topicInfo, message).then(
+          (res: PublishResponse) => {
             const {code, msg} = res;
             const {topic, version} = topicInfo;
-            if (code === 'CODE_SUCCESS') {
-              Logger.info(
-                `Heatpipe Publish Success: ${appId}, ${topic}, v${version}`
-              );
-            } else {
+            if (code !== 'CODE_SUCCESS') {
               const errorMessage = `Heatpipe Publish Error [${code}, ${msg}]: ${appId}, ${topic}, v${version}, ${JSON.stringify(
                 message
               )}`;
               Logger.info(errorMessage);
               throw new Error(errorMessage);
             }
-          });
+            return res;
+          }
+        );
       }
 
       function publish(
@@ -106,6 +67,7 @@ const plugin =
         publish,
       };
     },
+
     cleanup: hp => Promise.resolve(),
   });
 
