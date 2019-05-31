@@ -19,10 +19,18 @@ export default function publishToHeatpipe(
     return;
   }
 
+  const data = adaptForHeatpipe(
+    serverPerfCollector(config)(req, metrics, route)
+  );
+
+  if (!data || typeof data !== 'object') {
+    return;
+  }
+
   publish(
     'web-performance',
     {topic: 'hp-unified_logging-web-performance', version: 20},
-    adaptForHeatpipe(serverPerfCollector(config)(req, metrics, route))
+    data
   )
     .then(() =>
       console.log('Succesfully published performance metrics to heatpipe!')

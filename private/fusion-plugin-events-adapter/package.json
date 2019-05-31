@@ -22,7 +22,7 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "dependencies": {
-    "@uber/heatpipe": "^1.0.0",
+    "@uber/heatpipe": "^1.0.1",
     "@uber/web-perf-collector": "0.10.5",
     "request": "^2.88.0"
   },
