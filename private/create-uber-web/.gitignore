@@ -6,3 +6,6 @@ yarn-error.log
 fixtures/website/
 fixtures/website-graphql/
 fixtures/plugin/
+
+package-deps.json
+*.build.log
