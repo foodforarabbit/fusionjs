@@ -63,13 +63,6 @@ async function getMonorepoPackages() /*: Promise<Packages> */ {
         }
       }
     }
-    if (pkg.devDependencies) {
-      for (const dep of Object.keys(pkg.devDependencies)) {
-        if (localPackages.has(dep)) {
-          localDependencies.add(dep);
-        }
-      }
-    }
     if (pkg.peerDependencies) {
       for (const dep of Object.keys(pkg.peerDependencies)) {
         if (localPackages.has(dep)) {
