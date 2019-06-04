@@ -37,29 +37,33 @@ A private "parent" monorepo ([uber/fusionjs](https://github.com/uber/fusionjs)) 
 ## Authoring changes
 <sup><a href="#table-of-contents">Back to top</a></sup>
 
-#### Where do I make my changes?
+#### Two repos? Where do I make my changes?
 
-If you're making changes to the open source codebase, do it in the open source monorepo. It may be tempting to exclusively work in the parent monorepo, but doing so hides valuable information from external contributors. It's important that all contributors are able to trace a change back to its pull request or issue; making all our changes privately inhibits that
+If you have access to this repo, it's fine to make both private and public changes here. If you author a PR in this repo that changes files in the `public` directory, the sync bot will automatically open a PR for it in the public repo (referencing [the metadata](.github/pull_request_template.md) in your PR body).
 
-#### But shouldn't open source changes be tested against the entire codebase while they're being reviewed?
+Alternatively, all PRs opened in the public repo will have a corresponding PR opened for them in the private repo. There's no metadata involved in that scenario, as the public PR is then used as the source of truth (i.e. private PR will just directly mirror the title/body of the public PR).
 
-Yes. Not only are code pushes synced between the repos, but pull requests are as well. When a pull request is opened in the open source repo, the bot opens a supplementary pull request using the same source and target branch names in the parent monorepo and pulls your changes into it.
+The only thing to consider here is visibility to the external/open source community. If you have a conversation in a private PR about a change that impacts the public repo, that could be valuable information missing to external developers. In general, just try to keep the open source visibility in mind when making changes.
 
-This achieves two things; it:
-1. triggers CI in the parent repo so e2e tests are run against the new changes, and
-2. provides a place to make supplementary changes if something in the private codebase breaks as a result of an open source change
+#### Where does CI run?
 
-#### How do I go about merging when there's two separate PRs for my change?
+The public and private repos actually have their own CI. This is partially the reason why there's such a tight coupling with PRs between the two repos. All changes made in either repo are tested against the entire fusion codebase. This is the key to being able to have a split codebase; we can now catch regressions or test failures for all changes *as they're happening* instead of after the fact.
 
-Along with the usual Github status checks you'll see for the CI validating your changes, you'll also notice one indicating the status of the parent monorepo CI. Assuming all CI is successful, go ahead and merge like you normally would; the bot will take care of merging the other PR
+<p>
+  <img align="right" width="420" alt="Screenshot showing additional status check" src=".github/status-sync.png">
+</p>
+
+##### Additional status check
+
+If your PR has a partner PR in the other repo, you'll also notice an extra status check indicating the status of its CI (see image).
+
+#### How do I merge with two separate PRs for one change?
+
+Assuming all CI is successful, go ahead and merge like you normally would; the sync bot will take care of merging the other PR.
 
 #### What if I want to close my PR without merging?
 
-Just close it. The bot will close the other PR for you. Make sure you delete the branch if you're done with it (the bot will also do the same in the other PR)
-
-#### What if I accidentally make open source changes from the private monorepo?
-
-It's not the end of the world. The bot will sync them into the open source monorepo; it will just use generic, non-descriptive commit messages
+Just close it. The bot will close the other PR for you (and will likewise re-open it if you re-open yours)
 
 
 ## Dependencies
