@@ -85,7 +85,9 @@ async function handleDeployment() {
 }
 
 async function publishCanary(github, payload) {
-  const { id } = CanaryDeployment.deserializePayload(payload);
+  const { id, unchangedPackages } = CanaryDeployment.deserializePayload(
+    payload
+  );
   if (!commit) {
     throw new Error("BUILDKITE_COMMIT must be set");
   }
@@ -103,14 +105,23 @@ async function publishCanary(github, payload) {
 
       for (const name of Object.keys(workspace)) {
         const { location, localDependencies } = workspace[name];
-
-        packages[name] = {
-          dir: location,
-          version,
-          distTag,
-          publish: true,
-          localDependencies
-        };
+        if (unchangedPackages[name]) {
+          packages[name] = {
+            dir: location,
+            version: unchangedPackages[name].version,
+            distTag,
+            publish: false,
+            localDependencies
+          };
+        } else {
+          packages[name] = {
+            dir: location,
+            version,
+            distTag,
+            publish: true,
+            localDependencies
+          };
+        }
       }
       return packages;
     }

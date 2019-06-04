@@ -12,8 +12,8 @@
     "@iarna/toml": "^2.2.3",
     "@octokit/app": "^2.2.4",
     "@octokit/rest": "^16.25.5",
-    "@publisher/core": "^0.1.1",
-    "@publisher/npm-helpers": "^0.1.0",
+    "@publisher/core": "0.2.0",
+    "@publisher/npm-helpers": "0.1.2",
     "@rtsao/scc": "^1.0.0",
     "jju": "^1.4.0"
   }
