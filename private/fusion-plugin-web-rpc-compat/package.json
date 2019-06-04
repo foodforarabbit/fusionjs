@@ -21,8 +21,7 @@
   },
   "peerDependencies": {
     "fusion-core": "0.0.0-monorepo",
-    "fusion-plugin-rpc": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo"
+    "fusion-plugin-rpc": "0.0.0-monorepo"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -38,8 +37,6 @@
     "flow-bin": "^0.98.1",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-rpc": "0.0.0-monorepo",
-    "fusion-plugin-universal-events": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo",
     "idl": "^3.1.12",
     "nyc": "^14.1.0",
     "prettier": "^1.17.0",

@@ -38,7 +38,6 @@
     "eslint-plugin-react": "^7.13.0",
     "flow-bin": "^0.98.1",
     "fusion-core": "0.0.0-monorepo",
-    "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
     "idl": "^3.1.12",

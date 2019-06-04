@@ -39,7 +39,6 @@
     "eslint-plugin-react": "^7.13.0",
     "flow-bin": "^0.98.1",
     "fusion-core": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo",
     "nyc": "^14.1.0",
     "prettier": "^1.17.0",
     "tape-cup": "^4.7.1",
@@ -62,8 +61,7 @@
     "flow": "flow check"
   },
   "peerDependencies": {
-    "fusion-core": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo"
+    "fusion-core": "0.0.0-monorepo"
   },
   "engines": {
     "node": ">=8.9.0 <11",

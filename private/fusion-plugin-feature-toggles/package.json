@@ -48,10 +48,6 @@
     "@babel/preset-react": "^7.0.0",
     "@uber/atreyu": "^6.1.1",
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
-    "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
-    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
-    "@uber/fusion-plugin-tchannel": "0.0.0-monorepo",
-    "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
@@ -69,9 +65,7 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "flow-bin": "^0.98.1",
     "fusion-core": "0.0.0-monorepo",
-    "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo",
     "jest": "^24.8.0",
     "jest-environment-jsdom-global": "^1.2.0",
     "jsdom": "^15.0.0",
@@ -80,10 +74,7 @@
   },
   "peerDependencies": {
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
-    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
-    "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
-    "fusion-core": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo"
+    "fusion-core": "0.0.0-monorepo"
   },
   "resolutions": {
     "event-stream": "3.3.5"

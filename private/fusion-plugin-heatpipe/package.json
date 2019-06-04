@@ -22,7 +22,6 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
-    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "babel-eslint": "^10.0.1",
     "create-universal-package": "^3.4.7",
     "eslint": "^5.16.0",
@@ -65,7 +64,6 @@
     "@uber/heatpipe": "^1.0.1"
   },
   "peerDependencies": {
-    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo"

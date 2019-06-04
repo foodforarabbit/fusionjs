@@ -22,7 +22,6 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "devDependencies": {
-    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "babel-eslint": "^10.0.1",
     "babel-plugin-istanbul": "^5.1.4",
     "create-universal-package": "^3.4.7",
@@ -35,8 +34,6 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.13.0",
     "flow-bin": "^0.98.1",
-    "fusion-core": "0.0.0-monorepo",
-    "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-react": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
@@ -63,7 +60,6 @@
     "@uber/fusion-plugin-logtron": "0.0.0-monorepo"
   },
   "peerDependencies": {
-    "fusion-core": "0.0.0-monorepo",
     "fusion-react": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
     "react": "^16.8.6"

@@ -68,8 +68,6 @@
     "eslint-plugin-react": "^7.13.0",
     "flow-bin": "^0.98.1",
     "fusion-core": "0.0.0-monorepo",
-    "fusion-test-utils": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo",
     "jest": "^24.8.0",
     "jest-environment-jsdom-global": "^1.2.0",
     "koa": "^2.7.0",
@@ -77,8 +75,7 @@
     "prettier": "^1.17.0"
   },
   "peerDependencies": {
-    "fusion-core": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo"
+    "fusion-core": "0.0.0-monorepo"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",

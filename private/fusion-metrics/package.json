@@ -58,11 +58,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.13.0",
     "flow-bin": "^0.98.1",
-    "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-introspect": "0.0.0-monorepo",
-    "fusion-plugin-universal-events": "0.0.0-monorepo",
-    "fusion-test-utils": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo",
     "jest": "^24.8.0",
     "jest-environment-jsdom-global": "^1.2.0",
     "npm-watch": "^0.6.0",
@@ -71,9 +67,7 @@
     "react-dom": "^16.8.6"
   },
   "peerDependencies": {
-    "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-introspect": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
