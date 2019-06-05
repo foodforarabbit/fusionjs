@@ -15,19 +15,33 @@ export default function publishToHeatpipe(
   }
 ) {
   const req = ctx.request;
+
+  // these functions are only expected to be overriden by tests
+  const publishFn = config.publishFn || publish;
+  const adaptForHeatpipeFn = config.adaptForHeatpipeFn || adaptForHeatpipe;
+  const serverPerfCollectorFn =
+    config.serverPerfCollectorFn || serverPerfCollector;
+
   if (!metrics) {
     return;
   }
 
-  const data = adaptForHeatpipe(
-    serverPerfCollector(config)(req, metrics, route)
-  );
+  let data;
+
+  try {
+    data = adaptForHeatpipeFn(
+      serverPerfCollectorFn(config)(req, metrics, route)
+    );
+  } catch (e) {
+    // browser sent malformed data, don't try to publish
+    return;
+  }
 
   if (!data || typeof data !== 'object') {
     return;
   }
 
-  publish(
+  publishFn(
     'web-performance',
     {topic: 'hp-unified_logging-web-performance', version: 20},
     data
