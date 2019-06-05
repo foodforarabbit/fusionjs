@@ -48,7 +48,7 @@
   dependencies:
     "@babel/highlight" "7.0.0-beta.55"
 
-"@babel/core@^7.0.0-beta.55", "@babel/core@^7.1.0", "@babel/core@^7.2.2", "@babel/core@^7.4.4":
+"@babel/core@^7.0.0-beta.55", "@babel/core@^7.1.0", "@babel/core@^7.2.2", "@babel/core@^7.4.0", "@babel/core@^7.4.4":
   version "7.4.5"
   resolved "https://unpm.uberinternal.com/@babel%2fcore/-/core-7.4.5.tgz#081f97e8ffca65a9b4b0fdc7e274e703f000c06a"
   dependencies:
@@ -1039,7 +1039,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
-"@babel/preset-env@^7.4.4":
+"@babel/preset-env@^7.4.2", "@babel/preset-env@^7.4.4":
   version "7.4.5"
   resolved "https://unpm.uberinternal.com/@babel%2fpreset-env/-/preset-env-7.4.5.tgz#2fad7f62983d5af563b5f3139242755884998a58"
   dependencies:
@@ -2404,6 +2404,36 @@
     tape-cup "^4.7.1"
     unitest "^2.1.1"
 
+"@rush-temp/fusion-plugin-graphql-logging-middleware@file:./projects/fusion-plugin-graphql-logging-middleware.tgz":
+  version "0.0.0"
+  resolved "file:./projects/fusion-plugin-graphql-logging-middleware.tgz"
+  dependencies:
+    "@babel/core" "^7.4.0"
+    "@babel/preset-env" "^7.4.2"
+    "@babel/preset-flow" "^7.0.0"
+    "@babel/preset-react" "^7.0.0"
+    babel-eslint "^10.0.1"
+    create-universal-package "^3.4.6"
+    eslint "^5.15.3"
+    eslint-plugin-cup "^2.0.1"
+    eslint-plugin-flowtype "^3.4.2"
+    eslint-plugin-import "^2.16.0"
+    eslint-plugin-jest "^22.4.1"
+    eslint-plugin-prettier "^3.0.1"
+    eslint-plugin-react "^7.12.4"
+    flow-bin "^0.94.0"
+    graphql "^14.2.0"
+    graphql-middleware "^3.0.2"
+    graphql-tag "^2.10.1"
+    graphql-tools "^4.0.4"
+    jest "^24.5.0"
+    jest-environment-jsdom-global "^1.2.0"
+    npm-watch "^0.6.0"
+    prettier "^1.16.4"
+    react "^16.8.4"
+    react-apollo "^2.5.3"
+    react-dom "^16.8.4"
+
 "@rush-temp/fusion-plugin-heatpipe-performance-logger@file:./projects/fusion-plugin-heatpipe-performance-logger.tgz":
   version "0.0.0"
   resolved "file:./projects/fusion-plugin-heatpipe-performance-logger.tgz"
@@ -3697,6 +3727,12 @@
   version "1.2.3"
   resolved "https://unpm.uberinternal.com/@types%2frange-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
 
+"@types/redux@^3.6.0":
+  version "3.6.0"
+  resolved "https://unpm.uberinternal.com/@types%2fredux/-/redux-3.6.0.tgz#f1ebe1e5411518072e4fdfca5c76e16e74c1399a"
+  dependencies:
+    redux "*"
+
 "@types/serve-static@*":
   version "1.13.2"
   resolved "https://unpm.uberinternal.com/@types%2fserve-static/-/serve-static-1.13.2.tgz#f5ac4d7a6420a99a6a45af4719f4dcd8cd907a48"
@@ -3844,7 +3880,7 @@
     settings "0.1.1"
     xtend "^4.0.0"
 
-"@uber/heatpipe@^1.0.1":
+"@uber/heatpipe@^1.0.0", "@uber/heatpipe@^1.0.1":
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/%40uber%2Fheatpipe/-/private/%40uber%2Fheatpipe-1.0.1.tgz#afb53b8c277bfb7de05901ae6cc030bef816cb08"
   dependencies:
@@ -3987,6 +4023,14 @@
     ffi-napi "^2.4.4"
     ref "^1.3.5"
     ref-struct "^1.1.0"
+
+"@uber/web-perf-collector@0.10.4":
+  version "0.10.4"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fweb-perf-collector/-/private/%40uber%2Fweb-perf-collector-0.10.4.tgz#1b5da46d6a9758c3ed0fd4b0f1efe5ae1aaa5af8"
+  dependencies:
+    just-map-keys "^1.1.0"
+    just-pick "^2.1.0"
+    ua-parser-js "^0.7.19"
 
 "@uber/web-perf-collector@0.10.5":
   version "0.10.5"
@@ -4341,30 +4385,30 @@ apollo-cache-control@0.7.1:
     graphql-extensions "0.7.1"
 
 apollo-cache-inmemory@^1.3.12:
-  version "1.6.0"
-  resolved "https://unpm.uberinternal.com/apollo-cache-inmemory/-/apollo-cache-inmemory-1.6.0.tgz#a106cdc520f0a043be2575372d5dbb7e4790254c"
+  version "1.6.1"
+  resolved "https://unpm.uberinternal.com/apollo-cache-inmemory/-/apollo-cache-inmemory-1.6.1.tgz#536b6f366461f6264250041f9146363e2faa1d4c"
   dependencies:
-    apollo-cache "^1.3.0"
-    apollo-utilities "^1.3.0"
+    apollo-cache "^1.3.1"
+    apollo-utilities "^1.3.1"
     optimism "^0.9.0"
     ts-invariant "^0.4.0"
     tslib "^1.9.3"
 
-apollo-cache@1.3.0, apollo-cache@^1.3.0:
-  version "1.3.0"
-  resolved "https://unpm.uberinternal.com/apollo-cache/-/apollo-cache-1.3.0.tgz#de5c907cbd329440c9b0aafcbe8436391b9e6142"
+apollo-cache@1.3.1, apollo-cache@^1.3.1:
+  version "1.3.1"
+  resolved "https://unpm.uberinternal.com/apollo-cache/-/apollo-cache-1.3.1.tgz#c015f93a9a7f32b3eeea0c471addd6e854da754c"
   dependencies:
-    apollo-utilities "^1.3.0"
+    apollo-utilities "^1.3.1"
     tslib "^1.9.3"
 
 apollo-client@^2.5.1:
-  version "2.6.0"
-  resolved "https://unpm.uberinternal.com/apollo-client/-/apollo-client-2.6.0.tgz#9b66c04cd96d622cd72f92e584e7403c17532831"
+  version "2.6.1"
+  resolved "https://unpm.uberinternal.com/apollo-client/-/apollo-client-2.6.1.tgz#fcf328618d6ad82b750a988bec113fe6edc8ba94"
   dependencies:
     "@types/zen-observable" "^0.8.0"
-    apollo-cache "1.3.0"
+    apollo-cache "1.3.1"
     apollo-link "^1.0.0"
-    apollo-utilities "1.3.0"
+    apollo-utilities "1.3.1"
     symbol-observable "^1.0.2"
     ts-invariant "^0.4.0"
     tslib "^1.9.3"
@@ -4515,11 +4559,12 @@ apollo-tracing@0.7.1:
     apollo-server-env "2.4.0"
     graphql-extensions "0.7.1"
 
-apollo-utilities@1.3.0, apollo-utilities@^1.0.1, apollo-utilities@^1.2.1, apollo-utilities@^1.3.0:
-  version "1.3.0"
-  resolved "https://unpm.uberinternal.com/apollo-utilities/-/apollo-utilities-1.3.0.tgz#9803724c07ac94ca11dc26397edb58735d2b0211"
+apollo-utilities@1.3.1, apollo-utilities@^1.0.1, apollo-utilities@^1.2.1, apollo-utilities@^1.3.0, apollo-utilities@^1.3.1:
+  version "1.3.1"
+  resolved "https://unpm.uberinternal.com/apollo-utilities/-/apollo-utilities-1.3.1.tgz#4c45f9b52783c324e2beef822700bdea374f82d1"
   dependencies:
     fast-json-stable-stringify "^2.0.0"
+    lodash.isequal "^4.5.0"
     ts-invariant "^0.4.0"
     tslib "^1.9.3"
 
@@ -4794,8 +4839,8 @@ auto-async@^1.0.1:
     xtend "^4.0.0"
 
 aws-sdk@^2.329.0:
-  version "2.466.0"
-  resolved "https://unpm.uberinternal.com/aws-sdk/-/aws-sdk-2.466.0.tgz#02d819c5af058e15fd1942296ed3b1def9f4b14d"
+  version "2.467.0"
+  resolved "https://unpm.uberinternal.com/aws-sdk/-/aws-sdk-2.467.0.tgz#803831646fc3322ce51181c9f586f17770cdf850"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -4816,11 +4861,11 @@ aws4@^1.8.0:
   resolved "https://unpm.uberinternal.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
 
 axios@^0.18.0:
-  version "0.18.0"
-  resolved "https://unpm.uberinternal.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  version "0.18.1"
+  resolved "https://unpm.uberinternal.com/axios/-/axios-0.18.1.tgz#ff3f0de2e7b5d180e757ad98000f1081b87bcea3"
   dependencies:
-    follow-redirects "^1.3.0"
-    is-buffer "^1.1.5"
+    follow-redirects "1.5.10"
+    is-buffer "^2.0.2"
 
 babel-code-frame@^6.26.0:
   version "6.26.0"
@@ -6010,8 +6055,8 @@ camelize@1.0.0, camelize@^1.0.0:
   resolved "https://unpm.uberinternal.com/camelize/-/camelize-1.0.0.tgz#164a5483e630fa4321e5af07020e531831b2609b"
 
 caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000884, caniuse-lite@^1.0.30000971:
-  version "1.0.30000971"
-  resolved "https://unpm.uberinternal.com/caniuse-lite/-/caniuse-lite-1.0.30000971.tgz#d1000e4546486a6977756547352bc96a4cfd2b13"
+  version "1.0.30000973"
+  resolved "https://unpm.uberinternal.com/caniuse-lite/-/caniuse-lite-1.0.30000973.tgz#2f8e8e54f9e6c5b7a631c9e69bfa1093d8cfd360"
 
 capture-exit@^1.2.0:
   version "1.2.0"
@@ -6672,7 +6717,7 @@ create-react-context@^0.2.2:
     fbjs "^0.8.0"
     gud "^1.0.0"
 
-create-universal-package@^3.4.7:
+create-universal-package@^3.4.6, create-universal-package@^3.4.7:
   version "3.4.7"
   resolved "https://unpm.uberinternal.com/create-universal-package/-/create-universal-package-3.4.7.tgz#b6c081e840d7e6fc741f7bd9c54226ef9eee0111"
   dependencies:
@@ -6895,17 +6940,17 @@ debug@3.2.6, debug@^3.0.1, debug@^3.1.0, debug@^3.2.6:
   dependencies:
     ms "^2.1.1"
 
+debug@=3.1.0, debug@~3.1.0:
+  version "3.1.0"
+  resolved "https://unpm.uberinternal.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  dependencies:
+    ms "2.0.0"
+
 debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   version "4.1.1"
   resolved "https://unpm.uberinternal.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   dependencies:
     ms "^2.1.1"
-
-debug@~3.1.0:
-  version "3.1.0"
-  resolved "https://unpm.uberinternal.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
-  dependencies:
-    ms "2.0.0"
 
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2, decamelize@^1.2.0:
   version "1.2.0"
@@ -7311,8 +7356,8 @@ ee-first@1.1.1:
   resolved "https://unpm.uberinternal.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
 electron-to-chromium@^1.3.137, electron-to-chromium@^1.3.30, electron-to-chromium@^1.3.62:
-  version "1.3.142"
-  resolved "https://unpm.uberinternal.com/electron-to-chromium/-/electron-to-chromium-1.3.142.tgz#d3db509ac0f0f5a212af234ff3b500d8cc4ea812"
+  version "1.3.144"
+  resolved "https://unpm.uberinternal.com/electron-to-chromium/-/electron-to-chromium-1.3.144.tgz#d742d2c451090798303a4a5eea4f33f5e60f5d94"
 
 eliminate@^1.0.2:
   version "1.0.2"
@@ -7386,8 +7431,8 @@ env-variable@0.0.x:
   resolved "https://unpm.uberinternal.com/env-variable/-/env-variable-0.0.5.tgz#913dd830bef11e96a039c038d4130604eba37f88"
 
 enzyme-adapter-react-16@^1.12.1:
-  version "1.13.2"
-  resolved "https://unpm.uberinternal.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.13.2.tgz#8a574d7cbbef7ef0cab2022e9bfc12aeaebb7ae5"
+  version "1.14.0"
+  resolved "https://unpm.uberinternal.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.14.0.tgz#204722b769172bcf096cb250d33e6795c1f1858f"
   dependencies:
     enzyme-adapter-utils "^1.12.0"
     has "^1.0.3"
@@ -7416,8 +7461,8 @@ enzyme-to-json@^3.3.4:
     lodash "^4.17.4"
 
 enzyme@^3.9.0:
-  version "3.9.0"
-  resolved "https://unpm.uberinternal.com/enzyme/-/enzyme-3.9.0.tgz#2b491f06ca966eb56b6510068c7894a7e0be3909"
+  version "3.10.0"
+  resolved "https://unpm.uberinternal.com/enzyme/-/enzyme-3.10.0.tgz#7218e347c4a7746e133f8e964aada4a3523452f6"
   dependencies:
     array.prototype.flat "^1.2.1"
     cheerio "^1.0.0-rc.2"
@@ -7678,13 +7723,13 @@ eslint-plugin-cup@^2.0.1:
   dependencies:
     globals "^11.5.0"
 
-eslint-plugin-flowtype@^3.8.1:
+eslint-plugin-flowtype@^3.4.2, eslint-plugin-flowtype@^3.8.1:
   version "3.9.1"
   resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.9.1.tgz#6491d930e1f96d53c510e0393e635fddd4a4cac5"
   dependencies:
     lodash "^4.17.11"
 
-eslint-plugin-import@^2.17.2:
+eslint-plugin-import@^2.16.0, eslint-plugin-import@^2.17.2:
   version "2.17.3"
   resolved "https://unpm.uberinternal.com/eslint-plugin-import/-/eslint-plugin-import-2.17.3.tgz#00548b4434c18faebaba04b24ae6198f280de189"
   dependencies:
@@ -7700,7 +7745,7 @@ eslint-plugin-import@^2.17.2:
     read-pkg-up "^2.0.0"
     resolve "^1.11.0"
 
-eslint-plugin-jest@^22.5.1:
+eslint-plugin-jest@^22.4.1, eslint-plugin-jest@^22.5.1:
   version "22.6.4"
   resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.6.4.tgz#2895b047dd82f90f43a58a25cf136220a21c9104"
 
@@ -7714,7 +7759,7 @@ eslint-plugin-react-hooks@^1.6.0:
   version "1.6.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.6.0.tgz#348efcda8fb426399ac7b8609607c7b4025a6f5f"
 
-eslint-plugin-react@^7.13.0:
+eslint-plugin-react@^7.12.4, eslint-plugin-react@^7.13.0:
   version "7.13.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-react/-/eslint-plugin-react-7.13.0.tgz#bc13fd7101de67996ea51b33873cd9dc2b7e5758"
   dependencies:
@@ -7748,7 +7793,7 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^5.16.0:
+eslint@^5.15.3, eslint@^5.16.0:
   version "5.16.0"
   resolved "https://unpm.uberinternal.com/eslint/-/eslint-5.16.0.tgz#a1e3ac1aae4a3fbd8296fcf8f7ab7314cbb6abea"
   dependencies:
@@ -8370,6 +8415,10 @@ flow-annotation-check@1.8.1:
     glob "7.1.1"
     load-pkg "^3.0.1"
 
+flow-bin@^0.94.0:
+  version "0.94.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.94.0.tgz#b5d58fe7559705b73a18229f97edfc3ab6ffffcb"
+
 flow-bin@^0.98.1:
   version "0.98.1"
   resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.98.1.tgz#a8d781621c91703df69928acc83c9777e2fcbb49"
@@ -8404,7 +8453,13 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-follow-redirects@^1.0.0, follow-redirects@^1.3.0:
+follow-redirects@1.5.10:
+  version "1.5.10"
+  resolved "https://unpm.uberinternal.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  dependencies:
+    debug "=3.1.0"
+
+follow-redirects@^1.0.0:
   version "1.7.0"
   resolved "https://unpm.uberinternal.com/follow-redirects/-/follow-redirects-1.7.0.tgz#489ebc198dc0e7f64167bd23b03c4c19b5784c76"
   dependencies:
@@ -8890,6 +8945,12 @@ graphql-extensions@0.7.1:
   dependencies:
     "@apollographql/apollo-tools" "^0.3.6"
 
+graphql-middleware@^3.0.2:
+  version "3.0.2"
+  resolved "https://unpm.uberinternal.com/graphql-middleware/-/graphql-middleware-3.0.2.tgz#c8cdb67615eec02aec237b455e679f5fc973ddc4"
+  dependencies:
+    graphql-tools "^4.0.4"
+
 graphql-subscriptions@^1.0.0:
   version "1.1.0"
   resolved "https://unpm.uberinternal.com/graphql-subscriptions/-/graphql-subscriptions-1.1.0.tgz#5f2fa4233eda44cf7570526adfcf3c16937aef11"
@@ -8900,7 +8961,7 @@ graphql-tag@^2.10.1, graphql-tag@^2.9.2:
   version "2.10.1"
   resolved "https://unpm.uberinternal.com/graphql-tag/-/graphql-tag-2.10.1.tgz#10aa41f1cd8fae5373eaf11f1f67260a3cad5e02"
 
-graphql-tools@^4.0.0, graphql-tools@^4.0.3:
+graphql-tools@^4.0.0, graphql-tools@^4.0.3, graphql-tools@^4.0.4:
   version "4.0.4"
   resolved "https://unpm.uberinternal.com/graphql-tools/-/graphql-tools-4.0.4.tgz#ca08a63454221fdde825fe45fbd315eb2a6d566b"
   dependencies:
@@ -8919,7 +8980,7 @@ graphql-upload@^8.0.2:
     http-errors "^1.7.2"
     object-path "^0.11.4"
 
-graphql@^14.1.1:
+graphql@^14.1.1, graphql@^14.2.0:
   version "14.3.1"
   resolved "https://unpm.uberinternal.com/graphql/-/graphql-14.3.1.tgz#b3aa50e61a841ada3c1f9ccda101c483f8e8c807"
   dependencies:
@@ -9604,7 +9665,7 @@ is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://unpm.uberinternal.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
 
-is-buffer@~2.0.3:
+is-buffer@^2.0.2, is-buffer@~2.0.3:
   version "2.0.3"
   resolved "https://unpm.uberinternal.com/is-buffer/-/is-buffer-2.0.3.tgz#4ecf3fcf749cbd1e472689e109ac66261a25e725"
 
@@ -9970,7 +10031,7 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://unpm.uberinternal.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-istanbul-api@2.1.6:
+istanbul-api@2.1.6, istanbul-api@^2.0.6:
   version "2.1.6"
   resolved "https://unpm.uberinternal.com/istanbul-api/-/istanbul-api-2.1.6.tgz#d61702a9d1c66ad89d92e66d401e16b0bda4a35f"
   dependencies:
@@ -10741,7 +10802,7 @@ jest-worker@^24.6.0:
     merge-stream "^1.0.1"
     supports-color "^6.1.0"
 
-jest@^24.8.0:
+jest@^24.5.0, jest@^24.8.0:
   version "24.8.0"
   resolved "https://unpm.uberinternal.com/jest/-/jest-24.8.0.tgz#d5dff1984d0d1002196e9b7f12f75af1b2809081"
   dependencies:
@@ -11814,14 +11875,14 @@ minimisted@^2.0.0:
   dependencies:
     minimist "^1.2.0"
 
-minipass@^2.2.1, minipass@^2.3.4:
+minipass@^2.2.1, minipass@^2.3.5:
   version "2.3.5"
   resolved "https://unpm.uberinternal.com/minipass/-/minipass-2.3.5.tgz#cacebe492022497f656b0f0f51e2682a9ed2d848"
   dependencies:
     safe-buffer "^5.1.2"
     yallist "^3.0.0"
 
-minizlib@^1.1.1:
+minizlib@^1.2.1:
   version "1.2.1"
   resolved "https://unpm.uberinternal.com/minizlib/-/minizlib-1.2.1.tgz#dd27ea6136243c7c880684e8672bb3a45fd9b614"
   dependencies:
@@ -13101,7 +13162,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^1.15.1, prettier@^1.17.0:
+prettier@^1.15.1, prettier@^1.16.4, prettier@^1.17.0:
   version "1.17.1"
   resolved "https://unpm.uberinternal.com/prettier/-/prettier-1.17.1.tgz#ed64b4e93e370cb8a25b9ef7fef3e4fd1c0995db"
 
@@ -13548,7 +13609,7 @@ rc@^1.0.1, rc@^1.1.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-apollo@^2.5.5:
+react-apollo@^2.5.3, react-apollo@^2.5.5:
   version "2.5.6"
   resolved "https://unpm.uberinternal.com/react-apollo/-/react-apollo-2.5.6.tgz#98a59d0eea31432ed001e6a033e11a58139ffc31"
   dependencies:
@@ -13604,7 +13665,7 @@ react-dom@15.5.4:
     object-assign "^4.1.0"
     prop-types "~15.5.7"
 
-react-dom@^16.8.6:
+react-dom@^16.8.4, react-dom@^16.8.6:
   version "16.8.6"
   resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
   dependencies:
@@ -13705,7 +13766,7 @@ react@15.5.4:
     object-assign "^4.1.0"
     prop-types "^15.5.7"
 
-react@^16.8.6:
+react@^16.8.4, react@^16.8.6:
   version "16.8.6"
   resolved "https://unpm.uberinternal.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   dependencies:
@@ -13881,7 +13942,7 @@ redux-seamless-immutable@^0.4.0:
     react-router-redux "^4.0.0"
     seamless-immutable "^7.1.2"
 
-redux@^4.0.1:
+redux@*, redux@^4.0.1:
   version "4.0.1"
   resolved "https://unpm.uberinternal.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   dependencies:
@@ -14191,8 +14252,8 @@ resolve@1.1.7:
   resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
 
 resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.0, resolve@^1.3.2, resolve@^1.5.0, resolve@^1.8.1:
-  version "1.11.0"
-  resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.11.0.tgz#4014870ba296176b86343d50b60f3b50609ce232"
+  version "1.11.1"
+  resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.11.1.tgz#ea10d8110376982fef578df8fc30b9ac30a07a3e"
   dependencies:
     path-parse "^1.0.6"
 
@@ -15306,16 +15367,16 @@ tar-stream@^1.1.2, tar-stream@^1.5.2:
     xtend "^4.0.0"
 
 tar@^4:
-  version "4.4.8"
-  resolved "https://unpm.uberinternal.com/tar/-/tar-4.4.8.tgz#b19eec3fde2a96e64666df9fdb40c5ca1bc3747d"
+  version "4.4.9"
+  resolved "https://unpm.uberinternal.com/tar/-/tar-4.4.9.tgz#058fbb152f6fc45733e84585a40c39e59302e1b3"
   dependencies:
     chownr "^1.1.1"
     fs-minipass "^1.2.5"
-    minipass "^2.3.4"
-    minizlib "^1.1.1"
+    minipass "^2.3.5"
+    minizlib "^1.2.1"
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
-    yallist "^3.0.2"
+    yallist "^3.0.3"
 
 tchannel@^3.5.19, tchannel@^3.6.24, tchannel@^3.9.12:
   version "3.9.13"
@@ -16412,7 +16473,7 @@ yallist@^2.0.0, yallist@^2.1.2:
   version "2.1.2"
   resolved "https://unpm.uberinternal.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
 
-yallist@^3.0.0, yallist@^3.0.2:
+yallist@^3.0.0, yallist@^3.0.2, yallist@^3.0.3:
   version "3.0.3"
   resolved "https://unpm.uberinternal.com/yallist/-/yallist-3.0.3.tgz#b4b049e314be545e3ce802236d6cd22cd91c3de9"
 
