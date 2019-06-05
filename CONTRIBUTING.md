@@ -37,9 +37,9 @@ A private "parent" monorepo ([uber/fusionjs](https://github.com/uber/fusionjs)) 
 ## Authoring changes
 <sup><a href="#table-of-contents">Back to top</a></sup>
 
-#### Two repos? Where do I make my changes?
+#### Private *and* public monorepo? Where do I make my changes?
 
-If you have access to this repo, it's fine to make both private and public changes here. If you author a PR in this repo that changes files in the `public` directory, the sync bot will automatically open a PR for it in the public repo (referencing [the metadata](.github/pull_request_template.md) in your PR body).
+If you have access to the private monorepo, it's fine to make both private and public changes there. If you author a PR in the private repo that changes files in the `public` directory, the sync bot will automatically open a PR for it in the public repo (referencing [the metadata](.github/pull_request_template.md) in your PR body).
 
 Alternatively, all PRs opened in the public repo will have a corresponding PR opened for them in the private repo. There's no metadata involved in that scenario, as the public PR is then used as the source of truth (i.e. private PR will just directly mirror the title/body of the public PR).
 
