@@ -7,11 +7,10 @@ const checkMigrationVersion = require('./commands/check-migration-version.js');
 const getSteps = require('./get-steps.js');
 const getLintSteps = require('./get-lint-steps.js');
 const getTestSteps = require('./get-test-steps.js');
-const getEngineSteps = require('./get-engine-steps.js');
 const log = require('./log.js');
 const scaffold = require('./utils/scaffold.js');
 
-const megaSteps = ['engines', 'lint', 'test', 'main'];
+const megaSteps = ['lint', 'test', 'main'];
 
 module.exports = async function(name, sub, options) {
   if (options.steps.length && options.skipSteps.length) {
@@ -48,19 +47,15 @@ module.exports = async function(name, sub, options) {
   let migrationPart;
   if (!report.lastCompletedStep) {
     // engines migration
-    steps = getEngineSteps({destDir});
-    migrationPart = 1;
-  } else if (report.lastCompletedStep === 'engines') {
-    // lint migration
     steps = getLintSteps({destDir, srcDir});
-    migrationPart = 2;
+    migrationPart = 1;
   } else if (report.lastCompletedStep === 'lint') {
     // test migration
     steps = getTestSteps({destDir, srcDir});
-    migrationPart = 3;
+    migrationPart = 2;
   } else if (report.lastCompletedStep === 'test') {
     steps = getSteps({destDir, srcDir, version});
-    migrationPart = 4;
+    migrationPart = 3;
     // code migration
   } else {
     log(

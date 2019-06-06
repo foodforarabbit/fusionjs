@@ -101,6 +101,7 @@ module.exports = async function updateDeps({
     const parsedVersion = semver.coerce(reactVersion);
     if (parsedVersion.major === 15) {
       destPackage.devDependencies['enzyme-adapter-react-15'] = '^1.0.5';
+      delete destPackage.devDependencies['enzyme-adapter-react-16'];
     }
   }
 

@@ -19,7 +19,7 @@ module.exports = function updateEngines({destDir}) {
 
 function fetchRequiredNodeVersion() {
   // Hard code node version until we support node 10
-  return '8.12.0';
+  return '8.15.0';
   // Borrowed from: https://github.com/tj/n/blob/master/bin/n#L715
   // var latestLTSName = execSync(
   //   'curl https://nodejs.org/dist/ ' +
