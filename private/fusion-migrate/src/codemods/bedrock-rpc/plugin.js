@@ -57,6 +57,10 @@ module.exports = babel => {
       ensureImportDeclaration(body, `import {createPlugin} from 'fusion-core'`);
       ensureImportDeclaration(
         body,
+        `import {ResponseError} from 'fusion-plugin-rpc-redux-react'`
+      );
+      ensureImportDeclaration(
+        body,
         `import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat'`
       );
       importPath.remove();
@@ -71,13 +75,20 @@ module.exports = babel => {
 };
 
 const getCompatSource = methods => {
-  return `Object.keys(${methods}).forEach(method => {
+  return `
+  // This wraps the web-rpc methods to make them compatible with the new fusion promise API
+  // You may want to migrate away from the old callback interface and remove this compat layer
+  Object.keys(${methods}).forEach(method => {
     const oldMethod =${methods}[method];
     ${methods}[method] = (args, ctx) => {
       const req = ctx.req;
       req.body = args;
       return new Promise((resolve, reject) => {
         return oldMethod(req, resolve, reject);
+      }).catch(e => {
+        const error = new ResponseError(e.message);
+        // TODO: you can add error.code and error.meta properties here if you want additional data to be serialized
+        throw error;
       });
     };
   });

@@ -41,6 +41,7 @@ import {rpcIds} from '../shared/rpc-constants';
 import atreyuGraphs from './atreyu/graphs';
 import atreyuSeeds from './atreyu/seeds';
 import {createPlugin} from 'fusion-core';
+import {ResponseError} from 'fusion-plugin-rpc-redux-react';
 import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
 import atreyuTransforms from './atreyu/transforms';
 
@@ -65,6 +66,10 @@ function getRPCHandlers(server) {
       req.body = args;
       return new Promise((resolve, reject) => {
         return oldMethod(req, resolve, reject);
+      }).catch(e => {
+        const error = new ResponseError(e.message); // TODO: you can add error.code and error.meta properties here if you want additional data to be serialized
+
+        throw error;
       });
     };
   });
@@ -119,6 +124,7 @@ import {rpcIds} from '../shared/rpc-constants';
 import atreyuGraphs from './atreyu/graphs';
 import atreyuSeeds from './atreyu/seeds';
 import {createPlugin} from 'fusion-core';
+import {ResponseError} from 'fusion-plugin-rpc-redux-react';
 import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
 import atreyuTransforms from './atreyu/transforms';
 
@@ -142,6 +148,10 @@ const getRPCHandlers = server => {
       req.body = args;
       return new Promise((resolve, reject) => {
         return oldMethod(req, resolve, reject);
+      }).catch(e => {
+        const error = new ResponseError(e.message); // TODO: you can add error.code and error.meta properties here if you want additional data to be serialized
+
+        throw error;
       });
     };
   });
@@ -196,6 +206,7 @@ import {rpcIds} from '../shared/rpc-constants';
 import atreyuGraphs from './atreyu/graphs';
 import atreyuSeeds from './atreyu/seeds';
 import {createPlugin} from 'fusion-core';
+import {ResponseError} from 'fusion-plugin-rpc-redux-react';
 import {BedrockCompatToken} from '@uber/fusion-plugin-bedrock-compat';
 import atreyuTransforms from './atreyu/transforms';
 
@@ -219,6 +230,10 @@ function rpc(server) {
       req.body = args;
       return new Promise((resolve, reject) => {
         return oldMethod(req, resolve, reject);
+      }).catch(e => {
+        const error = new ResponseError(e.message); // TODO: you can add error.code and error.meta properties here if you want additional data to be serialized
+
+        throw error;
       });
     };
   });
