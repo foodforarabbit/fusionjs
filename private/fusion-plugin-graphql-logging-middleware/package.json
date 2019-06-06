@@ -165,7 +165,6 @@
     "npm": ">=5.6.0",
     "yarn": ">=1.4.0"
   },
-  "private": true,
   "files": [
     "dist",
     "src",
