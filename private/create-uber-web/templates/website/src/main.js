@@ -13,6 +13,7 @@
  ║                                                      ║
  ╚══════════════════════════════════════════════════════╝
 */
+
 import App from 'fusion-react';
 import HelmetPlugin from 'fusion-plugin-react-helmet-async';
 import SecureHeaders, {
@@ -43,16 +44,16 @@ import AnalyticsSession, {
   UberWebEventCookie,
 } from '@uber/fusion-plugin-analytics-session';
 import HeatpipePlugin, {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
-
+import FeatureTogglesPlugin, {
+  FeatureTogglesTogglesConfigToken,
+} from '@uber/fusion-plugin-feature-toggles-react';
 import CsrfProtectionPlugin, {
   CsrfIgnoreRoutesToken,
 } from 'fusion-plugin-csrf-protection';
-
 import UniversalEvents, {
   UniversalEventsToken,
 } from 'fusion-plugin-universal-events-react';
 import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3-react';
-
 import LoggerPlugin, {
   LogtronTeamToken,
   LogtronBackendsToken,
@@ -90,6 +91,7 @@ import jwtSessionConfig from './config/session.js';
 import secureHeadersConfig from './config/secure-headers';
 import sentryConfig from './config/sentry.js';
 import fontConfig from './config/fonts';
+import featureTogglesConfig from './config/toggles.js';
 
 // other
 import DefaultRoot from './components/root.js';
@@ -115,7 +117,6 @@ export default async function start(options: any = {}) {
   app.register(M3Token, M3Plugin);
   app.register(LoggerToken, LoggerPlugin);
   app.register(ErrorHandlingPlugin);
-
   app.register(FontLoaderPlugin);
   app.register(FontLoaderReactConfigToken, fontConfig);
   app.register(AnalyticsSessionToken, AnalyticsSession);
@@ -124,8 +125,10 @@ export default async function start(options: any = {}) {
   app.register(BrowserPerformanceEmitterPlugin);
   app.register(EventsAdapterPlugin);
   app.register(Styletron);
-
   app.register(HeatpipeToken, HeatpipePlugin);
+  app.register(FeatureTogglesPlugin);
+  __NODE__ &&
+    app.register(FeatureTogglesTogglesConfigToken, featureTogglesConfig);
 
   if (__NODE__) {
     // node specific plugins

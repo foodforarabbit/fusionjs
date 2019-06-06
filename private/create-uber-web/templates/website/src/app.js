@@ -3,12 +3,14 @@ import type FusionApp from 'fusion-core';
 import {createPlugin} from 'fusion-core';
 
 import ActionEmitterEnhancerPlugin from 'fusion-plugin-redux-action-emitter-enhancer';
-import {compose} from 'redux';
 import ReactReduxPlugin, {
   ReduxToken,
   ReducerToken,
   EnhancerToken,
 } from 'fusion-plugin-react-redux';
+
+import {compose} from 'redux';
+
 import reduxOptions from './redux.js';
 import A11yPlugin from './plugins/a11y.js';
 import HealthPlugin from './plugins/health.js';
