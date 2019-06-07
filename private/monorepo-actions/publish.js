@@ -179,9 +179,8 @@ async function publishDeployment(
 
     await writeVersions(packages);
     const { stdout } = await execFile("git", ["diff"]);
-    console.log("=== Diff ===");
+    console.log("--- Diff");
     console.log(stdout);
-    console.log("=== Publish ===");
     await publishRelease(packages);
   } catch (err) {
     await github.repos.createDeploymentStatus({
@@ -206,7 +205,7 @@ async function publishDeployment(
 async function publishRelease(packages) {
   const sorted = getTopologicalOrder(packages);
 
-  console.log("=== Topological order ===");
+  console.log("+++ Topological order");
   console.log(
     sorted.map(pkg =>
       packages[pkg].publish === false ? `${pkg} (publish: false)` : pkg
@@ -226,7 +225,7 @@ async function publishRelease(packages) {
     }
   }
 
-  console.log("Publishing...");
+  console.log("+++ Publishing...");
   const published = [];
   try {
     for (const { tarPath, distTag } of artifacts) {
@@ -239,8 +238,8 @@ async function publishRelease(packages) {
     }
   } catch (err) {
     process.exitCode = 1;
+    console.log("^^^ +++ Error ocurred. Unpublishing...");
     console.error(err);
-    console.log("Error ocurred. Unpublishing...");
     for (const pkg of published) {
       console.log(`Unpublishing ${pkg.id}`);
       const stdout = await unpublish(pkg.id);
