@@ -38,7 +38,7 @@ Within React:
 
 ```js
 import React from 'react';
-import {withLogger} from 'fusion-plugin-logtron-react';
+import {withLogger} from '@uber/fusion-plugin-logtron-react';
 
 class LogtronTester extends React.Component {
   render() {
@@ -160,7 +160,7 @@ Backends configuration for logtron. Server-only. Optional. See [https://github.c
 #### Higher order component
 
 ```js
-import {withLogger} from 'fusion-plugin-logtron-react';
+import {withLogger} from '@uber/fusion-plugin-logtron-react';
 ```
 
 A higher order component that exposes `logger` as a React component prop
