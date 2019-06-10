@@ -9,6 +9,7 @@ import {addPackage} from '../codemods/add-package/codemod-add-package.js';
 import {removePackage} from '../codemods/remove-package/codemod-remove-package.js';
 import {addCreateTokenGenerics} from '../codemods/flow/create-token-generics.js';
 import {addCreatePluginGenerics} from '../codemods/flow/create-plugin-generics.js';
+import {codemodFusionPluginFontLoaderReact} from '../codemods/fusion-plugin-font-loader-react/codemod-fusion-plugin-font-loader-react';
 import {fixMeTchannelMock} from '../codemods/flow/fixme-tchannel-mock.js';
 import {format} from '../utils/format.js';
 import type {UpgradeStrategy} from '../types.js';
@@ -114,6 +115,11 @@ export const upgrade = async ({
       }),
       step('stop tchannel mock flow error', async () => {
         await fixMeTchannelMock({dir});
+      }),
+      step('register FontLoaderReactToken with FontLoader plugin', async () => {
+        await codemodFusionPluginFontLoaderReact({
+          fileName: `${dir}/src/main.js`,
+        });
       }),
       step('format', async () => {
         await format(dir);
