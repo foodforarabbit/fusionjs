@@ -29,7 +29,6 @@ export const bumpDeps = async ({dir, match, force, strategy}: BumpOptions) => {
       await runTests(dir);
       await upgrade({...options, key: 'dependencies'});
       await upgrade({...options, key: 'devDependencies'});
-      await upgrade({...options, key: 'peerDependencies'});
     }
   }
 };
@@ -47,7 +46,7 @@ const installAndTest = async dir => {
 };
 
 const batchUpgrade = async ({dir, match, file, data, strategy}) => {
-  const keys = ['dependencies', 'devDependencies', 'peerDependencies'];
+  const keys = ['dependencies', 'devDependencies'];
   const promises = [];
   keys.forEach(key => {
     if (!data[key]) return;
@@ -57,8 +56,8 @@ const batchUpgrade = async ({dir, match, file, data, strategy}) => {
       promises.push(
         getLatestVersion(dep, strategy, data[key][dep]).then(v => {
           progress.tick();
-          const old = data[key][dep].replace(/\^/, '');
-          const curr = v.replace(/\^/, '');
+          const old = data[key][dep].replace(/\^|~/, '');
+          const curr = v.replace(/\^|~/, '');
           if (semver.gt(curr, old)) data[key][dep] = v;
         })
       );
@@ -85,8 +84,8 @@ const upgrade = async ({dir, match, file, data, key, strategy}) => {
     await installAndTest(dir).catch(e => {
       // eslint-disable-next-line no-console
       console.log(`Could not upgrade ${dep}`);
-      const old = data[key][dep].replace(/\^/, '');
-      const curr = version.replace(/\^/, '');
+      const old = data[key][dep].replace(/\^|~/, '');
+      const curr = version.replace(/\^|~/, '');
       if (semver.gt(curr, old)) data[key][dep] = version;
       return write(file, data);
     });
