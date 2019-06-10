@@ -189,7 +189,7 @@ No uOwn teams were returned. Check the following:
         process.exit();
       }
       options.infraportalConfig.team = await promptChoice(
-        'What is the uOwn team responsible for this service?',
+        'What is the uOwn team responsible for this service? (see http://t.uber.com/p_uown if your team is missing)',
         teams
       );
     }),
