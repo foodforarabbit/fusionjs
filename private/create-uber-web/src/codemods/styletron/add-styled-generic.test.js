@@ -34,3 +34,14 @@ test('addStyledGeneric with component', async () => {
 
   expect(data.includes('styled<any, any>(')).toBe(true);
 });
+
+test('addStyledGeneric, no flow', async () => {
+  const root = 'fixtures/add-styled-generic';
+  const file = `${root}/src/plugins/my-plugin.js`;
+  await writeFile(file, `// @noflow\nstyled('div', (props: Props) => ({}))`);
+  await addStyledGeneric({dir: root});
+  const data = await readFile(file);
+  await removeFile(root);
+
+  expect(data.includes('styled(')).toBe(true);
+});

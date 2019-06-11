@@ -13,6 +13,7 @@ export const addCreatePluginGenerics = async ({
   return Promise.all(
     files.map(file => {
       return withTextFile(file, async code => {
+        if (code.includes('@noflow')) return code;
         return code.replace(/createPlugin\(/g, 'createPlugin<*, *>(');
       });
     })

@@ -1,5 +1,7 @@
 // @flow
 
+import {readFile} from '@dubstep/core';
+
 import {withJsFiles} from '../../utils/with-js-files.js';
 
 type Options = {
@@ -7,7 +9,10 @@ type Options = {
 };
 
 export const addStyledGeneric = async ({dir}: Options) => {
-  await withJsFiles(dir, root => {
+  await withJsFiles(dir, async (root, file) => {
+    const data = await readFile(file).catch(() => '');
+    if (data.includes('@noflow')) return;
+
     root.traverse({
       CallExpression(p) {
         let typeId = '';
