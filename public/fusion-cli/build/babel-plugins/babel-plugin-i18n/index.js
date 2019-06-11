@@ -11,7 +11,11 @@
 const createModuleVisitor = require('../babel-plugin-utils/visit-named-module');
 
 const PACKAGE_NAME = ['fusion-plugin-i18n-react', 'fusion-plugin-i18n-preact'];
-const COMPONENT_IDENTIFIER = ['Translate', 'withTranslations'];
+const COMPONENT_IDENTIFIER = [
+  'Translate',
+  'withTranslations',
+  'useTranslations',
+];
 
 module.exports = i18nPlugin;
 
@@ -44,6 +48,30 @@ function i18nPlugin(babel /*: Object */, {translationIds} /*: PluginOpts */) {
               throw new Error(errorMessage);
             }
             translationIds.add(element.value);
+          });
+        } else if (specifierName === 'useTranslations') {
+          const localName = refPath.parentPath.parent.id.name;
+          const translationPaths =
+            refPath.parentPath.scope.bindings[localName].referencePaths;
+          translationPaths.forEach(translationPath => {
+            if (t.isCallExpression(translationPath.parentPath)) {
+              const arg = translationPath.parentPath.node.arguments[0];
+              const errorMessage =
+                'useTranslations result function must be passed string literal or hinted template literal';
+              if (t.isStringLiteral(arg)) {
+                translationIds.add(arg.value);
+              } else if (t.isTemplateLiteral(arg)) {
+                const result = arg.quasis.map(q => q.value.raw);
+                if (result.join('') === '') {
+                  // template literal not hinted, i.e. translate(`${foo}`)
+                  throw new Error(errorMessage);
+                } else {
+                  translationIds.add(result);
+                }
+              } else {
+                throw new Error(errorMessage);
+              }
+            }
           });
         }
         return;
