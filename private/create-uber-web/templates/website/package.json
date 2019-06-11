@@ -13,7 +13,7 @@
     "email": "{{email}}"
   },
   "dependencies": {
-    "@uber/atreyu": "^6.1.1",
+    "@uber/atreyu": "^6.2.0",
     "@uber/fusion-metrics": "^0.0.8",
     "@uber/fusion-plugin-analytics-session": "^1.4.1",
     "@uber/fusion-plugin-atreyu": "^1.4.0",
