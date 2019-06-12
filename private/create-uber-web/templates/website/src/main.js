@@ -90,7 +90,7 @@ import devSecretsConfig from './config/dev-sec.js';
 import jwtSessionConfig from './config/session.js';
 import secureHeadersConfig from './config/secure-headers';
 import sentryConfig from './config/sentry.js';
-import fontConfig from './config/fonts';
+import getFontConfig from './config/fonts';
 import featureTogglesConfig from './config/toggles.js';
 
 // other
@@ -118,7 +118,7 @@ export default async function start(options: any = {}) {
   app.register(LoggerToken, LoggerPlugin);
   app.register(ErrorHandlingPlugin);
   app.register(FontLoaderPlugin);
-  app.register(FontLoaderReactConfigToken, fontConfig);
+  app.register(FontLoaderReactConfigToken, getFontConfig());
   app.register(AnalyticsSessionToken, AnalyticsSession);
   app.register(AnalyticsCookieTypeToken, UberWebEventCookie);
   app.register(Router);
