@@ -28,7 +28,7 @@ export default () => {
   const b = assetUrl('../../../../../../../dist-client/main.css');
   const c = assetUrl('../../client/stylesheets/test.css');
   console.log(assetUrl);
-  return <div />;
+  return <div></div>;
 };
 "
 `;

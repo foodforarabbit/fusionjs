@@ -34,7 +34,7 @@ import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
-  const nonJSX = <Translate id=\\"thing\\" />;
+  const nonJSX = <Translate id=\\"thing\\"></Translate>;
   return (
     <div>
       <div>
@@ -44,16 +44,16 @@ function Test() {
             data={{
               a: 'lol',
             }}
-          />
+          ></Translate>
         </div>
         <div>
-          <Translate id=\\"key\\" data={something} />
+          <Translate id=\\"key\\" data={something}></Translate>
         </div>
         <div>
-          Hello <Translate id=\\"lol\\" />
+          Hello <Translate id=\\"lol\\"></Translate>
         </div>
-        <Something a={<Translate id=\\"test\\" />} />
-        <input placeholder={<Translate id=\\"another\\" />} />
+        <Something a={<Translate id=\\"test\\"></Translate>} />
+        <input placeholder={<Translate id=\\"another\\"></Translate>} />
       </div>
       <div>
         <div>
@@ -105,7 +105,7 @@ import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
-  const nonJSX = <Translate id=\\"thing\\" />;
+  const nonJSX = <Translate id=\\"thing\\"></Translate>;
   return (
     <div>
       <div>
@@ -115,16 +115,16 @@ function Test() {
             data={{
               a: 'lol',
             }}
-          />
+          ></Translate>
         </div>
         <div>
-          <Translate id=\\"key\\" data={something} />
+          <Translate id=\\"key\\" data={something}></Translate>
         </div>
         <div>
-          Hello <Translate id=\\"lol\\" />
+          Hello <Translate id=\\"lol\\"></Translate>
         </div>
-        <Something a={<Translate id=\\"test\\" />} />
-        <input placeholder={<Translate id=\\"another\\" />} />
+        <Something a={<Translate id=\\"test\\"></Translate>} />
+        <input placeholder={<Translate id=\\"another\\"></Translate>} />
       </div>
       <div>
         <div>
@@ -175,7 +175,7 @@ import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
-  const nonJSX = <Translate id=\\"thing\\" />;
+  const nonJSX = <Translate id=\\"thing\\"></Translate>;
   return (
     <div>
       <div>
@@ -185,15 +185,15 @@ function Test() {
             data={{
               a: 'lol',
             }}
-          />
+          ></Translate>
         </div>
         <div>
-          <Translate id=\\"key\\" data={something} />
+          <Translate id=\\"key\\" data={something}></Translate>
         </div>
         <div>
-          Hello <Translate id=\\"lol\\" />
+          Hello <Translate id=\\"lol\\"></Translate>
         </div>
-        <Something a={<Translate id=\\"test\\" />} />
+        <Something a={<Translate id=\\"test\\"></Translate>} />
         <input placeholder={t('another')} />
       </div>
       <div>
@@ -245,7 +245,7 @@ import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
-  const nonJSX = <Translate id=\\"thing\\" />;
+  const nonJSX = <Translate id=\\"thing\\"></Translate>;
   return (
     <div>
       <div>
@@ -255,15 +255,15 @@ function Test() {
             data={{
               a: 'lol',
             }}
-          />
+          ></Translate>
         </div>
         <div>
-          <Translate id=\\"key\\" data={something} />
+          <Translate id=\\"key\\" data={something}></Translate>
         </div>
         <div>
-          Hello <Translate id=\\"lol\\" />
+          Hello <Translate id=\\"lol\\"></Translate>
         </div>
-        <Something a={<Translate id=\\"test\\" />} />
+        <Something a={<Translate id=\\"test\\"></Translate>} />
         <input placeholder={t('another')} />
       </div>
       <div>
@@ -307,7 +307,7 @@ import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
-  const nonJSX = <Translate id=\\"thing\\" />;
+  const nonJSX = <Translate id=\\"thing\\"></Translate>;
   return (
     <div>
       <div>
@@ -317,12 +317,12 @@ function Test() {
             data={{
               a: 'lol',
             }}
-          />
+          ></Translate>
         </div>
         <div>
-          Hello <Translate id=\\"lol\\" />
+          Hello <Translate id=\\"lol\\"></Translate>
         </div>
-        <Something a={<Translate id=\\"test\\" />} />
+        <Something a={<Translate id=\\"test\\"></Translate>} />
       </div>
     </div>
   );
@@ -359,7 +359,7 @@ import {Translate} from 'fusion-plugin-i18n-react';
 import React from 'react';
 
 function Test() {
-  const nonJSX = <Translate id=\\"thing\\" />;
+  const nonJSX = <Translate id=\\"thing\\"></Translate>;
   return (
     <div>
       <div>
@@ -369,12 +369,12 @@ function Test() {
             data={{
               a: 'lol',
             }}
-          />
+          ></Translate>
         </div>
         <div>
-          Hello <Translate id=\\"lol\\" />
+          Hello <Translate id=\\"lol\\"></Translate>
         </div>
-        <Something a={<Translate id=\\"test\\" />} />
+        <Something a={<Translate id=\\"test\\"></Translate>} />
       </div>
     </div>
   );
@@ -451,7 +451,7 @@ import React from 'react';
 import {Translate} from 'fusion-plugin-i18n-react';
 
 function Test() {
-  const nonJSX = <Translate id=\\"thing\\" />;
+  const nonJSX = <Translate id=\\"thing\\"></Translate>;
   return (
     <div>
       <div>
@@ -461,12 +461,12 @@ function Test() {
             data={{
               a: 'lol',
             }}
-          />
+          ></Translate>
         </div>
         <div>
-          Hello <Translate id=\\"lol\\" />
+          Hello <Translate id=\\"lol\\"></Translate>
         </div>
-        <Something a={<Translate id=\\"test\\" />} />
+        <Something a={<Translate id=\\"test\\"></Translate>} />
       </div>
     </div>
   );
