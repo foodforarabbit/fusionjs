@@ -2662,7 +2662,7 @@
     nyc "^14.1.0"
     prettier "^1.17.0"
     sinon "^7.1.1"
-    source-map "^0.7.3"
+    source-map "^0.8.0-beta.0"
     tape-cup "^4.7.1"
     unitest "^2.1.1"
 
@@ -14958,6 +14958,12 @@ source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.0, source-map@~0.6.1:
 source-map@^0.7.2, source-map@^0.7.3:
   version "0.7.3"
   resolved "https://unpm.uberinternal.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
+
+source-map@^0.8.0-beta.0:
+  version "0.8.0-beta.0"
+  resolved "https://unpm.uberinternal.com/source-map/-/source-map-0.8.0-beta.0.tgz#d4c1bb42c3f7ee925f005927ba10709e0d1d1f11"
+  dependencies:
+    whatwg-url "^7.0.0"
 
 spawn-wrap@^1.4.2:
   version "1.4.2"

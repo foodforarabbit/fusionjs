@@ -23,7 +23,7 @@
     "@uber/logtron": "^9.0.9",
     "error-stack-parser": "^2.0.2",
     "koa-bodyparser": "^4.2.1",
-    "source-map": "^0.7.3"
+    "source-map": "^0.8.0-beta.0"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
