@@ -385,6 +385,10 @@
       "projectFolder": "public/create-fusion-app"
     },
     {
+      "packageName": "fusion-plugin-web-app-manifest",
+      "projectFolder": "public/fusion-plugin-web-app-manifest"
+    },
+    {
       "packageName": "@uber/fusion-plugin-web-rpc-compat",
       "projectFolder": "private/fusion-plugin-web-rpc-compat"
     },
