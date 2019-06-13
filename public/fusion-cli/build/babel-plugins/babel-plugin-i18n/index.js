@@ -50,27 +50,39 @@ function i18nPlugin(babel /*: Object */, {translationIds} /*: PluginOpts */) {
             translationIds.add(element.value);
           });
         } else if (specifierName === 'useTranslations') {
+          if (!t.isVariableDeclarator(refPath.parentPath.parent)) {
+            throw new Error(
+              'Unexpected assignment of useTranslations return function'
+            );
+          }
           const localName = refPath.parentPath.parent.id.name;
           const translationPaths =
             refPath.parentPath.scope.bindings[localName].referencePaths;
           translationPaths.forEach(translationPath => {
-            if (t.isCallExpression(translationPath.parentPath)) {
+            if (
+              t.isCallExpression(translationPath.parentPath) &&
+              translationPath.parentKey === 'callee'
+            ) {
               const arg = translationPath.parentPath.node.arguments[0];
               const errorMessage =
                 'useTranslations result function must be passed string literal or hinted template literal';
               if (t.isStringLiteral(arg)) {
                 translationIds.add(arg.value);
               } else if (t.isTemplateLiteral(arg)) {
-                const result = arg.quasis.map(q => q.value.raw);
-                if (result.join('') === '') {
+                const literalSections = arg.quasis.map(q => q.value.cooked);
+                if (literalSections.join('') === '') {
                   // template literal not hinted, i.e. translate(`${foo}`)
                   throw new Error(errorMessage);
                 } else {
-                  translationIds.add(result);
+                  translationIds.add(literalSections);
                 }
               } else {
                 throw new Error(errorMessage);
               }
+            } else {
+              throw new Error(
+                'Unexpected usage of useTranslations return function'
+              );
             }
           });
         }
