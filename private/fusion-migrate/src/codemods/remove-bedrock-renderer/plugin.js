@@ -17,9 +17,7 @@ module.exports = () => {
       const refPath = refPaths[0];
       if (refPath.parentPath.type !== 'NewExpression') {
         throw new Error(
-          `Unsure how to codemod isorender. Expected NewExpression, received ${
-            refPath.parentPath.type
-          }`
+          `Unsure how to codemod isorender. Expected NewExpression, received ${refPath.parentPath.type}`
         );
       }
       const props = refPath.parent.arguments[0].properties;
@@ -35,9 +33,7 @@ module.exports = () => {
           isorenderHandleRequestRef.parentPath.parentPath.parentPath.parentPath.remove();
         } else {
           throw new Error(
-            `Remove @uber/isorender import and isorender.handleRequest call manually in ${
-              state.file.opts.filename
-            }`
+            `Remove @uber/isorender import and isorender.handleRequest call manually in ${state.file.opts.filename}`
           );
         }
       } else {

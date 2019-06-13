@@ -12,4 +12,4 @@ export {
 } from './tokens';
 
 declare var __NODE__: Boolean;
-export default (__NODE__ ? ServerClient : BrowserClient);
+export default __NODE__ ? ServerClient : BrowserClient;

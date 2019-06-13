@@ -35,4 +35,4 @@ export {
   FeatureTogglesClientConfigToken,
 };
 
-export default (__NODE__ ? server : browser);
+export default __NODE__ ? server : browser;

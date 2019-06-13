@@ -10,7 +10,7 @@ import {
 
 export {TracerToken} from './tokens.js';
 
-export default (__NODE__ ? server : browser);
+export default __NODE__ ? server : browser;
 
 export const TracerOptionsToken = OptionsToken;
 export const TracerConfigToken = ConfigToken;

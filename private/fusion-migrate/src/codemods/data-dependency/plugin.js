@@ -64,9 +64,7 @@ module.exports = () => {
             });
           } else {
             throw new Error(
-              `Unsupported dependencyExpression type: ${
-                dependencyExpression.type
-              }`
+              `Unsupported dependencyExpression type: ${dependencyExpression.type}`
             );
           }
         }

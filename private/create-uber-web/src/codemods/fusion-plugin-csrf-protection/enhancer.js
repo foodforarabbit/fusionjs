@@ -48,9 +48,7 @@ export const migrateCsrfProtectionToV2 = async ({
           if (ref.parentPath.type !== 'CallExpression') {
             // eslint-disable-next-line no-console
             console.log(
-              `WARNING: Unsure how to migrate withFetch with parent path: ${
-                ref.parentPath.type
-              }`
+              `WARNING: Unsure how to migrate withFetch with parent path: ${ref.parentPath.type}`
             );
             return;
           }

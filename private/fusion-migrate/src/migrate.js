@@ -60,9 +60,7 @@ module.exports = async function(name, sub, options) {
   } else {
     log(
       chalk.red(
-        `Unknown lastCompletedStep ${
-          report.lastCompletedStep
-        } in migration-report.json`
+        `Unknown lastCompletedStep ${report.lastCompletedStep} in migration-report.json`
       )
     );
     return false;
@@ -109,9 +107,7 @@ async function migrate({destDir, steps, report, migrationPart}) {
       fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
     }
     await execa.shell(
-      `git add . && git commit --no-edit --no-verify -m "Fusion migration step ${migrationPart}/${
-        megaSteps.length
-      }"`
+      `git add . && git commit --no-edit --no-verify -m "Fusion migration step ${migrationPart}/${megaSteps.length}"`
     );
     return true;
   }

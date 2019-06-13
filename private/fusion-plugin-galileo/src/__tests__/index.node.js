@@ -75,15 +75,13 @@ function assertPlugin(
   app.register(ClientToken, MockGalileo);
   app.register(ConfigToken, config);
   app.register(gToken, GalileoPlugin);
-  app.middleware(
-    {Galileo: gToken},
-    ({
-      Galileo,
-    }): ((ctx: Context, next: () => Promise<void>) => Promise<void>) => {
-      assert(Galileo);
-      return (ctx: Context, next: () => Promise<void>): Promise<void> => next();
-    }
-  );
+  app.middleware({Galileo: gToken}, ({Galileo}): ((
+    ctx: Context,
+    next: () => Promise<void>
+  ) => Promise<void>) => {
+    assert(Galileo);
+    return (ctx: Context, next: () => Promise<void>): Promise<void> => next();
+  });
   getSimulator(app);
 }
 
