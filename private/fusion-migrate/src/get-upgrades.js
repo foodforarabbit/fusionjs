@@ -8,7 +8,6 @@ const modLogtronBackend = require('./codemods/remove-logtron-backend-config-wrap
 const modHelmetMigrations = require('./codemods/helmet-migrations/plugin.js');
 const modPluginRemovals = require('./codemods/plugin-removals/plugin.js');
 const modMoveAuthHeadersConfigFromMain = require('./codemods/move-auth-headers-config-from-main/plugin.js');
-const replaceReactAxeImports = require('./codemods/replace-react-axe-imports/plugin.js');
 
 const flowConfigStep = require('./utils/flowconfig-step.js');
 const addFlowLibdefsToConfig = require('./commands/add-flow-libdefs-to-config.js');
@@ -103,13 +102,6 @@ module.exports = function getUpgrades({srcDir, destDir}) {
         destDir,
         plugin: modMoveAuthHeadersConfigFromMain,
         glob: 'src/main.js',
-      });
-    },
-    async () => {
-      await codemodStep({
-        destDir,
-        plugin: replaceReactAxeImports,
-        glob: 'src/plugins/a11y.js',
       });
     },
     async () => format(destDir),

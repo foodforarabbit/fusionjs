@@ -1,5 +1,4 @@
 const t = require('@babel/types');
-const {astOf} = require('../../utils/index.js');
 
 module.exports = () => {
   return {
@@ -19,9 +18,11 @@ module.exports = () => {
             .filter(s => s !== browserHistorySpecifier)
             .map(s => s.node);
           if (browserHistorySpecifier) {
+            browserHistorySpecifier.node.imported.name = 'browserHistoryCompat';
             path.insertAfter(
-              astOf(
-                `import {browserHistoryCompat as ${browserHistorySpecifier.node.local.name}} from '@uber/fusion-plugin-react-router-v3-compat';`
+              t.importDeclaration(
+                [browserHistorySpecifier.node],
+                t.stringLiteral('@uber/fusion-plugin-react-router-v3-compat')
               )
             );
           }

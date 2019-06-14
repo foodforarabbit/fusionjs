@@ -47,7 +47,6 @@ const defaultCompatModules = [
 ];
 
 const defaultUpgradeModules = {
-  '@uber/atreyu': '^6.2.0',
   '@uber/web-rpc-redux': '^9.1.2',
   '@uber/web-rpc-atreyu': '^5.0.12',
   'fusion-plugin-react-helmet-async': '1.0.0',

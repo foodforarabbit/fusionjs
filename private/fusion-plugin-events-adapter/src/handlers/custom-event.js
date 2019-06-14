@@ -1,16 +1,12 @@
 // @noflow
-import structureMeta from '../utils/structure-meta';
-
 export default ({events, heatpipeEmitter, m3}) =>
   events.on('custom-hp-web-event', (payload, ctx) => {
-    const {name, type, value, _trackingMeta, webEventsMeta} = payload;
-
+    const {name, type, value, webEventsMeta} = payload;
     heatpipeEmitter.publishWebEvents({
       message: {
         name,
         type,
         value,
-        ...structureMeta(_trackingMeta),
       },
       ctx,
       webEventsMeta,
