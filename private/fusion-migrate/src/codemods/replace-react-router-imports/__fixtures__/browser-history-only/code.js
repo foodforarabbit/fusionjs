@@ -1,4 +1,4 @@
-import {browserHistory} from 'react-router';
+import {browserHistory as bh} from 'react-router';
 
 function thing() {
   return <div />;
