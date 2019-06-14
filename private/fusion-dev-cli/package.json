@@ -1,6 +1,6 @@
 {
   "name": "@uber/fusion-dev-cli",
-  "description": "M3 plugin for fusion",
+  "description": "Fusion.js development CLI with Uber-specific concerns (e.g. starting Cerberus)",
   "version": "0.0.0-monorepo",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",

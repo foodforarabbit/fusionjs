@@ -61,7 +61,9 @@ function runCerberus() {
 }
 
 function isCerberusRunning() {
-  return request('http://localhost:5836/').then(() => true).catch(() => false);
+  return request('http://localhost:5836/logs')
+    .then(logs => logs.includes('now accepting requests')) // post handshaked and configuration
+    .catch(() => false);
 }
 
 function proxy() {
