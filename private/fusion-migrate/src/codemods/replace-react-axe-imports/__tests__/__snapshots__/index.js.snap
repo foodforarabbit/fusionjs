@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`replace-react-axe-imports negative-match: negative-match 1`] = `
+"import React from 'react';
+import ReactDOM from 'react-dom';
+import type {Context} from 'fusion-core';
+
+const AXE_DEBOUNCE_MILLISECONDS = 1000;
+
+export default (ctx: Context, next: () => Promise<*>): Promise<*> => {
+  if (__DEV__) {
+    const axeee = require('react-axe');
+    axeee(React, ReactDOM, AXE_DEBOUNCE_MILLISECONDS);
+  }
+  return next();
+};
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import type {Context} from 'fusion-core';
+const AXE_DEBOUNCE_MILLISECONDS = 1000;
+export default (ctx: Context, next: () => Promise<*>): Promise<*> => {
+  if (__DEV__) {
+    const axeee = require('react-axe');
+
+    axeee(React, ReactDOM, AXE_DEBOUNCE_MILLISECONDS);
+  }
+
+  return next();
+};
+"
+`;
+
+exports[`replace-react-axe-imports positive-match: positive-match 1`] = `
+"import React from 'react';
+import ReactDOM from 'react-dom';
+import axeee from 'react-axe';
+import type {Context} from 'fusion-core';
+
+const AXE_DEBOUNCE_MILLISECONDS = 1000;
+
+export default (ctx: Context, next: () => Promise<*>): Promise<*> => {
+  if (__DEV__) {
+    const what = require('yes');
+    axeee(React, ReactDOM, AXE_DEBOUNCE_MILLISECONDS);
+  }
+  return next();
+};
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import type {Context} from 'fusion-core';
+const AXE_DEBOUNCE_MILLISECONDS = 1000;
+export default (ctx: Context, next: () => Promise<*>): Promise<*> => {
+  if (__DEV__) {
+    const what = require('yes');
+
+    const axeee = require('react-axe');
+
+    axeee(React, ReactDOM, AXE_DEBOUNCE_MILLISECONDS);
+  }
+
+  return next();
+};
+"
+`;
