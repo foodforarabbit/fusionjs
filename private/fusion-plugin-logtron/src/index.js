@@ -1,11 +1,12 @@
 // @flow
-import ServerLogger from './server';
-import {BackendsToken, TransformsToken, TeamToken} from './tokens';
-import BrowserLogger from './browser';
+
+import ServerLogger from './server.js';
+import BrowserLogger from './browser.js';
+
+import {BackendsToken, TransformsToken, TeamToken} from './tokens.js';
 
 export {default as mock} from './mock';
 
-declare var __NODE__: Boolean;
 export default __NODE__ ? ServerLogger : BrowserLogger;
 
 export const LogtronBackendsToken = BackendsToken;
