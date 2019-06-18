@@ -78,17 +78,6 @@ class Nav extends Component {
     routePrefix: React.PropTypes.string,
   };
 
-  isPathActive(urlPath, indexOnly) {
-    // indexOnly ensures that nested child routes won't make their parent active
-    // https://github.com/reactjs/react-router/blob/master/docs/API.md#isactivepathorloc-indexonly
-    return this.context.router.isActive(
-      {
-        pathname: urlPath,
-      },
-      indexOnly
-    );
-  }
-
   render() {
     const activeNavStyle = {
       borderTop: '3px solid #1B6DE0',
@@ -111,8 +100,6 @@ class Nav extends Component {
         hasLogo: true,
         title: 'template',
       },
-      isPathActive: (urlPath, indexOnly) =>
-        this.isPathActive(urlPath, indexOnly),
       routes: _ROUTES,
     };
     return (
@@ -124,7 +111,7 @@ class Nav extends Component {
               to={route.path}
               activeStyle={activeNavStyle}
               style={navStyle}
-              isActive={this.isPathActive}
+              isActive={match => match && match.isExact}
             >
               {route.text}
             </NavLink>

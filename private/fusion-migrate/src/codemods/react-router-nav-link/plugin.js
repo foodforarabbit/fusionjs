@@ -20,7 +20,19 @@ const activeNavStyle = {
 `).node.body;
 
 module.exports = () => {
-  const visitor = visitNamedModule({
+  const removalVisitor = {
+    Identifier(path) {
+      if (path.node.name === 'isPathActive') {
+        if (
+          path.parentPath.node.type === 'ClassMethod' ||
+          path.parentPath.node.type === 'ObjectProperty'
+        ) {
+          path.parentPath.remove();
+        }
+      }
+    },
+  };
+  const replacementVisitor = visitNamedModule({
     packageName: '@uber/react-routing-top-bar',
     refsHandler: (t, state, refPaths, path) => {
       refPaths
@@ -55,7 +67,7 @@ module.exports = () => {
           to={route.path}
           activeStyle={activeNavStyle}
           style={navStyle}
-          isActive={this.isPathActive}
+          isActive={match => match && match.isExact}
         >
           {route.text}
         </NavLink>
@@ -74,6 +86,6 @@ module.exports = () => {
 
   return {
     name: 'react-routing-top-bar',
-    visitor,
+    visitor: {...removalVisitor, ...replacementVisitor},
   };
 };
