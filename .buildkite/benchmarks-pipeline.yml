@@ -1,0 +1,20 @@
+steps:
+  - label: ":docker:"
+    timeout_in_minutes: 20
+    plugins:
+      "docker-compose#v3.0.0":
+        build: ci
+        image-repository: 027047743804.dkr.ecr.us-east-2.amazonaws.com/uber
+        args:
+          - UNPM_TOKEN=$UNPM_TOKEN
+    agents:
+      queue: private-builders
+  - wait
+  - label: "Benchmarks"
+    command: node ./private/monorepo-actions/time_build.js
+    timeout_in_minutes: 30
+    plugins:
+      "docker-compose#v3.0.0":
+        run: ci
+    agents:
+      queue: private-default

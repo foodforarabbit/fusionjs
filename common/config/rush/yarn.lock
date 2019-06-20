@@ -3542,6 +3542,8 @@
     "@publisher/core" "0.2.1"
     "@publisher/npm-helpers" "0.1.2"
     "@rtsao/scc" "^1.0.0"
+    chalk "^2.4.2"
+    folder-hash "^3.1.0"
     jju "^1.4.0"
 
 "@sindresorhus/is@^0.7.0":
@@ -8488,6 +8490,14 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
+folder-hash@^3.1.0:
+  version "3.1.0"
+  resolved "https://unpm.uberinternal.com/folder-hash/-/folder-hash-3.1.0.tgz#b15823405a62b6de50d8a6f29503d1e6d6ac0d0c"
+  dependencies:
+    debug "^4.1.1"
+    graceful-fs "~4.1.11"
+    minimatch "~3.0.4"
+
 follow-redirects@1.5.10:
   version "1.5.10"
   resolved "https://unpm.uberinternal.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
@@ -8970,7 +8980,7 @@ got@^8.3.2:
     url-parse-lax "^3.0.0"
     url-to-options "^1.0.1"
 
-graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@~4.1.2:
+graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@~4.1.11, graceful-fs@~4.1.2:
   version "4.1.15"
   resolved "https://unpm.uberinternal.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
 
@@ -11910,7 +11920,7 @@ minimalistic-crypto-utils@^1.0.0, minimalistic-crypto-utils@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
 
-"minimatch@2 || 3", minimatch@3.0.4, minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4:
+"minimatch@2 || 3", minimatch@3.0.4, minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch@^3.0.4, minimatch@~3.0.4:
   version "3.0.4"
   resolved "https://unpm.uberinternal.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   dependencies:

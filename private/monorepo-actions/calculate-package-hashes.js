@@ -9,13 +9,12 @@ const execFile = promisify(cp.execFile);
 const readFile = promisify(fs.readFile);
 const readdir = promisify(fs.readdir);
 
-const App = require("@octokit/app");
-const Octokit = require("@octokit/rest");
 const { DRAFT_BRANCH_PREFIX } = require("@publisher/core/releases.js");
 const { PackageHashes } = require("@publisher/core/package-hashes.js");
 const { pack } = require("@publisher/npm-helpers");
 
 const getMonorepoPackages = require("./get-packages.js");
+const { create_github_checks } = require("./gh_checks_helper.js");
 
 pushHandler({
   branch: (process.env.BUILDKITE_BRANCH /*: any */),
@@ -37,30 +36,12 @@ type HandlerContext = {
 };
 
 */
-
 async function pushHandler(context /*: HandlerContext */) {
   if (context.branch.startsWith(DRAFT_BRANCH_PREFIX)) {
     return;
   }
 
-  const app = new App({
-    id: process.env.GH_CHECKS_APP_ID,
-    privateKey: Buffer.from(
-      (process.env.GH_CHECKS_APP_KEY_BASE64 /*: any */),
-      "base64"
-    ).toString()
-  });
-
-  const github = new Octokit({
-    async auth() {
-      const installationAccessToken = await app.getInstallationAccessToken({
-        installationId: process.env.GH_CHECKS_APP_INSTALLATION_ID
-      });
-      return `token ${installationAccessToken}`;
-    }
-  });
-
-  await reportChangedPackages(github, context);
+  await reportChangedPackages(create_github_checks(), context);
 }
 
 async function reportChangedPackages(github, { owner, repo, commit }) {
