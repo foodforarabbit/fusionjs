@@ -1,10 +1,12 @@
 # uber/fusionjs
 
+[![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
+
 > The entire fusionjs codebase, including the [open source fusionjs monorepo](https://github.com/fusionjs/fusionjs) synced into the `public` directory
 
 ### Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) and the [Fusion.js Monorepo Runbook](https://docs.google.com/document/d/1gvmU9Q2HUe0HTdfOQAVZoJyiDTa4uVF-9te1v21P3AI) before developing in the fusionjs codebase
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before developing in the fusionjs codebase
 
 ### Docker
 
