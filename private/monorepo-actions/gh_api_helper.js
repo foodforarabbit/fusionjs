@@ -2,10 +2,11 @@ const App = require("@octokit/app");
 const Octokit = require("@octokit/rest");
 
 module.exports = {
-  create_github_checks,
+  create_github_app,
+  create_github_user,
 };
 
-function create_github_checks() {
+function create_github_app() {
   const app = new App({
     id: process.env.GH_CHECKS_APP_ID,
     privateKey: Buffer.from(
@@ -24,4 +25,10 @@ function create_github_checks() {
   });
 
   return github_checks;
+}
+
+function create_github_user() {
+  return new Octokit({
+    auth: process.env.GH_TOKEN,
+  });
 }

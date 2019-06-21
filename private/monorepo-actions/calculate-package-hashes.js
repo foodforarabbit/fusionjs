@@ -14,13 +14,13 @@ const { PackageHashes } = require("@publisher/core/package-hashes.js");
 const { pack } = require("@publisher/npm-helpers");
 
 const getMonorepoPackages = require("./get-packages.js");
-const { create_github_checks } = require("./gh_checks_helper.js");
+const { create_github_app } = require("./gh_api_helper.js");
 
 pushHandler({
   branch: (process.env.BUILDKITE_BRANCH /*: any */),
   commit: (process.env.BUILDKITE_COMMIT /*: any */),
   owner: "uber",
-  repo: "fusionjs"
+  repo: "fusionjs",
 }).catch(err => {
   console.error(err);
   process.exit(1);
@@ -41,7 +41,7 @@ async function pushHandler(context /*: HandlerContext */) {
     return;
   }
 
-  await reportChangedPackages(create_github_checks(), context);
+  await reportChangedPackages(create_github_app(), context);
 }
 
 async function reportChangedPackages(github, { owner, repo, commit }) {
@@ -62,8 +62,8 @@ async function reportChangedPackages(github, { owner, repo, commit }) {
     output: {
       title: "Package tarball hashes",
       summary: "Package tarball hashes",
-      text: PackageHashes.serializeCheckRunOutputText(packages)
-    }
+      text: PackageHashes.serializeCheckRunOutputText(packages),
+    },
   });
 }
 
@@ -79,7 +79,7 @@ async function getPackedHashes(pkgs) {
   for (const item of packed) {
     data[item.name] = {
       shasum: item.shasum,
-      localDependencies: pkgs[item.name].localDependencies
+      localDependencies: pkgs[item.name].localDependencies,
     };
   }
   return data;

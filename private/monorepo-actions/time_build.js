@@ -1,7 +1,7 @@
 // @flow
 const { exec, execFile, execFileSync } = require("child_process");
 const path = require("path");
-const { create_github_checks } = require("./gh_checks_helper.js");
+const { create_github_app, create_github_user } = require("./gh_api_helper.js");
 const assert = require("assert");
 
 const {
@@ -23,6 +23,8 @@ assert(
   FILES > 0,
   "IF FILES is less than 1, modifying files for incremental dev will fail."
 );
+
+postStatus(); // posting a 'Sucessful' check so the buildkite job doesn't appear as pending for too long
 
 const path_to_test_fixture = path.join(__dirname, "test-fixture");
 const started_at = new Date().toISOString();
@@ -189,7 +191,7 @@ function deleteCaches() {
 }
 
 async function postBuildTime(json_data) {
-  const github_checks = create_github_checks();
+  const github_checks = create_github_app();
 
   await github_checks.checks.create({
     owner: "uber",
@@ -208,4 +210,20 @@ async function postBuildTime(json_data) {
   });
   console.log("Build finished");
   console.log(JSON.stringify(json_data));
+}
+
+async function postStatus() {
+  const github = create_github_user();
+
+  await github.repos.createStatus({
+    owner: "uber",
+    repo: "fusionjs",
+    name: "buildkite/fusionjs-benchmarks",
+    sha: process.env.BUILDKITE_COMMIT,
+    state: "success",
+    description:
+      "Job is still running, but should not affect the outcome of the pr",
+    target_url: process.env.BUILDKITE_BUILD_URL,
+    context: "buildkite/fusionjs-benchmarks",
+  });
 }
