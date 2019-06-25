@@ -1,6 +1,6 @@
 // @flow
 /* eslint-env node */
-import type {RosettaDepsType, ProvidesType} from './types';
+import type {RosettaDepsType, InternalRosettaServiceType} from './types';
 
 import {Locales} from 'locale';
 
@@ -64,7 +64,7 @@ function translationsLoaderFactory(
 }
 
 const pluginFactory = () =>
-  createPlugin<RosettaDepsType, ProvidesType>({
+  createPlugin<RosettaDepsType, InternalRosettaServiceType>({
     deps: {
       logger: LoggerToken,
       Client: ClientToken.optional,
