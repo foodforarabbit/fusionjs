@@ -117,9 +117,7 @@ export const upgrade = async ({
         await fixMeTchannelMock({dir});
       }),
       step('register FontLoaderReactToken with FontLoader plugin', async () => {
-        await codemodFusionPluginFontLoaderReact({
-          fileName: `${dir}/src/main.js`,
-        });
+        await codemodFusionPluginFontLoaderReact({dir});
       }),
       step('format', async () => {
         await format(dir);

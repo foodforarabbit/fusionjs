@@ -7,7 +7,8 @@ import {
   writeFile,
 } from '@dubstep/core';
 
-import isFile from './utils/is-file.js';
+import isFile from '../utils/is-file.js';
+import hasRegistrationUsage from '../utils/has-registration-usage.js';
 import {addPackage} from '../add-package/codemod-add-package.js';
 import type {UpgradeStrategy} from '../../types.js';
 
@@ -94,42 +95,6 @@ export const installFeatureToggles = async ({
 };
 
 /* Helper functions */
-
-/**
- * Determines whether there are any usages of the provided identifier within
- * an `app.register(...)`
- */
-function hasRegistrationUsage(program: any, identifier: string): boolean {
-  let found = false;
-  program.traverse({
-    ExpressionStatement(path) {
-      path.traverse({
-        CallExpression(path) {
-          let isRegisterCall = false;
-          if (
-            path.node.callee.object &&
-            path.node.callee.object.name === 'app' &&
-            path.node.callee.property.name === 'register'
-          ) {
-            isRegisterCall = true;
-          }
-
-          // Exit early if this is not an 'app.register' call
-          if (isRegisterCall) {
-            path.traverse({
-              Identifier(path) {
-                if (path.node.name === identifier) {
-                  found = true;
-                }
-              },
-            });
-          }
-        },
-      });
-    },
-  });
-  return found;
-}
 
 /**
  * Determines whether there is a 'return app;' in the given file path's default

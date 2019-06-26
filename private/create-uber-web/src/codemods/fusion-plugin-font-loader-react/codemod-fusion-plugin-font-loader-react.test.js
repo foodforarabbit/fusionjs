@@ -2,7 +2,7 @@
 import {codemodFusionPluginFontLoaderReact} from './codemod-fusion-plugin-font-loader-react';
 import {writeFile, readFile, removeFile} from '@dubstep/core';
 
-test('codemod-fusion-plugin-font-loader-react no import, matching register', async () => {
+test('codemod-fusion-plugin-font-loader-react ignores files without import', async () => {
   const contents = `
 app.register(FontLoaderPlugin);
 app.register(FontLoaderReactConfigToken, fontConfig);
@@ -11,21 +11,42 @@ app.register(FontLoaderReactConfigToken, fontConfig);
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
   await codemodFusionPluginFontLoaderReact({
-    fileName: fixture,
+    dir: root,
   });
   const newContents = await readFile(fixture);
   const data = newContents;
   await removeFile(root);
   expect(data).toMatchInlineSnapshot(`
 "
-import {FontLoaderReactToken} from 'fusion-plugin-font-loader-react';
-app.register(FontLoaderReactToken, FontLoaderPlugin);
+app.register(FontLoaderPlugin);
 app.register(FontLoaderReactConfigToken, fontConfig);
 "
 `);
 });
 
-test('codemod-fusion-plugin-font-loader-react existing some imports from package import, matching register', async () => {
+test('codemod-fusion-plugin-font-loader-react ignores files without register call', async () => {
+  const contents = `
+import FontLoaderPlugin, { FontLoaderReactConfigToken } from 'fusion-plugin-font-loader-react';
+app.register(FontLoaderReactConfigToken, fontConfig);
+`;
+  const root = 'fixtures/replace-js';
+  const fixture = `${root}/fixture.js`;
+  await writeFile(fixture, contents);
+  await codemodFusionPluginFontLoaderReact({
+    dir: root,
+  });
+  const newContents = await readFile(fixture);
+  const data = newContents;
+  await removeFile(root);
+  expect(data).toMatchInlineSnapshot(`
+"
+import FontLoaderPlugin, { FontLoaderReactConfigToken } from 'fusion-plugin-font-loader-react';
+app.register(FontLoaderReactConfigToken, fontConfig);
+"
+`);
+});
+
+test('codemod-fusion-plugin-font-loader-react adds to existing imports from package, adds token to register call', async () => {
   const contents = `
 import FontLoaderPlugin, {
   FontLoaderReactConfigToken,
@@ -37,7 +58,7 @@ app.register(FontLoaderReactConfigToken, fontConfig);
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
   await codemodFusionPluginFontLoaderReact({
-    fileName: fixture,
+    dir: root,
   });
   const newContents = await readFile(fixture);
   const data = newContents;
@@ -61,7 +82,7 @@ app.register(FontLoaderReactConfigToken, fontConfig);
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
   await codemodFusionPluginFontLoaderReact({
-    fileName: fixture,
+    dir: root,
   });
   const newContents = await readFile(fixture);
   const data = newContents;

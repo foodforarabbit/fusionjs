@@ -2,7 +2,7 @@
 import {writeFile, readFile, removeFile} from '@dubstep/core';
 import {installFeatureToggles} from './installation.js';
 
-import isFile from './utils/is-file.js';
+import isFile from '../utils/is-file.js';
 
 jest.mock('../../utils/get-latest-version.js', () => ({
   getLatestVersion: () => Promise.resolve('^1.0.0'),
