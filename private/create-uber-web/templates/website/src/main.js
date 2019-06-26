@@ -79,6 +79,7 @@ import UberErrorHandlingPlugin from '@uber/fusion-plugin-error-handling';
 import NodePerfEmitterPlugin from 'fusion-plugin-node-performance-emitter';
 import FontLoaderPlugin, {
   FontLoaderReactConfigToken,
+  FontLoaderReactToken,
 } from 'fusion-plugin-font-loader-react';
 
 import unfetch from 'unfetch';
@@ -117,7 +118,7 @@ export default async function start(options: any = {}) {
   app.register(M3Token, M3Plugin);
   app.register(LoggerToken, LoggerPlugin);
   app.register(ErrorHandlingPlugin);
-  app.register(FontLoaderPlugin);
+  app.register(FontLoaderReactToken, FontLoaderPlugin);
   app.register(FontLoaderReactConfigToken, getFontConfig());
   app.register(AnalyticsSessionToken, AnalyticsSession);
   app.register(AnalyticsCookieTypeToken, UberWebEventCookie);

@@ -3,6 +3,7 @@ import type FusionApp from 'fusion-core';
 import Router from 'fusion-plugin-react-router';
 import Styletron from 'fusion-plugin-styletron-react';
 import FontLoaderPlugin, {
+  FontLoaderReactToken,
   FontLoaderReactConfigToken,
 } from 'fusion-plugin-font-loader-react';
 
@@ -10,7 +11,7 @@ import FontLoaderPlugin, {
 import fontConfig from '../config/fonts';
 
 export default function initUI(app: FusionApp) {
-  app.register(FontLoaderPlugin);
+  app.register(FontLoaderReactToken, FontLoaderPlugin);
   app.register(FontLoaderReactConfigToken, fontConfig);
   app.register(Router);
   app.register(Styletron);
