@@ -1777,6 +1777,7 @@
     babel-jest "^24.8.0"
     babel-plugin-dynamic-import-node "^2.2.0"
     babel-plugin-transform-cup-globals "^1.0.1"
+    babel-plugin-transform-prune-unused-imports "^1.0.0"
     babel-plugin-transform-styletron-display-name "^1.1.0"
     bundle-analyzer "^0.0.6"
     case-sensitive-paths-webpack-plugin "^2.1.2"
@@ -3092,6 +3093,7 @@
     babel-eslint "^10.0.1"
     babel-plugin-transform-flow-strip-types "^6.22.0"
     create-universal-package "^3.4.7"
+    deepmerge "^3.2.0"
     eslint "^5.16.0"
     eslint-plugin-cup "^2.0.1"
     eslint-plugin-flowtype "^3.8.1"
@@ -3099,6 +3101,7 @@
     eslint-plugin-jest "^22.5.1"
     eslint-plugin-prettier "^3.0.1"
     eslint-plugin-react "^7.13.0"
+    eslint-plugin-react-hooks "^1.6.0"
     flow-bin "^0.98.1"
     koa-compose "^4.1.0"
     koa-helmet "^4.0.0"
@@ -3368,7 +3371,7 @@
 
 "@rush-temp/fusion-plugin-web-app-manifest@file:./projects/fusion-plugin-web-app-manifest.tgz":
   version "0.0.0"
-  resolved "file:./projects/fusion-plugin-web-app-manifest.tgz#963a8f2112093d25aa7bf82cdaef9cac40b2df4e"
+  resolved "file:./projects/fusion-plugin-web-app-manifest.tgz"
   dependencies:
     "@babel/preset-react" "^7.0.0"
     babel-eslint "^10.0.1"
@@ -7086,6 +7089,10 @@ deep-merge@^1.0.0:
 deepmerge@3.2.0:
   version "3.2.0"
   resolved "https://unpm.uberinternal.com/deepmerge/-/deepmerge-3.2.0.tgz#58ef463a57c08d376547f8869fdc5bcee957f44e"
+
+deepmerge@^3.2.0:
+  version "3.3.0"
+  resolved "https://unpm.uberinternal.com/deepmerge/-/deepmerge-3.3.0.tgz#d3c47fd6f3a93d517b14426b0628a17b0125f5f7"
 
 default-require-extensions@^1.0.0:
   version "1.0.0"

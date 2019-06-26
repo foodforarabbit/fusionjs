@@ -23,8 +23,8 @@ This library uses `koa-helmet`.
     * [`SecureHeadersToken`](#secureheaderstoken)
   * [Dependencies](#dependencies)
     * [`SecureHeadersUseFrameguardConfigToken`](#secureheadersuseframeguardconfigtoken)
-    * [`SecureHeadersFrameguardAllowFromDomainConfigToken`](#secureheadersframeguardallowfromdomainconfigtoken)
     * [`SecureHeadersCSPConfigToken`](#secureheaderscspconfigtoken)
+  * [Service API](#service-api)
 
 ---
 
@@ -121,16 +121,6 @@ import {SecureHeadersUseFrameguardConfigToken} from 'fusion-plugin-secure-header
 
 Optional. Server-only. Determines whether to use x-frame-options headers. Defaults to `true`.
 
-
-##### `SecureHeadersFrameguardAllowFromDomainConfigToken`
-
-```js
-import {SecureHeadersFrameguardAllowFromDomainConfigToken} from 'fusion-plugin-secure-headers';
-```
-
-Optional. Server-only. A plugin that returns a string that is set as the domain/origin for x-frame-options ALLOW-FROM.
-If the plugin returns null, defaults to SAMEORIGIN. If `SecureHeadersUseFrameguardConfigToken` is false, this token is ignored.
-
 ##### `SecureHeadersCSPConfigToken`
 
 ```js
@@ -160,6 +150,29 @@ type CSPConfig = {
 * `allowInsecureContent` - If true, removes the `blockAllMixedContent` from the policy. Optional. Defaults to false.
 * `allowMixedContent` - Alias for `allowInsecureContent`.
 * `analyticsServiceNames` - A list of analytics service names. Optional. Defaults to `['googleAnalytics']`
+
+#### Service API
+
+```js
+type SecureHeadersServiceType = {
+  from: (ctx: Context) => CSPOverrideConfig,
+};
+```
+
+* `from: (ctx: Context) => CSPOverrideConfig`
+  * `ctx: FusionContext` - Required. A FusionJS context object.
+  * `CSPOverrideConfig` - Set the `overrides` property of this object to provide CSP overrides for the current request.
+
+
+```js
+class CSPOverrideConfig {
+  overrides: helmet$CspDirectives = {};
+  frameGuardAllowFromDomain: String;
+}
+```
+
+* `overrides: helmet$CspDirectives` - Server-only. A `helmet$CspDirectives` object to configure overrides for the current request.
+* `frameGuardAllowFromDomain: String` - Server-only. A string that is set as the domain/origin for x-frame-options ALLOW-FROM. If the variable is not set or null, defaults to SAMEORIGIN. If `SecureHeadersUseFrameguardConfigToken` is `false`, this token is ignored.
 
 
 ###### Examples

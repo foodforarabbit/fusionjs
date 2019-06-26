@@ -12,11 +12,11 @@ import type {CSPConfigType} from '../types.js';
 export default function buildCSPMiddleware({
   ctx,
   serviceName,
-  cspConfig,
+  csp,
 }: {
   ctx: Context,
   serviceName: string,
-  cspConfig: CSPConfigType,
+  csp: CSPConfigType,
 }) {
   const {
     overrides,
@@ -26,7 +26,7 @@ export default function buildCSPMiddleware({
     allowInsecureContent,
     allowMixedContent,
     analyticsServiceNames,
-  } = cspConfig || {};
+  } = csp || {};
 
   function shouldUseReportOnlyMode() {
     if (typeof intentionallyRemoveAllSecurity !== 'undefined') {
