@@ -3,13 +3,21 @@ import type FusionApp from 'fusion-core';
 import {createPlugin} from 'fusion-core';
 
 import ActionEmitterEnhancerPlugin from 'fusion-plugin-redux-action-emitter-enhancer';
+import {compose} from 'redux';
 import ReactReduxPlugin, {
   ReduxToken,
   ReducerToken,
   EnhancerToken,
 } from 'fusion-plugin-react-redux';
 
-import {compose} from 'redux';
+import FliprPlugin, {FliprConfigToken} from '@uber/fusion-plugin-flipr';
+import UberWebAnalytics, {
+  UberWebAnalyticsToken,
+  UberWebAnalyticsFliprToken,
+  UberWebAnalyticsFliprConfigToken,
+  UberWebAnalyticsFliprConfig,
+  createWebAnalyticsReduxEnhancer,
+} from '@uber/fusion-plugin-web-analytics';
 
 import reduxOptions from './redux.js';
 import A11yPlugin from './plugins/a11y.js';
@@ -19,6 +27,12 @@ export default (app: FusionApp) => {
   if (__NODE__) {
     // node-specific plugins
     app.middleware(HealthPlugin);
+
+    app
+      .register(UberWebAnalyticsFliprToken, FliprPlugin)
+      .alias(FliprConfigToken, UberWebAnalyticsFliprConfigToken);
+
+    app.register(UberWebAnalyticsFliprConfigToken, UberWebAnalyticsFliprConfig);
   } else {
     // browser-specific plugins
     app.middleware(A11yPlugin);
@@ -59,4 +73,6 @@ export default (app: FusionApp) => {
       );
     });
   }
+  app.enhance(EnhancerToken, createWebAnalyticsReduxEnhancer);
+  app.register(UberWebAnalyticsToken, UberWebAnalytics);
 };

@@ -21,6 +21,7 @@
     "@uber/fusion-plugin-error-handling": "^2.0.3",
     "@uber/fusion-plugin-events-adapter": "^2.1.0",
     "@uber/fusion-plugin-feature-toggles-react": "^3.0.3",
+    "@uber/fusion-plugin-flipr": "^2.0.1",
     "@uber/fusion-plugin-galileo": "^2.0.3",
     "@uber/fusion-plugin-heatpipe": "^3.0.3",
     "@uber/fusion-plugin-logtron-react": "^2.1.0",
@@ -33,6 +34,7 @@
     "@uber/fusion-plugin-secure-headers": "^5.0.2",
     "@uber/fusion-plugin-tchannel": "^2.0.3",
     "@uber/fusion-plugin-tracer": "^2.0.1",
+    "@uber/fusion-plugin-web-analytics": "^1.0.0",
     "@uber/icons": "^1.0.12",
     "baseui": "^6.14.2",
     "clear-module": "^3.1.0",
@@ -99,7 +101,8 @@
     "cover": "fusion test --coverage",
     "start": "PORT_HTTP=\"$UBER_PORT_HTTP\" fusion start",
     "build-production": "fusion build --production && upload-assets-to-s3",
-    "test-integration": "yarn test --env=node --testFolder=__integration__"
+    "test-integration": "yarn test --env=node --testFolder=__integration__",
+    "update-flipr-uwa-config": "yarn update-flipr-bootstrap uwa-config"
   },
   "engines": {
     "node": ">=0",
