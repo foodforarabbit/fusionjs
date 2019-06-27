@@ -5,6 +5,7 @@ import {bumpDeps} from '../utils/bump-deps.js';
 import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protection/enhancer.js';
 import {installIntrospect} from '../codemods/fusion-plugin-introspect/installation.js';
 import {replacePackage} from '../codemods/replace-package/codemod-replace-package.js';
+import {replacePackageImports} from '../codemods/replace-package-imports/codemod-replace-package-imports.js';
 import {addPackage} from '../codemods/add-package/codemod-add-package.js';
 import {removePackage} from '../codemods/remove-package/codemod-remove-package.js';
 import {addCreateTokenGenerics} from '../codemods/flow/create-token-generics.js';
@@ -74,18 +75,28 @@ export const upgrade = async ({
           dev: true,
         });
       }),
-      step('use fusion-plugin-universal-events-react', async () => {
+      step('use fusion-plugin-universal-events', async () => {
         await replacePackage({
-          target: 'fusion-plugin-universal-events',
-          replacement: 'fusion-plugin-universal-events-react',
+          target: 'fusion-plugin-universal-events-react',
+          replacement: 'fusion-plugin-universal-events',
+          imports: ['default', 'UniversalEventsToken'],
+          typeImports: ['UniversalEventsDepsType', 'UniversalEventsType'],
           dir,
           strategy,
         });
       }),
-      step('use fusion-plugin-m3-react', async () => {
+      step('use fusion-plugin-m3', async () => {
         await replacePackage({
-          target: '@uber/fusion-plugin-m3',
-          replacement: '@uber/fusion-plugin-m3-react',
+          target: '@uber/fusion-plugin-m3-react',
+          replacement: '@uber/fusion-plugin-m3',
+          imports: [
+            'default',
+            'M3Token',
+            'M3ClientToken',
+            'CommonTagsToken',
+            'mock',
+          ],
+          typeImports: ['M3Type', 'M3TagsType', 'M3DepsType'],
           dir,
           strategy,
         });
@@ -98,10 +109,62 @@ export const upgrade = async ({
           strategy,
         });
       }),
-      step('use fusion-plugin-logtron-react', async () => {
+      step('use fusion-plugin-logtron', async () => {
         await replacePackage({
-          target: '@uber/fusion-plugin-logtron',
-          replacement: '@uber/fusion-plugin-logtron-react',
+          target: '@uber/fusion-plugin-logtron-react',
+          replacement: '@uber/fusion-plugin-logtron',
+          imports: [
+            'default',
+            'LogtronBackendsToken',
+            'LogtronTeamToken',
+            'LogtronTransformsToken',
+          ],
+          dir,
+          strategy,
+        });
+      }),
+      step('use fusion-plugin-google-analytics', async () => {
+        await replacePackageImports({
+          target: '@uber/fusion-plugin-google-analytics-react',
+          replacement: '@uber/fusion-plugin-google-analytics',
+          imports: [
+            'default',
+            'GoogleAnalyticsToken',
+            'GoogleAnalyticsConfigToken',
+          ],
+          dir,
+          strategy,
+        });
+      }),
+      step('use fusion-plugin-tealium', async () => {
+        await replacePackageImports({
+          target: '@uber/fusion-plugin-tealium-react',
+          replacement: '@uber/fusion-plugin-tealium',
+          imports: ['default', 'TealiumToken', 'TealiumConfigToken'],
+          dir,
+          strategy,
+        });
+      }),
+      step('use fusion-plugin-rpc and fusion-rpc-redux', async () => {
+        await replacePackageImports({
+          target: 'fusion-plugin-rpc-redux-react',
+          replacement: 'fusion-plugin-rpc',
+          imports: [
+            'default',
+            'mock',
+            'BodyParserOptionsToken',
+            'ResponseError',
+            'RPCToken',
+            'RPCHandlersToken',
+          ],
+          dir,
+          strategy,
+        });
+        await replacePackageImports({
+          target: 'fusion-plugin-rpc-redux-react',
+          replacement: 'fusion-rpc-redux',
+          imports: ['createRPCReducer'],
+          typeImports: ['ActionType'],
           dir,
           strategy,
         });
