@@ -166,7 +166,7 @@ LIMITATIONS:
         // $FlowFixMe - Ignore warning about process.env.HOME
         await readFile(path.join(process.env.HOME, '.arcrc')).catch(() => '{}')
       );
-      const conduitToken = get(arcConfig, [
+      const conduitToken = get<string>(arcConfig, [
         'hosts',
         'https://code.uberinternal.com/api/',
         'token',
@@ -337,7 +337,7 @@ function printStatusReport(data: Object[]) {
       'Current Step': get(blob, 'message.step') || 'N/A',
       'Step %':
         get(blob, 'message.progress') != undefined
-          ? get(blob, 'message.progress') + '%'
+          ? get<string>(blob, 'message.progress') + '%'
           : 'N/A',
     };
   });

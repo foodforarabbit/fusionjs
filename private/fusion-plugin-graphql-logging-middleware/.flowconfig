@@ -1,8 +1,11 @@
 [ignore]
+.*/common/temp/node_modules/@uber/node-rosetta/.*
 
 [include]
+../../common/temp/node_modules
 
 [libs]
+../../flow-typed/
 
 [lints]
 

@@ -1,10 +1,13 @@
 [ignore]
+.*/common/temp/node_modules/@uber/node-rosetta/.*
 .*/resources/.*
 .*/__fixtures__/.*
 
 [include]
+../../common/temp/node_modules
 
 [libs]
+../../flow-typed/
 
 [lints]
 
