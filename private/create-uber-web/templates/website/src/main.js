@@ -52,12 +52,12 @@ import CsrfProtectionPlugin, {
 } from 'fusion-plugin-csrf-protection';
 import UniversalEvents, {
   UniversalEventsToken,
-} from 'fusion-plugin-universal-events-react';
-import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3-react';
+} from 'fusion-plugin-universal-events';
+import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3';
 import LoggerPlugin, {
   LogtronTeamToken,
   LogtronBackendsToken,
-} from '@uber/fusion-plugin-logtron-react';
+} from '@uber/fusion-plugin-logtron';
 import Router from 'fusion-plugin-react-router';
 import I18n, {I18nToken, I18nLoaderToken} from 'fusion-plugin-i18n-react';
 import TracerPlugin, {TracerToken} from '@uber/fusion-plugin-tracer';
@@ -71,7 +71,7 @@ import AtreyuPlugin, {
 import Rosetta from '@uber/fusion-plugin-rosetta';
 import BrowserPerformanceEmitterPlugin from 'fusion-plugin-browser-performance-emitter';
 import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';
-import RPC, {RPCToken, RPCHandlersToken} from 'fusion-plugin-rpc-redux-react';
+import RPC, {RPCToken, RPCHandlersToken} from 'fusion-plugin-rpc';
 import ErrorHandlingPlugin, {
   ErrorHandlerToken,
 } from 'fusion-plugin-error-handling';

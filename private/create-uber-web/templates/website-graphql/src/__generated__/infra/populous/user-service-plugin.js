@@ -10,7 +10,9 @@ import {TracerToken} from '@uber/fusion-plugin-tracer';
 import {LoggerToken} from 'fusion-tokens';
 import {createUserService} from './populous.js';
 
-export const UserServiceToken: Token<UserService> = createToken('UserService');
+export const UserServiceToken: Token<UserService> = createToken<*>(
+  'UserService'
+);
 export default createPlugin<
   {
     atreyu: typeof AtreyuToken,

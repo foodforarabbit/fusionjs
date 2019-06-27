@@ -3,7 +3,7 @@
 import {createPlugin} from 'fusion-core';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import {LoggerToken} from 'fusion-tokens';
-import {M3Token} from '@uber/fusion-plugin-m3-react';
+import {M3Token} from '@uber/fusion-plugin-m3';
 
 type RPCHandlersDeps = {
   atreyu: typeof AtreyuToken,

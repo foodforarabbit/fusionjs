@@ -4,12 +4,12 @@ import {LoggerToken} from 'fusion-tokens';
 import HeatpipePlugin, {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
 import UniversalEvents, {
   UniversalEventsToken,
-} from 'fusion-plugin-universal-events-react';
-import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3-react';
+} from 'fusion-plugin-universal-events';
+import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3';
 import LoggerPlugin, {
   LogtronTeamToken,
   LogtronBackendsToken,
-} from '@uber/fusion-plugin-logtron-react';
+} from '@uber/fusion-plugin-logtron';
 import BrowserPerformanceEmitterPlugin from 'fusion-plugin-browser-performance-emitter';
 import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';
 import ErrorHandlingPlugin, {
