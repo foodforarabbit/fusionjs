@@ -557,6 +557,10 @@
       "projectFolder": "private/fusion-plugin-graphql-logging-middleware"
     },
     {
+      "packageName": "@uber/fusion-plugin-graphql-metrics",
+      "projectFolder": "private/fusion-plugin-graphql-metrics"
+    },
+    {
       "packageName": "@uber/create-uber-web",
       "projectFolder": "private/create-uber-web"
     },
