@@ -12,6 +12,8 @@ import {getSimulator} from 'fusion-test-utils';
 import {S3ConfigToken, AssetProxyingResponseHeaderOverrides} from '../tokens';
 import AssetProxyingPlugin from '../server.js';
 
+// $FlowFixMe hack due to cup limitation
+const getConfig = require('../s3-config.js'); // eslint-disable-line import/no-unresolved
 const AWS = require('aws-sdk');
 
 // weird path because things are built to 'dist-test'
@@ -271,4 +273,24 @@ test('upload with custom response headers', t => {
   })()
     .then(t.end)
     .catch(t.fail);
+});
+
+test('s3 config reading makes sense', t => {
+  t.throws(
+    () => getConfig({secretsPath: `src/__tests__/fixture/inexistent.json`}),
+    /Could not find/,
+    'inexistent file has meaningful error'
+  );
+  t.throws(
+    () => getConfig({secretsPath: `src/__tests__/fixture/invalid_json.txt`}),
+    /Invalid JSON/,
+    'invalid json has meaninful error'
+  );
+  t.throws(
+    () =>
+      getConfig({secretsPath: `src/__tests__/fixture/invalid_secrets.json`}),
+    /should be a string/,
+    'invalid configs has meaningful error'
+  );
+  t.end();
 });
