@@ -1,8 +1,9 @@
 [ignore]
+.*/common/temp/node_modules/@uber/node-rosetta/.*
 .*/common/temp/yarn-cache/.*
 .*/templates/.*
 .*/fixtures/failure/.*
-.*/common/temp/node_modules/@uber/node-rosetta/.*
+.*/test-artifacts/.*
 .*/resources/.*
 .*/__fixtures__/.*
 
