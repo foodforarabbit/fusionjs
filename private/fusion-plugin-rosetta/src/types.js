@@ -16,6 +16,7 @@ export type RosettaType = Rosetta;
 export type RosettaClientType = typeof Rosetta;
 export type RosettaConfigType = {
   service: string,
+  fixturesDir?: string,
 };
 export type RosettaLocaleNegotiationType = (Context, any) => any;
 

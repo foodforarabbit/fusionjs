@@ -74,6 +74,9 @@ const pluginFactory = () =>
 
     provides: ({logger, Client = Rosetta, config = {}, localeNegotiation}) => {
       config.service = config.service || process.env.SVC_ID || 'dev-service';
+      if (__DEV__) {
+        config.fixturesDir = config.fixturesDir || './translations';
+      }
       const client = new Client({logger, ...config});
 
       const API = {
