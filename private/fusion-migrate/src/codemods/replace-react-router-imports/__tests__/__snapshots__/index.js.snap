@@ -28,7 +28,7 @@ function thing() {
 `;
 
 exports[`replace-react-router-imports browser-history-only: browser-history-only 1`] = `
-"import {browserHistory} from 'react-router';
+"import {browserHistory as bh} from 'react-router';
 
 function thing() {
   return <div />;
@@ -37,7 +37,7 @@ function thing() {
 
       ↓ ↓ ↓ ↓ ↓ ↓
 
-import {browserHistoryCompat as browserHistory} from '@uber/fusion-plugin-react-router-v3-compat';
+import {browserHistoryCompat as bh} from '@uber/fusion-plugin-react-router-v3-compat';
 
 function thing() {
   return <div />;
