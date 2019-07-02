@@ -1,19 +1,7 @@
 {
   "name": "@uber/fusion-plugin-graphql-logging-middleware",
   "description": "A fusion plugin which provides a graphql middleware to handle logging, tracing, and metrics",
-  "version": "0.0.3",
-  "scaffold-version": "2.0.2",
-  "author": " <ganemone@uber.com>",
-  "repository": {
-    "directory": "private/fusion-plugin-heatpipe",
-    "type": "git",
-    "url": "https://github.com/uber/fusionjs"
-  },
-  "bugs": {
-    "url": "https://code.uberinternal.com/maniphest/task/create/",
-    "email": "ganemone@uber.com"
-  },
-  "license": "UNLICENSED",
+  "version": "0.0.0-monorepo",
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
     "lint": "eslint src --fix",
@@ -23,20 +11,6 @@
     "test": "jest",
     "cover": "yarn test",
     "prepublish": "cup build && eslint src"
-  },
-  "watch": {
-    "build": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    },
-    "test": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    }
   },
   "dependencies": {
     "graphql-middleware": "^3.0.2",
@@ -84,6 +58,16 @@
     "fusion-tokens": "0.0.0-monorepo",
     "graphql": "^14.2.0"
   },
+  "files": [
+    "dist",
+    "src",
+    "!__tests__"
+  ],
+  "engines": {
+    "node": ">=8.9.4 <11",
+    "npm": ">=5.6.0",
+    "yarn": ">=1.4.0"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
   "browser": {
@@ -110,6 +94,20 @@
       "@babel/preset-flow",
       "@babel/preset-react"
     ]
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    },
+    "test": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    }
   },
   "jest": {
     "collectCoverage": true,
@@ -160,14 +158,5 @@
       }
     ]
   },
-  "engines": {
-    "node": ">=8.9.4 <11",
-    "npm": ">=5.6.0",
-    "yarn": ">=1.4.0"
-  },
-  "files": [
-    "dist",
-    "src",
-    "!__tests__"
-  ]
+  "license": "UNLICENSED"
 }
