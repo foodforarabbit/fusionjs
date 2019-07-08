@@ -66,6 +66,7 @@
     "react": "^16.8.6",
     "react-apollo": "^2.5.2",
     "react-dom": "^16.8.6",
+    "redux": "^4.0.1",
     "styletron-react": "^4.4.6",
     "unfetch": "^4.1.0"
   },

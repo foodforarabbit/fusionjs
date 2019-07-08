@@ -24,7 +24,7 @@ import initDataFetching from './uber/data-fetching.js';
 import initI18n from './uber/i18n.js';
 import initUI from './uber/ui.js';
 import initGraphQL from './uber/graphql.js';
-import initAnalytics from './uber/analytics.js'
+import initAnalytics from './uber/analytics.js';
 import initIntrospect from './uber/introspect.js';
 
 import introspect from 'fusion-plugin-introspect';
