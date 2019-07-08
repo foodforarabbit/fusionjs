@@ -1,4 +1,5 @@
 // @flow
+import type FusionApp from 'fusion-core';
 import FliprPlugin, {FliprConfigToken} from '@uber/fusion-plugin-flipr';
 import UberWebAnalytics, {
   UberWebAnalyticsToken,
