@@ -33,7 +33,11 @@ const mockM3 = {
   counter: (string: string, number: ?number, TagsType: ?TagsType): void => {},
   increment: (string: string, TagsType: ?TagsType): void => {},
   decrement: (string: string, TagsType: ?TagsType): void => {},
-  timing: (string: string, number: ?number, TagsType: ?TagsType): void => {},
+  timing: (
+    string: string,
+    number: ?number | ?Date,
+    TagsType: ?TagsType
+  ): void => {},
   gauge: (string: string, number: ?number, TagsType: ?TagsType): void => {},
   scope: (string: string): void => {},
   immediateCounter: (
@@ -45,7 +49,7 @@ const mockM3 = {
   immediateDecrement: (string: string, TagsType: ?TagsType): void => {},
   immediateTiming: (
     string: string,
-    number: ?number,
+    number: ?number | ?Date,
     TagsType: ?TagsType
   ): void => {},
   immediateGauge: (

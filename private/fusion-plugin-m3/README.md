@@ -72,8 +72,11 @@ export default () => {
   app.register(CommonTagsToken, {some: 'tags'}); // optional
 
   app.middleware({m3: M3Token}, ({m3}) => {
+    const startDate = new Date();
     m3.increment('increment-key', {someTag: 'here'});
     m3.timing('timing-key', 300, {someTag: 'here'});
+    // Can also pass a Date object corresponding to the start of the time span
+    m3.timing('timing-key', startDate, {someTag: 'here'});
     m3.gauge('gauge-key', 500, {someTag: 'here'});
     // etc
     return (ctx, next) => next();
@@ -157,7 +160,7 @@ M3.decrement(key: string, tags?: Object) => void
 Decrements value for provided tags.  See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$95) for more details.
 
 ```js
-M3.timing(key: string, duration: number, tags?: Object) => void
+M3.timing(key: string, duration: number | Date, tags?: Object) => void
 ```
 Time something, in milliseconds.  A [timer](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#timer) represents a group of measures summarizing the duration of an event.  See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$129) for more details.
 
@@ -174,6 +177,6 @@ Each of the measurment functions above also come with an `immediate*` version wh
 M3.immediateCounter(key: string, value: number, tags?: Object) => void
 M3.immediateIncrement(key: string, tags?: Object) => void
 M3.immediateDecrement(key: string, tags?: Object) => void
-M3.immediateTiming(key: string, value: number, tags?: Object) => void
+M3.immediateTiming(key: string, value: number | Date, tags?: Object) => void
 M3.immediateGauge(key: string, value: number, tags?: Object) => void
 ```

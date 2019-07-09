@@ -27,7 +27,7 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
           }
           const {operationName} = op;
           const operationType = operationDefinition.operation;
-          const start = Date.now();
+          const start = new Date();
           const tags = {
             operation_type: snakeCase(operationType),
             operation_name: snakeCase(operationName),

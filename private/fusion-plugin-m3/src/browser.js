@@ -28,7 +28,10 @@ const plugin =
         decrement(key: string, tags: TagsType) {
           events.emit('m3:decrement', {key, tags});
         },
-        timing(key: string, value: number, tags: TagsType) {
+        timing(key: string, value: number | Date, tags: TagsType) {
+          if (value instanceof Date) {
+            value = Date.now() - value.getMilliseconds();
+          }
           events.emit('m3:timing', {key, value, tags});
         },
         gauge(key: string, value: number, tags: TagsType) {

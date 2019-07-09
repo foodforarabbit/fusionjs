@@ -96,7 +96,7 @@ test('GraphQL Middleware', async () => {
   });
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
-  expect(typeof m3.timing.mock.calls[0][1]).toEqual('number');
+  expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
   expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
     Object {
       "operation_name": "get_user",
@@ -146,7 +146,7 @@ test('GraphQL Middleware - Query with an error', async () => {
   ).rejects.toMatchInlineSnapshot(`[Error: GraphQL error: Fails query]`);
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
-  expect(typeof m3.timing.mock.calls[0][1]).toEqual('number');
+  expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
   expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
     Object {
       "operation_name": "get_user",
@@ -208,7 +208,7 @@ test('GraphQL Middleware - Mutation with an error', async () => {
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
-  expect(typeof m3.timing.mock.calls[0][1]).toEqual('number');
+  expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
   expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
     Object {
       "operation_name": "update_user",

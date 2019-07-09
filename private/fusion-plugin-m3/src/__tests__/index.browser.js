@@ -49,6 +49,26 @@ tape.test('browser m3 timing', t => {
   getSimulator(app);
 });
 
+tape.test('browser m3 timing with date', t => {
+  const UniversalEvents = (({
+    emit(type, {key, value, tags}) {
+      t.equal(type, 'm3:timing', 'calls with correct event type');
+      t.equal(key, 'key', 'timing passes key through');
+      t.equal(typeof value, 'number', 'timing converts date into ms');
+      t.looseEqual(tags, {tags: 'tags'}, 'timing passes tags through');
+      t.end();
+    },
+  }: any): UniversalEventsType);
+  const app = new App('el', el => el);
+  app.register(M3Token, M3Plugin);
+  app.register(UniversalEventsToken, UniversalEvents);
+  app.middleware({m3: M3Token}, ({m3}) => {
+    m3.timing('key', new Date(), {tags: 'tags'});
+    return (ctx, next) => next();
+  });
+  getSimulator(app);
+});
+
 tape.test('browser m3 gauge', t => {
   const UniversalEvents = (({
     emit(type, {key, value, tags}) {
