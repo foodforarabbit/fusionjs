@@ -8,8 +8,7 @@ jest.mock('@dubstep/core', () => ({
 }));
 
 test('checkGitRepository is successful if all commands return correct values', async () => {
-  exec
-    // $FlowFixMe
+  (exec: any)
     .mockReturnValueOnce(Promise.resolve('true'))
     .mockReturnValueOnce(Promise.resolve('master'))
     .mockReturnValueOnce(Promise.resolve('aaaaa'))
@@ -19,16 +18,14 @@ test('checkGitRepository is successful if all commands return correct values', a
 });
 
 test('checkGitRepository fails if current repo is not a git repo', async () => {
-  // $FlowFixMe
-  exec.mockReturnValueOnce(Promise.resolve('false'));
+  (exec: any).mockReturnValueOnce(Promise.resolve('false'));
   await expect(checkGitRepository()).rejects.toMatchInlineSnapshot(
     `[Error: Your current directory is not a git repository. Please cd to your project's repository and try again.]`
   );
 });
 
 test('checkGitRepository fails if current branch is not master', async () => {
-  exec
-    // $FlowFixMe
+  (exec: any)
     .mockReturnValueOnce(Promise.resolve('true'))
     .mockReturnValueOnce(Promise.resolve('branch'));
   await expect(checkGitRepository()).rejects.toMatchInlineSnapshot(
@@ -37,8 +34,7 @@ test('checkGitRepository fails if current branch is not master', async () => {
 });
 
 test('checkGitRepository fails if current branch is not in sync with origin', async () => {
-  exec
-    // $FlowFixMe
+  (exec: any)
     .mockReturnValueOnce(Promise.resolve('true'))
     .mockReturnValueOnce(Promise.resolve('master'))
     .mockReturnValueOnce(Promise.resolve('aaaaa'))
@@ -50,7 +46,7 @@ test('checkGitRepository fails if current branch is not in sync with origin', as
 });
 
 test('checkGitRepository fails if local has changes', async () => {
-  exec
+  (exec: any)
     // $FlowFixMe
     .mockReturnValueOnce(Promise.resolve('true'))
     .mockReturnValueOnce(Promise.resolve('master'))

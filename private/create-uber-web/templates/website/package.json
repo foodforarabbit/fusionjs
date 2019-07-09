@@ -62,7 +62,7 @@
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
-    "styletron-react": "^4.4.6",
+    "styletron-react": "^5.2.0",
     "unfetch": "^4.1.0"
   },
   "devDependencies": {
@@ -80,7 +80,7 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-hooks": "^1.6.1",
-    "flow-bin": "^0.96.0",
+    "flow-bin": "^0.102.0",
     "fusion-test-utils": "^2.0.2",
     "prettier": "^1.16.4",
     "puppeteer": "^1.14.0",

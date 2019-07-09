@@ -5,7 +5,12 @@ import Plugin from '../browser';
 
 const loadGA = (): void => {};
 
-function createMock(): (...args: empty) => void {
+type Mock = {
+  (...args: empty): void,
+  args: Array<Array<string>>,
+};
+
+function createMock(): Mock {
   const mock = (...args): void => {
     mock.args.push(args);
   };

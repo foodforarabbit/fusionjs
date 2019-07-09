@@ -153,7 +153,7 @@ function BasicPublishTest(
       return async (ctx, next) => {
         await next();
         setTimeout(() => {
-          expect(heatpipeMock.publish.mock.calls[0]).toMatchSnapshot();
+          expect((heatpipeMock.publish: any).mock.calls[0]).toMatchSnapshot();
           expect(loggerMock.info).not.toHaveBeenCalled();
           done();
         }, 100);
@@ -210,7 +210,7 @@ test('log when debugLogging is enabled', async done => {
       return async (ctx, next) => {
         await next();
         setTimeout(() => {
-          expect(heatpipeMock.publish.mock.calls[0]).toMatchSnapshot();
+          expect((heatpipeMock.publish: any).mock.calls[0]).toMatchSnapshot();
           expect(loggerMock.info).toHaveBeenCalled();
           done();
         }, 100);

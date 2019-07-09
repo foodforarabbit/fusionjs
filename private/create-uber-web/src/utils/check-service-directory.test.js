@@ -14,24 +14,24 @@ jest.mock('js-yaml', () => ({
 }));
 
 test('checkServiceDirectory when all files exist', async () => {
-  pathExists.mockReturnValue(Promise.resolve(true));
-  readFile.mockReturnValue(Promise.resolve(true));
-  yaml.safeLoad.mockReturnValue({service_name: 'hello'});
+  (pathExists: any).mockReturnValue(Promise.resolve(true));
+  (readFile: any).mockReturnValue(Promise.resolve(true));
+  (yaml.safeLoad: any).mockReturnValue({service_name: 'hello'});
   await expect(checkServiceDirectory()).resolves.toBe('hello');
 });
 
 test('checkServiceDirectory when one file does not exist', async () => {
-  pathExists.mockReturnValueOnce(Promise.resolve(false));
-  pathExists.mockReturnValueOnce(Promise.resolve(true));
+  (pathExists: any).mockReturnValueOnce(Promise.resolve(false));
+  (pathExists: any).mockReturnValueOnce(Promise.resolve(true));
   await expect(checkServiceDirectory()).rejects.toMatchInlineSnapshot(
     `[Error: Provisioning must be run from within your root project directory.]`
   );
 });
 
 test('checkServiceDirectory when service_name does not exist in yaml file', async () => {
-  pathExists.mockReturnValue(Promise.resolve(true));
-  readFile.mockReturnValue(Promise.resolve(true));
-  yaml.safeLoad.mockReturnValue({});
+  (pathExists: any).mockReturnValue(Promise.resolve(true));
+  (readFile: any).mockReturnValue(Promise.resolve(true));
+  (yaml.safeLoad: any).mockReturnValue({});
   await expect(checkServiceDirectory()).rejects.toMatchInlineSnapshot(
     `[Error: Error reading from udeploy/pinocchio.yaml file. Please ensure that the file includes a service_name field.]`
   );

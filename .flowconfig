@@ -8,6 +8,9 @@
 .*/__fixtures__/.*
 
 [include]
+common/temp/node_modules
+public
+private
 
 [libs]
 

@@ -36,7 +36,7 @@ export default function buildCSPMiddleware({
   }
 
   function getDynamicReportUri() {
-    if (reportUri) {
+    if (typeof reportUri === 'string') {
       return reportUri.replace(
         /ro=(true|false)/,
         `ro=${String(shouldUseReportOnlyMode())}`
