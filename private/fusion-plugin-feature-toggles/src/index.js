@@ -3,14 +3,7 @@
 import server from './server.js';
 import browser from './browser.js';
 
-import {
-  FeatureTogglesToken,
-  FeatureTogglesTogglesConfigToken,
-  FeatureTogglesClientToken,
-  FeatureTogglesClientConfigToken,
-} from './tokens.js';
-
-import type {
+export type {
   FeatureTogglesDepsType,
   ToggleDetailsType,
   IFeatureTogglesClient,
@@ -19,20 +12,13 @@ import type {
   FeatureToggleConfigType,
 } from './types.js';
 
-export type {
-  FeatureTogglesDepsType,
-  ToggleDetailsType,
-  IFeatureTogglesClient,
-  FeatureTogglesServiceType,
-  FeatureTogglesPluginType,
-  FeatureToggleConfigType,
-};
+export type {MorpheusContextType} from './clients/morpheus.js';
 
 export {
   FeatureTogglesToken,
   FeatureTogglesTogglesConfigToken,
   FeatureTogglesClientToken,
   FeatureTogglesClientConfigToken,
-};
+} from './tokens.js';
 
 export default __NODE__ ? server : browser;
