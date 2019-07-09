@@ -214,16 +214,23 @@ async function postBuildTime(json_data) {
 
 async function postStatus() {
   const github = create_github_user();
-
-  await github.repos.createStatus({
-    owner: "uber",
-    repo: "fusionjs",
-    name: "buildkite/fusionjs-benchmarks",
-    sha: process.env.BUILDKITE_COMMIT,
-    state: "success",
-    description:
-      "Job is still running, but should not affect the outcome of the pr",
-    target_url: process.env.BUILDKITE_BUILD_URL,
-    context: "buildkite/fusionjs-benchmarks",
-  });
+  try {
+    await github.repos.createStatus({
+      owner: "uber",
+      repo: "fusionjs",
+      name: "buildkite/fusionjs-benchmarks",
+      sha: process.env.BUILDKITE_COMMIT,
+      state: "success",
+      description:
+        "Job is still running, but should not affect the outcome of the pr",
+      target_url: process.env.BUILDKITE_BUILD_URL,
+      context: "buildkite/fusionjs-benchmarks",
+    });
+  } catch (error) {
+    console.log(error);
+    console.log(
+      `Failed to post completed status, the bot has likely reached its rate limit,
+       build will continue normally and the status will be updated later`
+    );
+  }
 }
