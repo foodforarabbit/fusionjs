@@ -55,6 +55,7 @@ tape.test('browser m3 timing with date', t => {
       t.equal(type, 'm3:timing', 'calls with correct event type');
       t.equal(key, 'key', 'timing passes key through');
       t.equal(typeof value, 'number', 'timing converts date into ms');
+      t.ok(value >= 10 && value < 20, 'converts correctly');
       t.looseEqual(tags, {tags: 'tags'}, 'timing passes tags through');
       t.end();
     },
@@ -63,7 +64,10 @@ tape.test('browser m3 timing with date', t => {
   app.register(M3Token, M3Plugin);
   app.register(UniversalEventsToken, UniversalEvents);
   app.middleware({m3: M3Token}, ({m3}) => {
-    m3.timing('key', new Date(), {tags: 'tags'});
+    const start = new Date();
+    setTimeout(() => {
+      m3.timing('key', start, {tags: 'tags'});
+    }, 10);
     return (ctx, next) => next();
   });
   getSimulator(app);

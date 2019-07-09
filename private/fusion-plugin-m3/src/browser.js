@@ -30,7 +30,7 @@ const plugin =
         },
         timing(key: string, value: number | Date, tags: TagsType) {
           if (value instanceof Date) {
-            value = Date.now() - value.getMilliseconds();
+            value = new Date() - value;
           }
           events.emit('m3:timing', {key, value, tags});
         },
