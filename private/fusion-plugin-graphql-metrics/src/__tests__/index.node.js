@@ -71,9 +71,11 @@ test('GraphQL Middleware', async () => {
     lastName: String
   }
   `;
+  let resolverCount = 0;
   const resolvers = {
     Query: {
       user: async (parent, args, ctx, info) => {
+        resolverCount++;
         return {
           id: '123',
           firstName: 'Hello',
@@ -94,6 +96,7 @@ test('GraphQL Middleware', async () => {
       }
     `,
   });
+  expect(resolverCount).toEqual(1);
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
   expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);

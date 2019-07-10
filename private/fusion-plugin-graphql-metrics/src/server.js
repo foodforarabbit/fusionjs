@@ -34,8 +34,8 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
             result: 'success',
           };
           const observer = forward(op);
-          // errors will be sent to the errorCallback
-          observer.subscribe(({data, errors}) => {
+          return observer.map(result => {
+            const {errors} = result;
             if (errors) {
               errors.forEach(e => {
                 logger.error(`${operationName} ${operationType} failed`, e);
@@ -45,8 +45,8 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
               tags.result = 'success';
             }
             m3.timing('graphql_operation', start, tags);
+            return result;
           });
-          return observer;
         }),
       ].concat(links);
     };
