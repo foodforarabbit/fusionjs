@@ -154,16 +154,11 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     const transform = metadataTransform || defaultMetadataTransform;
 
     // Attempt to resolve treatment details
-    let result: MorpheusResponseType;
-    try {
-      result = (await this.getTreatmentGroupsByNames({
-        experimentNames,
-        context: this.getContext(ctx),
-        disableLogging: true,
-      }): MorpheusResponseType);
-    } catch (e) {
-      throw e;
-    }
+    let result: MorpheusResponseType = (await this.getTreatmentGroupsByNames({
+      experimentNames,
+      context: this.getContext(ctx),
+      disableLogging: true,
+    }): MorpheusResponseType);
 
     // Transform metadata
     const treatments = Object.keys(result.treatments).reduce(

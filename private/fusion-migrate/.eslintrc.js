@@ -5,8 +5,8 @@ module.exports = {
     node: true,
   },
   rules: {
-    'flowtype/require-valid-file-annotation': false,
-    'jest/no-disabled-tests': false,
+    'flowtype/require-valid-file-annotation': 0,
+    'jest/no-disabled-tests': 0,
   },
   globals: {
     test: true,

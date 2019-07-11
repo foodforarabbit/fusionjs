@@ -23,7 +23,7 @@ function structureMeta(trackingMeta) {
 
   // Iterate over metaObj keys/values to determine where/how to store each value
   for (const key in metaObj) {
-    if (metaObj.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(metaObj, key)) {
       if (key === '') {
         throw new Error('_trackingMeta: Empty string keys are not allowed');
       }

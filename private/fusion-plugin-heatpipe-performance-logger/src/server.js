@@ -1,5 +1,5 @@
 // @flow
-/* global console,process */
+/* global process */
 /* eslint-disable no-console,no-process-env */
 
 import type {
