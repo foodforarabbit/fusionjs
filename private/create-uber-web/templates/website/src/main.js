@@ -63,7 +63,7 @@ import I18n, {I18nToken, I18nLoaderToken} from 'fusion-plugin-i18n-react';
 import TracerPlugin, {TracerToken} from '@uber/fusion-plugin-tracer';
 import GalileoPlugin, {GalileoToken} from '@uber/fusion-plugin-galileo';
 import TChannel, {TChannelToken} from '@uber/fusion-plugin-tchannel';
-import Styletron from 'fusion-plugin-styletron-react';
+import Styletron, {AtomicPrefixToken} from 'fusion-plugin-styletron-react';
 import AtreyuPlugin, {
   AtreyuToken,
   AtreyuConfigToken,
@@ -126,6 +126,7 @@ export default async function start(options: any = {}) {
   app.register(BrowserPerformanceEmitterPlugin);
   app.register(EventsAdapterPlugin);
   app.register(Styletron);
+  app.register(AtomicPrefixToken, "_");
   app.register(HeatpipeToken, HeatpipePlugin);
   app.register(FeatureTogglesPlugin);
   __NODE__ &&
