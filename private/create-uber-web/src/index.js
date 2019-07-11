@@ -23,6 +23,7 @@ cli
     'Generates a package.json without dependencies fields',
     'Use this flag if scaffolding into a versionless monorepo with a global yarn.lock file',
   ])
+  .option('--cwd', 'Installation directory', process.cwd())
   .action(args => {
     const {
       type,
@@ -34,6 +35,7 @@ cli
       'local-path': localPath,
       'skip-install': skipInstall = false,
       'hoist-deps': hoistDeps = false,
+      cwd,
     } = args;
     scaffold({
       type,
@@ -44,6 +46,7 @@ cli
       localPath: localPath || localPathShorthand,
       skipInstall,
       hoistDeps,
+      root: cwd,
     });
   });
 

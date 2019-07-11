@@ -27,7 +27,9 @@ test('scaffold website', async () => {
 
     jest.spyOn(inquirer, 'prompt').mockImplementation(options => {
       if (options.message.match(/template/)) {
-        return {value: options.choices[0]};
+        return {
+          value: options.choices.find(c => c.includes('Web Application')),
+        };
       } else if (options.message.match(/name/)) {
         return {value: name};
       } else if (options.message.match(/description/)) {
@@ -48,6 +50,7 @@ test('scaffold website', async () => {
       localPath: null,
       skipInstall: true,
       hoistDeps: false,
+      root: process.cwd(),
     }); // no need to test that yarn command works
 
     expect(await pathExists(name)).toBe(true);
@@ -81,6 +84,7 @@ test('prevents bad name', async () => {
         localPath: null,
         skipInstall: true,
         hoistDeps: false,
+        root: process.cwd(),
       })
     ).rejects.toThrow(/Do not add `-staging`/);
   } finally {

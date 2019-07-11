@@ -16,6 +16,7 @@ test('codemodPackageJson', async () => {
     '{"name":"name","__files":[],"dependencies":{},"engines":{"node":"0","npm":"0","yarn":"0"}}'
   );
   await codemodPackageJson({
+    path: file,
     type: 'website',
     name: dir,
     description: 'a',
@@ -38,6 +39,7 @@ test('codemodPackageJson non-website', async () => {
     '{"name": "name", "dependencies": {}, "engines": {"node": "0", "npm": "0", "yarn": "0"}}'
   );
   await codemodPackageJson({
+    path: file,
     type: 'library',
     name: dir,
     description: 'a',

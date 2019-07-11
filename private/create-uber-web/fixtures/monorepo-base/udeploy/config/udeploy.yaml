@@ -1,0 +1,6 @@
+activeai:
+  startup_time_wait: 5
+av-log-viewer:
+  startup_time_wait: 5
+aviator:
+  startup_time_wait: 5

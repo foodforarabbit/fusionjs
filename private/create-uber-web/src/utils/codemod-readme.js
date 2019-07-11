@@ -5,15 +5,17 @@ import {getUserName} from './get-user-name.js';
 import {getUserEmail} from './get-user-email.js';
 
 export const codemodReadme = async ({
+  path,
   name,
   description,
   team,
 }: {
+  path: string,
   name: string,
   description: string,
   team: string,
 }) => {
-  await replaceNunjucksFile(`${name}/README.md`, {
+  await replaceNunjucksFile(path, {
     project: name,
     description,
     team,

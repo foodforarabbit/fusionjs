@@ -8,7 +8,7 @@ test('codemodReadme', async () => {
   const dir = '__codemodded_readme__';
   const file = `${dir}/README.md`;
   await writeFile(`${file}`, '{{description}}');
-  await codemodReadme({name: dir, description: 'a', team: 'a'});
+  await codemodReadme({path: file, name: dir, description: 'a', team: 'a'});
   await expect(readFile(file)).resolves.toEqual('a');
   await remove(dir);
 });

@@ -10,6 +10,7 @@ import {replaceNunjucksFile} from './replace-nunjucks-file.js';
 import packageJson from '../../package.json';
 
 type PackageJsonCodemodData = {
+  path: string,
   type: string,
   name: string,
   description: string,
@@ -18,13 +19,14 @@ type PackageJsonCodemodData = {
 };
 
 export const codemodPackageJson = async ({
+  path,
   type,
   name,
   description,
   team,
   hoistDeps,
 }: PackageJsonCodemodData) => {
-  await replaceNunjucksFile(`${name}/package.json`, {
+  await replaceNunjucksFile(`${path}`, {
     description,
     name,
     gitName: await getUserName(),
@@ -32,7 +34,7 @@ export const codemodPackageJson = async ({
     team,
     version: packageJson.version,
   });
-  await withJsonFile(`${name}/package.json`, async data => {
+  await withJsonFile(`${path}`, async data => {
     if (type.startsWith('website')) {
       data.engines.node = await getNodeVersion();
       data.engines.npm = await getNpmVersion();

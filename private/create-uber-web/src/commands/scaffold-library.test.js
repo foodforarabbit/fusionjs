@@ -25,7 +25,9 @@ test('scaffold library', async () => {
 
     jest.spyOn(inquirer, 'prompt').mockImplementation(options => {
       if (options.message.match(/template/)) {
-        return {value: options.choices[3]};
+        return {
+          value: options.choices.find(c => c.includes('Generic Library')),
+        };
       } else if (options.message.match(/name/)) {
         return {value: name};
       } else if (options.message.match(/description/)) {
@@ -46,6 +48,7 @@ test('scaffold library', async () => {
       localPath: null,
       skipInstall: true,
       hoistDeps: false,
+      root: process.cwd(),
     }); // no need to test that yarn command works
 
     expect(await pathExists(name)).toBe(true);
