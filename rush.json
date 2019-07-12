@@ -253,6 +253,10 @@
    */
   "projects": [
     {
+      "packageName": "jazelle",
+      "projectFolder": "public/jazelle"
+    },
+    {
       "packageName": "fusion-tokens",
       "projectFolder": "public/fusion-tokens"
     },
