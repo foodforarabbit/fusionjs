@@ -3,7 +3,6 @@
 import {Stepper, step, type Step} from '@dubstep/core';
 import {bumpDeps} from '../utils/bump-deps.js';
 import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protection/enhancer.js';
-import {installIntrospect} from '../codemods/fusion-plugin-introspect/installation.js';
 import {replacePackage} from '../codemods/replace-package/codemod-replace-package.js';
 import {replacePackageImports} from '../codemods/replace-package-imports/codemod-replace-package-imports.js';
 import {addPackage} from '../codemods/add-package/codemod-add-package.js';
@@ -44,9 +43,6 @@ export const upgrade = async ({
       }),
       step('migrate fusion-plugin-csrf-protection', async () => {
         await migrateCsrfProtectionToV2({dir, strategy});
-      }),
-      step('install fusion-introspect', async () => {
-        await installIntrospect({dir, strategy});
       }),
       step('remove fusion-react-async', async () => {
         await replacePackage({
