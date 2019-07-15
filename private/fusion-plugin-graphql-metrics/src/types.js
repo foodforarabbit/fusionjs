@@ -12,7 +12,7 @@ export type PluginServiceType = $Call<typeof GetApolloClientLinksToken>;
 export type DepsType = {
   logger: typeof LoggerToken,
   m3: typeof M3Token,
-  tracer: typeof TracerToken.optional,
+  Tracer: typeof TracerToken.optional,
 };
 type ResolveFn = (
   root: any,

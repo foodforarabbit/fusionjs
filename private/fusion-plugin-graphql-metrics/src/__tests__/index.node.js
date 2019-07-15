@@ -2,7 +2,7 @@
 import React from 'react';
 import {getSimulator, createRequestContext} from 'fusion-test-utils';
 import Plugin from '../index.js';
-import {RenderToken} from 'fusion-core';
+import {RenderToken, type Context} from 'fusion-core';
 import App from 'fusion-react';
 import {
   ApolloRenderEnhancer,
@@ -30,7 +30,35 @@ function getMockM3(): any {
 }
 
 function getMockTracer(): any {
-  return {};
+  const mockSpan = {
+    context: jest.fn(() => 'root'),
+    finish: jest.fn(),
+    setTag: jest.fn(),
+  };
+  const spans = [];
+  const tracer = {
+    startSpan: jest.fn(() => {
+      const span = {
+        context: jest.fn(() => 'test'),
+        finish: jest.fn(),
+        setTag: jest.fn(),
+      };
+      spans.push(span);
+      return span;
+    }),
+    get spans() {
+      return spans;
+    },
+  };
+  return {
+    from(ctx: Context) {
+      return {
+        span: mockSpan,
+        tracer,
+      };
+    },
+    tracer,
+  };
 }
 
 function testApp({typeDefs, resolvers}) {
@@ -84,7 +112,7 @@ test('GraphQL Middleware', async () => {
       },
     },
   };
-  const {client, m3} = testApp({typeDefs, resolvers});
+  const {client, m3, tracer} = testApp({typeDefs, resolvers});
   const result = await client.query({
     query: gql`
       query GetUser {
@@ -96,21 +124,124 @@ test('GraphQL Middleware', async () => {
       }
     `,
   });
+  expect(tracer.tracer.spans.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls[0][0]).toEqual(
+    'graphql.query.GetUser'
+  );
+  expect(tracer.tracer.startSpan.mock.calls[0][1]).toMatchInlineSnapshot(`
+            Object {
+              "childOf": "root",
+              "tags": Object {
+                "component": "graphql",
+                "operationType": "query",
+              },
+            }
+      `);
   expect(resolverCount).toEqual(1);
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
   expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
   expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
-    Object {
-      "operation_name": "get_user",
-      "operation_type": "query",
-      "result": "success",
-    }
-  `);
+                    Object {
+                      "operation_name": "get_user",
+                      "operation_type": "query",
+                      "result": "success",
+                    }
+          `);
   expect(result.data.user).toEqual({
     __typename: 'User',
     firstName: 'Hello',
     id: '123',
+    lastName: 'World',
+  });
+});
+
+test('GraphQL Metrics - Multiple Queries', async () => {
+  const typeDefs = `
+  type Query {
+    user(arg: String): User
+  }
+  type User {
+    id: ID
+    firstName: String
+    lastName: String
+  }
+  `;
+  let resolverCount = 0;
+  const spans = {};
+  const resolvers = {
+    Query: {
+      user: async (parent, args, ctx, info) => {
+        spans[args.arg] = ctx._getSpanContextFromInfo(info);
+        resolverCount++;
+        return {
+          id: args.arg,
+          firstName: 'Hello',
+          lastName: 'World',
+        };
+      },
+    },
+    User: {
+      id: (parent, args, ctx, info) => {
+        expect(ctx._getSpanContextFromInfo(info)).toEqual(spans[parent.id]);
+        return parent.id;
+      },
+    },
+  };
+  const {client, m3, tracer} = testApp({typeDefs, resolvers});
+  const query = gql`
+    query GetUser($arg: String) {
+      user(arg: $arg) {
+        id
+        firstName
+        lastName
+      }
+    }
+  `;
+  const result = await client.query({query, variables: {arg: 'test'}});
+  const result2 = await client.query({query, variables: {arg: 'other'}});
+
+  expect(tracer.tracer.spans.length).toEqual(2);
+  expect(tracer.tracer.startSpan.mock.calls.length).toEqual(2);
+  expect(tracer.tracer.spans[0]).not.toEqual(tracer.tracer.spans[1]);
+  expect(tracer.tracer.startSpan.mock.calls[0][0]).toEqual(
+    'graphql.query.GetUser'
+  );
+  expect(tracer.tracer.startSpan.mock.calls[1][0]).toEqual(
+    'graphql.query.GetUser'
+  );
+  expect(tracer.tracer.startSpan.mock.calls[0][1]).toMatchInlineSnapshot(`
+            Object {
+              "childOf": "root",
+              "tags": Object {
+                "component": "graphql",
+                "operationType": "query",
+              },
+            }
+      `);
+  expect(resolverCount).toEqual(2);
+  expect(m3.timing.mock.calls.length).toEqual(2);
+  expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
+  expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
+  expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
+                    Object {
+                      "operation_name": "get_user",
+                      "operation_type": "query",
+                      "result": "success",
+                    }
+          `);
+  expect(result.data.user).toEqual({
+    __typename: 'User',
+    firstName: 'Hello',
+    id: 'test',
+    lastName: 'World',
+  });
+
+  expect(result2.data.user).toEqual({
+    __typename: 'User',
+    firstName: 'Hello',
+    id: 'other',
     lastName: 'World',
   });
 });
@@ -133,7 +264,7 @@ test('GraphQL Middleware - Query with an error', async () => {
       },
     },
   };
-  const {client, logger, m3} = testApp({typeDefs, resolvers});
+  const {client, logger, m3, tracer} = testApp({typeDefs, resolvers});
   await expect(
     client.query({
       query: gql`
@@ -147,23 +278,39 @@ test('GraphQL Middleware - Query with an error', async () => {
       `,
     })
   ).rejects.toMatchInlineSnapshot(`[Error: GraphQL error: Fails query]`);
+
+  expect(tracer.tracer.spans.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls[0][0]).toEqual(
+    'graphql.query.GetUser'
+  );
+  expect(tracer.tracer.startSpan.mock.calls[0][1]).toMatchInlineSnapshot(`
+        Object {
+          "childOf": "root",
+          "tags": Object {
+            "component": "graphql",
+            "operationType": "query",
+          },
+        }
+    `);
+  expect(tracer.tracer.spans[0].setTag.mock.calls[0]).toEqual(['error', true]);
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
   expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
   expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
-    Object {
-      "operation_name": "get_user",
-      "operation_type": "query",
-      "result": "failure",
-    }
-  `);
+                    Object {
+                      "operation_name": "get_user",
+                      "operation_type": "query",
+                      "result": "failure",
+                    }
+          `);
   expect(logger.error.mock.calls.length).toEqual(1);
   expect(logger.error.mock.calls[0]).toMatchInlineSnapshot(`
-    Array [
-      "GetUser query failed",
-      [GraphQLError: Fails query],
-    ]
-  `);
+                    Array [
+                      "GetUser query failed",
+                      [GraphQLError: Fails query],
+                    ]
+          `);
 });
 
 test('GraphQL Middleware - Mutation with an error', async () => {
@@ -191,7 +338,7 @@ test('GraphQL Middleware - Mutation with an error', async () => {
       },
     },
   };
-  const {client, logger, m3} = testApp({typeDefs, resolvers});
+  const {client, logger, m3, tracer} = testApp({typeDefs, resolvers});
   await expect(
     client.mutate({
       mutation: gql`
@@ -208,22 +355,36 @@ test('GraphQL Middleware - Mutation with an error', async () => {
       },
     })
   ).rejects.toMatchInlineSnapshot(`[Error: GraphQL error: Fails query]`);
+  expect(tracer.tracer.spans.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls[0][0]).toEqual(
+    'graphql.mutation.UpdateUser'
+  );
+  expect(tracer.tracer.startSpan.mock.calls[0][1]).toMatchInlineSnapshot(`
+    Object {
+      "childOf": "root",
+      "tags": Object {
+        "component": "graphql",
+        "operationType": "mutation",
+      },
+    }
+  `);
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls.length).toEqual(1);
   expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
   expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
   expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
-    Object {
-      "operation_name": "update_user",
-      "operation_type": "mutation",
-      "result": "failure",
-    }
-  `);
+                    Object {
+                      "operation_name": "update_user",
+                      "operation_type": "mutation",
+                      "result": "failure",
+                    }
+          `);
   expect(logger.error.mock.calls.length).toEqual(1);
   expect(logger.error.mock.calls[0]).toMatchInlineSnapshot(`
-    Array [
-      "UpdateUser mutation failed",
-      [GraphQLError: Fails query],
-    ]
-  `);
+                    Array [
+                      "UpdateUser mutation failed",
+                      [GraphQLError: Fails query],
+                    ]
+          `);
 });
