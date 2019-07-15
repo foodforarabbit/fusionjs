@@ -15,6 +15,7 @@ import {format} from '../utils/format.js';
 import type {UpgradeStrategy} from '../types.js';
 import {codemodFusionApollo} from '../codemods/fusion-plugin-apollo/codemod-fusion-apollo';
 import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cli';
+import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
 
 export type UpgradeOptions = {
   dir: string,
@@ -37,6 +38,9 @@ export const upgrade = async ({
     steps.push(
       step('migrate fusion-apollo', async () => {
         await codemodFusionApollo({dir, strategy});
+      }),
+      step('migrate @uber/fusion-plugin-graphql-metrics', async () => {
+        await migrateGraphQLMetrics({dir, strategy});
       }),
       step('migrate typed-rpc-cli', async () => {
         await codemodTypedRPCCLI({dir, strategy});
