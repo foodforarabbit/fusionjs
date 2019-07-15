@@ -20,9 +20,9 @@ jest.mock('../utils/get-teams.js', () => ({
   getTeams: () => ['web'],
 }));
 
-test('scaffold monorepo website', async () => {
+test('scaffold graphql monorepo website', async () => {
   const base = 'fixtures/monorepo-base';
-  const root = 'fixtures/website-monorepo';
+  const root = 'fixtures/website-graphql-monorepo';
   const name = 'test-project';
   try {
     await remove(root).catch(() => {});
@@ -31,7 +31,7 @@ test('scaffold monorepo website', async () => {
       if (options.message.match(/template/)) {
         return {
           value: options.choices.find(c =>
-            c.includes('Web Application [web-code monorepo]')
+            c.includes('GraphQL Web Application [web-code monorepo]')
           ),
         };
       } else if (options.message.match(/name/)) {
@@ -46,7 +46,7 @@ test('scaffold monorepo website', async () => {
     });
 
     await scaffold({
-      type: 'website-monorepo',
+      type: 'website-graphql-monorepo',
       name: '',
       description: '',
       team: '',

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Welcome 1`] = `
+<Styled(div)>
+  <div>
+    <Styled(div)
+      $delay="500ms"
+    >
+      <WithFontLoading>
+        Welcome
+      </WithFontLoading>
+    </Styled(div)>
+    <Styled(div)>
+      <Styled(div)
+        $delay="1.5s"
+      >
+        <ButtonLink>
+          Let's get started
+        </ButtonLink>
+      </Styled(div)>
+    </Styled(div)>
+  </div>
+</Styled(div)>
+`;

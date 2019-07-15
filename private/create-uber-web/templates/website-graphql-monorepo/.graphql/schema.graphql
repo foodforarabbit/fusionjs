@@ -1,0 +1,38 @@
+type Cat {
+  id: ID!
+  name: String
+  age: Int
+}
+
+type Query {
+  user: User
+  tripsForClient: [Trip]!
+  cat: Cat
+}
+
+type Trip {
+  id: ID!
+  status: TripStatus!
+}
+
+enum TripStatus {
+  COMPLETED
+  CANCELED
+  DRIVER_CANCELED
+  UNFULFILLED
+  FARE_SPLIT
+  FAILED
+  PAYMENT_FAILED
+  RESERVED_8
+  RESERVED_9
+  RESERVED_10
+  UNKNOWN
+}
+
+type User {
+  id: ID!
+  firstName: String
+  lastName: String
+  nickname: String
+  trips: [Trip!]!
+}
