@@ -59,7 +59,7 @@ const mockM3 = {
   ): void => {},
   close: async (string: string): Promise<void> => {},
 };
-const mockTracer = {tracer: 'tracer'};
+const mockTracer: any = {tracer: 'tracer'};
 
 test('Galileo Plugin', (t): void => {
   t.ok(GalileoPlugin, 'exported correctly');

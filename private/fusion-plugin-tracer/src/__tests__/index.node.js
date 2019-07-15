@@ -39,7 +39,7 @@ test('Tracer Plugin', async t => {
     },
   };
 
-  function MockInitTracer(cfg, options) {
+  function MockInitTracer(cfg, options): any {
     t.looseEquals(cfg, config, 'config is passed down');
     t.looseEquals(
       options,
@@ -108,7 +108,7 @@ test('Tracer Middleware', async t => {
     },
   };
 
-  function MockInitTracer() {
+  function MockInitTracer(): any {
     return mockTracer;
   }
 
@@ -179,7 +179,7 @@ test('Tracer Middleware with response set above tracer', async t => {
     },
   };
 
-  function MockInitTracer() {
+  function MockInitTracer(): any {
     return mockTracer;
   }
 

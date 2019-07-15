@@ -28,10 +28,10 @@ const {getProxyHeaders} = require('../plugin.js');
 
 function getMockTracer(
   t
-) /*: {|
-  from: (ctx: empty) => {|span: any, tracer: any|},
+) /*: {
+  from: (ctx: Context) => {span: any, tracer: any},
   tracer: any,
-|} */ {
+} */ {
   return {
     tracer: {},
 

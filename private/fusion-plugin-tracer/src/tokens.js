@@ -3,9 +3,9 @@
 import {createToken} from 'fusion-core';
 import type {Token} from 'fusion-core';
 
-import type {Tracer} from './types.js';
+import type {TracerServiceType, Tracer} from './types.js';
 
-export const TracerToken: Token<Tracer> = createToken('Tracer');
+export const TracerToken: Token<TracerServiceType> = createToken('Tracer');
 
 type MockConfig = {|
   mock: boolean,

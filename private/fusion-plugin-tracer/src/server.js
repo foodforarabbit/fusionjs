@@ -13,7 +13,7 @@ import {
   InitTracerToken,
 } from './tokens.js';
 
-import type {Tracer, TracerPluginType} from './types.js';
+import type {TracerPluginType} from './types.js';
 
 const pluginFactory: () => TracerPluginType = () =>
   createPlugin({
@@ -48,20 +48,14 @@ const pluginFactory: () => TracerPluginType = () =>
 
       const tracer = initClient(tracerConfig, options);
 
-      class TracerPlugin {
-        span: any;
-        tracer: Tracer;
-
-        constructor() {
-          this.span = null;
-          this.tracer = tracer;
-        }
-      }
-
       return {
         tracer,
         from: memoize(() => {
-          return new TracerPlugin();
+          return {
+            tracer,
+            // $FlowFixMe
+            span: null,
+          };
         }),
       };
     },
