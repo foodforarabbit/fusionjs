@@ -31,9 +31,6 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
   provides({logger, m3, Tracer}) {
     return (links, ctx) => {
       if (Tracer) {
-        // This is a private API which is necessary for correct tracing hierarchy. This will be used by atreyu generated code.
-        // We may be able to remove this API in favor of a cleaner solution if we move away from graphql-tools and apollo-server
-        // in favor of custom tools.
         ctx._getSpanContextFromInfo = (info: GraphQLResolveInfo) => {
           const operationName =
             (info.operation.name && info.operation.name.value) || 'anonymous';

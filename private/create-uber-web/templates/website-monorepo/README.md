@@ -4,7 +4,23 @@
 
 ## Usage
 
-<TODO>
+Clone this project:
+
+```
+$ git clone gitolite@code.uber.internal:{{team}}/{{project}}
+```
+
+Install the dependencies via `yarn`:
+
+```
+$ yarn install
+```
+
+Run your project and watch the file changes:
+
+```
+$ yarn dev
+```
 
 ## Developing {{project}}
 

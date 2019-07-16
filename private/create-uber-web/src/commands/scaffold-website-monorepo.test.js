@@ -22,7 +22,7 @@ jest.mock('../utils/get-teams.js', () => ({
 
 test('scaffold monorepo website', async () => {
   const base = 'fixtures/monorepo-base';
-  const root = 'fixtures/website-monorepo';
+  const root = 'fixtures/website';
   const name = 'test-project';
   try {
     await remove(root).catch(() => {});
@@ -84,10 +84,7 @@ test('scaffold monorepo website', async () => {
     expect(udeploy.includes(`${name}:\n  startup_time_wait: 15`)).toBe(true);
 
     expect(await pathExists(`${root}/projects/${name}/udeploy`)).toBe(false);
-
-    const bazelIgnore = await readFile(`${root}/.bazelignore`);
-    expect(bazelIgnore.includes(name)).toBe(true);
   } finally {
-    await remove(root).catch(() => {});
+    // await remove(root).catch(() => {});
   }
 });

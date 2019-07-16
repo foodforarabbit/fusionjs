@@ -1,9 +1,0 @@
-type Query {
-  cat: Cat
-}
-
-type Cat {
-  id: ID!
-  name: String
-  age: Int
-}
