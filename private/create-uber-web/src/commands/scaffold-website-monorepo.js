@@ -138,8 +138,11 @@ export const scaffoldWebsiteMonorepo = async ({
         isExternal: project.external || false,
         assetBase: `https://d3i4yxtzktqr9n.cloudfront.net/${project.name}`,
       });
-      copy(file, resolve(`${root}/udeploy/pinocchio/${project.name}.yaml`));
-      removeFile(`${root}/projects/${project.name}/udeploy`);
+      await copy(
+        file,
+        resolve(`${root}/udeploy/pinocchio/${project.name}.yaml`)
+      );
+      await removeFile(`${root}/projects/${project.name}/udeploy`);
     }),
     step('codemod sentry configuration', async () => {
       await replaceNunjucksFile(
@@ -173,6 +176,7 @@ export const scaffoldWebsiteMonorepo = async ({
         try {
           await exec(`jazelle install --cwd projects/${project.name}`, {
             cwd: root,
+            stdio: 'inherit',
           });
           // eslint-disable-next-line no-console
           console.log(

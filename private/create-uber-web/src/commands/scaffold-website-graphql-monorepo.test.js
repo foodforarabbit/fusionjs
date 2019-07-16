@@ -78,6 +78,13 @@ test('scaffold graphql monorepo website', async () => {
     );
     const pinnochio = await readFile(`${root}/udeploy/pinocchio/${name}.yaml`);
     expect(pinnochio.includes('{{')).toBe(false);
+    expect(pinnochio.includes(name)).toBe(true);
+
+    const apolloConfig = await readFile(
+      `${root}/projects/${name}/apollo.config.js`
+    );
+    expect(apolloConfig.includes('{{')).toBe(false);
+    expect(apolloConfig.includes(name)).toBe(true);
 
     expect(await pathExists(`${root}/udeploy/config/udeploy.yaml`)).toBe(true);
     const udeploy = await readFile(`${root}/udeploy/config/udeploy.yaml`);
