@@ -19,6 +19,7 @@ import {codemodReadme} from '../utils/codemod-readme.js';
 import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
 import {checkAppMonorepoRoot} from '../utils/check-app-monorepo-root.js';
 import {addMonorepoProject} from '../utils/add-monorepo-project.js';
+import {codemodBazelIgnore} from '../utils/codemod-bazelignore.js';
 
 export type Options = {
   root: string,
@@ -166,6 +167,9 @@ export const scaffoldWebsiteMonorepo = async ({
         root,
         project: project.name,
       });
+    }),
+    step('add project node_modules to .bazelignore', async () => {
+      await codemodBazelIgnore({root, name: project.name});
     }),
     step('install deps', async () => {
       // eslint-disable-next-line no-console

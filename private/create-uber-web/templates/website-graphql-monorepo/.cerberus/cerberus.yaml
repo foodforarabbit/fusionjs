@@ -1,0 +1,4 @@
+autodetect: false
+no-status-page: true
+tchannel-services: populous,trident
+http-services:
