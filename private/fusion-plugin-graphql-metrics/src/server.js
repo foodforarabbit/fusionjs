@@ -105,10 +105,20 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
 
           return observer.map(result => {
             const {errors} = result;
+            const message = `${operationName} ${operationType} failed`;
             if (errors) {
               errors.forEach(e => {
-                // TODO: log originalError.errors
-                logger.error(`${operationName} ${operationType} failed`, e);
+                if (e.originalError) {
+                  if (e.originalError.errors) {
+                    e.originalError.errors.forEach(err => {
+                      logger.error(message, err);
+                    });
+                  } else {
+                    logger.error(message, e);
+                  }
+                } else {
+                  logger.error(message, e);
+                }
               });
               tags.result = 'failure';
             } else {

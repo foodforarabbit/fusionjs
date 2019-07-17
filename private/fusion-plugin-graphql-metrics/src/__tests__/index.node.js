@@ -15,11 +15,12 @@ import {LoggerToken, FetchToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
 import gql from 'graphql-tag';
-import {makeExecutableSchema} from 'graphql-tools';
+import {makeExecutableSchema, mergeSchemas} from 'graphql-tools';
 
 function getMockLogger(): any {
   return {
     error: jest.fn(),
+    warn: jest.fn(),
   };
 }
 
@@ -61,19 +62,13 @@ function getMockTracer(): any {
   };
 }
 
-function testApp({typeDefs, resolvers}) {
+function testApp(schema) {
   const logger = getMockLogger();
   const m3 = getMockM3();
   const tracer = getMockTracer();
   const app = new App(<div />);
   app.enhance(RenderToken, ApolloRenderEnhancer);
-  app.register(
-    GraphQLSchemaToken,
-    makeExecutableSchema({
-      typeDefs,
-      resolvers,
-    })
-  );
+  app.register(GraphQLSchemaToken, schema);
   app.register(LoggerToken, logger);
   app.register(M3Token, m3);
   app.register(TracerToken, tracer);
@@ -88,7 +83,7 @@ function testApp({typeDefs, resolvers}) {
   return {app, client, logger, m3, tracer};
 }
 
-test('GraphQL Middleware', async () => {
+test('GraphQL Metrics', async () => {
   const typeDefs = `
   type Query {
     user: User
@@ -112,7 +107,9 @@ test('GraphQL Middleware', async () => {
       },
     },
   };
-  const {client, m3, tracer} = testApp({typeDefs, resolvers});
+  const {client, m3, tracer} = testApp(
+    makeExecutableSchema({typeDefs, resolvers})
+  );
   const result = await client.query({
     query: gql`
       query GetUser {
@@ -189,7 +186,9 @@ test('GraphQL Metrics - Multiple Queries', async () => {
       },
     },
   };
-  const {client, m3, tracer} = testApp({typeDefs, resolvers});
+  const {client, m3, tracer} = testApp(
+    makeExecutableSchema({typeDefs, resolvers})
+  );
   const query = gql`
     query GetUser($arg: String) {
       user(arg: $arg) {
@@ -246,7 +245,7 @@ test('GraphQL Metrics - Multiple Queries', async () => {
   });
 });
 
-test('GraphQL Middleware - Query with an error', async () => {
+test('GraphQL Metrics - Query with an error', async () => {
   const typeDefs = `
   type Query {
     user: User
@@ -264,7 +263,9 @@ test('GraphQL Middleware - Query with an error', async () => {
       },
     },
   };
-  const {client, logger, m3, tracer} = testApp({typeDefs, resolvers});
+  const {client, logger, m3, tracer} = testApp(
+    makeExecutableSchema({typeDefs, resolvers})
+  );
   await expect(
     client.query({
       query: gql`
@@ -313,7 +314,97 @@ test('GraphQL Middleware - Query with an error', async () => {
           `);
 });
 
-test('GraphQL Middleware - Mutation with an error', async () => {
+test('GraphQL Metrics with Stitched Schema - Query with an error', async () => {
+  const typeDefs = `
+  type Query {
+    user: User
+  }
+  type User {
+    id: ID
+    firstName: String
+    lastName: String
+  }
+  `;
+
+  const nextTypeDefs = `
+  type Query {
+    test: String
+  } 
+  `;
+  const resolvers = {
+    Query: {
+      user: async (parent, args, ctx, info) => {
+        throw new Error('Fails query');
+      },
+    },
+  };
+  const nextResolvers = {
+    Query: {
+      test() {
+        throw new Error('Fails query');
+      },
+    },
+  };
+  const {client, logger, m3, tracer} = testApp(
+    mergeSchemas({
+      schemas: [
+        makeExecutableSchema({typeDefs, resolvers}),
+        makeExecutableSchema({
+          typeDefs: nextTypeDefs,
+          resolvers: nextResolvers,
+        }),
+      ],
+    })
+  );
+  await expect(
+    client.query({
+      query: gql`
+        query GetUser {
+          user {
+            id
+            firstName
+            lastName
+          }
+        }
+      `,
+    })
+  ).rejects.toMatchInlineSnapshot(`[Error: GraphQL error: Fails query]`);
+
+  expect(tracer.tracer.spans.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls[0][0]).toEqual(
+    'graphql.query.GetUser'
+  );
+  expect(tracer.tracer.startSpan.mock.calls[0][1]).toMatchInlineSnapshot(`
+        Object {
+          "childOf": "root",
+          "tags": Object {
+            "component": "graphql",
+            "operationType": "query",
+          },
+        }
+    `);
+  expect(tracer.tracer.spans[0].setTag.mock.calls[0]).toEqual(['error', true]);
+  expect(m3.timing.mock.calls.length).toEqual(1);
+  expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
+  expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
+  expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
+                    Object {
+                      "operation_name": "get_user",
+                      "operation_type": "query",
+                      "result": "failure",
+                    }
+          `);
+  expect(logger.error.mock.calls.length).toEqual(1);
+  expect(logger.error.mock.calls[0]).toMatchInlineSnapshot(`
+                    Array [
+                      "GetUser query failed",
+                      [GraphQLError: Fails query],
+                    ]
+          `);
+});
+
+test('GraphQL Metrics - Mutation with an error', async () => {
   const typeDefs = `
   type Query {
     user: User
@@ -338,7 +429,9 @@ test('GraphQL Middleware - Mutation with an error', async () => {
       },
     },
   };
-  const {client, logger, m3, tracer} = testApp({typeDefs, resolvers});
+  const {client, logger, m3, tracer} = testApp(
+    makeExecutableSchema({typeDefs, resolvers})
+  );
   await expect(
     client.mutate({
       mutation: gql`
@@ -387,4 +480,63 @@ test('GraphQL Middleware - Mutation with an error', async () => {
                       [GraphQLError: Fails query],
                     ]
           `);
+});
+
+test('GraphQL Metrics - missing tracer', async () => {
+  const logger = getMockLogger();
+  const m3 = getMockM3();
+  const app = new App(<div />);
+  const typeDefs = `
+  type Query  {
+    test: String
+  }
+  `;
+  const resolvers = {
+    Query: {
+      test() {},
+    },
+  };
+  app.enhance(RenderToken, ApolloRenderEnhancer);
+  app.register(GraphQLSchemaToken, makeExecutableSchema({typeDefs, resolvers}));
+  app.register(LoggerToken, logger);
+  app.register(M3Token, m3);
+  app.register(GetApolloClientLinksToken, Plugin);
+  app.register(ApolloClientToken, ApolloClientPlugin);
+  // $FlowFixMe
+  app.register(FetchToken, () => {});
+  app.register(LoggerToken, logger);
+  app.register(GetApolloClientLinksToken, Plugin);
+  app.middleware(async (ctx, next) => {
+    await next();
+    expect(ctx._getSpanContextFromInfo).toThrow(
+      'This feature requires the Tracer to be enabled.'
+    );
+  });
+  const sim = getSimulator(app);
+  await sim.render('/');
+});
+
+test('GraphQL Metrics - anonymous operation', async () => {
+  const typeDefs = `
+  type Query  {
+    test: String
+  }
+  `;
+  const resolvers = {
+    Query: {
+      test() {
+        return 'test';
+      },
+    },
+  };
+  const {client, logger} = testApp(makeExecutableSchema({typeDefs, resolvers}));
+  const result = await client.query({
+    query: gql`
+      {
+        test
+      }
+    `,
+  });
+  expect(result.data).toEqual({test: 'test'});
+  expect(logger.warn.mock.calls.length).toEqual(1);
 });
