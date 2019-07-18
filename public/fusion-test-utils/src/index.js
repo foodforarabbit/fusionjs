@@ -85,11 +85,7 @@ type MatchSnapshotType = (tree: mixed, snapshotName: ?string) => void;
 type CallableAssertType = (
   assert: typeof assert & {matchSnapshot: MatchSnapshotType}
 ) => void | Promise<void>;
-type TestType = (
-  name: JestTestName,
-  assert: CallableAssertType,
-  timeout?: number
-) => void;
+type TestType = (name: JestTestName, assert: CallableAssertType) => void;
 
 // eslint-disable-next-line import/no-mutable-exports
 let mockFunction: MockFunctionType<*, *>, test: any;

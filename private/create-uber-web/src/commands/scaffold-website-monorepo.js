@@ -19,6 +19,7 @@ import {codemodReadme} from '../utils/codemod-readme.js';
 import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
 import {checkAppMonorepoRoot} from '../utils/check-app-monorepo-root.js';
 import {addMonorepoProject} from '../utils/add-monorepo-project.js';
+import {codemodBazelIgnore} from '../utils/codemod-bazelignore.js';
 
 export type Options = {
   root: string,
@@ -138,8 +139,11 @@ export const scaffoldWebsiteMonorepo = async ({
         isExternal: project.external || false,
         assetBase: `https://d3i4yxtzktqr9n.cloudfront.net/${project.name}`,
       });
-      copy(file, resolve(`${root}/udeploy/pinocchio/${project.name}.yaml`));
-      removeFile(`${root}/projects/${project.name}/udeploy`);
+      await copy(
+        file,
+        resolve(`${root}/udeploy/pinocchio/${project.name}.yaml`)
+      );
+      await removeFile(`${root}/projects/${project.name}/udeploy`);
     }),
     step('codemod sentry configuration', async () => {
       await replaceNunjucksFile(
@@ -164,6 +168,9 @@ export const scaffoldWebsiteMonorepo = async ({
         project: project.name,
       });
     }),
+    step('add project node_modules to .bazelignore', async () => {
+      await codemodBazelIgnore({root, name: project.name});
+    }),
     step('install deps', async () => {
       // eslint-disable-next-line no-console
       console.log('Template scaffolded.');
@@ -173,6 +180,7 @@ export const scaffoldWebsiteMonorepo = async ({
         try {
           await exec(`jazelle install --cwd projects/${project.name}`, {
             cwd: root,
+            stdio: 'inherit',
           });
           // eslint-disable-next-line no-console
           console.log(

@@ -1,0 +1,41 @@
+schema_version: 2.0.0
+service_name: {{project}}
+service_type: website
+website:
+  build_cmds:
+    - RUN /home/udocker/{{project}}/udeploy/build.sh
+  pre_build_cmds:
+    - ENV SERVICE_DIR=projects/{{project}}
+    - ADD git-repo/projects/{{project}}/package.json /home/udocker/{{project}}/
+    - RUN cd /home/udocker/{{project}}/ && "$WEB_CMD_CHANGE_NODE"
+  secret_location: projects/{{project}}/config/secrets/secrets.json
+  workflow_version: 1
+  {% if isExternal %}
+  command: 'CDN_URL="{{assetBase}}" npm start'
+  {% endif %}
+env_vars:
+  - name: NODE_OPTIONS
+    value: --max-http-header-size=16384
+export_paths:
+  - /home/udocker/{{project}}
+  - /usr/local/lib/python2.7/dist-packages
+  - /usr/local/bin
+  - /var/tmp
+  - /usr/local/change-node
+  - /usr/bin
+debian_packages_for_runtime:
+  - name: libx11-6
+  - name: libxi6
+  - name: libxext6
+debian_packages_for_build:
+  - name: pkg-config
+  - name: libx11-6
+  - name: libxi6
+  - name: libxext6
+uses_langley_build_secrets: true
+applications:
+  - app_type: command_line
+    command_line:
+      run_cmd: cd projects/{{project}} && yarn start
+    health_check: http
+    udeploy_app_id: {{project}}

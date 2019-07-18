@@ -3,7 +3,6 @@
 import {Stepper, step, type Step} from '@dubstep/core';
 import {bumpDeps} from '../utils/bump-deps.js';
 import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protection/enhancer.js';
-import {installIntrospect} from '../codemods/fusion-plugin-introspect/installation.js';
 import {replacePackage} from '../codemods/replace-package/codemod-replace-package.js';
 import {replacePackageImports} from '../codemods/replace-package-imports/codemod-replace-package-imports.js';
 import {addPackage} from '../codemods/add-package/codemod-add-package.js';
@@ -16,6 +15,7 @@ import {format} from '../utils/format.js';
 import type {UpgradeStrategy} from '../types.js';
 import {codemodFusionApollo} from '../codemods/fusion-plugin-apollo/codemod-fusion-apollo';
 import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cli';
+import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
 
 export type UpgradeOptions = {
   dir: string,
@@ -39,14 +39,14 @@ export const upgrade = async ({
       step('migrate fusion-apollo', async () => {
         await codemodFusionApollo({dir, strategy});
       }),
+      step('migrate @uber/fusion-plugin-graphql-metrics', async () => {
+        await migrateGraphQLMetrics({dir, strategy});
+      }),
       step('migrate typed-rpc-cli', async () => {
         await codemodTypedRPCCLI({dir, strategy});
       }),
       step('migrate fusion-plugin-csrf-protection', async () => {
         await migrateCsrfProtectionToV2({dir, strategy});
-      }),
-      step('install fusion-introspect', async () => {
-        await installIntrospect({dir, strategy});
       }),
       step('remove fusion-react-async', async () => {
         await replacePackage({
