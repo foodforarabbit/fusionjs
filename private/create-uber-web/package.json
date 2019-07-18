@@ -8,7 +8,6 @@
     "url": "https://github.com/uber/fusionjs"
   },
   "bin": {
-    "@uber/create-uber-web": "dist/cli.js",
     "create-uber-web": "dist/cli.js"
   },
   "main": "dist/index.js",
