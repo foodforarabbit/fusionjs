@@ -37,7 +37,13 @@ const PageNotFound = () => (
 
 const faviconPath = assetUrl('../static/favicon.ico');
 
-const theme = createTheme(lightThemePrimitives, {
+const primaryFontFamily =
+  'UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif';
+
+const theme = createTheme({
+    ...lightThemePrimitives,
+    primaryFontFamily,
+  }, {
   icons: {
     Alert: AlertFilled,
     ArrowLeft: ArrowLeftFilled,
