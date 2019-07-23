@@ -71,5 +71,6 @@
     "directory": "private/fusion-plugin-web-rpc-compat",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

@@ -83,5 +83,6 @@
     "directory": "private/fusion-plugin-bedrock-compat",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

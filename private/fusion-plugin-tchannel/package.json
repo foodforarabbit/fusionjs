@@ -74,5 +74,6 @@
     "directory": "private/fusion-plugin-tchannel",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

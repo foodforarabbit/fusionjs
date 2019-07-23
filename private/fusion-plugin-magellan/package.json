@@ -75,5 +75,6 @@
     "directory": "private/fusion-plugin-magellan",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

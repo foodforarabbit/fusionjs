@@ -77,5 +77,6 @@
     "directory": "private/fusion-plugin-logtron",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

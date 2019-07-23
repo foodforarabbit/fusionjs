@@ -85,5 +85,6 @@
     "directory": "private/fusion-plugin-events-adapter",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

@@ -174,5 +174,6 @@
     "src",
     "!__tests__"
   ],
-  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-feature-toggles"
+  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-feature-toggles",
+  "sideEffects": false
 }

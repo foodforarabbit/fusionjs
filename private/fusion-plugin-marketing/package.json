@@ -172,5 +172,6 @@
     "src",
     "!__tests__"
   ],
-  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-marketing"
+  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-marketing",
+  "sideEffects": false
 }

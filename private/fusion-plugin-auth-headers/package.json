@@ -65,5 +65,6 @@
     "directory": "private/fusion-plugin-auth-headers",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

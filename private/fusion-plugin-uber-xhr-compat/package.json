@@ -65,5 +65,6 @@
     "directory": "private/fusion-plugin-uber-xhr-compat",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

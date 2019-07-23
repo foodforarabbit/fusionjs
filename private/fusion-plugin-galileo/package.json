@@ -76,5 +76,6 @@
     "directory": "private/fusion-plugin-galileo",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

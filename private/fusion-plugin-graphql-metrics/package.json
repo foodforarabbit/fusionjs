@@ -172,5 +172,6 @@
     "dist",
     "src",
     "!__tests__"
-  ]
+  ],
+  "sideEffects": false
 }

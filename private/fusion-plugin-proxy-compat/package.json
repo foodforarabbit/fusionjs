@@ -59,5 +59,6 @@
     "directory": "private/fusion-plugin-proxy-compat",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }
