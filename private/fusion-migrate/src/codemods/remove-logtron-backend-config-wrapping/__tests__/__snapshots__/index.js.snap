@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`remove-logtron-backend-config-wrapping positive-match: positive-match 1`] = `
+"app.register(LogtronBackendsToken, {backends: {foo: bar}});
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+app.register(LogtronBackendsToken, {
+  foo: bar,
+});
+"
+`;

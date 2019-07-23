@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fix-health-path-check positive-match: positive-match 1`] = `
+"export default (ctx, next) => {
+  if (!ctx.element && ctx.url === '/health') {
+    ctx.status = 200;
+    ctx.body = 'OK';
+  }
+  return next();
+};
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+export default (ctx, next) => {
+  if (!ctx.element && ctx.path === '/health') {
+    ctx.status = 200;
+    ctx.body = 'OK';
+  }
+
+  return next();
+};
+"
+`;

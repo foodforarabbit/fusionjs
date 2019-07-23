@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add-react-helmet-async negative-match: negative-match 1`] = `
+"import App from 'fusion-react';
+import HelmetPlugin from 'fusion-plugin-react-helmet-async';
+
+export default function start() {
+  const app = new App();
+  app.register(HelmetPlugin);
+  return app;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import HelmetPlugin from 'fusion-plugin-react-helmet-async';
+export default function start() {
+  const app = new App();
+  app.register(HelmetPlugin);
+  return app;
+}
+"
+`;
+
+exports[`add-react-helmet-async positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
+
+export default function start() {
+  const app = new App();
+  return app;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import HelmetPlugin from 'fusion-plugin-react-helmet-async';
+export default function start() {
+  const app = new App();
+  app.register(HelmetPlugin);
+  return app;
+}
+"
+`;

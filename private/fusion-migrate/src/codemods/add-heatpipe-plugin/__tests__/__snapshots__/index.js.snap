@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add-heatpipe-plugin negative-match: negative-match 1`] = `
+"import App from 'fusion-react';
+import HeatpipePlugin, {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+
+export default function start() {
+  const app = new App();
+  app.register(HeatpipeToken, HeatpipePlugin);
+  return app;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import HeatpipePlugin, {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+export default function start() {
+  const app = new App();
+  app.register(HeatpipeToken, HeatpipePlugin);
+  return app;
+}
+"
+`;
+
+exports[`add-heatpipe-plugin positive-match: positive-match 1`] = `
+"import App from 'fusion-react';
+
+export default function start() {
+  const app = new App();
+  return app;
+}
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import App from 'fusion-react';
+import HeatpipePlugin, {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+export default function start() {
+  const app = new App();
+  app.register(HeatpipeToken, HeatpipePlugin);
+  return app;
+}
+"
+`;

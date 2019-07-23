@@ -1,7 +1,7 @@
 const path = require('path');
-const pluginTester = require('babel-plugin-tester');
+const pluginTester = require('../../../utils/codemod-test.js');
 
-pluginTester({
-  plugin: require('../plugin'),
-  fixtures: path.join(__dirname, '../__fixtures__'),
-});
+const fixtureDir = path.join(__dirname, '../__fixtures__');
+const plugin = require('../plugin');
+
+pluginTester(fixtureDir, plugin);

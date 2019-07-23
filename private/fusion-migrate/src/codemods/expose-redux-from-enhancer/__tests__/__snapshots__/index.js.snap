@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expose-redux-from-enhancer positive-match: positive-match 1`] = `
+"__DEV__ &&
+  app.enhance(ReduxToken, redux => {
+    return createPlugin({
+      middleware: () => {
+        return (ctx, next) => {
+          /* global module */
+          if (module.hot) {
+            module.hot.accept('./redux', () => {
+              // eslint-disable-next-line cup/no-undef
+              const nextReducer = require('./redux').default.reducer;
+              redux.from(ctx).store.replaceReducer(nextReducer);
+            });
+          }
+          return next();
+        };
+      },
+    });
+  });
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+__DEV__ &&
+  app.enhance(ReduxToken, redux => {
+    return createPlugin({
+      provides() {
+        return redux;
+      },
+
+      middleware: () => {
+        return (ctx, next) => {
+          /* global module */
+          if (module.hot) {
+            module.hot.accept('./redux', () => {
+              // eslint-disable-next-line cup/no-undef
+              const nextReducer = require('./redux').default.reducer;
+
+              redux.from(ctx).store.replaceReducer(nextReducer);
+            });
+          }
+
+          return next();
+        };
+      },
+    });
+  });
+"
+`;

@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add-csrf-ignore-routes-token already-configured: already-configured 1`] = `
+"import ErrorHandling from 'fusion-plugin-error-handling';
+import CsrfProtectionPlugin, {
+  FetchForCsrfToken,
+  CsrfIgnoreRoutesToken,
+} from 'fusion-plugin-csrf-protection-react';
+
+app.register(FetchToken, CsrfProtectionPlugin);
+__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors']);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import ErrorHandling from 'fusion-plugin-error-handling';
+import CsrfProtectionPlugin, {
+  FetchForCsrfToken,
+  CsrfIgnoreRoutesToken,
+} from 'fusion-plugin-csrf-protection-react';
+app.register(FetchToken, CsrfProtectionPlugin);
+__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors']);
+"
+`;
+
+exports[`add-csrf-ignore-routes-token missing-csrf-protection: missing-csrf-protection 1`] = `
+"import ErrorHandling from 'fusion-plugin-error-handling';
+
+app.register(FetchToken, CsrfProtectionPlugin);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import ErrorHandling from 'fusion-plugin-error-handling';
+app.register(FetchToken, CsrfProtectionPlugin);
+"
+`;
+
+exports[`add-csrf-ignore-routes-token missing-error-handling: missing-error-handling 1`] = `
+"import CsrfProtectionPlugin, {
+  FetchForCsrfToken,
+} from 'fusion-plugin-csrf-protection-react';
+
+app.register(FetchToken, CsrfProtectionPlugin);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import CsrfProtectionPlugin, {
+  FetchForCsrfToken,
+} from 'fusion-plugin-csrf-protection-react';
+app.register(FetchToken, CsrfProtectionPlugin);
+"
+`;
+
+exports[`add-csrf-ignore-routes-token positive-match: positive-match 1`] = `
+"import ErrorHandling from 'fusion-plugin-error-handling';
+import CsrfProtectionPlugin, {
+  FetchForCsrfToken,
+} from 'fusion-plugin-csrf-protection-react';
+
+app.register(FetchToken, CsrfProtectionPlugin);
+
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+import ErrorHandling from 'fusion-plugin-error-handling';
+import CsrfProtectionPlugin, {
+  FetchForCsrfToken,
+  CsrfIgnoreRoutesToken,
+} from 'fusion-plugin-csrf-protection-react';
+app.register(FetchToken, CsrfProtectionPlugin);
+__NODE__ && app.register(CsrfIgnoreRoutesToken, ['/_errors']);
+"
+`;
