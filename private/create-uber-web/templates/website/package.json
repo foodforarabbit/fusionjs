@@ -32,7 +32,7 @@
     "@uber/fusion-plugin-secure-headers": "^5.0.3",
     "@uber/fusion-plugin-tchannel": "^2.0.4",
     "@uber/fusion-plugin-tracer": "^2.0.2",
-    "@uber/fusion-plugin-web-analytics": "^1.0.0",
+    "@uber/fusion-plugin-web-analytics": "^1.0.1",
     "@uber/icons": "^1.0.12",
     "baseui": "^6.14.2",
     "clear-module": "^3.1.0",

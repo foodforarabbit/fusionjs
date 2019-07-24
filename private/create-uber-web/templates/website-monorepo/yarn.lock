@@ -1517,10 +1517,10 @@
   dependencies:
     "@uber/jaeger-client-adapter" "^3.4.0"
 
-"@uber/fusion-plugin-web-analytics@^1.0.0":
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-web-analytics/-/private/%40uber%2Ffusion-plugin-web-analytics-1.0.0.tgz#7b2d261e087eb2aba81f811a92b8e8b2b69f63a8"
-  integrity sha512-UFTIlcsTTRpZ3iW+D0PiWRnRXqKsIk+f9pkgKb53+Obi/TCP6+HbSWzHZy5mzauYMwhLPyEurIdbQLhXH59KXg==
+"@uber/fusion-plugin-web-analytics@^1.0.1":
+  version "1.0.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-web-analytics/-/private/%40uber%2Ffusion-plugin-web-analytics-1.0.1.tgz#1d3a04efd362d5141b76f3e1ae8942a5beca1187"
+  integrity sha512-LNpytMMgYs7T2ACADaqFNUB9+MCqJXr61F6n78G4JVc9hvepprnQZjCX+13Y0NRWxOfJmq6NsGlxABMAYavoNQ==
   dependencies:
     "@uber/fusion-analyticsjs-utils" "^1.0.2"
     dottie "^2.0.1"
