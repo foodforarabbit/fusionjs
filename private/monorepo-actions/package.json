@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo ok",
     "lint": "echo ok",
-    "build": "echo ok"
+    "build": "echo ok",
+    "flow": "echo ok"
   },
   "dependencies": {
     "@iarna/toml": "^2.2.3",
