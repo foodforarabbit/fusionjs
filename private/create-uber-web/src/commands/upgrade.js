@@ -1,6 +1,10 @@
 /* @flow */
 
 import {Stepper, step, type Step} from '@dubstep/core';
+import {
+  styledV7TypeArguments,
+  styledV8ToThemedStyled,
+} from '@uber-web-ui/baseui-codemods';
 import {bumpDeps} from '../utils/bump-deps.js';
 import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protection/enhancer.js';
 import {replacePackage} from '../codemods/replace-package/codemod-replace-package.js';
@@ -181,6 +185,12 @@ export const upgrade = async ({
       }),
       step('register FontLoaderReactToken with FontLoader plugin', async () => {
         await codemodFusionPluginFontLoaderReact({dir});
+      }),
+      step('apply type agruments to baseui styled function', async () => {
+        await styledV7TypeArguments({dir});
+      }),
+      step('shift baseui themed styled to createThemedStyled', async () => {
+        await styledV8ToThemedStyled({dir});
       }),
       step('format', async () => {
         await format(dir);

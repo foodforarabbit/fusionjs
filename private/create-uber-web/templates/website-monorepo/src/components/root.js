@@ -3,7 +3,7 @@ import React from 'react';
 import {assetUrl} from 'fusion-core';
 import {Helmet} from 'fusion-plugin-react-helmet-async';
 import {Route, Switch, NotFound} from 'fusion-plugin-react-router';
-import {styled, ThemeProvider, createTheme, lightThemePrimitives} from 'baseui';
+import {styled, BaseProvider, createTheme, lightThemePrimitives} from 'baseui';
 import {
   AlertFilled,
   ArrowLeftFilled,
@@ -39,38 +39,44 @@ const faviconPath = assetUrl('../static/favicon.ico');
 
 const primaryFontFamily =
   'UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif';
-
-const theme = createTheme({
-    ...lightThemePrimitives,
-    primaryFontFamily,
-  }, {
-  icons: {
-    Alert: AlertFilled,
-    ArrowLeft: ArrowLeftFilled,
-    ArrowRight: ArrowRightFilled,
-    ArrowUp: ArrowUpFilled,
-    ArrowDown: ArrowDownFilled,
-    Check: CheckmarkFilled,
-    ChevronLeft: ChevronLeftSmallFilled,
-    ChevronRight: ChevronRightSmallFilled,
-    Delete: XSmallFilled,
-    DeleteAlt: CircleXFilled,
-    Filter: FilterFilled,
-    Menu: ThreeLinesFilled,
-    Overflow: ThreeDotsHorizontalFilled,
-    Plus: PlusSmallFilled,
-    Search: SearchFilled,
-    TriangleLeft: ChevronLeftSmallFilled,
-    TriangleRight: ChevronRightSmallFilled,
-    TriangleDown: ChevronDownSmallFilled,
-    TriangleUp: ChevronUpSmallFilled,
-    Upload: UploadFilled,
+const secondaryFontFamily =
+  'UberMove, UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif';
+const theme = createTheme(
+  {...lightThemePrimitives, primaryFontFamily},
+  {
+    icons: {
+      Alert: AlertFilled,
+      ArrowLeft: ArrowLeftFilled,
+      ArrowRight: ArrowRightFilled,
+      ArrowUp: ArrowUpFilled,
+      ArrowDown: ArrowDownFilled,
+      Check: CheckmarkFilled,
+      ChevronLeft: ChevronLeftSmallFilled,
+      ChevronRight: ChevronRightSmallFilled,
+      Delete: XSmallFilled,
+      DeleteAlt: CircleXFilled,
+      Filter: FilterFilled,
+      Menu: ThreeLinesFilled,
+      Overflow: ThreeDotsHorizontalFilled,
+      Plus: PlusSmallFilled,
+      Search: SearchFilled,
+      TriangleLeft: ChevronLeftSmallFilled,
+      TriangleRight: ChevronRightSmallFilled,
+      TriangleDown: ChevronDownSmallFilled,
+      TriangleUp: ChevronUpSmallFilled,
+      Upload: UploadFilled,
+    },
+    typography: {
+      font1100: {
+        fontFamily: secondaryFontFamily,
+      },
+    },
   },
-});
+);
 
-const CaptureElement = styled('div', () => ({
+const CaptureElement = styled('div', {
   height: '100%',
-}));
+});
 
 export const Root = () => (
   <DOMEventsTracker as={CaptureElement}>
@@ -86,12 +92,12 @@ button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
 input::-webkit-inner-spin-button,input::-webkit-outer-spin-button,input::-webkit-search-cancel-button,input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none;}
       `}</style>
       </Helmet>
-      <ThemeProvider theme={theme}>
+      <BaseProvider theme={theme}>
         <Switch>
           <Route exact path="/" component={Welcome} />
           <Route component={PageNotFound} />
         </Switch>
-      </ThemeProvider>
+      </BaseProvider>
     </div>
   </DOMEventsTracker>
 );

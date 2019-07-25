@@ -13,7 +13,7 @@ const Centered = styled('div', {
 });
 
 const H1 = withMoveTextLight(
-  styled('h1', props => ({
+  styled<{$foneStyles: any}>('h1', props => ({
     fontWeight: '100',
     fontSize: '96px',
     margin: '0px',
@@ -25,7 +25,7 @@ const AlignRight = styled('div', {
   textAlign: 'right',
 });
 
-const FadeIn = styled('div', props => ({
+const FadeIn = styled<{$delay: string}>('div', props => ({
   opacity: 0,
   animationName: {
     from: {opacity: 0},

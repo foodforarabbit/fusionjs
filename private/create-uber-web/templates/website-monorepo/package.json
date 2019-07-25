@@ -34,7 +34,7 @@
     "@uber/fusion-plugin-tracer": "^2.0.2",
     "@uber/fusion-plugin-web-analytics": "^1.0.1",
     "@uber/icons": "^1.0.12",
-    "baseui": "^6.14.2",
+    "baseui": "^8.6.1",
     "clear-module": "^3.1.0",
     "fusion-cli": "^2.2.0",
     "fusion-core": "^2.0.2",
