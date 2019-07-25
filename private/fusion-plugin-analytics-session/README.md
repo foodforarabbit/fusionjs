@@ -46,7 +46,7 @@ app.middleware({sessionCookie: AnalyticsSessionToken}, ({sessionCookie}) => {
 ```js
 app.middleware({sessionCookie: AnalyticsSessionToken}, ({sessionCookie}) => {
   return (ctx, next) => {
-    const sessionCookie = session._from(ctx);
+    const session = sessionCookie._from(ctx);
     const {session_id, session_time_ms} = sessionCookie.get(UberWebEventCookie);
     return next();
   }

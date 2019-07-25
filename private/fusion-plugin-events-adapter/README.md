@@ -31,7 +31,7 @@ Many Fusion.js plugins emit data to the universal events bus, for example `fusio
 ### Installation
 
 ```
-yarn-add @uber/fusion-plugin-events-adapter
+yarn add @uber/fusion-plugin-events-adapter
 ```
 
 ---
