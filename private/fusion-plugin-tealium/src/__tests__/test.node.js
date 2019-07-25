@@ -125,3 +125,36 @@ test('plugin skips processing non-HTML request', t => {
     });
   }
 });
+
+test('plugin skips requests that dont have a full config', t => {
+  const configStub = () => {
+    return {
+      name: 'partial_config',
+    };
+  };
+
+  const mockCtx: any = {
+    nonce: 'xyz456',
+    template: {
+      head: {
+        push: () => {
+          t.fail('push should not be called');
+        },
+      },
+    },
+  };
+
+  t.plan(1);
+  if (TealiumPlugin.middleware) {
+    TealiumPlugin.middleware(
+      {
+        config: configStub,
+        logger: (null: any),
+      },
+      (null: any)
+    )(mockCtx, async () => {
+      t.pass('next() called');
+      t.end();
+    });
+  }
+});

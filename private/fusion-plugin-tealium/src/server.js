@@ -37,6 +37,10 @@ const plugin =
 
       let {account, profile, env, geo} = resolvedConfig;
 
+      if (!account || !profile || !env) {
+        return next();
+      }
+
       // Load the strict profile for specific regions
       profile = StrictGeo.includes(geo) ? 'strict' : profile;
 
