@@ -29,7 +29,7 @@
     "@uber/fusion-plugin-secure-headers": "^3.2.2",
     "@uber/fusion-plugin-tchannel": "^2.0.2",
     "@uber/fusion-plugin-tracer": "^2.0.0",
-    "@uber/fusion-plugin-web-analytics": "^1.0.1",
+    "@uber/fusion-plugin-web-analytics": "^1.0.2",
     "@uber/graphql-scripts": "^0.2.1",
     "@uber/icons": "^1.0.14",
     "apollo-client": "^2.5.1",

@@ -15,5 +15,5 @@ export default function initUI(app: FusionApp) {
   app.register(FontLoaderReactConfigToken, fontConfig);
   app.register(Router);
   app.register(Styletron);
-  app.register(AtomicPrefixToken, "_");
+  app.register(AtomicPrefixToken, '_');
 }

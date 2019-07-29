@@ -13,7 +13,7 @@ const Centered = styled('div', {
 });
 
 const H1 = withMoveTextLight(
-  styled<{$foneStyles: any}>('h1', props => ({
+  styled<{$fontStyles: any}>('h1', props => ({
     fontWeight: '100',
     fontSize: '96px',
     margin: '0px',

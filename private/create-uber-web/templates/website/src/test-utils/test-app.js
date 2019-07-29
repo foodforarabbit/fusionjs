@@ -2,7 +2,6 @@
 import Enzyme, {mount} from 'enzyme';
 import {renderToStaticMarkup} from 'react-dom/server';
 import Adapter from 'enzyme-adapter-react-16';
-import {HydrationStateToken} from 'fusion-plugin-i18n-react';
 import {GalileoConfigToken} from '@uber/fusion-plugin-galileo';
 import {TChannelToken} from '@uber/fusion-plugin-tchannel';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
@@ -26,8 +25,6 @@ export default async function start({render = defaultRender, root}: * = {}) {
         enabled: false,
       });
     !__DEV__ && app.register(TracerToken, {});
-  } else {
-    app.register(HydrationStateToken, {chunks: [], translations: {}});
   }
   return app;
 }

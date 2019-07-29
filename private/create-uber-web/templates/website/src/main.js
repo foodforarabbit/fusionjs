@@ -59,7 +59,6 @@ import LoggerPlugin, {
   LogtronBackendsToken,
 } from '@uber/fusion-plugin-logtron';
 import Router from 'fusion-plugin-react-router';
-import I18n, {I18nToken, I18nLoaderToken} from 'fusion-plugin-i18n-react';
 import TracerPlugin, {TracerToken} from '@uber/fusion-plugin-tracer';
 import GalileoPlugin, {GalileoToken} from '@uber/fusion-plugin-galileo';
 import TChannel, {TChannelToken} from '@uber/fusion-plugin-tchannel';
@@ -68,7 +67,6 @@ import AtreyuPlugin, {
   AtreyuToken,
   AtreyuConfigToken,
 } from '@uber/fusion-plugin-atreyu';
-import Rosetta from '@uber/fusion-plugin-rosetta';
 import BrowserPerformanceEmitterPlugin from 'fusion-plugin-browser-performance-emitter';
 import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';
 import RPC, {RPCToken, RPCHandlersToken} from 'fusion-plugin-rpc';
@@ -126,7 +124,7 @@ export default async function start(options: any = {}) {
   app.register(BrowserPerformanceEmitterPlugin);
   app.register(EventsAdapterPlugin);
   app.register(Styletron);
-  app.register(AtomicPrefixToken, "_");
+  app.register(AtomicPrefixToken, '_');
   app.register(HeatpipeToken, HeatpipePlugin);
   app.register(FeatureTogglesPlugin);
   __NODE__ &&
@@ -157,7 +155,6 @@ export default async function start(options: any = {}) {
     authHeadersDevConfig.email &&
       app.register(AuthHeadersEmailConfigToken, authHeadersDevConfig.email);
     app.register(NodePerfEmitterPlugin);
-    app.register(I18nLoaderToken, Rosetta);
     !__DEV__ && app.register(TracerToken, TracerPlugin);
     !__DEV__ && app.register(GalileoToken, GalileoPlugin);
     app.register(TChannelToken, TChannel);
@@ -165,10 +162,8 @@ export default async function start(options: any = {}) {
     app.register(AtreyuConfigToken, atreyuConfig);
     app.register(RPCToken, RPC);
     app.register(RPCHandlersToken, RPCHandlersPlugin);
-    app.register(I18nToken, I18n);
   } else {
     app.register(RPCToken, RPC);
-    app.register(I18nToken, I18n);
   }
   registerPlugins(app);
 

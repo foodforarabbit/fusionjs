@@ -70,7 +70,7 @@ const theme = createTheme(
         fontFamily: secondaryFontFamily,
       },
     },
-  },
+  }
 );
 
 const CaptureElement = styled('div', {

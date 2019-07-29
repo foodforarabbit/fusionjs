@@ -21,7 +21,6 @@ import initLogging from './uber/logging.js';
 import initSecurity from './uber/security.js';
 import initAssets from './uber/assets.js';
 import initDataFetching from './uber/data-fetching.js';
-import initI18n from './uber/i18n.js';
 import initUI from './uber/ui.js';
 import initGraphQL from './uber/graphql.js';
 import initAnalytics from './uber/analytics.js'
@@ -43,7 +42,6 @@ export default async function start(root?: Element<*>, render?: Render) {
   initSecurity(app);
   initAssets(app);
   initUI(app);
-  initI18n(app);
   initDataFetching(app);
   initGraphQL(app);
   initUserPlugins(app);
