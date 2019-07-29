@@ -40,7 +40,7 @@
     "@dubstep/core": "^3.3.1",
     "@ganemone/babel-flow-types": "^2.0.6",
     "@uber/awd-client": "^0.5.0",
-    "@uber-web-ui/baseui-codemods": "^1.0.9",
+    "@uber-web-ui/baseui-codemods": "^1.0.8",
     "chalk": "^2.4.2",
     "cli-table3": "^0.5.1",
     "fs-extra": "^7.0.1",
