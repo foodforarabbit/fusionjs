@@ -26,6 +26,11 @@ tape('getTranslatons', t => {
     'getTranslations directly'
   );
   t.deepLooseEqual(
+    getTranslatons(client, 'ar_SA'),
+    {ab: 'ab'},
+    'getTranslations directly'
+  );
+  t.deepLooseEqual(
     getTranslatons(client, 'ar-AE'),
     {ab: 'ab'},
     'getTranslations from fallback chain'

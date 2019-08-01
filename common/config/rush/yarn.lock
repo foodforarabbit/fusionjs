@@ -3056,7 +3056,7 @@
   version "0.0.0"
   resolved "file:./projects/fusion-plugin-rosetta.tgz"
   dependencies:
-    "@uber/node-rosetta" "^1.0.9"
+    "@uber/node-rosetta" "^1.1.1"
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
     create-universal-package "^3.4.7"
@@ -3929,14 +3929,6 @@
   version "0.8.0"
   resolved "https://unpm.uberinternal.com/@types%2fzen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
 
-"@uber-web-ui/baseui-codemods@^1.0.8":
-  version "1.0.8"
-  resolved "https://unpm.uberinternal.com/@uber-web-ui%2fbaseui-codemods/-/baseui-codemods-1.0.8.tgz#db04d6eda3cf38934315cd8de10a3dddcfeeb8ba"
-  dependencies:
-    "@babel/types" "^7.4.4"
-    "@dubstep/core" "^3.3.1"
-    yargs "^13.2.4"
-
 "@uber-web-ui/baseui-codemods@^1.0.9":
   version "1.0.9"
   resolved "https://unpm.uberinternal.com/@uber-web-ui%2fbaseui-codemods/-/baseui-codemods-1.0.9.tgz#c121ce9be75325ee5f1cdb1b06773342de57fe77"
@@ -4132,6 +4124,19 @@
 "@uber/node-rosetta@^1.0.9":
   version "1.0.12"
   resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.0.12.tgz#6fdc98ff9cdc4cefe0d4945f6261b7171d679afd"
+  dependencies:
+    axios "^0.18.0"
+    decompress "^4.2.0"
+    fs-extra "^6.0.1"
+    node-lmdb "^0.6.2"
+    node-mkdirp "^0.0.1"
+    path-is-absolute "^1.0.0"
+    process "^0.11.2"
+    xtend "~3.0.0"
+
+"@uber/node-rosetta@^1.1.1":
+  version "1.1.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.1.1.tgz#7a32190f9ec579b037570bfc2a0640b20b1b786a"
   dependencies:
     axios "^0.18.0"
     decompress "^4.2.0"

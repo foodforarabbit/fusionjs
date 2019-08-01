@@ -32,7 +32,7 @@ const getTranslationsDirectly = (translations: Object, locale: string) => {
   if (!locale) {
     return null;
   }
-  return translations[locale] || translations[locale.replace('_', '-')];
+  return translations[locale];
 };
 
 const getTranslationsWithFallBack = (

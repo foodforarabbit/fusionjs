@@ -57,7 +57,10 @@ function translationsLoaderFactory(
 
     const normalizedLocale = locale.normalized;
     // getTranslations gets the translation with a fallback strategy
-    const translations = getTranslations(client, normalizedLocale);
+    const translations = getTranslations(
+      client,
+      normalizedLocale && normalizedLocale.replace('_', '-')
+    );
 
     return new TranslationsLoader({locale, translations});
   };
