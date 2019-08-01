@@ -29,7 +29,7 @@
     "@uber/fusion-plugin-rosetta": "^1.1.4",
     "@uber/fusion-plugin-s3-asset-proxying": "^2.0.3",
     "@uber/fusion-plugin-secrets": "^2.0.3",
-    "@uber/fusion-plugin-secure-headers": "^5.0.3",
+    "@uber/fusion-plugin-secure-headers": "^5.0.4",
     "@uber/fusion-plugin-tchannel": "^2.0.4",
     "@uber/fusion-plugin-tracer": "^2.0.2",
     "@uber/fusion-plugin-web-analytics": "^1.0.2",

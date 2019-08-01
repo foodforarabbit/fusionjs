@@ -1500,10 +1500,10 @@
   dependencies:
     dottie "^2.0.0"
 
-"@uber/fusion-plugin-secure-headers@^5.0.3":
-  version "5.0.3"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-secure-headers/-/private/%40uber%2Ffusion-plugin-secure-headers-5.0.3.tgz#2ec6bd264a2900da20d74225a0ebe9aac55e9605"
-  integrity sha512-HbDy9Db7a4DXoI66vHKiD2oFt2HvusEZ3357busB0v1KAcXa/tPiOZFGSWv6Qd2pu+g+bG8a+mNV7Ca0xilBoA==
+"@uber/fusion-plugin-secure-headers@^5.0.4":
+  version "5.0.4"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-secure-headers/-/private/%40uber%2Ffusion-plugin-secure-headers-5.0.4.tgz#f88cdf5d2918b3b906ad443e877d1ccc5e940d36"
+  integrity sha512-gYS+lIBd4aj5VhkaXJhqoyb/yDIJTR6xD6wHkY2/GW2JuNXJ3gGbdQ/QMX41YOnXBDs01bXE4onkJAzb16COaw==
   dependencies:
     deepmerge "^3.2.0"
     koa-compose "^4.1.0"
