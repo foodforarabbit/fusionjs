@@ -3056,7 +3056,7 @@
   version "0.0.0"
   resolved "file:./projects/fusion-plugin-rosetta.tgz"
   dependencies:
-    "@uber/node-rosetta" "^1.1.1"
+    "@uber/node-rosetta" "^1.1.2"
     babel-eslint "^10.0.1"
     babel-plugin-istanbul "^5.1.4"
     create-universal-package "^3.4.7"
@@ -4121,9 +4121,9 @@
     node-int64 "^0.4.0"
     thriftrw "^3.11.3"
 
-"@uber/node-rosetta@^1.0.9":
-  version "1.0.12"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.0.12.tgz#6fdc98ff9cdc4cefe0d4945f6261b7171d679afd"
+"@uber/node-rosetta@^1.1.1":
+  version "1.1.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.1.1.tgz#7a32190f9ec579b037570bfc2a0640b20b1b786a"
   dependencies:
     axios "^0.18.0"
     decompress "^4.2.0"
@@ -4134,9 +4134,9 @@
     process "^0.11.2"
     xtend "~3.0.0"
 
-"@uber/node-rosetta@^1.1.1":
-  version "1.1.1"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.1.1.tgz#7a32190f9ec579b037570bfc2a0640b20b1b786a"
+"@uber/node-rosetta@^1.1.2":
+  version "1.1.2"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.1.2.tgz#7428d5043eaee3624164fcc1110f96152a47bf7a"
   dependencies:
     axios "^0.18.0"
     decompress "^4.2.0"
