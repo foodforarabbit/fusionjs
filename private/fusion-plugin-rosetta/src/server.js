@@ -42,7 +42,8 @@ function defaultLocaleNegotiationStrategy(
   ctx: Context,
   supportedLocales: any
 ): any {
-  const expectedLocales = new Locales(ctx.headers['accept-language']);
+  const locale = ctx.query.localeCode || ctx.headers['accept-language'];
+  const expectedLocales = new Locales(locale);
   return expectedLocales.best(supportedLocales);
 }
 
