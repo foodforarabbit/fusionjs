@@ -61,7 +61,8 @@ async function getPackages(releases /*: Array<Release> */) /*: Packages */ {
 async function getReleases() /*: Promise<Array<Release>> */ {
   await exec(`git fetch --tags`);
   const tags = await exec(`git tag --list`);
-  return tags.split('\n').map(t => {
+  const isReleaseTag = t => t.startsWith('releases/')
+  return tags.split('\n').filter(isReleaseTag).map(t => {
     const [, yearMonthDay, hourMinSec, name] = t.split('/');
     const [year, month, day] = yearMonthDay.split('-').map(_ => Number(_));
     const hour = Number(hourMinSec.slice(0, 2));
