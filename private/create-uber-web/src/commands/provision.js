@@ -17,7 +17,6 @@ const VALID_DCS = ['phx3', 'irn1', 'dca1', 'dca4'];
 
 type ProvisionOptions = {
   infraportalConfig: {
-    conduitToken: string,
     repo: string,
     serviceTier: number,
     team: string,
@@ -36,7 +35,6 @@ type ProvisionOptions = {
 export const provision = async () => {
   const options: ProvisionOptions = {
     infraportalConfig: {
-      conduitToken: '',
       repo: '',
       serviceTier: 5,
       team: '',
@@ -160,21 +158,6 @@ LIMITATIONS:
         throw new Error('Repository URL was missing in package.json.');
       }
       options.infraportalConfig.repo = packageJson.repository.url;
-    }),
-    step('Infraportal configuration - Conduit token', async () => {
-      const arcConfig = JSON.parse(
-        // $FlowFixMe - Ignore warning about process.env.HOME
-        await readFile(path.join(process.env.HOME, '.arcrc')).catch(() => '{}')
-      );
-      const conduitToken = get<string>(arcConfig, [
-        'hosts',
-        'https://code.uberinternal.com/api/',
-        'token',
-      ]);
-      if (!conduitToken) {
-        throw new Error('conduitToken was missing from your .arcconfig file.');
-      }
-      options.infraportalConfig.conduitToken = conduitToken;
     }),
     step('Infraportal configuration - uOwn team', async () => {
       console.log('Fetching uOwn teams...');
