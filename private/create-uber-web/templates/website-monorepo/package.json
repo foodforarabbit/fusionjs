@@ -1,12 +1,12 @@
 {
-  "name": "website-template",
+  "name": "{{name}}",
   "description": "{{description}}",
   "version": "0.0.1",
   "scaffold-version": "{{version}}",
   "author": "{{author}} <{{email}}>",
   "repository": {
     "type": "git",
-    "url": "gitolite@code.uber.internal:{{team}}/{{name}}.git"
+    "url": "gitolite@code.uber.internal:web-code.git"
   },
   "bugs": {
     "url": "https://code.uberinternal.com/maniphest/task/create/",
