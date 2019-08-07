@@ -28,6 +28,7 @@ export const addStyledGeneric = async ({dir}: Options) => {
             p.node.arguments[0].type === 'StringLiteral' &&
             p.node.arguments[1].type.includes('Function')
           ) {
+            // $FlowFixMe
             const params = p.node.arguments[1].params;
             if (params.length > 0) {
               // is styled('tag', (foo: Foo) => {})
@@ -36,6 +37,7 @@ export const addStyledGeneric = async ({dir}: Options) => {
                 params[0].typeAnnotation.typeAnnotation &&
                 params[0].typeAnnotation.typeAnnotation.id
               ) {
+                // $FlowFixMe
                 typeId = params[0].typeAnnotation.typeAnnotation.id.name;
               } else {
                 typeId = 'any';
@@ -50,6 +52,7 @@ export const addStyledGeneric = async ({dir}: Options) => {
           }
         }
         if (typeId) {
+          // $FlowFixMe
           p.node.callee.name += `<${typeId}>`;
         }
       },

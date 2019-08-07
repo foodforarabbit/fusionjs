@@ -105,9 +105,13 @@ function isTypeImport(path, specifier) {
 }
 
 function getImportIdentifier(specifier) {
-  return t.isImportDefaultSpecifier(specifier)
-    ? 'default'
-    : specifier.imported.name;
+  if (specifier.type === 'ImportDefaultSpecifier') {
+    return 'default';
+  }
+  if (specifier.type === 'ImportSpecifier') {
+    return specifier.imported.name;
+  }
+  throw new Error('Namespace Specifier Not Supported Yet');
 }
 
 function getImportString(
