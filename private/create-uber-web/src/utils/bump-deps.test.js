@@ -3,6 +3,7 @@
 import {readFile, writeFile} from '@dubstep/core';
 import {remove} from 'fs-extra';
 import {bumpDeps} from './bump-deps.js';
+import semver from 'semver';
 
 jest.mock('../utils/get-latest-version.js', () => ({
   getLatestVersion: () => Promise.resolve('^1.0.0'),
@@ -92,6 +93,33 @@ test('bumpDeps force', async () => {
   );
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
+  await remove(dir);
+});
+
+test('bumpDeps force replaces bad version', async () => {
+  const dir = 'fixtures/bump-force-bad-version';
+  const file = `${dir}/package.json`;
+  await writeFile(
+    file,
+    `{
+      "dependencies": {
+        "no-bugs": "0.0"
+      },
+      "scripts": {
+        "test": "exit 0"
+      }
+    }`
+  );
+  await bumpDeps({dir, match: '', force: true, strategy: 'latest'}).catch(
+    () => {}
+  );
+  const data = await readFile(file);
+  const badVersion = JSON.parse(data).dependencies['no-bugs'].replace(
+    /[^\d.]/,
+    ''
+  );
+  expect(badVersion).not.toEqual('0.0');
+  expect(semver.valid(badVersion)).not.toBeNull();
   await remove(dir);
 });
 

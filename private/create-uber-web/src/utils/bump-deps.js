@@ -58,7 +58,9 @@ const batchUpgrade = async ({dir, match, file, data, strategy}) => {
           progress.tick();
           const old = data[key][dep].replace(/\^|~/, '');
           const curr = v.replace(/\^|~/, '');
-          if (semver.gt(curr, old)) data[key][dep] = v;
+          if (!semver.valid(old) || semver.gt(curr, old)) {
+            data[key][dep] = v;
+          }
         })
       );
     }
