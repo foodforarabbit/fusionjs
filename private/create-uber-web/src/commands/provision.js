@@ -3,20 +3,21 @@
 
 import {readFile, replaceJs, Stepper, step, withJsFile} from '@dubstep/core';
 import * as awdClient from '@uber/awd-client';
+import Table from 'cli-table3';
 import {checkGitRepository} from '../utils/check-git-repository.js';
 import {checkServiceDirectory} from '../utils/check-service-directory.js';
 import get from 'just-safe-get';
 import path from 'path';
 import {promptChoice} from '../utils/prompt-choice.js';
 import {prompt} from '../utils/prompt.js';
-import Table from 'cli-table3';
 
 // TODO: Should pull from Infraportal configs instead of hard coding in case available zones change
 // See: mesos_cluster_host, auth, and deprecated_zones config keys for latest values
-const VALID_DCS = ['phx3', 'irn1', 'dca1', 'dca4'];
+const VALID_DCS = ['phx3', 'dca1', 'dca4', 'dca8'];
 
 type ProvisionOptions = {
   infraportalConfig: {
+    pinocchioFilePath: string,
     repo: string,
     serviceTier: number,
     team: string,
@@ -35,6 +36,7 @@ type ProvisionOptions = {
 export const provision = async () => {
   const options: ProvisionOptions = {
     infraportalConfig: {
+      pinocchioFilePath: '',
       repo: '',
       serviceTier: 5,
       team: '',
@@ -53,17 +55,19 @@ export const provision = async () => {
   let awdToken = '';
 
   const stepper = new Stepper([
-    step('Precheck - Git and service directory', async () => {
-      console.log('Now checking service directory status...');
+    step('Precheck - Verify git status', async () => {
       await checkGitRepository();
-      options.serviceName = await checkServiceDirectory();
+    }),
+    step('Precheck - Verify service directory', async () => {
+      const {serviceName, pinocchioFilePath} = await checkServiceDirectory();
+      options.serviceName = serviceName;
+      options.infraportalConfig.pinocchioFilePath = pinocchioFilePath;
       console.log(`Your service name is: ${options.serviceName}\n`);
     }),
     step('Verify local AWD token exists', async () => {
       let token = await awdClient.getToken();
       if (!token) {
-        console.log('Verifying OpenID token for AWD...');
-        console.log('No valid token found.');
+        console.log('No valid OpenID token for AWD found.');
         token = await validateAwdTokenFlow();
         await awdClient.persistToken(token);
       }
@@ -132,16 +136,14 @@ INFORMATION:
   * Provisioning will create docker instances, build and deploy your code on uDeploy, set up
     associated traffic groups and endpoints to route to your application, and set up uMonitor.
   * This process will collect information upfront, then work in the background. Expect this to take
-    about an hour, possibly longer.
-  * Provisioning may pause at certain points. Follow the directions sent to you to get the process
-    unpaused.
+    about an hour or less.
   * You may re-run 'uber-web provision' at any time to check on the status of your provisioning.
 
 LIMITATIONS:
   * Only tier 3-5 services are supported using this tool. If you require a more critical tier,
     you will need ERD and SRE approval and need to manually provision.
   * Only 1 machine is provisioned per zone by default. A maximum of 2 per zone is available for
-    services in the prototype stage. You can adjust this post provision within Infraportal.
+    services in the prototype stage. You can adjust this post provision within Developer Console.
   * Breeze integration for external sites is not supported. If you require onboarding visit
     https://engdocs.uberinternal.com/arch/onboarding.html and manually configure within Pathfinder.
 `);
@@ -197,9 +199,11 @@ repo to find the appropriate namespace for your web application.
 
 Link to repo: https://code.uberinternal.com/diffusion/INCONF/browse/master/net/traffic
 `);
-        options.trafficControllerConfig.configDir = await prompt(
-          'What is the directory name within the rINCONF repo? (e.g. infra and NOT net/traffic/infra/config.yaml)'
-        );
+        while (options.trafficControllerConfig.configDir === '') {
+          options.trafficControllerConfig.configDir = await prompt(
+            'What is the directory name within the rINCONF repo? (e.g. infra and NOT net/traffic/infra/config.yaml)'
+          );
+        }
       }
     ),
     step('Send request to AWD', async () => {
