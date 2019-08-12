@@ -119,17 +119,24 @@ For linting, testing, and type checking individual packages, there isn't much of
 
 1. Click commit status icon (checkmark on commit list view)
 2. Click "Details" on check run named "Release"
-3. Click ":baby_chick: Canary release" button on check run details page
+3. Click <kbd>:baby_chick: Canary release</kbd> button on check run details page
 
 This will create a GitHub Deployment, which in turn triggers a https://buildkite.com/uber/fusionjs-publish job, which publishes a canary version for all packages. If the monorepo git hash is abc123, each package will have version 0.0.0-canary.abc123.0.
 
 #### Releases
 
 1. On master branch, click "Details" on commit check run named "Release"
-2. Click ":rocket: Release PR" button on check run details page
-  a. Note: The "Package tarball hashes" status must be set
-3. Open automatically created release PR
-4. Edit .release.toml with new versions for changed/new packages
-5. Edit .release-notes.md
-6. Merge PR after review + approval
-
+    - This is accessible from the commit list view via the modal that appears when clicking the green check mark
+2. Click <kbd>:rocket: Release PR</kbd> button on check run details page
+    - *Note: The "Package tarball hashes" status must be present on the HEAD commit of master before this will work*
+3. Open the automatically created release PR
+4. Edit the generated `.release-notes.md` with changes for each package
+    - Each changed package will have automatically scaffolded notes based on commits
+    - Use GitHub review suggestions to propose and discuss changes and then batch commit them from the UI
+    - This should be a group effort and the folks most knowledgable with particular changes should help craft quality release notes for them
+    - Release notes are not limited to bullet points: arbitrary markdown is supported (e.g. code snippets, code diffs, etc.)
+    - **Important: Unlike commit messages, release notes have a primarily external, non-maintainer audience (i.e. consumers of these packages), so notes should be tailored accordingly**
+5. Edit the generated `.release.toml` with new versions for changed/new packages
+6. Cut a canary release from release PR (using steps above)
+7. Upgrade `example-trips-viewer-fusion` with the canary release
+8. Merge PR after final review and approval
