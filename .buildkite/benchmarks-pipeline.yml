@@ -12,7 +12,7 @@ steps:
   - wait
   - label: "Benchmarks"
     command: node ./private/monorepo-actions/time_build.js
-    timeout_in_minutes: 30
+    timeout_in_minutes: 60
     plugins:
       "docker-compose#v3.0.0":
         run: ci

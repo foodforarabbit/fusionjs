@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { promisify } = require("util");
 const writeFile = promisify(fs.writeFile);
+var rimraf = require("rimraf");
 
 const main = `// @flow
     import root from './root.js';
@@ -19,6 +20,7 @@ async function generate_test_fixture(
   width /*:number*/
 ) {
   // make the directories
+  if (fs.existsSync(path_to_output)) rimraf.sync(path_to_output);
   fs.mkdirSync(path.join(path_to_output, "src", "pages"), { recursive: true });
 
   let promises = [];

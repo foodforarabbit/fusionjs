@@ -10,10 +10,12 @@ const {
 } = require("./generate_test_fixture.js");
 const { hashElement } = require("folder-hash");
 
-const FILES = 50, // number of Home files to be generated in the test fixture
-  DEPTH = 30, // depth of elements in the test fixture
-  WIDTH = 30; // width of elements in the test fixture
-const COUNT = 5; // the number of times each build will run
+const simpleGit = require("simple-git");
+
+const FILES = 30, // number of Home files to be generated in the test fixture
+  DEPTH = 25, // depth of elements in the test fixture
+  WIDTH = 25; // width of elements in the test fixture
+const COUNT = 9; // the number of times each build will run
 
 assert(
   COUNT > 0,
@@ -41,8 +43,36 @@ const buildCommand = path.join(
   ".bin",
   "fusion"
 );
-
 (async function() {
+  // runs benchmarks on head
+  const data = await doBuilds().catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+  // runs benchmarks on base
+  try {
+    const baseSha = await getBaseSha();
+    if (baseSha != null) {
+      await generate_test_fixture(FILES, path_to_test_fixture, DEPTH, WIDTH);
+      await simpleGit().checkout(baseSha);
+      const data = await doBuilds().catch(err => {
+        console.error(err);
+        process.exit(1);
+      });
+      postBuildTime(baseSha, data);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  if (typeof process.env.BUILDKITE_COMMIT !== "string") {
+    throw new Error(`Missing BUILDKITE_COMMIT env`);
+  }
+  //post the newer data second to trigger the bot after the base has already been updated
+  postBuildTime(process.env.BUILDKITE_COMMIT, data);
+})();
+
+async function doBuilds() {
   const cached_build_times = [],
     uncached_build_times = [],
     incremental_build_times = [],
@@ -59,28 +89,33 @@ const buildCommand = path.join(
     console.error(error);
   }
 
-  // uncached dev
   for (let i = 0; i < COUNT; i++) {
     deleteCaches();
-    const time = await run(buildCommand, ["dev"], {
+    // uncached dev
+
+    let time = await run(buildCommand, ["dev"], {
       cwd: path_to_test_fixture,
-      env: { ...process.env, LOG_END_TIME: "true" },
+      env: {
+        ...process.env,
+        LOG_END_TIME: "true",
+      },
     });
 
     uncached_build_times.push(time);
-  }
-
-  console.log(`Uncached Dev ${uncached_build_times.toString()}`);
-
-  //cached dev
-  for (let i = 0; i < COUNT; i++) {
-    const time = await run(buildCommand, ["dev"], {
+    //cached dev
+    time = await run(buildCommand, ["dev"], {
       cwd: path_to_test_fixture,
-      env: { ...process.env, LOG_END_TIME: "true" },
+      env: {
+        ...process.env,
+        LOG_END_TIME: "true",
+      },
     });
     cached_build_times.push(time);
   }
+
+  console.log(`Uncached Dev ${uncached_build_times.toString()}`);
   console.log(`Cached Dev ${cached_build_times.toString()}`);
+
   deleteCaches();
 
   let child = await new Promise(resolve => {
@@ -129,7 +164,7 @@ const buildCommand = path.join(
   }
   console.log(`Uncached Production Build ${production_build_times.toString()}`);
 
-  postBuildTime({
+  return {
     version: 1,
     fixture: fixture_hash,
     data: [
@@ -150,11 +185,8 @@ const buildCommand = path.join(
         time: production_build_times,
       },
     ],
-  });
-})().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+  };
+}
 
 function run(cmd, args, opts) {
   const start = Date.now();
@@ -190,14 +222,14 @@ function deleteCaches() {
   exec("rm -rf " + path.join(path_to_test_fixture, "node_modules", ".cache"));
 }
 
-async function postBuildTime(json_data) {
+async function postBuildTime(sha /*:string*/, json_data) {
   const github_checks = create_github_app();
 
   await github_checks.checks.create({
     owner: "uber",
     repo: "fusionjs",
     name: "Benchmarks",
-    head_sha: process.env.BUILDKITE_COMMIT,
+    head_sha: sha,
     status: "completed",
     started_at,
     completed_at: new Date().toISOString(),
@@ -208,7 +240,7 @@ async function postBuildTime(json_data) {
       text: JSON.stringify(json_data),
     },
   });
-  console.log("Build finished");
+  console.log(`\nBuild finished posting data to ${sha}`);
   console.log(JSON.stringify(json_data));
 }
 
@@ -233,4 +265,27 @@ async function postStatus() {
        build will continue normally and the status will be updated later`
     );
   }
+}
+
+async function getBaseSha() {
+  const github = create_github_user();
+  try {
+    const requests = await github.repos.listPullRequestsAssociatedWithCommit({
+      owner: "uber",
+      repo: "fusionjs",
+      commit_sha: process.env.BUILDKITE_COMMIT,
+    });
+    if (requests.data.length > 0) {
+      const request = requests.data.find(request => {
+        return (
+          request.head.sha == process.env.BUILDKITE_COMMIT &&
+          request.state === "open"
+        );
+      });
+      return request.base.sha;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
 }
