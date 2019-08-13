@@ -6,9 +6,9 @@ exports[`Welcome 1`] = `
     <Styled(div)
       $delay="500ms"
     >
-      <FontLoader>
+      <ForwardRef(FontLoader)>
         Welcome
-      </FontLoader>
+      </ForwardRef(FontLoader)>
     </Styled(div)>
     <Styled(div)>
       <Styled(div)
