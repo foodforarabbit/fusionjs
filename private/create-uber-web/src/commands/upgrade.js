@@ -80,7 +80,7 @@ export const upgrade = async ({
         });
       }),
       step('use fusion-plugin-universal-events', async () => {
-        await replacePackage({
+        await replacePackageImports({
           target: 'fusion-plugin-universal-events-react',
           replacement: 'fusion-plugin-universal-events',
           imports: ['default', 'UniversalEventsToken'],
@@ -90,7 +90,7 @@ export const upgrade = async ({
         });
       }),
       step('use fusion-plugin-m3', async () => {
-        await replacePackage({
+        await replacePackageImports({
           target: '@uber/fusion-plugin-m3-react',
           replacement: '@uber/fusion-plugin-m3',
           imports: [
@@ -114,7 +114,7 @@ export const upgrade = async ({
         });
       }),
       step('use fusion-plugin-logtron', async () => {
-        await replacePackage({
+        await replacePackageImports({
           target: '@uber/fusion-plugin-logtron-react',
           replacement: '@uber/fusion-plugin-logtron',
           imports: [
