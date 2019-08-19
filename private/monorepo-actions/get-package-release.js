@@ -22,16 +22,19 @@ type Release = {
 */
 
 (async () => {
-  const [, , name, version] = process.argv;
+  let [, , name, version] = process.argv;
+  version = version || 'latest';
+
   const {packages} = await getReleaseInfo();
   if (version === 'latest') {
-    const latestVersion = await exec(`npm info ${name} version`);
-    // eslint-disable-next-line no-console
-    console.log(packages[name][latestVersion].tag);
-  } else {
-    // eslint-disable-next-line no-console
-    console.log(packages[name][version].tag);
+    version = await exec(`npm info ${name} version`);
   }
+  const details = packages[name][version];
+  if(!details) {
+    throw new Error(`No associated release for ${name}@${version}`);
+  }
+  // eslint-disable-next-line no-console
+  console.log(details.tag);
 })();
 
 async function getReleaseInfo() /*: Promise<ReleaseInfo> */ {
