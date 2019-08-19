@@ -319,6 +319,33 @@ test('timeout threshold exceeded', async () => {
   expect(client.experiments).toEqual({});
 });
 
+test('multiple url params with the same key', async () => {
+  const mockContext = createMockContext({
+    headers: {'user-uuid': '0000'},
+    cookies: undefined,
+    query: {
+      mykey: ['myfirstval', 'mysecondval'],
+    },
+  });
+  const mockAtreyu = {
+    createAsyncGraph: jest.fn(() =>
+      jest.fn(() => ({
+        treatments: {},
+      }))
+    ),
+  };
+  const client = new MorpheusClient(
+    mockContext,
+    ['someExperiment', 'controlExperiment', 'noDataExperiment'],
+    {atreyu: mockAtreyu},
+    {metadataTransform: metadata => metadata}
+  );
+
+  expect(client.getContext(mockContext).urlParameters).toEqual({
+    mykey: '["myfirstval","mysecondval"]',
+  });
+});
+
 /* HELPER FUNCTIONS */
 
 /**

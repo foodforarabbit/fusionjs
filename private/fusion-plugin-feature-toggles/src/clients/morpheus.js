@@ -185,10 +185,18 @@ export default class MorpheusClient implements IFeatureTogglesClient {
    *        the the user's 'marketing_vistor_id'.  Defaults to the empty string otherwise.
    */
   getContext(ctx: Context): MorpheusContextType | EnhancedMorpheusContextType {
+    // ctx.query will roll entries with identical keys into an array which isn't supported by Morpheus backend
+    const urlParams = Object.keys(ctx.query).reduce(function(result, key) {
+      result[key] = Array.isArray(ctx.query[key])
+        ? JSON.stringify(ctx.query[key])
+        : ctx.query[key];
+      return result;
+    }, {});
+
     const defaultContext: MorpheusContextType = {
       browser: ctx.headers['user-agent'],
       url: ctx.url,
-      urlParameters: ctx.query,
+      urlParameters: urlParams,
       deviceLanguage: ctx.headers['accept-language'],
       ipAddress: ctx.ip,
       cookieID:
