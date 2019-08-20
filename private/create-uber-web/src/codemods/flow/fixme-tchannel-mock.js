@@ -1,12 +1,15 @@
 // @flow
 import {withTextFile} from '@dubstep/core';
+import isFile from '../utils/is-file.js';
 
 type FixMeTchannelMockOptions = {
   dir: string,
 };
 
 export const fixMeTchannelMock = async ({dir}: FixMeTchannelMockOptions) => {
-  await withTextFile(`${dir}/src/test-utils/test-app.js`, async code => {
+  const testUtilsPath = `${dir}/src/test-utils/test-app.js`;
+  if (!(await isFile(testUtilsPath))) return;
+  await withTextFile(testUtilsPath, async code => {
     return code
       .replace(
         /( +)(app.register\(TChannelToken, \{\}\));/m,
