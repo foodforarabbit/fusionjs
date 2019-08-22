@@ -72,6 +72,7 @@
   "devDependencies": {
     "@uber/fusion-dev-cli": "^1.1.0",
     "@uber/typed-rpc-cli": "^2.0.5",
+    "@uber/standard-fonts": "^0.1.1",
     "apollo": "^2.9.0",
     "babel-eslint": "^10.0.1",
     "enzyme": "^3.9.0",
@@ -109,7 +110,8 @@
     "validate-codegen": "gql validate-codegen",
     "download-schema": "gql download-schema",
     "posttest-integration": "yarn validate-queries && yarn validate-codegen",
-    "test-integration": "yarn test --env=node --testFolder=__integration__"
+    "test-integration": "yarn test --env=node --testFolder=__integration__",
+    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
   },
   "engines": {
     "node": "10.16.0",
