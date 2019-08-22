@@ -14,6 +14,7 @@ import {removePackage} from '../codemods/remove-package/codemod-remove-package.j
 import {addCreateTokenGenerics} from '../codemods/flow/create-token-generics.js';
 import {addCreatePluginGenerics} from '../codemods/flow/create-plugin-generics.js';
 import {codemodFusionPluginFontLoaderReact} from '../codemods/fusion-plugin-font-loader-react/codemod-fusion-plugin-font-loader-react';
+import {codemodUseStandardFontLibrary} from '../codemods/standard-fonts/codemod-use-standard-fonts';
 import {fixMeTchannelMock} from '../codemods/flow/fixme-tchannel-mock.js';
 import {format} from '../utils/format.js';
 import type {UpgradeStrategy} from '../types.js';
@@ -185,6 +186,9 @@ export const upgrade = async ({
       }),
       step('register FontLoaderReactToken with FontLoader plugin', async () => {
         await codemodFusionPluginFontLoaderReact({dir});
+      }),
+      step('use standard-fonts library', async () => {
+        await codemodUseStandardFontLibrary({dir});
       }),
       step('apply type agruments to baseui styled function', async () => {
         await styledV7TypeArguments({dir});
