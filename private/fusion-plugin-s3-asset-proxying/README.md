@@ -21,20 +21,12 @@ Provides a CLI tool to upload assets to S3 (which is currently required to keep 
 ### Installation
 
 ```sh
-yarn add @uber/fusion-plugin-s3-assset-proxying
+yarn add @uber/fusion-plugin-s3-asset-proxying
 ```
 
 ---
 
-### Usage
-
-Once the plugin is installed, run the CLI command to upload assets to S3. From your terminal:
-
-```sh
-upload-assets-to-s3
-```
-
-### Setup
+### Setup & Usage
 
 The `uber-web` scaffold runs the CLI command on build:
 
@@ -57,6 +49,16 @@ export default function() {
   // ... Configuration of other plugins
 }
 ```
+
+### Manual Usage
+
+Once the plugin is installed, run the CLI command to upload assets to S3. One way to invoke would be to add a script into your package.json that calls the script.
+
+```
+"upload-assets": "upload-assets-to-s3"
+```
+
+By default the script will upload the client bundles from the Fusion.js app in your current directory but you can change that by overriding `process.env.FUSION_UPLOAD_DIR`.
 
 ---
 
