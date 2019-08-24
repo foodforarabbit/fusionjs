@@ -8,15 +8,15 @@
 ## Commit message overrides
 
 <!--
-  The landed commit message for this change will be `[PR title]\n\n[PR summary]`.
-  Provide overrides of this message for externally synced repos below.
+  More info:
+  https://github.com/uber-workflow/probot-app-usync#commit-messages
 
   Example:
-  **foo/bar**
+  **fusionjs/fusionjs**
   ```
-  My change to foo/bar
+  My commit title
 
-  This needed to be done for [reasons]. It was achieved by [ways].
+  My commit summary
   ```
 -->
 
