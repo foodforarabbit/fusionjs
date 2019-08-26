@@ -12,7 +12,7 @@ import fontConfig from '../config/fonts';
 
 export default function initUI(app: FusionApp) {
   app.register(FontLoaderReactToken, FontLoaderPlugin);
-  app.register(FontLoaderReactConfigToken, fontConfig);
+  app.register(FontLoaderReactConfigToken, fontConfig());
   app.register(Router);
   app.register(Styletron);
   app.register(AtomicPrefixToken, '_');

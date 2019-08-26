@@ -5,10 +5,6 @@
 ./src/
 
 [libs]
-./node_modules/fusion-plugin-react-redux/flow-typed/npm/redux_v4.x.x.js
-./node_modules/fusion-plugin-redux-action-emitter-enhancer/flow-typed/npm/redux_v4.x.x.js
-./node_modules/fusion-core/flow-typed/npm/koa_v2.x.x.js
-./node_modules/fusion-core/flow-typed/tape-cup_v4.x.x.js
 
 [lints]
 

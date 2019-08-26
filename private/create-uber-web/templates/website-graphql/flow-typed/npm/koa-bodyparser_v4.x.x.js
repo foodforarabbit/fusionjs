@@ -1,5 +1,5 @@
-// flow-typed signature: db2ab32952e719c6656cef681be04c96
-// flow-typed version: e969a7af52/koa-bodyparser_v4.x.x/flow_>=v0.56.x
+// flow-typed signature: b3e03cc142350783579405795e1ac993
+// flow-typed version: c6154227d1/koa-bodyparser_v4.x.x/flow_>=v0.56.x <=v0.103.x
 
 declare module "koa-bodyparser" {
   declare type Context = Object;

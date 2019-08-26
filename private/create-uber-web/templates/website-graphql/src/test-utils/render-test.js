@@ -16,7 +16,7 @@ Enzyme.configure({adapter: new Adapter()});
 export default async function renderTest(
   root: Element<*>,
   url: ?string
-): Promise<ReactWrapper> {
+): Promise<ReactWrapper<*>> {
   const app = new App(root, mount);
   app.enhance(RenderToken, ApolloRenderEnhancer);
   initUI(app);

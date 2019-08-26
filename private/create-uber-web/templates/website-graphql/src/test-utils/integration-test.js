@@ -1,6 +1,6 @@
 // @flow
 /* eslint-env node */
-import puppeteer from 'puppeteer';
+import * as puppeteer from 'puppeteer';
 import type {Page} from 'puppeteer';
 import {join} from 'path';
 import {toMatchImageSnapshot} from 'jest-image-snapshot';

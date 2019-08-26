@@ -2,7 +2,10 @@
 
 import {assetUrl} from 'fusion-core';
 import {withFontLoading} from 'fusion-plugin-font-loader-react';
-import type {AtomicFontsObjectType, StyledFontsObjectType} from 'fusion-plugin-font-loader-react';
+import type {
+  AtomicFontsObjectType,
+  StyledFontsObjectType,
+} from 'fusion-plugin-font-loader-react';
 
 export const withMoveRegular = withFontLoading('UberMove-Regular');
 export const withMoveLight = withFontLoading('UberMove-Light');
@@ -16,7 +19,9 @@ export const withMoveTextBold = withFontLoading('UberMoveText-Bold');
 function withStyledFont(fontFamily, fontWeight) {
   return (OriginalComponent: React.ComponentType<*>) =>
     function WithFontLoading(props: *) {
-      return <OriginalComponent $fontStyles={{fontFamily, fontWeight}} {...props} />;
+      return (
+        <OriginalComponent $fontStyles={{fontFamily, fontWeight}} {...props} />
+      );
     };
 }
 

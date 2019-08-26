@@ -2,6 +2,7 @@
 
 import {test, getSimulator} from 'fusion-test-utils';
 import {Switch} from 'fusion-plugin-react-router';
+import * as React from 'react';
 
 import type {ShallowWrapper} from 'enzyme';
 
@@ -14,8 +15,10 @@ test('Root renders', async () => {
   const sim = getSimulator(app);
   const ctx = await sim.render('/');
 
-  const root: ShallowWrapper = ctx.rendered.find(Root);
-  const switches: ShallowWrapper = ctx.rendered.find(Switch);
+  const root: ShallowWrapper<React.Component<*>> = ctx.rendered.find(Root);
+  const switches: ShallowWrapper<React.Component<*>> = ctx.rendered.find(
+    Switch
+  );
   expect(root).toHaveLength(1);
   expect(switches).toHaveLength(1);
 });

@@ -1,12 +1,11 @@
 [ignore]
 .*/node_modules/.*[^(package)]\.json$
+.*/node_modules/graphql/polyfills/flatMap.js.*
 
 [include]
 ./src/
 
 [libs]
-./node_modules/fusion-core/flow-typed/npm/koa_v2.x.x.js
-./node_modules/fusion-core/flow-typed/tape-cup_v4.x.x.js
 
 [lints]
 

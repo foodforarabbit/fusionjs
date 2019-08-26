@@ -1,5 +1,5 @@
-// flow-typed signature: 4e760e5a25ec536edcb14318a00b1880
-// flow-typed version: 55d62acaa7/react-apollo_v2.x.x/flow_>=v0.58.x
+// flow-typed signature: 3f5c22cc7d31628c899c9599356e07ab
+// flow-typed version: c6154227d1/react-apollo_v2.x.x/flow_>=v0.58.x <=v0.103.x
 
 declare module "react-apollo" {
   import type { ComponentType, Element, Node } from "react";
