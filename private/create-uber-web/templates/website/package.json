@@ -85,6 +85,7 @@
     "eslint-plugin-react-hooks": "^2.0.1",
     "flow-bin": "^0.102.0",
     "fusion-test-utils": "^2.0.4",
+    "long": "^4.0.0",
     "prettier": "^1.16.4",
     "puppeteer": "^1.14.0",
     "react-test-renderer": "^16.8.6"

@@ -4834,6 +4834,14 @@ fusion-plugin-redux-action-emitter-enhancer@^3.0.6:
   dependencies:
     eslint-plugin-jest "^22.7.2"
 
+fusion-plugin-rpc-redux-react@^4.0.3:
+  version "4.0.3"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-rpc-redux-react/-/fusion-plugin-rpc-redux-react-4.0.3.tgz#e5e36bfd081a899020a84f31232b6bf4b9b814bc"
+  integrity sha512-Hcawlbfauny0oi5Ej9VS7wwE0U8/oURmPMr48JUgcDDE63OoODHPGVzKCLWpn+aGQ0EoUMhGn9D2QivMb4+UEQ==
+  dependencies:
+    fusion-rpc-redux "2.0.2"
+    prop-types "^15.7.2"
+
 fusion-plugin-rpc@^3.2.0:
   version "3.2.0"
   resolved "https://unpm.uberinternal.com/fusion-plugin-rpc/-/fusion-plugin-rpc-3.2.0.tgz#8253f7fc22efbf0d9ac4df0d4e3e337734ccb110"
@@ -4868,6 +4876,13 @@ fusion-react@3.1.3, fusion-react@^3.1.3:
     "@rtsao/react-ssr-prepass" "^1.0.5"
     prop-types "^15.7.2"
     react-is "^16.8.0"
+
+fusion-rpc-redux@2.0.2:
+  version "2.0.2"
+  resolved "https://unpm.uberinternal.com/fusion-rpc-redux/-/fusion-rpc-redux-2.0.2.tgz#44a06a55e90c2e6b0502aa121a3b473398562649"
+  integrity sha512-Fcd4EkCZICZak/L2bBkx8Gp6aTM5olADDdmg7RKvvCARs8zagyTtrqw6td6Cz5Wtywcg/gVcpHbeDWSrRKlVtA==
+  dependencies:
+    redux-reactors "^1.0.3"
 
 fusion-test-utils@^2.0.4:
   version "2.0.4"
@@ -8660,6 +8675,11 @@ reduce-object@^0.1.3:
   resolved "https://unpm.uberinternal.com/reduce-object/-/reduce-object-0.1.3.tgz#d549d40a6c2936fa4e3e9b78ca89c93314594218"
   dependencies:
     for-own "^0.1.1"
+
+redux-reactors@^1.0.3:
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/redux-reactors/-/redux-reactors-1.0.3.tgz#b04d3465bf045549b7b48c45eb8481b679a30e62"
+  integrity sha1-sE00Zb8EVUm3tIxF64SBtnmjDmI=
 
 redux@^4.0.1:
   version "4.0.4"
