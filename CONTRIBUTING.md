@@ -117,15 +117,18 @@ For linting, testing, and type checking individual packages, there isn't much of
 
 #### Canary releases
 
-1. Add a `!canary` comment to the commit you want to release
-2. There is no step 2
+1. Click commit status icon (checkmark on commit list view)
+2. Click "Details" on check run named "Release"
+3. Click <kbd>:baby_chick: Canary release</kbd> button on check run details page
 
 This will create a GitHub Deployment, which in turn triggers a https://buildkite.com/uber/fusionjs-publish job, which publishes a canary version for all packages. If the monorepo git hash is abc123, each package will have version 0.0.0-canary.abc123.0.
 
 #### Releases
 
-1. On master branch, click the latest commit
-2. Add a `!release` commit comment
+1. On master branch, click "Details" on commit check run named "Release"
+    - This is accessible from the commit list view via the modal that appears when clicking the green check mark
+2. Click <kbd>:rocket: Release PR</kbd> button on check run details page
+    - *Note: The "Package tarball hashes" status must be present on the HEAD commit of master before this will work*
 3. Open the automatically created release PR
 4. Edit the generated `.release-notes.md` with changes for each package
     - Each changed package will have automatically scaffolded notes based on commits
