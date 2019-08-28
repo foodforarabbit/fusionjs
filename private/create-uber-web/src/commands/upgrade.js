@@ -18,6 +18,7 @@ import {codemodUseStandardFontLibrary} from '../codemods/standard-fonts/codemod-
 import {fixMeTchannelMock} from '../codemods/flow/fixme-tchannel-mock.js';
 import {format} from '../utils/format.js';
 import type {UpgradeStrategy} from '../types.js';
+import {codemodApolloHooks} from '../codemods/react-apollo-hooks/codemod-apollo-hooks';
 import {codemodFusionApollo} from '../codemods/fusion-plugin-apollo/codemod-fusion-apollo';
 import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cli';
 import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
@@ -173,6 +174,9 @@ export const upgrade = async ({
           dir,
           strategy,
         });
+      }),
+      step('apollo react hooks', async () => {
+        await codemodApolloHooks({dir, strategy});
       }),
       step('ensure styletron-react peer dep', async () => {
         await addPackage({name: 'styletron-react', dir, strategy});
