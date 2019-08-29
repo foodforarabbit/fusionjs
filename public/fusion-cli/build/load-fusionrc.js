@@ -21,7 +21,6 @@ type BundleResult =  'universal' | 'browser-only';
 type TransformResult = 'all' | 'spec' | 'none';
 export type FusionRC = {
   babel?: {plugins?: Array<any>, presets?: Array<any>},
-  splitChunks?: any,
   assumeNoImportSideEffects?: boolean,
   experimentalSideEffectsTest?: (modulePath: string, defaults: boolean) => boolean,
   experimentalCompile?: boolean,
@@ -69,7 +68,6 @@ function isValid(config) {
     !Object.keys(config).every(key =>
       [
         'babel',
-        'splitChunks',
         'assumeNoImportSideEffects',
         'experimentalSideEffectsTest',
         'experimentalCompile',
