@@ -20,7 +20,9 @@ test.skip('UserService resolver', async () => {
   });
   const result = await client.query({
     query: gql`
-      #TODO write query here
+      query TestQuery {
+        dummy
+      }
     `,
   }); // TODO: write real assertions
 

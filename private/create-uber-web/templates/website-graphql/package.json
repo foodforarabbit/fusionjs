@@ -82,6 +82,7 @@
     "eslint-config-fusion": "^6.0.2",
     "eslint-plugin-cup": "^2.0.1",
     "eslint-plugin-flowtype": "^3.8.1",
+    "eslint-plugin-graphql": "^3.0.3",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jest": "^22.15.2",
     "eslint-plugin-prettier": "^3.0.1",
@@ -107,12 +108,11 @@
     "build-production": "fusion build --production && upload-assets-to-s3",
     "codegen-rpc": "rpc-cli generate --target=graphql",
     "codegen-query-types": "gql codegen",
-    "validate-queries": "gql validate-queries",
     "validate-codegen": "gql validate-codegen",
     "download-schema": "gql download-schema",
-    "posttest-integration": "yarn validate-queries && yarn validate-codegen",
+    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts",
     "test-integration": "yarn test --env=node --testFolder=__integration__",
-    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
+    "posttest-integration": "yarn validate-codegen"
   },
   "engines": {
     "node": ">=0",

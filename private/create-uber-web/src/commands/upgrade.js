@@ -22,6 +22,7 @@ import {codemodApolloHooks} from '../codemods/react-apollo-hooks/codemod-apollo-
 import {codemodFusionApollo} from '../codemods/fusion-plugin-apollo/codemod-fusion-apollo';
 import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cli';
 import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
+import {addESLintPluginGraphQL} from '../codemods/add-eslint-plugin-graphql/add-eslint-plugin-graphql';
 
 export type UpgradeOptions = {
   dir: string,
@@ -202,6 +203,9 @@ export const upgrade = async ({
       }),
       step('format', async () => {
         await format(dir);
+      }),
+      step('Add eslint-plugin-graphql', async () => {
+        await addESLintPluginGraphQL({dir, strategy});
       }),
       step('Remind about new deps', async () => {
         // eslint-disable-next-line no-console
