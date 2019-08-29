@@ -157,6 +157,8 @@ Alternatively, you can force all dependencies to be upgraded to latest by settin
 
 You can also selectively upgrade only certain dependencies via the `--match` flag. For example, to upgrade only Fusion.js dependencies, run `uber-web upgrade --match fusion`.
 
+To selectively run codemods, you can use the `--stepMatch` flag, however this should only be used if you really know what you are doing.
+
 ---
 
 ## Provision

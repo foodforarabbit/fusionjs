@@ -2,9 +2,9 @@
 import React from 'react';
 import {assetUrl} from 'fusion-core';
 import {Helmet} from 'fusion-plugin-react-helmet-async';
-import {Route, Switch, NotFound} from 'fusion-plugin-react-router';
 import {styled, BaseProvider, createTheme, lightThemePrimitives} from 'baseui';
 import {DOMEventsTracker} from '@uber/fusion-plugin-web-analytics';
+import App from './app';
 
 import {
   AlertFilled,
@@ -26,13 +26,6 @@ import {
   UploadFilled,
   XSmallFilled,
 } from '@uber/icons';
-import Welcome from './welcome.js';
-
-const PageNotFound = () => (
-  <NotFound>
-    <div>404</div>
-  </NotFound>
-);
 
 const faviconPath = assetUrl('../static/favicon.ico');
 
@@ -92,10 +85,7 @@ input::-webkit-inner-spin-button,input::-webkit-outer-spin-button,input::-webkit
       `}</style>
       </Helmet>
       <BaseProvider theme={theme}>
-        <Switch>
-          <Route exact path="/" component={Welcome} />
-          <Route component={PageNotFound} />
-        </Switch>
+        <App />
       </BaseProvider>
     </div>
   </DOMEventsTracker>

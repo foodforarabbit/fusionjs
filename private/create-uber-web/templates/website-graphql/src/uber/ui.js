@@ -6,6 +6,7 @@ import FontLoaderPlugin, {
   FontLoaderReactToken,
   FontLoaderReactConfigToken,
 } from 'fusion-plugin-font-loader-react';
+import {SkipPrepareToken} from 'fusion-react';
 
 // configuration
 import fontConfig from '../config/fonts';
@@ -16,4 +17,7 @@ export default function initUI(app: FusionApp) {
   app.register(Router);
   app.register(Styletron);
   app.register(AtomicPrefixToken, '_');
+  if (__BROWSER__) {
+    app.register(SkipPrepareToken, true);
+  }
 }

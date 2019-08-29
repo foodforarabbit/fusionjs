@@ -57,19 +57,21 @@ cli
   .option('--match', 'Only upgrade deps whose name match this regex', '.*')
   .option('--codemod', 'Also run Fusion.js codemods?', 'true')
   .option('--force', 'Skip tests', 'true')
+  .option('--stepMatch', 'Only run step that matches this regex', '.*')
   .option(
     '--strategy',
     'latest = updates to latest stable, curated = matches scaffold, edge = updates to prerelease',
     'curated'
   )
   .action(args => {
-    const {dir, match, codemod, force, strategy} = args;
+    const {dir, match, codemod, force, strategy, stepMatch} = args;
     upgrade({
       dir,
       match,
       codemod: codemod === 'true',
       force: force !== 'false',
       strategy,
+      stepMatch,
     });
   });
 

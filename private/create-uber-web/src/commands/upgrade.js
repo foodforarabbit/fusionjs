@@ -23,6 +23,7 @@ import {codemodFusionApollo} from '../codemods/fusion-plugin-apollo/codemod-fusi
 import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cli';
 import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
 import {addESLintPluginGraphQL} from '../codemods/add-eslint-plugin-graphql/add-eslint-plugin-graphql';
+import {codemodIntrospectionMatcher} from '../codemods/introspection-matcher/codemod-introspection-matcher';
 
 export type UpgradeOptions = {
   dir: string,
@@ -30,6 +31,7 @@ export type UpgradeOptions = {
   codemod: boolean,
   force: boolean,
   strategy: UpgradeStrategy,
+  stepMatch?: string,
 };
 
 export const upgrade = async ({
@@ -38,6 +40,7 @@ export const upgrade = async ({
   codemod,
   force,
   strategy,
+  stepMatch = '.*',
 }: UpgradeOptions) => {
   const steps: Array<Step> = [];
   if (codemod) {
@@ -201,6 +204,9 @@ export const upgrade = async ({
       step('shift baseui themed styled to createThemedStyled', async () => {
         await styledV8ToThemedStyled({dir});
       }),
+      step('introspection matcher', async () => {
+        await codemodIntrospectionMatcher({dir, strategy});
+      }),
       step('format', async () => {
         await format(dir);
       }),
@@ -217,6 +223,6 @@ export const upgrade = async ({
     // generic steps
     step('upgrade', async () => await bumpDeps({dir, match, force, strategy}))
   );
-  const stepper = new Stepper(steps);
+  const stepper = new Stepper(steps.filter(s => s.name.match(stepMatch)));
   await stepper.run();
 };
