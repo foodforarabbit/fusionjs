@@ -53,7 +53,7 @@ If you're in the public monorepo, comment `!import` on the pull request to impor
 
 If you're in the private monorepo, comment `!land`, and it'll land the change in all applicable repos.
 
-**DO NOT manually use the GitHub merge button**. This will result in a lopsided change in only one of the monorepos.
+**DO NOT manually use the GitHub merge button**. This will result in a lopsided change in only one of the monorepos. If you can't possibly stop yourself, install [Tampermonky](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) for Chrome and visit [this userscript](https://gist.github.com/chrisdothtml/a56cff0ab51bdbccea49d1236b741e94/raw/HideMergeButton.user.js) (should prompt you to install) to hide the merge button.
 
 
 ## Dependencies
