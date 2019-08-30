@@ -17,7 +17,7 @@ test('add eslint plugin graphql codemod', async () => {
   await writeFile(
     pkg,
     JSON.stringify({
-      dependencies: {},
+      dependencies: {graphql: '14.4.2'},
       scripts: {
         'validate-queries': 'gql validate-queries',
         'posttest-integration': 'yarn validate-queries && yarn something',
@@ -35,6 +35,7 @@ test('add eslint plugin graphql codemod', async () => {
   expect(newPkg).toMatchInlineSnapshot(`
     "{
       \\"dependencies\\": {
+        \\"graphql\\": \\"14.4.2\\",
         \\"eslint-plugin-graphql\\": \\"^2.0.0\\"
       },
       \\"scripts\\": {
@@ -44,19 +45,56 @@ test('add eslint plugin graphql codemod', async () => {
     }"
   `);
   expect(newMain).toMatchInlineSnapshot(`
-                "module.exports = {
-                  extends: ['eslint-config-fusion'],
+    "module.exports = {
+      extends: ['eslint-config-fusion'],
 
-                  \\"rules\\": {
-                    \\"graphql/template-strings\\": [\\"error\\", {
-                      \\"env\\": \\"apollo\\",
-                      \\"schemaJson\\": \\"require\\"(\\"./.graphql/schema.json\\")
-                    }]
-                  },
+      \\"rules\\": {
+        \\"graphql/template-strings\\": [\\"error\\", {
+          \\"env\\": \\"apollo\\",
+          \\"schemaJson\\": require(\\"./.graphql/schema.json\\")
+        }]
+      },
 
-                  \\"plugins\\": [\\"graphql\\"]
-                }"
-        `);
+      \\"plugins\\": [\\"graphql\\"]
+    }"
+  `);
+});
+
+test('add eslint plugin graphql codemod ignores non-graphql projects', async () => {
+  const root = 'fixtures/add-eslint-plugin-non-graphql';
+  const pkg = `${root}/package.json`;
+  const eslintrc = `${root}/.eslintrc.js`;
+  await writeFile(
+    pkg,
+    JSON.stringify({
+      dependencies: {},
+      scripts: {
+        'validate-queries': 'gql validate-queries',
+        'posttest-integration': 'yarn validate-queries && yarn something',
+      },
+    })
+  );
+  await writeFile(
+    eslintrc,
+    `module.exports = { extends: ['eslint-config-fusion'] }`
+  );
+  await addESLintPluginGraphQL({dir: root, strategy: 'latest'});
+  const newPkg = await readFile(pkg);
+  const newMain = await readFile(eslintrc);
+  await removeFile(root);
+  expect(newPkg).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {},
+      \\"scripts\\": {
+        \\"validate-queries\\": \\"gql validate-queries\\",
+        \\"posttest-integration\\": \\"yarn validate-queries && yarn something\\"
+      },
+      \\"devDependencies\\": {}
+    }"
+  `);
+  expect(newMain).toMatchInlineSnapshot(
+    `"module.exports = { extends: ['eslint-config-fusion'] }"`
+  );
 });
 
 test('add eslint plugin graphql codemod - existing rules and plugins', async () => {
@@ -66,7 +104,7 @@ test('add eslint plugin graphql codemod - existing rules and plugins', async () 
   await writeFile(
     pkg,
     JSON.stringify({
-      dependencies: {},
+      dependencies: {graphql: '14.4.2'},
     })
   );
   await writeFile(
@@ -84,26 +122,27 @@ test('add eslint plugin graphql codemod - existing rules and plugins', async () 
   const newMain = await readFile(eslintrc);
   await removeFile(root);
   expect(newPkg).toMatchInlineSnapshot(`
-        "{
-          \\"dependencies\\": {
-            \\"eslint-plugin-graphql\\": \\"^2.0.0\\"
-          },
-          \\"devDependencies\\": {},
-          \\"scripts\\": {}
-        }"
-    `);
+    "{
+      \\"dependencies\\": {
+        \\"graphql\\": \\"14.4.2\\",
+        \\"eslint-plugin-graphql\\": \\"^2.0.0\\"
+      },
+      \\"devDependencies\\": {},
+      \\"scripts\\": {}
+    }"
+  `);
   expect(newMain).toMatchInlineSnapshot(`
-            "module.exports = { 
-                  extends: ['eslint-config-fusion'],
-                  rules: {
-                    'test': 'thing',
+    "module.exports = { 
+          extends: ['eslint-config-fusion'],
+          rules: {
+            'test': 'thing',
 
-                    \\"graphql/template-strings\\": [\\"error\\", {
-                      \\"env\\": \\"apollo\\",
-                      \\"schemaJson\\": \\"require\\"(\\"./.graphql/schema.json\\")
-                    }]
-                  },
-                  plugins: ['test', \\"graphql\\"]
-                }"
-      `);
+            \\"graphql/template-strings\\": [\\"error\\", {
+              \\"env\\": \\"apollo\\",
+              \\"schemaJson\\": require(\\"./.graphql/schema.json\\")
+            }]
+          },
+          plugins: ['test', \\"graphql\\"]
+        }"
+  `);
 });

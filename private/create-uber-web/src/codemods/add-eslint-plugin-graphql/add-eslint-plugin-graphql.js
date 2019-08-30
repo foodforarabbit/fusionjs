@@ -23,11 +23,17 @@ export const addESLintPluginGraphQL = async ({
   strategy,
 }: InstallOptions) => {
   // update dependencies
-  let hasDep = false;
+  let hasDep = false,
+    usesGraphql = true;
   await withJsonFile(`${dir}/package.json`, async pkg => {
     if (!pkg.dependencies) pkg.dependencies = {};
     if (!pkg.devDependencies) pkg.devDependencies = {};
     if (!pkg.scripts) pkg.scripts = {};
+
+    if (!(pkg.dependencies.graphql || pkg.devDependencies.graphql)) {
+      usesGraphql = false;
+      return;
+    }
 
     delete pkg.scripts['validate-queries'];
     if (pkg.scripts['posttest-integration']) {
@@ -49,7 +55,7 @@ export const addESLintPluginGraphQL = async ({
     );
     return pkg;
   });
-  if (hasDep) {
+  if (hasDep || !usesGraphql) {
     return;
   }
   log.title('Adding eslint-plugin-graphql');
@@ -117,7 +123,7 @@ export const addESLintPluginGraphQL = async ({
                   ),
                   t.objectProperty(
                     t.stringLiteral('schemaJson'),
-                    t.callExpression(t.stringLiteral('require'), [
+                    t.callExpression(t.identifier('require'), [
                       t.stringLiteral('./.graphql/schema.json'),
                     ])
                   ),
