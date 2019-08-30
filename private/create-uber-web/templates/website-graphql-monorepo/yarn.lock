@@ -1891,6 +1891,11 @@
     bignumber.js "2.3.0"
     semver "2.1.0"
 
+"@uber/standard-fonts@^0.1.2":
+  version "0.1.2"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fstandard-fonts/-/private/%40uber%2Fstandard-fonts-0.1.2.tgz#89b27afac9cac70ee93c3ea4eae1751d4da078a8"
+  integrity sha512-mFDepzNH5ARapS/I9ALgZNkzRRTDwlgjcCVafySrfz2RR0UjSTTF67CaqD0JIVtAJIkzrq5OrAvfZyqACI95vg==
+
 "@uber/typed-rpc-cli@^2.0.5":
   version "2.1.4"
   resolved "https://unpm.uberinternal.com/%40uber%2Ftyped-rpc-cli/-/private/%40uber%2Ftyped-rpc-cli-2.1.4.tgz#bee3c39a7c4febafd5ac992722d4336f9f7d195d"

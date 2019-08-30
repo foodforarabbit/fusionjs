@@ -68,7 +68,7 @@
   "devDependencies": {
     "@uber/fusion-dev-cli": "^2.0.4",
     "@uber/typed-rpc-cli": "^2.0.6",
-    "@uber/standard-fonts": "^0.1.1",
+    "@uber/standard-fonts": "^0.1.2",
     "babel-eslint": "^10.0.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
