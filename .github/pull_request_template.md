@@ -1,9 +1,23 @@
-<!--
-# DO NOT REMOVE
-# Please fill in the public-friendly title and body. These are used if a PR needs to be opened in the public repo for your changes. The title and body should describe only the changes made to the public codebase (if left blank, defaults to non-descriptive text)
+<!-- DO NOT MODIFY THE FORMAT OF THIS BODY -->
 
-meta:
-  # set to `MATCH` (for publicTitle and/or publicBody) to mirror this PR
-  publicTitle:
-  publicBody:
+## Summary
+
+<!-- Replace this with your own summary -->
+*No summary provided*
+
+## Commit message overrides
+
+<!--
+  More info:
+  https://github.com/uber-workflow/probot-app-usync#commit-messages
+
+  Example:
+  **fusionjs/fusionjs**
+  ```
+  My commit title
+
+  My commit summary
+  ```
 -->
+
+**fusionjs/fusionjs**

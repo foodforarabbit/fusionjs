@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/uber-workflow/usync/v0.0.1-1/schema/.usyncrc.json",
+  "$schema": "https://raw.githubusercontent.com/uber-workflow/usync/v0.0.1/schema/.usyncrc.json",
   "mapping": {
     "fusionjs/fusionjs": {
       "/public/": "/"

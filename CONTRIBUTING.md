@@ -32,38 +32,28 @@ How can we keep our open source codebase independent for external contributors, 
 
 #### Solution
 
-A private "parent" monorepo ([uber/fusionjs](https://github.com/uber/fusionjs)) and a public "child" subset monorepo ([fusionjs/fusionjs](https://github.com/fusionjs/fusionjs)) that is able to operate independently. To achieve this, we use [a probot app](https://github.com/uber-workflow/probot-app-monorepo-sync) to keep the two in sync whenever a change is pushed to them
+A private "parent" monorepo ([uber/fusionjs](https://github.com/uber/fusionjs)) and a public "child" subset monorepo ([fusionjs/fusionjs](https://github.com/fusionjs/fusionjs)) that is able to operate independently. To achieve this, we use [probot-app-usync](https://github.com/uber-workflow/probot-app-usync) to enforce a workflow that keeps the two repos in sync.
 
 ## Authoring changes
 <sup><a href="#table-of-contents">Back to top</a></sup>
 
+To help understand our authoring workflow, it's worth looking over the [RFC](https://docs.google.com/document/d/1WUza9Be3lxrRi5TZY7mX7aEoEqEonKlhtpxxinmQv5I) and the probot's [docs](https://github.com/uber-workflow/probot-app-usync#comment-commands) on using commands.
+
 #### Private *and* public monorepo? Where do I make my changes?
 
-If you have access to the private monorepo, it's fine to make both private and public changes there. If you author a PR in the private repo that changes files in the `public` directory, the sync bot will automatically open a PR for it in the public repo (referencing [the metadata](.github/pull_request_template.md) in your PR body).
+If you have access to the private monorepo (this repo), it's easiest to author changes here; however they can also be authored from [the public monorepo](https://github.com/fusionjs/fusionjs).
 
-Alternatively, all PRs opened in the public repo will have a corresponding PR opened for them in the private repo. There's no metadata involved in that scenario, as the public PR is then used as the source of truth (i.e. private PR will just directly mirror the title/body of the public PR).
+#### How do I author a change?
 
-The only thing to consider here is visibility to the external/open source community. If you have a conversation in a private PR about a change that impacts the public repo, that could be valuable information missing to external developers. In general, just try to keep the open source visibility in mind when making changes.
+The actual authoring of your change doesn't really involve our sync workflow, so you can do this how you normally would with any GitHub repo. The sync workflow only comes into play when you're ready to land your change.
 
-#### Where does CI run?
+#### Okay, so how do I land my change?
 
-The public and private repos actually have their own CI. This is partially the reason why there's such a tight coupling with PRs between the two repos. All changes made in either repo are tested against the entire fusion codebase. This is the key to being able to have a split codebase; we can now catch regressions or test failures for all changes *as they're happening* instead of after the fact.
+If you're in the public monorepo, comment `!import` on the pull request to import the change into a new PR in the private monorepo. The change can then be validated against CI for the entire codebase.
 
-<p>
-  <img align="right" width="420" alt="Screenshot showing additional status check" src=".github/status-sync.png">
-</p>
+If you're in the private monorepo, comment `!land`, and it'll land the change in all applicable repos.
 
-##### Additional status check
-
-If your PR has a partner PR in the other repo, you'll also notice an extra status check indicating the status of its CI (see image).
-
-#### How do I merge with two separate PRs for one change?
-
-Assuming all CI is successful, go ahead and merge like you normally would; the sync bot will take care of merging the other PR.
-
-#### What if I want to close my PR without merging?
-
-Just close it. The bot will close the other PR for you (and will likewise re-open it if you re-open yours)
+**DO NOT manually use the GitHub merge button**. This will result in a lopsided change in only one of the monorepos.
 
 
 ## Dependencies
