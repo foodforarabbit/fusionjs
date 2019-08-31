@@ -107,7 +107,7 @@ async function withFlowConfig(dir, mutation) {
     let current: ?Array<{}> = null;
     flowConfig.split('\n').forEach(line => {
       const trimmedLine = line.trim();
-      const matchParts = trimmedLine.replace(/\s/g, '').match(/\[(.*)\]/);
+      const matchParts = trimmedLine.replace(/\s/g, '').match(/^\[(.*)\]$/);
       const match = matchParts && matchParts[1];
       if (!match && !current) {
         if (trimmedLine !== '') {
