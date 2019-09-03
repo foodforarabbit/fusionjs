@@ -107,37 +107,36 @@ app.register(Token, Plugin);
   await removeFile(root);
 });
 
-test('codemod-replace-package-imports merges types', async () => {
+test('codemod-replace-package-imports handles basic named type import', async () => {
   const contents = `
-import type DefaultType, {TokenType} from "@uber/fusion-plugin-google-analytics-react";
-import type {OtherType} from "@uber/fusion-plugin-google-analytics";
+import type { M3Type } from '@uber/fusion-plugin-m3-react';
 `;
-  const root = 'fixtures/replace-import-with-types';
+  const root = 'fixtures/replace-type-import-basic';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
   await replacePackageImports({
-    target: '@uber/fusion-plugin-google-analytics-react',
-    replacement: '@uber/fusion-plugin-google-analytics',
-    typeImports: ['default', 'TokenType'],
+    target: '@uber/fusion-plugin-m3-react',
+    replacement: '@uber/fusion-plugin-m3',
+    typeImports: ['M3Type'],
     strategy: 'curated',
     dir: root,
   });
   const newContents = await readFile(fixture);
   expect(newContents).toMatchInlineSnapshot(`
     "
-    import type DefaultType, { OtherType, TokenType } from \\"@uber/fusion-plugin-google-analytics\\";
+    import type { M3Type } from \\"@uber/fusion-plugin-m3\\";
     "
   `);
   await removeFile(root);
 });
 
-test('codemod-replace-package-imports handles types', async () => {
+test('codemod-replace-package-imports handles mixed value and type imports', async () => {
   const contents = `
 import Plugin, {Token, type TokenType, type OtherTokenType} from "@uber/fusion-plugin-google-analytics-react";
 import type DefaultType, {ThirdTokenType} from "@uber/fusion-plugin-google-analytics-react";
 app.register(Token, Plugin);
 `;
-  const root = 'fixtures/replace-import-with-types';
+  const root = 'fixtures/replace-type-imports';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
   await replacePackageImports({
@@ -156,6 +155,30 @@ app.register(Token, Plugin);
     import Plugin, { Token } from \\"@uber/fusion-plugin-google-analytics\\";
     import type { TokenType } from \\"@uber/fusion-plugin-google-analytics\\";
     app.register(Token, Plugin);
+    "
+  `);
+  await removeFile(root);
+});
+
+test('codemod-replace-package-imports merges type imports', async () => {
+  const contents = `
+import type DefaultType, {TokenType} from "@uber/fusion-plugin-google-analytics-react";
+import type {OtherType} from "@uber/fusion-plugin-google-analytics";
+`;
+  const root = 'fixtures/merge-type-imports';
+  const fixture = `${root}/fixture.js`;
+  await writeFile(fixture, contents);
+  await replacePackageImports({
+    target: '@uber/fusion-plugin-google-analytics-react',
+    replacement: '@uber/fusion-plugin-google-analytics',
+    typeImports: ['default', 'TokenType'],
+    strategy: 'curated',
+    dir: root,
+  });
+  const newContents = await readFile(fixture);
+  expect(newContents).toMatchInlineSnapshot(`
+    "
+    import type DefaultType, { OtherType, TokenType } from \\"@uber/fusion-plugin-google-analytics\\";
     "
   `);
   await removeFile(root);

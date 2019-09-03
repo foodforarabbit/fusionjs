@@ -163,9 +163,7 @@ function getImportStringFromNode(node) {
   });
   if (defaultImport) {
     // import DefaultExport from 'target';
-    replacementImports.push(
-      `${node.importKind === 'type' ? 'type ' : ''}${defaultImport.local.name}`
-    );
+    replacementImports.push(defaultImport.local.name);
   }
   const namedReplacementImports = node.specifiers.reduce((acc, specifier) => {
     if (specifier.type === 'ImportSpecifier') {
@@ -188,11 +186,11 @@ function getImportStringFromNode(node) {
   if (namedReplacementImports.length) {
     replacementImports.push(`{ ${namedReplacementImports.join(', ')} }`);
   }
-  if (replacementImports.length) {
-    // format: `DefaultExport, {NamedExport, OtherNamedExport}`
-    return replacementImports.join(', ');
+  // format: `DefaultExport, {NamedExport, OtherNamedExport}`
+  if (node.importKind === 'type') {
+    return `type ${replacementImports.join(', ')}`;
   } else {
-    return null;
+    return replacementImports.join(', ');
   }
 }
 
