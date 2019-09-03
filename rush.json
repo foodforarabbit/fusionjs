@@ -441,10 +441,6 @@
       "projectFolder": "private/fusion-plugin-rosetta"
     },
     {
-      "packageName": "@uber/fusion-plugin-react-router-v3-compat",
-      "projectFolder": "private/fusion-plugin-react-router-v3-compat"
-    },
-    {
       "packageName": "@uber/fusion-plugin-proxy-compat",
       "projectFolder": "private/fusion-plugin-proxy-compat"
     },
