@@ -31,7 +31,7 @@ export const codemodFusionApollo = async ({dir, strategy}: InstallOptions) => {
     delete pkg.dependencies['fusion-plugin-apollo-server'];
     pkg.dependencies['fusion-plugin-apollo'] = await getLatestVersion(
       'fusion-plugin-apollo',
-      'edge'
+      strategy
     );
     pkg.dependencies['@uber/graphql-scripts'] = await getLatestVersion(
       '@uber/graphql-scripts',

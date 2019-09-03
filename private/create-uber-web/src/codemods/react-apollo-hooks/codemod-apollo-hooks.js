@@ -62,6 +62,7 @@ export const codemodApolloHooks = async ({dir, strategy}: InstallOptions) => {
   log.title('Migrating to latest version of apollo packages');
 
   const mapping = {
+    '@apollo/react-hooks': ['useQuery', 'useMutation', 'useSubscription'],
     '@apollo/react-hoc': [
       'withApollo',
       'withMutation',
