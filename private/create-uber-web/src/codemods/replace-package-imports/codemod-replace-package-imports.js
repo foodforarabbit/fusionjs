@@ -1,5 +1,4 @@
 // @flow
-import {types as t} from '@babel/core';
 import {withJsFiles} from '../../utils/with-js-files.js';
 import log from '../../utils/log.js';
 import {getLatestVersion} from '../../utils/get-latest-version.js';
@@ -42,8 +41,16 @@ export const replacePackageImports = async ({
             ...targetImportTypes.keys(),
           ].every(targetImport => typeImports.includes(targetImport));
           if (replaceAllTargetImports && replaceAllTargetTypeImports) {
-            // Replace package name since all imports are in the replacement package
-            ipath.node.source = t.stringLiteral(replacement);
+            // All imports are in the replacement package
+            // Remove import and merge with existing imports for replacement package
+            const importString = getImportStringFromNode(ipath.node);
+            if (importString) {
+              ipath.remove();
+              ensureJsImports(
+                path,
+                `import ${importString} from "${replacement}";`
+              );
+            }
           } else {
             encounteredOtherImports = true;
             ipath.node.specifiers = ipath.node.specifiers.filter(specifier => {
@@ -134,6 +141,46 @@ function getImportString(
       } else {
         // import {NamedExport} from 'target';
         acc.push(localName);
+      }
+    }
+    return acc;
+  }, []);
+  if (namedReplacementImports.length) {
+    replacementImports.push(`{ ${namedReplacementImports.join(', ')} }`);
+  }
+  if (replacementImports.length) {
+    // format: `DefaultExport, {NamedExport, OtherNamedExport}`
+    return replacementImports.join(', ');
+  } else {
+    return null;
+  }
+}
+
+function getImportStringFromNode(node) {
+  const replacementImports = [];
+  const defaultImport = node.specifiers.find(specifier => {
+    return specifier.type === 'ImportDefaultSpecifier';
+  });
+  if (defaultImport) {
+    // import DefaultExport from 'target';
+    replacementImports.push(
+      `${node.importKind === 'type' ? 'type ' : ''}${defaultImport.local.name}`
+    );
+  }
+  const namedReplacementImports = node.specifiers.reduce((acc, specifier) => {
+    if (specifier.type === 'ImportSpecifier') {
+      const localName = specifier.local.name;
+      const name = specifier.imported.name;
+      let importString = specifier.importKind === 'type' ? 'type ' : '';
+      if (name !== localName) {
+        // import {NamedExport as LocalName} from 'target';
+        // $FlowFixMe
+        importString += `${name} as ${localName}`;
+        acc.push(importString);
+      } else {
+        // import {NamedExport} from 'target';
+        importString += localName;
+        acc.push(importString);
       }
     }
     return acc;

@@ -20,7 +20,33 @@ app.register(Token, Plugin);
   const newContents = await readFile(fixture);
   expect(newContents).toMatchInlineSnapshot(`
     "
-    import Plugin, {Token} from \\"@uber/fusion-plugin-google-analytics\\";
+    import Plugin, { Token } from \\"@uber/fusion-plugin-google-analytics\\";
+    app.register(Token, Plugin);
+    "
+  `);
+  await removeFile(root);
+});
+
+test('codemod-replace-package-imports merges existing package imports', async () => {
+  const contents = `
+import Plugin, {Token} from "@uber/fusion-plugin-google-analytics-react";
+import {OtherToken} from "@uber/fusion-plugin-google-analytics";
+app.register(Token, Plugin);
+`;
+  const root = 'fixtures/replace-import-merge';
+  const fixture = `${root}/fixture.js`;
+  await writeFile(fixture, contents);
+  await replacePackageImports({
+    target: '@uber/fusion-plugin-google-analytics-react',
+    replacement: '@uber/fusion-plugin-google-analytics',
+    imports: ['default', 'Token'],
+    dir: root,
+    strategy: 'curated',
+  });
+  const newContents = await readFile(fixture);
+  expect(newContents).toMatchInlineSnapshot(`
+    "
+    import Plugin, { OtherToken, Token } from \\"@uber/fusion-plugin-google-analytics\\";
     app.register(Token, Plugin);
     "
   `);
@@ -76,6 +102,30 @@ app.register(Token, Plugin);
     import {Token, withHOC} from \\"@uber/fusion-plugin-google-analytics-react\\";
     import {Mock} from \\"@uber/fusion-plugin-google-analytics\\";
     app.register(Token, Plugin);
+    "
+  `);
+  await removeFile(root);
+});
+
+test('codemod-replace-package-imports merges types', async () => {
+  const contents = `
+import type DefaultType, {TokenType} from "@uber/fusion-plugin-google-analytics-react";
+import type {OtherType} from "@uber/fusion-plugin-google-analytics";
+`;
+  const root = 'fixtures/replace-import-with-types';
+  const fixture = `${root}/fixture.js`;
+  await writeFile(fixture, contents);
+  await replacePackageImports({
+    target: '@uber/fusion-plugin-google-analytics-react',
+    replacement: '@uber/fusion-plugin-google-analytics',
+    typeImports: ['default', 'TokenType'],
+    strategy: 'curated',
+    dir: root,
+  });
+  const newContents = await readFile(fixture);
+  expect(newContents).toMatchInlineSnapshot(`
+    "
+    import type DefaultType, { OtherType, TokenType } from \\"@uber/fusion-plugin-google-analytics\\";
     "
   `);
   await removeFile(root);
