@@ -19,6 +19,12 @@ jest.mock('../utils/yarn.js', () => {
   };
 });
 
+jest.mock('../utils/install-flow-libdefs.js', () => {
+  return {
+    installFlowLibdefs: jest.fn(),
+  };
+});
+
 test('upgrade', async () => {
   const root = 'fixtures/upgrade';
   const file = `${root}/package.json`;

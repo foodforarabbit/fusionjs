@@ -6,6 +6,7 @@ import {
   styledV8ToThemedStyled,
 } from '@uber-web-ui/baseui-codemods';
 import {bumpDeps} from '../utils/bump-deps.js';
+import {installFlowLibdefs} from '../utils/install-flow-libdefs.js';
 import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protection/enhancer.js';
 import {replacePackage} from '../codemods/replace-package/codemod-replace-package.js';
 import {replacePackageImports} from '../codemods/replace-package-imports/codemod-replace-package-imports.js';
@@ -24,6 +25,10 @@ import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cl
 import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
 import {addESLintPluginGraphQL} from '../codemods/add-eslint-plugin-graphql/add-eslint-plugin-graphql';
 import {codemodIntrospectionMatcher} from '../codemods/introspection-matcher/codemod-introspection-matcher';
+import {
+  ensureMinimalFlowConfigVersion,
+  removeFlowConfigLines,
+} from '../codemods/flowconfig/codemod-flowconfig';
 
 export type UpgradeOptions = {
   dir: string,
@@ -207,6 +212,16 @@ export const upgrade = async ({
       step('introspection matcher', async () => {
         await codemodIntrospectionMatcher({dir, strategy});
       }),
+      step('ensure minimal flow version', async () => {
+        await ensureMinimalFlowConfigVersion({dir, version: '0.102.0'});
+      }),
+      step('un-include fusion-packaged libdefs', async () => {
+        await removeFlowConfigLines({
+          dir,
+          section: 'libs',
+          pattern: /node_modules\/fusion-(core|plugin-react-redux|plugin-rpc-redux-react|plugin-redux-action-emitter-enhancer)/,
+        });
+      }),
       step('format', async () => {
         await format(dir);
       }),
@@ -221,7 +236,20 @@ export const upgrade = async ({
   }
   steps.push(
     // generic steps
-    step('upgrade', async () => await bumpDeps({dir, match, force, strategy}))
+    step('upgrade', async () => await bumpDeps({dir, match, force, strategy})),
+    step(
+      'install official libdefs',
+      async () =>
+        await installFlowLibdefs({
+          dir,
+          packages: [
+            'koa@2.7.0',
+            'locale@0.1.0',
+            'redux', // use local version
+            'redux-reactors@1.0.3',
+          ],
+        })
+    )
   );
   const stepper = new Stepper(steps.filter(s => s.name.match(stepMatch)));
   await stepper.run();
