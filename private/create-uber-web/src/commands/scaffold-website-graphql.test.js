@@ -29,7 +29,7 @@ test('scaffold website-grapqhl', async () => {
       if (options.message.match(/template/)) {
         return {
           value: options.choices.find(c =>
-            c.includes('GraphQL Web Application [!! BETA !!]')
+            c.includes('Web Application [Recommended]')
           ),
         };
       } else if (options.message.match(/name/)) {

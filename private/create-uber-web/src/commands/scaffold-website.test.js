@@ -28,7 +28,9 @@ test('scaffold website', async () => {
     jest.spyOn(inquirer, 'prompt').mockImplementation(options => {
       if (options.message.match(/template/)) {
         return {
-          value: options.choices.find(c => c.includes('Web Application')),
+          value: options.choices.find(c =>
+            c.includes('Legacy Redux/RPC Web Application')
+          ),
         };
       } else if (options.message.match(/name/)) {
         return {value: name};

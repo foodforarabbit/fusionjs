@@ -42,8 +42,8 @@ export const scaffold = async ({
   const project = {type, name, description, team, external};
   if (project.type === '') {
     project.type = await promptChoice('Choose a template:', {
-      'Web Application': 'website',
-      'GraphQL Web Application [!! BETA !!]': 'website-graphql',
+      'Web Application [Recommended]': 'website-graphql',
+      'Legacy Redux/RPC Web Application': 'website',
       // 'Web Application [web-code monorepo]': 'website-monorepo',
       // 'GraphQL Web Application [web-code monorepo]': 'website-graphql-monorepo',
       'Fusion.js Plugin': 'fusion-plugin',
