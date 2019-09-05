@@ -41,6 +41,7 @@
     "@uber/fusion-plugin-web-analytics": "^1.0.2",
     "@uber/graphql-scripts": "^0.3.1",
     "@uber/icons": "^1.0.12",
+    "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
     "baseui": "^8.16.6",
     "delay": "^4.1.0",

@@ -1,5 +1,5 @@
 // @flow
-import FusionApp, {createPlugin, RenderToken} from 'fusion-core';
+import FusionApp, {RenderToken} from 'fusion-core';
 import {
   ApolloClientToken,
   GraphQLSchemaToken,

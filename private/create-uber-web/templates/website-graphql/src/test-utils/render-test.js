@@ -1,11 +1,9 @@
 // @flow
-import {ApolloClientToken, ApolloRenderEnhancer} from 'fusion-plugin-apollo';
 import type {Element} from 'react';
 import {render} from '@testing-library/react';
 import initUI from '../uber/ui';
 import {getSimulator} from 'fusion-test-utils';
 import App from 'fusion-react';
-import {RenderToken} from 'fusion-core';
 
 export default async function renderTest(
   root: Element<*>,
