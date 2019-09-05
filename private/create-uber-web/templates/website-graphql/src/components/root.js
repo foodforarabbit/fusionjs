@@ -74,6 +74,7 @@ export const Root = () => (
   <DOMEventsTracker as={CaptureElement}>
     <div id="wrapper" data-tracking-name="root">
       <Helmet>
+        <title>Hello World</title>
         <link rel="shortcut icon" type="image/x-icon" href={faviconPath} />
         <link rel="icon" type="image/x-icon" href={faviconPath} />
         <style>{`

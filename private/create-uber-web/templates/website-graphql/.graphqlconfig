@@ -2,7 +2,12 @@
   "schemaPath": ".graphql/schema.json",
   "extensions": {
     "endpoints": {
-      "dev": "http://localhost:3000/graphql"
+      "dev": {
+        "url": "http://localhost:3000/graphql",
+        "headers": {
+          "x-csrf-token": "x"
+        }
+      }
     }
   }
 }

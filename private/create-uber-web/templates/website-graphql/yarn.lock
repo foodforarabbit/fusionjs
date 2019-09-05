@@ -2478,7 +2478,7 @@ apollo-cache-control@0.8.2:
     apollo-server-env "2.4.2"
     graphql-extensions "0.10.1"
 
-apollo-cache-inmemory@^1.6.2:
+apollo-cache-inmemory@^1.6.2, apollo-cache-inmemory@^1.6.3:
   version "1.6.3"
   resolved "https://unpm.uberinternal.com/apollo-cache-inmemory/-/apollo-cache-inmemory-1.6.3.tgz#826861d20baca4abc45f7ca7a874105905b8525d"
   integrity sha512-S4B/zQNSuYc0M/1Wq8dJDTIO9yRgU0ZwDGnmlqxGGmFombOZb9mLjylewSfQKmjNpciZ7iUIBbJ0mHlPJTzdXg==
@@ -6288,18 +6288,6 @@ fusion-cli@0.0.0-canary.d78b7bb.0:
     webpack-hot-middleware "^2.24.3"
     winston "^3.1.0"
 
-fusion-core@^1.5.0:
-  version "1.10.6"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-1.10.6.tgz#7cc456c98aef95d3d40baafb1aa77410c9ea4833"
-  integrity sha512-dzlNzoYJTgItjZzzZ+rUmTUZem0M1GaQMf3xBBxNrt8aOWulFGkcH9QOrUfM+srSB4A1JaJbGjAyQO7kEvLUYQ==
-  dependencies:
-    koa "^2.6.2"
-    koa-compose "^4.1.0"
-    node-mocks-http "^1.7.3"
-    toposort "^2.0.2"
-    ua-parser-js "^0.7.19"
-    uuid "^3.3.2"
-
 fusion-core@^2.0.4:
   version "2.0.4"
   resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-2.0.4.tgz#aad913e2a621f1f691e26c77c81c78fa0fcd6e43"
@@ -6349,15 +6337,6 @@ fusion-plugin-font-loader-react@0.0.0-canary.d78b7bb.0:
   resolved "https://unpm.uberinternal.com/fusion-plugin-font-loader-react/-/fusion-plugin-font-loader-react-0.0.0-canary.d78b7bb.0.tgz#b839950d13b2719d431d8cd80975a5e503d8b9e8"
   integrity sha512-VtfoOZnMMdqfuwwUSaBYf7k08JTtPHnE6j1Z/8lIkY2/jtFj2PmZApSTAQf8X9KTUsGDHKQXB204YcGmOqmQeQ==
   dependencies:
-    just-kebab-case "^1.1.0"
-    prop-types "^15.7.2"
-
-fusion-plugin-font-loader-react@^2.0.3:
-  version "2.0.4"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-font-loader-react/-/fusion-plugin-font-loader-react-2.0.4.tgz#b790a26b233c435ec6f5e00c85bb0181a83f54da"
-  integrity sha512-eKnMS30wQMSz74iDWNWvfJ9dzUj2rexUj60QVak9iYKScxhruzWBA3PXfUkZA0RfkJv+9yuA6Q/KJdzWqIZuyA==
-  dependencies:
-    fusion-react "3.1.3"
     just-kebab-case "^1.1.0"
     prop-types "^15.7.2"
 
@@ -6437,15 +6416,6 @@ fusion-react@0.0.0-canary.9d5ef83.0:
   version "0.0.0-canary.9d5ef83.0"
   resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-0.0.0-canary.9d5ef83.0.tgz#91ee450c25399d161112297fdb1b037430495f0c"
   integrity sha512-OL9XTt3hR4UfxaDlXY83kp3dySOg5y1GAwdQUUtMXDuhZjTeJ+16sBvpYG822dM33ZbJnJxA9ueU5SrQCArzmQ==
-  dependencies:
-    "@rtsao/react-ssr-prepass" "^1.0.5"
-    prop-types "^15.7.2"
-    react-is "^16.8.0"
-
-fusion-react@3.1.3:
-  version "3.1.3"
-  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-3.1.3.tgz#8b43135f9707326eb9bd1fdf53bcd2ff00d18584"
-  integrity sha512-f/Z/jJJF46OGjw9pv0wi+XblxLVmCps4+z2wXrl7mZU7oam7cf48B4pozWiDiDrBZCLoYr7MR7j4p8A8wWiChQ==
   dependencies:
     "@rtsao/react-ssr-prepass" "^1.0.5"
     prop-types "^15.7.2"
@@ -8675,7 +8645,7 @@ koa-static@^5.0.0:
     debug "^3.1.0"
     koa-send "^5.0.0"
 
-koa@2.8.1, koa@^2.6.2, koa@^2.7.0:
+koa@2.8.1, koa@^2.7.0:
   version "2.8.1"
   resolved "https://unpm.uberinternal.com/koa/-/koa-2.8.1.tgz#98e13b267ab8a1868f015a4b41b5a52e31457ce5"
   integrity sha512-iCgjRkntcVud5amnioi+79r7TPVhKPfCY8UzL9GjyU+nIWTE9xsqyrJ6kib3InT9JYRyUu9Y67i5apCjf997TQ==
@@ -9651,7 +9621,7 @@ node-mkdirp@^0.0.1:
   dependencies:
     yargs "^3.14.0"
 
-node-mocks-http@^1.7.3, node-mocks-http@^1.7.5:
+node-mocks-http@^1.7.5:
   version "1.7.6"
   resolved "https://unpm.uberinternal.com/node-mocks-http/-/node-mocks-http-1.7.6.tgz#b5c978d73165179a218bc9d4e3bbe73fa8bedd89"
   integrity sha512-ZWbZ5HEEAoVZbAYM8KHezx0v66Te3klg/yhAmdJJ0ULWQAkSqPStEzqSjONj4zRZOrTWqsHnI6nHeJxw46gj6Q==
