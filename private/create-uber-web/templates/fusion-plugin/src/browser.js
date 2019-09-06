@@ -1,7 +1,7 @@
 // @flow
 /* eslint-env browser */
 
-import {createPlugin, unescape} from 'fusion-core';
+import {createPlugin, memoize, unescape} from 'fusion-core';
 import type {Context, FusionPlugin} from 'fusion-core';
 import type {PluginServiceType} from './types.js';
 
@@ -14,6 +14,7 @@ const plugin =
         value: ?string;
         constructor(ctx) {
           let value;
+          // https://engdocs.uberinternal.com/web/api/fusion-core#serialization-and-hydration
           const valueElement = document.getElementById('__PLUGIN_VALUE__');
           if (valueElement) {
             value = JSON.parse(unescape(valueElement.textContent));
@@ -23,12 +24,14 @@ const plugin =
         }
       }
       return {
-        from: (ctx?: Context) => {
+        // https://engdocs.uberinternal.com/web/api/fusion-core#memoization
+        from: memoize((ctx: Context) => {
           return new PluginLogic(ctx);
-        },
+        }),
       };
     },
     middleware(_, myPlugin) {
+      // https://engdocs.uberinternal.com/web/api/fusion-core#middleware
       return (ctx, next) => {
         const pluginValue = myPlugin.from(ctx);
         // eslint-disable-next-line no-console

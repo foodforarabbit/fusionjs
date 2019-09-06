@@ -1,4 +1,5 @@
 // @flow
+/* eslint-env node */
 
 import {createPlugin, memoize, html} from 'fusion-core';
 import type {FusionPlugin, Context} from 'fusion-core';
@@ -22,6 +23,7 @@ const plugin =
         }
       }
       return {
+        // https://engdocs.uberinternal.com/web/api/fusion-core#memoization
         from: memoize(ctx => new PluginLogic(ctx)),
       };
     },
@@ -32,6 +34,7 @@ const plugin =
         await next();
 
         const serialized = JSON.stringify({value: pluginValue});
+        // https://engdocs.uberinternal.com/web/api/fusion-core#html-sanitization
         const script = html`
           <script type="application/json" id="__PLUGIN_VALUE__">
             ${serialized}

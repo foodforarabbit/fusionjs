@@ -3,6 +3,7 @@
   "description": "{{description}}",
   "version": "0.0.1",
   "scaffold-version": "{{version}}",
+  "private": true,
   "author": "{{author}} <{{email}}>",
   "repository": {
     "type": "git",
@@ -13,10 +14,19 @@
     "email": "{{email}}"
   },
   "license": "UNLICENSED",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "browser": {
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
+  },
   "__files": [
-    "dist",
+    "dist-browser-cjs",
+    "dist-browser-esm",
+    "dist-node-cjs",
+    "dist-node-esm",
     "src",
-    "!__tests__"
+    "!test"
   ],
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
@@ -28,135 +38,42 @@
     "cover": "yarn lint && yarn flow && yarn test",
     "prepublish": "cup build && eslint src"
   },
-  "watch": {
-    "build": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    },
-    "test": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    }
-  },
-  "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
-  },
   "devDependencies": {
-    "@babel/preset-env": "^7.4.3",
+    "@babel/core": "^7.5.5",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.7.1",
-    "create-universal-package": "^3.4.6",
+    "babel-eslint": "^10.0.3",
+    "create-universal-package": "^4.1.0",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.11.2",
-    "eslint": "^5.16.0",
-    "eslint-config-fusion": "^6.0.1",
-    "eslint-plugin-cup": "^2.0.1",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^6.3.0",
+    "eslint-config-fusion": "^6.0.3",
+    "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^3.8.1",
     "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jest": "^22.7.1",
+    "eslint-plugin-jest": "^22.15.2",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-hooks": "^1.6.1",
     "flow-bin": "^0.102.0",
-    "fusion-core": "^2.0.2",
-    "fusion-test-utils": "^2.0.2",
-    "fusion-tokens": "^2.0.2",
+    "fusion-cli": "^2.4.0",
+    "fusion-core": "^2.0.5",
+    "fusion-react": "^3.1.4",
+    "fusion-test-utils": "^2.0.5",
+    "fusion-tokens": "^2.0.5",
+    "get-port": "^5.0.0",
     "jest": "^24.7.1",
+    "jest-environment-jsdom": "^24.9.0",
     "jest-environment-jsdom-global": "^1.2.0",
     "npm-watch": "^0.6.0",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "puppeteer": "^1.19.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "peerDependencies": {
-    "fusion-core": "^2.0.2",
-    "fusion-tokens": "^2.0.2"
-  },
-  "resolutions": {
-    "event-stream": "3.3.5"
-  },
-  "main": "./dist/index.js",
-  "module": "./dist/index.es.js",
-  "browser": {
-    "./dist/index.js": "./dist/browser.es5.js",
-    "./dist/index.es.js": "./dist/browser.es5.es.js"
-  },
-  "es2015": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
-  },
-  "es2017": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ],
-      "@babel/preset-flow",
-      "@babel/preset-react"
-    ]
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/**/type.js"
-    ],
-    "coverageDirectory": "coverage",
-    "coverageReporters": [
-      "cobertura",
-      "html",
-      "json",
-      "text-summary",
-      "text"
-    ],
-    "projects": [
-      {
-        "displayName": "browser",
-        "browser": true,
-        "testEnvironment": "jest-environment-jsdom-global",
-        "testPathIgnorePatterns": [
-          "/node_modules/",
-          "/dist/",
-          ".*\\.node\\.js"
-        ],
-        "testURL": "http://localhost",
-        "setupFilesAfterEnv": ["<rootDir>enzyme.config.js"],
-        "globals": {
-          "__DEV__": true,
-          "__NODE__": false,
-          "__BROWSER__": true
-        }
-      },
-      {
-        "displayName": "server",
-        "browser": false,
-        "testEnvironment": "node",
-        "testPathIgnorePatterns": [
-          "/node_modules/",
-          "/dist/",
-          ".*\\.browser\\.js"
-        ],
-        "setupFilesAfterEnv": ["<rootDir>enzyme.config.js"],
-        "globals": {
-          "__DEV__": true,
-          "__NODE__": true,
-          "__BROWSER__": false
-        }
-      }
-    ]
+    "fusion-core": ">=2.0.0",
+    "react": ">=16.8.6"
   },
   "eslintConfig": {
     "extends": [
@@ -168,5 +85,7 @@
     "npm": ">=0",
     "yarn": ">=0"
   },
-  "private": true
+  "resolutions": {
+    "event-stream": "3.3.5"
+  }
 }
