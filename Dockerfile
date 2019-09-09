@@ -4,14 +4,14 @@ RUN npm install -g npm@6.9.0
 
 ARG UNPM_TOKEN
 
-RUN mkdir /monorepo
-WORKDIR /monorepo
-COPY . /monorepo/
-
 RUN echo "//unpm.uberinternal.com/:_auth = \${UNPM_TOKEN}" > ~/.npmrc && \
     echo "//unpm.uberinternal.com/:always-auth = true" >> ~/.npmrc && \
     echo "registry = https://unpm.uberinternal.com" >> ~/.npmrc && \
+    echo "registry \"https://unpm.uberinternal.com\"" >> ~/.yarnrc && \
     git config --global user.name "Fake CI User" && \
     git config --global user.email "fakeciuser@uber.com" && \
-    node common/scripts/install-run-rush install && \
-    node common/scripts/install-run-rush build
+    yarn global add jazelle@0.0.0-canary.2a2b83b.0
+
+RUN mkdir /monorepo
+WORKDIR /monorepo
+COPY . /monorepo/

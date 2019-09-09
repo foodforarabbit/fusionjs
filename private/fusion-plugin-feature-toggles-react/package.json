@@ -142,9 +142,6 @@
           "__DEV__": true,
           "__NODE__": false,
           "__BROWSER__": true
-        },
-        "moduleNameMapper": {
-          "^(fusion-.*)$": "<rootDir>/node_modules/$1"
         }
       },
       {

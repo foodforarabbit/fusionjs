@@ -14,46 +14,55 @@ const { parse } = require("jju");
 module.exports = getMonorepoPackages;
 
 /*::
+type Manifest = {
+  projects: Array<string>,
+  excludeFromPublishing: Array<string>,
+};
+type ProjectData = {
+  name: string,
+  path: string,
+  contents: Object,
+};
 type Packages = {
   [string]: {
     location: string,
     localDependencies: Array<string>,
   }
 };
-type Project = {
-  packageName: string,
-  projectFolder: string,
-  shouldPublish?: boolean,
-};
 */
 
 async function getMonorepoPackages() /*: Promise<Packages> */ {
-  const projectList /*: Array<Project> */ = await getProjects();
+  const {projects, excludeFromPublishing} = await getProjects();
 
-  const packages = await Promise.all(
-    projectList.map(async project => {
+  const projectData /*: Array<ProjectData> */ = await Promise.all(
+    projects.map(async project => {
       const contents = await readFile(
-        path.join(project.projectFolder, "package.json"),
+        path.join(project, "package.json"),
         "utf8"
       );
-      return JSON.parse(contents);
+      const parsedContents = JSON.parse(contents);
+      return {
+        name: parsedContents.name,
+        path: project,
+        contents: parsedContents,
+      };
     })
   );
 
   const localPackages = new Map();
-  for (const pkg of packages) {
-    localPackages.set(pkg.name, pkg);
+  for (const project of projectData) {
+    localPackages.set(project.name, project.contents);
   }
 
   const pkgs /*: Packages */ = {};
 
-  for (const project of projectList) {
-    if (project.shouldPublish === false) {
+  for (const project of projectData) {
+    if (excludeFromPublishing.includes(project.path)) {
       continue;
     }
 
-    const pkg = localPackages.get(project.packageName);
-    if (!pkg) throw new Error(`No package.json for ${project.packageName}`);
+    const pkg = localPackages.get(project.name);
+    if (!pkg) throw new Error(`No package.json for ${project.name}`);
 
     const localDependencies /*: Set<string> */ = new Set();
     if (pkg.dependencies) {
@@ -78,8 +87,8 @@ async function getMonorepoPackages() /*: Promise<Packages> */ {
       }
     }
 
-    pkgs[project.packageName] = {
-      location: project.projectFolder,
+    pkgs[project.name] = {
+      location: project.path,
       localDependencies: Array.from(localDependencies)
     };
   }
@@ -87,9 +96,9 @@ async function getMonorepoPackages() /*: Promise<Packages> */ {
   return pkgs;
 }
 
-async function getProjects() /*: Promise<Array<Project>> */ {
-  const contents = await readFile("rush.json", "utf8");
+async function getProjects() /*: Promise<Manifest> */ {
+  const contents = await readFile("manifest.json", "utf8");
   const json5 = parse(contents);
 
-  return (json5.projects /*: Array<Project> */);
+  return (json5 /*: Manifest */);
 }
