@@ -3,6 +3,7 @@
   "description": "{{description}}",
   "version": "0.0.1",
   "scaffold-version": "{{version}}",
+  "private": true,
   "author": "{{author}} <{{email}}>",
   "repository": {
     "type": "git",
@@ -13,11 +14,12 @@
     "email": "{{email}}"
   },
   "license": "UNLICENSED",
-  "__files": [
-    "dist",
-    "src",
-    "!__tests__"
-  ],
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "browser": {
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
+  },
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
     "lint": "eslint src --fix",
@@ -28,30 +30,16 @@
     "cover": "yarn lint && yarn flow && yarn test",
     "prepublish": "cup build && eslint src"
   },
-  "watch": {
-    "build": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    },
-    "test": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    }
-  },
   "devDependencies": {
-    "@babel/preset-env": "^7.4.3",
-    "@babel/preset-flow": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.7.1",
-    "create-universal-package": "^3.4.6",
-    "eslint": "^5.16.0",
-    "eslint-config-fusion": "^6.0.1",
-    "eslint-plugin-cup": "^2.0.1",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "create-universal-package": "^4.1.0",
+    "eslint": "^6.3.0",
+    "eslint-config-fusion": "^6.0.3",
+    "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^3.8.1",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jest": "^22.7.1",
@@ -60,37 +48,21 @@
     "eslint-plugin-react-hooks": "^1.6.1",
     "flow-bin": "^0.102.0",
     "jest": "^24.7.1",
+    "jest-environment-jsdom": "^24.9.0",
     "jest-environment-jsdom-global": "^1.2.0",
     "npm-watch": "^0.6.0",
     "prettier": "^1.16.4"
   },
-  "resolutions": {
-    "event-stream": "3.3.5"
-  },
-  "main": "./dist/index.js",
-  "module": "./dist/index.es.js",
-  "browser": {
-    "./dist/index.js": "./dist/browser.es5.js",
-    "./dist/index.es.js": "./dist/browser.es5.es.js"
-  },
-  "es2015": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
-  },
-  "es2017": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-flow"
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-fusion"
     ]
   },
   "jest": {
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/**/type.js"
+      "dist-(browser|node)-cjs/**/*.js",
+      "!src"
     ],
     "coverageDirectory": "coverage",
     "coverageReporters": [
@@ -134,15 +106,20 @@
       }
     ]
   },
-  "eslintConfig": {
-    "extends": [
-      "eslint-config-fusion"
-    ]
-  },
   "engines": {
     "node": ">=0",
     "npm": ">=0",
     "yarn": ">=0"
   },
-  "private": true
+  "__files": [
+    "dist-browser-cjs",
+    "dist-browser-esm",
+    "dist-node-cjs",
+    "dist-node-esm",
+    "src",
+    "!test"
+  ],
+  "resolutions": {
+    "event-stream": "3.3.5"
+  }
 }

@@ -1,4 +1,5 @@
 // @flow
-export default function() {
+
+export default function(): string {
   return 'hello world';
 }

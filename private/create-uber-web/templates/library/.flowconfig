@@ -2,6 +2,6 @@
 src/
 
 [ignore]
-.*/dist/.*
+.*/dist-*/.*
 .*/coverage/.*
 <PROJECT_ROOT>/node_modules/.*
