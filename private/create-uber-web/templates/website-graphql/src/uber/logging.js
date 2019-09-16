@@ -27,7 +27,7 @@ import AnalyticsSession, {
 import sentryConfig from '../config/sentry.js';
 
 // other
-const team = '{{name}}';
+const team = '{{team}}';
 
 export default function initLogging(app: FusionApp) {
   app.register(ErrorHandlingPlugin);
