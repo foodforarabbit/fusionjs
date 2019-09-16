@@ -11,7 +11,7 @@ steps:
       queue: private-builders
   - wait
   - label: ":package: :npm:"
-    command: node ./private/monorepo-actions/publish.js
+    command: jazelle ci --cwd ./private/monorepo-actions && node ./private/monorepo-actions/publish.js
     timeout_in_minutes: 20
     plugins:
       "docker-compose#v3.0.0":
