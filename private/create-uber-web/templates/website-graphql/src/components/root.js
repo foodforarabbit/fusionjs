@@ -85,7 +85,7 @@ button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
 input::-webkit-inner-spin-button,input::-webkit-outer-spin-button,input::-webkit-search-cancel-button,input::-webkit-search-decoration,input::-webkit-search-results-button,input::-webkit-search-results-decoration{display:none;}
       `}</style>
       </Helmet>
-      <BaseProvider theme={theme}>
+      <BaseProvider theme={theme} overrides={{AppContainer: {style: {height: '100%'}}}}>
         <App />
       </BaseProvider>
     </div>

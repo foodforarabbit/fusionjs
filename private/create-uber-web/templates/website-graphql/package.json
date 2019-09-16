@@ -43,7 +43,7 @@
     "@uber/icons": "^1.0.12",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
-    "baseui": "^8.16.6",
+    "baseui": "^9.2.0",
     "delay": "^4.1.0",
     "fusion-cli": "0.0.0-canary.d78b7bb.0",
     "fusion-core": "^2.0.4",

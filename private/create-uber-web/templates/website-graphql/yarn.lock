@@ -3283,13 +3283,13 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^8.16.6:
-  version "8.16.6"
-  resolved "https://unpm.uberinternal.com/baseui/-/baseui-8.16.6.tgz#7382e93530f0a61a890581d05b3266cf6a668dd7"
-  integrity sha512-36HDiz2yWukCwPjR7zf+q6Ho09EJHaw0lS2ZzOWqSErmkjyXcS9UgYmrVSk8S3wetiAGerz3fno7Jahwi7k9Bw==
+baseui@^9.2.0:
+  version "9.2.0"
+  resolved "https://unpm.uberinternal.com/baseui/-/baseui-9.2.0.tgz#f44306d026aa404b07237b10c5d66246e164c78e"
+  integrity sha1-9EMG0CaqQEsHI3sQxdZiRuFkx44=
   dependencies:
     card-validator "^6.1.0"
-    date-fns "2.0.1"
+    date-fns "2.2.1"
     just-extend "^4.0.2"
     memoize-one "^5.0.0"
     polished "^3.2.0"
@@ -3303,6 +3303,8 @@ baseui@^8.16.6:
     react-multi-ref "^1.0.0"
     react-range "^1.3.0"
     react-virtualized "^9.21.1"
+    react-virtualized-auto-sizer "^1.0.2"
+    react-window "^1.8.5"
     smoothscroll-polyfill "^0.4.3"
     timezone-support "^2.0.0"
 
@@ -4591,10 +4593,10 @@ data-urls@^1.0.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
-date-fns@2.0.1:
-  version "2.0.1"
-  resolved "https://unpm.uberinternal.com/date-fns/-/date-fns-2.0.1.tgz#c5f30e31d3294918e6b6a82753a4e719120e203d"
-  integrity sha512-C14oTzTZy8DH1Eq8N78owrCWvf3+cnJw88BTK/N3DYWVxDJuJzPaNdplzYxDYuuXXGvqBcO4Vy5SOrwAooXSWw==
+date-fns@2.2.1:
+  version "2.2.1"
+  resolved "https://unpm.uberinternal.com/date-fns/-/date-fns-2.2.1.tgz#b3f79cf56760af106050c686f4c72586a3383ee9"
+  integrity sha1-s/ec9WdgrxBgUMaG9MclhqM4Puk=
 
 date-fns@^1.27.2:
   version "1.30.1"
@@ -9162,7 +9164,7 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memoize-one@^5.0.0:
+"memoize-one@>=3.1.1 <6", memoize-one@^5.0.0:
   version "5.1.1"
   resolved "https://unpm.uberinternal.com/memoize-one/-/memoize-one-5.1.1.tgz#047b6e3199b508eaec03504de71229b8eb1d75c0"
   integrity sha512-HKeeBpWvqiVJD57ZUAsJNm71eHTykffzcLZVYWiVfQeI1rJtuEaS7hQiEpWfVVk18donPwJEcFKIkCmPJNOhHA==
@@ -11038,6 +11040,11 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.9.0"
     scheduler "^0.15.0"
 
+react-virtualized-auto-sizer@^1.0.2:
+  version "1.0.2"
+  resolved "https://unpm.uberinternal.com/react-virtualized-auto-sizer/-/react-virtualized-auto-sizer-1.0.2.tgz#a61dd4f756458bbf63bd895a92379f9b70f803bd"
+  integrity sha1-ph3U91ZFi79jvYlakjefm3D4A70=
+
 react-virtualized@^9.21.1:
   version "9.21.1"
   resolved "https://unpm.uberinternal.com/react-virtualized/-/react-virtualized-9.21.1.tgz#4dbbf8f0a1420e2de3abf28fbb77120815277b3a"
@@ -11050,6 +11057,14 @@ react-virtualized@^9.21.1:
     loose-envify "^1.3.0"
     prop-types "^15.6.0"
     react-lifecycles-compat "^3.0.4"
+
+react-window@^1.8.5:
+  version "1.8.5"
+  resolved "https://unpm.uberinternal.com/react-window/-/react-window-1.8.5.tgz#a56b39307e79979721021f5d06a67742ecca52d1"
+  integrity sha1-pWs5MH55l5chAh9dBqZ3QuzKUtE=
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    memoize-one ">=3.1.1 <6"
 
 react@^16.8.6, react@^16.9.0:
   version "16.9.0"

@@ -23,6 +23,7 @@
     "@uber/fusion-plugin-feature-toggles-react": "^3.0.6",
     "@uber/fusion-plugin-flipr": "^2.0.4",
     "@uber/fusion-plugin-galileo": "^2.0.6",
+    "@uber/fusion-plugin-graphql-metrics": "^1.0.2",
     "@uber/fusion-plugin-heatpipe": "^3.0.6",
     "@uber/fusion-plugin-logtron": "^2.0.6",
     "@uber/fusion-plugin-m3": "^2.0.6",
@@ -34,7 +35,7 @@
     "@uber/fusion-plugin-tracer": "^2.0.4",
     "@uber/fusion-plugin-web-analytics": "^1.0.2",
     "@uber/icons": "^1.0.12",
-    "baseui": "^8.6.1",
+    "baseui": "^9.2.0",
     "clear-module": "^3.1.0",
     "fusion-cli": "^2.3.0",
     "fusion-core": "^2.0.4",
@@ -64,13 +65,12 @@
     "react-redux": "^7.1.0",
     "redux": "^4.0.1",
     "styletron-react": "^5.2.0",
-    "unfetch": "^4.1.0",
-    "@uber/fusion-plugin-graphql-metrics": "^1.0.2"
+    "unfetch": "^4.1.0"
   },
   "devDependencies": {
     "@uber/fusion-dev-cli": "^2.0.5",
-    "@uber/typed-rpc-cli": "^2.0.6",
     "@uber/standard-fonts": "^0.1.2",
+    "@uber/typed-rpc-cli": "^2.0.6",
     "babel-eslint": "^10.0.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
