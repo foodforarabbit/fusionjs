@@ -17,7 +17,5 @@ export default function initUI(app: FusionApp) {
   app.register(Router);
   app.register(Styletron);
   app.register(AtomicPrefixToken, '_');
-  if (__BROWSER__) {
-    app.register(SkipPrepareToken, true);
-  }
+  app.register(SkipPrepareToken, true);
 }

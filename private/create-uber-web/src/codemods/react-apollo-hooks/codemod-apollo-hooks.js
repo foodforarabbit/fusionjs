@@ -1,5 +1,6 @@
 // @flow
 import {
+  hasImport,
   withJsonFile,
   ensureJsImports,
   collapseImports,
@@ -96,25 +97,22 @@ export const codemodApolloHooks = async ({dir, strategy}: InstallOptions) => {
   };
   if (exists(`${dir}/src/uber/ui.js`)) {
     await withJsFile(`${dir}/src/uber/ui.js`, async program => {
-      ensureJsImports(
-        program,
-        `import {SkipPrepareToken} from 'fusion-react';`
-      );
+      const importStatement = `import {SkipPrepareToken} from 'fusion-react';`;
+      if (hasImport(program, importStatement)) {
+        return;
+      }
+      ensureJsImports(program, importStatement);
       program.traverse({
         FunctionDeclaration(path) {
           path.node.body.body.push(
             t.expressionStatement(
-              t.logicalExpression(
-                '&&',
-                t.identifier('__BROWSER__'),
-                t.callExpression(
-                  t.memberExpression(
-                    t.identifier('app'),
-                    t.identifier('register'),
-                    false
-                  ),
-                  [t.identifier('SkipPrepareToken'), t.booleanLiteral(true)]
-                )
+              t.callExpression(
+                t.memberExpression(
+                  t.identifier('app'),
+                  t.identifier('register'),
+                  false
+                ),
+                [t.identifier('SkipPrepareToken'), t.booleanLiteral(true)]
               )
             )
           );
