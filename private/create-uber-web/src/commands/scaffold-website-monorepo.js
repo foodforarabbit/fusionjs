@@ -7,7 +7,7 @@ import {
   writeFile,
   removeFile,
 } from '@dubstep/core';
-import {copy, move, pathExists} from 'fs-extra';
+import {copy, move} from 'fs-extra';
 import {resolve} from 'path';
 import {checkYarnRegistry} from '../utils/check-yarn-registry.js';
 import {getTeams} from '../utils/get-teams.js';
@@ -20,6 +20,7 @@ import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
 import {checkAppMonorepoRoot} from '../utils/check-app-monorepo-root.js';
 import {addMonorepoProject} from '../utils/add-monorepo-project.js';
 import {codemodBazelIgnore} from '../utils/codemod-bazelignore.js';
+import {checkProjectName} from '../utils/check-project-name.js';
 
 export type Options = {
   root: string,
@@ -59,17 +60,7 @@ export const scaffoldWebsiteMonorepo = async ({
       await checkYarnRegistry();
     }),
     step('project name', async () => {
-      if (project.name === '') {
-        project.name = `${await prompt('Project name:')}`;
-      }
-      if (await pathExists(`${root}/projects/${project.name}`)) {
-        throw new Error(`The project ${project.name} already exists`);
-      }
-      if (project.name.endsWith('staging')) {
-        throw new Error(
-          'Do not add `-staging` at the end of the project name. It can cause routing issues when you provision'
-        );
-      }
+      project.name = await checkProjectName(project.name, root);
     }),
     step('project description', async () => {
       if (project.description === '') {

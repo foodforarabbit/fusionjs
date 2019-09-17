@@ -21,7 +21,7 @@ jest.mock('../utils/get-teams.js', () => ({
 }));
 
 test('scaffold website-grapqhl', async () => {
-  const name = 'fixtures/website-graphql';
+  const name = 'test-website-graphql';
   try {
     await remove(name).catch(() => {});
 
@@ -45,7 +45,7 @@ test('scaffold website-grapqhl', async () => {
 
     await scaffold({
       type: 'website-graphql',
-      name: '',
+      name: 'test-website-graphql',
       description: '',
       team: '',
       external: undefined,

@@ -21,7 +21,7 @@ jest.mock('../utils/get-teams.js', () => ({
 }));
 
 test('scaffold website', async () => {
-  const name = 'fixtures/website';
+  const name = 'test-website';
   try {
     await remove(name).catch(() => {});
 
@@ -45,7 +45,7 @@ test('scaffold website', async () => {
 
     await scaffold({
       type: 'website',
-      name: '',
+      name: name,
       description: '',
       team: '',
       external: undefined,
@@ -73,7 +73,7 @@ test('scaffold website', async () => {
 });
 
 test('prevents bad name', async () => {
-  const name = 'fixtures/fixture-staging';
+  const name = 'test-website-staging';
 
   try {
     await expect(

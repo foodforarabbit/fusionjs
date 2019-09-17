@@ -1,6 +1,6 @@
 // @flow
 import {Stepper, step, exec} from '@dubstep/core';
-import {copy, move, pathExists} from 'fs-extra';
+import {copy, move} from 'fs-extra';
 import {checkYarnRegistry} from '../utils/check-yarn-registry.js';
 import {getTeams} from '../utils/get-teams.js';
 import {promptChoice} from '../utils/prompt-choice.js';
@@ -10,6 +10,7 @@ import {removeConfigFiles} from '../utils/remove-config-files.js';
 import {codemodReadme} from '../utils/codemod-readme.js';
 import {replaceNunjucksFile} from '../utils/replace-nunjucks-file.js';
 import {initRepo} from '../utils/init-repo.js';
+import {checkProjectName} from '../utils/check-project-name.js';
 
 export type Options = {
   root: string,
@@ -42,19 +43,7 @@ export const scaffoldWebsite = async ({
       await checkYarnRegistry();
     }),
     step('project name', async () => {
-      if (project.name === '') {
-        project.name = await prompt('Project name:');
-      }
-      if (await pathExists(`${root}/${project.name}`)) {
-        throw new Error(
-          `A folder with the name ${project.name} already exists`
-        );
-      }
-      if (project.name.endsWith('staging')) {
-        throw new Error(
-          'Do not add `-staging` at the end of the project name. It can cause routing issues when you provision'
-        );
-      }
+      project.name = await checkProjectName(project.name, root);
     }),
     step('project description', async () => {
       if (project.description === '') {
