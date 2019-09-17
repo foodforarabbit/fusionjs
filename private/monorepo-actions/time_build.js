@@ -35,10 +35,6 @@ generate_test_fixture(FILES, path_to_test_fixture, DEPTH, WIDTH);
 
 const buildCommand = path.join(
   __dirname,
-  "../",
-  "../",
-  "common",
-  "temp",
   "node_modules",
   ".bin",
   "fusion"
