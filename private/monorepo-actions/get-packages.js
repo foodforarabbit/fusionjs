@@ -9,8 +9,6 @@ const execFile = promisify(cp.execFile);
 const readFile = promisify(fs.readFile);
 const readdir = promisify(fs.readdir);
 
-const { parse } = require("jju");
-
 module.exports = getMonorepoPackages;
 
 /*::
@@ -32,13 +30,13 @@ type Packages = {
 */
 
 async function getMonorepoPackages() /*: Promise<Packages> */ {
-  const {projects, excludeFromPublishing} = await getProjects();
+  const { projects, excludeFromPublishing } = await getProjects();
 
   const projectData /*: Array<ProjectData> */ = await Promise.all(
     projects.map(async project => {
       const contents = await readFile(
         path.join(project, "package.json"),
-        "utf8"
+        "utf8",
       );
       const parsedContents = JSON.parse(contents);
       return {
@@ -46,7 +44,7 @@ async function getMonorepoPackages() /*: Promise<Packages> */ {
         path: project,
         contents: parsedContents,
       };
-    })
+    }),
   );
 
   const localPackages = new Map();
@@ -89,7 +87,7 @@ async function getMonorepoPackages() /*: Promise<Packages> */ {
 
     pkgs[project.name] = {
       location: project.path,
-      localDependencies: Array.from(localDependencies)
+      localDependencies: Array.from(localDependencies),
     };
   }
 
@@ -98,7 +96,7 @@ async function getMonorepoPackages() /*: Promise<Packages> */ {
 
 async function getProjects() /*: Promise<Manifest> */ {
   const contents = await readFile("manifest.json", "utf8");
-  const json5 = parse(contents);
+  const json = JSON.parse(contents);
 
-  return (json5 /*: Manifest */);
+  return (json /*: Manifest */);
 }

@@ -19,7 +19,6 @@
     "@rtsao/scc": "^1.0.0",
     "folder-hash": "^3.1.0",
     "fusion-cli": "0.0.0-monorepo",
-    "jju": "^1.4.0",
     "rimraf": "^2.6.3",
     "simple-git": "^1.124.0"
   }

@@ -1502,11 +1502,6 @@ isomorphic-git@^0.39.3:
     stream-source "^0.3.5"
     through2 "^2.0.4"
 
-jju@^1.4.0:
-  version "1.4.0"
-  resolved "https://unpm.uberinternal.com/jju/-/jju-1.4.0.tgz#a3abe2718af241a2b2904f84a625970f389ae32a"
-  integrity sha1-o6vicYryQaKykE+EpiWXDzia4yo=
-
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://unpm.uberinternal.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
