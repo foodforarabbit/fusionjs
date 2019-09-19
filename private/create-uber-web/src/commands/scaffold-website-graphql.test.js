@@ -45,7 +45,7 @@ test('scaffold website-grapqhl', async () => {
 
     await scaffold({
       type: 'website-graphql',
-      name: 'test-website-graphql',
+      name: name,
       description: '',
       team: '',
       external: undefined,
@@ -59,7 +59,7 @@ test('scaffold website-grapqhl', async () => {
 
     const data = await readJson(`${name}/package.json`);
 
-    expect(data.name.includes('{{')).toEqual(false);
+    expect(data.name).toEqual(name);
 
     const main = await readFile(join(name, 'src/main.js'));
     expect(main.includes('{{')).toBe(false);

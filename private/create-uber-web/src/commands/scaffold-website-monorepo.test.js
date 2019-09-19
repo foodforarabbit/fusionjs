@@ -47,7 +47,7 @@ test('scaffold monorepo website', async () => {
 
     await scaffold({
       type: 'website-monorepo',
-      name: '',
+      name: name,
       description: '',
       team: '',
       external: undefined,
@@ -61,7 +61,7 @@ test('scaffold monorepo website', async () => {
 
     const data = await readJson(`${root}/projects/${name}/package.json`);
 
-    expect(data.name.includes('{{')).toEqual(false);
+    expect(data.name).toEqual(name);
     // Ensure engines does not use semver
     expect(data.engines.node).toMatch(/^[0-9]/);
     expect(data.engines.npm).toMatch(/^[0-9]/);

@@ -59,7 +59,7 @@ test('scaffold website', async () => {
 
     const data = await readJson(`${name}/package.json`);
 
-    expect(data.name.includes('{{')).toEqual(false);
+    expect(data.name).toEqual(name);
     // Ensure engines does not use semver
     expect(data.engines.node).toMatch(/^[0-9]/);
     expect(data.engines.npm).toMatch(/^[0-9]/);
