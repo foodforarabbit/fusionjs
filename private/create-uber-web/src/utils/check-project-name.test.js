@@ -8,6 +8,11 @@ test('checkProjectName', async () => {
   expect(result).toEqual('service-name');
 });
 
+test('checkProjectName with numbers', async () => {
+  const result = await checkProjectName('service-name-2', 'root');
+  expect(result).toEqual('service-name-2');
+});
+
 test('checkProjectName fails if name has staging', async () => {
   try {
     await checkProjectName('service-name-staging', 'root');

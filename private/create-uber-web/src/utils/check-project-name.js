@@ -3,7 +3,7 @@
 import {pathExists} from 'fs-extra';
 import {prompt} from './prompt.js';
 
-const SERVICE_NAME_TEST = new RegExp(/^[a-z][a-zA-Z-_]*$/g);
+const SERVICE_NAME_TEST = new RegExp(/^[a-z][a-zA-Z-_0-9]*$/);
 
 export const checkProjectName = async (
   name: ?string,
