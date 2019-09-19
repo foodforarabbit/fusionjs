@@ -12,9 +12,10 @@ if [ ! -e 'package.json' ]; then
   exit 1
 fi
 
-# Cleaning
-rm -rf $FLIPR_BOOTSTRIP_FILE_SAVE_PATH
-mkdir $FLIPR_BOOTSTRIP_FILE_SAVE_PATH
+# Create flipr directory
+if [ ! -e $FLIPR_BOOTSTRIP_FILE_SAVE_PATH ]; then
+  mkdir $FLIPR_BOOTSTRIP_FILE_SAVE_PATH
+fi
 
 echo "Starting Cerberus tunnel (Step 1/4)"
 if [ -x "$(command -v cerberus)" ]; then
