@@ -7,6 +7,7 @@ var rimraf = require("rimraf");
 
 const main = `// @flow
     import root from './root.js';
+    import App from 'fusion-core';
 
     export default () => {
       const app = new App(root);

@@ -3,6 +3,7 @@ const { exec, execFile, execFileSync } = require("child_process");
 const path = require("path");
 const { create_github_app, create_github_user } = require("./gh_api_helper.js");
 const assert = require("assert");
+const execFileAsync = require('util').promisify(execFile);
 
 const {
   generate_test_fixture,
@@ -31,8 +32,6 @@ postStatus(); // posting a 'Sucessful' check so the buildkite job doesn't appear
 const path_to_test_fixture = path.join(__dirname, "test-fixture");
 const started_at = new Date().toISOString();
 
-generate_test_fixture(FILES, path_to_test_fixture, DEPTH, WIDTH);
-
 const buildCommand = path.join(
   __dirname,
   "node_modules",
@@ -41,6 +40,8 @@ const buildCommand = path.join(
 );
 (async function() {
   // runs benchmarks on head
+  await generate_test_fixture(FILES, path_to_test_fixture, DEPTH, WIDTH);
+  await installAndBuild();
   const data = await doBuilds().catch(err => {
     console.error(err);
     process.exit(1);
@@ -51,6 +52,7 @@ const buildCommand = path.join(
     if (baseSha != null) {
       await generate_test_fixture(FILES, path_to_test_fixture, DEPTH, WIDTH);
       await simpleGit().checkout(baseSha);
+      await installAndBuild();
       const data = await doBuilds().catch(err => {
         console.error(err);
         process.exit(1);
@@ -182,6 +184,11 @@ async function doBuilds() {
       },
     ],
   };
+}
+
+async function installAndBuild() {
+  await execFileAsync('jazelle', ['ci', '--cwd', __dirname]);
+  await execFileAsync('jazelle', ['build', '--cwd', __dirname]);
 }
 
 function run(cmd, args, opts) {

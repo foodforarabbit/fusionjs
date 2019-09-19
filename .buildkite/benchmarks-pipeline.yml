@@ -11,7 +11,7 @@ steps:
       queue: private-builders
   - wait
   - label: "Benchmarks"
-    command: jazelle ci --cwd ./private/monorepo-actions && node ./private/monorepo-actions/time_build.js
+    command: jazelle ci --cwd ./private/benchmarks && node ./private/benchmarks/time_build.js
     timeout_in_minutes: 60
     plugins:
       "docker-compose#v3.0.0":

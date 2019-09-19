@@ -77,9 +77,11 @@
     "private/fusion-plugin-graphql-logging-middleware",
     "private/fusion-plugin-graphql-metrics",
     "private/create-uber-web",
-    "private/monorepo-actions"
+    "private/monorepo-actions",
+    "private/benchmarks"
   ],
   "excludeFromPublishing": [
-    "private/monorepo-actions"
+    "private/monorepo-actions",
+    "private/benchmarks"
   ]
 }

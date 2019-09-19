@@ -660,7 +660,7 @@ debug@^2.2.0, debug@^2.3.3:
   dependencies:
     ms "2.0.0"
 
-debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
+debug@^4.1.0:
   version "4.1.1"
   resolved "https://unpm.uberinternal.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   integrity sha1-O3ImAlUQnGtYnO4FDx1RYTlmR5E=
@@ -1019,15 +1019,6 @@ flow-coverage-report@^0.6.0:
     terminal-table "0.0.12"
     yargs "8.0.1"
 
-folder-hash@^3.1.0:
-  version "3.2.0"
-  resolved "https://unpm.uberinternal.com/folder-hash/-/folder-hash-3.2.0.tgz#a9c5d9d6eafe536318d1ad0b61e8aa5467e7093a"
-  integrity sha1-qcXZ1ur+U2MY0a0LYeiqVGfnCTo=
-  dependencies:
-    debug "^4.1.1"
-    graceful-fs "~4.2.0"
-    minimatch "~3.0.4"
-
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://unpm.uberinternal.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -1119,7 +1110,7 @@ glob@7.1.1:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.1.2, glob@^7.1.3:
+glob@^7.1.2:
   version "7.1.4"
   resolved "https://unpm.uberinternal.com/glob/-/glob-7.1.4.tgz#aa608a2f6c577ad357e1ae5a5c26d9a8d1969255"
   integrity sha1-qmCKL2xXetNX4a5aXCbZqNGWklU=
@@ -1177,7 +1168,7 @@ globrex@^0.1.1:
   resolved "https://unpm.uberinternal.com/globrex/-/globrex-0.1.2.tgz#dd5d9ec826232730cd6793a5e33a9302985e6098"
   integrity sha1-3V2eyCYjJzDNZ5Ol4zqTApheYJg=
 
-graceful-fs@^4.1.2, graceful-fs@~4.2.0:
+graceful-fs@^4.1.2:
   version "4.2.2"
   resolved "https://unpm.uberinternal.com/graceful-fs/-/graceful-fs-4.2.2.tgz#6f0952605d0140c1cfdb138ed005775b92d67b02"
   integrity sha1-bwlSYF0BQMHP2xOO0AV3W5LWewI=
@@ -1766,7 +1757,7 @@ mimic-response@^1.0.0:
   resolved "https://unpm.uberinternal.com/mimic-response/-/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
   integrity sha1-SSNTiHju9CBjy4o+OweYeBSHqxs=
 
-minimatch@3.0.4, minimatch@^3.0.2, minimatch@^3.0.4, minimatch@~3.0.4:
+minimatch@3.0.4, minimatch@^3.0.2, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://unpm.uberinternal.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   integrity sha1-UWbihkV/AzBgZL5Ul+jbsMPTIIM=
@@ -2290,13 +2281,6 @@ ret@~0.1.10:
   resolved "https://unpm.uberinternal.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha1-uKSCXVvbH8P29Twrwz+BOIaBx7w=
 
-rimraf@^2.6.3:
-  version "2.7.1"
-  resolved "https://unpm.uberinternal.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"
-  integrity sha1-NXl/E6f9rcVmFCwp1PB8ytSD4+w=
-  dependencies:
-    glob "^7.1.3"
-
 rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://unpm.uberinternal.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
@@ -2392,13 +2376,6 @@ simple-get@^3.0.2:
     decompress-response "^3.3.0"
     once "^1.3.1"
     simple-concat "^1.0.0"
-
-simple-git@^1.124.0:
-  version "1.126.0"
-  resolved "https://unpm.uberinternal.com/simple-git/-/simple-git-1.126.0.tgz#0c345372275139c8433b8277f4b3e155092aa434"
-  integrity sha1-DDRTcidROchDO4J39LPhVQkqpDQ=
-  dependencies:
-    debug "^4.0.1"
 
 slash@^1.0.0:
   version "1.0.0"

@@ -1,5 +1,5 @@
 {
-  "name": "@uber/monorepo-actions",
+  "name": "@uber/benchmarks",
   "private": true,
   "version": "1.0.0",
   "main": "index.js",
@@ -10,12 +10,11 @@
     "flow": "echo ok"
   },
   "dependencies": {
-    "@dubstep/core": "^3.3.1",
-    "@iarna/toml": "^2.2.3",
     "@octokit/app": "^2.2.4",
     "@octokit/rest": "^16.25.5",
-    "@publisher/core": "0.2.1",
-    "@publisher/npm-helpers": "0.1.2",
-    "@rtsao/scc": "^1.0.0"
+    "folder-hash": "^3.1.0",
+    "fusion-cli": "0.0.0-monorepo",
+    "rimraf": "^2.6.3",
+    "simple-git": "^1.124.0"
   }
 }
