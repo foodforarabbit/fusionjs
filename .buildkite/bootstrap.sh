@@ -22,6 +22,7 @@ for DIR in $CHANGES ; do (
       echo "    plugins:";
       echo "      'derekju/docker-compose#1346e78909a17f800064a37e7dfb716200d514a4':";
       echo "        run: ci";
+      echo "        pull_retries: 5";
       echo "        env:";
       echo "          - UNPM_TOKEN";
       echo "    agents:";
@@ -38,6 +39,7 @@ for DIR in $CHANGES ; do (
       echo "    plugins:";
       echo "      'derekju/docker-compose#1346e78909a17f800064a37e7dfb716200d514a4':";
       echo "        run: ci";
+      echo "        pull_retries: 5";
       echo "        env:";
       echo "          - UNPM_TOKEN";
       echo "    agents:";
