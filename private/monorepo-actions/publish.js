@@ -62,125 +62,22 @@ if (!token) throw new Error("GH_TOKEN is required");
 if (!commit) throw new Error("BUILDKITE_COMMIT is required");
 
 setupRegistryCredentials()
-  .then(() => handleDeployment())
+  .then(() => publishDeployment())
   .catch(err => {
     console.error(err);
     process.exit(1);
   });
 
-async function handleDeployment() {
+async function publishDeployment() {
   const github = new Octokit({
     auth: `token ${token}`,
     previews: ["ant-man-preview", "flash-preview", "shadow-cat-preview"]
   });
 
-  const payload = JSON.parse(deploymentPayload);
-  const task = deploymentTask;
-
-  if (task === CanaryDeployment.taskId) {
-    await publishCanary(github, payload);
-  } else if (task === StableDeployment.taskId) {
-    await publishStable(github, payload);
-  }
-}
-
-async function publishCanary(github, payload) {
-  const { id, unchangedPackages } = CanaryDeployment.deserializePayload(
-    payload
-  );
-  if (!commit) {
-    throw new Error("BUILDKITE_COMMIT must be set");
-  }
-
-  const shorthash = commit.substr(0, 7);
-  const version = `0.0.0-canary.${shorthash}.${id}`;
-  const distTag = "canary";
-
-  await publishDeployment(
-    github,
-    { owner, repo, deployment_id: deploymentId },
-    async () => {
-      const workspace = await getMonorepoPackages();
-      const packages /*: Packages */ = {};
-
-      for (const name of Object.keys(workspace)) {
-        const { location, localDependencies } = workspace[name];
-        if (unchangedPackages[name]) {
-          packages[name] = {
-            dir: location,
-            version: unchangedPackages[name],
-            distTag,
-            publish: false,
-            localDependencies
-          };
-        } else {
-          packages[name] = {
-            dir: location,
-            version,
-            distTag,
-            publish: true,
-            localDependencies
-          };
-        }
-      }
-      return packages;
-    }
-  );
-}
-
-async function publishStable(github, payload) {
-  const { id } = StableDeployment.deserializePayload(payload);
-
-  const tomlFile = await readFile(
-    `${RELEASES_DIRECTORY_PATH}/${id}/${RELEASE_MANIFEST_FILENAME}`
-  );
-  const packages = TOML.parse(tomlFile);
-
-  await publishDeployment(
-    github,
-    { owner, repo, deployment_id: deploymentId },
-    async () => {
-      const workspace = await getMonorepoPackages();
-      const packagesToPublish /*: Packages */ = {};
-
-      for (const [pkg, { version, publish }] of Object.entries(packages)) {
-        const { location, localDependencies } = workspace[pkg];
-
-        packagesToPublish[pkg] = {
-          dir: location,
-          localDependencies,
-          version,
-          distTag: "latest",
-          publish: publish === false ? false : true
-        };
-      }
-
-      return packagesToPublish;
-    }
-  );
-}
-
-async function publishDeployment(
-  github,
-  { owner, repo, deployment_id },
-  getPackages
-) {
-  const started_at = new Date().toISOString();
-
-  await github.repos.createDeploymentStatus({
-    owner,
-    repo,
-    deployment_id,
-    state: "in_progress"
-  });
+  const deployment_id = deploymentId;
 
   try {
-    const packages = await getPackages();
-
-    await writeVersions(packages);
-    const { stdout } = await execFile("git", ["diff"]);
-    console.log("--- Diff");
-    console.log(stdout);
+    const packages = await readJson("versioned_packages.json");
     await publishRelease(packages);
   } catch (err) {
     await github.repos.createDeploymentStatus({
@@ -213,13 +110,13 @@ async function publishRelease(packages) {
   );
 
   const artifacts /* Array<{tarPath: string, distTag: string}> */ = [];
-  console.log("Packing tarballs...");
   for (const pkg of sorted) {
-    const { dir, distTag, publish } = packages[pkg];
+    const { dir, distTag, version, publish } = packages[pkg];
+    const name = pkg.replace("@uber/", "uber-");
+
     if (publish) {
-      const packed = await pack(dir);
       artifacts.push({
-        tarPath: path.join(dir, packed.filename),
+        tarPath: `${name}-${version}.tgz`,
         distTag
       });
     }
@@ -229,6 +126,9 @@ async function publishRelease(packages) {
   const published = [];
   try {
     for (const { tarPath, distTag } of artifacts) {
+      if (!fs.existsSync(tarPath)) {
+        throw new Error(`${tarPath} does not exist`);
+      }
       const result = await publish(tarPath, distTag);
       const { id, shasum } = result;
       console.log(
@@ -297,10 +197,10 @@ type PublishData = {
 };
 */
 
-async function publish(dir /*: string */, distTag /*: string*/) {
+async function publish(path /*: string */, distTag /*: string*/) {
   const { stdout } = await execFile("npm", [
     "publish",
-    dir,
+    path,
     "--tag",
     distTag,
     "--json"
@@ -322,34 +222,6 @@ type Versions = {
   }
 };
 */
-
-async function writeVersions(packages /*: Versions */) {
-  return await Promise.all(
-    Object.keys(packages).map(async pkgId => {
-      const { dir, version } = packages[pkgId];
-      const jsonPath = path.join(dir, "package.json");
-
-      const json = await readJson(jsonPath);
-      json.version = version;
-
-      // Write dependency versions
-      for (const dep of Object.keys(packages)) {
-        const depVersion = packages[dep].version;
-        if (json.dependencies && json.dependencies[dep]) {
-          json.dependencies[dep] = depVersion;
-        }
-        if (json.devDependencies && json.devDependencies[dep]) {
-          json.devDependencies[dep] = depVersion;
-        }
-        if (json.peerDependencies && json.peerDependencies[dep]) {
-          json.peerDependencies[dep] = depVersion;
-        }
-      }
-
-      await writeJson(jsonPath, json);
-    })
-  );
-}
 
 async function readJson(path) {
   const contents = await readFile(path);

@@ -1,23 +1,7 @@
 steps:
-  - label: ":docker:"
-    timeout_in_minutes: 20
-    plugins:
-      "docker-compose#v3.0.0":
-        build: ci
-        image-repository: 027047743804.dkr.ecr.us-east-2.amazonaws.com/uber
-        args:
-          - UNPM_TOKEN=$UNPM_TOKEN
-    agents:
-      queue: private-builders
-  - wait
-  - label: ":package: :npm:"
-    command: jazelle ci --cwd ./private/monorepo-actions && node ./private/monorepo-actions/publish.js
-    timeout_in_minutes: 20
-    plugins:
-      "docker-compose#v3.0.0":
-        run: ci
-        env:
-          - UNPM_TOKEN
-          - NPM_TOKEN
+  - label: ":pipeline:"
+    timeout_in_minutes: 5
+    commands:
+      - ".buildkite/create-pipeline-publish.sh | buildkite-agent pipeline upload"
     agents:
       queue: private-default
