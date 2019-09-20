@@ -125,8 +125,9 @@ For linting, testing, and type checking individual packages, use the equivalent 
 #### Canary releases
 
 1. Click commit status icon (checkmark on commit list view)
-2. Click "Details" on check run named "Release"
-3. Click <kbd>:baby_chick: Canary release</kbd> button on check run details page
+2. Wait for "Package tarball hashes" status to appear.
+3. Click "Details" on check run named "Release"
+4. Click <kbd>:baby_chick: Canary release</kbd> button on check run details page
 
 This will create a GitHub Deployment, which in turn triggers a https://buildkite.com/uber/fusionjs-publish job, which publishes a canary version for all packages. If the monorepo git hash is abc123, each package will have version 0.0.0-canary.abc123.0.
 
