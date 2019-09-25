@@ -46,7 +46,6 @@ export default (app: FusionApp) => {
           },
           middleware: () => {
             return (ctx, next) => {
-              /* global module */
               if (module.hot) {
                 module.hot.accept('./redux', () => {
                   // eslint-disable-next-line cup/no-undef
