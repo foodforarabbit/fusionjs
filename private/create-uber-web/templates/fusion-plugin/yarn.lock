@@ -36,17 +36,17 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.5.5":
-  version "7.6.0"
-  resolved "https://unpm.uberinternal.com/@babel%2fcore/-/core-7.6.0.tgz#9b00f73554edd67bebc86df8303ef678be3d7b48"
-  integrity sha512-FuRhDRtsd6IptKpHXAa+4WPZYY2ZzgowkbLBecEDDSje1X/apG7jQM33or3NdOmjXBKWGOg4JmSiRfUfuTtHXw==
+"@babel/core@^7.6.2":
+  version "7.6.2"
+  resolved "https://unpm.uberinternal.com/@babel%2fcore/-/core-7.6.2.tgz#069a776e8d5e9eefff76236bc8845566bd31dd91"
+  integrity sha1-Bpp3bo1enu//diNryIRVZr0x3ZE=
   dependencies:
     "@babel/code-frame" "^7.5.5"
-    "@babel/generator" "^7.6.0"
-    "@babel/helpers" "^7.6.0"
-    "@babel/parser" "^7.6.0"
+    "@babel/generator" "^7.6.2"
+    "@babel/helpers" "^7.6.2"
+    "@babel/parser" "^7.6.2"
     "@babel/template" "^7.6.0"
-    "@babel/traverse" "^7.6.0"
+    "@babel/traverse" "^7.6.2"
     "@babel/types" "^7.6.0"
     convert-source-map "^1.1.0"
     debug "^4.1.0"
@@ -67,16 +67,15 @@
     source-map "^0.5.0"
     trim-right "^1.0.1"
 
-"@babel/generator@^7.6.0":
-  version "7.6.0"
-  resolved "https://unpm.uberinternal.com/@babel%2fgenerator/-/generator-7.6.0.tgz#e2c21efbfd3293ad819a2359b448f002bfdfda56"
-  integrity sha512-Ms8Mo7YBdMMn1BYuNtKuP/z0TgEIhbcyB8HVR6PPNYp4P61lMsABiS4A3VG1qznjXVCf3r+fVHhm4efTYVsySA==
+"@babel/generator@^7.6.2":
+  version "7.6.2"
+  resolved "https://unpm.uberinternal.com/@babel%2fgenerator/-/generator-7.6.2.tgz#dac8a3c2df118334c2a29ff3446da1636a8f8c03"
+  integrity sha1-2sijwt8RgzTCop/zRG2hY2qPjAM=
   dependencies:
     "@babel/types" "^7.6.0"
     jsesc "^2.5.1"
     lodash "^4.17.13"
     source-map "^0.5.0"
-    trim-right "^1.0.1"
 
 "@babel/helper-annotate-as-pure@^7.0.0":
   version "7.0.0"
@@ -259,13 +258,13 @@
     "@babel/traverse" "^7.5.5"
     "@babel/types" "^7.5.5"
 
-"@babel/helpers@^7.6.0":
-  version "7.6.0"
-  resolved "https://unpm.uberinternal.com/@babel%2fhelpers/-/helpers-7.6.0.tgz#21961d16c6a3c3ab597325c34c465c0887d31c6e"
-  integrity sha512-W9kao7OBleOjfXtFGgArGRX6eCP0UEcA2ZWEWNkJdRZnHhW4eEbeswbG3EwaRsnQUAEGWYgMq1HsIXuNNNy2eQ==
+"@babel/helpers@^7.6.2":
+  version "7.6.2"
+  resolved "https://unpm.uberinternal.com/@babel%2fhelpers/-/helpers-7.6.2.tgz#681ffe489ea4dcc55f23ce469e58e59c1c045153"
+  integrity sha1-aB/+SJ6k3MVfI85GnljlnBwEUVM=
   dependencies:
     "@babel/template" "^7.6.0"
-    "@babel/traverse" "^7.6.0"
+    "@babel/traverse" "^7.6.2"
     "@babel/types" "^7.6.0"
 
 "@babel/highlight@^7.0.0":
@@ -286,6 +285,11 @@
   version "7.6.0"
   resolved "https://unpm.uberinternal.com/@babel%2fparser/-/parser-7.6.0.tgz#3e05d0647432a8326cb28d0de03895ae5a57f39b"
   integrity sha512-+o2q111WEx4srBs7L9eJmcwi655eD8sXniLqMB93TBK9GrNzGrxDWSjiqz2hLU0Ha8MTXFIP0yd9fNdP+m43ZQ==
+
+"@babel/parser@^7.6.2":
+  version "7.6.2"
+  resolved "https://unpm.uberinternal.com/@babel%2fparser/-/parser-7.6.2.tgz#205e9c95e16ba3b8b96090677a67c9d6075b70a1"
+  integrity sha1-IF6cleFro7i5YJBnemfJ1gdbcKE=
 
 "@babel/plugin-proposal-async-generator-functions@^7.2.0":
   version "7.2.0"
@@ -802,16 +806,16 @@
     globals "^11.1.0"
     lodash "^4.17.13"
 
-"@babel/traverse@^7.6.0":
-  version "7.6.0"
-  resolved "https://unpm.uberinternal.com/@babel%2ftraverse/-/traverse-7.6.0.tgz#389391d510f79be7ce2ddd6717be66d3fed4b516"
-  integrity sha512-93t52SaOBgml/xY74lsmt7xOR4ufYvhb5c5qiM6lu4J/dWGMAfAh6eKw4PjLes6DI6nQgearoxnFJk60YchpvQ==
+"@babel/traverse@^7.6.2":
+  version "7.6.2"
+  resolved "https://unpm.uberinternal.com/@babel%2ftraverse/-/traverse-7.6.2.tgz#b0e2bfd401d339ce0e6c05690206d1e11502ce2c"
+  integrity sha1-sOK/1AHTOc4ObAVpAgbR4RUCziw=
   dependencies:
     "@babel/code-frame" "^7.5.5"
-    "@babel/generator" "^7.6.0"
+    "@babel/generator" "^7.6.2"
     "@babel/helper-function-name" "^7.1.0"
     "@babel/helper-split-export-declaration" "^7.4.4"
-    "@babel/parser" "^7.6.0"
+    "@babel/parser" "^7.6.2"
     "@babel/types" "^7.6.0"
     debug "^4.1.0"
     globals "^11.1.0"
@@ -843,13 +847,6 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@gfx/zopfli@^1.0.10":
-  version "1.0.14"
-  resolved "https://unpm.uberinternal.com/@gfx%2fzopfli/-/zopfli-1.0.14.tgz#52319e9bce0482f03ff02845e13fd95bb0ec7152"
-  integrity sha512-3BuC4gWCvNz5fd2VdVSOQegtv1lTGT8DUTuqvE6M16uAjgBod+vhHCXTlKMtZA4s2+z3IDAgQm/k3RkhYNodiA==
-  dependencies:
-    base64-js "^1.3.0"
-
 "@jest/console@^24.7.1":
   version "24.7.1"
   resolved "https://unpm.uberinternal.com/@jest%2fconsole/-/console-24.7.1.tgz#32a9e42535a97aedfe037e725bd67e954b459545"
@@ -867,39 +864,6 @@
     "@jest/source-map" "^24.9.0"
     chalk "^2.0.1"
     slash "^2.0.0"
-
-"@jest/core@^24.7.1":
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/@jest%2fcore/-/core-24.7.1.tgz#6707f50db238d0c5988860680e2e414df0032024"
-  integrity sha512-ivlZ8HX/FOASfHcb5DJpSPFps8ydfUYzLZfgFFqjkLijYysnIEOieg72YRhO4ZUB32xu40hsSMmaw+IGYeKONA==
-  dependencies:
-    "@jest/console" "^24.7.1"
-    "@jest/reporters" "^24.7.1"
-    "@jest/test-result" "^24.7.1"
-    "@jest/transform" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    ansi-escapes "^3.0.0"
-    chalk "^2.0.1"
-    exit "^0.1.2"
-    graceful-fs "^4.1.15"
-    jest-changed-files "^24.7.0"
-    jest-config "^24.7.1"
-    jest-haste-map "^24.7.1"
-    jest-message-util "^24.7.1"
-    jest-regex-util "^24.3.0"
-    jest-resolve-dependencies "^24.7.1"
-    jest-runner "^24.7.1"
-    jest-runtime "^24.7.1"
-    jest-snapshot "^24.7.1"
-    jest-util "^24.7.1"
-    jest-validate "^24.7.0"
-    jest-watcher "^24.7.1"
-    micromatch "^3.1.10"
-    p-each-series "^1.0.0"
-    pirates "^4.0.1"
-    realpath-native "^1.1.0"
-    rimraf "^2.5.4"
-    strip-ansi "^5.0.0"
 
 "@jest/core@^24.9.0":
   version "24.9.0"
@@ -935,16 +899,6 @@
     slash "^2.0.0"
     strip-ansi "^5.0.0"
 
-"@jest/environment@^24.7.1":
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/@jest%2fenvironment/-/environment-24.7.1.tgz#9b9196bc737561f67ac07817d4c5ece772e33135"
-  integrity sha512-wmcTTYc4/KqA+U5h1zQd5FXXynfa7VGP2NfF+c6QeGJ7c+2nStgh65RQWNX62SC716dTtqheTRrZl0j+54oGHw==
-  dependencies:
-    "@jest/fake-timers" "^24.7.1"
-    "@jest/transform" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    jest-mock "^24.7.0"
-
 "@jest/environment@^24.9.0":
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/@jest%2fenvironment/-/environment-24.9.0.tgz#21e3afa2d65c0586cbd6cbefe208bafade44ab18"
@@ -955,15 +909,6 @@
     "@jest/types" "^24.9.0"
     jest-mock "^24.9.0"
 
-"@jest/fake-timers@^24.7.1":
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/@jest%2ffake-timers/-/fake-timers-24.7.1.tgz#56e5d09bdec09ee81050eaff2794b26c71d19db2"
-  integrity sha512-4vSQJDKfR2jScOe12L9282uiwuwQv9Lk7mgrCSZHA9evB9efB/qx8i0KJxsAKtp8fgJYBJdYY7ZU6u3F4/pyjA==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    jest-message-util "^24.7.1"
-    jest-mock "^24.7.0"
-
 "@jest/fake-timers@^24.9.0":
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/@jest%2ffake-timers/-/fake-timers-24.9.0.tgz#ba3e6bf0eecd09a636049896434d306636540c93"
@@ -972,32 +917,6 @@
     "@jest/types" "^24.9.0"
     jest-message-util "^24.9.0"
     jest-mock "^24.9.0"
-
-"@jest/reporters@^24.7.1":
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/@jest%2freporters/-/reporters-24.7.1.tgz#38ac0b096cd691bbbe3051ddc25988d42e37773a"
-  integrity sha512-bO+WYNwHLNhrjB9EbPL4kX/mCCG4ZhhfWmO3m4FSpbgr7N83MFejayz30kKjgqr7smLyeaRFCBQMbXpUgnhAJw==
-  dependencies:
-    "@jest/environment" "^24.7.1"
-    "@jest/test-result" "^24.7.1"
-    "@jest/transform" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    chalk "^2.0.1"
-    exit "^0.1.2"
-    glob "^7.1.2"
-    istanbul-api "^2.1.1"
-    istanbul-lib-coverage "^2.0.2"
-    istanbul-lib-instrument "^3.0.1"
-    istanbul-lib-source-maps "^3.0.1"
-    jest-haste-map "^24.7.1"
-    jest-resolve "^24.7.1"
-    jest-runtime "^24.7.1"
-    jest-util "^24.7.1"
-    jest-worker "^24.6.0"
-    node-notifier "^5.2.1"
-    slash "^2.0.0"
-    source-map "^0.6.0"
-    string-length "^2.0.0"
 
 "@jest/reporters@^24.9.0":
   version "24.9.0"
@@ -1044,15 +963,6 @@
     graceful-fs "^4.1.15"
     source-map "^0.6.0"
 
-"@jest/test-result@^24.7.1":
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/@jest%2ftest-result/-/test-result-24.7.1.tgz#19eacdb29a114300aed24db651e5d975f08b6bbe"
-  integrity sha512-3U7wITxstdEc2HMfBX7Yx3JZgiNBubwDqQMh+BXmZXHa3G13YWF3p6cK+5g0hGkN3iufg/vGPl3hLxQXD74Npg==
-  dependencies:
-    "@jest/console" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    "@types/istanbul-lib-coverage" "^2.0.0"
-
 "@jest/test-result@^24.9.0":
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/@jest%2ftest-result/-/test-result-24.9.0.tgz#11796e8aa9dbf88ea025757b3152595ad06ba0ca"
@@ -1061,16 +971,6 @@
     "@jest/console" "^24.9.0"
     "@jest/types" "^24.9.0"
     "@types/istanbul-lib-coverage" "^2.0.0"
-
-"@jest/test-sequencer@^24.7.1":
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/@jest%2ftest-sequencer/-/test-sequencer-24.7.1.tgz#9c18e428e1ad945fa74f6233a9d35745ca0e63e0"
-  integrity sha512-84HQkCpVZI/G1zq53gHJvSmhUer4aMYp9tTaffW28Ih5OxfCg8hGr3nTSbL1OhVDRrFZwvF+/R9gY6JRkDUpUA==
-  dependencies:
-    "@jest/test-result" "^24.7.1"
-    jest-haste-map "^24.7.1"
-    jest-runner "^24.7.1"
-    jest-runtime "^24.7.1"
 
 "@jest/test-sequencer@^24.9.0":
   version "24.9.0"
@@ -1081,27 +981,6 @@
     jest-haste-map "^24.9.0"
     jest-runner "^24.9.0"
     jest-runtime "^24.9.0"
-
-"@jest/transform@^24.7.1":
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/@jest%2ftransform/-/transform-24.7.1.tgz#872318f125bcfab2de11f53b465ab1aa780789c2"
-  integrity sha512-EsOUqP9ULuJ66IkZQhI5LufCHlTbi7hrcllRMUEV/tOgqBVQi93+9qEvkX0n8mYpVXQ8VjwmICeRgg58mrtIEw==
-  dependencies:
-    "@babel/core" "^7.1.0"
-    "@jest/types" "^24.7.0"
-    babel-plugin-istanbul "^5.1.0"
-    chalk "^2.0.1"
-    convert-source-map "^1.4.0"
-    fast-json-stable-stringify "^2.0.0"
-    graceful-fs "^4.1.15"
-    jest-haste-map "^24.7.1"
-    jest-regex-util "^24.3.0"
-    jest-util "^24.7.1"
-    micromatch "^3.1.10"
-    realpath-native "^1.1.0"
-    slash "^2.0.0"
-    source-map "^0.6.1"
-    write-file-atomic "2.4.1"
 
 "@jest/transform@^24.9.0":
   version "24.9.0"
@@ -1124,14 +1003,6 @@
     slash "^2.0.0"
     source-map "^0.6.1"
     write-file-atomic "2.4.1"
-
-"@jest/types@^24.7.0":
-  version "24.7.0"
-  resolved "https://unpm.uberinternal.com/@jest%2ftypes/-/types-24.7.0.tgz#c4ec8d1828cdf23234d9b4ee31f5482a3f04f48b"
-  integrity sha512-ipJUa2rFWiKoBqMKP63Myb6h9+iT3FHRTF2M8OR6irxWzItisa8i4dcSg14IbvmXUnBlHBlUQPYUHWyX3UPpYA==
-  dependencies:
-    "@types/istanbul-lib-coverage" "^2.0.0"
-    "@types/yargs" "^12.0.9"
 
 "@jest/types@^24.9.0":
   version "24.9.0"
@@ -1256,11 +1127,6 @@
   version "13.0.0"
   resolved "https://unpm.uberinternal.com/@types%2fyargs-parser/-/yargs-parser-13.0.0.tgz#453743c5bbf9f1bed61d959baab5b06be029b2d0"
   integrity sha512-wBlsw+8n21e6eTd4yVv8YD/E3xq0O6nNnJIquutAsFGE7EyMKz7W6RNT6BRu1SmdgmlCZ9tb0X+j+D6HGr8pZw==
-
-"@types/yargs@^12.0.2", "@types/yargs@^12.0.9":
-  version "12.0.10"
-  resolved "https://unpm.uberinternal.com/@types%2fyargs/-/yargs-12.0.10.tgz#17a8ec65cd8e88f51b418ceb271af18d3137df67"
-  integrity sha512-WsVzTPshvCSbHThUduGGxbmnwcpkgSctHGHTqzWyFg4lYAuV5qXlyFPOsP3OWqCINfmg/8VXP+zJaa4OxEsBQQ==
 
 "@types/yargs@^13.0.0":
   version "13.0.2"
@@ -1824,13 +1690,6 @@ async-limiter@~1.0.0:
   resolved "https://unpm.uberinternal.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
 
-async@^2.5.0:
-  version "2.6.1"
-  resolved "https://unpm.uberinternal.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
-  integrity sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
-  dependencies:
-    lodash "^4.17.10"
-
 async@^2.6.1:
   version "2.6.2"
   resolved "https://unpm.uberinternal.com/async/-/async-2.6.2.tgz#18330ea7e6e313887f5d2f2a904bac6fe4dd5381"
@@ -1882,19 +1741,6 @@ babel-eslint@^10.0.3:
     eslint-visitor-keys "^1.0.0"
     resolve "^1.12.0"
 
-babel-jest@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/babel-jest/-/babel-jest-24.7.1.tgz#73902c9ff15a7dfbdc9994b0b17fcefd96042178"
-  integrity sha512-GPnLqfk8Mtt0i4OemjWkChi73A3ALs4w2/QbG64uAj8b5mmwzxc7jbJVRZt8NJkxi6FopVHog9S3xX6UJKb2qg==
-  dependencies:
-    "@jest/transform" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    "@types/babel__core" "^7.1.0"
-    babel-plugin-istanbul "^5.1.0"
-    babel-preset-jest "^24.6.0"
-    chalk "^2.4.2"
-    slash "^2.0.0"
-
 babel-jest@^24.8.0, babel-jest@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/babel-jest/-/babel-jest-24.9.0.tgz#3fc327cb8467b89d14d7bc70e315104a783ccd54"
@@ -1924,13 +1770,6 @@ babel-plugin-istanbul@^5.1.0:
     istanbul-lib-instrument "^3.0.0"
     test-exclude "^5.0.0"
 
-babel-plugin-jest-hoist@^24.6.0:
-  version "24.6.0"
-  resolved "https://unpm.uberinternal.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-24.6.0.tgz#f7f7f7ad150ee96d7a5e8e2c5da8319579e78019"
-  integrity sha512-3pKNH6hMt9SbOv0F3WVmy5CWQ4uogS3k0GY5XLyQHJ9EGpAT9XWkFd2ZiXXtkwFHdAHa5j7w7kfxSP5lAIwu7w==
-  dependencies:
-    "@types/babel__traverse" "^7.0.6"
-
 babel-plugin-jest-hoist@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-24.9.0.tgz#4f837091eb407e01447c8843cbec546d0002d756"
@@ -1953,14 +1792,6 @@ babel-plugin-transform-styletron-display-name@^1.1.0:
   resolved "https://unpm.uberinternal.com/babel-plugin-transform-styletron-display-name/-/babel-plugin-transform-styletron-display-name-1.1.4.tgz#04382b929b4744de29642cc821e7a95b75dddb5a"
   integrity sha512-97IlB15q3vHarAFN7xNU2gwEUX+UgGdq1qm0vwvTdNgksEKF20XfDsEiOyFcnm0ye4seHYJb9SXijONlCfF8sQ==
 
-babel-preset-jest@^24.6.0:
-  version "24.6.0"
-  resolved "https://unpm.uberinternal.com/babel-preset-jest/-/babel-preset-jest-24.6.0.tgz#66f06136eefce87797539c0d63f1769cc3915984"
-  integrity sha512-pdZqLEdmy1ZK5kyRUfvBb2IfTPb2BUvIJczlPspS8fWmBQslNNDBqVfh7BW5leOVJMDZKzjD8XEyABTk6gQ5yw==
-  dependencies:
-    "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
-    babel-plugin-jest-hoist "^24.6.0"
-
 babel-preset-jest@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/babel-preset-jest/-/babel-preset-jest-24.9.0.tgz#192b521e2217fb1d1f67cf73f70c336650ad3cdc"
@@ -1974,7 +1805,7 @@ balanced-match@^1.0.0:
   resolved "https://unpm.uberinternal.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-base64-js@^1.0.2, base64-js@^1.3.0:
+base64-js@^1.0.2:
   version "1.3.1"
   resolved "https://unpm.uberinternal.com/base64-js/-/base64-js-1.3.1.tgz#58ece8cb75dd07e71ed08c736abc5fac4dbf8df1"
   integrity sha512-mLQ4i2QO1ytvGWFWmcngKO//JXAQueZvwEKtjgQFM4jIK0kU+ytMfplL8j+n5mspOfjHwoAg+9yhb7BwAHm36g==
@@ -2515,15 +2346,6 @@ cli-width@^2.0.0:
   resolved "https://unpm.uberinternal.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
   integrity sha1-/xnt6Kml5XkyQUewwR8PvLq+1jk=
 
-cliui@^4.0.0:
-  version "4.1.0"
-  resolved "https://unpm.uberinternal.com/cliui/-/cliui-4.1.0.tgz#348422dbe82d800b3022eef4f6ac10bf2e4d1b49"
-  integrity sha512-4FG+RSG9DL7uEwRUZXZn3SS34DiDPfzP0VOiEwtUWlE+AR2EIg+hSyvrIgUUfhdgR/UkAeW2QHgeP+hWrXs7jQ==
-  dependencies:
-    string-width "^2.1.1"
-    strip-ansi "^4.0.0"
-    wrap-ansi "^2.0.0"
-
 cliui@^5.0.0:
   version "5.0.0"
   resolved "https://unpm.uberinternal.com/cliui/-/cliui-5.0.0.tgz#deefcfdb2e800784aa34f46fa08e06851c7bbbc5"
@@ -2637,11 +2459,6 @@ commondir@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
   integrity sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=
-
-compare-versions@^3.2.1:
-  version "3.4.0"
-  resolved "https://unpm.uberinternal.com/compare-versions/-/compare-versions-3.4.0.tgz#e0747df5c9cb7f054d6d3dc3e1dbc444f9e92b26"
-  integrity sha512-tK69D7oNXXqUW3ZNo/z7NXTEz22TCF0pTE+YF9cxvaAM9XnkLo1fV621xCLrRR6aevJlKxExkss0vWqUCUpqdg==
 
 compare-versions@^3.4.0:
   version "3.5.1"
@@ -3142,11 +2959,6 @@ diagnostics@^1.1.1:
     enabled "1.0.x"
     kuler "1.0.x"
 
-diff-sequences@^24.3.0:
-  version "24.3.0"
-  resolved "https://unpm.uberinternal.com/diff-sequences/-/diff-sequences-24.3.0.tgz#0f20e8a1df1abddaf4d9c226680952e64118b975"
-  integrity sha512-xLqpez+Zj9GKSnPWS0WZw1igGocZ+uua8+y+5dDNTT934N3QuY1sp2LkHzwiaYQGz60hMq0pjAshdeXm5VUOEw==
-
 diff-sequences@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/diff-sequences/-/diff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
@@ -3400,10 +3212,10 @@ enzyme-to-json@^3.3.4:
   dependencies:
     lodash "^4.17.12"
 
-enzyme@^3.9.0:
-  version "3.9.0"
-  resolved "https://unpm.uberinternal.com/enzyme/-/enzyme-3.9.0.tgz#2b491f06ca966eb56b6510068c7894a7e0be3909"
-  integrity sha512-JqxI2BRFHbmiP7/UFqvsjxTirWoM1HfeaJrmVSZ9a1EADKkZgdPcAuISPMpoUiHlac9J4dYt81MC5BBIrbJGMg==
+enzyme@^3.10.0:
+  version "3.10.0"
+  resolved "https://unpm.uberinternal.com/enzyme/-/enzyme-3.10.0.tgz#7218e347c4a7746e133f8e964aada4a3523452f6"
+  integrity sha1-chjjR8SndG4TP46WSq2ko1I0UvY=
   dependencies:
     array.prototype.flat "^1.2.1"
     cheerio "^1.0.0-rc.2"
@@ -3537,15 +3349,15 @@ escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-cup@2.0.3, eslint-config-cup@^2.0.1:
+eslint-config-cup@^2.0.1:
   version "2.0.3"
   resolved "https://unpm.uberinternal.com/eslint-config-cup/-/eslint-config-cup-2.0.3.tgz#a9ff1c82455716c4ea68adfbc145b8527bc2bb9e"
   integrity sha512-F/IiKuWLGIAAFenwxqI4mf3UzfJgahjMn2dlJ/NGWbTbfzvvVL9yh+lWCYlSD5sr/S8jRW5BOCnorSl9b5zhIg==
 
-eslint-config-fusion@^6.0.3:
-  version "6.0.3"
-  resolved "https://unpm.uberinternal.com/eslint-config-fusion/-/eslint-config-fusion-6.0.3.tgz#4404abd614683cde4cf6a746e4e4117b1dc7f824"
-  integrity sha512-3c+GHqU66X2BVuvZ3raRHIik/iEYvnBFpmm0wKe+v9afe5cOBxtysYHS7JyPgqosbEuh9MnJgDLjWvMhQZU8ug==
+eslint-config-fusion@^6.0.4:
+  version "6.0.4"
+  resolved "https://unpm.uberinternal.com/eslint-config-fusion/-/eslint-config-fusion-6.0.4.tgz#6dc2446dbd182972785d408b73dbc4f7f9331a4f"
+  integrity sha1-bcJEbb0YKXJ4XUCLc9vE9/kzGk8=
   dependencies:
     eslint-config-uber-universal-stage-3 "^3.0.1"
 
@@ -3601,17 +3413,17 @@ eslint-plugin-cup@^2.0.2:
   dependencies:
     globals "^11.5.0"
 
-eslint-plugin-flowtype@^3.8.1:
-  version "3.11.1"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-3.11.1.tgz#1aae15a10dbcd5aecc89897f810f2e9fcc18a5e3"
-  integrity sha512-4NiaaGZuz9iEGRTK8j4lkA/scibOXSYaYoHbsTtgLOxxqQCkbWV3xt8ETqILKg7DAYDqB69z1H5U71UmtdF9hw==
+eslint-plugin-flowtype@^4.3.0:
+  version "4.3.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-4.3.0.tgz#06d0837ac341caf369e7e6dbb112dd7fd21acf17"
+  integrity sha1-BtCDesNByvNp5+bbsRLdf9Iazxc=
   dependencies:
-    lodash "^4.17.11"
+    lodash "^4.17.15"
 
-eslint-plugin-import@^2.17.2:
-  version "2.18.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-import/-/eslint-plugin-import-2.18.0.tgz#7a5ba8d32622fb35eb9c8db195c2090bd18a3678"
-  integrity sha512-PZpAEC4gj/6DEMMoU2Df01C5c50r7zdGIN52Yfi7CvvWaYssG7Jt5R9nFG5gmqodxNOz9vQS87xk6Izdtpdrig==
+eslint-plugin-import@^2.18.2:
+  version "2.18.2"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-import/-/eslint-plugin-import-2.18.2.tgz#02f1180b90b077b33d447a17a2326ceb400aceb6"
+  integrity sha1-AvEYC5Cwd7M9RHoXojJs60AKzrY=
   dependencies:
     array-includes "^3.0.3"
     contains-path "^0.1.0"
@@ -3620,34 +3432,34 @@ eslint-plugin-import@^2.17.2:
     eslint-import-resolver-node "^0.3.2"
     eslint-module-utils "^2.4.0"
     has "^1.0.3"
-    lodash "^4.17.11"
     minimatch "^3.0.4"
+    object.values "^1.1.0"
     read-pkg-up "^2.0.0"
     resolve "^1.11.0"
 
-eslint-plugin-jest@^22.15.2:
+eslint-plugin-jest@^22.17.0:
   version "22.17.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.17.0.tgz#dc170ec8369cd1bff9c5dd8589344e3f73c88cf6"
-  integrity sha512-WT4DP4RoGBhIQjv+5D0FM20fAdAUstfYAf/mkufLNTojsfgzc5/IYW22cIg/Q4QBavAZsROQlqppiWDpFZDS8Q==
+  integrity sha1-3BcOyDac0b/5xd2FiTROP3PIjPY=
   dependencies:
     "@typescript-eslint/experimental-utils" "^1.13.0"
 
-eslint-plugin-prettier@^3.0.1:
-  version "3.0.1"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.0.1.tgz#19d521e3981f69dd6d14f64aec8c6a6ac6eb0b0d"
-  integrity sha512-/PMttrarPAY78PLvV3xfWibMOdMDl57hmlQ2XqFeA37wd+CJ7WSxV7txqjVPHi/AAFKd2lX0ZqfsOc/i5yFCSQ==
+eslint-plugin-prettier@^3.1.1:
+  version "3.1.1"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.1.1.tgz#507b8562410d02a03f0ddc949c616f877852f2ba"
+  integrity sha1-UHuFYkENAqA/DdyUnGFvh3hS8ro=
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@^1.6.1:
-  version "1.7.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.7.0.tgz#6210b6d5a37205f0b92858f895a4e827020a7d04"
-  integrity sha512-iXTCFcOmlWvw4+TOE8CLWj6yX1GwzT0Y6cUfHHZqWnSk144VmVIRcVGtUAzrLES7C798lmvnt02C7rxaOX1HNA==
+eslint-plugin-react-hooks@^2.0.1:
+  version "2.0.1"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.0.1.tgz#e898ec26a0a335af6f7b0ad1f0bedda7143ed756"
+  integrity sha1-6JjsJqCjNa9vewrR8L7dpxQ+11Y=
 
-eslint-plugin-react@^7.13.0:
-  version "7.14.2"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-react/-/eslint-plugin-react-7.14.2.tgz#94c193cc77a899ac0ecbb2766fbef88685b7ecc1"
-  integrity sha512-jZdnKe3ip7FQOdjxks9XPN0pjUKZYq48OggNMd16Sk+8VXx6JOvXmlElxROCgp7tiUsTsze3jd78s/9AFJP2mA==
+eslint-plugin-react@^7.14.3:
+  version "7.14.3"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-react/-/eslint-plugin-react-7.14.3.tgz#911030dd7e98ba49e1b2208599571846a66bdf13"
+  integrity sha1-kRAw3X6YuknhsiCFmVcYRqZr3xM=
   dependencies:
     array-includes "^3.0.3"
     doctrine "^2.1.0"
@@ -3692,10 +3504,10 @@ eslint-visitor-keys@^1.1.0:
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
   integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
 
-eslint@^6.3.0:
-  version "6.3.0"
-  resolved "https://unpm.uberinternal.com/eslint/-/eslint-6.3.0.tgz#1f1a902f67bfd4c354e7288b81e40654d927eb6a"
-  integrity sha512-ZvZTKaqDue+N8Y9g0kp6UPZtS4FSY3qARxBs7p4f0H0iof381XHduqVerFWtK8DPtKmemqbqCFENWSQgPR/Gow==
+eslint@^6.4.0:
+  version "6.4.0"
+  resolved "https://unpm.uberinternal.com/eslint/-/eslint-6.4.0.tgz#5aa9227c3fbe921982b2eda94ba0d7fae858611a"
+  integrity sha1-WqkifD++khmCsu2pS6DX+uhYYRo=
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.10.0"
@@ -3881,18 +3693,6 @@ expand-tilde@^2.0.0, expand-tilde@^2.0.2:
   integrity sha1-l+gBqgUt8CRU3kawK/YhZCzchQI=
   dependencies:
     homedir-polyfill "^1.0.1"
-
-expect@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/expect/-/expect-24.7.1.tgz#d91defbab4e627470a152feaf35b3c31aa1c7c14"
-  integrity sha512-mGfvMTPduksV3xoI0xur56pQsg2vJjNf5+a+bXOjqCkiCBbmCayrBbHS/75y9K430cfqyocPr2ZjiNiRx4SRKw==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    ansi-styles "^3.2.0"
-    jest-get-type "^24.3.0"
-    jest-matcher-utils "^24.7.0"
-    jest-message-util "^24.7.1"
-    jest-regex-util "^24.3.0"
 
 expect@^24.9.0:
   version "24.9.0"
@@ -4179,10 +3979,10 @@ flatted@^2.0.0:
   resolved "https://unpm.uberinternal.com/flatted/-/flatted-2.0.0.tgz#55122b6536ea496b4b44893ee2608141d10d9916"
   integrity sha512-R+H8IZclI8AAkSBRQJLVOsxwAoHd6WC40b4QTNWIjzAa6BXOBfQcM587MXDTVPeYaopFNWHUFLx7eNmHDSxMWg==
 
-flow-bin@^0.102.0:
-  version "0.102.0"
-  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.102.0.tgz#3d5de44bcc26d26585e932b3201988b766f9b380"
-  integrity sha512-mYon6noeLO0Q5SbiWULLQeM1L96iuXnRtYMd47j3bEWXAwUW9EnwNWcn+cZg/jC/Dg4Wj/jnkdTDEuFtbeu1ww==
+flow-bin@^0.108.0:
+  version "0.108.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.108.0.tgz#6a42c85fd664d23dd937d925851e8e6ab5d71393"
+  integrity sha1-akLIX9Zk0j3ZN9klhR6OarXXE5M=
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -4325,17 +4125,16 @@ functions-have-names@^1.1.1:
   resolved "https://unpm.uberinternal.com/functions-have-names/-/functions-have-names-1.1.1.tgz#79d35927f07b8e7103d819fed475b64ccf7225ea"
   integrity sha512-U0kNHUoxwPNPWOJaMG7Z00d4a/qZVrFtzWJRaK8V9goaVOCXBSQSJpt3MYGNtkScKEBKovxLjnNdC9MlXwo5Pw==
 
-fusion-cli@^2.4.0:
-  version "2.4.0"
-  resolved "https://unpm.uberinternal.com/fusion-cli/-/fusion-cli-2.4.0.tgz#307d59d674a513bdc404151a93c66947ba5ead2e"
-  integrity sha512-z0GOjT/frTLsfqvj+i8ftcxw7C9B+3DODNjhUHr00XAcAbkqb7dta6F1kxEP3PPSqsPPoqn343mVYCoSd1BZgA==
+fusion-cli@^2.4.1:
+  version "2.4.1"
+  resolved "https://unpm.uberinternal.com/fusion-cli/-/fusion-cli-2.4.1.tgz#54fda000185de4742917240cc6a2c217f9957a3d"
+  integrity sha1-VP2gABhd5HQpFyQMxqLCF/mVej0=
   dependencies:
     "@babel/core" "^7.5.4"
     "@babel/plugin-syntax-dynamic-import" "7.2.0"
     "@babel/plugin-transform-flow-strip-types" "^7.4.4"
     "@babel/preset-env" "^7.5.4"
     "@babel/preset-react" "^7.0.0"
-    "@gfx/zopfli" "^1.0.10"
     "@rtsao/plugin-proposal-class-properties" "7.0.1-patch.1"
     babel-core "^7.0.0-bridge.0"
     babel-jest "^24.8.0"
@@ -4380,10 +4179,10 @@ fusion-cli@^2.4.0:
     webpack-hot-middleware "^2.24.3"
     winston "^3.1.0"
 
-fusion-core@^2.0.5:
-  version "2.0.5"
-  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-2.0.5.tgz#656370fd179e877dcbe9eda5624e7a06bfa93a10"
-  integrity sha512-cWJLPMTV+2Ogp9KqsmIKPkPcn0iP+thLpbixedtxL+oltWjDuifUl3NRDsE5n+J+GtJNwP/SksaOclUkycauxQ==
+fusion-core@^2.0.6:
+  version "2.0.6"
+  resolved "https://unpm.uberinternal.com/fusion-core/-/fusion-core-2.0.6.tgz#19a6c9ff136fe132c5f3f08a371f027158b46e0a"
+  integrity sha1-GabJ/xNv4TLF8/CKNx8CcVi0bgo=
   dependencies:
     koa "^2.7.0"
     koa-compose "^4.1.0"
@@ -4392,28 +4191,28 @@ fusion-core@^2.0.5:
     ua-parser-js "^0.7.19"
     uuid "^3.3.2"
 
-fusion-react@^3.1.4:
-  version "3.1.4"
-  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-3.1.4.tgz#6dd67928f1c47e72f28f30e62ea8b9049cae3985"
-  integrity sha512-I/bj8OTJrMw2C/yTdrL04FjuXCFsMuCexOz9mLY1EhMGz1tZlewwcxTEp4QzWLdX5bY7Y56ZwGZjF7TDufs9aw==
+fusion-react@^3.1.5:
+  version "3.1.5"
+  resolved "https://unpm.uberinternal.com/fusion-react/-/fusion-react-3.1.5.tgz#22d59d58f6f34a04ad1c74ee1ba7dfe6e7adf7a3"
+  integrity sha1-ItWdWPbzSgStHHTuG6ff5uet96M=
   dependencies:
     "@rtsao/react-ssr-prepass" "^1.0.7"
     prop-types "^15.7.2"
     react-is "^16.8.0"
 
-fusion-test-utils@^2.0.5:
-  version "2.0.5"
-  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-2.0.5.tgz#a0fb335406d5b52609005560a162435b6b265afd"
-  integrity sha512-0r0w2Wwnu+lOEMuFCfEVx4WDRQzw3TJ4KqQh6HW/N1ZEdTiHXIWGpFEx7I0v0YY9srp3RyIywWJUrBMl0zUgqw==
+fusion-test-utils@^2.0.6:
+  version "2.0.6"
+  resolved "https://unpm.uberinternal.com/fusion-test-utils/-/fusion-test-utils-2.0.6.tgz#4c3846e3008bab5c04ca4d7a2b299375fe2f197d"
+  integrity sha1-TDhG4wCLq1wEyk16KymTdf4vGX0=
   dependencies:
     assert "^1.4.1"
     koa "^2.7.0"
     node-mocks-http "^1.7.5"
 
-fusion-tokens@^2.0.5:
-  version "2.0.5"
-  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-2.0.5.tgz#54507ddc9374332aa7ee88ee03016ac8a1b10f8c"
-  integrity sha512-9PA4SiptjWD60vpB+PKl1wJLXdFzNwa6MG3IIn1SE4+k1tbvkeLvQL4Y1lMuOuwZnIBrnXcwucnlgNZUb/QJDA==
+fusion-tokens@^2.0.6:
+  version "2.0.6"
+  resolved "https://unpm.uberinternal.com/fusion-tokens/-/fusion-tokens-2.0.6.tgz#3b7b98b8b427f194be33de838cde3a8f949c9791"
+  integrity sha1-O3uYuLQn8ZS+M96DjN46j5Scl5E=
 
 gauge@~2.7.3:
   version "2.7.4"
@@ -4428,11 +4227,6 @@ gauge@~2.7.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
-
-get-caller-file@^1.0.1:
-  version "1.0.3"
-  resolved "https://unpm.uberinternal.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
-  integrity sha512-3t6rVToeoZfYSGd8YoLFR2DJkiQrIiUrGcjvFX2mDw3bn6k2OtwHN0TNCLbBO+w8qTvimhDkv+LSscbJY1vE6w==
 
 get-caller-file@^2.0.1:
   version "2.0.5"
@@ -4636,17 +4430,6 @@ gzip-size@5.0.0:
   dependencies:
     duplexer "^0.1.1"
     pify "^3.0.0"
-
-handlebars@^4.1.0:
-  version "4.1.0"
-  resolved "https://unpm.uberinternal.com/handlebars/-/handlebars-4.1.0.tgz#0d6a6f34ff1f63cecec8423aa4169827bf787c3a"
-  integrity sha512-l2jRuU1NAWK6AW5qqcTATWQJvNPEwkM7NEKSiv/gqOsoSQbVoWyqVEY5GS+XPQ88zLNmqASRpzfdm8d79hJS+w==
-  dependencies:
-    async "^2.5.0"
-    optimist "^0.6.1"
-    source-map "^0.6.1"
-  optionalDependencies:
-    uglify-js "^3.1.4"
 
 handlebars@^4.1.2:
   version "4.2.0"
@@ -5078,11 +4861,6 @@ invariant@^2.2.2, invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
-invert-kv@^2.0.0:
-  version "2.0.0"
-  resolved "https://unpm.uberinternal.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
-  integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
-
 ipaddr.js@1.9.0:
   version "1.9.0"
   resolved "https://unpm.uberinternal.com/ipaddr.js/-/ipaddr.js-1.9.0.tgz#37df74e430a0e47550fe54a2defe30d8acd95f65"
@@ -5418,25 +5196,6 @@ istanbul-api@2.1.6:
     minimatch "^3.0.4"
     once "^1.4.0"
 
-istanbul-api@^2.1.1:
-  version "2.1.1"
-  resolved "https://unpm.uberinternal.com/istanbul-api/-/istanbul-api-2.1.1.tgz#194b773f6d9cbc99a9258446848b0f988951c4d0"
-  integrity sha512-kVmYrehiwyeBAk/wE71tW6emzLiHGjYIiDrc8sfyty4F8M02/lrgXSm+R1kXysmF20zArvmZXjlE/mg24TVPJw==
-  dependencies:
-    async "^2.6.1"
-    compare-versions "^3.2.1"
-    fileset "^2.0.3"
-    istanbul-lib-coverage "^2.0.3"
-    istanbul-lib-hook "^2.0.3"
-    istanbul-lib-instrument "^3.1.0"
-    istanbul-lib-report "^2.0.4"
-    istanbul-lib-source-maps "^3.0.2"
-    istanbul-reports "^2.1.1"
-    js-yaml "^3.12.0"
-    make-dir "^1.3.0"
-    minimatch "^3.0.4"
-    once "^1.4.0"
-
 istanbul-lib-coverage@^2.0.1, istanbul-lib-coverage@^2.0.5:
   version "2.0.5"
   resolved "https://unpm.uberinternal.com/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.5.tgz#675f0ab69503fad4b1d849f736baaca803344f49"
@@ -5447,13 +5206,6 @@ istanbul-lib-coverage@^2.0.2, istanbul-lib-coverage@^2.0.3:
   resolved "https://unpm.uberinternal.com/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.3.tgz#0b891e5ad42312c2b9488554f603795f9a2211ba"
   integrity sha512-dKWuzRGCs4G+67VfW9pBFFz2Jpi4vSp/k7zBcJ888ofV5Mi1g5CUML5GvMvV6u9Cjybftu+E8Cgp+k0dI1E5lw==
 
-istanbul-lib-hook@^2.0.3:
-  version "2.0.3"
-  resolved "https://unpm.uberinternal.com/istanbul-lib-hook/-/istanbul-lib-hook-2.0.3.tgz#e0e581e461c611be5d0e5ef31c5f0109759916fb"
-  integrity sha512-CLmEqwEhuCYtGcpNVJjLV1DQyVnIqavMLFHV/DP+np/g3qvdxu3gsPqYoJMXm15sN84xOlckFB3VNvRbf5yEgA==
-  dependencies:
-    append-transform "^1.0.0"
-
 istanbul-lib-hook@^2.0.7:
   version "2.0.7"
   resolved "https://unpm.uberinternal.com/istanbul-lib-hook/-/istanbul-lib-hook-2.0.7.tgz#c95695f383d4f8f60df1f04252a9550e15b5b133"
@@ -5461,7 +5213,7 @@ istanbul-lib-hook@^2.0.7:
   dependencies:
     append-transform "^1.0.0"
 
-istanbul-lib-instrument@^3.0.0, istanbul-lib-instrument@^3.0.1, istanbul-lib-instrument@^3.1.0:
+istanbul-lib-instrument@^3.0.0, istanbul-lib-instrument@^3.0.1:
   version "3.1.0"
   resolved "https://unpm.uberinternal.com/istanbul-lib-instrument/-/istanbul-lib-instrument-3.1.0.tgz#a2b5484a7d445f1f311e93190813fa56dfb62971"
   integrity sha512-ooVllVGT38HIk8MxDj/OIHXSYvH+1tq/Vb38s8ixt9GoJadXska4WkGY+0wkmtYCZNYtaARniH/DixUGGLZ0uA==
@@ -5505,7 +5257,7 @@ istanbul-lib-report@^2.0.8:
     make-dir "^2.1.0"
     supports-color "^6.1.0"
 
-istanbul-lib-source-maps@^3.0.1, istanbul-lib-source-maps@^3.0.2:
+istanbul-lib-source-maps@^3.0.1:
   version "3.0.2"
   resolved "https://unpm.uberinternal.com/istanbul-lib-source-maps/-/istanbul-lib-source-maps-3.0.2.tgz#f1e817229a9146e8424a28e5d69ba220fda34156"
   integrity sha512-JX4v0CiKTGp9fZPmoxpu9YEkPbEqCqBbO3403VabKjH+NRXo72HafD5UgnjTEqHL2SAjaZK1XDuDOkn6I5QVfQ==
@@ -5527,28 +5279,12 @@ istanbul-lib-source-maps@^3.0.6:
     rimraf "^2.6.3"
     source-map "^0.6.1"
 
-istanbul-reports@^2.1.1:
-  version "2.1.1"
-  resolved "https://unpm.uberinternal.com/istanbul-reports/-/istanbul-reports-2.1.1.tgz#72ef16b4ecb9a4a7bd0e2001e00f95d1eec8afa9"
-  integrity sha512-FzNahnidyEPBCI0HcufJoSEoKykesRlFcSzQqjH9x0+LC8tnnE/p/90PBLu8iZTxr8yYZNyTtiAujUqyN+CIxw==
-  dependencies:
-    handlebars "^4.1.0"
-
 istanbul-reports@^2.2.4, istanbul-reports@^2.2.6:
   version "2.2.6"
   resolved "https://unpm.uberinternal.com/istanbul-reports/-/istanbul-reports-2.2.6.tgz#7b4f2660d82b29303a8fe6091f8ca4bf058da1af"
   integrity sha512-SKi4rnMyLBKe0Jy2uUdx28h8oG7ph2PPuQPvIAh31d+Ci+lSiEu4C+h3oBPuJ9+mPKhOyW0M8gY4U5NM1WLeXA==
   dependencies:
     handlebars "^4.1.2"
-
-jest-changed-files@^24.7.0:
-  version "24.7.0"
-  resolved "https://unpm.uberinternal.com/jest-changed-files/-/jest-changed-files-24.7.0.tgz#39d723a11b16ed7b373ac83adc76a69464b0c4fa"
-  integrity sha512-33BgewurnwSfJrW7T5/ZAXGE44o7swLslwh8aUckzq2e17/2Os1V0QU506ZNik3hjs8MgnEMKNkcud442NCDTw==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    execa "^1.0.0"
-    throat "^4.0.0"
 
 jest-changed-files@^24.9.0:
   version "24.9.0"
@@ -5558,25 +5294,6 @@ jest-changed-files@^24.9.0:
     "@jest/types" "^24.9.0"
     execa "^1.0.0"
     throat "^4.0.0"
-
-jest-cli@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-cli/-/jest-cli-24.7.1.tgz#6093a539073b6f4953145abeeb9709cd621044f1"
-  integrity sha512-32OBoSCVPzcTslGFl6yVCMzB2SqX3IrWwZCY5mZYkb0D2WsogmU3eV2o8z7+gRQa4o4sZPX/k7GU+II7CxM6WQ==
-  dependencies:
-    "@jest/core" "^24.7.1"
-    "@jest/test-result" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    chalk "^2.0.1"
-    exit "^0.1.2"
-    import-local "^2.0.0"
-    is-ci "^2.0.0"
-    jest-config "^24.7.1"
-    jest-util "^24.7.1"
-    jest-validate "^24.7.0"
-    prompts "^2.0.1"
-    realpath-native "^1.1.0"
-    yargs "^12.0.2"
 
 jest-cli@^24.9.0:
   version "24.9.0"
@@ -5596,29 +5313,6 @@ jest-cli@^24.9.0:
     prompts "^2.0.1"
     realpath-native "^1.1.0"
     yargs "^13.3.0"
-
-jest-config@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-config/-/jest-config-24.7.1.tgz#6c1dd4db82a89710a3cf66bdba97827c9a1cf052"
-  integrity sha512-8FlJNLI+X+MU37j7j8RE4DnJkvAghXmBWdArVzypW6WxfGuxiL/CCkzBg0gHtXhD2rxla3IMOSUAHylSKYJ83g==
-  dependencies:
-    "@babel/core" "^7.1.0"
-    "@jest/test-sequencer" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    babel-jest "^24.7.1"
-    chalk "^2.0.1"
-    glob "^7.1.1"
-    jest-environment-jsdom "^24.7.1"
-    jest-environment-node "^24.7.1"
-    jest-get-type "^24.3.0"
-    jest-jasmine2 "^24.7.1"
-    jest-regex-util "^24.3.0"
-    jest-resolve "^24.7.1"
-    jest-util "^24.7.1"
-    jest-validate "^24.7.0"
-    micromatch "^3.1.10"
-    pretty-format "^24.7.0"
-    realpath-native "^1.1.0"
 
 jest-config@^24.9.0:
   version "24.9.0"
@@ -5643,16 +5337,6 @@ jest-config@^24.9.0:
     pretty-format "^24.9.0"
     realpath-native "^1.1.0"
 
-jest-diff@^24.7.0:
-  version "24.7.0"
-  resolved "https://unpm.uberinternal.com/jest-diff/-/jest-diff-24.7.0.tgz#5d862899be46249754806f66e5729c07fcb3580f"
-  integrity sha512-ULQZ5B1lWpH70O4xsANC4tf4Ko6RrpwhE3PtG6ERjMg1TiYTC2Wp4IntJVGro6a8HG9luYHhhmF4grF0Pltckg==
-  dependencies:
-    chalk "^2.0.1"
-    diff-sequences "^24.3.0"
-    jest-get-type "^24.3.0"
-    pretty-format "^24.7.0"
-
 jest-diff@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-diff/-/jest-diff-24.9.0.tgz#931b7d0d5778a1baf7452cb816e325e3724055da"
@@ -5670,17 +5354,6 @@ jest-docblock@^24.3.0:
   dependencies:
     detect-newline "^2.1.0"
 
-jest-each@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-each/-/jest-each-24.7.1.tgz#fcc7dda4147c28430ad9fb6dc7211cd17ab54e74"
-  integrity sha512-4fsS8fEfLa3lfnI1Jw6NxjhyRTgfpuOVTeUZZFyVYqeTa4hPhr2YkToUhouuLTrL2eMGOfpbdMyRx0GQ/VooKA==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    chalk "^2.0.1"
-    jest-get-type "^24.3.0"
-    jest-util "^24.7.1"
-    pretty-format "^24.7.0"
-
 jest-each@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-each/-/jest-each-24.9.0.tgz#eb2da602e2a610898dbc5f1f6df3ba86b55f8b05"
@@ -5697,18 +5370,6 @@ jest-environment-jsdom-global@^1.2.0:
   resolved "https://unpm.uberinternal.com/jest-environment-jsdom-global/-/jest-environment-jsdom-global-1.2.0.tgz#dd5b16fe0a0566ee40010d8632be5adf5a5ccb65"
   integrity sha512-41cDl0OxzmFY/cnW0COUN+lnt2N2ks1r3V4fAKOnlZ9xIrGy0PNPan+Bz8HP+uQy/8bGV6T7J4Oi7X+h43It6g==
 
-jest-environment-jsdom@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-environment-jsdom/-/jest-environment-jsdom-24.7.1.tgz#a40e004b4458ebeb8a98082df135fd501b9fbbd6"
-  integrity sha512-Gnhb+RqE2JuQGb3kJsLF8vfqjt3PHKSstq4Xc8ic+ax7QKo4Z0RWGucU3YV+DwKR3T9SYc+3YCUQEJs8r7+Jxg==
-  dependencies:
-    "@jest/environment" "^24.7.1"
-    "@jest/fake-timers" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    jest-mock "^24.7.0"
-    jest-util "^24.7.1"
-    jsdom "^11.5.1"
-
 jest-environment-jsdom@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-environment-jsdom/-/jest-environment-jsdom-24.9.0.tgz#4b0806c7fc94f95edb369a69cc2778eec2b7375b"
@@ -5721,17 +5382,6 @@ jest-environment-jsdom@^24.9.0:
     jest-util "^24.9.0"
     jsdom "^11.5.1"
 
-jest-environment-node@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-environment-node/-/jest-environment-node-24.7.1.tgz#fa2c047a31522a48038d26ee4f7c8fd9c1ecfe12"
-  integrity sha512-GJJQt1p9/C6aj6yNZMvovZuxTUd+BEJprETdvTKSb4kHcw4mFj8777USQV0FJoJ4V3djpOwA5eWyPwfq//PFBA==
-  dependencies:
-    "@jest/environment" "^24.7.1"
-    "@jest/fake-timers" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    jest-mock "^24.7.0"
-    jest-util "^24.7.1"
-
 jest-environment-node@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-environment-node/-/jest-environment-node-24.9.0.tgz#333d2d2796f9687f2aeebf0742b519f33c1cbfd3"
@@ -5743,34 +5393,10 @@ jest-environment-node@^24.9.0:
     jest-mock "^24.9.0"
     jest-util "^24.9.0"
 
-jest-get-type@^24.3.0:
-  version "24.3.0"
-  resolved "https://unpm.uberinternal.com/jest-get-type/-/jest-get-type-24.3.0.tgz#582cfd1a4f91b5cdad1d43d2932f816d543c65da"
-  integrity sha512-HYF6pry72YUlVcvUx3sEpMRwXEWGEPlJ0bSPVnB3b3n++j4phUEoSPcS6GC0pPJ9rpyPSe4cb5muFo6D39cXow==
-
 jest-get-type@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-get-type/-/jest-get-type-24.9.0.tgz#1684a0c8a50f2e4901b6644ae861f579eed2ef0e"
   integrity sha512-lUseMzAley4LhIcpSP9Jf+fTrQ4a1yHQwLNeeVa2cEmbCGeoZAtYPOIv8JaxLD/sUpKxetKGP+gsHl8f8TSj8Q==
-
-jest-haste-map@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-haste-map/-/jest-haste-map-24.7.1.tgz#772e215cd84080d4bbcb759cfb668ad649a21471"
-  integrity sha512-g0tWkzjpHD2qa03mTKhlydbmmYiA2KdcJe762SbfFo/7NIMgBWAA0XqQlApPwkWOF7Cxoi/gUqL0i6DIoLpMBw==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    anymatch "^2.0.0"
-    fb-watchman "^2.0.0"
-    graceful-fs "^4.1.15"
-    invariant "^2.2.4"
-    jest-serializer "^24.4.0"
-    jest-util "^24.7.1"
-    jest-worker "^24.6.0"
-    micromatch "^3.1.10"
-    sane "^4.0.3"
-    walker "^1.0.7"
-  optionalDependencies:
-    fsevents "^1.2.7"
 
 jest-haste-map@^24.9.0:
   version "24.9.0"
@@ -5790,28 +5416,6 @@ jest-haste-map@^24.9.0:
     walker "^1.0.7"
   optionalDependencies:
     fsevents "^1.2.7"
-
-jest-jasmine2@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-jasmine2/-/jest-jasmine2-24.7.1.tgz#01398686dabe46553716303993f3be62e5d9d818"
-  integrity sha512-Y/9AOJDV1XS44wNwCaThq4Pw3gBPiOv/s6NcbOAkVRRUEPu+36L2xoPsqQXsDrxoBerqeyslpn2TpCI8Zr6J2w==
-  dependencies:
-    "@babel/traverse" "^7.1.0"
-    "@jest/environment" "^24.7.1"
-    "@jest/test-result" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    chalk "^2.0.1"
-    co "^4.6.0"
-    expect "^24.7.1"
-    is-generator-fn "^2.0.0"
-    jest-each "^24.7.1"
-    jest-matcher-utils "^24.7.0"
-    jest-message-util "^24.7.1"
-    jest-runtime "^24.7.1"
-    jest-snapshot "^24.7.1"
-    jest-util "^24.7.1"
-    pretty-format "^24.7.0"
-    throat "^4.0.0"
 
 jest-jasmine2@^24.9.0:
   version "24.9.0"
@@ -5835,13 +5439,6 @@ jest-jasmine2@^24.9.0:
     pretty-format "^24.9.0"
     throat "^4.0.0"
 
-jest-leak-detector@^24.7.0:
-  version "24.7.0"
-  resolved "https://unpm.uberinternal.com/jest-leak-detector/-/jest-leak-detector-24.7.0.tgz#323ff93ed69be12e898f5b040952f08a94288ff9"
-  integrity sha512-zV0qHKZGXtmPVVzT99CVEcHE9XDf+8LwiE0Ob7jjezERiGVljmqKFWpV2IkG+rkFIEUHFEkMiICu7wnoPM/RoQ==
-  dependencies:
-    pretty-format "^24.7.0"
-
 jest-leak-detector@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-leak-detector/-/jest-leak-detector-24.9.0.tgz#b665dea7c77100c5c4f7dfcb153b65cf07dcf96a"
@@ -5849,16 +5446,6 @@ jest-leak-detector@^24.9.0:
   dependencies:
     jest-get-type "^24.9.0"
     pretty-format "^24.9.0"
-
-jest-matcher-utils@^24.7.0:
-  version "24.7.0"
-  resolved "https://unpm.uberinternal.com/jest-matcher-utils/-/jest-matcher-utils-24.7.0.tgz#bbee1ff37bc8b2e4afcaabc91617c1526af4bcd4"
-  integrity sha512-158ieSgk3LNXeUhbVJYRXyTPSCqNgVXOp/GT7O94mYd3pk/8+odKTyR1JLtNOQSPzNi8NFYVONtvSWA/e1RDXg==
-  dependencies:
-    chalk "^2.0.1"
-    jest-diff "^24.7.0"
-    jest-get-type "^24.3.0"
-    pretty-format "^24.7.0"
 
 jest-matcher-utils@^24.9.0:
   version "24.9.0"
@@ -5869,20 +5456,6 @@ jest-matcher-utils@^24.9.0:
     jest-diff "^24.9.0"
     jest-get-type "^24.9.0"
     pretty-format "^24.9.0"
-
-jest-message-util@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-message-util/-/jest-message-util-24.7.1.tgz#f1dc3a6c195647096a99d0f1dadbc447ae547018"
-  integrity sha512-dk0gqVtyqezCHbcbk60CdIf+8UHgD+lmRHifeH3JRcnAqh4nEyPytSc9/L1+cQyxC+ceaeP696N4ATe7L+omcg==
-  dependencies:
-    "@babel/code-frame" "^7.0.0"
-    "@jest/test-result" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    "@types/stack-utils" "^1.0.1"
-    chalk "^2.0.1"
-    micromatch "^3.1.10"
-    slash "^2.0.0"
-    stack-utils "^1.0.1"
 
 jest-message-util@^24.9.0:
   version "24.9.0"
@@ -5897,13 +5470,6 @@ jest-message-util@^24.9.0:
     micromatch "^3.1.10"
     slash "^2.0.0"
     stack-utils "^1.0.1"
-
-jest-mock@^24.7.0:
-  version "24.7.0"
-  resolved "https://unpm.uberinternal.com/jest-mock/-/jest-mock-24.7.0.tgz#e49ce7262c12d7f5897b0d8af77f6db8e538023b"
-  integrity sha512-6taW4B4WUcEiT2V9BbOmwyGuwuAFT2G8yghF7nyNW1/2gq5+6aTqSPcS9lS6ArvEkX55vbPAS/Jarx5LSm4Fng==
-  dependencies:
-    "@jest/types" "^24.7.0"
 
 jest-mock@^24.9.0:
   version "24.9.0"
@@ -5927,15 +5493,6 @@ jest-regex-util@^24.9.0:
   resolved "https://unpm.uberinternal.com/jest-regex-util/-/jest-regex-util-24.9.0.tgz#c13fb3380bde22bf6575432c493ea8fe37965636"
   integrity sha512-05Cmb6CuxaA+Ys6fjr3PhvV3bGQmO+2p2La4hFbU+W5uOc479f7FdLXUWXw4pYMAhhSZIuKHwSXSu6CsSBAXQA==
 
-jest-resolve-dependencies@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-resolve-dependencies/-/jest-resolve-dependencies-24.7.1.tgz#cf93bbef26999488a96a2b2012f9fe7375aa378f"
-  integrity sha512-2Eyh5LJB2liNzfk4eo7bD1ZyBbqEJIyyrFtZG555cSWW9xVHxII2NuOkSl1yUYTAYCAmM2f2aIT5A7HzNmubyg==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    jest-regex-util "^24.3.0"
-    jest-snapshot "^24.7.1"
-
 jest-resolve-dependencies@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-resolve-dependencies/-/jest-resolve-dependencies-24.9.0.tgz#ad055198959c4cfba8a4f066c673a3f0786507ab"
@@ -5944,17 +5501,6 @@ jest-resolve-dependencies@^24.9.0:
     "@jest/types" "^24.9.0"
     jest-regex-util "^24.3.0"
     jest-snapshot "^24.9.0"
-
-jest-resolve@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-resolve/-/jest-resolve-24.7.1.tgz#e4150198299298380a75a9fd55043fa3b9b17fde"
-  integrity sha512-Bgrc+/UUZpGJ4323sQyj85hV9d+ANyPNu6XfRDUcyFNX1QrZpSoM0kE4Mb2vZMAYTJZsBFzYe8X1UaOkOELSbw==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    browser-resolve "^1.11.3"
-    chalk "^2.0.1"
-    jest-pnp-resolver "^1.2.1"
-    realpath-native "^1.1.0"
 
 jest-resolve@^24.9.0:
   version "24.9.0"
@@ -5966,31 +5512,6 @@ jest-resolve@^24.9.0:
     chalk "^2.0.1"
     jest-pnp-resolver "^1.2.1"
     realpath-native "^1.1.0"
-
-jest-runner@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-runner/-/jest-runner-24.7.1.tgz#41c8a02a06aa23ea82d8bffd69d7fa98d32f85bf"
-  integrity sha512-aNFc9liWU/xt+G9pobdKZ4qTeG/wnJrJna3VqunziDNsWT3EBpmxXZRBMKCsNMyfy+A/XHiV+tsMLufdsNdgCw==
-  dependencies:
-    "@jest/console" "^24.7.1"
-    "@jest/environment" "^24.7.1"
-    "@jest/test-result" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    chalk "^2.4.2"
-    exit "^0.1.2"
-    graceful-fs "^4.1.15"
-    jest-config "^24.7.1"
-    jest-docblock "^24.3.0"
-    jest-haste-map "^24.7.1"
-    jest-jasmine2 "^24.7.1"
-    jest-leak-detector "^24.7.0"
-    jest-message-util "^24.7.1"
-    jest-resolve "^24.7.1"
-    jest-runtime "^24.7.1"
-    jest-util "^24.7.1"
-    jest-worker "^24.6.0"
-    source-map-support "^0.5.6"
-    throat "^4.0.0"
 
 jest-runner@^24.9.0:
   version "24.9.0"
@@ -6016,35 +5537,6 @@ jest-runner@^24.9.0:
     jest-worker "^24.6.0"
     source-map-support "^0.5.6"
     throat "^4.0.0"
-
-jest-runtime@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-runtime/-/jest-runtime-24.7.1.tgz#2ffd70b22dd03a5988c0ab9465c85cdf5d25c597"
-  integrity sha512-0VAbyBy7tll3R+82IPJpf6QZkokzXPIS71aDeqh+WzPRXRCNz6StQ45otFariPdJ4FmXpDiArdhZrzNAC3sj6A==
-  dependencies:
-    "@jest/console" "^24.7.1"
-    "@jest/environment" "^24.7.1"
-    "@jest/source-map" "^24.3.0"
-    "@jest/transform" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    "@types/yargs" "^12.0.2"
-    chalk "^2.0.1"
-    exit "^0.1.2"
-    glob "^7.1.3"
-    graceful-fs "^4.1.15"
-    jest-config "^24.7.1"
-    jest-haste-map "^24.7.1"
-    jest-message-util "^24.7.1"
-    jest-mock "^24.7.0"
-    jest-regex-util "^24.3.0"
-    jest-resolve "^24.7.1"
-    jest-snapshot "^24.7.1"
-    jest-util "^24.7.1"
-    jest-validate "^24.7.0"
-    realpath-native "^1.1.0"
-    slash "^2.0.0"
-    strip-bom "^3.0.0"
-    yargs "^12.0.2"
 
 jest-runtime@^24.9.0:
   version "24.9.0"
@@ -6075,33 +5567,10 @@ jest-runtime@^24.9.0:
     strip-bom "^3.0.0"
     yargs "^13.3.0"
 
-jest-serializer@^24.4.0:
-  version "24.4.0"
-  resolved "https://unpm.uberinternal.com/jest-serializer/-/jest-serializer-24.4.0.tgz#f70c5918c8ea9235ccb1276d232e459080588db3"
-  integrity sha512-k//0DtglVstc1fv+GY/VHDIjrtNjdYvYjMlbLUed4kxrE92sIUewOi5Hj3vrpB8CXfkJntRPDRjCrCvUhBdL8Q==
-
 jest-serializer@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-serializer/-/jest-serializer-24.9.0.tgz#e6d7d7ef96d31e8b9079a714754c5d5c58288e73"
   integrity sha512-DxYipDr8OvfrKH3Kel6NdED3OXxjvxXZ1uIY2I9OFbGg+vUkkg7AGvi65qbhbWNPvDckXmzMPbK3u3HaDO49bQ==
-
-jest-snapshot@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-snapshot/-/jest-snapshot-24.7.1.tgz#bd5a35f74aedff070975e9e9c90024f082099568"
-  integrity sha512-8Xk5O4p+JsZZn4RCNUS3pxA+ORKpEKepE+a5ejIKrId9CwrVN0NY+vkqEkXqlstA5NMBkNahXkR/4qEBy0t5yA==
-  dependencies:
-    "@babel/types" "^7.0.0"
-    "@jest/types" "^24.7.0"
-    chalk "^2.0.1"
-    expect "^24.7.1"
-    jest-diff "^24.7.0"
-    jest-matcher-utils "^24.7.0"
-    jest-message-util "^24.7.1"
-    jest-resolve "^24.7.1"
-    mkdirp "^0.5.1"
-    natural-compare "^1.4.0"
-    pretty-format "^24.7.0"
-    semver "^5.5.0"
 
 jest-snapshot@^24.9.0:
   version "24.9.0"
@@ -6122,24 +5591,6 @@ jest-snapshot@^24.9.0:
     pretty-format "^24.9.0"
     semver "^6.2.0"
 
-jest-util@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-util/-/jest-util-24.7.1.tgz#b4043df57b32a23be27c75a2763d8faf242038ff"
-  integrity sha512-/KilOue2n2rZ5AnEBYoxOXkeTu6vi7cjgQ8MXEkih0oeAXT6JkS3fr7/j8+engCjciOU1Nq5loMSKe0A1oeX0A==
-  dependencies:
-    "@jest/console" "^24.7.1"
-    "@jest/fake-timers" "^24.7.1"
-    "@jest/source-map" "^24.3.0"
-    "@jest/test-result" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    callsites "^3.0.0"
-    chalk "^2.0.1"
-    graceful-fs "^4.1.15"
-    is-ci "^2.0.0"
-    mkdirp "^0.5.1"
-    slash "^2.0.0"
-    source-map "^0.6.0"
-
 jest-util@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-util/-/jest-util-24.9.0.tgz#7396814e48536d2e85a37de3e4c431d7cb140162"
@@ -6158,18 +5609,6 @@ jest-util@^24.9.0:
     slash "^2.0.0"
     source-map "^0.6.0"
 
-jest-validate@^24.7.0:
-  version "24.7.0"
-  resolved "https://unpm.uberinternal.com/jest-validate/-/jest-validate-24.7.0.tgz#70007076f338528ee1b1c8a8258b1b0bb982508d"
-  integrity sha512-cgai/gts9B2chz1rqVdmLhzYxQbgQurh1PEQSvSgPZ8KGa1AqXsqC45W5wKEwzxKrWqypuQrQxnF4+G9VejJJA==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    camelcase "^5.0.0"
-    chalk "^2.0.1"
-    jest-get-type "^24.3.0"
-    leven "^2.1.0"
-    pretty-format "^24.7.0"
-
 jest-validate@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest-validate/-/jest-validate-24.9.0.tgz#0775c55360d173cd854e40180756d4ff52def8ab"
@@ -6181,19 +5620,6 @@ jest-validate@^24.9.0:
     jest-get-type "^24.9.0"
     leven "^3.1.0"
     pretty-format "^24.9.0"
-
-jest-watcher@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest-watcher/-/jest-watcher-24.7.1.tgz#e161363d7f3f4e1ef3d389b7b3a0aad247b673f5"
-  integrity sha512-Wd6TepHLRHVKLNPacEsBwlp9raeBIO+01xrN24Dek4ggTS8HHnOzYSFnvp+6MtkkJ3KfMzy220KTi95e2rRkrw==
-  dependencies:
-    "@jest/test-result" "^24.7.1"
-    "@jest/types" "^24.7.0"
-    "@types/yargs" "^12.0.9"
-    ansi-escapes "^3.0.0"
-    chalk "^2.0.1"
-    jest-util "^24.7.1"
-    string-length "^2.0.0"
 
 jest-watcher@^24.9.0:
   version "24.9.0"
@@ -6231,15 +5657,7 @@ jest-worker@^24.9.0:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
 
-jest@^24.7.1:
-  version "24.7.1"
-  resolved "https://unpm.uberinternal.com/jest/-/jest-24.7.1.tgz#0d94331cf510c75893ee32f87d7321d5bf8f2501"
-  integrity sha512-AbvRar5r++izmqo5gdbAjTeA6uNRGoNRuj5vHB0OnDXo2DXWZJVuaObiGgtlvhKb+cWy2oYbQSfxv7Q7GjnAtA==
-  dependencies:
-    import-local "^2.0.0"
-    jest-cli "^24.7.1"
-
-jest@^24.8.0:
+jest@^24.8.0, jest@^24.9.0:
   version "24.9.0"
   resolved "https://unpm.uberinternal.com/jest/-/jest-24.9.0.tgz#987d290c05a08b52c56188c1002e368edb007171"
   integrity sha512-YvkBL1Zm7d2B1+h5fHEOdyjCG+sGMz4f8D86/0HiqJ6MB4MnDc8FgP5vdWsGnemOQro7lnYo8UakZ3+5A0jxGw==
@@ -6256,14 +5674,6 @@ js-levenshtein@^1.1.3:
   version "4.0.0"
   resolved "https://unpm.uberinternal.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
-
-js-yaml@^3.12.0:
-  version "3.12.0"
-  resolved "https://unpm.uberinternal.com/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
-  integrity sha512-PIt2cnwmPfL4hKNwqeiuz4bKfnzHTBv6HyVgjahA6mPLwPDzjDWrplJBMjHUFxku/N3FlmrbyPclad+I+4mJ3A==
-  dependencies:
-    argparse "^1.0.7"
-    esprima "^4.0.0"
 
 js-yaml@^3.13.1:
   version "3.13.1"
@@ -6531,19 +5941,12 @@ latest-version@^3.0.0:
   dependencies:
     package-json "^4.0.0"
 
-lcid@^2.0.0:
-  version "2.0.0"
-  resolved "https://unpm.uberinternal.com/lcid/-/lcid-2.0.0.tgz#6ef5d2df60e52f82eb228a4c373e8d1f397253cf"
-  integrity sha512-avPEb8P8EGnwXKClwsNUgryVjllcRqtMYa49NTsbQagYuT1DcXnl1915oxWjoyGrXR6zH/Y0Zc96xWsPcoDKeA==
-  dependencies:
-    invert-kv "^2.0.0"
-
 left-pad@^1.3.0:
   version "1.3.0"
   resolved "https://unpm.uberinternal.com/left-pad/-/left-pad-1.3.0.tgz#5b8a3a7765dfe001261dde915589e782f8c94d1e"
   integrity sha512-XI5MPzVNApjAyhQzphX8BkmKsKUxD4LdyK24iZeQGinBN9yTQT3bFlCBy/aVx2HrNcqQGsdot8ghrjyrvMCoEA==
 
-leven@2.1.0, leven@^2.1.0:
+leven@2.1.0:
   version "2.1.0"
   resolved "https://unpm.uberinternal.com/leven/-/leven-2.1.0.tgz#c2e7a9f772094dee9d34202ae8acce4687875580"
   integrity sha1-wuep93IJTe6dNCAq6KzORoeHVYA=
@@ -6660,7 +6063,7 @@ lodash@^4.17.11:
   resolved "https://unpm.uberinternal.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
 
-lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14:
+lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15:
   version "4.17.15"
   resolved "https://unpm.uberinternal.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -6725,13 +6128,6 @@ makeerror@1.0.x:
   dependencies:
     tmpl "1.0.x"
 
-map-age-cleaner@^0.1.1:
-  version "0.1.3"
-  resolved "https://unpm.uberinternal.com/map-age-cleaner/-/map-age-cleaner-0.1.3.tgz#7d583a7306434c055fe474b0f45078e6e1b4b92a"
-  integrity sha512-bJzx6nMoP6PDLPBFmg7+xRKeFZvFboMrGlxmNj9ClvX53KrmvM5bXFXEWjbz4cz1AFn+jWJ9z/DJSz7hrs0w3w==
-  dependencies:
-    p-defer "^1.0.0"
-
 map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://unpm.uberinternal.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
@@ -6772,15 +6168,6 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://unpm.uberinternal.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
-
-mem@^4.0.0:
-  version "4.1.0"
-  resolved "https://unpm.uberinternal.com/mem/-/mem-4.1.0.tgz#aeb9be2d21f47e78af29e4ac5978e8afa2ca5b8a"
-  integrity sha512-I5u6Q1x7wxO0kdOpYBB28xueHADYps5uty/zg936CiG8NTe5sJL8EjrCuLneuDW3PlMdZBGDIn8BirEVdovZvg==
-  dependencies:
-    map-age-cleaner "^0.1.1"
-    mimic-fn "^1.0.0"
-    p-is-promise "^2.0.0"
 
 memory-fs@^0.4.0, memory-fs@^0.4.1, memory-fs@~0.4.1:
   version "0.4.1"
@@ -7150,16 +6537,6 @@ node-modules-regexp@^1.0.0:
   resolved "https://unpm.uberinternal.com/node-modules-regexp/-/node-modules-regexp-1.0.0.tgz#8d9dbe28964a4ac5712e9131642107c71e90ec40"
   integrity sha1-jZ2+KJZKSsVxLpExZCEHxx6Q7EA=
 
-node-notifier@^5.2.1:
-  version "5.2.1"
-  resolved "https://unpm.uberinternal.com/node-notifier/-/node-notifier-5.2.1.tgz#fa313dd08f5517db0e2502e5758d664ac69f9dea"
-  integrity sha512-MIBs+AAd6dJ2SklbbE8RUDRlIVhU8MaNLh1A9SUZDUHPiZkWLFde6UNwG41yQHZEToHgJMXqyVZ9UcS/ReOVTg==
-  dependencies:
-    growly "^1.3.0"
-    semver "^5.4.1"
-    shellwords "^0.1.1"
-    which "^1.3.0"
-
 node-notifier@^5.4.2:
   version "5.4.3"
   resolved "https://unpm.uberinternal.com/node-notifier/-/node-notifier-5.4.3.tgz#cb72daf94c93904098e28b9c590fd866e464bd50"
@@ -7525,15 +6902,6 @@ os-homedir@^1.0.0, os-homedir@^1.0.1:
   resolved "https://unpm.uberinternal.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
   integrity sha1-/7xJiDNuDoM94MFox+8VISGqf7M=
 
-os-locale@^3.0.0:
-  version "3.1.0"
-  resolved "https://unpm.uberinternal.com/os-locale/-/os-locale-3.1.0.tgz#a802a6ee17f24c10483ab9935719cef4ed16bf1a"
-  integrity sha512-Z8l3R4wYWM40/52Z+S265okfFj8Kt2cC2MKY+xNi3kFs+XGI7WXu/I309QQQYbRW4ijiZ+yxs9pqEhJh0DqW3Q==
-  dependencies:
-    execa "^1.0.0"
-    lcid "^2.0.0"
-    mem "^4.0.0"
-
 os-tmpdir@^1.0.0, os-tmpdir@~1.0.2:
   version "1.0.2"
   resolved "https://unpm.uberinternal.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
@@ -7547,11 +6915,6 @@ osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
-p-defer@^1.0.0:
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/p-defer/-/p-defer-1.0.0.tgz#9f6eb182f6c9aa8cd743004a7d4f96b196b0fb0c"
-  integrity sha1-n26xgvbJqozXQwBKfU+WsZaw+ww=
-
 p-each-series@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/p-each-series/-/p-each-series-1.0.0.tgz#930f3d12dd1f50e7434457a22cd6f04ac6ad7f71"
@@ -7563,11 +6926,6 @@ p-finally@^1.0.0:
   version "1.0.0"
   resolved "https://unpm.uberinternal.com/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
   integrity sha1-P7z7FbiZpEEjs0ttzBi3JDNqLK4=
-
-p-is-promise@^2.0.0:
-  version "2.0.0"
-  resolved "https://unpm.uberinternal.com/p-is-promise/-/p-is-promise-2.0.0.tgz#7554e3d572109a87e1f3f53f6a7d85d1b194f4c5"
-  integrity sha512-pzQPhYMCAgLAKPWD2jC3Se9fEfrD9npNos0y150EeqZll7akhEgGhTW/slB6lHku8AvYGiJ+YJ5hfHKePPgFWg==
 
 p-limit@^1.1.0:
   version "1.3.0"
@@ -7881,20 +7239,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^1.16.4:
-  version "1.16.4"
-  resolved "https://unpm.uberinternal.com/prettier/-/prettier-1.16.4.tgz#73e37e73e018ad2db9c76742e2647e21790c9717"
-  integrity sha512-ZzWuos7TI5CKUeQAtFd6Zhm2s6EpAD/ZLApIhsF9pRvRtM1RFo61dM/4MSRUA0SuLugA/zgrZD8m0BaY46Og7g==
-
-pretty-format@^24.7.0:
-  version "24.7.0"
-  resolved "https://unpm.uberinternal.com/pretty-format/-/pretty-format-24.7.0.tgz#d23106bc2edcd776079c2daa5da02bcb12ed0c10"
-  integrity sha512-apen5cjf/U4dj7tHetpC7UEFCvtAgnNZnBDkfPv3fokzIqyOJckAG9OlAPC1BlFALnqT/lGB2tl9EJjlK6eCsA==
-  dependencies:
-    "@jest/types" "^24.7.0"
-    ansi-regex "^4.0.0"
-    ansi-styles "^3.2.0"
-    react-is "^16.8.4"
+prettier@^1.18.2:
+  version "1.18.2"
+  resolved "https://unpm.uberinternal.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
+  integrity sha1-aCPnxZAAF7S9Os9G/prEtNe9qeo=
 
 pretty-format@^24.9.0:
   version "24.9.0"
@@ -8077,10 +7425,10 @@ punycode@^2.1.0:
   resolved "https://unpm.uberinternal.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-puppeteer@^1.19.0:
-  version "1.19.0"
-  resolved "https://unpm.uberinternal.com/puppeteer/-/puppeteer-1.19.0.tgz#e3b7b448c2c97933517078d7a2c53687361bebea"
-  integrity sha512-2S6E6ygpoqcECaagDbBopoSOPDv0pAZvTbnBgUY+6hq0/XDFDOLEMNlHF/SKJlzcaZ9ckiKjKDuueWI3FN/WXw==
+puppeteer@^1.20.0:
+  version "1.20.0"
+  resolved "https://unpm.uberinternal.com/puppeteer/-/puppeteer-1.20.0.tgz#e3d267786f74e1d87cf2d15acc59177f471bbe38"
+  integrity sha1-49JneG904dh88tFazFkXf0cbvjg=
   dependencies:
     debug "^4.1.0"
     extract-zip "^1.6.6"
@@ -8216,15 +7564,15 @@ react-dev-utils@^6.1.1:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
-react-dom@^16.8.6:
-  version "16.8.6"
-  resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
-  integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
+react-dom@^16.9.0:
+  version "16.9.0"
+  resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
+  integrity sha1-XmVSel4m8irjcBExvMyu6fsNOWI=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.6"
+    scheduler "^0.15.0"
 
 react-error-overlay@^5.1.0:
   version "5.1.6"
@@ -8256,15 +7604,14 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.5.0"
     schedule "^0.3.0"
 
-react@^16.8.6:
-  version "16.8.6"
-  resolved "https://unpm.uberinternal.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
-  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
+react@^16.9.0:
+  version "16.9.0"
+  resolved "https://unpm.uberinternal.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
+  integrity sha1-QLovmvE7waONddvy9DWaUYXE96o=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.6"
 
 read-pkg-up@^2.0.0:
   version "2.0.0"
@@ -8726,10 +8073,10 @@ schedule@^0.3.0:
   dependencies:
     object-assign "^4.1.1"
 
-scheduler@^0.13.6:
-  version "0.13.6"
-  resolved "https://unpm.uberinternal.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
-  integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
+scheduler@^0.15.0:
+  version "0.15.0"
+  resolved "https://unpm.uberinternal.com/scheduler/-/scheduler-0.15.0.tgz#6bfcf80ff850b280fed4aeecc6513bc0b4f17f8e"
+  integrity sha1-a/z4D/hQsoD+1K7sxlE7wLTxf44=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -10086,14 +9433,6 @@ worker-farm@^1.7.0:
   dependencies:
     errno "~0.1.7"
 
-wrap-ansi@^2.0.0:
-  version "2.1.0"
-  resolved "https://unpm.uberinternal.com/wrap-ansi/-/wrap-ansi-2.1.0.tgz#d8fc3d284dd05794fe84973caecdd1cf824fdd85"
-  integrity sha1-2Pw9KE3QV5T+hJc8rs3Rz4JP3YU=
-  dependencies:
-    string-width "^1.0.1"
-    strip-ansi "^3.0.1"
-
 wrap-ansi@^5.1.0:
   version "5.1.0"
   resolved "https://unpm.uberinternal.com/wrap-ansi/-/wrap-ansi-5.1.0.tgz#1fd1f67235d5b6d0fee781056001bfb694c03b09"
@@ -10167,7 +9506,7 @@ xtend@~4.0.1:
   resolved "https://unpm.uberinternal.com/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
   integrity sha1-pcbVMr5lbiPbgg77lDofBJmNY68=
 
-"y18n@^3.2.1 || ^4.0.0", y18n@^4.0.0:
+y18n@^4.0.0:
   version "4.0.0"
   resolved "https://unpm.uberinternal.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
   integrity sha512-r9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==
@@ -10182,14 +9521,6 @@ yallist@^3.0.0, yallist@^3.0.2:
   resolved "https://unpm.uberinternal.com/yallist/-/yallist-3.0.2.tgz#8452b4bb7e83c7c188d8041c1a837c773d6d8bb9"
   integrity sha1-hFK0u36Dx8GI2AQcGoN8dz1ti7k=
 
-yargs-parser@^11.1.1:
-  version "11.1.1"
-  resolved "https://unpm.uberinternal.com/yargs-parser/-/yargs-parser-11.1.1.tgz#879a0865973bca9f6bab5cbdf3b1c67ec7d3bcf4"
-  integrity sha512-C6kB/WJDiaxONLJQnF8ccx9SEeoTTLek8RVbaOIsrAUS8VrBEXfmeSnCZxygc+XC2sNMBIwOOnfcxiynjHsVSQ==
-  dependencies:
-    camelcase "^5.0.0"
-    decamelize "^1.2.0"
-
 yargs-parser@^13.1.1:
   version "13.1.1"
   resolved "https://unpm.uberinternal.com/yargs-parser/-/yargs-parser-13.1.1.tgz#d26058532aa06d365fe091f6a1fc06b2f7e5eca0"
@@ -10197,24 +9528,6 @@ yargs-parser@^13.1.1:
   dependencies:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
-
-yargs@^12.0.2:
-  version "12.0.5"
-  resolved "https://unpm.uberinternal.com/yargs/-/yargs-12.0.5.tgz#05f5997b609647b64f66b81e3b4b10a368e7ad13"
-  integrity sha512-Lhz8TLaYnxq/2ObqHDql8dX8CJi97oHxrjUcYtzKbbykPtVW9WB+poxI+NM2UIzsMgNCZTIf0AQwsjK5yMAqZw==
-  dependencies:
-    cliui "^4.0.0"
-    decamelize "^1.2.0"
-    find-up "^3.0.0"
-    get-caller-file "^1.0.1"
-    os-locale "^3.0.0"
-    require-directory "^2.1.1"
-    require-main-filename "^1.0.1"
-    set-blocking "^2.0.0"
-    string-width "^2.0.0"
-    which-module "^2.0.0"
-    y18n "^3.2.1 || ^4.0.0"
-    yargs-parser "^11.1.1"
 
 yargs@^13.3.0:
   version "13.3.0"

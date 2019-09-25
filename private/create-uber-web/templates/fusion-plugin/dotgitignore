@@ -1,6 +1,6 @@
 node_modules/
-.fusion/
 dist-*/
 *.log
 coverage/
 .nyc_output/
+.fusion/
