@@ -89,6 +89,9 @@ const webEventsFixture = {
     type: 'stat',
     name: 'need_for_speed',
     value_number: 1234,
+    value_map: {
+      extra: 'data',
+    },
   },
   ctx: {
     useragent: {
@@ -157,6 +160,9 @@ const webEventsFixture = {
     type: webEventsFixture.eventMessage.type,
     name: webEventsFixture.eventMessage.name,
     value_number: webEventsFixture.eventMessage.value_number,
+    value_map: {
+      extra: webEventsFixture.eventMessage.value_map.extra,
+    },
     page: webEventsFixture.webEventsMeta.page,
     dimensions: webEventsFixture.webEventsMeta.dimensions,
     browser: {
