@@ -31,25 +31,16 @@ const plugin =
         return Promise.resolve();
       }
 
-      function asyncPublish(
+      async function asyncPublish(
         topicInfo: TopicInfoType,
         message: MessageType
       ): Promise<PublishResponse | void> {
-        if (__DEV__) return noopPublish(topicInfo, message);
-        return heatpipePublish(appId, topicInfo, message).then(
-          (res: PublishResponse) => {
-            const {code, msg} = res;
-            const {topic, version} = topicInfo;
-            if (code !== 'CODE_SUCCESS') {
-              const errorMessage = `Heatpipe Publish Error [${code}, ${msg}]: ${appId}, ${topic}, v${version}, ${JSON.stringify(
-                message
-              )}`;
-              Logger.info(errorMessage);
-              throw new Error(errorMessage);
-            }
-            return res;
-          }
-        );
+        try {
+          if (__DEV__) return noopPublish(topicInfo, message);
+          return heatpipePublish(appId, topicInfo, message);
+        } catch (e) {
+          Logger.error(e);
+        }
       }
 
       function publish(
