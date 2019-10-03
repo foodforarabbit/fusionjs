@@ -62,7 +62,7 @@
     "fusion-plugin-universal-events": "^2.0.7",
     "fusion-react": "^3.1.5",
     "fusion-tokens": "^2.0.6",
-    "graphql": "^14.5.7",
+    "graphql": "^14.5.4",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.5",
     "jest-environment-jsdom": "^24.9.0",
