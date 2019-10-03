@@ -37,7 +37,7 @@ const plugin =
       ): Promise<PublishResponse | void> {
         try {
           if (__DEV__) return noopPublish(topicInfo, message);
-          return heatpipePublish(appId, topicInfo, message);
+          return await heatpipePublish(appId, topicInfo, message);
         } catch (e) {
           Logger.error(e);
         }
