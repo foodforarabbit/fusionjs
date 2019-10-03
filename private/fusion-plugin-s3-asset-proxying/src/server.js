@@ -38,17 +38,46 @@ export default ((__NODE__ &&
             max: 500,
           });
           this.config = s3Config;
-          const {
+          let {
+            bucket,
             accessKeyId,
             secretAccessKey,
-            s3ForcePathStyle,
             endpoint,
+            s3ForcePathStyle,
           } = this.config;
+          let httpOptions = undefined;
+
+          // If a custom endpoint is set up, then we don't want to proxy via TerraBlob.
+          // This is used for tests where a specific endpoint is set up.
+          if (!endpoint) {
+            const svc =
+              process.env.SVC_ID || process.env.npm_package_name || 'unknown';
+            const TB_PORT = 18839;
+            const tpathEnv = 'prod';
+            this.config.prefix = path.join(
+              tpathEnv,
+              'web-platform',
+              'fusion-upload-assets',
+              svc
+            );
+            bucket = 'terrablob';
+            accessKeyId = svc;
+            secretAccessKey = svc;
+            endpoint = undefined;
+            s3ForcePathStyle = false;
+            httpOptions = {proxy: `http://localhost:${TB_PORT}`};
+          }
+
           this.s3 = new aws.S3({
-            accessKeyId,
-            secretAccessKey,
-            s3ForcePathStyle,
+            params: {Bucket: bucket},
+            credentials: {
+              accessKeyId,
+              secretAccessKey,
+            },
             endpoint,
+            s3ForcePathStyle,
+            customUserAgent: 'fusion-plugin-s3-asset-proxying/0.0.0',
+            httpOptions,
           });
         }
       }
@@ -82,7 +111,7 @@ export default ((__NODE__ &&
         }
 
         const s3 = state.s3;
-        const {bucket, prefix} = state.config;
+        const {prefix} = state.config;
 
         const {
           s3Error,
@@ -90,18 +119,15 @@ export default ((__NODE__ &&
           headers: s3ResponseHeaders,
           data,
         } = await new Promise(resolve =>
-          s3.getObject(
-            {
-              Bucket: bucket,
-              Key: path.join(prefix, reqPath),
-            },
-            function(s3Error, data) {
-              let statusCode =
-                this.httpResponse && this.httpResponse.statusCode;
-              const headers = this.httpResponse && this.httpResponse.headers;
-              return resolve({s3Error, statusCode, headers, data});
-            }
-          )
+          s3.getObject({Key: path.join(prefix, reqPath)}, function(
+            s3Error,
+            data
+          ) {
+            const statusCode =
+              this.httpResponse && this.httpResponse.statusCode;
+            const headers = this.httpResponse && this.httpResponse.headers;
+            return resolve({s3Error, statusCode, headers, data});
+          })
         );
 
         if (s3Error || statusCode !== 200) {
