@@ -17,6 +17,7 @@ const VALID_DCS = ['phx3', 'dca1', 'dca4', 'dca8'];
 
 type ProvisionOptions = {
   infraportalConfig: {
+    ldap: string,
     pinocchioFilePath: string,
     repo: string,
     serviceTier: number,
@@ -36,6 +37,7 @@ type ProvisionOptions = {
 export const provision = async () => {
   const options: ProvisionOptions = {
     infraportalConfig: {
+      ldap: '',
       pinocchioFilePath: '',
       repo: '',
       serviceTier: 5,
@@ -161,16 +163,30 @@ LIMITATIONS:
       }
       options.infraportalConfig.repo = packageJson.repository.url;
     }),
+    step('Infraportal configuration - LDAP team', async () => {
+      console.log('Fetching LDAP groups...');
+      const result = await awdClient.getLdapTeams(awdToken);
+      const {groups} = result || {};
+
+      if (!groups || (Array.isArray(groups) && groups.length === 0)) {
+        console.log(
+          `No LDAP groups were returned. Check that your user has been correctly created.`
+        );
+        process.exit();
+      }
+      options.infraportalConfig.ldap = await promptChoice(
+        'What is the LDAP group responsible for this service?',
+        groups
+      );
+    }),
     step('Infraportal configuration - uOwn team', async () => {
       console.log('Fetching uOwn teams...');
-      const teams = await awdClient.getUBlameTeams(awdToken);
+      const teams = await awdClient.getUownTeams(awdToken);
 
       if (!teams || (Array.isArray(teams) && teams.length === 0)) {
-        console.log(`
-No uOwn teams were returned. Check the following:
-1) Ensure you have Manage permissions in any uOwn groups
-2) Ensure you a member of the Pullo group corresponding to those uOwn groups
-        `);
+        console.log(
+          `No uOwn teams were returned. Ensure you have Manage permissions in any uOwn groups.`
+        );
         process.exit();
       }
       options.infraportalConfig.team = await promptChoice(
