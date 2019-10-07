@@ -111,14 +111,14 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
             const message = `${operationName} ${operationType} failed`;
             if (errors) {
               errors.forEach(e => {
-                if (e.originalError) {
-                  if (e.originalError.errors) {
-                    e.originalError.errors.forEach(err => {
+                if (e.originalError && Array.isArray(e.originalError.errors)) {
+                  e.originalError.errors.forEach(err => {
+                    if (err.originalError) {
+                      logger.error(message, err.originalError);
+                    } else {
                       logger.error(message, err);
-                    });
-                  } else {
-                    logger.error(message, e);
-                  }
+                    }
+                  });
                 } else {
                   logger.error(message, e);
                 }

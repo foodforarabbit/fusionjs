@@ -397,11 +397,11 @@ test('GraphQL Metrics with Stitched Schema - Query with an error', async () => {
           `);
   expect(logger.error.mock.calls.length).toEqual(1);
   expect(logger.error.mock.calls[0]).toMatchInlineSnapshot(`
-                    Array [
-                      "GetUser query failed",
-                      [GraphQLError: Fails query],
-                    ]
-          `);
+    Array [
+      "GetUser query failed",
+      [Error: Fails query],
+    ]
+  `);
 });
 
 test('GraphQL Metrics - Mutation with an error', async () => {
