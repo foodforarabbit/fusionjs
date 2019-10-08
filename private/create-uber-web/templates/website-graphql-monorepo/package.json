@@ -108,7 +108,6 @@
     "codegen-query-types": "gql codegen",
     "validate-queries": "gql validate-queries",
     "validate-codegen": "gql validate-codegen",
-    "download-schema": "gql download-schema",
     "posttest-integration": "yarn validate-queries && yarn validate-codegen",
     "test-integration": "yarn test --env=node --testFolder=__integration__",
     "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
