@@ -1,6 +1,6 @@
 // @flow
 /* eslint-env node */
-import * as puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer';
 
 test('Page has content', async () => {
   const browser = await puppeteer.launch();
