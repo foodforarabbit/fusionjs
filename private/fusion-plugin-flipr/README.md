@@ -43,8 +43,11 @@ export default createPlugin({
     flipr: FliprToken,
   },
   middleware: ({flipr}) => (ctx, next) => {
-    if (flipr.get('some.configuration')) {
-      // do something based on the flipr configuration value
+    // flipr only works on the server
+    if (__NODE__) {
+      if (flipr.get('some.configuration')) {
+        // do something based on the flipr configuration value
+      }
     }
     return next();
   },
