@@ -10,6 +10,14 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
+"@apollo/react-common@^3.1.2":
+  version "3.1.2"
+  resolved "https://unpm.uberinternal.com/@apollo%2freact-common/-/react-common-3.1.2.tgz#19feb1d264c1e82e9610f68298a9dd89513060ea"
+  integrity sha1-Gf6x0mTB6C6WEPaCmKndiVEwYOo=
+  dependencies:
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+
 "@apollo/react-components@^3.1.1":
   version "3.1.1"
   resolved "https://unpm.uberinternal.com/@apollo%2freact-components/-/react-components-3.1.1.tgz#dde560f0296318d230a5e73b9b450a881baace29"
@@ -49,6 +57,15 @@
   dependencies:
     "@apollo/react-common" "^3.1.1"
     "@apollo/react-hooks" "^3.1.1"
+    tslib "^1.10.0"
+
+"@apollo/react-testing@^3.1.2":
+  version "3.1.2"
+  resolved "https://unpm.uberinternal.com/@apollo%2freact-testing/-/react-testing-3.1.2.tgz#82bac9ce3033470e4ff145642cd271d33b32296b"
+  integrity sha1-grrJzjAzRw5P8UVkLNJx0zsyKWs=
+  dependencies:
+    "@apollo/react-common" "^3.1.2"
+    fast-json-stable-stringify "^2.0.0"
     tslib "^1.10.0"
 
 "@apollographql/apollo-tools@^0.4.0":
@@ -6804,10 +6821,10 @@ graphql-upload@^8.0.2:
     http-errors "^1.7.2"
     object-path "^0.11.4"
 
-"graphql@14.0.2 - 14.2.0 || ^14.3.1", graphql@^14.1.1, graphql@^14.5.3, graphql@^14.5.4:
-  version "14.5.4"
-  resolved "https://unpm.uberinternal.com/graphql/-/graphql-14.5.4.tgz#b33fe957854e90c10d4c07c7d26b6c8e9f159a13"
-  integrity sha512-dPLvHoxy5m9FrkqWczPPRnH0X80CyvRE6e7Fa5AWEqEAzg9LpxHvKh24po/482E6VWHigOkAmb4xCp6P9yT9gw==
+"graphql@14.0.2 - 14.2.0 || ^14.3.1", graphql@^14.1.1, graphql@^14.5.3, graphql@^14.5.7, graphql@^14.5.8:
+  version "14.5.8"
+  resolved "https://unpm.uberinternal.com/graphql/-/graphql-14.5.8.tgz#504f3d3114cb9a0a3f359bbbcf38d9e5bf6a6b3c"
+  integrity sha1-UE89MRTLmgo/NZu7zzjZ5b9qazw=
   dependencies:
     iterall "^1.2.2"
 
