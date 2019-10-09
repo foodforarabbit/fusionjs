@@ -117,7 +117,7 @@ export default async function start(options: any = {}) {
   app.register(LoggerToken, LoggerPlugin);
   app.register(ErrorHandlingPlugin);
   app.register(FontLoaderReactToken, FontLoaderPlugin);
-  app.register(FontLoaderReactConfigToken, getFontConfig());
+  app.register(FontLoaderReactConfigToken, getFontConfig(true));
   app.register(AnalyticsSessionToken, AnalyticsSession);
   app.register(AnalyticsCookieTypeToken, UberWebEventCookie);
   app.register(Router);
