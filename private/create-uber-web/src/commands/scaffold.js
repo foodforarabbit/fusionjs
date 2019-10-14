@@ -4,9 +4,7 @@ import {promptChoice} from '../utils/prompt-choice.js';
 import {scaffoldLibrary} from './scaffold-library.js';
 import {scaffoldFusionPlugin} from './scaffold-fusion-plugin.js';
 import {scaffoldWebsite} from './scaffold-website.js';
-import {scaffoldWebsiteMonorepo} from './scaffold-website-monorepo.js';
 import {scaffoldWebsiteGraphql} from './scaffold-website-graphql.js';
-import {scaffoldWebsiteGraphqlMonorepo} from './scaffold-website-graphql-monorepo.js';
 
 export type ScaffoldOptions = {
   type: string,
@@ -44,8 +42,6 @@ export const scaffold = async ({
     project.type = await promptChoice('Choose a template:', {
       'Web Application [Recommended]': 'website-graphql',
       'Legacy Redux/RPC Web Application': 'website',
-      // 'Web Application [web-code monorepo]': 'website-monorepo',
-      // 'GraphQL Web Application [web-code monorepo]': 'website-graphql-monorepo',
       'Fusion.js Plugin': 'fusion-plugin',
       'Generic Library': 'library',
     });
@@ -60,26 +56,8 @@ export const scaffold = async ({
         skipInstall,
       });
       break;
-    case 'website-monorepo':
-      await scaffoldWebsiteMonorepo({
-        root,
-        project,
-        hoistDeps,
-        localPath,
-        skipInstall,
-      });
-      break;
     case 'website-graphql':
       await scaffoldWebsiteGraphql({
-        root,
-        project,
-        hoistDeps,
-        localPath,
-        skipInstall,
-      });
-      break;
-    case 'website-graphql-monorepo':
-      await scaffoldWebsiteGraphqlMonorepo({
         root,
         project,
         hoistDeps,
