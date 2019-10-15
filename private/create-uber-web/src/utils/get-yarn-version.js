@@ -2,5 +2,5 @@
 
 export const getYarnVersion = async () => {
   // TODO search for latest version
-  return '1.13.0';
+  return '1.19.1';
 };
