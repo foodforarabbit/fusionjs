@@ -1,0 +1,15 @@
+[ignore]
+.*/node_modules/@uber/node-rosetta/.*
+
+[include]
+private/fusion-plugin-rosetta/node_modules
+../../node_modules
+
+[libs]
+../../flow-typed/
+
+[lints]
+
+[options]
+
+[strict]

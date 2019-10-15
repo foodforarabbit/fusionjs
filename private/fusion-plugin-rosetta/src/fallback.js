@@ -9,53 +9,45 @@ const getTranslations = (client: any, targetLocale: string) => {
   ) {
     return {};
   }
-  // 1. try to find direct match
-  let translations = getTranslationsDirectly(client.translations, targetLocale);
-  if (translations) {
-    return translations;
+
+  // get translations first
+  let translations = getTranslationsOnly(client, targetLocale);
+
+  // If not found the translations, try the best match
+  if (Object.keys(translations).length === 0) {
+    const matchedLocale = findMatchedLocale(client.bestmatch, targetLocale);
+    translations = getTranslationsOnly(client, matchedLocale);
   }
-  // 2. check in the fallback sequence
-  translations = getTranslationsWithFallBack(
+
+  // En all translations as the final fallback
+  const en_translations = getTranslationsDirectly(client.translations, 'en');
+
+  // generate translations with priorities
+  return Object.assign({}, en_translations, translations);
+};
+
+const getTranslationsOnly = (client: any, locale: string) => {
+  // 1. get the native translations
+  const native_translations = getTranslationsDirectly(
     client.translations,
-    client.fallback,
-    client.bestmatch,
-    targetLocale
+    locale
   );
 
-  // default return 'en' or empty, if no fallback found
-  return (
-    translations || getTranslationsDirectly(client.translations, 'en') || {}
+  // 2. get the fallback_translations from fallbackChain
+  const fallback_translations = getTranslationsWithFallBack(
+    client.translations,
+    client.fallback,
+    locale
   );
+
+  return Object.assign({}, fallback_translations, native_translations);
 };
 
 const getTranslationsDirectly = (translations: Object, locale: string) => {
   if (!locale) {
-    return null;
+    return {};
   }
-  return translations[locale];
-};
-
-const getTranslationsWithFallBack = (
-  translations: Object,
-  fallback: Array<Object>,
-  bestmatch: Object,
-  targetLocale: string
-) => {
-  if (!targetLocale) {
-    return null;
-  }
-  // Check the fallback chain first
-  const translationsFromFallback = findTranslationsInFallBackChain(
-    translations,
-    fallback,
-    targetLocale
-  );
-  if (translationsFromFallback) {
-    return translationsFromFallback;
-  }
-  // If not found in fallback chain, check the bestmatch locale
-  const matchedLocale = findMatchedLocale(bestmatch, targetLocale);
-  return findTranslationsInFallBackChain(translations, fallback, matchedLocale);
+  return translations[locale] || {};
 };
 
 const findMatchedLocale = (bestmatch: Object, targetLocale: string) => {
@@ -66,24 +58,33 @@ const findMatchedLocale = (bestmatch: Object, targetLocale: string) => {
   return bestmatch[prefixLocale];
 };
 
-const findTranslationsInFallBackChain = (
+const getTranslationsWithFallBack = (
   translations: Object,
   fallback: Array<Object>,
   targetLocale: string
 ) => {
+  if (!fallback) {
+    return {};
+  }
   const selected = fallback.filter(
     sequence => sequence && sequence.locale === targetLocale
   );
-  if (selected.length > 0) {
+  //ignore if only 'en' in the fallback array
+  if (selected[0] && selected[0].fallbacks) {
     const fallbacks = selected[0].fallbacks;
-    const fallbackLocale =
-      fallbacks &&
-      fallbacks.find(fallbackLocale =>
-        getTranslationsDirectly(translations, fallbackLocale)
-      );
-    return getTranslationsDirectly(translations, fallbackLocale);
+    return fallbacks.reduce((fallback_translations, locale) => {
+      // exclude to use 'en' as fallback
+      if (locale !== 'en') {
+        fallback_translations = Object.assign(
+          {},
+          getTranslationsDirectly(translations, locale),
+          fallback_translations
+        );
+      }
+      return fallback_translations;
+    }, {});
   }
-  return null;
+  return {};
 };
 
 export default getTranslations;

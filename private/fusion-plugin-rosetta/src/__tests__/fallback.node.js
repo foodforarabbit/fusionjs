@@ -7,11 +7,17 @@ tape('getTranslatons', t => {
   const client = {
     locales: ['ar'],
     translations: {
+      'ar-AE': {
+        ab: 'ar-AE',
+      },
       'ar-SA': {
-        ab: 'ab',
+        ab: 'ar-SA',
+        ac: 'ar-SA',
       },
       en: {
         hello: 'world',
+        ab: 'en',
+        ac: 'en',
       },
     },
     fallback: [{locale: 'ar-AE', fallbacks: ['ar-SA', 'en']}],
@@ -21,34 +27,63 @@ tape('getTranslatons', t => {
   };
 
   t.deepLooseEqual(
-    getTranslatons(client, 'ar-SA'),
-    {ab: 'ab'},
-    'getTranslations directly'
+    getTranslatons(client, 'en'),
+    {
+      hello: 'world',
+      ab: 'en',
+      ac: 'en',
+    },
+    'getTranslations en directly'
   );
+
   t.deepLooseEqual(
-    getTranslatons(client, 'ar_SA'),
-    {ab: 'ab'},
-    'getTranslations directly'
+    getTranslatons(client, 'ar-SA'),
+    {
+      hello: 'world',
+      ab: 'ar-SA',
+      ac: 'ar-SA',
+    },
+    'getTranslations without finding the fallbacks'
   );
+
   t.deepLooseEqual(
     getTranslatons(client, 'ar-AE'),
-    {ab: 'ab'},
+    {
+      hello: 'world',
+      ab: 'ar-AE',
+      ac: 'ar-SA',
+    },
     'getTranslations from fallback chain'
   );
+
   t.deepLooseEqual(
     getTranslatons(client, 'ar'),
-    {ab: 'ab'},
-    'getTranslations from bestmatch'
+    {
+      hello: 'world',
+      ab: 'ar-AE',
+      ac: 'ar-SA',
+    },
+    'getTranslations from bestmatch: ar'
   );
+
   t.deepLooseEqual(
     getTranslatons(client, 'ar-AR'),
-    {ab: 'ab'},
-    'getTranslations from bestmatch'
+    {
+      hello: 'world',
+      ab: 'ar-AE',
+      ac: 'ar-SA',
+    },
+    'getTranslations from bestmatch: ar-AR'
   );
+
   t.deepLooseEqual(
     getTranslatons(client, 'ch'),
-    {hello: 'world'},
-    'fallback to en'
+    {
+      hello: 'world',
+      ab: 'en',
+      ac: 'en',
+    },
+    'locale not found, fallback to en'
   );
   t.end();
 });
