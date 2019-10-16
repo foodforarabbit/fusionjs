@@ -27,6 +27,21 @@ for DIR in $CHANGES ; do (
       echo "          - UNPM_TOKEN";
       echo "    agents:";
       echo "      queue: private-default";
+      echo "  - label: 'fusion-cli lint flow'";
+      echo "    commands:";
+      echo "    - 'jazelle ci --cwd $DIR'";
+      echo "    - 'jazelle build --cwd $DIR'";
+      echo "    - 'jazelle lint --cwd $DIR'";
+      echo "    - 'jazelle flow --cwd $DIR'";
+      echo "    timeout_in_minutes: 10";
+      echo "    plugins:";
+      echo "      'derekju/docker-compose#1346e78909a17f800064a37e7dfb716200d514a4':";
+      echo "        run: ci";
+      echo "        pull_retries: 5";
+      echo "        env:";
+      echo "          - UNPM_TOKEN";
+      echo "    agents:";
+      echo "      queue: private-default";
     else
       echo "  - label: '$PROJECT'";
       echo "    commands:";
