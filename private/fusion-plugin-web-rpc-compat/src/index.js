@@ -19,8 +19,8 @@ export default createPlugin({
               cb(null, result);
             }, 0);
           })
-          .catch(e => {
-            cb(e, e);
+          .catch(error => {
+            cb({error}, {error});
           });
       }
       function dispatch(action) {

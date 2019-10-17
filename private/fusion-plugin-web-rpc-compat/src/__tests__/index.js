@@ -77,8 +77,8 @@ tape('Compat plugin failures', t => {
       t.equal(typeof getState, 'function', 'passes getState function');
       t.equal(typeof rpc, 'function', 'passes rpc extra argument');
       rpc('test', {hello: 'world'}, (err, result) => {
-        t.equal(err.hello, 'world');
-        t.equal(result.hello, 'world');
+        t.equal(err.error.hello, 'world');
+        t.equal(result.error.hello, 'world');
         t.end();
       });
       return 10;
