@@ -10,6 +10,8 @@ import get from 'just-safe-get';
 import path from 'path';
 import {promptChoice} from '../utils/prompt-choice.js';
 import {prompt} from '../utils/prompt.js';
+import readProvisioningConfig from '../utils/read-provisioning-config.js';
+import writeProvisioningConfig from '../utils/write-provisioning-config.js';
 
 // TODO: Should pull from Infraportal configs instead of hard coding in case available zones change
 // See: mesos_cluster_host, auth, and deprecated_zones config keys for latest values
@@ -123,12 +125,36 @@ export const provision = async () => {
               `https://engdocs.uberinternal.com/web/docs/getting-started/provision-and-deploy`
           );
           process.exit();
-        } else {
-          console.log('No in progress provisions detected.');
         }
       } catch (e) {
         console.log(e);
         throw new Error('Could not reach AWD. Please try again.');
+      }
+    }),
+    step('Check previous config', async () => {
+      const previousData = readProvisioningConfig(options.serviceName);
+      if (previousData) {
+        console.log('Previous provision options were detected.\n');
+        console.log('LDAP: ', previousData.infraportalConfig.ldap);
+        console.log('uOwn: ', previousData.infraportalConfig.team);
+        console.log(
+          'Service tier: ',
+          previousData.infraportalConfig.serviceTier
+        );
+        console.log('Zones: ', previousData.infraportalConfig.zones);
+        console.log(
+          'rINCONF config directory: ',
+          previousData.trafficControllerConfig.configDir,
+          '\n'
+        );
+        const result = await prompt('Do you want to reuse this config? (y/n)');
+        if (result === 'y') {
+          await awdClient.start(awdToken, previousData);
+          console.log(
+            'Provisioning is now underway. Check the status at any time by invoking the provision command.'
+          );
+          process.exit();
+        }
       }
     }),
     step('Intro message to user', async () => {
@@ -224,6 +250,7 @@ Link to repo: https://code.uberinternal.com/diffusion/INCONF/browse/master/net/t
     ),
     step('Send request to AWD', async () => {
       // console.log('options to send to awd are', options);
+      writeProvisioningConfig(options);
       await awdClient.start(awdToken, options);
       console.log(
         'Provisioning is now underway. Check the status at any time by invoking the provision command.'
