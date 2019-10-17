@@ -7,6 +7,7 @@ jazelle ci && jazelle build
 
 TYPES=(
   website
+  website-graphql
   fusion-plugin
   library
 )

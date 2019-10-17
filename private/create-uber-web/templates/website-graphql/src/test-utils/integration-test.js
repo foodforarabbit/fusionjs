@@ -1,7 +1,6 @@
 // @flow
 /* eslint-env node */
 import puppeteer from 'puppeteer';
-import type {Page} from 'puppeteer';
 import {join} from 'path';
 import {toMatchImageSnapshot} from 'jest-image-snapshot';
 
@@ -9,7 +8,7 @@ expect.extend({toMatchImageSnapshot});
 
 export default async function integrationTest(
   url: string,
-  withPage: (page: Page) => Promise<any>
+  withPage: (page: any) => Promise<any>
 ) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
