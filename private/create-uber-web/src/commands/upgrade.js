@@ -29,6 +29,7 @@ import {
   ensureMinimalFlowConfigVersion,
   removeFlowConfigLines,
 } from '../codemods/flowconfig/codemod-flowconfig';
+import {updateSchemaPath} from '../codemods/update-schema-path/update-schema-path';
 
 export type UpgradeOptions = {
   dir: string,
@@ -51,6 +52,9 @@ export const upgrade = async ({
   if (codemod) {
     // web app specific steps
     steps.push(
+      step('update .graphqlconfig', async () => {
+        await updateSchemaPath({dir});
+      }),
       step('migrate fusion-apollo', async () => {
         await codemodFusionApollo({dir, strategy});
       }),
