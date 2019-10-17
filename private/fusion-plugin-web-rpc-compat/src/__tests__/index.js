@@ -87,3 +87,36 @@ tape('Compat plugin failures', t => {
     'returns the return value of a dispatched function'
   );
 });
+
+if (__NODE__) {
+  tape('Compat plugin error in callback', t => {
+    const mockRPC = {
+      from: () => {
+        return {
+          request: (rpcId, args) => {
+            return Promise.resolve({hello: 'world'});
+          },
+        };
+      },
+    };
+    const mockCreateStore = (arg1, arg2) => {
+      return {
+        dispatch: () => {
+          return 5;
+        },
+        getState: () => {},
+      };
+    };
+    process.once('uncaughtException', e => {
+      t.equal(e.message, 'fail');
+      t.end();
+    });
+    const storeEnhancer = Plugin.provides({RPC: mockRPC});
+    const store = storeEnhancer(mockCreateStore)('arg1', 'arg2');
+    store.dispatch((dispatch, getState, {rpc}) => {
+      rpc('test', {hello: 'world'}, (err, result) => {
+        throw new Error('fail');
+      });
+    });
+  });
+}

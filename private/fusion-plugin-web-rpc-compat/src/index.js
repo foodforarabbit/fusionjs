@@ -13,8 +13,15 @@ export default createPlugin({
       function rpc(rpcId, args, cb) {
         return baseRPC
           .request(rpcId, args)
-          .then(result => cb(null, result))
-          .catch(e => cb(e, e));
+          .then(result => {
+            // Make sure the callback is not in the promise chain for errors
+            setTimeout(() => {
+              cb(null, result);
+            }, 0);
+          })
+          .catch(e => {
+            cb(e, e);
+          });
       }
       function dispatch(action) {
         if (typeof action === 'function') {
