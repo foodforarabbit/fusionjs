@@ -87,7 +87,7 @@ export const scaffoldWebsiteGraphql = async ({
     step('external', async () => {
       if (typeof project.external !== 'boolean') {
         project.external = await promptChoice(
-          'Is this an internal or external application?',
+          'Is this an internal or external application? (External applications serve assets from a CDN.)',
           {
             Internal: false,
             External: true,
