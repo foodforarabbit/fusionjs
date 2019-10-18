@@ -23,7 +23,6 @@ import initAssets from './uber/assets.js';
 import initDataFetching from './uber/data-fetching.js';
 import initUI from './uber/ui.js';
 import initGraphQL from './uber/graphql.js';
-import initAnalytics from './uber/analytics.js';
 import initIntrospect from './uber/introspect.js';
 
 import App from 'fusion-react';
@@ -38,7 +37,6 @@ export default async function start(root?: Element<*>, render?: Render) {
   initDataFetching(app);
   initGraphQL(app);
   initUserPlugins(app);
-  initAnalytics(app);
   // NOTE: This must be registered last
   initIntrospect(app);
   return app;

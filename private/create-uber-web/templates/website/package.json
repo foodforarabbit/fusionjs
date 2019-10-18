@@ -101,7 +101,6 @@
     "start": "PORT_HTTP=\"$UBER_PORT_HTTP\" fusion start",
     "build-production": "fusion build --production && upload-assets-to-s3",
     "test-integration": "yarn test --env=node --testFolder=__integration__",
-    "update-flipr-uwa-config": "yarn update-flipr-bootstrap uwa-config",
     "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
   },
   "engines": {
