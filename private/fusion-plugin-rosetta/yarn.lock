@@ -806,7 +806,7 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
-"@uber/node-rosetta@1.1.7":
+"@uber/node-rosetta@^1.1.7":
   version "1.1.7"
   resolved "https://unpm.uberinternal.com/%40uber%2Fnode-rosetta/-/private/%40uber%2Fnode-rosetta-1.1.7.tgz#834f714a8dfe353a094a8bb77a4c161f019caa5c"
   integrity sha512-ruGkqscma3qlWA32wyCJrBw/7KiVgGR5A6EopHuO4niNMNIrRbl02/Dpjb8nq9BfiNBPSQ4+PqdkPCKAMBSt+g==
