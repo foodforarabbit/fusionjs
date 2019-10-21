@@ -13,12 +13,6 @@
 CANARY_RELEASE=$1
 PACKAGE_JSON=$2
 
-# since our rush.json manifest is not standard json (has comments), we use the any-json library to parse it
-if [ `npm list -g | grep -c any-json` -eq 0 ];
-then
-  npm install -g any-json
-fi
-
 function hasCanaryRelease() {
   local PKG=$1
   local CANARY_RELEASE=$2
@@ -28,7 +22,7 @@ function hasCanaryRelease() {
 }
 
 TMP=$(mktemp)
-for PKG in $(any-json $PACKAGE_JSON | jq -r '(.dependencies + .devDependencies) | to_entries | .[] | .key')
+for PKG in $(cat $PACKAGE_JSON | jq -r '(.dependencies + .devDependencies) | to_entries | .[] | .key')
 do
   if hasCanaryRelease $PKG $CANARY_RELEASE; then
     echo "$PKG has $CANARY_RELEASE -- updating package.json"
