@@ -38,8 +38,10 @@ test('scaffold website', async () => {
         return {value: name};
       } else if (options.message.match(/team/)) {
         return {value: 'web'};
-      } else if (options.message.match(/external/)) {
-        return {value: options.choices[0]};
+      } else if (options.message.match(/public/)) {
+        return {value: options.choices[1]};
+      } else {
+        throw new Error('Could not find matching mock for inquirer prompt');
       }
     });
 

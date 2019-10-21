@@ -86,10 +86,10 @@ export const scaffoldWebsite = async ({
     step('external', async () => {
       if (typeof project.external !== 'boolean') {
         project.external = await promptChoice(
-          'Is this an internal or external application? (External applications serve assets from a CDN.)',
+          'Is this app for public or internal use? (Public apps are accessible by anyone and serve assets from CDN. Internal apps are behind OneLogin and only accessible by employees.)',
           {
+            Public: true,
             Internal: false,
-            External: true,
           }
         );
       }
