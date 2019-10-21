@@ -95,9 +95,8 @@ export const scaffoldWebsiteGraphql = async ({
         );
       }
     }),
-    step('codemod main.js', async () => {
-      await replaceNunjucksFile(`${root}/${project.name}/src/main.js`, {
-        name: project.name,
+    step('codemod uber/logging.js', async () => {
+      await replaceNunjucksFile(`${root}/${project.name}/src/uber/logging.js`, {
         team: project.team,
       });
     }),

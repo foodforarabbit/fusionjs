@@ -63,7 +63,7 @@ test('scaffold website-grapqhl', async () => {
 
     expect(data.name).toEqual(name);
 
-    const main = await readFile(join(name, 'src/main.js'));
+    const main = await readFile(join(name, 'src/uber/logging.js'));
     expect(main.includes('{{')).toBe(false);
     // Ensure engines does not use semver
     expect(data.engines.node).toMatch(/^[0-9]/);
