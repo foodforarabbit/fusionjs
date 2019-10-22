@@ -2,64 +2,71 @@
 # yarn lockfile v1
 
 
-"@apollo/federation@0.10.1":
-  version "0.10.1"
-  resolved "https://unpm.uberinternal.com/@apollo%2ffederation/-/federation-0.10.1.tgz#10ecf96ece4366ea67fbed99814f2fdb338ee845"
+"@apollo/federation@0.10.2":
+  version "0.10.2"
+  resolved "https://unpm.uberinternal.com/@apollo%2ffederation/-/federation-0.10.2.tgz#6ead14e9d25b7a87d85fc0188fd5ec7fd63592fe"
+  integrity sha1-bq0U6dJbeofYX8AYj9Xsf9Y1kv4=
   dependencies:
     apollo-env "^0.5.1"
-    apollo-graphql "^0.3.3"
+    apollo-graphql "^0.3.4"
     apollo-server-env "^2.4.3"
     lodash.xorby "^4.7.0"
 
-"@apollo/react-common@^3.1.2":
-  version "3.1.2"
-  resolved "https://unpm.uberinternal.com/@apollo%2freact-common/-/react-common-3.1.2.tgz#19feb1d264c1e82e9610f68298a9dd89513060ea"
+"@apollo/react-common@^3.1.3":
+  version "3.1.3"
+  resolved "https://unpm.uberinternal.com/@apollo%2freact-common/-/react-common-3.1.3.tgz#ddc34f6403f55d47c0da147fd4756dfd7c73dac5"
+  integrity sha1-3cNPZAP1XUfA2hR/1HVt/Xxz2sU=
   dependencies:
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-components@^3.1.2":
-  version "3.1.2"
-  resolved "https://unpm.uberinternal.com/@apollo%2freact-components/-/react-components-3.1.2.tgz#41dc02dab2d97070bef08f7cf1849200b4ca2296"
+"@apollo/react-components@^3.1.3":
+  version "3.1.3"
+  resolved "https://unpm.uberinternal.com/@apollo%2freact-components/-/react-components-3.1.3.tgz#8f6726847cd9b0eb4b22586b1a038d29aa8b1da4"
+  integrity sha1-j2cmhHzZsOtLIlhrGgONKaqLHaQ=
   dependencies:
-    "@apollo/react-common" "^3.1.2"
-    "@apollo/react-hooks" "^3.1.2"
+    "@apollo/react-common" "^3.1.3"
+    "@apollo/react-hooks" "^3.1.3"
     prop-types "^15.7.2"
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-hoc@^3.1.2":
-  version "3.1.2"
-  resolved "https://unpm.uberinternal.com/@apollo%2freact-hoc/-/react-hoc-3.1.2.tgz#c1cb8c2afe7c22f432f0880d33a3034c671e0423"
+"@apollo/react-hoc@^3.1.3":
+  version "3.1.3"
+  resolved "https://unpm.uberinternal.com/@apollo%2freact-hoc/-/react-hoc-3.1.3.tgz#5742ee74f57611058f5ea1f966c38fc6429dda7b"
+  integrity sha1-V0LudPV2EQWPXqH5ZsOPxkKd2ns=
   dependencies:
-    "@apollo/react-common" "^3.1.2"
-    "@apollo/react-components" "^3.1.2"
+    "@apollo/react-common" "^3.1.3"
+    "@apollo/react-components" "^3.1.3"
     hoist-non-react-statics "^3.3.0"
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-hooks@^3.1.2":
-  version "3.1.2"
-  resolved "https://unpm.uberinternal.com/@apollo%2freact-hooks/-/react-hooks-3.1.2.tgz#3f889f9448ebb32faf164117f1f63d9ffa18f5d9"
+"@apollo/react-hooks@^3.1.3":
+  version "3.1.3"
+  resolved "https://unpm.uberinternal.com/@apollo%2freact-hooks/-/react-hooks-3.1.3.tgz#ad42c7af78e81fee0f30e53242640410d5bd0293"
+  integrity sha1-rULHr3joH+4PMOUyQmQEENW9ApM=
   dependencies:
-    "@apollo/react-common" "^3.1.2"
+    "@apollo/react-common" "^3.1.3"
     "@wry/equality" "^0.1.9"
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-ssr@^3.1.2":
-  version "3.1.2"
-  resolved "https://unpm.uberinternal.com/@apollo%2freact-ssr/-/react-ssr-3.1.2.tgz#ebb79bf94a5ab760e5152ab5f0371e64ec4041ad"
+"@apollo/react-ssr@^3.1.3":
+  version "3.1.3"
+  resolved "https://unpm.uberinternal.com/@apollo%2freact-ssr/-/react-ssr-3.1.3.tgz#0791280d5b735f42f87dbfe849564e78843045bc"
+  integrity sha1-B5EoDVtzX0L4fb/oSVZOeIQwRbw=
   dependencies:
-    "@apollo/react-common" "^3.1.2"
-    "@apollo/react-hooks" "^3.1.2"
+    "@apollo/react-common" "^3.1.3"
+    "@apollo/react-hooks" "^3.1.3"
     tslib "^1.10.0"
 
-"@apollo/react-testing@^3.1.2":
-  version "3.1.2"
-  resolved "https://unpm.uberinternal.com/@apollo%2freact-testing/-/react-testing-3.1.2.tgz#82bac9ce3033470e4ff145642cd271d33b32296b"
+"@apollo/react-testing@^3.1.3":
+  version "3.1.3"
+  resolved "https://unpm.uberinternal.com/@apollo%2freact-testing/-/react-testing-3.1.3.tgz#d8dd318f58fb6a404976bfa3f8a79e976a5c6562"
+  integrity sha1-2N0xj1j7akBJdr+j+Keel2pcZWI=
   dependencies:
-    "@apollo/react-common" "^3.1.2"
+    "@apollo/react-common" "^3.1.3"
     fast-json-stable-stringify "^2.0.0"
     tslib "^1.10.0"
 
@@ -128,11 +135,12 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@7.6.2":
-  version "7.6.2"
-  resolved "https://unpm.uberinternal.com/@babel%2fgenerator/-/generator-7.6.2.tgz#dac8a3c2df118334c2a29ff3446da1636a8f8c03"
+"@babel/generator@7.6.4":
+  version "7.6.4"
+  resolved "https://unpm.uberinternal.com/@babel%2fgenerator/-/generator-7.6.4.tgz#a4f8437287bf9671b07f483b76e3bb731bc97671"
+  integrity sha1-pPhDcoe/lnGwf0g7duO7cxvJdnE=
   dependencies:
-    "@babel/types" "^7.6.0"
+    "@babel/types" "^7.6.3"
     jsesc "^2.5.1"
     lodash "^4.17.13"
     source-map "^0.5.0"
@@ -783,9 +791,10 @@
     globals "^11.1.0"
     lodash "^4.17.13"
 
-"@babel/types@7.6.1":
-  version "7.6.1"
-  resolved "https://unpm.uberinternal.com/@babel%2ftypes/-/types-7.6.1.tgz#53abf3308add3ac2a2884d539151c57c4b3ac648"
+"@babel/types@7.6.3", "@babel/types@^7.6.3":
+  version "7.6.3"
+  resolved "https://unpm.uberinternal.com/@babel%2ftypes/-/types-7.6.3.tgz#3f07d96f854f98e2fbd45c64b0cb942d11e8ba09"
+  integrity sha1-PwfZb4VPmOL71FxksMuULRHougk=
   dependencies:
     esutils "^2.0.2"
     lodash "^4.17.13"
@@ -794,14 +803,6 @@
 "@babel/types@^7.0.0", "@babel/types@^7.2.0", "@babel/types@^7.3.0", "@babel/types@^7.4.0", "@babel/types@^7.4.4", "@babel/types@^7.5.5":
   version "7.5.5"
   resolved "https://unpm.uberinternal.com/@babel%2ftypes/-/types-7.5.5.tgz#97b9f728e182785909aa4ab56264f090a028d18a"
-  dependencies:
-    esutils "^2.0.2"
-    lodash "^4.17.13"
-    to-fast-properties "^2.0.0"
-
-"@babel/types@^7.6.0":
-  version "7.6.3"
-  resolved "https://unpm.uberinternal.com/@babel%2ftypes/-/types-7.6.3.tgz#3f07d96f854f98e2fbd45c64b0cb942d11e8ba09"
   dependencies:
     esutils "^2.0.2"
     lodash "^4.17.13"
@@ -1217,9 +1218,10 @@
     pretty-format "^24.0.0"
     redent "^3.0.0"
 
-"@testing-library/react-hooks@^2.0.3":
-  version "2.0.3"
-  resolved "https://unpm.uberinternal.com/@testing-library%2freact-hooks/-/react-hooks-2.0.3.tgz#305a6c76facb5fa1d185792b9eb11b1ca1b63fb7"
+"@testing-library/react-hooks@^3.1.0":
+  version "3.1.0"
+  resolved "https://unpm.uberinternal.com/@testing-library%2freact-hooks/-/react-hooks-3.1.0.tgz#f186c4f3b32db153d30d646faacb043ef4089807"
+  integrity sha1-8YbE87MtsVPTDWRvqssEPvQImAc=
   dependencies:
     "@babel/runtime" "^7.5.4"
     "@types/testing-library__react-hooks" "^2.0.0"
@@ -1654,15 +1656,14 @@
     "@uber/jaeger-client-adapter" "^3.4.0"
     "@uber/unpm-galileo" "^1.4.0"
 
-"@uber/fusion-plugin-graphql-metrics@^1.1.0":
-  version "1.1.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-graphql-metrics/-/private/%40uber%2Ffusion-plugin-graphql-metrics-1.1.0.tgz#d96da6d8352f337ace01ed8b7882669e3ccb6e59"
+"@uber/fusion-plugin-graphql-metrics@^1.1.1":
+  version "1.1.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-graphql-metrics/-/private/%40uber%2Ffusion-plugin-graphql-metrics-1.1.1.tgz#20a8ae60f3ed09b7e3c5c4ee4617f2f67ffd52d8"
+  integrity sha512-Qp1Ll5lGtjxMHXcM2+OZphT6wHxbXjznF6h/tsmhMCfMtQkp5Eo3yxrDzeurQ5kKYYtMYg5215W3sem9QuWkNQ==
   dependencies:
     apollo-link "^1.2.12"
     just-compare "^1.3.0"
     opentracing "^0.14.3"
-    react "^16.8.6"
-    react-dom "^16.8.6"
 
 "@uber/fusion-plugin-heatpipe@^3.0.9":
   version "3.0.9"
@@ -1755,9 +1756,10 @@
   dependencies:
     node-fetch "^2.3.0"
 
-"@uber/icons@^1.0.28":
-  version "1.0.28"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ficons/-/private/%40uber%2Ficons-1.0.28.tgz#b90fa08ea18bf0820719a1641aab91313499cf7a"
+"@uber/icons@^1.0.30":
+  version "1.0.30"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ficons/-/private/%40uber%2Ficons-1.0.30.tgz#ccaded59af829bd4267d4f263887439bd1d00781"
+  integrity sha512-/Byul/ap8pesfrWHAArUhwF9m0+X7pstpsm38PRPkWNpauK2rkXKrb0jueDzRpXPNCZJ4dCirPfPTJDGtxnHHw==
   dependencies:
     eslint-plugin-babel "^5.3.0"
 
@@ -1865,9 +1867,10 @@
   version "0.1.2"
   resolved "https://unpm.uberinternal.com/%40uber%2Fstandard-fonts/-/private/%40uber%2Fstandard-fonts-0.1.2.tgz#89b27afac9cac70ee93c3ea4eae1751d4da078a8"
 
-"@uber/typed-rpc-cli@^2.3.0":
-  version "2.3.0"
-  resolved "https://unpm.uberinternal.com/%40uber%2Ftyped-rpc-cli/-/private/%40uber%2Ftyped-rpc-cli-2.3.0.tgz#8e161c5181272111b64119ea9e3f6ea5fe129b4b"
+"@uber/typed-rpc-cli@^3.0.0":
+  version "3.0.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ftyped-rpc-cli/-/private/%40uber%2Ftyped-rpc-cli-3.0.0.tgz#38329149f8667bc03ecccb416552abdac9a9c60e"
+  integrity sha512-qAL6kmsHOYw2pltFflsZzJeKria+6RimnPlEUDnmBzbUsbF2UjeTOxmlyP9nSjDB0WjqnsV3dm4gdHyYpXkmvg==
   dependencies:
     "@babel/core" "^7.0.0"
     "@babel/generator" "^7.0.0"
@@ -2129,7 +2132,7 @@ agent-base@^4.3.0:
   dependencies:
     es6-promisify "^5.0.0"
 
-airbnb-prop-types@^2.13.2:
+airbnb-prop-types@^2.13.2, airbnb-prop-types@^2.15.0:
   version "2.15.0"
   resolved "https://unpm.uberinternal.com/airbnb-prop-types/-/airbnb-prop-types-2.15.0.tgz#5287820043af1eb469f5b0af0d6f70da6c52aaef"
   dependencies:
@@ -2255,58 +2258,63 @@ apollo-client@^2.6.3, apollo-client@^2.6.4:
     tslib "^1.9.3"
     zen-observable "^0.8.0"
 
-apollo-codegen-core@^0.35.5:
-  version "0.35.5"
-  resolved "https://unpm.uberinternal.com/apollo-codegen-core/-/apollo-codegen-core-0.35.5.tgz#56ca4d3b38232470d282a6107ad870cb8457b07f"
+apollo-codegen-core@^0.35.7:
+  version "0.35.7"
+  resolved "https://unpm.uberinternal.com/apollo-codegen-core/-/apollo-codegen-core-0.35.7.tgz#665b70c5ed5be0acb0cbde64f6e439b8cc0389a8"
+  integrity sha1-Zltwxe1b4Kywy95k9uQ5uMwDiag=
   dependencies:
-    "@babel/generator" "7.6.2"
+    "@babel/generator" "7.6.4"
     "@babel/parser" "^7.1.3"
-    "@babel/types" "7.6.1"
+    "@babel/types" "7.6.3"
     apollo-env "^0.5.1"
-    apollo-language-server "^1.16.1"
+    apollo-language-server "^1.17.0"
     ast-types "^0.13.0"
     common-tags "^1.5.1"
     recast "^0.18.0"
 
-apollo-codegen-flow@^0.33.30:
-  version "0.33.30"
-  resolved "https://unpm.uberinternal.com/apollo-codegen-flow/-/apollo-codegen-flow-0.33.30.tgz#2fdba41808536f5354684f184a1071ba3a1e927b"
+apollo-codegen-flow@^0.33.32:
+  version "0.33.32"
+  resolved "https://unpm.uberinternal.com/apollo-codegen-flow/-/apollo-codegen-flow-0.33.32.tgz#8c26156357726fb8b4d7a3befec495b9eb78ae48"
+  integrity sha1-jCYVY1dyb7i016O+/sSVuet4rkg=
   dependencies:
-    "@babel/generator" "7.6.2"
-    "@babel/types" "7.6.1"
-    apollo-codegen-core "^0.35.5"
+    "@babel/generator" "7.6.4"
+    "@babel/types" "7.6.3"
+    apollo-codegen-core "^0.35.7"
     apollo-env "^0.5.1"
     change-case "^3.0.1"
     common-tags "^1.5.1"
     inflected "^2.0.3"
 
-apollo-codegen-scala@^0.34.30:
-  version "0.34.30"
-  resolved "https://unpm.uberinternal.com/apollo-codegen-scala/-/apollo-codegen-scala-0.34.30.tgz#1782b66b6df741cdf138c46b69a0f38635ecc17e"
+apollo-codegen-scala@^0.34.32:
+  version "0.34.32"
+  resolved "https://unpm.uberinternal.com/apollo-codegen-scala/-/apollo-codegen-scala-0.34.32.tgz#6f34b2c8a053bcc31062b269dda5a59d2df3802e"
+  integrity sha1-bzSyyKBTvMMQYrJp3aWlnS3zgC4=
   dependencies:
-    apollo-codegen-core "^0.35.5"
+    apollo-codegen-core "^0.35.7"
     apollo-env "^0.5.1"
     change-case "^3.0.1"
     common-tags "^1.5.1"
     inflected "^2.0.3"
 
-apollo-codegen-swift@^0.35.10:
-  version "0.35.10"
-  resolved "https://unpm.uberinternal.com/apollo-codegen-swift/-/apollo-codegen-swift-0.35.10.tgz#e5a84884f91e325486de379201ee7df74ef305e4"
+apollo-codegen-swift@^0.35.12:
+  version "0.35.12"
+  resolved "https://unpm.uberinternal.com/apollo-codegen-swift/-/apollo-codegen-swift-0.35.12.tgz#51033aa2bb43c3e369a4ee634536200728ff81aa"
+  integrity sha1-UQM6ortDw+NppO5jRTYgByj/gao=
   dependencies:
-    apollo-codegen-core "^0.35.5"
+    apollo-codegen-core "^0.35.7"
     apollo-env "^0.5.1"
     change-case "^3.0.1"
     common-tags "^1.5.1"
     inflected "^2.0.3"
 
-apollo-codegen-typescript@^0.35.5:
-  version "0.35.5"
-  resolved "https://unpm.uberinternal.com/apollo-codegen-typescript/-/apollo-codegen-typescript-0.35.5.tgz#18fbf8d103ab36519db6acfba4cea05dadde3bb5"
+apollo-codegen-typescript@^0.35.7:
+  version "0.35.7"
+  resolved "https://unpm.uberinternal.com/apollo-codegen-typescript/-/apollo-codegen-typescript-0.35.7.tgz#fbfaaed7883b01433e91ae6852bf1c83a8b89894"
+  integrity sha1-+/qu14g7AUM+ka5oUr8cg6i4mJQ=
   dependencies:
-    "@babel/generator" "7.6.2"
-    "@babel/types" "7.6.1"
-    apollo-codegen-core "^0.35.5"
+    "@babel/generator" "7.6.4"
+    "@babel/types" "7.6.3"
+    apollo-codegen-core "^0.35.7"
     apollo-env "^0.5.1"
     change-case "^3.0.1"
     common-tags "^1.5.1"
@@ -2359,11 +2367,12 @@ apollo-graphql@^0.3.4:
     apollo-env "^0.5.1"
     lodash.sortby "^4.7.0"
 
-apollo-language-server@^1.16.1:
-  version "1.16.1"
-  resolved "https://unpm.uberinternal.com/apollo-language-server/-/apollo-language-server-1.16.1.tgz#5e61fc9ee4d15e06db1442909af9324dab9b223d"
+apollo-language-server@^1.17.0:
+  version "1.17.0"
+  resolved "https://unpm.uberinternal.com/apollo-language-server/-/apollo-language-server-1.17.0.tgz#4f933dd4d2eb18869cacb79a6b875f268e42f882"
+  integrity sha1-T5M91NLrGIacrLeaa4dfJo5C+II=
   dependencies:
-    "@apollo/federation" "0.10.1"
+    "@apollo/federation" "0.10.2"
     "@apollographql/apollo-tools" "^0.4.0"
     "@apollographql/graphql-language-service-interface" "^2.0.2"
     "@endemolshinegroup/cosmiconfig-typescript-loader" "^1.0.0"
@@ -2538,9 +2547,10 @@ apollo-utilities@1.3.2, apollo-utilities@^1.0.1, apollo-utilities@^1.3.0, apollo
     ts-invariant "^0.4.0"
     tslib "^1.9.3"
 
-apollo@^2.19.1:
-  version "2.19.1"
-  resolved "https://unpm.uberinternal.com/apollo/-/apollo-2.19.1.tgz#ac75f996084adec5df3e6c82cd7c1e6cacb9bfd5"
+apollo@^2.21.0:
+  version "2.21.0"
+  resolved "https://unpm.uberinternal.com/apollo/-/apollo-2.21.0.tgz#a456315d4e22801c807ed4ff526e8bb28e2534a4"
+  integrity sha1-pFYxXU4igByAftT/Um6Lso4lNKQ=
   dependencies:
     "@apollographql/apollo-tools" "^0.4.0"
     "@oclif/command" "1.5.19"
@@ -2551,14 +2561,14 @@ apollo@^2.19.1:
     "@oclif/plugin-not-found" "1.2.3"
     "@oclif/plugin-plugins" "1.7.8"
     "@oclif/plugin-warn-if-update-available" "1.7.0"
-    apollo-codegen-core "^0.35.5"
-    apollo-codegen-flow "^0.33.30"
-    apollo-codegen-scala "^0.34.30"
-    apollo-codegen-swift "^0.35.10"
-    apollo-codegen-typescript "^0.35.5"
+    apollo-codegen-core "^0.35.7"
+    apollo-codegen-flow "^0.33.32"
+    apollo-codegen-scala "^0.34.32"
+    apollo-codegen-swift "^0.35.12"
+    apollo-codegen-typescript "^0.35.7"
     apollo-env "^0.5.1"
     apollo-graphql "^0.3.4"
-    apollo-language-server "^1.16.1"
+    apollo-language-server "^1.17.0"
     chalk "2.4.2"
     env-ci "3.2.2"
     gaze "1.1.3"
@@ -2942,9 +2952,10 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^9.7.1:
-  version "9.7.1"
-  resolved "https://unpm.uberinternal.com/baseui/-/baseui-9.7.1.tgz#e6891ba7bdec35497e2118eedabea6e3cf1fa1ac"
+baseui@^9.9.0:
+  version "9.9.0"
+  resolved "https://unpm.uberinternal.com/baseui/-/baseui-9.9.0.tgz#1cd54501c16de0446290eb8c35af6744ca2eeb02"
+  integrity sha1-HNVFAcFt4ERikOuMNa9nRMou6wI=
   dependencies:
     card-validator "^6.1.0"
     date-fns "^2.3.0"
@@ -2956,7 +2967,7 @@ baseui@^9.7.1:
     react-focus-lock "^1.9.1"
     react-input-mask "^2.0.4"
     react-is "^16.8.6"
-    react-movable "^2.2.0"
+    react-movable "^2.3.0"
     react-multi-ref "^1.0.0"
     react-range "^1.3.0"
     react-virtualized "^9.21.1"
@@ -3560,6 +3571,7 @@ cli-width@^2.0.0:
 cliui@^3.2.0:
   version "3.2.0"
   resolved "https://unpm.uberinternal.com/cliui/-/cliui-3.2.0.tgz#120601537a916d29940f934da3b48d585a39213d"
+  integrity sha1-EgYBU3qRbSmUD5NNo7SNWFo5IT0=
   dependencies:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
@@ -4078,6 +4090,7 @@ debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
 debug@~3.1.0:
   version "3.1.0"
   resolved "https://unpm.uberinternal.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha1-W7WgZyYotkFJVmuhaBnmFRjGcmE=
   dependencies:
     ms "2.0.0"
 
@@ -4492,17 +4505,18 @@ enzyme-adapter-react-16@^1.12.1:
     react-test-renderer "^16.0.0-0"
     semver "^5.7.0"
 
-enzyme-adapter-react-16@^1.15.0:
-  version "1.15.0"
-  resolved "https://unpm.uberinternal.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.0.tgz#f7f72ab13b6596f944918c60f42e4ce38d890860"
+enzyme-adapter-react-16@^1.15.1:
+  version "1.15.1"
+  resolved "https://unpm.uberinternal.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.1.tgz#8ad55332be7091dc53a25d7d38b3485fc2ba50d5"
+  integrity sha1-itVTMr5wkdxTol19OLNIX8K6UNU=
   dependencies:
-    enzyme-adapter-utils "^1.12.0"
+    enzyme-adapter-utils "^1.12.1"
     enzyme-shallow-equal "^1.0.0"
     has "^1.0.3"
     object.assign "^4.1.0"
     object.values "^1.1.0"
     prop-types "^15.7.2"
-    react-is "^16.8.6"
+    react-is "^16.10.2"
     react-test-renderer "^16.0.0-0"
     semver "^5.7.0"
 
@@ -4516,6 +4530,18 @@ enzyme-adapter-utils@^1.12.0:
     object.fromentries "^2.0.0"
     prop-types "^15.7.2"
     semver "^5.6.0"
+
+enzyme-adapter-utils@^1.12.1:
+  version "1.12.1"
+  resolved "https://unpm.uberinternal.com/enzyme-adapter-utils/-/enzyme-adapter-utils-1.12.1.tgz#e828e0d038e2b1efa4b9619ce896226f85c9dd88"
+  integrity sha1-6Cjg0Djise+kuWGc6JYib4XJ3Yg=
+  dependencies:
+    airbnb-prop-types "^2.15.0"
+    function.prototype.name "^1.1.1"
+    object.assign "^4.1.0"
+    object.fromentries "^2.0.1"
+    prop-types "^15.7.2"
+    semver "^5.7.0"
 
 enzyme-shallow-equal@^1.0.0:
   version "1.0.0"
@@ -4595,6 +4621,22 @@ es-abstract@^1.10.0, es-abstract@^1.11.0, es-abstract@^1.12.0, es-abstract@^1.13
     is-callable "^1.1.4"
     is-regex "^1.0.4"
     object-keys "^1.0.12"
+
+es-abstract@^1.15.0:
+  version "1.16.0"
+  resolved "https://unpm.uberinternal.com/es-abstract/-/es-abstract-1.16.0.tgz#d3a26dc9c3283ac9750dca569586e976d9dcc06d"
+  integrity sha1-06JtycMoOsl1DcpWlYbpdtncwG0=
+  dependencies:
+    es-to-primitive "^1.2.0"
+    function-bind "^1.1.1"
+    has "^1.0.3"
+    has-symbols "^1.0.0"
+    is-callable "^1.1.4"
+    is-regex "^1.0.4"
+    object-inspect "^1.6.0"
+    object-keys "^1.1.1"
+    string.prototype.trimleft "^2.1.0"
+    string.prototype.trimright "^2.1.0"
 
 es-to-primitive@^1.2.0:
   version "1.2.0"
@@ -4727,9 +4769,10 @@ eslint-plugin-import@^2.18.2:
     read-pkg-up "^2.0.0"
     resolve "^1.11.0"
 
-eslint-plugin-jest@^22.17.0:
-  version "22.17.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.17.0.tgz#dc170ec8369cd1bff9c5dd8589344e3f73c88cf6"
+eslint-plugin-jest@^22.20.0:
+  version "22.20.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-22.20.0.tgz#a3c3615c516fcbd20d50dbf395ea37361bd9e3b2"
+  integrity sha1-o8NhXFFvy9INUNvzleo3NhvZ47I=
   dependencies:
     "@typescript-eslint/experimental-utils" "^1.13.0"
 
@@ -5410,9 +5453,10 @@ functions-have-names@^1.1.1:
   version "1.1.1"
   resolved "https://unpm.uberinternal.com/functions-have-names/-/functions-have-names-1.1.1.tgz#79d35927f07b8e7103d819fed475b64ccf7225ea"
 
-fusion-cli@^2.4.2:
-  version "2.4.2"
-  resolved "https://unpm.uberinternal.com/fusion-cli/-/fusion-cli-2.4.2.tgz#82b15bfc74ecf5c7588207fc8a1b636f90a651a9"
+fusion-cli@^2.4.3:
+  version "2.4.3"
+  resolved "https://unpm.uberinternal.com/fusion-cli/-/fusion-cli-2.4.3.tgz#327e992365a75957b04394d051fe8655cd14394e"
+  integrity sha1-Mn6ZI2WnWVewQ5TQUf6GVc0UOU4=
   dependencies:
     "@babel/core" "^7.5.4"
     "@babel/plugin-syntax-dynamic-import" "7.2.0"
@@ -5552,13 +5596,14 @@ fusion-plugin-react-helmet-async@^2.1.2:
   dependencies:
     react-helmet-async "^1.0.2"
 
-fusion-plugin-react-router@^2.0.8:
-  version "2.0.8"
-  resolved "https://unpm.uberinternal.com/fusion-plugin-react-router/-/fusion-plugin-react-router-2.0.8.tgz#dd7e5be7b88b6d337fbb438612fc6c6ab8506bc0"
+fusion-plugin-react-router@^2.1.0:
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/fusion-plugin-react-router/-/fusion-plugin-react-router-2.1.0.tgz#4c48c125446dff632573f22f95eb3dd2adf1430b"
+  integrity sha1-TEjBJURt/2Mlc/Ivles90q3xQws=
   dependencies:
     history "^4.9.0"
     prop-types "^15.7.2"
-    react-router-dom "^5.0.0"
+    react-router-dom "^5.1.0"
 
 fusion-plugin-styletron-react@^3.0.9:
   version "3.0.9"
@@ -8419,7 +8464,7 @@ object-is@^1.0.1:
   version "1.0.1"
   resolved "https://unpm.uberinternal.com/object-is/-/object-is-1.0.1.tgz#0aa60ec9989a0b3ed795cf4d06f62cf1ad6539b6"
 
-object-keys@^1.0.11, object-keys@^1.0.12:
+object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   version "1.1.1"
   resolved "https://unpm.uberinternal.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
 
@@ -8459,6 +8504,16 @@ object.fromentries@^2.0.0:
     es-abstract "^1.11.0"
     function-bind "^1.1.1"
     has "^1.0.1"
+
+object.fromentries@^2.0.1:
+  version "2.0.1"
+  resolved "https://unpm.uberinternal.com/object.fromentries/-/object.fromentries-2.0.1.tgz#050f077855c7af8ae6649f45c80b16ee2d31e704"
+  integrity sha1-BQ8HeFXHr4rmZJ9FyAsW7i0x5wQ=
+  dependencies:
+    define-properties "^1.1.3"
+    es-abstract "^1.15.0"
+    function-bind "^1.1.1"
+    has "^1.0.3"
 
 object.getownpropertydescriptors@^2.0.3:
   version "2.0.3"
@@ -8853,6 +8908,7 @@ performance-now@^2.1.0:
 pify@^2.0.0:
   version "2.3.0"
   resolved "https://unpm.uberinternal.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
+  integrity sha1-7RQaasBDqEnqWISY59yosVMw6Qw=
 
 pify@^3.0.0:
   version "3.0.0"
@@ -9302,15 +9358,6 @@ react-dom@^16.10.2:
     prop-types "^15.6.2"
     scheduler "^0.16.2"
 
-react-dom@^16.8.6:
-  version "16.9.0"
-  resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.15.0"
-
 react-dropzone@^9.0.0:
   version "9.0.0"
   resolved "https://unpm.uberinternal.com/react-dropzone/-/react-dropzone-9.0.0.tgz#4f5223cdcb4d3bd8a66e3298c4041eb0c75c4634"
@@ -9354,6 +9401,11 @@ react-input-mask@^2.0.4:
     invariant "^2.2.4"
     warning "^4.0.2"
 
+react-is@^16.10.2:
+  version "16.10.2"
+  resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.10.2.tgz#984120fd4d16800e9a738208ab1fba422d23b5ab"
+  integrity sha1-mEEg/U0WgA6ac4IIqx+6Qi0jtas=
+
 react-is@^16.3.2, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6, react-is@^16.9.0:
   version "16.9.0"
   resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
@@ -9362,9 +9414,10 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://unpm.uberinternal.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
-react-movable@^2.2.0:
-  version "2.2.0"
-  resolved "https://unpm.uberinternal.com/react-movable/-/react-movable-2.2.0.tgz#08e7de1290b4c0d847fe038debcd3cd0eff750bf"
+react-movable@^2.3.0:
+  version "2.3.0"
+  resolved "https://unpm.uberinternal.com/react-movable/-/react-movable-2.3.0.tgz#679d6a15bead651dd6c2b3ce0458b386be00661f"
+  integrity sha1-Z51qFb6tZR3WwrPOBFizhr4AZh8=
 
 react-multi-ref@^1.0.0:
   version "1.0.0"
@@ -9376,21 +9429,23 @@ react-range@^1.3.0:
   version "1.3.0"
   resolved "https://unpm.uberinternal.com/react-range/-/react-range-1.3.0.tgz#68ded5396cf29b765a73a3dc85fe084ca84b8351"
 
-react-router-dom@^5.0.0:
-  version "5.1.0"
-  resolved "https://unpm.uberinternal.com/react-router-dom/-/react-router-dom-5.1.0.tgz#48ad018d71fb7835212587e4c90bd2e3d2417e31"
+react-router-dom@^5.1.0:
+  version "5.1.2"
+  resolved "https://unpm.uberinternal.com/react-router-dom/-/react-router-dom-5.1.2.tgz#06701b834352f44d37fbb6311f870f84c76b9c18"
+  integrity sha1-BnAbg0NS9E03+7YxH4cPhMdrnBg=
   dependencies:
     "@babel/runtime" "^7.1.2"
     history "^4.9.0"
     loose-envify "^1.3.1"
     prop-types "^15.6.2"
-    react-router "5.1.0"
+    react-router "5.1.2"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router@5.1.0:
-  version "5.1.0"
-  resolved "https://unpm.uberinternal.com/react-router/-/react-router-5.1.0.tgz#739d0f3a57476363374e20d6e33e97f5ce2e00a3"
+react-router@5.1.2:
+  version "5.1.2"
+  resolved "https://unpm.uberinternal.com/react-router/-/react-router-5.1.2.tgz#6ea51d789cb36a6be1ba5f7c0d48dd9e817d3418"
+  integrity sha1-bqUdeJyzamvhul98DUjdnoF9NBg=
   dependencies:
     "@babel/runtime" "^7.1.2"
     history "^4.9.0"
@@ -9438,14 +9493,6 @@ react-window@^1.8.5:
 react@^16.10.2:
   version "16.10.2"
   resolved "https://unpm.uberinternal.com/react/-/react-16.10.2.tgz#a5ede5cdd5c536f745173c8da47bda64797a4cf0"
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-
-react@^16.8.6:
-  version "16.9.0"
-  resolved "https://unpm.uberinternal.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -10468,6 +10515,22 @@ string.prototype.trim@^1.1.2:
     es-abstract "^1.13.0"
     function-bind "^1.1.1"
 
+string.prototype.trimleft@^2.1.0:
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/string.prototype.trimleft/-/string.prototype.trimleft-2.1.0.tgz#6cc47f0d7eb8d62b0f3701611715a3954591d634"
+  integrity sha1-bMR/DX641isPNwFhFxWjlUWR1jQ=
+  dependencies:
+    define-properties "^1.1.3"
+    function-bind "^1.1.1"
+
+string.prototype.trimright@^2.1.0:
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/string.prototype.trimright/-/string.prototype.trimright-2.1.0.tgz#669d164be9df9b6f7559fa8e89945b168a5a6c58"
+  integrity sha1-Zp0WS+nfm291WfqOiZRbFopabFg=
+  dependencies:
+    define-properties "^1.1.3"
+    function-bind "^1.1.1"
+
 string_decoder@^1.0.0, string_decoder@^1.1.1:
   version "1.3.0"
   resolved "https://unpm.uberinternal.com/string_decoder/-/string_decoder-1.3.0.tgz#42f114594a46cf1a8e30b0a84f56c78c3edac21e"
@@ -10651,6 +10714,7 @@ tar-fs@^1.13.0:
 tar-stream@^1.1.2:
   version "1.6.2"
   resolved "https://unpm.uberinternal.com/tar-stream/-/tar-stream-1.6.2.tgz#8ea55dab37972253d9a9af90fdcd559ae435c555"
+  integrity sha1-jqVdqzeXIlPZqa+Q/c1VmuQ1xVU=
   dependencies:
     bl "^1.0.0"
     buffer-alloc "^1.2.0"
@@ -10803,6 +10867,7 @@ through2@^2.0.0:
 through@^2.3.6:
   version "2.3.8"
   resolved "https://unpm.uberinternal.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
+  integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
 timers-browserify@^2.0.4:
   version "2.0.11"
@@ -11539,6 +11604,7 @@ xtend@~3.0.0:
 y18n@^3.2.1:
   version "3.2.1"
   resolved "https://unpm.uberinternal.com/y18n/-/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
+  integrity sha1-bRX7qITAhnnA136I53WegR4H+kE=
 
 y18n@^4.0.0:
   version "4.0.0"

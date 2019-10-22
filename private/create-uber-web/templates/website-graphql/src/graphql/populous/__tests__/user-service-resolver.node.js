@@ -5,6 +5,7 @@ import {UserServiceToken} from '../../../__generated__/infra/populous/user-servi
 import UserServiceResolverPlugin from '../user-service-resolver.js';
 import gqlTest from '../../../test-utils/graphql-test'; // TODO: implement this test
 
+// eslint-disable-next-line jest/no-disabled-tests
 test.skip('UserService resolver', async () => {
   const client = gqlTest(app => {
     // $FlowFixMe
