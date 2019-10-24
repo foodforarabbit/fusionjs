@@ -75,6 +75,7 @@ const theme = createTheme(
 export const Root = () => (
   <div id="wrapper">
     <Helmet>
+      <title>Hello World</title>
       <link rel="shortcut icon" type="image/x-icon" href={faviconPath} />
       <link rel="icon" type="image/x-icon" href={faviconPath} />
       <style>{`
