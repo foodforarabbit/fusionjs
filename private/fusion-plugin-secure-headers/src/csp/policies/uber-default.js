@@ -17,6 +17,8 @@ export default function UberDefault(nonce: string) {
       // Uber CDN bases
       'https://d1a3f4spazzrp4.cloudfront.net',
       'https://d3i4yxtzktqr9n.cloudfront.net',
+      'https://tb-static.uber.com',
+      'https://tbs-static.uber.com',
       nonce,
     ],
     styleSrc: [
@@ -25,6 +27,8 @@ export default function UberDefault(nonce: string) {
       // Uber CDN bases
       'https://d1a3f4spazzrp4.cloudfront.net',
       'https://d3i4yxtzktqr9n.cloudfront.net',
+      'https://tb-static.uber.com',
+      'https://tbs-static.uber.com',
     ],
   };
 }
