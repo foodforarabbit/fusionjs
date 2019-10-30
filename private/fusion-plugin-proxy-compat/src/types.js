@@ -35,8 +35,8 @@ export type ProxyCompatPluginDepsType = {
   config: typeof ProxyConfigToken,
   logger: typeof LoggerToken,
   m3Client: typeof M3Token,
-  Tracer: typeof TracerToken,
-  Galileo: typeof GalileoToken,
+  Tracer: typeof TracerToken.optional,
+  Galileo: typeof GalileoToken.optional,
 };
 
 export type ProxyCompatPluginType = FusionPlugin<ProxyCompatPluginDepsType, void>;

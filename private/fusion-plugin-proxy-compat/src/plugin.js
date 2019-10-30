@@ -26,12 +26,11 @@ const plugin /*: ProxyCompatPluginType */ = createPlugin({
     config: ProxyConfigToken,
     logger: LoggerToken,
     m3Client: M3Token,
-    Tracer: TracerToken,
-    Galileo: GalileoToken,
+    Tracer: TracerToken.optional,
+    Galileo: GalileoToken.optional,
   },
 
   middleware: ({config, logger, m3Client, Tracer, Galileo}) => {
-    const {galileo} = Galileo;
     const matchFn = getMatchFn(config);
     return async (
       ctx /*: Context */,
@@ -46,29 +45,33 @@ const plugin /*: ProxyCompatPluginType */ = createPlugin({
         route: proxyConfig.m3Key || 'unknown_route',
         ...(ctx.req.m3Tags || {}),
       };
-      const {span} = Tracer.from(ctx);
       const proxyHeaders = getProxyHeaders(ctx, proxyConfig);
-      await new Promise((
-        resolve /*: (result: Promise<void> | void) => void */
-      ) /*: void */ => {
-        galileo.AuthenticateOut(
-          proxyConfig.name,
-          'http',
-          span,
-          function onHeaders(err, headers) /*: void */ {
-            if (err) {
-              logger.error(
-                err.message || 'Failed to get galileo auth ( outbound )',
-                {path: ctx.path}
-              );
+
+      if (Tracer && Galileo) {
+        const {galileo} = Galileo;
+        const {span} = Tracer.from(ctx);
+        await new Promise((
+          resolve /*: (result: Promise<void> | void) => void */
+        ) /*: void */ => {
+          galileo.AuthenticateOut(
+            proxyConfig.name,
+            'http',
+            span,
+            function onHeaders(err, headers) /*: void */ {
+              if (err) {
+                logger.error(
+                  err.message || 'Failed to get galileo auth ( outbound )',
+                  {path: ctx.path}
+                );
+              }
+              if (headers) {
+                Object.assign(proxyHeaders, headers);
+              }
+              resolve();
             }
-            if (headers) {
-              Object.assign(proxyHeaders, headers);
-            }
-            resolve();
-          }
-        );
-      });
+          );
+        });
+      }
       const proxyReq = request(getProxyUrl(proxyConfig, ctx), {
         headers: proxyHeaders,
       });
