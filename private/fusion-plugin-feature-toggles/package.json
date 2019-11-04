@@ -70,10 +70,12 @@
     "jest-environment-jsdom-global": "^1.2.0",
     "jsdom": "^15.0.0",
     "npm-watch": "^0.6.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "@uber/fusion-plugin-marketing": "0.0.0-monorepo"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
+    "@uber/fusion-plugin-marketing": "0.0.0-monorepo",
     "fusion-core": "0.0.0-monorepo"
   },
   "resolutions": {

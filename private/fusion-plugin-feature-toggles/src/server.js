@@ -4,7 +4,7 @@
 import {createPlugin, memoize, html} from 'fusion-core';
 import type {Context} from 'fusion-core';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
-
+import {UberMarketingToken} from '@uber/fusion-plugin-marketing';
 import MorpheusClient from './clients/morpheus.js';
 import {
   FeatureTogglesClientToken,
@@ -24,7 +24,8 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
       toggleConfigs: FeatureTogglesTogglesConfigToken,
       Client: FeatureTogglesClientToken.optional,
       clientConfig: FeatureTogglesClientConfigToken.optional,
-      atreyu: AtreyuToken.optional,
+      atreyu: AtreyuToken.optional, // explicitly used by bundled Morpheus client
+      marketing: UberMarketingToken.optional, // implicitly used by bundled Morpheus client
     },
     provides({toggleConfigs, Client, clientConfig, atreyu}) {
       const config = clientConfig || Object.freeze({});
