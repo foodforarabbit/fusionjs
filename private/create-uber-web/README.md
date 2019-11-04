@@ -163,8 +163,8 @@ To selectively run codemods, you can use the `--stepMatch` flag, however this sh
 
 ## Provision
 
-### Provisioning web apps
+```
+uber-web provision
+```
 
-Currently, automatic provisioning is disabled.
-
-See the [provisioning guide](https://docs.google.com/document/d/1j2XVa4fiM4xtss_WgwQWh0-HVwpvEbBcHb_R61dIl3U/edit#) for manual provisioning instructions.
+This command starts the provisioning wizard which starts the process to set up your service within Uber infra. For more details see the documentation [here](https://engdocs.uberinternal.com/web/docs/references/provision-your-app).
