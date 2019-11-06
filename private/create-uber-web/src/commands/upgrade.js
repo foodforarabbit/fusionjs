@@ -25,6 +25,7 @@ import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cl
 import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
 import {addESLintPluginGraphQL} from '../codemods/add-eslint-plugin-graphql/add-eslint-plugin-graphql';
 import {codemodIntrospectionMatcher} from '../codemods/introspection-matcher/codemod-introspection-matcher';
+import {moveTypedRPCCLI} from '../codemods/move-typed-rpc-cli/move-typed-rpc-cli';
 import {
   ensureMinimalFlowConfigVersion,
   removeFlowConfigLines,
@@ -231,6 +232,9 @@ export const upgrade = async ({
       }),
       step('Add eslint-plugin-graphql', async () => {
         await addESLintPluginGraphQL({dir, strategy});
+      }),
+      step('moveTypedRPCCLI', async () => {
+        await moveTypedRPCCLI({dir, strategy});
       }),
       step('Remind about new deps', async () => {
         // eslint-disable-next-line no-console
