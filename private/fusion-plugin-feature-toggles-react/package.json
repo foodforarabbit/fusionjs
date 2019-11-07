@@ -39,10 +39,7 @@
     }
   },
   "dependencies": {
-    "@uber/fusion-plugin-feature-toggles": "0.0.0-monorepo",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "@uber/fusion-plugin-feature-toggles": "0.0.0-monorepo"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.5.4",
@@ -77,7 +74,8 @@
   },
   "peerDependencies": {
     "fusion-core": "0.0.0-monorepo",
-    "fusion-react": "0.0.0-monorepo"
+    "fusion-react": "0.0.0-monorepo",
+    "react": "^16.8.6"
   },
   "resolutions": {
     "event-stream": "3.3.5"
