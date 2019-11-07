@@ -38,22 +38,15 @@
       "quiet": true
     }
   },
-  "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
-  },
   "devDependencies": {
     "@babel/preset-env": "^7.5.4",
     "@babel/preset-flow": "^7.0.0",
-    "@babel/preset-react": "^7.0.0",
     "@uber/atreyu": "^6.2.0",
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
     "create-universal-package": "^3.4.7",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.12.1",
     "eslint": "^6.0.1",
     "eslint-config-fusion": "0.0.0-monorepo",
     "eslint-plugin-cup": "^2.0.1",
@@ -61,8 +54,6 @@
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jest": "^22.7.2",
     "eslint-plugin-prettier": "^3.0.1",
-    "eslint-plugin-react": "^7.14.2",
-    "eslint-plugin-react-hooks": "^1.6.1",
     "flow-bin": "^0.102.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
@@ -104,8 +95,7 @@
           }
         }
       ],
-      "@babel/preset-flow",
-      "@babel/preset-react"
+      "@babel/preset-flow"
     ]
   },
   "jest": {
@@ -134,9 +124,6 @@
           ".*\\.node\\.js"
         ],
         "testURL": "http://localhost",
-        "setupFilesAfterEnv": [
-          "<rootDir>enzyme.config.js"
-        ],
         "globals": {
           "__DEV__": true,
           "__NODE__": false,
@@ -151,9 +138,6 @@
           "/node_modules/",
           "/dist/",
           ".*\\.browser\\.js"
-        ],
-        "setupFilesAfterEnv": [
-          "<rootDir>enzyme.config.js"
         ],
         "globals": {
           "__DEV__": true,
