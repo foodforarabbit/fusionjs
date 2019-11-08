@@ -1,17 +1,13 @@
 [ignore]
-.*/common/temp/node_modules/@uber/node-rosetta/.*
-.*/common/temp/yarn-cache/.*
 .*/templates/.*
 .*/fixtures/failure/.*
 .*/test-artifacts/.*
 .*/resources/.*
-.*/common/temp/node_modules/@uber/node-rosetta/.*
 .*/public/jazelle/tests/fixtures/.*
 .*/public/jazelle/tests/tmp/.*
 .*/__fixtures__/.*
 
 [include]
-common/temp/node_modules
 public
 private
 
