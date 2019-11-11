@@ -203,9 +203,9 @@ glob@^7.1.3:
     path-is-absolute "^1.0.0"
 
 graceful-fs@~4.2.0:
-  version "4.2.2"
-  resolved "https://unpm.uberinternal.com/graceful-fs/-/graceful-fs-4.2.2.tgz#6f0952605d0140c1cfdb138ed005775b92d67b02"
-  integrity sha1-bwlSYF0BQMHP2xOO0AV3W5LWewI=
+  version "4.2.3"
+  resolved "https://unpm.uberinternal.com/graceful-fs/-/graceful-fs-4.2.3.tgz#4a12ff1b60376ef09862c2093edd908328be8423"
+  integrity sha1-ShL/G2A3bvCYYsIJPt2Qgyi+hCM=
 
 inflight@^1.0.4:
   version "1.0.6"

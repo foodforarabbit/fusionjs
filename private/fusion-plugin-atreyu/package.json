@@ -20,7 +20,7 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "peerDependencies": {
-    "@uber/atreyu": "^6.2.0",
+    "@uber/atreyu": "^6.2.1",
     "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "@uber/fusion-plugin-tchannel": "0.0.0-monorepo",
@@ -29,8 +29,8 @@
     "fusion-tokens": "0.0.0-monorepo"
   },
   "devDependencies": {
-    "@uber/atreyu": "^6.2.0",
-    "@uber/atreyu-test": "^1.3.0",
+    "@uber/atreyu": "^6.2.1",
+    "@uber/atreyu-test": "^1.3.1",
     "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "@uber/fusion-plugin-tchannel": "0.0.0-monorepo",
