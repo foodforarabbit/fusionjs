@@ -1,5 +1,5 @@
 {
-  "name": "{{name}}",
+  "name": "@uber/fusion-website-template",
   "description": "{{description}}",
   "version": "0.0.1",
   "scaffold-version": "{{version}}",

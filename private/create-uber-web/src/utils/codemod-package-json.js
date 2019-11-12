@@ -39,6 +39,7 @@ export const codemodPackageJson = async ({
       data.engines.node = await getNodeVersion();
       data.engines.npm = await getNpmVersion();
       data.engines.yarn = await getYarnVersion();
+      data.name = name;
     } else {
       data.name = `@uber/${name}`;
       data.engines = packageJson.engines;

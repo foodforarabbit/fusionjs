@@ -24,7 +24,8 @@ test('codemodPackageJson', async () => {
     hoistDeps: false,
   });
   const data = await readFile(file);
-  expect(/"name": "name"/.test(data)).toEqual(true);
+  const parsed = JSON.parse(data);
+  expect(parsed.name).toEqual(dir);
   expect(/"name": "@uber/.test(data)).toEqual(false);
   expect(/"files"/.test(data)).toEqual(true);
   expect(/"dependencies": {}/.test(data)).toEqual(true);
