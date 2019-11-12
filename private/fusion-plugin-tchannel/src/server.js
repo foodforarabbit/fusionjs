@@ -4,7 +4,7 @@ import fs from 'fs';
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
-import TChannel from '@uber/tchannel';
+import TChannel from 'tchannel';
 import path from 'path';
 import {TChannelClientToken} from './tokens.js';
 

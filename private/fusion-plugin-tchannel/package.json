@@ -66,8 +66,8 @@
     "yarn": ">=1.0.0"
   },
   "dependencies": {
-    "@uber/tchannel": "^4.0.4",
-    "my-local-ip": "^1.0.0"
+    "my-local-ip": "^1.0.0",
+    "tchannel": "^3.9.3"
   },
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-tchannel",
   "repository": {
