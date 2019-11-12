@@ -1784,6 +1784,24 @@
     "@uber/web-perf-collector" "0.10.5"
     request "^2.88.0"
 
+"@uber/fusion-plugin-feature-toggles-react@^3.0.9":
+  version "3.0.9"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-feature-toggles-react/-/private/%40uber%2Ffusion-plugin-feature-toggles-react-3.0.9.tgz#1e77607c9ac25a7eedfff672f1f0e66f9d49c406"
+  integrity sha512-w9aRpyTy+Q4RcbThgLtGOSnNPSGzq2DnrTASr21LqJuS0Eajre5FEQS0GrpjJxnwJZcWhdJx0vHCFMb0XLSwLw==
+  dependencies:
+    "@uber/fusion-plugin-feature-toggles" "3.0.8"
+    prop-types "^15.7.2"
+    react "^16.8.6"
+    react-dom "^16.8.6"
+
+"@uber/fusion-plugin-feature-toggles@3.0.8":
+  version "3.0.8"
+  resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-feature-toggles/-/private/%40uber%2Ffusion-plugin-feature-toggles-3.0.8.tgz#addfe33885a40ec18071db09964f84b87477a547"
+  integrity sha512-4xytNDy2q4ZMVJIAZWlKtwgiz1p9EIyYEeUbL6vkqmxAD/4HiEZhu0Zp5uAXv4loVNmn5ng/tbvGMJ/tT++QLQ==
+  dependencies:
+    react "^16.8.6"
+    react-dom "^16.8.6"
+
 "@uber/fusion-plugin-flipr@^2.0.7":
   version "2.0.7"
   resolved "https://unpm.uberinternal.com/%40uber%2Ffusion-plugin-flipr/-/private/%40uber%2Ffusion-plugin-flipr-2.0.7.tgz#507f17f0c4d0fdf916a3468a032ca97633047bfb"
@@ -10833,7 +10851,7 @@ react-dev-utils@^6.1.1:
     strip-ansi "4.0.0"
     text-table "0.2.0"
 
-react-dom@^16.10.2:
+react-dom@^16.10.2, react-dom@^16.8.6:
   version "16.11.0"
   resolved "https://unpm.uberinternal.com/react-dom/-/react-dom-16.11.0.tgz#7e7c4a5a85a569d565c2462f5d345da2dd849af5"
   integrity sha1-fnxKWoWladVlwkYvXTRdot2EmvU=
@@ -10986,7 +11004,7 @@ react-window@^1.8.5:
     "@babel/runtime" "^7.0.0"
     memoize-one ">=3.1.1 <6"
 
-react@^16.10.2:
+react@^16.10.2, react@^16.8.6:
   version "16.11.0"
   resolved "https://unpm.uberinternal.com/react/-/react-16.11.0.tgz#d294545fe62299ccee83363599bf904e4a07fdbb"
   integrity sha1-0pRUX+YimczugzY1mb+QTkoH/bs=
