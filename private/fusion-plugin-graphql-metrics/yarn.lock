@@ -3578,10 +3578,10 @@ graphql-tools@^4.0.5:
     iterall "^1.1.3"
     uuid "^3.1.0"
 
-graphql@14.4.2, graphql@^14.4.2:
-  version "14.4.2"
-  resolved "https://unpm.uberinternal.com/graphql/-/graphql-14.4.2.tgz#553a7d546d524663eda49ed6df77577be3203ae3"
-  integrity sha1-VTp9VG1SRmPtpJ7W33dXe+MgOuM=
+graphql@^14.5.8:
+  version "14.5.8"
+  resolved "https://unpm.uberinternal.com/graphql/-/graphql-14.5.8.tgz#504f3d3114cb9a0a3f359bbbcf38d9e5bf6a6b3c"
+  integrity sha1-UE89MRTLmgo/NZu7zzjZ5b9qazw=
   dependencies:
     iterall "^1.2.2"
 
