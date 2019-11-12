@@ -26,6 +26,7 @@ import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
 import {addESLintPluginGraphQL} from '../codemods/add-eslint-plugin-graphql/add-eslint-plugin-graphql';
 import {codemodIntrospectionMatcher} from '../codemods/introspection-matcher/codemod-introspection-matcher';
 import {moveTypedRPCCLI} from '../codemods/move-typed-rpc-cli/move-typed-rpc-cli';
+import {installFeatureToggles} from '../codemods/fusion-plugin-feature-toggles/installation';
 import {
   ensureMinimalFlowConfigVersion,
   removeFlowConfigLines,
@@ -83,6 +84,16 @@ export const upgrade = async ({
           dir,
           strategy,
         });
+      }),
+      step('add @uber/fusion-plugin-marketing package', async () => {
+        await addPackage({
+          name: '@uber/fusion-plugin-marketing',
+          dir,
+          strategy,
+        });
+      }),
+      step('add @uber/fusion-plugin-feature-toggles', async () => {
+        await installFeatureToggles({dir, strategy});
       }),
       step('remove enzyme-context-patch', async () => {
         await removePackage({name: 'enzyme-context-patch', dir});

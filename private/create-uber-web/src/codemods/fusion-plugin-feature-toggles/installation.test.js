@@ -46,6 +46,57 @@ test('sanity - fusion flags codemod', async () => {
   await removeFile(root);
 });
 
+test('fusion flags codemod with uber/ directory', async () => {
+  const contents = `
+    import App from 'fusion-core';
+    export default async function start() {
+      const app = new App('test', el => el);
+      return app;
+    }`;
+  const root = 'fixtures/fusion-flags-sanity';
+  const mainFixture = `${root}/src/main.js`;
+  const configFixture = `${root}/src/config/toggles.js`;
+  const uberFixture = `${root}/src/uber/test.js`;
+  const xpFixture = `${root}/src/uber/xp.js`;
+  await writeFile(`${root}/package.json`, '{"name": "foo"}');
+  await writeFile(mainFixture, contents);
+  await writeFile(uberFixture, '');
+  await installFeatureToggles({dir: root, strategy: 'latest'});
+  expect(await readFile(xpFixture)).toMatchInlineSnapshot(`
+    "
+    import FeatureTogglesPlugin, {
+      FeatureTogglesTogglesConfigToken
+    } from '@uber/fusion-plugin-feature-toggles-react';
+    import type FusionApp from 'fusion-core';
+    import featureTogglesConfig from '../config/toggles.js';
+
+    export default function initXP(app: FusionApp) { 
+      app.register(FeatureTogglesPlugin);
+      if (__NODE__) {
+        app.register(FeatureTogglesTogglesConfigToken, featureTogglesConfig); 
+      }
+    }
+    "
+  `);
+  expect(await readFile(mainFixture)).toMatchInlineSnapshot(`
+    "
+        import App from 'fusion-core';
+        import initXP from '../uber/xp.js';
+        export default async function start() {
+          const app = new App('test', el => el);
+          initXP(app);
+          return app;
+        }"
+  `);
+  expect(await readFile(configFixture)).toMatchInlineSnapshot(`
+    "// @flow
+    export default [
+      /*feature toggle details*/
+    ];"
+  `);
+  await removeFile(root);
+});
+
 test('fusion flags codemod w/ full registration already present', async () => {
   const mainContents = `
     import App from 'fusion-core';

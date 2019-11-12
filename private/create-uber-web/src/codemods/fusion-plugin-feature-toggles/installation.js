@@ -1,6 +1,7 @@
 // @flow
 
 import {
+  withJsonFile,
   withJsFile,
   ensureJsImports,
   insertJsBefore,
@@ -29,6 +30,20 @@ export const installFeatureToggles = async ({
    *    - 'return app.js' in default export of src/main.js
    */
   const mainFilePath = `${dir}/src/main.js`;
+  const uberDir = `${dir}/src/uber`;
+  const configFilePath = `${dir}/src/config/toggles.js`;
+  let hasDep = false;
+
+  await withJsonFile(`${dir}/package.json`, async pkg => {
+    hasDep =
+      pkg.dependencies &&
+      pkg.dependencies['@uber/fusion-plugin-feature-toggles-react'];
+  });
+
+  if (hasDep) {
+    return;
+  }
+
   if (!(await isFile(mainFilePath)) || !(await hasAppReturn(mainFilePath))) {
     throw new Error(
       'Unable to register Feature Toggles plugin.  Please manually install @uber/fusion-plugin-feature-toggles-react.'
@@ -42,56 +57,89 @@ export const installFeatureToggles = async ({
     strategy,
   });
 
-  /* Attempt to register the core plugin and configuration token */
-  await withJsFile(mainFilePath, async program => {
-    const pluginImport = `
+  // graphql package style
+  if (await isFile(uberDir)) {
+    await writeFile(
+      `${uberDir}/xp.js`,
+      `
+import FeatureTogglesPlugin, {
+  FeatureTogglesTogglesConfigToken
+} from '@uber/fusion-plugin-feature-toggles-react';
+import type FusionApp from 'fusion-core';
+import featureTogglesConfig from '../config/toggles.js';
+
+export default function initXP(app: FusionApp) { 
+  app.register(FeatureTogglesPlugin);
+  if (__NODE__) {
+    app.register(FeatureTogglesTogglesConfigToken, featureTogglesConfig); 
+  }
+}
+`
+    );
+    if (!(await isFile(configFilePath))) {
+      await writeFile(
+        configFilePath,
+        `// @flow
+export default [
+  /*feature toggle details*/
+];`
+      );
+    }
+    await withJsFile(mainFilePath, async program => {
+      ensureJsImports(program, `import initXP from '../uber/xp.js'`);
+      insertJsBefore(program, `return app;`, `initXP(app);`);
+    });
+  } else {
+    /* Attempt to register the core plugin and configuration token */
+    await withJsFile(mainFilePath, async program => {
+      const pluginImport = `
       import FeatureTogglesPlugin, {
         FeatureTogglesTogglesConfigToken
       } from '@uber/fusion-plugin-feature-toggles-react';
     `;
 
-    // Add FeatureTogglesPlugin and FeatureTogglesTogglesConfigToken imports
-    const [
-      // $FlowFixMe
-      {default: plugin, FeatureTogglesTogglesConfigToken: configToken},
-    ] = ensureJsImports(program, pluginImport);
+      // Add FeatureTogglesPlugin and FeatureTogglesTogglesConfigToken imports
+      const [
+        // $FlowFixMe
+        {default: plugin, FeatureTogglesTogglesConfigToken: configToken},
+      ] = ensureJsImports(program, pluginImport);
 
-    /* Add the `app.register(FeatureTogglesPlugin)` call in an idempotent way */
-    if (!hasRegistrationUsage(program, plugin)) {
-      insertJsBefore(program, `return app;`, `app.register(${plugin});`);
-    }
+      /* Add the `app.register(FeatureTogglesPlugin)` call in an idempotent way */
+      if (!hasRegistrationUsage(program, plugin)) {
+        insertJsBefore(program, `return app;`, `app.register(${plugin});`);
+      }
 
-    /* Add the `app.register(FeatureTogglesTogglesConfigToken, config)` call in
-     * an idempotent way */
-    if (!hasRegistrationUsage(program, configToken)) {
-      // Add src/config/toggles.js file
-      const configFilePath = `${dir}/src/config/toggles.js`;
-      if (!(await isFile(configFilePath))) {
-        await writeFile(
-          configFilePath,
-          `
+      /* Add the `app.register(FeatureTogglesTogglesConfigToken, config)` call in
+       * an idempotent way */
+      if (!hasRegistrationUsage(program, configToken)) {
+        // Add src/config/toggles.js file
+        if (!(await isFile(configFilePath))) {
+          await writeFile(
+            configFilePath,
+            `
             // @flow
             export default [
               /*feature toggle details*/
             ];
           `
+          );
+        }
+
+        // Import newly created config file to use in registration
+        const configImport = `import featureTogglesConfig from './config/toggles.js';`;
+        const [
+          // $FlowFixMe
+          {default: config},
+        ] = ensureJsImports(program, configImport);
+
+        insertJsBefore(
+          program,
+          `return app;`,
+          `__NODE__ && app.register(${configToken}, ${config});`
         );
       }
-
-      // Import newly created config file to use in registration
-      const configImport = `import featureTogglesConfig from './config/toggles.js';`;
-      const [
-        // $FlowFixMe
-        {default: config},
-      ] = ensureJsImports(program, configImport);
-
-      insertJsBefore(
-        program,
-        `return app;`,
-        `__NODE__ && app.register(${configToken}, ${config});`
-      );
-    }
-  });
+    });
+  }
 };
 
 /* Helper functions */

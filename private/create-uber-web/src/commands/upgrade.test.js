@@ -28,6 +28,17 @@ jest.mock('../utils/install-flow-libdefs.js', () => {
 test('upgrade', async () => {
   const root = 'fixtures/upgrade';
   const file = `${root}/package.json`;
+  const main = `${root}/src/main.js`;
+  await writeFile(
+    main,
+    `
+  import App from 'fusion-react';
+  export default async function start() {
+    const app = new App();
+    return app;
+  }
+  `
+  );
   await writeFile(file, '{"dependencies": {"no-bugs": "0.0.0"}}');
   await upgrade({
     dir: root,
