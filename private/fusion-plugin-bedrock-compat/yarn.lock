@@ -2986,10 +2986,10 @@ flatten@^1.0.3:
   resolved "https://unpm.uberinternal.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha1-wSg6yfJ7Noq8HjbR/3sEUBowNWs=
 
-flow-bin@^0.102.0:
-  version "0.102.0"
-  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.102.0.tgz#3d5de44bcc26d26585e932b3201988b766f9b380"
-  integrity sha1-PV3kS8wm0mWF6TKzIBmIt2b5s4A=
+flow-bin@^0.109.0:
+  version "0.109.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.109.0.tgz#dcdcb7402dd85b58200392d8716ccf14e5a8c24c"
+  integrity sha1-3Ny3QC3YW1ggA5LYcWzPFOWowkw=
 
 for-each@~0.3.3:
   version "0.3.3"

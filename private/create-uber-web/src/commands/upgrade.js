@@ -218,7 +218,7 @@ export const upgrade = async ({
         await codemodIntrospectionMatcher({dir, strategy});
       }),
       step('ensure minimal flow version', async () => {
-        await ensureMinimalFlowConfigVersion({dir, version: '0.102.0'});
+        await ensureMinimalFlowConfigVersion({dir, version: '0.109.0'});
       }),
       step('un-include fusion-packaged libdefs', async () => {
         await removeFlowConfigLines({

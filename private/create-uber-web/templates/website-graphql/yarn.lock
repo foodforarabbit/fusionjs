@@ -5906,10 +5906,10 @@ flatten@0.0.1:
   resolved "https://unpm.uberinternal.com/flatten/-/flatten-0.0.1.tgz#554440766da0a0d603999f433453f6c2fc6a75c1"
   integrity sha1-VURAdm2goNYDmZ9DNFP2wvxqdcE=
 
-flow-bin@0.102.0:
-  version "0.102.0"
-  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.102.0.tgz#3d5de44bcc26d26585e932b3201988b766f9b380"
-  integrity sha1-PV3kS8wm0mWF6TKzIBmIt2b5s4A=
+flow-bin@0.109.0:
+  version "0.109.0"
+  resolved "https://unpm.uberinternal.com/flow-bin/-/flow-bin-0.109.0.tgz#dcdcb7402dd85b58200392d8716ccf14e5a8c24c"
+  integrity sha1-3Ny3QC3YW1ggA5LYcWzPFOWowkw=
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
