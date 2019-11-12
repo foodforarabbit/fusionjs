@@ -404,6 +404,99 @@ test('GraphQL Metrics with Stitched Schema - Query with an error', async () => {
   `);
 });
 
+test('GraphQL Metrics with Stitched Schema - Invalid Query', async () => {
+  const typeDefs = `
+  type Query {
+    user: User
+  }
+  type User {
+    id: ID
+    firstName: String
+    lastName: String
+  }
+  `;
+
+  const nextTypeDefs = `
+  type Query {
+    test: String
+  } 
+  `;
+  const resolvers = {
+    Query: {
+      user: async (parent, args, ctx, info) => {
+        throw new Error('Fails query');
+      },
+    },
+  };
+  const nextResolvers = {
+    Query: {
+      test() {
+        throw new Error('Fails query');
+      },
+    },
+  };
+  const {client, logger, m3, tracer} = testApp(
+    mergeSchemas({
+      schemas: [
+        makeExecutableSchema({typeDefs, resolvers}),
+        makeExecutableSchema({
+          typeDefs: nextTypeDefs,
+          resolvers: nextResolvers,
+        }),
+      ],
+    })
+  );
+  await expect(
+    client.query({
+      query: gql`
+        query Invalid {
+          invalid {
+            id
+            firstName
+            lastName
+          }
+        }
+      `,
+    })
+  ).rejects.toMatchInlineSnapshot(
+    `[Error: Network error: Cannot query field "invalid" on type "Query".]`
+  );
+
+  expect(tracer.tracer.spans.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls[0][0]).toEqual(
+    'graphql.query.Invalid'
+  );
+  expect(tracer.tracer.startSpan.mock.calls[0][1]).toMatchInlineSnapshot(`
+    Object {
+      "childOf": "root",
+      "tags": Object {
+        "component": "graphql",
+        "operationType": "query",
+      },
+    }
+  `);
+  expect(tracer.tracer.spans[0].setTag.mock.calls[0]).toEqual(['error', true]);
+  expect(m3.timing.mock.calls.length).toEqual(1);
+  expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
+  expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
+  expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
+    Object {
+      "operation_name": "invalid",
+      "operation_type": "query",
+      "result": "failure",
+    }
+  `);
+  expect(logger.error.mock.calls.length).toEqual(1);
+  expect(logger.error.mock.calls[0][0]).toMatchInlineSnapshot(
+    `"Invalid query failed"`
+  );
+  expect(logger.error.mock.calls[0][1]).toMatchInlineSnapshot(
+    `[GraphQLError: Cannot query field "invalid" on type "Query".]`
+  );
+  expect(logger.error.mock.calls[0][1] instanceof Error).toEqual(true);
+});
+
 test('GraphQL Metrics - Mutation with an error', async () => {
   const typeDefs = `
   type Query {

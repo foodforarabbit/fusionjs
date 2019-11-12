@@ -1,6 +1,6 @@
 // @flow
 
-import {type GraphQLResolveInfo} from 'graphql';
+import {type GraphQLResolveInfo, validate} from 'graphql';
 import {createPlugin, type Context} from 'fusion-core';
 import type {PluginServiceType, DepsType} from './types.js';
 import {LoggerToken} from 'fusion-tokens';
@@ -8,6 +8,7 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken, type Span} from '@uber/fusion-plugin-tracer';
 import {snakeCase} from './snakecase';
 import {ApolloLink} from 'apollo-link';
+import {GraphQLSchemaToken} from 'fusion-plugin-apollo';
 import * as opentracing from 'opentracing';
 import compare from 'just-compare';
 
@@ -27,8 +28,9 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
     logger: LoggerToken,
     m3: M3Token,
     Tracer: TracerToken.optional,
+    schema: GraphQLSchemaToken.optional,
   },
-  provides({logger, m3, Tracer}) {
+  provides({logger, m3, Tracer, schema}) {
     return (links, ctx) => {
       if (Tracer) {
         // This is a private API which is necessary for correct tracing hierarchy. This will be used by atreyu generated code.
@@ -69,6 +71,7 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
       }
       return [
         new ApolloLink((op, forward) => {
+          // server side render via schema link, need to validate operation
           const operationDefinition = op.query.definitions
             .filter(def => def.kind === 'OperationDefinition')
             .find(def => def.name && def.name.value === op.operationName);
@@ -104,24 +107,30 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
             );
             spanTuples.push([span, variables]);
           }
+
+          if (schema && ctx.method === 'GET') {
+            const errors = validate(schema, op.query);
+            if (errors.length) {
+              errors.forEach(error => logError(error));
+              tags.result = 'failure';
+              if (span) {
+                if (errors) {
+                  span.setTag(opentracing.Tags.ERROR, true);
+                }
+                span.finish();
+              }
+              m3.timing('graphql_operation', start, tags);
+              throw errors[0];
+            }
+          }
+
           const observer = forward(op);
 
           return observer.map(result => {
             const {errors} = result;
-            const message = `${operationName} ${operationType} failed`;
             if (errors) {
               errors.forEach(e => {
-                if (e.originalError && Array.isArray(e.originalError.errors)) {
-                  e.originalError.errors.forEach(err => {
-                    if (err.originalError) {
-                      logger.error(message, err.originalError);
-                    } else {
-                      logger.error(message, err);
-                    }
-                  });
-                } else {
-                  logger.error(message, e);
-                }
+                logError(e);
               });
               tags.result = 'failure';
             } else {
@@ -136,6 +145,22 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
             m3.timing('graphql_operation', start, tags);
             return result;
           });
+
+          function logError(e) {
+            const message = `${operationName} ${operationType} failed`;
+            if (e.originalError && Array.isArray(e.originalError.errors)) {
+              e.originalError.errors.forEach(err => {
+                // $FlowFixMe
+                if (err.originalError) {
+                  logger.error(message, err.originalError);
+                } else {
+                  logger.error(message, err);
+                }
+              });
+            } else {
+              logger.error(message, e);
+            }
+          }
         }),
       ].concat(links);
     };
