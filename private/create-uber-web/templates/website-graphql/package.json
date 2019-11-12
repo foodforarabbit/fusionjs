@@ -32,6 +32,7 @@
     "@uber/fusion-plugin-heatpipe": "^3.0.9",
     "@uber/fusion-plugin-logtron": "^2.0.8",
     "@uber/fusion-plugin-m3": "^2.0.8",
+    "@uber/fusion-plugin-marketing": "^2.0.9",
     "@uber/fusion-plugin-rosetta": "^1.1.4",
     "@uber/fusion-plugin-s3-asset-proxying": "^2.1.0",
     "@uber/fusion-plugin-secrets": "^2.0.7",
