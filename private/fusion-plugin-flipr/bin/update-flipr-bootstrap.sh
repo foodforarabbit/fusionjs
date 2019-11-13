@@ -1,5 +1,4 @@
 #!/bin/bash
-BOXER_DEFAULT_PATH="$UBER_HOME/docker-stuff/var/cache/flipr-config"
 FLIPR_BOOTSTRIP_FILE_SAVE_PATH="flipr"
 
 if [ -z "$1" ]; then
@@ -15,9 +14,10 @@ fi
 # Create flipr directory
 if [ ! -e $FLIPR_BOOTSTRIP_FILE_SAVE_PATH ]; then
   mkdir $FLIPR_BOOTSTRIP_FILE_SAVE_PATH
+  echo "Created $FLIPR_BOOTSTRIP_FILE_SAVE_PATH/ directory to hold flipr config files"
 fi
 
-echo "Starting Cerberus tunnel (Step 1/4)"
+echo "Starting Cerberus tunnel; this may take awhile, please wait... (Step 1/3)"
 if [ -x "$(command -v cerberus)" ]; then
   cerberus --no-status-page --quiet -s flipr&
   CERBERUS_PID=$!
@@ -25,15 +25,11 @@ else
   echo "Cerberus not found!"
   exit 1
 fi
-sleep 15
+sleep 60
 
-echo -e "Downloading Flipr bootstrap files (Step 2/4)\n"
-boxer docker_flipr $1
-sleep 5
-echo -e "\nDone retrieving Flipr bootstrap files.\n"
+echo -e "Downloading Flipr bootstrap file... (Step 2/3)\n"
+curl -H "x-uber-source:flipr" "localhost:14570/properties?namespaces=$1" | jq . > "$FLIPR_BOOTSTRIP_FILE_SAVE_PATH/$1_flipr_bootstrap.json"
+echo -e "\nDone retrieving Flipr bootstrap file."
 
-echo "Copy from the default path (Step 3/4)"
-cp -r $BOXER_DEFAULT_PATH/$1.json $FLIPR_BOOTSTRIP_FILE_SAVE_PATH/$1_flipr_bootstrap.json
-
-echo "killing Cerberus... (Step 4/4)"
+echo "Done! Killing Cerberus... (Step 3/3)"
 kill $CERBERUS_PID
