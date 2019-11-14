@@ -5,7 +5,7 @@ for d in ./templates/*/ ; do (
   echo "Upgrading $d";
   yarn;
   npm rebuild;
-  if [ "$d" = "./templates/website/" ]; then
+  if [ "$d" = "./templates/template-website/" ]; then
     node ../../dist/index upgrade --strategy latest
   else
     node ../../dist/index upgrade --strategy latest --codemod false

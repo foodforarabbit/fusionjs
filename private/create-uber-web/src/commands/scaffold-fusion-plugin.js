@@ -67,7 +67,7 @@ export const scaffoldFusionPlugin = async ({
     }),
     step('copy', async () => {
       const templatePath =
-        localPath || `${__dirname}/../../templates/${project.type}`;
+        localPath || `${__dirname}/../../templates/template-${project.type}`;
       await copy(templatePath, `${root}/${project.name}`);
       await move(`${project.name}/dotgitignore`, `${project.name}/.gitignore`, {
         overwrite: true,

@@ -1,5 +1,5 @@
 {
-  "name": "@uber/library-template",
+  "name": "@uber/template-library",
   "description": "{{description}}",
   "version": "0.0.1",
   "scaffold-version": "{{version}}",

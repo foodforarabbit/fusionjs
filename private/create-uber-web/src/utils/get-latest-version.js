@@ -4,11 +4,14 @@ import fs from 'fs';
 import type {UpgradeStrategy} from '../types.js';
 
 const websitePkg = JSON.parse(
-  fs.readFileSync(`${__dirname}/../../templates/website/package.json`, 'utf8')
+  fs.readFileSync(
+    `${__dirname}/../../templates/template-website/package.json`,
+    'utf8'
+  )
 );
 const gqlPkg = JSON.parse(
   fs.readFileSync(
-    `${__dirname}/../../templates/website-graphql/package.json`,
+    `${__dirname}/../../templates/template-website-graphql/package.json`,
     'utf8'
   )
 );
