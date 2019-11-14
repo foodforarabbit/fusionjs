@@ -7,7 +7,7 @@ import type {PluginServiceType} from './types.js';
 
 const plugin =
   __BROWSER__ &&
-  createPlugin({
+  createPlugin<*, *>({
     provides() {
       class PluginLogic {
         ctx: ?Context;

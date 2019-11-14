@@ -215,12 +215,7 @@ test('fusion flags codemod w/ malformed main.js', async () => {
   await writeFile(`${root}/package.json`, '{"name": "foo"}');
   await writeFile(fixture, contents);
 
-  await expect(
-    installFeatureToggles({dir: root, strategy: 'latest'})
-  ).rejects.toEqual(
-    new Error(
-      'Unable to register Feature Toggles plugin.  Please manually install @uber/fusion-plugin-feature-toggles-react.'
-    )
-  );
+  await expect(installFeatureToggles({dir: root, strategy: 'latest'}));
+  expect(await readFile(fixture)).toEqual(contents);
   await removeFile(root);
 });

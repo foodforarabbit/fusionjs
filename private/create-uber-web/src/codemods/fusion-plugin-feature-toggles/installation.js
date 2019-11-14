@@ -45,9 +45,10 @@ export const installFeatureToggles = async ({
   }
 
   if (!(await isFile(mainFilePath)) || !(await hasAppReturn(mainFilePath))) {
-    throw new Error(
+    console.error(
       'Unable to register Feature Toggles plugin.  Please manually install @uber/fusion-plugin-feature-toggles-react.'
     );
+    return;
   }
 
   // Add @uber/fusion-plugin-feature-toggles-react package as a dependency

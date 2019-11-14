@@ -12,7 +12,7 @@ import addMocks from './add-mocks';
 import App from 'fusion-react';
 
 export default function graphqlTest(enhanceApp: (app: FusionApp) => any) {
-  const app = new App(<div />);
+  const app = new App((<div />));
   // initialize plugins
   initGraphQL(app);
   initDataFetching(app);
