@@ -4,6 +4,8 @@
 
 Rosetta is a library to interact with [Genghis](https://code.uberinternal.com/w/projects/communicating_with_riders_drivers_and_the_general_public/genghis_-_old/), a i18n service developed by Uber.  The Rosetta plugin is meant to be used as a translation loader for [`fusion-plugin-i18n`](https://github.com/fusionjs/fusion-plugin-i18n-react).
 
+V1 to V2 Migration Guide: [Link](http://t.uber.com/node-rosetta-guide)
+
 ---
 
 ### Table of contents
@@ -24,6 +26,9 @@ Rosetta is a library to interact with [Genghis](https://code.uberinternal.com/w/
   - [Service API](#service-api)
 - [Other examples](#other-examples)
   - [Advanced setup](#advanced-setup)
+- [Integration in app](#integration-in-app)
+- [Local Development](#local-development)
+- [For Your Test](#for-your-test)
 
 ---
 
@@ -211,4 +216,90 @@ export default () => {
     };
   });
 };
+```
+
+### Integration in app
+
+- If you do not have any customization, you can directly use it when upgrading `@uber/fusion-plugin-rosetta` to latest.
+- In DEV, you should have translations folder (default: './translations' or customized as below) ready, the plugin will use translations JSON data as default when dev env. If you want to use prod snapshot in your local, see the 'Local Development' section below.
+- If you want to setup the load interval, or disable update, you can set them up in your config.
+- If you find your service id is missing in dev, please check your packjson file: "dev": "SVC_ID='your_service' fusion-dev-cli fusion dev", or you can add the service in config as well.
+
+```
+src/config/rosetta.js
+
+export default {
+  reloadInterval: 1000 * 60 * 60, // set reloadinterval for every 1hr
+  disableUpdate: false,
+};
+
+
+main.js
+
+import Rosetta, {RosettaConfigToken} from '@uber/fusion-plugin-rosetta';
+import rosettaConfig from './config/rosetta.js';
+
+
+if (__NODE__) {
+  // node specific plugins
+  ...
+  app.register(RosettaConfigToken, rosettaConfig);
+}
+```
+
+### Local Development
+- Right now in dev env, node-rosetta will use local json file as default (default location: ./translations, but you can config it as fixturesDir). You can put the test json files in this folder.
+
+```
+src/config/rosetta.js
+
+export default {
+    fixturesDir: './translations', // providing fixtureDir will for dev only
+};
+
+
+// Create new folder and json files:
+src/fixtures/zh-CN.json
+
+{
+  "test.interval": "9小时"
+}
+
+
+// node-rosetta will use the translations in the json files.
+```
+
+
+- If you want to use prod translations, you should set `useSnapshot=true` in the config and connect to the VPN to access Artifactory.
+
+```
+src/config/rosetta.js
+
+export default {
+    useSnapshot: true,
+};
+```
+
+### For Your Test
+- For your server side test, we also provide the mock for test use (avoid to trigger the real download).
+
+```
+
+In your test file
+// xx.node.js
+import {I18nLoaderToken} from 'fusion-plugin-i18n-react';
+import {mock} from '@uber/fusion-plugin-rosetta';
+
+//add this line to your test
+app.register(I18nLoaderToken, mock);
+
+
+Or in your test helper (recommended)
+/test-utils/test-app.js
+import {I18nLoaderToken} from 'fusion-plugin-i18n-react';
+import {mock} from '@uber/fusion-plugin-rosetta';
+
+if (__NODE__) {
+  app.register(I18nLoaderToken, mock);
+}
 ```
