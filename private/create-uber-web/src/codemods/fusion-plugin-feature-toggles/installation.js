@@ -87,7 +87,7 @@ export default [
       );
     }
     await withJsFile(mainFilePath, async program => {
-      ensureJsImports(program, `import initXP from '../uber/xp.js'`);
+      ensureJsImports(program, `import initXP from './uber/xp.js'`);
       insertJsBefore(program, `return app;`, `initXP(app);`);
     });
   } else {

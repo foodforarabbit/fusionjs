@@ -81,7 +81,7 @@ test('fusion flags codemod with uber/ directory', async () => {
   expect(await readFile(mainFixture)).toMatchInlineSnapshot(`
     "
         import App from 'fusion-core';
-        import initXP from '../uber/xp.js';
+        import initXP from './uber/xp.js';
         export default async function start() {
           const app = new App('test', el => el);
           initXP(app);
