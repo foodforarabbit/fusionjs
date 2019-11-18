@@ -32,6 +32,7 @@ import {
   removeFlowConfigLines,
 } from '../codemods/flowconfig/codemod-flowconfig';
 import {updateSchemaPath} from '../codemods/update-schema-path/update-schema-path';
+import {inlineReactHocs} from '../codemods/inline-react-hocs/codemod-inline-react-hocs.js';
 
 export type UpgradeOptions = {
   dir: string,
@@ -105,6 +106,9 @@ export const upgrade = async ({
           strategy,
           dev: true,
         });
+      }),
+      step('create local React HOCs', async () => {
+        await inlineReactHocs({dir});
       }),
       step('use fusion-plugin-universal-events', async () => {
         await replacePackageImports({
