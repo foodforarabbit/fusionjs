@@ -27,7 +27,10 @@ yarn add @uber/fusion-plugin-graphql-metrics
 ```js
 import {GetApolloClientLinksToken} from 'fusion-plugin-apollo';
 import GraphQLMetricsPlugin from '@uber/fusion-plugin-graphql-metrics';
-app.register(GetApolloClientLinksToken, GraphQLMetricsPlugin);
+
+if (__NODE__) {
+  app.register(GetApolloClientLinksToken, GraphQLMetricsPlugin);
+}
 ```
 
 ### Logging
