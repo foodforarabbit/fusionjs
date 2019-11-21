@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "my-local-ip": "^1.0.0",
-    "tchannel": "^3.9.3"
+    "tchannel": "^3.9.12"
   },
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-tchannel",
   "repository": {

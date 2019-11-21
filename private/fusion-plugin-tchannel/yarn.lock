@@ -5143,7 +5143,7 @@ tape@^4.7.0:
     string.prototype.trim "~1.1.2"
     through "~2.3.8"
 
-tchannel@^3.9.3:
+tchannel@^3.9.12:
   version "3.9.13"
   resolved "https://unpm.uberinternal.com/tchannel/-/tchannel-3.9.13.tgz#62b7adcace14a2d703d3f43b0873293855fd90bc"
   integrity sha1-Yretys4UotcD0/Q7CHMpOFX9kLw=
