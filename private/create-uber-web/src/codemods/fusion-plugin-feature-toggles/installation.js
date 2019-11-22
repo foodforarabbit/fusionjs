@@ -58,6 +58,13 @@ export const installFeatureToggles = async ({
     strategy,
   });
 
+  // Add @uber/fusion-plugin-marketing package - which is a peer dependency of feature toggles plugin - as a dependency
+  await addPackage({
+    name: '@uber/fusion-plugin-marketing',
+    dir,
+    strategy,
+  });
+
   // graphql package style
   if (await isFile(uberDir)) {
     await writeFile(

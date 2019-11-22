@@ -219,3 +219,30 @@ test('fusion flags codemod w/ malformed main.js', async () => {
   expect(await readFile(fixture)).toEqual(contents);
   await removeFile(root);
 });
+
+test('fusion flags codemod -- package.json correct', async () => {
+  const contents = `
+    import App from 'fusion-core';
+    export default async function start() {
+      const app = new App('test', el => el);
+      return app;
+    }`;
+  const root = 'fixtures/fusion-flags-update-package-json';
+  const fixture = `${root}/src/main.js`;
+  const pckgJson = `${root}/package.json`;
+  await writeFile(pckgJson, '{"name": "foo"}');
+  await writeFile(fixture, contents);
+
+  await installFeatureToggles({dir: root, strategy: 'latest'});
+  expect(await readFile(pckgJson)).toMatchInlineSnapshot(`
+    "{
+      \\"name\\": \\"foo\\",
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-feature-toggles-react\\": \\"^1.0.0\\",
+        \\"@uber/fusion-plugin-marketing\\": \\"^1.0.0\\"
+      },
+      \\"devDependencies\\": {}
+    }"
+  `);
+  await removeFile(root);
+});
