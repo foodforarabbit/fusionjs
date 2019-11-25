@@ -30,19 +30,6 @@ export type AnalyticsSessionPlugin = {
   from: (ctx: Object) => ?SessionData,
 };
 
-export type GeolocationData = {
-  latitude: number,
-  longitude: number,
-};
-
-export type GeolocationPlugin = {
-  from: (
-    ctx: Object
-  ) => {
-    lookup: () => GeolocationData,
-  },
-};
-
 export type EventsAdapterDepsType = {
   events: typeof UniversalEventsToken,
   AnalyticsSession: typeof AnalyticsSessionToken,

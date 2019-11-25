@@ -147,15 +147,6 @@ const webEventsFixture = {
       },
     }),
   },
-  Geolocation: {
-    _geoObject: {
-      latitude: 23.6978,
-      longitude: 120.9605,
-    },
-    from: () => ({
-      lookup: () => webEventsFixture.Geolocation._geoObject,
-    }),
-  },
   getResult: () => ({
     type: webEventsFixture.eventMessage.type,
     name: webEventsFixture.eventMessage.name,
@@ -179,10 +170,6 @@ const webEventsFixture = {
     user_id: webEventsFixture.ctx.request.headers['x-auth-params-user-uuid'],
     session_id: webEventsFixture.AnalyticsSession._ua.session_id,
     session_time_ms: webEventsFixture.AnalyticsSession._ua.session_time_ms,
-    geolocation: {
-      latitude: webEventsFixture.Geolocation._geoObject.latitude,
-      longitude: webEventsFixture.Geolocation._geoObject.longitude,
-    },
   }),
 };
 
@@ -213,7 +200,6 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
     AnalyticsSession: webEventsFixture.AnalyticsSession,
     AuthHeaders: webEventsFixture.AuthHeaders,
     I18n: webEventsFixture.I18n,
-    Geolocation: webEventsFixture.Geolocation,
     serviceName: webEventsFixture.serviceName,
     runtime: webEventsFixture.runtime,
   });
@@ -257,7 +243,6 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
     AnalyticsSession: webEventsFixture.AnalyticsSession,
     AuthHeaders: webEventsFixture.AuthHeaders,
     I18n: webEventsFixture.I18n,
-    Geolocation: webEventsFixture.Geolocation,
     serviceName: webEventsFixture.serviceName,
     runtime: webEventsFixture.runtime,
   });
