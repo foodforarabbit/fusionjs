@@ -5,3 +5,6 @@ src/
 .*/dist-*/.*
 .*/coverage/.*
 <PROJECT_ROOT>/node_modules/.*
+
+[version]
+0.109.0
