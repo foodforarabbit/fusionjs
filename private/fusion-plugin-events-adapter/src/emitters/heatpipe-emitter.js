@@ -1,7 +1,11 @@
 // @flow
 /* eslint-env node */
 import type {Logger} from 'fusion-tokens';
-import type {AnalyticsSessionPlugin, I18nServiceType} from '../types';
+import type {
+  AnalyticsSessionPlugin,
+  GeolocationPlugin,
+  I18nServiceType,
+} from '../types';
 
 import {AuthHeadersToken} from '@uber/fusion-plugin-auth-headers';
 
@@ -10,7 +14,7 @@ type AuthHeadersService = $Call<typeof AuthHeadersToken, ExtractReturnType>;
 
 export const webTopicInfo = {
   topic: 'hp-event-web',
-  version: 20,
+  version: 13,
 };
 
 type HeatpipeArgs = {
@@ -19,6 +23,7 @@ type HeatpipeArgs = {
   heatpipe: any,
   AnalyticsSession: AnalyticsSessionPlugin,
   AuthHeaders?: AuthHeadersService,
+  Geolocation?: GeolocationPlugin,
   I18n?: I18nServiceType,
   serviceName: string,
   runtime: string,
@@ -44,6 +49,7 @@ export default function({
   heatpipe,
   AnalyticsSession,
   AuthHeaders,
+  Geolocation,
   I18n,
   serviceName,
   runtime,
@@ -105,6 +111,7 @@ export default function({
         {};
       const {session_id = 'unknown', session_time_ms = 0} =
         AnalyticsSession.from(ctx) || {};
+      const geolocation = (Geolocation && Geolocation.from(ctx).lookup()) || {};
 
       const locale = I18n && I18n.from(ctx).locale;
 
@@ -118,6 +125,7 @@ export default function({
         session_id,
         session_time_ms,
         time_ms: Date.now(),
+        geolocation,
       };
     }
     return {};

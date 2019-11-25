@@ -8,7 +8,6 @@ export default ({events, heatpipeEmitter, m3}) =>
       type,
       value,
       value_map,
-      geolocation,
       _trackingMeta,
       webEventsMeta,
     } = payload;
@@ -18,7 +17,6 @@ export default ({events, heatpipeEmitter, m3}) =>
         type,
         value,
         value_map,
-        geolocation,
         ...structureMeta(_trackingMeta),
       },
       ctx,
