@@ -28,7 +28,7 @@
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest && yarn flow",
     "cover": "yarn lint && yarn flow && yarn test",
-    "prepublish": "cup build && eslint src",
+    "prepublish": "cup build",
     "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
   },
   "devDependencies": {

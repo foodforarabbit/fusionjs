@@ -22,7 +22,7 @@
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest",
     "cover": "yarn test",
-    "prepublish": "cup build && eslint src"
+    "prepublish": "cup build"
   },
   "watch": {
     "build": {

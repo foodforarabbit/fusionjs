@@ -26,7 +26,7 @@
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest",
     "cover": "yarn lint && yarn flow && yarn test",
-    "prepublish": "cup build && eslint src"
+    "prepublish": "cup build"
   },
   "watch": {
     "build": {
