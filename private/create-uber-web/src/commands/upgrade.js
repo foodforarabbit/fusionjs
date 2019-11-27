@@ -5,8 +5,11 @@ import {
   styledV7TypeArguments,
   styledV8ToThemedStyled,
 } from '@uber-web-ui/baseui-codemods';
+import {readJson} from 'fs-extra';
 import {bumpDeps} from '../utils/bump-deps.js';
 import {installFlowLibdefs} from '../utils/install-flow-libdefs.js';
+import {getNodeVersion} from '../utils/get-node-version.js';
+import {checkMajorVersion} from '../utils/check-major-version.js';
 import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protection/enhancer.js';
 import {replacePackage} from '../codemods/replace-package/codemod-replace-package.js';
 import {replacePackageImports} from '../codemods/replace-package-imports/codemod-replace-package-imports.js';
@@ -51,6 +54,30 @@ export const upgrade = async ({
   strategy,
   stepMatch = '.*',
 }: UpgradeOptions) => {
+  // Check node version to ensure it's the latest supported version
+  const websitePkg = await readJson(`${dir}/package.json`).catch(() => ({}));
+  const engines = websitePkg.engines;
+  if (!engines || !engines.node) {
+    // eslint-disable-next-line no-console
+    console.log(
+      'Missing engines.node in your package.json. For more details see https://eng.uberinternal.com/docs/web/docs/references/environment-setup/#app-specific-environment.'
+    );
+    return;
+  }
+  const supportedVersion = await getNodeVersion();
+  // Allow as long as the defined version is GTE than the supported major version
+  if (!checkMajorVersion(engines.node, supportedVersion)) {
+    // eslint-disable-next-line no-console
+    console.log(
+      `Your service's node version is unsupported. The current supported version is ${supportedVersion}. To upgrade:\n\n`,
+      `1. Update the engines.node field to ${supportedVersion} in package.json.\n`,
+      `2. Switch your current environment to ${supportedVersion}: "nvm install ${supportedVersion}" and "nvm use ${supportedVersion}".\n`,
+      `3. Re-install @uber/create-uber-web if it does not exist in your new environment: "yarn global add @uber/create-uber-web".\n`,
+      `4. Re-run "uber-web upgrade".`
+    );
+    return;
+  }
+
   const steps: Array<Step> = [];
   if (codemod) {
     // web app specific steps
