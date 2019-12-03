@@ -29,8 +29,10 @@ async function writeVersions(packages /*: Versions */, dir /*: string */) {
   const jsonPath = path.join(dir, "package.json");
   const json = await readJson(jsonPath);
 
-  // Set package version
-  json.version = packages[json.name].version;
+  // Templates are not published and therefore don't have a version
+  if (packages[json.name] !== void 0) {
+    json.version = packages[json.name].version;
+  }
 
   // Set dependency versions
   for (const dep of Object.keys(packages)) {

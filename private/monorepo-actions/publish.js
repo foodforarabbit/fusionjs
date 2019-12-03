@@ -100,7 +100,17 @@ async function publishDeployment() {
 }
 
 async function publishRelease(packages) {
-  const sorted = getTopologicalOrder(packages);
+  /**
+   * create-uber-web should be published last because it has
+   * implicit dependencies on the template packages, which in
+   * turn depend on virtually every package in the monorepo. Since
+   * nothing should depend on create-uber-web, publishing
+   * create-uber-web last should be a valid topological order.
+   */
+
+  const sorted = getTopologicalOrder(packages)
+    .filter(pkg => pkg !== "@uber/create-uber-web")
+    .concat("@uber/create-uber-web");
 
   console.log("+++ Topological order");
   console.log(

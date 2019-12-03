@@ -1,7 +1,9 @@
 [ignore]
-<PROJECT_ROOT>/.fusion/*
 
 [include]
+# BEGIN REMOVE BEFORE PUBLISH
+../../node_modules
+# END REMOVE BEFORE PUBLISH
 
 [libs]
 

@@ -76,28 +76,30 @@ export default function createErrorTransform(config: ConfigType) {
 
   // Returns log data for browsers that send the entire error object
   async function handleErrorObject(error) {
-    const frames = (await Promise.all(
-      ErrorStackParser.parse(error).map(async frame => {
-        // things that we can't resolve a stack trace to
-        if (!frame.fileName || !frame.lineNumber || !frame.columnNumber) {
-          return frame.source || null;
-        }
+    const frames = (
+      await Promise.all(
+        ErrorStackParser.parse(error).map(async frame => {
+          // things that we can't resolve a stack trace to
+          if (!frame.fileName || !frame.lineNumber || !frame.columnNumber) {
+            return frame.source || null;
+          }
 
-        const mapped =
-          (await applySourceMap(
-            frame.fileName,
-            frame.lineNumber,
-            frame.columnNumber
-          )) || {};
+          const mapped =
+            (await applySourceMap(
+              frame.fileName,
+              frame.lineNumber,
+              frame.columnNumber
+            )) || {};
 
-        const functionName = mapped.name || frame.functionName;
-        const fileName = mapped.source || frame.fileName;
-        const line = mapped.line || frame.lineNumber;
-        const column = mapped.column || frame.columnNumber;
+          const functionName = mapped.name || frame.functionName;
+          const fileName = mapped.source || frame.fileName;
+          const line = mapped.line || frame.lineNumber;
+          const column = mapped.column || frame.columnNumber;
 
-        return `${functionName} at ${fileName}:${line}:${column}`;
-      })
-    )).filter(Boolean);
+          return `${functionName} at ${fileName}:${line}:${column}`;
+        })
+      )
+    ).filter(Boolean);
 
     // Extra \n at the beginning lines up the stack
     const stackString = `\n${frames.join('\n    ')}`;

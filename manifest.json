@@ -78,10 +78,18 @@
     "private/fusion-plugin-graphql-metrics",
     "private/create-uber-web",
     "private/monorepo-actions",
-    "private/benchmarks"
+    "private/benchmarks",
+    "private/template-fusion-plugin",
+    "private/template-library",
+    "private/template-website",
+    "private/template-website-graphql"
   ],
   "excludeFromPublishing": [
     "private/monorepo-actions",
-    "private/benchmarks"
+    "private/benchmarks",
+    "private/template-fusion-plugin",
+    "private/template-library",
+    "private/template-website",
+    "private/template-website-graphql"
   ]
 }

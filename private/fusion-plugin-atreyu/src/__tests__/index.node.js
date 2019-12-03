@@ -76,9 +76,10 @@ test('Atreyu Plugin Interface', async t => {
   if (atreyu) {
     // make flow happy
     t.equals(
-      await atreyu.createAsyncGraph('graph-arg', 'graph-arg2')(
-        'graph-resolve-arg'
-      ),
+      await atreyu.createAsyncGraph(
+        'graph-arg',
+        'graph-arg2'
+      )('graph-resolve-arg'),
       'graph-result'
     );
     t.equals(

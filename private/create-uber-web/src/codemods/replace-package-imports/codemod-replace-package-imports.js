@@ -34,9 +34,9 @@ export const replacePackageImports = async ({
               : targetImports;
             map.set(getImportIdentifier(specifier), specifier.local.name);
           });
-          const replaceAllTargetImports = [...targetImports.keys()].every(
-            targetImport => imports.includes(targetImport)
-          );
+          const replaceAllTargetImports = [
+            ...targetImports.keys(),
+          ].every(targetImport => imports.includes(targetImport));
           const replaceAllTargetTypeImports = [
             ...targetImportTypes.keys(),
           ].every(targetImport => typeImports.includes(targetImport));

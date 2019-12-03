@@ -10,15 +10,19 @@
   "bin": {
     "create-uber-web": "dist/cli.js"
   },
+  "files": [
+    "dist/",
+    "templates/"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "dev": "npm-watch | grep --invert-match nodemon",
-    "build": "babel src -d dist -q",
+    "build": "babel src -d dist && ./prepublish.sh",
     "lint": "eslint src",
-    "test": "$(find templates -name node_modules -prune -exec rm -rf {} \\;); jest --maxWorkers 1 && ./verify.sh",
+    "test": "$(find templates -name node_modules -prune -exec rm -rf {} \\;); jest --maxWorkers 1",
     "cover": "yarn run test --coverage",
     "flow": "flow check",
-    "prepublish": "babel src -d dist -s"
+    "prepublish": "babel src -d dist && ./prepublish.sh"
   },
   "watch": {
     "build": {

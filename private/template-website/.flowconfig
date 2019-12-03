@@ -3,6 +3,9 @@
 
 [include]
 ./src/
+# BEGIN REMOVE BEFORE PUBLISH
+../../node_modules
+# END REMOVE BEFORE PUBLISH
 
 [libs]
 

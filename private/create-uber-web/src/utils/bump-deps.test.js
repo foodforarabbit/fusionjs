@@ -44,9 +44,12 @@ test('bumpDeps bails out if untestable', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: false, strategy: 'latest'}).catch(
-    () => {}
-  );
+  await bumpDeps({
+    dir,
+    match: '',
+    force: false,
+    strategy: 'latest',
+  }).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await remove(dir);
@@ -66,9 +69,12 @@ test('bumpDeps rolls back if regression', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: false, strategy: 'latest'}).catch(
-    () => {}
-  );
+  await bumpDeps({
+    dir,
+    match: '',
+    force: false,
+    strategy: 'latest',
+  }).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(true);
   await remove(dir);
@@ -88,9 +94,12 @@ test('bumpDeps force', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: true, strategy: 'latest'}).catch(
-    () => {}
-  );
+  await bumpDeps({
+    dir,
+    match: '',
+    force: true,
+    strategy: 'latest',
+  }).catch(() => {});
   const data = await readFile(file);
   expect(data.includes('0.0.0')).toEqual(false);
   await remove(dir);
@@ -110,9 +119,12 @@ test('bumpDeps force replaces bad version', async () => {
       }
     }`
   );
-  await bumpDeps({dir, match: '', force: true, strategy: 'latest'}).catch(
-    () => {}
-  );
+  await bumpDeps({
+    dir,
+    match: '',
+    force: true,
+    strategy: 'latest',
+  }).catch(() => {});
   const data = await readFile(file);
   const badVersion = JSON.parse(data).dependencies['no-bugs'].replace(
     /[^\d.]/,

@@ -12,19 +12,21 @@
     jsonwebtoken "^8.3.0"
     lru-cache "^5.1.1"
 
-"@octokit/endpoint@^5.1.0":
-  version "5.3.5"
-  resolved "https://unpm.uberinternal.com/@octokit%2fendpoint/-/endpoint-5.3.5.tgz#2822c3b01107806dbdce3863b6205e3eff4289ed"
-  integrity sha1-KCLDsBEHgG29zjhjtiBePv9Cie0=
+"@octokit/endpoint@^5.1.0", "@octokit/endpoint@^5.5.0":
+  version "5.5.1"
+  resolved "https://unpm.uberinternal.com/@octokit%2fendpoint/-/endpoint-5.5.1.tgz#2eea81e110ca754ff2de11c79154ccab4ae16b3f"
+  integrity sha1-LuqB4RDKdU/y3hHHkVTMq0rhaz8=
   dependencies:
+    "@octokit/types" "^2.0.0"
     is-plain-object "^3.0.0"
     universal-user-agent "^4.0.0"
 
 "@octokit/request-error@^1.0.1", "@octokit/request-error@^1.0.2":
-  version "1.0.4"
-  resolved "https://unpm.uberinternal.com/@octokit%2frequest-error/-/request-error-1.0.4.tgz#15e1dc22123ba4a9a4391914d80ec1e5303a23be"
-  integrity sha1-FeHcIhI7pKmkORkU2A7B5TA6I74=
+  version "1.2.0"
+  resolved "https://unpm.uberinternal.com/@octokit%2frequest-error/-/request-error-1.2.0.tgz#a64d2a9d7a13555570cd79722de4a4d76371baaa"
+  integrity sha1-pk0qnXoTVVVwzXlyLeSk12Nxuqo=
   dependencies:
+    "@octokit/types" "^2.0.0"
     deprecation "^2.0.0"
     once "^1.4.0"
 
@@ -40,13 +42,14 @@
     once "^1.4.0"
     universal-user-agent "^2.0.1"
 
-"@octokit/request@^5.0.0":
-  version "5.1.0"
-  resolved "https://unpm.uberinternal.com/@octokit%2frequest/-/request-5.1.0.tgz#5609dcc7b5323e529f29d535214383d9eaf0c05c"
-  integrity sha1-Vgncx7UyPlKfKdU1IUOD2erwwFw=
+"@octokit/request@^5.2.0":
+  version "5.3.1"
+  resolved "https://unpm.uberinternal.com/@octokit%2frequest/-/request-5.3.1.tgz#3a1ace45e6f88b1be4749c5da963b3a3b4a2f120"
+  integrity sha1-OhrOReb4ixvkdJxdqWOzo7Si8SA=
   dependencies:
-    "@octokit/endpoint" "^5.1.0"
+    "@octokit/endpoint" "^5.5.0"
     "@octokit/request-error" "^1.0.1"
+    "@octokit/types" "^2.0.0"
     deprecation "^2.0.0"
     is-plain-object "^3.0.0"
     node-fetch "^2.3.0"
@@ -54,11 +57,11 @@
     universal-user-agent "^4.0.0"
 
 "@octokit/rest@^16.25.5":
-  version "16.28.9"
-  resolved "https://unpm.uberinternal.com/@octokit%2frest/-/rest-16.28.9.tgz#ac8c5f3ff305e9e0a0989a5245e4286f057a95d7"
-  integrity sha1-rIxfP/MF6eCgmJpSReQobwV6ldc=
+  version "16.35.0"
+  resolved "https://unpm.uberinternal.com/@octokit%2frest/-/rest-16.35.0.tgz#7ccc1f802f407d5b8eb21768c6deca44e7b4c0d8"
+  integrity sha1-fMwfgC9AfVuOshdoxt7KROe0wNg=
   dependencies:
-    "@octokit/request" "^5.0.0"
+    "@octokit/request" "^5.2.0"
     "@octokit/request-error" "^1.0.2"
     atob-lite "^2.0.0"
     before-after-hook "^2.0.0"
@@ -71,10 +74,22 @@
     once "^1.4.0"
     universal-user-agent "^4.0.0"
 
+"@octokit/types@^2.0.0":
+  version "2.0.2"
+  resolved "https://unpm.uberinternal.com/@octokit%2ftypes/-/types-2.0.2.tgz#0888497f5a664e28b0449731d5e88e19b2a74f90"
+  integrity sha1-CIhJf1pmTiiwRJcx1eiOGbKnT5A=
+  dependencies:
+    "@types/node" ">= 8"
+
 "@types/lru-cache@^5.1.0":
   version "5.1.0"
   resolved "https://unpm.uberinternal.com/@types%2flru-cache/-/lru-cache-5.1.0.tgz#57f228f2b80c046b4a1bd5cac031f81f207f4f03"
   integrity sha1-V/Io8rgMBGtKG9XKwDH4HyB/TwM=
+
+"@types/node@>= 8":
+  version "12.12.14"
+  resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-12.12.14.tgz#1c1d6e3c75dba466e0326948d56e8bd72a1903d2"
+  integrity sha1-HB1uPHXbpGbgMmlI1W6L1yoZA9I=
 
 atob-lite@^2.0.0:
   version "2.0.0"

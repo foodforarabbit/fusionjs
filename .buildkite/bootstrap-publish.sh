@@ -30,9 +30,17 @@ for DIR in $PROJECTS ; do (
     # Exit early if not publishing this package
     echo "    - 'jq -e \".\$(jq .name $DIR/package.json).publish\" versioned_packages.json || (echo \"skipping...\" && exit 0)'"
     echo "    - 'jazelle ci --cwd $DIR'";
-    echo "    - 'jazelle build --cwd $DIR'";
     echo "    - 'node scripts/write-package-versions.js versioned_packages.json $DIR'";
+    if [ "$PROJECT" = "create-uber-web" ]; then
+      echo "    - 'jazelle ci --cwd public/jazelle'";
+      echo "    - 'node scripts/synthesize-template-lockfiles.js'";
+      echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-fusion-plugin'";
+      echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-library'";
+      echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-website'";
+      echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-website-graphql'";
+    fi;
     echo "    - 'cd $DIR'";
+    echo "    - 'npm run prepublish --if-present'";
     echo "    - 'git --no-pager diff .'";
     echo "    - 'buildkite-agent artifact upload \$(npm pack)'";
     echo "    timeout_in_minutes: 10";

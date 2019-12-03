@@ -30,7 +30,11 @@ tape('Compat plugin success', t => {
   t.equal(
     store.dispatch((dispatch, getState, {rpc}) => {
       t.equal(dispatch('test'), 5, 'can dispatch from thunks');
-      t.equal(dispatch(() => 20), 20, 'can dispatch thunks from thunks');
+      t.equal(
+        dispatch(() => 20),
+        20,
+        'can dispatch thunks from thunks'
+      );
       t.equal(typeof getState, 'function', 'passes getState function');
       t.equal(typeof rpc, 'function', 'passes rpc extra argument');
       rpc('test', {hello: 'world'}, (err, result) => {
@@ -73,7 +77,11 @@ tape('Compat plugin failures', t => {
   t.equal(
     store.dispatch((dispatch, getState, {rpc}) => {
       t.equal(dispatch('test'), 5, 'can dispatch from thunks');
-      t.equal(dispatch(() => 20), 20, 'can dispatch thunks from thunks');
+      t.equal(
+        dispatch(() => 20),
+        20,
+        'can dispatch thunks from thunks'
+      );
       t.equal(typeof getState, 'function', 'passes getState function');
       t.equal(typeof rpc, 'function', 'passes rpc extra argument');
       rpc('test', {hello: 'world'}, (err, result) => {
