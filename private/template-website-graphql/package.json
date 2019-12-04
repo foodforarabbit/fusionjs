@@ -100,6 +100,7 @@
     "eslint-plugin-react-hooks": "^2.3.0",
     "flow-bin": "^0.109.0",
     "fusion-test-utils": "0.0.0-monorepo",
+    "jest": "^24.8.0",
     "jest-image-snapshot": "^2.11.1",
     "prettier": "^1.19.1",
     "puppeteer": "^2.0.0"
