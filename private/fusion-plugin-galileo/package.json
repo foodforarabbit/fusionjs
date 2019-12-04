@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@uber/jaeger-client-adapter": "^3.4.0",
-    "@uber/unpm-galileo": "^1.4.0"
+    "@uber/unpm-galileo": "^2.0.0"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
