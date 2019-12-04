@@ -56,7 +56,7 @@ test('scaffold library', async () => {
     const data = await readJson(`${name}/package.json`);
     expect(data.engines).toMatchInlineSnapshot(`
       Object {
-        "node": ">=8.9.0 <11",
+        "node": ">=8.9.4",
         "npm": ">=5.0.0",
         "yarn": ">=1.0.0",
       }
