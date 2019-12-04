@@ -9,6 +9,7 @@ import customEvent from '../handlers/custom-event';
 tape('custom-event handler', t => {
   t.plan(4);
   const events = new EventEmitter();
+  const ctx = {};
   const payload = {
     name: 'ORDER_HISTORY_LOAD_FAILED',
     type: 'impression',
@@ -17,6 +18,9 @@ tape('custom-event handler', t => {
       testString: 'str',
       testLong: 64,
       testBool: false,
+    },
+    webEventsMeta: {
+      time_ms: 1000,
     },
   };
 
@@ -42,6 +46,7 @@ tape('custom-event handler', t => {
             meta: {testString: payload._trackingMeta.testString},
             meta_long: {testLong: payload._trackingMeta.testLong},
             meta_bool: {testBool: payload._trackingMeta.testBool},
+            time_ms: 1000,
           },
         },
         `Heatpipe event published`
@@ -50,14 +55,19 @@ tape('custom-event handler', t => {
     },
   };
 
+  const mockAnalyticsSession = {
+    from: () => false,
+  };
+
   // $FlowFixMe
   const heatpipeEmitter = HeatpipeEmitter({
+    AnalyticsSession: mockAnalyticsSession,
     heatpipe: mockHeatpipe,
-    service: 'test',
+    serviceName: 'test',
   });
 
   customEvent({events, heatpipeEmitter, m3});
 
-  events.emit('custom-hp-web-event', payload);
+  events.emit('custom-hp-web-event', payload, ctx);
   t.end();
 });

@@ -54,7 +54,6 @@ const plugin =
       const heatpipeEmitter = HeatpipeEmitter({
         logger,
         heatpipe,
-        // $FlowFixMe
         AnalyticsSession,
         AuthHeaders,
         I18n,

@@ -37,6 +37,7 @@ type WebEventsMeta = {
     viewport_width: number,
     viewport_height: number,
   },
+  time_ms: number,
 };
 
 export default function({
@@ -63,8 +64,8 @@ export default function({
         app_name: serviceName,
         app_runtime: runtime,
         ...payload.message,
-        ...getWebEventsMetaFields(payload.webEventsMeta),
         ...getContextFields(payload.ctx),
+        ...getWebEventsMetaFields(payload.webEventsMeta),
       };
       heatpipe.asyncPublish(webTopicInfo, finalizedPayload).catch(e => {
         logger.error('Failed to publish events to heatpipe', e);
@@ -77,6 +78,7 @@ export default function({
       return {
         page: webEventsMeta.page,
         dimensions: webEventsMeta.dimensions,
+        time_ms: webEventsMeta.time_ms,
       };
     }
     return {};
