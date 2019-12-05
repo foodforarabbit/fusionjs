@@ -7,57 +7,9 @@ const prompt = require('promptly');
 async function run() {
   const isRunning = await isCerberusRunning();
   if (!isRunning) {
-    await ussh();
-    if (!await promptForCerberus()) {
-      return;
-    }
+    console.warn('Cerberus is not running! Network calls may fail. http://t.uber.com/run-cerberus');
   }
   return proxy();
-}
-
-function ussh() {
-  return new Promise((resolve, reject) => {
-    const child = cp.spawn('ussh', {
-      stdio: 'inherit',
-    });
-    child.on('exit', (code) => {
-      if (code === 0) return resolve();
-      return reject(new Error('failed to get ussh cert'));
-    });
-  });
-}
-
-async function promptForCerberus() {
-  let isRunning = await isCerberusRunning();
-  if (!isRunning) {
-    console.log('Cerberus is not running. Attempting to start Cerberus');
-    runCerberus();
-    delay(2000);
-  }
-
-  isRunning = await isCerberusRunning();
-  let numTries = 0;
-  const ms = 1000;
-  while (!isRunning && numTries < 30) {
-    await delay(ms)
-    isRunning = await isCerberusRunning();
-    numTries++;
-  }
-  if (!isRunning) {
-    console.log('Could not connect to cerberus. Exiting...')
-    return false;
-  }
-  return true;
-}
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function runCerberus() {
-  cp.spawn('cerberus', ['--no-status-page'], {
-    stdio: ['inherit', 'ignore', 'ignore']
-  });
 }
 
 function isCerberusRunning() {
