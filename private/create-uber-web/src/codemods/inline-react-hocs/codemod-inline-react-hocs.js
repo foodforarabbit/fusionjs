@@ -13,7 +13,7 @@ const packageMap = {
   '@uber/fusion-plugin-logtron-react': 'withLogger',
   '@uber/fusion-plugin-m3-react': 'withM3',
   '@uber/fusion-plugin-tealium-react': 'withTealium',
-  'fusion-plugin-universal-events-react': 'withUniversalEvents',
+  'fusion-plugin-universal-events-react': 'withBatchEvents',
 };
 
 // Map HOC to filename (in ./templates and in user's repository)
@@ -22,7 +22,7 @@ const hocMap = {
   withLogger: 'with-logger.js',
   withM3: 'with-m3.js',
   withTealium: 'with-tealium.js',
-  withUniversalEvents: 'with-universal-events.js',
+  withBatchEvents: 'with-batch-events.js',
 };
 
 export const inlineReactHocs = async ({dir}: {dir: string}) => {

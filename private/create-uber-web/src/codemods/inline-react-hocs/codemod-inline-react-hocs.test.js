@@ -43,7 +43,7 @@ test('codemod-inline-react-hocs works for all necessary packages', async () => {
   const contents = `
 import Plugin, {Token, withM3} from "@uber/fusion-plugin-m3-react";
 import {withLogger} from "@uber/fusion-plugin-logtron-react";
-import {withUniversalEvents} from "fusion-plugin-universal-events-react";
+import {withBatchEvents} from "fusion-plugin-universal-events-react";
 import {withTealium, type tealiumType} from "@uber/fusion-plugin-tealium-react";
 `;
   const root = 'fixtures/replace-all-hocs';
@@ -59,7 +59,7 @@ import {withTealium, type tealiumType} from "@uber/fusion-plugin-tealium-react";
     import { type tealiumType } from \\"@uber/fusion-plugin-tealium-react\\";
     import {withM3} from \\"./components/hocs/with-m3.js\\";
     import {withLogger} from \\"./components/hocs/with-logger.js\\";
-    import {withUniversalEvents} from \\"./components/hocs/with-universal-events.js\\";
+    import {withBatchEvents} from \\"./components/hocs/with-batch-events.js\\";
     import {withTealium} from \\"./components/hocs/with-tealium.js\\";
     "
   `);
