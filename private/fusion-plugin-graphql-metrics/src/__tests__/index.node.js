@@ -66,7 +66,7 @@ function testApp(schema) {
   const logger = getMockLogger();
   const m3 = getMockM3();
   const tracer = getMockTracer();
-  const app = new App(<div />);
+  const app = new App((<div />));
   app.enhance(RenderToken, ApolloRenderEnhancer);
   app.register(GraphQLSchemaToken, schema);
   app.register(LoggerToken, logger);
@@ -151,6 +151,93 @@ test('GraphQL Metrics', async () => {
     firstName: 'Hello',
     id: '123',
     lastName: 'World',
+  });
+});
+
+test('GraphQL query with skip directive', async () => {
+  const typeDefs = `
+  type Query {
+    user: User
+  }
+  type User {
+    id: ID
+    firstName: String
+    lastName: String
+  }
+  `;
+
+  const otherTypes = `
+  type Query {
+    a: String
+  }
+  `;
+  const otherResolvers = {
+    Query: {
+      a: () => 'test',
+    },
+  };
+  let resolverCount = 0;
+  const resolvers = {
+    Query: {
+      user: async (parent, args, ctx, info) => {
+        resolverCount++;
+        return {
+          id: '123',
+          firstName: 'Hello',
+          lastName: 'World',
+        };
+      },
+    },
+  };
+  const {client, m3, tracer} = testApp(
+    mergeSchemas({
+      schemas: [
+        makeExecutableSchema({typeDefs, resolvers}),
+        makeExecutableSchema({typeDefs: otherTypes, resolvers: otherResolvers}),
+      ],
+    })
+  );
+  const result = await client.query({
+    query: gql`
+      query GetUser($a: Boolean!) {
+        user {
+          id
+          firstName
+          lastName @skip(if: $a)
+        }
+      }
+    `,
+    variables: {a: true},
+  });
+  expect(tracer.tracer.spans.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls.length).toEqual(1);
+  expect(tracer.tracer.startSpan.mock.calls[0][0]).toEqual(
+    'graphql.query.GetUser'
+  );
+  expect(tracer.tracer.startSpan.mock.calls[0][1]).toMatchInlineSnapshot(`
+            Object {
+              "childOf": "root",
+              "tags": Object {
+                "component": "graphql",
+                "operationType": "query",
+              },
+            }
+      `);
+  expect(resolverCount).toEqual(1);
+  expect(m3.timing.mock.calls.length).toEqual(1);
+  expect(m3.timing.mock.calls[0][0]).toEqual('graphql_operation');
+  expect(m3.timing.mock.calls[0][1]).toBeInstanceOf(Date);
+  expect(m3.timing.mock.calls[0][2]).toMatchInlineSnapshot(`
+                    Object {
+                      "operation_name": "get_user",
+                      "operation_type": "query",
+                      "result": "success",
+                    }
+          `);
+  expect(result.data.user).toEqual({
+    __typename: 'User',
+    firstName: 'Hello',
+    id: '123',
   });
 });
 
@@ -578,7 +665,7 @@ test('GraphQL Metrics - Mutation with an error', async () => {
 test('GraphQL Metrics - missing tracer', async () => {
   const logger = getMockLogger();
   const m3 = getMockM3();
-  const app = new App(<div />);
+  const app = new App((<div />));
   const typeDefs = `
   type Query  {
     test: String

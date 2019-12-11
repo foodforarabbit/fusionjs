@@ -1,6 +1,11 @@
 // @flow
 
-import {type GraphQLResolveInfo, validate} from 'graphql';
+import {
+  type GraphQLResolveInfo,
+  validate,
+  specifiedRules,
+  KnownDirectivesRule,
+} from 'graphql';
 import {createPlugin, type Context} from 'fusion-core';
 import type {PluginServiceType, DepsType} from './types.js';
 import {LoggerToken} from 'fusion-tokens';
@@ -13,6 +18,9 @@ import * as opentracing from 'opentracing';
 import compare from 'just-compare';
 
 const container = Symbol('container');
+
+// Until we move away from mergeSchemas we need to skip the KnownDirectivesRule
+const filteredRules = specifiedRules.filter(r => r !== KnownDirectivesRule);
 
 function getSpanList(ctx: Context, operationName: string): Array<[Span, any]> {
   const rootMap: Map<string, Array<[Span, any]>> =
@@ -109,7 +117,7 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
           }
 
           if (schema && ctx.method === 'GET') {
-            const errors = validate(schema, op.query);
+            const errors = validate(schema, op.query, filteredRules);
             if (errors.length) {
               errors.forEach(error => logError(error));
               tags.result = 'failure';

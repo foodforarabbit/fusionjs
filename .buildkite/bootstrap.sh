@@ -57,7 +57,7 @@ for DIR in $CHANGES ; do (
       echo "    - 'jazelle test --cwd $DIR'";
       echo "    - 'jazelle lint --cwd $DIR'";
       echo "    - 'jazelle flow --cwd $DIR'";
-      echo "    timeout_in_minutes: 10";
+      echo "    timeout_in_minutes: 15";
       echo "    plugins:";
       echo "      'derekju/docker-compose#1346e78909a17f800064a37e7dfb716200d514a4':";
       echo "        run: ci";
