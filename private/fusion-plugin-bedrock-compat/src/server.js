@@ -30,10 +30,15 @@ const plugin =
     },
     provides: deps => {
       const server = bedrock.createServer();
+      const args = process.argv.slice(2);
+      const configIndex = args.indexOf('--config');
+      const hasJestConfig =
+        configIndex >= 0 && /jest-config\.js/.test(args[configIndex + 1]);
       server.config = zeroConfig(process.cwd(), {
         defaults: {}, // TODO: Bedrock defaults here?
         seed: {},
         dcValue: process.env.UBER_DATACENTER || 'sjc1',
+        ...(__DEV__ && hasJestConfig ? {blackList: ['config']} : {}),
       }).get();
       server.logger = deps.logger;
       server.m3 = deps.m3;
