@@ -2,10 +2,14 @@
 import {withJsFiles} from '../../utils/with-js-files.js';
 import {ensureJsImports} from '@dubstep/core';
 import path from 'path';
-import {promises as fs} from 'fs';
+import util from 'util';
+import fs from 'fs';
+
+const mkdir = util.promisify(fs.mkdir);
+const copyFile = util.promisify(fs.copyFile);
 
 // $FlowFixMe - bad flow definition regarding 2nd parameter
-const mkdirp = filePath => fs.mkdir(filePath, {recursive: true});
+const mkdirp = filePath => mkdir(filePath, {recursive: true});
 
 // Map a package import to an HOC
 const packageMap = {
@@ -81,7 +85,7 @@ export const inlineReactHocs = async ({dir}: {dir: string}) => {
         const templatePath = path
           .resolve(__dirname, `./templates/${hocFileName}`)
           .replace('/dist/', '/src/');
-        await fs.copyFile(templatePath, absHocPaths[hocFileName]);
+        await copyFile(templatePath, absHocPaths[hocFileName]);
       })
     );
   }

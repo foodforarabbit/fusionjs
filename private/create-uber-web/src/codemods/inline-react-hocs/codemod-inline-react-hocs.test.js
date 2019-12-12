@@ -1,7 +1,10 @@
 // @flow
 import {inlineReactHocs} from './codemod-inline-react-hocs.js';
 import {writeFile, readFile, removeFile} from '@dubstep/core';
-import {promises as fs} from 'fs';
+import util from 'util';
+import fs from 'fs';
+
+const readDir = util.promisify(fs.readdir);
 
 test('codemod-inline-react-hocs rewrites to local path', async () => {
   const contents = `
@@ -51,7 +54,7 @@ import {withTealium, type tealiumType} from "@uber/fusion-plugin-tealium-react";
   const hocDir = `${root}/src/components/hocs`;
   await writeFile(fixture, contents);
   await inlineReactHocs({dir: root});
-  expect((await fs.readdir(hocDir)).length).toBe(4);
+  expect((await readDir(hocDir)).length).toBe(4);
   const newContents = await readFile(fixture);
   expect(newContents).toMatchInlineSnapshot(`
     "
