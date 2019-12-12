@@ -1,6 +1,7 @@
 // @flow
 
 import {findFiles, withTextFile} from '@dubstep/core';
+import {ensureFlowComment} from './ensure-flow-comment.js';
 
 type CreateTokenGenericsOptions = {
   dir: string,
@@ -14,6 +15,7 @@ export const addCreateTokenGenerics = async ({
     files.map(file => {
       return withTextFile(file, async code => {
         if (code.includes('@noflow')) return code;
+        code = ensureFlowComment(code);
         return code.replace(/createToken\(/g, 'createToken<*>(');
       });
     })
