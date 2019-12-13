@@ -38,6 +38,7 @@ for DIR in $PROJECTS ; do (
       echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-library'";
       echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-website'";
       echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-website-graphql'";
+      echo "    - 'cp versioned_packages.json private/create-uber-web/templates'";
     fi;
     echo "    - 'cd $DIR'";
     echo "    - 'npm run prepublish --if-present'";

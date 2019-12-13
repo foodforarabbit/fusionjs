@@ -17,6 +17,7 @@ const gqlPkg = JSON.parse(
 );
 
 const deps = {
+  ...getFusionVersions(),
   ...gqlPkg.dependencies,
   ...gqlPkg.devDependencies,
   ...websitePkg.dependencies,
@@ -53,4 +54,16 @@ export async function getLatestVersion(
       })
     );
   }
+}
+
+function getFusionVersions() {
+  const versionedPackagesPath = `${__dirname}/../../templates/versioned_packages.json`;
+  const versionedPackages = fs.existsSync(versionedPackagesPath)
+    ? JSON.parse(fs.readFileSync(versionedPackagesPath, 'utf8'))
+    : {};
+  const fusionVersionMap = {};
+  Object.keys(versionedPackages).forEach(dep => {
+    fusionVersionMap[dep] = versionedPackages[dep].version;
+  });
+  return fusionVersionMap;
 }
