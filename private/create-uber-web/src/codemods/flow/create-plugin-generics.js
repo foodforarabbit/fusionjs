@@ -15,8 +15,11 @@ export const addCreatePluginGenerics = async ({
     files.map(file => {
       return withTextFile(file, async code => {
         if (code.includes('@noflow')) return code;
-        code = ensureFlowComment(code);
-        return code.replace(/createPlugin\(/g, 'createPlugin<*, *>(');
+        if (/createPlugin\(/g.test(code)) {
+          code = ensureFlowComment(code);
+          return code.replace(/createPlugin\(/g, 'createPlugin<*, *>(');
+        }
+        return code;
       });
     })
   );

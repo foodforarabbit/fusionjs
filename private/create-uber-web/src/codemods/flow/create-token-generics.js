@@ -15,8 +15,11 @@ export const addCreateTokenGenerics = async ({
     files.map(file => {
       return withTextFile(file, async code => {
         if (code.includes('@noflow')) return code;
-        code = ensureFlowComment(code);
-        return code.replace(/createToken\(/g, 'createToken<*>(');
+        if (/createToken\(/g.test(code)) {
+          code = ensureFlowComment(code);
+          return code.replace(/createToken\(/g, 'createToken<*>(');
+        }
+        return code;
       });
     })
   );
