@@ -63,7 +63,7 @@ for DIR in $PROJECTS ; do (
 echo "  - wait"
 echo "  - label: 'publish'";
 echo "    commands:";
-echo "    - 'jazelle ci --cwd=private/monorepo-actions'";
+echo "    - 'jazelle ci --cwd private/monorepo-actions'";
 echo "    - 'buildkite-agent artifact download versioned_packages.json .'";
 echo "    - 'buildkite-agent artifact download \"*.tgz\" .'";
 echo "    - 'node private/monorepo-actions/publish.js'";

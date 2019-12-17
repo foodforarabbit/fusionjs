@@ -71,7 +71,7 @@ for DIR in $CHANGES ; do (
 ); done;
 
 echo "  - label: 'calculate package hashes'";
-echo "    command: jazelle ci --cwd=private/monorepo-actions && node private/monorepo-actions/calculate-package-hashes.js";
+echo "    command: jazelle ci --cwd private/monorepo-actions && node private/monorepo-actions/calculate-package-hashes.js";
 echo "    timeout_in_minutes: 5";
 echo "    plugins:";
 echo "      'derekju/docker-compose#1346e78909a17f800064a37e7dfb716200d514a4':";
