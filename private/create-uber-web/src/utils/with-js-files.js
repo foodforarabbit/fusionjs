@@ -8,11 +8,18 @@ export async function withJsFiles(
   fn: (node: BabelPath<Program>, file: string) => any
 ) {
   const spinner = getSpinner('Globbing files');
-  const files = await findFiles(`${dir}/**/*.js`);
+  const files = (await findFiles(`${dir}/**/*.js`)).filter(filterFlowTyped);
   spinner.done();
   const progress = getProgress({total: files.length, title: 'Codemod'});
   for (const file of files) {
     progress.tick(file);
     await withJsFile(file, fn);
   }
+}
+
+function filterFlowTyped(file) {
+  if (/^flow-typed/.test(file)) {
+    return false;
+  }
+  return true;
 }
