@@ -1,6 +1,8 @@
 // @flow
-import {exec} from '@dubstep/core';
+import {exec} from './exec.js';
 
 export function format(dir: string) {
-  return exec(`npx eslint src/ --fix`, {cwd: dir}).catch(e => {});
+  return exec(`npx eslint src/ --fix`, 'Running `eslint --fix`', {
+    cwd: dir,
+  }).catch(e => {});
 }

@@ -20,9 +20,13 @@ export const migrateGraphQLMetrics = async ({
   strategy,
 }: MigrateOptions) => {
   await withJsonFile(`${dir}/package.json`, async pkg => {
-    log.title('GraphQL Metrics');
     if (!pkg.dependencies) {
       return;
+    }
+    if (pkg.dependencies['@uber/fusion-plugin-graphql-logging-middleware']) {
+      log.title('Renaming GraphQL Metrics package');
+    } else if (!pkg.dependencies['@uber/fusion-plugin-graphql-metrics']) {
+      log.title('Adding GraphQL Metrics package');
     }
     delete pkg.dependencies['@uber/fusion-plugin-graphql-logging-middleware'];
     pkg.dependencies[
