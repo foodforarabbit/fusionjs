@@ -137,28 +137,8 @@ export const upgrade = async ({
       step('create local React HOCs', async () => {
         await inlineReactHocs({dir});
       }),
-      step('use fusion-plugin-universal-events', async () => {
+      step('replace deprecated package imports', async () => {
         await replacePackageImports({
-          target: 'fusion-plugin-universal-events-react',
-          replacement: 'fusion-plugin-universal-events',
-          imports: ['default', 'UniversalEventsToken'],
-          typeImports: ['UniversalEventsDepsType', 'UniversalEventsType'],
-          dir,
-          strategy,
-        });
-      }),
-      step('use fusion-plugin-m3', async () => {
-        await replacePackageImports({
-          target: '@uber/fusion-plugin-m3-react',
-          replacement: '@uber/fusion-plugin-m3',
-          imports: [
-            'default',
-            'M3Token',
-            'M3ClientToken',
-            'CommonTagsToken',
-            'mock',
-          ],
-          typeImports: ['M3Type', 'M3TagsType', 'M3DepsType'],
           dir,
           strategy,
         });
@@ -167,66 +147,6 @@ export const upgrade = async ({
         await replacePackage({
           target: 'fusion-plugin-i18n',
           replacement: 'fusion-plugin-i18n-react',
-          dir,
-          strategy,
-        });
-      }),
-      step('use fusion-plugin-logtron', async () => {
-        await replacePackageImports({
-          target: '@uber/fusion-plugin-logtron-react',
-          replacement: '@uber/fusion-plugin-logtron',
-          imports: [
-            'default',
-            'LogtronBackendsToken',
-            'LogtronTeamToken',
-            'LogtronTransformsToken',
-          ],
-          dir,
-          strategy,
-        });
-      }),
-      step('use fusion-plugin-google-analytics', async () => {
-        await replacePackageImports({
-          target: '@uber/fusion-plugin-google-analytics-react',
-          replacement: '@uber/fusion-plugin-google-analytics',
-          imports: [
-            'default',
-            'GoogleAnalyticsToken',
-            'GoogleAnalyticsConfigToken',
-          ],
-          dir,
-          strategy,
-        });
-      }),
-      step('use fusion-plugin-tealium', async () => {
-        await replacePackageImports({
-          target: '@uber/fusion-plugin-tealium-react',
-          replacement: '@uber/fusion-plugin-tealium',
-          imports: ['default', 'TealiumToken', 'TealiumConfigToken'],
-          dir,
-          strategy,
-        });
-      }),
-      step('use fusion-plugin-rpc and fusion-rpc-redux', async () => {
-        await replacePackageImports({
-          target: 'fusion-plugin-rpc-redux-react',
-          replacement: 'fusion-plugin-rpc',
-          imports: [
-            'default',
-            'mock',
-            'BodyParserOptionsToken',
-            'ResponseError',
-            'RPCToken',
-            'RPCHandlersToken',
-          ],
-          dir,
-          strategy,
-        });
-        await replacePackageImports({
-          target: 'fusion-plugin-rpc-redux-react',
-          replacement: 'fusion-rpc-redux',
-          imports: ['createRPCReducer'],
-          typeImports: ['ActionType'],
           dir,
           strategy,
         });

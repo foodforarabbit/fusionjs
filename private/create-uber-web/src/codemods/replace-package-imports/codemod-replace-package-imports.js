@@ -5,83 +5,160 @@ import {getLatestVersion} from '../../utils/get-latest-version.js';
 import type {UpgradeStrategy} from '../../types.js';
 import {withJsonFile, ensureJsImports} from '@dubstep/core';
 
+type ReplaceConfig = {
+  [string]: Array<{
+    replacement: string,
+    imports?: Array<string>,
+    typeImports?: Array<string>,
+  }>,
+};
+
+const config: ReplaceConfig = {
+  'fusion-plugin-universal-events-react': [
+    {
+      replacement: 'fusion-plugin-universal-events',
+      imports: ['default', 'UniversalEventsToken'],
+      typeImports: ['UniversalEventsDepsType', 'UniversalEventsType'],
+    },
+  ],
+  '@uber/fusion-plugin-m3-react': [
+    {
+      replacement: '@uber/fusion-plugin-m3',
+      imports: [
+        'default',
+        'M3Token',
+        'M3ClientToken',
+        'CommonTagsToken',
+        'mock',
+      ],
+      typeImports: ['M3Type', 'M3TagsType', 'M3DepsType'],
+    },
+  ],
+  '@uber/fusion-plugin-logtron-react': [
+    {
+      replacement: '@uber/fusion-plugin-logtron',
+      imports: [
+        'default',
+        'LogtronBackendsToken',
+        'LogtronTeamToken',
+        'LogtronTransformsToken',
+      ],
+    },
+  ],
+  '@uber/fusion-plugin-google-analytics-react': [
+    {
+      replacement: '@uber/fusion-plugin-google-analytics',
+      imports: [
+        'default',
+        'GoogleAnalyticsToken',
+        'GoogleAnalyticsConfigToken',
+      ],
+    },
+  ],
+  '@uber/fusion-plugin-tealium-react': [
+    {
+      replacement: '@uber/fusion-plugin-tealium',
+      imports: ['default', 'TealiumToken', 'TealiumConfigToken'],
+    },
+  ],
+  'fusion-plugin-rpc-redux-react': [
+    {
+      replacement: 'fusion-plugin-rpc',
+      imports: [
+        'default',
+        'mock',
+        'BodyParserOptionsToken',
+        'ResponseError',
+        'RPCToken',
+        'RPCHandlersToken',
+      ],
+    },
+    {
+      replacement: 'fusion-rpc-redux',
+      imports: ['createRPCReducer'],
+      typeImports: ['ActionType'],
+    },
+  ],
+};
+
 type ReplaceOptions = {
-  target: string,
-  replacement: string,
-  imports?: Array<string>,
-  typeImports?: Array<string>,
   dir: string,
   strategy: UpgradeStrategy,
 };
 export const replacePackageImports = async ({
-  target,
-  replacement,
-  imports = [],
-  typeImports = [],
   dir,
   strategy,
 }: ReplaceOptions) => {
-  let encounteredOtherImports = false;
+  const encounteredOtherImports = new Set();
+  const targets = new Set(Object.keys(config));
+
   await withJsFiles(dir, path => {
     path.traverse({
       ImportDeclaration(ipath) {
-        if (ipath.node.source.value === target) {
-          const targetImports = new Map();
-          const targetImportTypes = new Map();
-          ipath.node.specifiers.forEach(specifier => {
-            const map = isTypeImport(ipath, specifier)
-              ? targetImportTypes
-              : targetImports;
-            map.set(getImportIdentifier(specifier), specifier.local.name);
-          });
-          const replaceAllTargetImports = [
-            ...targetImports.keys(),
-          ].every(targetImport => imports.includes(targetImport));
-          const replaceAllTargetTypeImports = [
-            ...targetImportTypes.keys(),
-          ].every(targetImport => typeImports.includes(targetImport));
-          if (replaceAllTargetImports && replaceAllTargetTypeImports) {
-            // All imports are in the replacement package
-            // Remove import and merge with existing imports for replacement package
-            const importString = getImportStringFromNode(ipath.node);
-            if (importString) {
-              ipath.remove();
-              ensureJsImports(
-                path,
-                `import ${importString} from "${replacement}";`
-              );
-            }
-          } else {
-            encounteredOtherImports = true;
-            ipath.node.specifiers = ipath.node.specifiers.filter(specifier => {
-              // Filter out target imports that we will replace
-              const importIdentifier = getImportIdentifier(specifier);
-              const importList = isTypeImport(ipath, specifier)
-                ? typeImports
-                : imports;
-              return !importList.includes(importIdentifier);
+        const importPath = ipath.node.source.value;
+        if (targets.has(importPath)) {
+          const targetConfigs = config[importPath];
+          for (const targetConfig of targetConfigs) {
+            const {replacement, imports = [], typeImports = []} = targetConfig;
+            const targetImports = new Map();
+            const targetImportTypes = new Map();
+            ipath.node.specifiers.forEach(specifier => {
+              const map = isTypeImport(ipath, specifier)
+                ? targetImportTypes
+                : targetImports;
+              map.set(getImportIdentifier(specifier), specifier.local.name);
             });
-            const replacementImportString = getImportString(
-              ipath,
-              targetImports,
-              imports
-            );
-            if (replacementImportString) {
-              ensureJsImports(
-                path,
-                `import ${replacementImportString} from "${replacement}";`
+            const replaceAllTargetImports = [
+              ...targetImports.keys(),
+            ].every(targetImport => imports.includes(targetImport));
+            const replaceAllTargetTypeImports = [
+              ...targetImportTypes.keys(),
+            ].every(targetImport => typeImports.includes(targetImport));
+            if (replaceAllTargetImports && replaceAllTargetTypeImports) {
+              // All imports are in the replacement package
+              // Remove import and merge with existing imports for replacement package
+              const importString = getImportStringFromNode(ipath.node);
+              if (importString) {
+                ipath.remove();
+                ensureJsImports(
+                  path,
+                  `import ${importString} from "${replacement}";`
+                );
+              }
+            } else {
+              encounteredOtherImports.add(importPath);
+              ipath.node.specifiers = ipath.node.specifiers.filter(
+                specifier => {
+                  // Filter out target imports that we will replace
+                  const importIdentifier = getImportIdentifier(specifier);
+                  const importList = isTypeImport(ipath, specifier)
+                    ? typeImports
+                    : imports;
+                  return !importList.includes(importIdentifier);
+                }
               );
-            }
-            const replacementTypeImportString = getImportString(
-              ipath,
-              targetImportTypes,
-              typeImports
-            );
-            if (replacementTypeImportString) {
-              ensureJsImports(
-                path,
-                `import type ${replacementTypeImportString} from "${replacement}";`
+              const replacementImportString = getImportString(
+                ipath,
+                targetImports,
+                imports
               );
+              if (replacementImportString) {
+                ensureJsImports(
+                  path,
+                  `import ${replacementImportString} from "${replacement}";`
+                );
+              }
+              const replacementTypeImportString = getImportString(
+                ipath,
+                targetImportTypes,
+                typeImports
+              );
+              if (replacementTypeImportString) {
+                ensureJsImports(
+                  path,
+                  `import type ${replacementTypeImportString} from "${replacement}";`
+                );
+              }
             }
           }
         }
@@ -90,19 +167,24 @@ export const replacePackageImports = async ({
   });
 
   await withJsonFile(`${dir}/package.json`, async pkg => {
-    const isDep = pkg.dependencies && pkg.dependencies[target];
-    const isDevDep = pkg.devDependencies && pkg.devDependencies[target];
-    // ensure replacement dep is in whatever group the target dep was
-    if (isDep) {
-      await ensure(pkg, 'dependencies', replacement, strategy);
-    }
-    if (isDevDep) {
-      await ensure(pkg, 'devDependencies', replacement, strategy);
-    }
-    if (!encounteredOtherImports) {
-      // no longer used - remove old package
-      await remove(pkg, 'dependencies', target);
-      await remove(pkg, 'devDependencies', target);
+    for (const target in targets) {
+      const targetConfigs = config[target];
+      for (const {replacement} of targetConfigs) {
+        const isDep = pkg.dependencies && pkg.dependencies[target];
+        const isDevDep = pkg.devDependencies && pkg.devDependencies[target];
+        // ensure replacement dep is in whatever group the target dep was
+        if (isDep) {
+          await ensure(pkg, 'dependencies', replacement, strategy);
+        }
+        if (isDevDep) {
+          await ensure(pkg, 'devDependencies', replacement, strategy);
+        }
+        if (!encounteredOtherImports.has(target)) {
+          // no longer used - remove old package
+          await remove(pkg, 'dependencies', target);
+          await remove(pkg, 'devDependencies', target);
+        }
+      }
     }
   });
 };
@@ -172,7 +254,6 @@ function getImportStringFromNode(node) {
       let importString = specifier.importKind === 'type' ? 'type ' : '';
       if (name !== localName) {
         // import {NamedExport as LocalName} from 'target';
-        // $FlowFixMe
         importString += `${name} as ${localName}`;
         acc.push(importString);
       } else {
