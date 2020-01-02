@@ -35,9 +35,9 @@ aws-sign2@~0.7.0:
   integrity sha1-tG6JCTSpWR8tL2+G1+ap8bP+dqg=
 
 aws4@^1.8.0:
-  version "1.8.0"
-  resolved "https://unpm.uberinternal.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
-  integrity sha1-8OAD2cqef1nHpQiUXXsu+aBKVC8=
+  version "1.9.0"
+  resolved "https://unpm.uberinternal.com/aws4/-/aws4-1.9.0.tgz#24390e6ad61386b0a747265754d2a17219de862c"
+  integrity sha1-JDkOatYThrCnRyZXVNKhchnehiw=
 
 bcrypt-pbkdf@^1.0.0:
   version "1.0.2"
@@ -247,9 +247,9 @@ promptly@^3.0.3:
     read "^1.0.4"
 
 psl@^1.1.24, psl@^1.1.28:
-  version "1.4.0"
-  resolved "https://unpm.uberinternal.com/psl/-/psl-1.4.0.tgz#5dd26156cdb69fa1fdb8ab1991667d3f80ced7c2"
-  integrity sha1-XdJhVs22n6H9uKsZkWZ9P4DO18I=
+  version "1.6.0"
+  resolved "https://unpm.uberinternal.com/psl/-/psl-1.6.0.tgz#60557582ee23b6c43719d9890fb4170ecd91e110"
+  integrity sha1-YFV1gu4jtsQ3GdmJD7QXDs2R4RA=
 
 punycode@^1.4.1:
   version "1.4.1"

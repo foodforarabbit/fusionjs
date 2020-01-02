@@ -125,6 +125,7 @@
     "test-integration": "yarn test --env=node --testFolder=__integration__",
     "posttest-integration": "yarn validate-codegen"
   },
+  "sideEffects": false,
   "engines": {
     "node": ">=0",
     "npm": ">=0",

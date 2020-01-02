@@ -1,6 +1,6 @@
 module.exports = {
-  assumeNoImportSideEffects: true,
+  defaultImportSideEffects: false,
   babel: {
     plugins: ['@babel/plugin-proposal-optional-chaining']
   }
-}
+};

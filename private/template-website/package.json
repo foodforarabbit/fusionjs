@@ -104,6 +104,7 @@
     "test-integration": "yarn test --env=node --testFolder=__integration__",
     "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
   },
+  "sideEffects": false,
   "engines": {
     "node": ">=0",
     "npm": ">=0",
