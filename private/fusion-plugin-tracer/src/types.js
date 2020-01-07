@@ -1,6 +1,6 @@
 // @flow
 
-import type {FusionPlugin, Context} from 'fusion-core';
+import {type FusionPlugin, type Context, RouteTagsToken} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 
 import {
@@ -86,6 +86,7 @@ export type TracerDepsType = {
   config: typeof TracerConfigToken.optional,
   options: typeof TracerOptionsToken.optional,
   initClient: typeof InitTracerToken.optional,
+  RouteTags: typeof RouteTagsToken,
 };
 export type TracerServiceType = {
   tracer: Tracer,

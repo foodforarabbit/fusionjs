@@ -111,7 +111,7 @@ const verifyTrace = (t, type, traceSpans, singleTrace) => {
       isRequest ? 'GET.api.request' : 'GET.api.user',
       isRequest ? 'atreyu.node.request' : 'atreyu.node.user',
       'atreyu.graph.atreyu',
-      'GET_/userinfo',
+      'unknown_route',
     ],
     'should have all traces end to end'
   );

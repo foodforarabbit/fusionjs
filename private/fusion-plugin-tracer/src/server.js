@@ -5,7 +5,7 @@
 import {JaegerClient, initTracer} from '@uber/jaeger-client-adapter';
 
 import {LoggerToken} from 'fusion-tokens';
-import {createPlugin, memoize} from 'fusion-core';
+import {createPlugin, memoize, RouteTagsToken} from 'fusion-core';
 
 import {
   TracerConfigToken,
@@ -22,12 +22,14 @@ const pluginFactory: () => TracerPluginType = () =>
       config: TracerConfigToken.optional,
       options: TracerOptionsToken.optional,
       initClient: InitTracerToken.optional,
+      RouteTags: RouteTagsToken,
     },
     provides: ({
       logger,
       config = {},
       options = {},
       initClient = initTracer,
+      RouteTags,
     }) => {
       // $FlowFixMe
       options.logger = options.logger || logger.createChild('tracer');
@@ -77,8 +79,7 @@ const pluginFactory: () => TracerPluginType = () =>
         tags[opentracing.Tags.HTTP_METHOD] = request.method;
         tags[opentracing.Tags.PEER_SERVICE] = 'web_client';
 
-        // TODO: Normalize path to remove unique identifiers
-        const span = tracer.startSpan(`${request.method}_${request.path}`, {
+        const span = tracer.startSpan('unknown_route', {
           childOf: context,
           tags: tags,
         });
@@ -87,6 +88,7 @@ const pluginFactory: () => TracerPluginType = () =>
 
         ctx.timing.end.then(() => {
           span.setTag(opentracing.Tags.HTTP_STATUS_CODE, ctx.response.status);
+          span.setOperationName(deps.RouteTags.from(ctx).name);
           span.finish();
         });
 

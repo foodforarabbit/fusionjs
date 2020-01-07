@@ -3,16 +3,15 @@
 import test from 'tape-cup';
 
 import {LoggerToken} from 'fusion-tokens';
-import App from 'fusion-core';
+import App, {RouteTagsToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 
 import TracerPlugin from '../server.js';
 import {TracerToken, TracerConfigToken, InitTracerToken} from '../tokens.js';
 
-const mockLogger = {};
 const MockLogger = {
   createChild() {
-    return mockLogger;
+    return MockLogger;
   },
   log: (msg: any): any => {},
   error: (msg: any): any => {},
@@ -43,7 +42,7 @@ test('Tracer Plugin', async t => {
     t.looseEquals(cfg, config, 'config is passed down');
     t.looseEquals(
       options,
-      {logger: mockLogger},
+      {logger: MockLogger},
       'options needs to be passed down'
     );
     return mockTracer;
@@ -72,6 +71,9 @@ test('Tracer Middleware', async t => {
       t.ok(true, 'span.finish should be called');
       t.end();
     },
+    setOperationName(name) {
+      t.equal(name, 'route_name');
+    },
   };
 
   const mockTracer = {
@@ -89,7 +91,7 @@ test('Tracer Middleware', async t => {
       return 'inbound_context';
     },
     startSpan(name, options) {
-      t.equals(name, 'GET_/path', 'span name should match');
+      t.equals(name, 'unknown_route', 'starts span with unknown_route');
       t.looseEquals(
         options.tags,
         {
@@ -105,6 +107,9 @@ test('Tracer Middleware', async t => {
       t.equals(options.childOf, 'inbound_context', 'span childOf should match');
 
       return mockSpan;
+    },
+    setOperationName(name) {
+      t.equal(name, 'route_name');
     },
   };
 
@@ -129,6 +134,13 @@ test('Tracer Middleware', async t => {
       ctx.body = 'Hello world';
     };
   });
+  app.middleware(
+    {RouteTags: RouteTagsToken},
+    ({RouteTags}) => async (ctx, next) => {
+      await next();
+      RouteTags.from(ctx).name = 'route_name';
+    }
+  );
   const sim = getSimulator(app);
   await sim.request('/path', {headers: {'x-uber-source': 'fusion'}});
 });
@@ -142,6 +154,9 @@ test('Tracer Middleware with response set above tracer', async t => {
     finish() {
       t.ok(true, 'span.finish should be called');
       t.end();
+    },
+    setOperationName(name) {
+      t.equal(name, 'route_name');
     },
   };
 
@@ -160,7 +175,7 @@ test('Tracer Middleware with response set above tracer', async t => {
       return 'inbound_context';
     },
     startSpan(name, options) {
-      t.equals(name, 'GET_/path', 'span name should match');
+      t.equals(name, 'unknown_route', 'span name starts with unknown_route');
       t.looseEquals(
         options.tags,
         {
@@ -185,6 +200,13 @@ test('Tracer Middleware with response set above tracer', async t => {
 
   const app = new App('el', el => el);
   app.register(LoggerToken, MockLogger);
+  app.middleware(
+    {RouteTags: RouteTagsToken},
+    ({RouteTags}) => async (ctx, next) => {
+      RouteTags.from(ctx).name = 'route_name';
+      return next();
+    }
+  );
   app.middleware(async (ctx, next) => {
     await next();
     ctx.body = 'hello';
