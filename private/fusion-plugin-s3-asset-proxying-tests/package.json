@@ -1,0 +1,20 @@
+{
+  "name": "@uber/fusion-plugin-s3-asset-proxying-tests",
+  "private": true,
+  "version": "0.0.0-monorepo",
+  "devDependencies": {
+    "@uber/fusion-plugin-s3-asset-proxying": "0.0.0-monorepo",
+    "aws-sdk": "2.600.0",
+    "fusion-cli": "0.0.0-monorepo",
+    "get-port": "5.1.0",
+    "jest": "24.9.0",
+    "node-fetch": "2.6.0",
+    "s3rver": "^2.2.6"
+  },
+  "scripts": {
+    "test": "rm -rf s3-storage && jest",
+    "build": "NODE_ENV=production fusion build --production",
+    "lint": "echo ok"
+  },
+  "license": "UNLICENSED"
+}

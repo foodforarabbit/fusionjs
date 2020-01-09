@@ -9,38 +9,38 @@
   dependencies:
     "@babel/highlight" "^7.0.0"
 
-"@babel/generator@^7.7.2":
-  version "7.7.2"
-  resolved "https://unpm.uberinternal.com/@babel%2fgenerator/-/generator-7.7.2.tgz#2f4852d04131a5e17ea4f6645488b5da66ebf3af"
-  integrity sha1-L0hS0EExpeF+pPZkVIi12mbr868=
+"@babel/generator@^7.7.4":
+  version "7.7.7"
+  resolved "https://unpm.uberinternal.com/@babel%2fgenerator/-/generator-7.7.7.tgz#859ac733c44c74148e1a72980a64ec84b85f4f45"
+  integrity sha1-hZrHM8RMdBSOGnKYCmTshLhfT0U=
   dependencies:
-    "@babel/types" "^7.7.2"
+    "@babel/types" "^7.7.4"
     jsesc "^2.5.1"
     lodash "^4.17.13"
     source-map "^0.5.0"
 
-"@babel/helper-function-name@^7.7.0":
-  version "7.7.0"
-  resolved "https://unpm.uberinternal.com/@babel%2fhelper-function-name/-/helper-function-name-7.7.0.tgz#44a5ad151cfff8ed2599c91682dda2ec2c8430a3"
-  integrity sha1-RKWtFRz/+O0lmckWgt2i7CyEMKM=
+"@babel/helper-function-name@^7.7.4":
+  version "7.7.4"
+  resolved "https://unpm.uberinternal.com/@babel%2fhelper-function-name/-/helper-function-name-7.7.4.tgz#ab6e041e7135d436d8f0a3eca15de5b67a341a2e"
+  integrity sha1-q24EHnE11DbY8KPsoV3ltno0Gi4=
   dependencies:
-    "@babel/helper-get-function-arity" "^7.7.0"
-    "@babel/template" "^7.7.0"
-    "@babel/types" "^7.7.0"
+    "@babel/helper-get-function-arity" "^7.7.4"
+    "@babel/template" "^7.7.4"
+    "@babel/types" "^7.7.4"
 
-"@babel/helper-get-function-arity@^7.7.0":
-  version "7.7.0"
-  resolved "https://unpm.uberinternal.com/@babel%2fhelper-get-function-arity/-/helper-get-function-arity-7.7.0.tgz#c604886bc97287a1d1398092bc666bc3d7d7aa2d"
-  integrity sha1-xgSIa8lyh6HROYCSvGZrw9fXqi0=
+"@babel/helper-get-function-arity@^7.7.4":
+  version "7.7.4"
+  resolved "https://unpm.uberinternal.com/@babel%2fhelper-get-function-arity/-/helper-get-function-arity-7.7.4.tgz#cb46348d2f8808e632f0ab048172130e636005f0"
+  integrity sha1-y0Y0jS+ICOYy8KsEgXITDmNgBfA=
   dependencies:
-    "@babel/types" "^7.7.0"
+    "@babel/types" "^7.7.4"
 
-"@babel/helper-split-export-declaration@^7.7.0":
-  version "7.7.0"
-  resolved "https://unpm.uberinternal.com/@babel%2fhelper-split-export-declaration/-/helper-split-export-declaration-7.7.0.tgz#1365e74ea6c614deeb56ebffabd71006a0eb2300"
-  integrity sha1-E2XnTqbGFN7rVuv/q9cQBqDrIwA=
+"@babel/helper-split-export-declaration@^7.7.4":
+  version "7.7.4"
+  resolved "https://unpm.uberinternal.com/@babel%2fhelper-split-export-declaration/-/helper-split-export-declaration-7.7.4.tgz#57292af60443c4a3622cf74040ddc28e68336fd8"
+  integrity sha1-Vykq9gRDxKNiLPdAQN3Cjmgzb9g=
   dependencies:
-    "@babel/types" "^7.7.0"
+    "@babel/types" "^7.7.4"
 
 "@babel/highlight@^7.0.0":
   version "7.5.0"
@@ -51,55 +51,55 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.1.6", "@babel/parser@^7.7.0", "@babel/parser@^7.7.2":
-  version "7.7.3"
-  resolved "https://unpm.uberinternal.com/@babel%2fparser/-/parser-7.7.3.tgz#5fad457c2529de476a248f75b0f090b3060af043"
-  integrity sha1-X61FfCUp3kdqJI91sPCQswYK8EM=
+"@babel/parser@^7.1.6", "@babel/parser@^7.7.4":
+  version "7.7.7"
+  resolved "https://unpm.uberinternal.com/@babel%2fparser/-/parser-7.7.7.tgz#1b886595419cf92d811316d5b715a53ff38b4937"
+  integrity sha1-G4hllUGc+S2BExbVtxWlP/OLSTc=
 
 "@babel/runtime@^7.1.2":
-  version "7.7.2"
-  resolved "https://unpm.uberinternal.com/@babel%2fruntime/-/runtime-7.7.2.tgz#111a78002a5c25fc8e3361bedc9529c696b85a6a"
-  integrity sha1-ERp4ACpcJfyOM2G+3JUpxpa4Wmo=
+  version "7.7.4"
+  resolved "https://unpm.uberinternal.com/@babel%2fruntime/-/runtime-7.7.4.tgz#b23a856751e4bf099262f867767889c0e3fe175b"
+  integrity sha1-sjqFZ1HkvwmSYvhndniJwOP+F1s=
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/template@^7.1.2", "@babel/template@^7.7.0":
-  version "7.7.0"
-  resolved "https://unpm.uberinternal.com/@babel%2ftemplate/-/template-7.7.0.tgz#4fadc1b8e734d97f56de39c77de76f2562e597d0"
-  integrity sha1-T63BuOc02X9W3jnHfedvJWLll9A=
+"@babel/template@^7.1.2", "@babel/template@^7.7.4":
+  version "7.7.4"
+  resolved "https://unpm.uberinternal.com/@babel%2ftemplate/-/template-7.7.4.tgz#428a7d9eecffe27deac0a98e23bf8e3675d2a77b"
+  integrity sha1-Qop9nuz/4n3qwKmOI7+ONnXSp3s=
   dependencies:
     "@babel/code-frame" "^7.0.0"
-    "@babel/parser" "^7.7.0"
-    "@babel/types" "^7.7.0"
+    "@babel/parser" "^7.7.4"
+    "@babel/types" "^7.7.4"
 
 "@babel/traverse@^7.1.5":
-  version "7.7.2"
-  resolved "https://unpm.uberinternal.com/@babel%2ftraverse/-/traverse-7.7.2.tgz#ef0a65e07a2f3c550967366b3d9b62a2dcbeae09"
-  integrity sha1-7wpl4HovPFUJZzZrPZtioty+rgk=
+  version "7.7.4"
+  resolved "https://unpm.uberinternal.com/@babel%2ftraverse/-/traverse-7.7.4.tgz#9c1e7c60fb679fe4fcfaa42500833333c2058558"
+  integrity sha1-nB58YPtnn+T8+qQlAIMzM8IFhVg=
   dependencies:
     "@babel/code-frame" "^7.5.5"
-    "@babel/generator" "^7.7.2"
-    "@babel/helper-function-name" "^7.7.0"
-    "@babel/helper-split-export-declaration" "^7.7.0"
-    "@babel/parser" "^7.7.2"
-    "@babel/types" "^7.7.2"
+    "@babel/generator" "^7.7.4"
+    "@babel/helper-function-name" "^7.7.4"
+    "@babel/helper-split-export-declaration" "^7.7.4"
+    "@babel/parser" "^7.7.4"
+    "@babel/types" "^7.7.4"
     debug "^4.1.0"
     globals "^11.1.0"
     lodash "^4.17.13"
 
-"@babel/types@^7.1.5", "@babel/types@^7.7.0", "@babel/types@^7.7.2":
-  version "7.7.2"
-  resolved "https://unpm.uberinternal.com/@babel%2ftypes/-/types-7.7.2.tgz#550b82e5571dcd174af576e23f0adba7ffc683f7"
-  integrity sha1-VQuC5VcdzRdK9XbiPwrbp//Gg/c=
+"@babel/types@^7.1.5", "@babel/types@^7.7.4":
+  version "7.7.4"
+  resolved "https://unpm.uberinternal.com/@babel%2ftypes/-/types-7.7.4.tgz#516570d539e44ddf308c07569c258ff94fde9193"
+  integrity sha1-UWVw1TnkTd8wjAdWnCWP+U/ekZM=
   dependencies:
     esutils "^2.0.2"
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
 "@dubstep/core@^3.3.1":
-  version "3.5.0"
-  resolved "https://unpm.uberinternal.com/@dubstep%2fcore/-/core-3.5.0.tgz#42d96d53cb8650905c82b2ad725c207f917d1af3"
-  integrity sha1-QtltU8uGUJBcgrKtclwgf5F9GvM=
+  version "3.5.2"
+  resolved "https://unpm.uberinternal.com/@dubstep%2fcore/-/core-3.5.2.tgz#260fbe32d7deac3dcf7a05c49c9524ab035ec354"
+  integrity sha1-Jg++MtferD3PegXEnJUkqwNew1Q=
   dependencies:
     "@babel/parser" "^7.1.6"
     "@babel/template" "^7.1.2"
@@ -113,7 +113,7 @@
     ini "^1.3.5"
     isomorphic-git "^0.39.3"
     prettier "^1.15.1"
-    recast "^0.16.0"
+    recast "^0.18.3"
 
 "@ganemone/babel-flow-types@^2.0.7":
   version "2.0.7"
@@ -148,19 +148,21 @@
     jsonwebtoken "^8.3.0"
     lru-cache "^5.1.1"
 
-"@octokit/endpoint@^5.1.0":
-  version "5.3.5"
-  resolved "https://unpm.uberinternal.com/@octokit%2fendpoint/-/endpoint-5.3.5.tgz#2822c3b01107806dbdce3863b6205e3eff4289ed"
-  integrity sha1-KCLDsBEHgG29zjhjtiBePv9Cie0=
+"@octokit/endpoint@^5.1.0", "@octokit/endpoint@^5.5.0":
+  version "5.5.1"
+  resolved "https://unpm.uberinternal.com/@octokit%2fendpoint/-/endpoint-5.5.1.tgz#2eea81e110ca754ff2de11c79154ccab4ae16b3f"
+  integrity sha1-LuqB4RDKdU/y3hHHkVTMq0rhaz8=
   dependencies:
+    "@octokit/types" "^2.0.0"
     is-plain-object "^3.0.0"
     universal-user-agent "^4.0.0"
 
 "@octokit/request-error@^1.0.1", "@octokit/request-error@^1.0.2":
-  version "1.0.4"
-  resolved "https://unpm.uberinternal.com/@octokit%2frequest-error/-/request-error-1.0.4.tgz#15e1dc22123ba4a9a4391914d80ec1e5303a23be"
-  integrity sha1-FeHcIhI7pKmkORkU2A7B5TA6I74=
+  version "1.2.0"
+  resolved "https://unpm.uberinternal.com/@octokit%2frequest-error/-/request-error-1.2.0.tgz#a64d2a9d7a13555570cd79722de4a4d76371baaa"
+  integrity sha1-pk0qnXoTVVVwzXlyLeSk12Nxuqo=
   dependencies:
+    "@octokit/types" "^2.0.0"
     deprecation "^2.0.0"
     once "^1.4.0"
 
@@ -176,13 +178,14 @@
     once "^1.4.0"
     universal-user-agent "^2.0.1"
 
-"@octokit/request@^5.0.0":
-  version "5.1.0"
-  resolved "https://unpm.uberinternal.com/@octokit%2frequest/-/request-5.1.0.tgz#5609dcc7b5323e529f29d535214383d9eaf0c05c"
-  integrity sha1-Vgncx7UyPlKfKdU1IUOD2erwwFw=
+"@octokit/request@^5.2.0":
+  version "5.3.1"
+  resolved "https://unpm.uberinternal.com/@octokit%2frequest/-/request-5.3.1.tgz#3a1ace45e6f88b1be4749c5da963b3a3b4a2f120"
+  integrity sha1-OhrOReb4ixvkdJxdqWOzo7Si8SA=
   dependencies:
-    "@octokit/endpoint" "^5.1.0"
+    "@octokit/endpoint" "^5.5.0"
     "@octokit/request-error" "^1.0.1"
+    "@octokit/types" "^2.0.0"
     deprecation "^2.0.0"
     is-plain-object "^3.0.0"
     node-fetch "^2.3.0"
@@ -190,11 +193,11 @@
     universal-user-agent "^4.0.0"
 
 "@octokit/rest@^16.25.5":
-  version "16.28.9"
-  resolved "https://unpm.uberinternal.com/@octokit%2frest/-/rest-16.28.9.tgz#ac8c5f3ff305e9e0a0989a5245e4286f057a95d7"
-  integrity sha1-rIxfP/MF6eCgmJpSReQobwV6ldc=
+  version "16.35.0"
+  resolved "https://unpm.uberinternal.com/@octokit%2frest/-/rest-16.35.0.tgz#7ccc1f802f407d5b8eb21768c6deca44e7b4c0d8"
+  integrity sha1-fMwfgC9AfVuOshdoxt7KROe0wNg=
   dependencies:
-    "@octokit/request" "^5.0.0"
+    "@octokit/request" "^5.2.0"
     "@octokit/request-error" "^1.0.2"
     atob-lite "^2.0.0"
     before-after-hook "^2.0.0"
@@ -206,6 +209,13 @@
     octokit-pagination-methods "^1.1.0"
     once "^1.4.0"
     universal-user-agent "^4.0.0"
+
+"@octokit/types@^2.0.0":
+  version "2.0.2"
+  resolved "https://unpm.uberinternal.com/@octokit%2ftypes/-/types-2.0.2.tgz#0888497f5a664e28b0449731d5e88e19b2a74f90"
+  integrity sha1-CIhJf1pmTiiwRJcx1eiOGbKnT5A=
+  dependencies:
+    "@types/node" ">= 8"
 
 "@publisher/core@0.2.1":
   version "0.2.1"
@@ -235,6 +245,11 @@
   version "5.1.0"
   resolved "https://unpm.uberinternal.com/@types%2flru-cache/-/lru-cache-5.1.0.tgz#57f228f2b80c046b4a1bd5cac031f81f207f4f03"
   integrity sha1-V/Io8rgMBGtKG9XKwDH4HyB/TwM=
+
+"@types/node@>= 8":
+  version "12.12.14"
+  resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-12.12.14.tgz#1c1d6e3c75dba466e0326948d56e8bd72a1903d2"
+  integrity sha1-HB1uPHXbpGbgMmlI1W6L1yoZA9I=
 
 "@types/q@^1.5.1":
   version "1.5.2"
@@ -320,10 +335,10 @@ assign-symbols@^1.0.0:
   resolved "https://unpm.uberinternal.com/assign-symbols/-/assign-symbols-1.0.0.tgz#59667f41fadd4f20ccbc2bb96b8d4f7f78ec0367"
   integrity sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c=
 
-ast-types@0.11.7:
-  version "0.11.7"
-  resolved "https://unpm.uberinternal.com/ast-types/-/ast-types-0.11.7.tgz#f318bf44e339db6a320be0009ded64ec1471f46c"
-  integrity sha1-8xi/ROM522oyC+AAne1k7BRx9Gw=
+ast-types@0.13.2:
+  version "0.13.2"
+  resolved "https://unpm.uberinternal.com/ast-types/-/ast-types-0.13.2.tgz#df39b677a911a83f3a049644fb74fdded23cea48"
+  integrity sha1-3zm2d6kRqD86BJZE+3T93tI86kg=
 
 async-lock@^1.1.0:
   version "1.2.2"
@@ -335,7 +350,7 @@ atob-lite@^2.0.0:
   resolved "https://unpm.uberinternal.com/atob-lite/-/atob-lite-2.0.0.tgz#0fef5ad46f1bd7a8502c65727f0367d5ee43d696"
   integrity sha1-D+9a1G8b16hQLGVyfwNn1e5D1pY=
 
-atob@^2.1.1:
+atob@^2.1.2:
   version "2.1.2"
   resolved "https://unpm.uberinternal.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha1-bZUX654DDSQ2ZmZR6GvZ9vE1M8k=
@@ -803,23 +818,24 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
-es-abstract@^1.12.0, es-abstract@^1.5.1, es-abstract@^1.7.0:
-  version "1.16.0"
-  resolved "https://unpm.uberinternal.com/es-abstract/-/es-abstract-1.16.0.tgz#d3a26dc9c3283ac9750dca569586e976d9dcc06d"
-  integrity sha1-06JtycMoOsl1DcpWlYbpdtncwG0=
+es-abstract@^1.12.0, es-abstract@^1.17.0-next.1, es-abstract@^1.7.0:
+  version "1.17.0"
+  resolved "https://unpm.uberinternal.com/es-abstract/-/es-abstract-1.17.0.tgz#f42a517d0036a5591dbb2c463591dc8bb50309b1"
+  integrity sha1-9CpRfQA2pVkduyxGNZHci7UDCbE=
   dependencies:
-    es-to-primitive "^1.2.0"
+    es-to-primitive "^1.2.1"
     function-bind "^1.1.1"
     has "^1.0.3"
-    has-symbols "^1.0.0"
-    is-callable "^1.1.4"
-    is-regex "^1.0.4"
-    object-inspect "^1.6.0"
+    has-symbols "^1.0.1"
+    is-callable "^1.1.5"
+    is-regex "^1.0.5"
+    object-inspect "^1.7.0"
     object-keys "^1.1.1"
-    string.prototype.trimleft "^2.1.0"
-    string.prototype.trimright "^2.1.0"
+    object.assign "^4.1.0"
+    string.prototype.trimleft "^2.1.1"
+    string.prototype.trimright "^2.1.1"
 
-es-to-primitive@^1.2.0:
+es-to-primitive@^1.2.1:
   version "1.2.1"
   resolved "https://unpm.uberinternal.com/es-to-primitive/-/es-to-primitive-1.2.1.tgz#e55cd4c9cdc188bcefb03b366c736323fc5c898a"
   integrity sha1-5VzUyc3BiLzvsDs2bHNjI/xciYo=
@@ -1169,10 +1185,10 @@ has-flag@^3.0.0:
   resolved "https://unpm.uberinternal.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
   integrity sha1-tdRU3CGZriJWmfNGfloH87lVuv0=
 
-has-symbols@^1.0.0:
-  version "1.0.0"
-  resolved "https://unpm.uberinternal.com/has-symbols/-/has-symbols-1.0.0.tgz#ba1a8f1af2a0fc39650f5c850367704122063b44"
-  integrity sha1-uhqPGvKg/DllD1yFA2dwQSIGO0Q=
+has-symbols@^1.0.0, has-symbols@^1.0.1:
+  version "1.0.1"
+  resolved "https://unpm.uberinternal.com/has-symbols/-/has-symbols-1.0.1.tgz#9f5214758a44196c406d9bd76cebf81ec2dd31e8"
+  integrity sha1-n1IUdYpEGWxAbZvXbOv4HsLdMeg=
 
 has-value@^0.3.1:
   version "0.3.1"
@@ -1205,7 +1221,7 @@ has-values@^1.0.0:
     is-number "^3.0.0"
     kind-of "^4.0.0"
 
-has@^1.0.1, has@^1.0.3:
+has@^1.0.3:
   version "1.0.3"
   resolved "https://unpm.uberinternal.com/has/-/has-1.0.3.tgz#722d7cbfc1f6aa8241f16dd814e011e1f41e8796"
   integrity sha1-ci18v8H2qoJB8W3YFOAR4fQeh5Y=
@@ -1288,10 +1304,10 @@ is-buffer@^1.1.5:
   resolved "https://unpm.uberinternal.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha1-76ouqdqg16suoTqXsritUf776L4=
 
-is-callable@^1.1.4:
-  version "1.1.4"
-  resolved "https://unpm.uberinternal.com/is-callable/-/is-callable-1.1.4.tgz#1e1adf219e1eeb684d691f9d6a05ff0d30a24d75"
-  integrity sha1-HhrfIZ4e62hNaR+dagX/DTCiTXU=
+is-callable@^1.1.4, is-callable@^1.1.5:
+  version "1.1.5"
+  resolved "https://unpm.uberinternal.com/is-callable/-/is-callable-1.1.5.tgz#f7e46b596890456db74e7f6e976cb3273d06faab"
+  integrity sha1-9+RrWWiQRW23Tn9ul2yzJz0G+qs=
 
 is-data-descriptor@^0.1.4:
   version "0.1.4"
@@ -1308,9 +1324,9 @@ is-data-descriptor@^1.0.0:
     kind-of "^6.0.0"
 
 is-date-object@^1.0.1:
-  version "1.0.1"
-  resolved "https://unpm.uberinternal.com/is-date-object/-/is-date-object-1.0.1.tgz#9aa20eb6aeebbff77fbd33e74ca01b33581d3a16"
-  integrity sha1-mqIOtq7rv/d/vTPnTKAbM1gdOhY=
+  version "1.0.2"
+  resolved "https://unpm.uberinternal.com/is-date-object/-/is-date-object-1.0.2.tgz#bda736f2cd8fd06d32844e7743bfa7494c3bfd7e"
+  integrity sha1-vac28s2P0G0yhE53Q7+nSUw7/X4=
 
 is-descriptor@^0.1.0:
   version "0.1.6"
@@ -1394,12 +1410,12 @@ is-plain-object@^3.0.0:
   dependencies:
     isobject "^4.0.0"
 
-is-regex@^1.0.4:
-  version "1.0.4"
-  resolved "https://unpm.uberinternal.com/is-regex/-/is-regex-1.0.4.tgz#5517489b547091b0930e095654ced25ee97e9491"
-  integrity sha1-VRdIm1RwkbCTDglWVM7SXul+lJE=
+is-regex@^1.0.5:
+  version "1.0.5"
+  resolved "https://unpm.uberinternal.com/is-regex/-/is-regex-1.0.5.tgz#39d589a358bf18967f726967120b8fc1aed74eae"
+  integrity sha1-OdWJo1i/GJZ/cmlnEguPwa7XTq4=
   dependencies:
-    has "^1.0.1"
+    has "^1.0.3"
 
 is-stream@^1.0.1, is-stream@^1.1.0:
   version "1.1.0"
@@ -1407,11 +1423,11 @@ is-stream@^1.0.1, is-stream@^1.1.0:
   integrity sha1-EtSj3U5o4Lec6428hBc66A2RykQ=
 
 is-symbol@^1.0.2:
-  version "1.0.2"
-  resolved "https://unpm.uberinternal.com/is-symbol/-/is-symbol-1.0.2.tgz#a055f6ae57192caee329e7a860118b497a950f38"
-  integrity sha1-oFX2rlcZLK7jKeeoYBGLSXqVDzg=
+  version "1.0.3"
+  resolved "https://unpm.uberinternal.com/is-symbol/-/is-symbol-1.0.3.tgz#38e1014b9e6329be0de9d24a414fd7441ec61937"
+  integrity sha1-OOEBS55jKb4N6dJKQU/XRB7GGTc=
   dependencies:
-    has-symbols "^1.0.0"
+    has-symbols "^1.0.1"
 
 is-windows@^0.2.0:
   version "0.2.0"
@@ -1877,12 +1893,12 @@ object-copy@^0.1.0:
     define-property "^0.2.5"
     kind-of "^3.0.3"
 
-object-inspect@^1.6.0:
+object-inspect@^1.7.0:
   version "1.7.0"
   resolved "https://unpm.uberinternal.com/object-inspect/-/object-inspect-1.7.0.tgz#f4f6bd181ad77f006b5ece60bd0b6f398ff74a67"
   integrity sha1-9Pa9GBrXfwBrXs5gvQtvOY/3Smc=
 
-object-keys@^1.0.12, object-keys@^1.1.1:
+object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   version "1.1.1"
   resolved "https://unpm.uberinternal.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha1-HEfyct8nfzsdrwYWd9nILiMixg4=
@@ -1894,13 +1910,23 @@ object-visit@^1.0.0:
   dependencies:
     isobject "^3.0.0"
 
-object.getownpropertydescriptors@^2.0.3:
-  version "2.0.3"
-  resolved "https://unpm.uberinternal.com/object.getownpropertydescriptors/-/object.getownpropertydescriptors-2.0.3.tgz#8758c846f5b407adab0f236e0986f14b051caa16"
-  integrity sha1-h1jIRvW0B62rDyNuCYbxSwUcqhY=
+object.assign@^4.1.0:
+  version "4.1.0"
+  resolved "https://unpm.uberinternal.com/object.assign/-/object.assign-4.1.0.tgz#968bf1100d7956bb3ca086f006f846b3bc4008da"
+  integrity sha1-lovxEA15Vrs8oIbwBvhGs7xACNo=
   dependencies:
     define-properties "^1.1.2"
-    es-abstract "^1.5.1"
+    function-bind "^1.1.1"
+    has-symbols "^1.0.0"
+    object-keys "^1.0.11"
+
+object.getownpropertydescriptors@^2.0.3:
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/object.getownpropertydescriptors/-/object.getownpropertydescriptors-2.1.0.tgz#369bf1f9592d8ab89d712dced5cb81c7c5352649"
+  integrity sha1-Npvx+VktiridcS3O1cuBx8U1Jkk=
+  dependencies:
+    define-properties "^1.1.3"
+    es-abstract "^1.17.0-next.1"
 
 object.pick@^1.3.0:
   version "1.3.0"
@@ -2073,7 +2099,7 @@ printj@~1.1.0:
   resolved "https://unpm.uberinternal.com/printj/-/printj-1.1.2.tgz#d90deb2975a8b9f600fb3a1c94e3f4c53c78a222"
   integrity sha1-2Q3rKXWoufYA+zoclOP0xTx4oiI=
 
-private@~0.1.5:
+private@^0.1.8:
   version "0.1.8"
   resolved "https://unpm.uberinternal.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
   integrity sha1-I4Hts2ifelPWUxkAYPz4ItLzaP8=
@@ -2136,9 +2162,9 @@ react-dom@15.5.4:
     prop-types "~15.5.7"
 
 react-is@^16.8.1:
-  version "16.11.0"
-  resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
-  integrity sha1-uF3+zUitHORp/1WKiCyo6DE5KPo=
+  version "16.12.0"
+  resolved "https://unpm.uberinternal.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
+  integrity sha1-LMD+D7p0LZf9UnxCoTvsTusGJBw=
 
 react@15.5.4:
   version "15.5.4"
@@ -2177,9 +2203,9 @@ readable-stream@^3.0.0:
     util-deprecate "^1.0.1"
 
 readable-stream@~2.3.6:
-  version "2.3.6"
-  resolved "https://unpm.uberinternal.com/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
-  integrity sha1-sRwn2IuP8fvgcGQ8+UsMea4bCq8=
+  version "2.3.7"
+  resolved "https://unpm.uberinternal.com/readable-stream/-/readable-stream-2.3.7.tgz#1eca1cf711aef814c04f62252a36a62f6cb23b57"
+  integrity sha1-Hsoc9xGu+BTAT2IlKjamL2yyO1c=
   dependencies:
     core-util-is "~1.0.0"
     inherits "~2.0.3"
@@ -2189,14 +2215,14 @@ readable-stream@~2.3.6:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-recast@^0.16.0:
-  version "0.16.2"
-  resolved "https://unpm.uberinternal.com/recast/-/recast-0.16.2.tgz#3796ebad5fe49ed85473b479cd6df554ad725dc2"
-  integrity sha1-N5brrV/knthUc7R5zW31VK1yXcI=
+recast@^0.18.3:
+  version "0.18.5"
+  resolved "https://unpm.uberinternal.com/recast/-/recast-0.18.5.tgz#9d5adbc07983a3c8145f3034812374a493e0fe4d"
+  integrity sha1-nVrbwHmDo8gUXzA0gSN0pJPg/k0=
   dependencies:
-    ast-types "0.11.7"
+    ast-types "0.13.2"
     esprima "~4.0.0"
-    private "~0.1.5"
+    private "^0.1.8"
     source-map "~0.6.1"
 
 regenerator-runtime@^0.10.0:
@@ -2256,9 +2282,9 @@ resolve-url@^0.2.1:
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
 resolve@^1.10.0:
-  version "1.12.0"
-  resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.12.0.tgz#3fc644a35c84a48554609ff26ec52b66fa577df6"
-  integrity sha1-P8ZEo1yEpIVUYJ/ybsUrZvpXffY=
+  version "1.14.2"
+  resolved "https://unpm.uberinternal.com/resolve/-/resolve-1.14.2.tgz#dbf31d0fa98b1f29aa5169783b9c290cb865fea2"
+  integrity sha1-2/MdD6mLHymqUWl4O5wpDLhl/qI=
   dependencies:
     path-parse "^1.0.6"
 
@@ -2399,11 +2425,11 @@ snapdragon@^0.8.1:
     use "^3.1.0"
 
 source-map-resolve@^0.5.0:
-  version "0.5.2"
-  resolved "https://unpm.uberinternal.com/source-map-resolve/-/source-map-resolve-0.5.2.tgz#72e2cc34095543e43b2c62b2c4c10d4a9054f259"
-  integrity sha1-cuLMNAlVQ+Q7LGKyxMENSpBU8lk=
+  version "0.5.3"
+  resolved "https://unpm.uberinternal.com/source-map-resolve/-/source-map-resolve-0.5.3.tgz#190866bece7553e1f8f267a2ee82c606b5509a1a"
+  integrity sha1-GQhmvs51U+H48mei7oLGBrVQmho=
   dependencies:
-    atob "^2.1.1"
+    atob "^2.1.2"
     decode-uri-component "^0.2.0"
     resolve-url "^0.2.1"
     source-map-url "^0.4.0"
@@ -2504,18 +2530,18 @@ string-width@^2.0.0:
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^4.0.0"
 
-string.prototype.trimleft@^2.1.0:
-  version "2.1.0"
-  resolved "https://unpm.uberinternal.com/string.prototype.trimleft/-/string.prototype.trimleft-2.1.0.tgz#6cc47f0d7eb8d62b0f3701611715a3954591d634"
-  integrity sha1-bMR/DX641isPNwFhFxWjlUWR1jQ=
+string.prototype.trimleft@^2.1.1:
+  version "2.1.1"
+  resolved "https://unpm.uberinternal.com/string.prototype.trimleft/-/string.prototype.trimleft-2.1.1.tgz#9bdb8ac6abd6d602b17a4ed321870d2f8dcefc74"
+  integrity sha1-m9uKxqvW1gKxek7TIYcNL43O/HQ=
   dependencies:
     define-properties "^1.1.3"
     function-bind "^1.1.1"
 
-string.prototype.trimright@^2.1.0:
-  version "2.1.0"
-  resolved "https://unpm.uberinternal.com/string.prototype.trimright/-/string.prototype.trimright-2.1.0.tgz#669d164be9df9b6f7559fa8e89945b168a5a6c58"
-  integrity sha1-Zp0WS+nfm291WfqOiZRbFopabFg=
+string.prototype.trimright@^2.1.1:
+  version "2.1.1"
+  resolved "https://unpm.uberinternal.com/string.prototype.trimright/-/string.prototype.trimright-2.1.1.tgz#440314b15996c866ce8a0341894d45186200c5d9"
+  integrity sha1-RAMUsVmWyGbOigNBiU1FGGIAxdk=
   dependencies:
     define-properties "^1.1.3"
     function-bind "^1.1.1"

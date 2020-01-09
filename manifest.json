@@ -46,6 +46,7 @@
     "private/fusion-plugin-secure-headers",
     "private/fusion-plugin-secrets",
     "private/fusion-plugin-s3-asset-proxying",
+    "private/fusion-plugin-s3-asset-proxying-tests",
     "private/fusion-plugin-rosetta",
     "private/fusion-plugin-proxy-compat",
     "private/fusion-plugin-page-skeleton-compat",
@@ -85,6 +86,7 @@
     "private/template-website-graphql"
   ],
   "excludeFromPublishing": [
+    "private/fusion-plugin-s3-asset-proxying-tests",
     "private/monorepo-actions",
     "private/benchmarks",
     "private/template-fusion-plugin",

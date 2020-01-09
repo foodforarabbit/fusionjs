@@ -110,6 +110,12 @@ export default ((__NODE__ &&
           return next();
         }
 
+        await next(); // Wait for local asset middleware to set response
+        if (ctx.status === 200) {
+          // Serving from disk succeeded
+          return;
+        }
+
         const s3 = state.s3;
         const {prefix} = state.config;
 
@@ -152,7 +158,6 @@ export default ((__NODE__ &&
           ctx.status = statusCode;
           ctx.body = data.Body;
         }
-        return next();
       };
     },
   }): any): FusionPlugin<S3AssetProxyDepsType, S3AssetProxyType>);
