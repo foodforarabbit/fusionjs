@@ -18,10 +18,10 @@ const gqlPkg = JSON.parse(
 
 const deps = {
   ...getFusionVersions(),
-  ...gqlPkg.dependencies,
-  ...gqlPkg.devDependencies,
   ...websitePkg.dependencies,
   ...websitePkg.devDependencies,
+  ...gqlPkg.dependencies,
+  ...gqlPkg.devDependencies,
 };
 
 const cache = {};

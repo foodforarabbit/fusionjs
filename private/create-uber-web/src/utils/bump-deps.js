@@ -60,6 +60,13 @@ const batchUpgrade = async ({dir, match, file, data, strategy}) => {
           const curr = v.replace(/\^|~/, '');
           if (!semver.valid(old) || semver.gt(curr, old)) {
             data[key][dep] = v;
+          } else if (
+            strategy === 'curated' &&
+            /canary/.test(curr) &&
+            /fusion/.test(dep)
+          ) {
+            // Override default logic for upgrading fusion canary deps
+            data[key][dep] = v;
           }
         })
       );
