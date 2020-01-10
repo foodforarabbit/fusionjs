@@ -99,6 +99,9 @@ export const replacePackageImports = async ({
         if (targets.has(importPath)) {
           const targetConfigs = config[importPath];
           for (const targetConfig of targetConfigs) {
+            if (ipath.removed) {
+              continue;
+            }
             const {replacement, imports = [], typeImports = []} = targetConfig;
             const targetImports = new Map();
             const targetImportTypes = new Map();
