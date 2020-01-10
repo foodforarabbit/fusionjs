@@ -31,6 +31,7 @@
     "public/fusion-plugin-apollo",
     "public/fusion-core",
     "public/fusion-cli",
+    "public/fusion-cli-tests",
     "public/eslint-config-fusion",
     "public/create-fusion-plugin",
     "public/create-fusion-app",
@@ -86,6 +87,7 @@
     "private/template-website-graphql"
   ],
   "excludeFromPublishing": [
+    "public/fusion-cli-tests",
     "private/fusion-plugin-s3-asset-proxying-tests",
     "private/monorepo-actions",
     "private/benchmarks",

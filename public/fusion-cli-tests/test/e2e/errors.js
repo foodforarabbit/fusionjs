@@ -11,7 +11,7 @@
 const path = require('path');
 const t = require('assert');
 
-const {Compiler} = require('../../build/compiler');
+const {Compiler} = require('fusion-cli/build/compiler');
 
 module.exports = function testEnvs(title /*: string */, dir /*: string */) {
   testDev(`${title} dev`, dir);

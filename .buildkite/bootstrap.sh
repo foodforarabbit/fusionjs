@@ -17,10 +17,10 @@ CHANGES=$(jazelle changes ./changes.txt)
 for DIR in $CHANGES ; do (
   PROJECT=$(basename "$DIR");
   if [ -d "$DIR" ] && [ $PROJECT != "common" ] && [ $PROJECT != "scripts" ] && [ $PROJECT != "flow-typed" ] && [ $PROJECT != "rfcs" ] && [ $PROJECT != "docs" ]; then
-    if [ $PROJECT = "fusion-cli" ]; then
-      echo "  - label: 'fusion-cli'";
+    if [ $PROJECT = "fusion-cli-tests" ]; then
+      echo "  - label: 'fusion-cli-tests'";
       echo "    commands:";
-      echo "    - 'cd public/fusion-cli'";
+      echo "    - 'cd public/fusion-cli-tests'";
       echo "    - 'jazelle ci'";
       echo "    - 'jazelle build'";
       echo "    - '.buildkite/nodeTests'";
@@ -34,7 +34,7 @@ for DIR in $CHANGES ; do (
       echo "          - UNPM_TOKEN";
       echo "    agents:";
       echo "      queue: private-default";
-      echo "  - label: 'fusion-cli lint flow'";
+      echo "  - label: 'fusion-cli-tests lint flow'";
       echo "    commands:";
       echo "    - 'jazelle ci --cwd $DIR'";
       echo "    - 'jazelle build --cwd $DIR'";

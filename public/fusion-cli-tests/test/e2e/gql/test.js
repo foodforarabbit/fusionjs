@@ -11,7 +11,8 @@ const puppeteer = require('puppeteer');
 
 const {cmd, start} = require('../utils.js');
 
-const runnerPath = require.resolve('../../../bin/cli-runner');
+const runnerPath = require.resolve('fusion-cli/bin/cli-runner');
+const jestConfigPath = require.resolve('fusion-cli/build/jest/jest-config.js');
 const countTests = require('../test-jest-app/fixture/src/count-tests');
 
 const {promisify} = require('util');
@@ -127,7 +128,7 @@ type User {
 });
 
 test('`fusion test` with gql macro', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath}`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -135,7 +136,7 @@ test('`fusion test` with gql macro', async () => {
 });
 
 test('`fusion test` coverage with gql', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --coverage`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --coverage`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);

@@ -3,5 +3,5 @@
 
 module.exports = {
   testEnvironment: 'node',
-  testPathIgnorePatterns: ['commands/test.js'],
+  testPathIgnorePatterns: ['test/e2e/.*/fixture', 'commands/test.js'],
 };

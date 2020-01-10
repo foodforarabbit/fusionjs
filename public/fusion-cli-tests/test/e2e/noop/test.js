@@ -6,7 +6,7 @@ const path = require('path');
 const {promisify} = require('util');
 const fs = require('fs');
 const getPort = require('get-port');
-const getHandler = require('../../../serverless.js');
+const getHandler = require('fusion-cli/serverless.js');
 const http = require('http');
 const request = require('request-promise');
 

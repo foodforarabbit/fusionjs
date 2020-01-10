@@ -12,7 +12,7 @@ const {spawn} = require('child_process');
 const getPort = require('get-port');
 const request = require('request-promise');
 
-const binPath = require.resolve('../../bin/cli.js');
+const binPath = require.resolve('fusion-cli/bin/cli.js');
 
 function makeCommand(args) /*: Array<string> */ {
   if (Array.isArray(args)) {

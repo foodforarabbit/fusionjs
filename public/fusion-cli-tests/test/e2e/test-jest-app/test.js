@@ -15,14 +15,15 @@ const readFile = promisify(fs.readFile);
 
 const countTests = require('./fixture/src/count-tests');
 
-const runnerPath = require.resolve('../../../bin/cli-runner');
+const runnerPath = require.resolve('fusion-cli/bin/cli-runner');
+const jestConfigPath = require.resolve('fusion-cli/build/jest/jest-config.js');
 
 const dir = path.resolve(__dirname, './fixture');
 
 jest.setTimeout(20000);
 
 test('`fusion test` passes', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=passes`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=passes`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -30,7 +31,7 @@ test('`fusion test` passes', async () => {
 });
 
 test('`fusion test` failure', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=fails`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=fails`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   try {
@@ -44,7 +45,7 @@ test('`fusion test` failure', async () => {
 });
 
 test('`fusion test` all passing tests', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=pass`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=pass`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -52,7 +53,7 @@ test('`fusion test` all passing tests', async () => {
 });
 
 test('`fusion test` expected test passes in browser/node', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=pass-`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=pass-`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -60,7 +61,7 @@ test('`fusion test` expected test passes in browser/node', async () => {
 });
 
 test('`fusion test` expected tests fail when run in browser/node', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=fail-`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=fail-`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   try {
@@ -74,7 +75,7 @@ test('`fusion test` expected tests fail when run in browser/node', async () => {
 });
 
 test('`fusion test --testFolder=integration` runs correct tests', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --env=node --testFolder=__integration__`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --env=node --testFolder=__integration__`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -82,7 +83,7 @@ test('`fusion test --testFolder=integration` runs correct tests', async () => {
 });
 
 test('`fusion test --testMatch=**/__foo__/**/*js` runs correct tests', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --env=node --testMatch=**/__foo__/**/*.js`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --env=node --testMatch=**/__foo__/**/*.js`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -90,7 +91,7 @@ test('`fusion test --testMatch=**/__foo__/**/*js` runs correct tests', async () 
 });
 
 test('`fusion test --testMatch=**/__foo__/**/*js,**/__integration__/**/*.js` runs correct tests', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --env=node --testMatch=**/__foo__/**/*.js,**/__integration__/**/*.js`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --env=node --testMatch=**/__foo__/**/*.js,**/__integration__/**/*.js`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -99,7 +100,7 @@ test('`fusion test --testMatch=**/__foo__/**/*js,**/__integration__/**/*.js` run
 });
 
 test('`fusion test --testRegex=/__foo__/.*` runs correct tests', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --env=node --testRegex=.*/__foo__/.*`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --env=node --testRegex=.*/__foo__/.*`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -107,7 +108,7 @@ test('`fusion test --testRegex=/__foo__/.*` runs correct tests', async () => {
 });
 
 test('`fusion test --testRegex and --testMatch cannot occur at same time', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --env=node --testMatch=**/__foo__/**/*.js --testRegex=.*/__foo__/.*`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --env=node --testMatch=**/__foo__/**/*.js --testRegex=.*/__foo__/.*`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
 
@@ -115,7 +116,7 @@ test('`fusion test --testRegex and --testMatch cannot occur at same time', async
 });
 
 test('`fusion test --testFolder and --testMatch cannot occur at same time', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --env=node --testMatch=**/__foo__/**/*.js --testFolder=__foo__`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --env=node --testMatch=**/__foo__/**/*.js --testFolder=__foo__`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   // $FlowFixMe
@@ -123,7 +124,7 @@ test('`fusion test --testFolder and --testMatch cannot occur at same time', asyn
 });
 
 test('`fusion test --testFolder and --testRegex cannot occur at same time', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --env=node --testRegex=.*/__foo__/.* --testFolder=__foo__`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --env=node --testRegex=.*/__foo__/.* --testFolder=__foo__`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   // $FlowFixMe
@@ -131,7 +132,7 @@ test('`fusion test --testFolder and --testRegex cannot occur at same time', asyn
 });
 
 test('`fusion test` snapshotting', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=snapshot-no-match`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=snapshot-no-match`;
 
   const snapshotFile = path.join(
     dir,
@@ -168,7 +169,7 @@ test('`fusion test` snapshotting', async () => {
 }, 60000);
 
 test('`fusion test` snapshotting with -u option', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=snapshot-no-match`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=snapshot-no-match`;
 
   const snapshotFile = path.join(
     dir,
@@ -206,7 +207,7 @@ test('`fusion test` snapshotting with -u option', async () => {
 }, 60000);
 
 test('`fusion test` snapshotting - enzyme serializer', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=snapshot-enzyme-no-match`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=snapshot-enzyme-no-match`;
 
   const snapshotFile = path.join(
     dir,
@@ -243,7 +244,7 @@ test('`fusion test` snapshotting - enzyme serializer', async () => {
 });
 
 test('`fusion test` dynamic imports', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=dynamic-imports`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=dynamic-imports`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -251,7 +252,7 @@ test('`fusion test` dynamic imports', async () => {
 });
 
 test('`fusion test` coverage', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --coverage --match=passes --collectCoverageFrom=!**/istanbul-ignore-coverage-cli.js`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --coverage --match=passes --collectCoverageFrom=!**/istanbul-ignore-coverage-cli.js`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -278,7 +279,7 @@ test('`fusion test` coverage', async () => {
 });
 
 test('`fusion test` coverage ignore multiple globs from collectCoverageFrom', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --coverage --match=passes --collectCoverageFrom=!**/istanbul-ignore-coverage-cli.js --collectCoverageFrom=!**/class-props.js`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --coverage --match=passes --collectCoverageFrom=!**/istanbul-ignore-coverage-cli.js --collectCoverageFrom=!**/class-props.js`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -289,7 +290,7 @@ test('`fusion test` coverage ignore multiple globs from collectCoverageFrom', as
 });
 
 test('`fusion test` class properties', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=class-props`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=class-props`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -297,7 +298,7 @@ test('`fusion test` class properties', async () => {
 });
 
 test('`fusion test` cobertura coverage reports', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --coverage --match=passes`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --coverage --match=passes`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args} --env=jsdom')`;
   const response = await exec(`node -e "${cmd}"`);
@@ -335,7 +336,7 @@ test('`fusion test` cobertura coverage reports', async () => {
 }, 60000);
 
 test('`fusion test` environment variables', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=environment-variables`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=environment-variables`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const response = await exec(`node -e "${cmd}"`, {
@@ -347,7 +348,7 @@ test('`fusion test` environment variables', async () => {
 });
 
 test('`fusion test` writes results to disk based on env var', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --match=passes`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --match=passes`;
 
   const testMetadataPath = path.join(dir, 'test-results.json');
 
@@ -377,7 +378,7 @@ async function triggerCodeStep() {
 }
 
 test('`fusion test --debug --env=jsdom,node`', async () => {
-  const args = `test --dir=${dir} --configPath=../../../../build/jest/jest-config.js --debug --env=jsdom,node  --match=passes`;
+  const args = `test --dir=${dir} --configPath=${jestConfigPath} --debug --env=jsdom,node  --match=passes`;
 
   const cmd = `require('${runnerPath}').run('node ${runnerPath} ${args}')`;
   const stderrLines = [];
