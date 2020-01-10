@@ -167,7 +167,7 @@ export const replacePackageImports = async ({
   });
 
   await withJsonFile(`${dir}/package.json`, async pkg => {
-    for (const target in targets) {
+    for (const target of targets) {
       const targetConfigs = config[target];
       for (const {replacement} of targetConfigs) {
         const isDep = pkg.dependencies && pkg.dependencies[target];

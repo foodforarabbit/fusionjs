@@ -6,6 +6,10 @@ import fs from 'fs';
 
 const readDir = util.promisify(fs.readdir);
 
+jest.mock('../../utils/get-latest-version.js', () => ({
+  getLatestVersion: () => Promise.resolve('^1.0.0'),
+}));
+
 test('codemod-inline-react-hocs rewrites to local path', async () => {
   const contents = `
 import Plugin, {Token, withGoogleAnalytics} from "@uber/fusion-plugin-google-analytics-react";
@@ -17,7 +21,12 @@ withGoogleAnalytics(Component);
   const fixture = `${root}/src/fixture.js`;
   const inlineHoc = `${root}/src/components/hocs/with-google-analytics.js`;
   await writeFile(fixture, contents);
-  await inlineReactHocs({dir: root});
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    '{"dependencies": {"@uber/fusion-plugin-google-analytics-react": "1.0.0"}}'
+  );
+  await inlineReactHocs({dir: root, strategy: 'curated'});
   const newContents = await readFile(fixture);
   const hocContents = await readFile(inlineHoc);
   expect(newContents).toMatchInlineSnapshot(`
@@ -39,6 +48,15 @@ withGoogleAnalytics(Component);
     });
     "
   `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-google-analytics-react\\": \\"1.0.0\\",
+        \\"@uber/fusion-plugin-google-analytics\\": \\"^1.0.0\\"
+      }
+    }"
+  `);
   await removeFile(root);
 });
 
@@ -53,7 +71,17 @@ import {withTealium, type tealiumType} from "@uber/fusion-plugin-tealium-react";
   const fixture = `${root}/src/fixture.js`;
   const hocDir = `${root}/src/components/hocs`;
   await writeFile(fixture, contents);
-  await inlineReactHocs({dir: root});
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    `{"dependencies": {
+      "@uber/fusion-plugin-m3-react": "1.0.0",
+      "@uber/fusion-plugin-logtron-react": "2.0.0",
+      "fusion-plugin-universal-events-react": "3.0.0",
+      "@uber/fusion-plugin-tealium-react": "4.0.0"
+    }}`
+  );
+  await inlineReactHocs({dir: root, strategy: 'curated'});
   expect((await readDir(hocDir)).length).toBe(4);
   const newContents = await readFile(fixture);
   expect(newContents).toMatchInlineSnapshot(`
@@ -66,6 +94,19 @@ import {withTealium, type tealiumType} from "@uber/fusion-plugin-tealium-react";
     import {withTealium} from \\"./components/hocs/with-tealium.js\\";
     "
   `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-m3-react\\": \\"1.0.0\\",
+        \\"@uber/fusion-plugin-tealium-react\\": \\"4.0.0\\",
+        \\"@uber/fusion-plugin-logtron\\": \\"^1.0.0\\",
+        \\"@uber/fusion-plugin-m3\\": \\"^1.0.0\\",
+        \\"@uber/fusion-plugin-tealium\\": \\"^1.0.0\\",
+        \\"fusion-plugin-universal-events\\": \\"^1.0.0\\"
+      }
+    }"
+  `);
   await removeFile(root);
 });
 
@@ -77,7 +118,12 @@ import {withM3} from "@uber/fusion-plugin-m3-react";
   const fixture = `${root}/src/components/roots/trip-details/details.js`;
   const inlineHoc = `${root}/src/components/hocs/with-m3.js`;
   await writeFile(fixture, contents);
-  await inlineReactHocs({dir: root});
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    '{"dependencies": {"@uber/fusion-plugin-m3-react": "1.0.0"}}'
+  );
+  await inlineReactHocs({dir: root, strategy: 'curated'});
   const newContents = await readFile(fixture);
   const hocContents = await readFile(inlineHoc);
   expect(newContents).toMatchInlineSnapshot(`
@@ -94,6 +140,14 @@ import {withM3} from "@uber/fusion-plugin-m3-react";
       m3: M3Token,
     });
     "
+  `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-m3\\": \\"^1.0.0\\"
+      }
+    }"
   `);
   await removeFile(root);
 });

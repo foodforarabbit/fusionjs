@@ -2,6 +2,10 @@
 import {replacePackageImports} from './codemod-replace-package-imports.js';
 import {writeFile, readFile, removeFile} from '@dubstep/core';
 
+jest.mock('../../utils/get-latest-version.js', () => ({
+  getLatestVersion: () => Promise.resolve('^1.0.0'),
+}));
+
 test('codemod-replace-package-imports switches target for replacement package', async () => {
   const contents = `
 import Plugin, {GoogleAnalyticsToken} from "@uber/fusion-plugin-google-analytics-react";
@@ -10,6 +14,11 @@ app.register(GoogleAnalyticsToken, Plugin);
   const root = 'fixtures/replace-import-simple';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    '{"dependencies": {"@uber/fusion-plugin-google-analytics-react": "1.0.0"}}'
+  );
   await replacePackageImports({
     dir: root,
     strategy: 'curated',
@@ -20,6 +29,14 @@ app.register(GoogleAnalyticsToken, Plugin);
     import Plugin, { GoogleAnalyticsToken } from \\"@uber/fusion-plugin-google-analytics\\";
     app.register(GoogleAnalyticsToken, Plugin);
     "
+  `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-google-analytics\\": \\"^1.0.0\\"
+      }
+    }"
   `);
   await removeFile(root);
 });
@@ -33,6 +50,14 @@ app.register(Token, Plugin);
   const root = 'fixtures/replace-import-merge';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    `{"dependencies": {
+    "@uber/fusion-plugin-google-analytics-react": "1.0.0",
+    "@uber/fusion-plugin-google-analytics": "2.0.0"
+  }}`
+  );
   await replacePackageImports({
     dir: root,
     strategy: 'curated',
@@ -43,6 +68,14 @@ app.register(Token, Plugin);
     import Plugin, { OtherToken, GoogleAnalyticsToken } from \\"@uber/fusion-plugin-google-analytics\\";
     app.register(Token, Plugin);
     "
+  `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-google-analytics\\": \\"^1.0.0\\"
+      }
+    }"
   `);
   await removeFile(root);
 });
@@ -56,6 +89,14 @@ app.register(T, Plugin);
   const root = 'fixtures/replace-import-complex';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    `{"dependencies": {
+    "@uber/fusion-plugin-google-analytics-react": "1.0.0",
+    "@uber/fusion-plugin-google-analytics": "2.0.0"
+  }}`
+  );
   await replacePackageImports({
     strategy: 'curated',
     dir: root,
@@ -68,6 +109,15 @@ app.register(T, Plugin);
     app.register(T, Plugin);
     "
   `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-google-analytics-react\\": \\"1.0.0\\",
+        \\"@uber/fusion-plugin-google-analytics\\": \\"^1.0.0\\"
+      }
+    }"
+  `);
   await removeFile(root);
 });
 
@@ -79,6 +129,14 @@ import {Mock} from "@uber/fusion-plugin-google-analytics";
   const root = 'fixtures/replace-import-noop';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    `{"dependencies": {
+    "@uber/fusion-plugin-google-analytics-react": "1.0.0",
+    "@uber/fusion-plugin-google-analytics": "2.0.0"
+  }}`
+  );
   await replacePackageImports({
     strategy: 'curated',
     dir: root,
@@ -90,6 +148,15 @@ import {Mock} from "@uber/fusion-plugin-google-analytics";
     import {Mock} from \\"@uber/fusion-plugin-google-analytics\\";
     "
   `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-google-analytics-react\\": \\"1.0.0\\",
+        \\"@uber/fusion-plugin-google-analytics\\": \\"^1.0.0\\"
+      }
+    }"
+  `);
   await removeFile(root);
 });
 
@@ -100,6 +167,11 @@ import type { M3Type } from '@uber/fusion-plugin-m3-react';
   const root = 'fixtures/replace-type-import-basic';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    '{"dependencies": {"@uber/fusion-plugin-m3-react": "1.0.0"}}'
+  );
   await replacePackageImports({
     strategy: 'curated',
     dir: root,
@@ -109,6 +181,14 @@ import type { M3Type } from '@uber/fusion-plugin-m3-react';
     "
     import type { M3Type } from \\"@uber/fusion-plugin-m3\\";
     "
+  `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-m3\\": \\"^1.0.0\\"
+      }
+    }"
   `);
   await removeFile(root);
 });
@@ -122,6 +202,14 @@ app.register(Token, Plugin);
   const root = 'fixtures/replace-type-imports';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    `{"dependencies": {
+    "@uber/fusion-plugin-google-analytics-react": "1.0.0",
+    "@uber/fusion-plugin-m3-react": "2.0.0"
+    }}`
+  );
   await replacePackageImports({
     strategy: 'curated',
     dir: root,
@@ -136,6 +224,17 @@ app.register(Token, Plugin);
     app.register(Token, Plugin);
     "
   `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-google-analytics-react\\": \\"1.0.0\\",
+        \\"@uber/fusion-plugin-m3-react\\": \\"2.0.0\\",
+        \\"@uber/fusion-plugin-m3\\": \\"^1.0.0\\",
+        \\"@uber/fusion-plugin-google-analytics\\": \\"^1.0.0\\"
+      }
+    }"
+  `);
   await removeFile(root);
 });
 
@@ -147,6 +246,14 @@ import type {OtherType} from "@uber/fusion-plugin-m3";
   const root = 'fixtures/merge-type-imports';
   const fixture = `${root}/fixture.js`;
   await writeFile(fixture, contents);
+  const pkg = `${root}/package.json`;
+  await writeFile(
+    pkg,
+    `{"dependencies": {
+    "@uber/fusion-plugin-m3-react": "1.0.0",
+    "@uber/fusion-plugin-m3": "2.0.0"
+  }}`
+  );
   await replacePackageImports({
     strategy: 'curated',
     dir: root,
@@ -156,6 +263,14 @@ import type {OtherType} from "@uber/fusion-plugin-m3";
     "
     import type { OtherType, M3Type } from \\"@uber/fusion-plugin-m3\\";
     "
+  `);
+  const newPkgContents = await readFile(pkg);
+  expect(newPkgContents).toMatchInlineSnapshot(`
+    "{
+      \\"dependencies\\": {
+        \\"@uber/fusion-plugin-m3\\": \\"^1.0.0\\"
+      }
+    }"
   `);
   await removeFile(root);
 });

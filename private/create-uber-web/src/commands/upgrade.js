@@ -135,7 +135,7 @@ export const upgrade = async ({
         });
       }),
       step('create local React HOCs', async () => {
-        await inlineReactHocs({dir});
+        await inlineReactHocs({dir, strategy});
       }),
       step('replace deprecated package imports', async () => {
         await replacePackageImports({
