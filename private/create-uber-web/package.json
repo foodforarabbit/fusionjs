@@ -12,7 +12,8 @@
   },
   "files": [
     "dist/",
-    "templates/"
+    "templates/",
+    "src/codemods/inline-react-hocs/templates/"
   ],
   "main": "dist/index.js",
   "scripts": {
