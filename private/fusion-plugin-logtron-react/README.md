@@ -81,7 +81,7 @@ export default createPlugin({
 ### Setup
 
 ```js
-// src/main.js
+// src/main.js or src/uber/logging.js
 import {LoggerToken} from 'fusion-tokens';
 import UniversalEvents, {
   UniversalEventsToken,

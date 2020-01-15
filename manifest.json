@@ -55,6 +55,7 @@
     "private/fusion-plugin-magellan",
     "private/fusion-plugin-m3",
     "private/fusion-plugin-m3-react",
+    "private/fusion-plugin-logger",
     "private/fusion-plugin-logtron",
     "private/fusion-plugin-logtron-react",
     "private/fusion-plugin-initial-state-compat",
