@@ -21,7 +21,7 @@
     "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
   },
   "dependencies": {
-    "@uber/jaeger-client-adapter": "^3.4.0",
+    "@uber/jaeger-client": "^4.0.0",
     "@uber/unpm-galileo": "^2.0.0"
   },
   "peerDependencies": {

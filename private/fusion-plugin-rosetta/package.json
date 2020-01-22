@@ -56,7 +56,7 @@
     "flow": "flow check"
   },
   "dependencies": {
-    "@uber/node-rosetta": "^1.2.0",
+    "@uber/node-rosetta": "^1.2.2",
     "locale": "^0.1.0"
   },
   "peerDependencies": {

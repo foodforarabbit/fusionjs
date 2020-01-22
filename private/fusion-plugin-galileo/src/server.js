@@ -2,7 +2,7 @@
 /* eslint-env node */
 import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
-import {JaegerClient} from '@uber/jaeger-client-adapter';
+import {JaegerClient} from '@uber/jaeger-client';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
 

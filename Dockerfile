@@ -1,6 +1,6 @@
-FROM uber/web-base-image:10.16.3
+FROM uber/web-base-image:12.13.0
 
-RUN npm install -g npm@6.9.0
+RUN npm install -g npm@6.12.0
 
 ARG UNPM_TOKEN
 

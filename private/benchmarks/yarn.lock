@@ -87,9 +87,9 @@
   integrity sha1-V/Io8rgMBGtKG9XKwDH4HyB/TwM=
 
 "@types/node@>= 8":
-  version "12.12.14"
-  resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-12.12.14.tgz#1c1d6e3c75dba466e0326948d56e8bd72a1903d2"
-  integrity sha1-HB1uPHXbpGbgMmlI1W6L1yoZA9I=
+  version "13.1.7"
+  resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-13.1.7.tgz#db51d28b8dfacfe4fb2d0da88f5eb0a2eca00675"
+  integrity sha1-21HSi436z+T7LQ2oj16wouygBnU=
 
 atob-lite@^2.0.0:
   version "2.0.0"
