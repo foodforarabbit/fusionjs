@@ -12,6 +12,7 @@ import Plugin, {handleLog} from '../server';
 import {TeamToken, EnvOverrideToken} from '../tokens';
 import {supportedLevels} from '../constants';
 import createErrorTransform from '../utils/create-error-transform';
+import {prettify} from '../utils/format-stdout';
 import TestEmitter from './test-emitter';
 
 const transformError = createErrorTransform(); // ignore source maps
@@ -100,7 +101,7 @@ tape('supports all logger methods in development', t => {
   const logger = sim.getService(LoggerToken);
   t.plan(2 * (supportedLevels.length + 1));
   const message = 'this is a message';
-  const meta = {a: {b: {c: 3}}};
+  const meta = {a: {aa: {aaa: 3}}, b: 5, c: 'hi'};
 
   let formatPattern;
 
@@ -113,9 +114,7 @@ tape('supports all logger methods in development', t => {
       'does not throw when logging'
     );
 
-    formatPattern = new RegExp(
-      `${fn}\\:?.*${message}.*${JSON.stringify(meta)}`
-    ); // based on `utils/format-stdout.js`
+    formatPattern = new RegExp(`${fn}\\:?.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
 
     t.ok(
       consoleSpy.calledWithMatch(formatPattern),
@@ -131,7 +130,7 @@ tape('supports all logger methods in development', t => {
     'does not throw when logging'
   );
 
-  formatPattern = new RegExp(`info\\:.*${message}.*${JSON.stringify(meta)}`); // based on `utils/format-stdout.js`
+  formatPattern = new RegExp(`info\\:.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
 
   t.ok(
     consoleSpy.calledWithMatch(formatPattern),
