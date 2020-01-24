@@ -17,12 +17,11 @@
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
     "lint": "eslint src",
-    "flow": "flow check",
-    "build": "cup build",
+    "flow": "flow",
+    "build": "cup-build",
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest",
-    "cover": "yarn lint && yarn flow && yarn test",
-    "clean": "rm -rf dist",
+    "clean": "cup-clean",
     "prepublish": "npm run build"
   },
   "watch": {
@@ -56,7 +55,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
-    "create-universal-package": "^3.4.7",
+    "create-universal-package": "^4.1.0",
     "eslint": "^6.0.1",
     "eslint-config-fusion": "0.0.0-monorepo",
     "eslint-plugin-cup": "^2.0.1",
@@ -81,86 +80,11 @@
     "fusion-core": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
   "browser": {
-    "./dist/index.js": "./dist/browser.es5.js",
-    "./dist/index.es.js": "./dist/browser.es5.es.js"
-  },
-  "es2015": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
-  },
-  "es2017": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ],
-      "@babel/preset-flow"
-    ],
-    "env": {
-      "test": {
-        "plugins": [
-          "@babel/plugin-transform-runtime"
-        ]
-      }
-    }
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/**/type.js"
-    ],
-    "coverageDirectory": "coverage",
-    "coverageReporters": [
-      "cobertura",
-      "html",
-      "json",
-      "text-summary",
-      "text"
-    ],
-    "projects": [
-      {
-        "displayName": "browser",
-        "browser": true,
-        "testEnvironment": "jest-environment-jsdom-global",
-        "testPathIgnorePatterns": [
-          "/node_modules/",
-          "/dist/",
-          ".*\\.node\\.js"
-        ],
-        "testURL": "http://localhost",
-        "globals": {
-          "__DEV__": true,
-          "__NODE__": false,
-          "__BROWSER__": true
-        }
-      },
-      {
-        "displayName": "server",
-        "browser": false,
-        "testEnvironment": "node",
-        "testPathIgnorePatterns": [
-          "/node_modules/",
-          "/dist/",
-          ".*\\.browser\\.js"
-        ],
-        "globals": {
-          "__DEV__": true,
-          "__NODE__": true,
-          "__BROWSER__": false
-        }
-      }
-    ]
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "engines": {
     "node": ">=8.9.4",
@@ -168,8 +92,8 @@
     "yarn": ">=1.0.0"
   },
   "files": [
-    "dist",
-    "src",
+    "dist-*/",
+    "src/",
     "!__tests__"
   ],
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-marketing",

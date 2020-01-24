@@ -1,6 +1,6 @@
 // @flow
+/* eslint-env node */
 import type {IntrospectionSchema} from 'fusion-plugin-introspect';
-import process from 'process';
 
 type Store = {
   store(IntrospectionSchema, Object): Promise<void>,

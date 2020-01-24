@@ -1,14 +1,13 @@
 // @flow
-import tape from 'tape-cup';
 import structureMeta from '../structure-meta';
 
-tape('structureMeta() - base case', t => {
-  t.plan(1);
-  t.deepEqual(structureMeta(), {}, 'returns empty object if given falsy param');
+test('structureMeta() - base case', () => {
+  expect.assertions(1);
+  expect(structureMeta()).toEqual({});
 });
 
-tape('structureMeta() - basics', t => {
-  t.plan(1);
+test('structureMeta() - basics', () => {
+  expect.assertions(1);
 
   const trackingMeta = {
     uuid: '53a9382b-308a-4330-bcb7-413843e621b2',
@@ -28,17 +27,14 @@ tape('structureMeta() - basics', t => {
     },
   };
 
-  t.deepEqual(structureMeta(trackingMeta), expected, 'expected output');
+  expect(structureMeta(trackingMeta)).toEqual(expected);
 });
 
-tape('structureMeta() - validations', t => {
-  t.plan(5);
-  t.throws(() => structureMeta({'': 1}), 'No empty keys');
-  t.throws(
-    () => structureMeta({foo: {}}),
-    'No property as objects (no nesting)'
-  );
-  t.throws(() => structureMeta([]), 'No root arrays');
-  t.throws(() => structureMeta({foo: []}), 'No property as arrays');
-  t.throws(() => structureMeta({foo: 1.55}), 'No float numbers');
+test('structureMeta() - validations', () => {
+  expect.assertions(5);
+  expect(() => structureMeta({'': 1})).toThrow();
+  expect(() => structureMeta({foo: {}})).toThrow();
+  expect(() => structureMeta([])).toThrow();
+  expect(() => structureMeta({foo: []})).toThrow();
+  expect(() => structureMeta({foo: 1.55})).toThrow();
 });

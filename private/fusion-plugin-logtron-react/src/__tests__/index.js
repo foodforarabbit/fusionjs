@@ -5,7 +5,6 @@ import App, {ProviderPlugin} from 'fusion-react';
 import {getSimulator} from 'fusion-test-utils';
 import {mock as mockLogtronPlugin} from '@uber/fusion-plugin-logtron';
 import React from 'react';
-import test from 'tape-cup';
 
 import {LoggerToken} from 'fusion-tokens';
 
@@ -19,18 +18,14 @@ if (__BROWSER__) {
   }
 }
 
-test('HOC', async t => {
+test('HOC', async () => {
   let didRender = false;
   type Props = {
     logger: any,
   };
   class Test extends React.Component<Props> {
     render() {
-      t.equal(
-        typeof this.props.logger,
-        'object',
-        'Logtron is correctly provided'
-      );
+      expect(typeof this.props.logger).toBe('object');
       didRender = true;
       return React.createElement('div', null, 'hello');
     }
@@ -40,12 +35,10 @@ test('HOC', async t => {
   app.register(LoggerToken, ProviderPlugin.create('logger', mockLogtronPlugin));
   const sim = getSimulator(app);
   const res = await sim.render('/');
-  t.ok(
+  expect(
     __NODE__
       ? String(res.body).includes('hello')
-      : document.body && document.body.innerHTML.includes('hello'),
-    'Test content rendered correctly'
-  );
-  t.ok(didRender, 'Test component rendered');
-  t.end();
+      : document.body && document.body.innerHTML.includes('hello')
+  ).toBeTruthy();
+  expect(didRender).toBeTruthy();
 });

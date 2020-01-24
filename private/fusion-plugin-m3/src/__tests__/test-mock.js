@@ -1,13 +1,11 @@
 // @flow
-import tape from 'tape-cup';
-
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 
 import mock from '../mock.js';
 import {M3Token} from '../index.js';
 
-tape('mock with ensure methods are called', async t => {
+test('mock with ensure methods are called', async done => {
   const methods = [
     'scope',
     'close',
@@ -31,8 +29,8 @@ tape('mock with ensure methods are called', async t => {
         m3[m]('arg1');
         // $FlowFixMe
         const called = m3.getCalls().pop();
-        t.equal(called[0], m);
-        t.deepLooseEqual(called[1], ['arg1']);
+        expect(called[0]).toBe(m);
+        expect(called[1]).toStrictEqual(['arg1']);
       } else if (
         m === 'increment' ||
         m === 'decrement' ||
@@ -42,17 +40,17 @@ tape('mock with ensure methods are called', async t => {
         m3[m]('arg1', {tags: 'tags'});
         // $FlowFixMe
         const called = m3.getCalls().pop();
-        t.equal(called[0], m);
-        t.deepLooseEqual(called[1], ['arg1', {tags: 'tags'}]);
+        expect(called[0]).toBe(m);
+        expect(called[1]).toStrictEqual(['arg1', {tags: 'tags'}]);
       } else {
         m3[m]('arg1', 100);
         // $FlowFixMe
         const called = m3.getCalls().pop();
-        t.equal(called[0], m);
-        t.deepLooseEqual(called[1], ['arg1', 100]);
+        expect(called[0]).toBe(m);
+        expect(called[1]).toStrictEqual(['arg1', 100]);
       }
     });
-    t.end();
+    done();
     return (ctx, next) => next();
   });
   getSimulator(app);

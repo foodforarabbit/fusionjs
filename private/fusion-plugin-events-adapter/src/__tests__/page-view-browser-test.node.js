@@ -1,30 +1,25 @@
 // @flow
 import EventEmitter from './custom-event-emitter.js';
-import tape from 'tape-cup';
 
 import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
 
 import pageViewBrowser from '../handlers/page-view-browser';
 
-tape('page-view-browser handler', t => {
+test('page-view-browser handler', done => {
   const events = new EventEmitter();
   const mockHeatpipe = {
     asyncPublish(topicInfo, message) {
-      t.deepEqual(
-        {topicInfo, message},
-        {
-          topicInfo: webTopicInfo,
-          message: {
-            app_name: 'test',
-            app_runtime: 'development',
-            type: 'view',
-            name: 'ttt',
-            page: 'ppp',
-          },
+      expect({topicInfo, message}).toEqual({
+        topicInfo: webTopicInfo,
+        message: {
+          app_name: 'test',
+          app_runtime: 'development',
+          type: 'view',
+          name: 'ttt',
+          page: 'ppp',
         },
-        `Heatpipe event published`
-      );
-      t.end();
+      });
+      done();
       return Promise.resolve();
     },
   };

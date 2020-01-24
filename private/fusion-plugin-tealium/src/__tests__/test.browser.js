@@ -1,7 +1,5 @@
 // @flow
 /* eslint-env browser */
-import test from 'tape-cup';
-
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 
@@ -14,13 +12,12 @@ function createTestFixture() {
   return app;
 }
 
-test('plugin - exported as expected', t => {
-  t.ok(TealiumPlugin, 'plugin defined as expected');
-  t.equal(typeof TealiumPlugin, 'object', 'plugin is an object');
-  t.end();
+test('plugin - exported as expected', () => {
+  expect(TealiumPlugin).toBeTruthy();
+  expect(typeof TealiumPlugin).toBe('object');
 });
 
-test('plugin - service resolved as expected', t => {
+test('plugin - service resolved as expected', () => {
   const app = createTestFixture();
 
   let wasResolved = false;
@@ -30,31 +27,22 @@ test('plugin - service resolved as expected', t => {
       deps: {tealium: TealiumToken},
       provides: deps => {
         const {tealium} = deps;
-        t.ok(tealium);
+        expect(tealium).toBeTruthy();
         wasResolved = true;
       },
     })
   );
 
-  t.true(wasResolved, 'test plugin was resolved');
-  t.end();
+  expect(wasResolved).toBeTruthy();
 });
 
-test('service - API as expected', t => {
+test('service - API as expected', done => {
   if (TealiumPlugin.provides) {
     const service = TealiumPlugin.provides({});
-    t.equal(
-      typeof service.pageview,
-      'function',
-      'service.pageview method exists'
-    );
-    t.equal(
-      typeof service.identify,
-      'function',
-      'service.identify method exists'
-    );
-    t.equal(typeof service.track, 'function', 'service.track method exists');
+    expect(typeof service.pageview).toBe('function');
+    expect(typeof service.identify).toBe('function');
+    expect(typeof service.track).toBe('function');
 
-    t.end();
+    done();
   }
 });

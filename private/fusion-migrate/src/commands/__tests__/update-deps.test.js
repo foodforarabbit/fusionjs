@@ -12,8 +12,6 @@ const srcFixtureDir = path.join(
   '../../__fixtures__/src-package-fixture/'
 );
 
-jest.setTimeout(10000);
-
 test('updateDeps', async () => {
   const dir = tmp.dirSync().name;
   await ncp(fixtureDir, dir);
@@ -56,4 +54,4 @@ test('updateDeps', async () => {
   assert.ok(finalDevDeps.includes('just-entries'));
   assert.ok(finalDevDeps.includes('just-extend'));
   assert.equal(finalDevDeps.length, 4);
-});
+}, 15000);

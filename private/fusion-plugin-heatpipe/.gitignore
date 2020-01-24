@@ -10,5 +10,4 @@ jshint-proper.xml
 core
 npm-debug.log
 
-dist/
-dist-tests/
+dist-*/

@@ -1,6 +1,5 @@
 coverage/
 node_modules/
-dist/
-dist-tests/
+dist-*/
 *.log
 .nyc_output/

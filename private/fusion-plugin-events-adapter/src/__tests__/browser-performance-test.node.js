@@ -1,6 +1,5 @@
 // @flow
 import EventEmitter from './custom-event-emitter.js';
-import tape from 'tape-cup';
 
 import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
 
@@ -63,39 +62,31 @@ const expectedHeatpipeEvents = [
   },
 ];
 
-function createMockM3(t, expectedEvents) {
+function createMockM3(expectedEvents) {
   let _m3EventsCount = 0;
 
   return {
     timing(key, value, tags) {
       const currentExpected = expectedEvents.m3[_m3EventsCount++];
-      t.deepEqual(
-        {key, value, tags},
-        currentExpected,
-        `M3 stat emitted - ${currentExpected.key}`
-      );
+      expect({key, value, tags}).toEqual(currentExpected);
     },
   };
 }
 
-function createMockHeatpipe(t, expectedEvents) {
+function createMockHeatpipe(expectedEvents) {
   let _heatpipeEventsCount = 0;
 
   return {
     asyncPublish(topicInfo, message) {
       const currentExpected = expectedEvents.heatpipe[_heatpipeEventsCount++];
-      t.deepEqual(
-        {topicInfo, message},
-        currentExpected,
-        `Heatpipe event published - ${currentExpected.message.name}`
-      );
+      expect({topicInfo, message}).toEqual(currentExpected);
       return Promise.resolve();
     },
   };
 }
 
-tape('browser-performance handler', t => {
-  t.plan(4);
+test('browser-performance handler', () => {
+  expect.assertions(4);
 
   const expectedEvents = {
     heatpipe: expectedHeatpipeEvents,
@@ -111,8 +102,8 @@ tape('browser-performance handler', t => {
 
   const events = new EventEmitter();
 
-  const mockM3 = createMockM3(t, expectedEvents);
-  const mockHeatpipe = createMockHeatpipe(t, expectedEvents);
+  const mockM3 = createMockM3(expectedEvents);
+  const mockHeatpipe = createMockHeatpipe(expectedEvents);
 
   // $FlowFixMe
   const heatpipeEmitter = HeatpipeEmitter({
@@ -128,12 +119,10 @@ tape('browser-performance handler', t => {
     'browser-performance-emitter:stats',
     browserPerformanceEventFixture
   );
-
-  t.end();
 });
 
-tape('browser-performance handler with __url__', t => {
-  t.plan(4);
+test('browser-performance handler with __url__', () => {
+  expect.assertions(4);
 
   const expectedEventsWithUrl = {
     heatpipe: expectedHeatpipeEvents,
@@ -149,8 +138,8 @@ tape('browser-performance handler with __url__', t => {
 
   const events = new EventEmitter();
 
-  const mockM3 = createMockM3(t, expectedEventsWithUrl);
-  const mockHeatpipe = createMockHeatpipe(t, expectedEventsWithUrl);
+  const mockM3 = createMockM3(expectedEventsWithUrl);
+  const mockHeatpipe = createMockHeatpipe(expectedEventsWithUrl);
 
   // $FlowFixMe
   const heatpipeEmitter = HeatpipeEmitter({
@@ -166,6 +155,4 @@ tape('browser-performance handler with __url__', t => {
     ...browserPerformanceEventFixture,
     __url__: '/view/:itemUuid',
   });
-
-  t.end();
 });

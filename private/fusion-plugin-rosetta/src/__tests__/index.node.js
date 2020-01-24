@@ -1,6 +1,4 @@
 // @flow
-import tape from 'tape-cup';
-
 import App, {createToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
@@ -10,7 +8,7 @@ import {ClientToken, ConfigToken} from '../tokens.js';
 
 const RosettaToken = createToken('RosettaToken');
 
-tape('Rosetta plugin', async t => {
+test('Rosetta plugin', async () => {
   class Client {
     locales: any;
     translations: any;
@@ -22,18 +20,18 @@ tape('Rosetta plugin', async t => {
           hello: 'world',
         },
       };
-      t.equal(logger, 'mock-logger', 'passes a logger through');
-      t.equal(thing, 'test', 'passes other config through');
+      expect(logger).toBe('mock-logger');
+      expect(thing).toBe('test');
     }
     load() {
-      t.ok('calls the load function');
+      expect('calls the load function').toBeTruthy();
       return Promise.resolve();
     }
     setLoadInterval() {
-      t.ok('calls the setLoadIntervalFunction');
+      expect('calls the setLoadIntervalFunction').toBeTruthy();
     }
     clearInterval() {
-      t.ok('calls the clearInterval function');
+      expect('calls the clearInterval function').toBeTruthy();
     }
   }
   const app = new App('el', el => el);
@@ -46,16 +44,15 @@ tape('Rosetta plugin', async t => {
   app.register(ConfigToken, {thing: 'test'});
   app.middleware({rosetta: RosettaToken}, ({rosetta}) => {
     const {client} = rosetta;
-    t.ok(client instanceof Client, 'exposes the client');
+    expect(client instanceof Client).toBeTruthy();
     client.clearInterval();
     return (ctx, next) => {
       const {translations, locale} = rosetta.from(ctx);
-      t.deepLooseEqual(translations, {hello: 'world'});
-      t.equal(locale.normalized, 'en');
+      expect(translations).toStrictEqual({hello: 'world'});
+      expect(locale.normalized).toBe('en');
       return next();
     };
   });
   const sim = getSimulator(app);
   await sim.request('/');
-  t.end();
 });

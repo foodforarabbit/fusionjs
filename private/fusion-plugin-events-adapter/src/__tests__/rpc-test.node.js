@@ -1,42 +1,37 @@
 // @flow
 import EventEmitter from './custom-event-emitter.js';
-import tape from 'tape-cup';
 import rpc from '../handlers/rpc';
 
-tape('rpc error handlers', t => {
+test('rpc error handlers', () => {
   const events = new EventEmitter();
   const e = new Error('fail');
 
   const mockM3 = {
     increment(key, tags) {
-      t.equal(key, 'rpc_missing_handler');
-      t.deepLooseEqual(tags, {origin: 'server'});
-      t.pass('m3 incremented');
+      expect(key).toBe('rpc_missing_handler');
+      expect(tags).toStrictEqual({origin: 'server'});
     },
   };
 
   const mockLogger = {
     error(message, meta) {
-      t.pass('logger.error()');
-      t.equal(message, e.message);
-      t.equal(meta, e);
+      expect(message).toBe(e.message);
+      expect(meta).toBe(e);
     },
   };
 
   rpc({events, m3: mockM3, logger: mockLogger});
   events.emit('rpc:error', {origin: 'server', error: e});
-  t.end();
 });
 
-tape('rpc method success', t => {
+test('rpc method success', () => {
   const events = new EventEmitter();
 
   const mockM3 = {
     timing(key, value, tags) {
-      t.pass('m3.timing()');
-      t.equal(key, 'web_rpc_method');
-      t.equal(value, 5);
-      t.deepLooseEqual(tags, {
+      expect(key).toBe('web_rpc_method');
+      expect(value).toBe(5);
+      expect(tags).toStrictEqual({
         origin: 'server',
         rpc_id: 'test',
         status: 'success',
@@ -53,19 +48,17 @@ tape('rpc method success', t => {
     timing: 5,
     status: 'success',
   });
-  t.end();
 });
 
-tape('rpc method failure', t => {
+test('rpc method failure', () => {
   const events = new EventEmitter();
   const e = new Error('fail');
 
   const mockM3 = {
     timing(key, value, tags) {
-      t.pass('m3.timing()');
-      t.equal(key, 'web_rpc_method');
-      t.equal(value, 5);
-      t.deepLooseEqual(tags, {
+      expect(key).toBe('web_rpc_method');
+      expect(value).toBe(5);
+      expect(tags).toStrictEqual({
         origin: 'server',
         rpc_id: 'test',
         status: 'failure',
@@ -75,9 +68,8 @@ tape('rpc method failure', t => {
 
   const mockLogger = {
     error(message, meta) {
-      t.pass('logger.error()');
-      t.equal(message, e.message);
-      t.equal(meta, e);
+      expect(message).toBe(e.message);
+      expect(meta).toBe(e);
     },
   };
 
@@ -89,5 +81,4 @@ tape('rpc method failure', t => {
     status: 'failure',
     error: e,
   });
-  t.end();
 });

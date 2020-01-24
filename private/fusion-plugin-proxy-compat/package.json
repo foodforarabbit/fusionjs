@@ -39,15 +39,14 @@
     "nyc": "^14.1.0",
     "prettier": "^1.18.2",
     "request-promise": "^4.2.4",
-    "tape-cup": "^4.7.1",
     "eslint-plugin-react-hooks": "^1.6.1"
   },
   "scripts": {
     "lint": "eslint src/",
-    "test": "node src/__tests__/index.node.js",
+    "test": "jest",
     "cover": "nyc --reporter=cobertura --reporter=text yarn test",
     "build": "echo ok",
-    "flow": "flow check"
+    "flow": "flow"
   },
   "engines": {
     "node": ">=8.9.4",

@@ -1,11 +1,10 @@
 // @noflow
 import EventEmitter from './custom-event-emitter.js';
-import tape from 'tape-cup';
 import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
 import AuthHeadersPlugin from '@uber/fusion-plugin-auth-headers';
 
-tape('heatpipe emitter interface', t => {
-  t.equal(typeof HeatpipeEmitter, 'function', 'exports a function');
+test('heatpipe emitter interface', () => {
+  expect(typeof HeatpipeEmitter).toBe('function');
   class Events extends EventEmitter {
     from() {
       return this;
@@ -14,16 +13,11 @@ tape('heatpipe emitter interface', t => {
   }
   // $FlowFixMe
   const hp = HeatpipeEmitter({events: new Events(), service: 'test'});
-  t.equal(typeof hp.publish, 'function', 'exposes an publish function');
-  t.equal(
-    typeof hp.publishWebEvents,
-    'function',
-    'exposes an publishWebEvents function'
-  );
-  t.end();
+  expect(typeof hp.publish).toBe('function');
+  expect(typeof hp.publishWebEvents).toBe('function');
 });
 
-tape('heatpipe emitter publish', t => {
+test('heatpipe emitter publish', done => {
   const fixturePayload = {
     topicInfo: {topic: 'awesome-topic', version: 33},
     message: {foo: 1},
@@ -31,12 +25,8 @@ tape('heatpipe emitter publish', t => {
 
   const mockHeatpipe = {
     asyncPublish(topicInfo, message) {
-      t.deepEqual(
-        {topicInfo, message},
-        fixturePayload,
-        'publish passes payload through'
-      );
-      t.end();
+      expect({topicInfo, message}).toEqual(fixturePayload);
+      done();
       return Promise.resolve();
     },
   };
@@ -51,7 +41,7 @@ tape('heatpipe emitter publish', t => {
   hp.publish(fixturePayload);
 });
 
-tape('heatpipe emitter error handling', t => {
+test('heatpipe emitter error handling', done => {
   const fixturePayload = {
     topicInfo: {topic: 'awesome-topic', version: 33},
     message: {foo: 1},
@@ -59,8 +49,8 @@ tape('heatpipe emitter error handling', t => {
 
   const mockLogger = {
     error: msg => {
-      t.ok(msg, '');
-      t.end();
+      expect(msg).toBeTruthy();
+      done();
     },
   };
 
@@ -79,7 +69,7 @@ tape('heatpipe emitter error handling', t => {
     },
   });
   hp.publish(fixturePayload);
-  t.ok('does not throw');
+  expect('does not throw').toBeTruthy();
 });
 
 const webEventsFixture = {
@@ -173,24 +163,16 @@ const webEventsFixture = {
   }),
 };
 
-tape('heatpipe emitter publishWebEvents with dependencies', t => {
+test('heatpipe emitter publishWebEvents with dependencies', done => {
   const mockHeatpipe = {
     asyncPublish(topicInfo, message) {
-      t.deepEqual(
-        topicInfo,
-        webTopicInfo,
-        'publishWebEvents sets correct topic information'
-      );
-      t.deepEqual(
-        message,
-        {
-          ...webEventsFixture.getResult(),
-          time_ms: message.time_ms, // no test on Date.now()
-        },
-        'publishWebEvents message transformed correctly'
-      );
+      expect(topicInfo).toEqual(webTopicInfo);
+      expect(message).toEqual({
+        ...webEventsFixture.getResult(),
+        time_ms: message.time_ms, // no test on Date.now()
+      });
 
-      t.end();
+      done();
       return Promise.resolve();
     },
   };
@@ -210,14 +192,10 @@ tape('heatpipe emitter publishWebEvents with dependencies', t => {
   });
 });
 
-tape('heatpipe emitter publishWebEvents with no useragent', t => {
+test('heatpipe emitter publishWebEvents with no useragent', done => {
   const mockHeatpipe = {
     asyncPublish(topicInfo, message) {
-      t.deepEqual(
-        topicInfo,
-        webTopicInfo,
-        'publishWebEvents sets correct topic information'
-      );
+      expect(topicInfo).toEqual(webTopicInfo);
 
       const expectedResult = {
         ...webEventsFixture.getResult(),
@@ -228,12 +206,8 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
           expectedResult.browser[key] = undefined;
         }
       });
-      t.deepEqual(
-        message,
-        expectedResult,
-        'publishWebEvents message transformed correctly'
-      );
-      t.end();
+      expect(message).toEqual(expectedResult);
+      done();
       return Promise.resolve();
     },
   };
@@ -257,19 +231,15 @@ tape('heatpipe emitter publishWebEvents with no useragent', t => {
   });
 });
 
-tape('heatpipe emitter publishWebEvents missing dependencies', t => {
+test('heatpipe emitter publishWebEvents missing dependencies', done => {
   const mockHeatpipe = {
     asyncPublish(topicInfo, message) {
-      t.deepEqual(
-        message,
-        {
-          ...webEventsFixture.eventMessage,
-          app_name: webEventsFixture.serviceName,
-          app_runtime: webEventsFixture.runtime,
-        },
-        'publish passes payload through and no transforms'
-      );
-      t.end();
+      expect(message).toEqual({
+        ...webEventsFixture.eventMessage,
+        app_name: webEventsFixture.serviceName,
+        app_runtime: webEventsFixture.runtime,
+      });
+      done();
       return Promise.resolve();
     },
   };

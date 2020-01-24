@@ -1,5 +1,4 @@
 // @flow
-import tape from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {
@@ -9,14 +8,14 @@ import {
 import M3Plugin from '../browser';
 import {M3Token} from '../index';
 
-tape.test('browser m3 counter', t => {
+test('browser m3 counter', done => {
   const UniversalEvents = (({
     emit(type, {key, value, tags}) {
-      t.equal(type, 'm3:counter', 'calls with correct event type');
-      t.equal(key, 'key', 'counter passes key through');
-      t.equal(value, 100, 'counter passes value through');
-      t.looseEqual(tags, {tags: 'tags'}, 'counter passes tags through');
-      t.end();
+      expect(type).toBe('m3:counter');
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
+      done();
     },
   }: any): UniversalEventsType);
   const app = new App('el', el => el);
@@ -29,14 +28,14 @@ tape.test('browser m3 counter', t => {
   getSimulator(app);
 });
 
-tape.test('browser m3 timing', t => {
+test('browser m3 timing', done => {
   const UniversalEvents = (({
     emit(type, {key, value, tags}) {
-      t.equal(type, 'm3:timing', 'calls with correct event type');
-      t.equal(key, 'key', 'timing passes key through');
-      t.equal(value, 100, 'timing passes value through');
-      t.looseEqual(tags, {tags: 'tags'}, 'timing passes tags through');
-      t.end();
+      expect(type).toBe('m3:timing');
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
+      done();
     },
   }: any): UniversalEventsType);
   const app = new App('el', el => el);
@@ -49,15 +48,15 @@ tape.test('browser m3 timing', t => {
   getSimulator(app);
 });
 
-tape.test('browser m3 timing with date', t => {
+test('browser m3 timing with date', done => {
   const UniversalEvents = (({
     emit(type, {key, value, tags}) {
-      t.equal(type, 'm3:timing', 'calls with correct event type');
-      t.equal(key, 'key', 'timing passes key through');
-      t.equal(typeof value, 'number', 'timing converts date into ms');
-      t.ok(value >= 10 && value < 20, 'converts correctly');
-      t.looseEqual(tags, {tags: 'tags'}, 'timing passes tags through');
-      t.end();
+      expect(type).toBe('m3:timing');
+      expect(key).toBe('key');
+      expect(typeof value).toBe('number');
+      expect(value >= 10 && value < 20).toBeTruthy();
+      expect(tags).toStrictEqual({tags: 'tags'});
+      done();
     },
   }: any): UniversalEventsType);
   const app = new App('el', el => el);
@@ -73,14 +72,14 @@ tape.test('browser m3 timing with date', t => {
   getSimulator(app);
 });
 
-tape.test('browser m3 gauge', t => {
+test('browser m3 gauge', done => {
   const UniversalEvents = (({
     emit(type, {key, value, tags}) {
-      t.equal(type, 'm3:gauge', 'calls with correct event type');
-      t.equal(key, 'key', 'gauge passes key through');
-      t.equal(value, 100, 'gauge passes value through');
-      t.looseEqual(tags, {tags: 'tags'}, 'gauge passes tags through');
-      t.end();
+      expect(type).toBe('m3:gauge');
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
+      done();
     },
   }: any): UniversalEventsType);
 
@@ -94,13 +93,13 @@ tape.test('browser m3 gauge', t => {
   getSimulator(app);
 });
 
-tape.test('browser m3 increment', t => {
+test('browser m3 increment', done => {
   const UniversalEvents = (({
     emit(type, {key, tags}) {
-      t.equal(type, 'm3:increment', 'calls with correct event type');
-      t.equal(key, 'key', 'increment passes key through');
-      t.looseEqual(tags, {tags: 'tags'}, 'increment passes tags through');
-      t.end();
+      expect(type).toBe('m3:increment');
+      expect(key).toBe('key');
+      expect(tags).toStrictEqual({tags: 'tags'});
+      done();
     },
   }: any): UniversalEventsType);
 
@@ -114,13 +113,13 @@ tape.test('browser m3 increment', t => {
   getSimulator(app);
 });
 
-tape.test('browser m3 decrement', t => {
+test('browser m3 decrement', done => {
   const UniversalEvents = (({
     emit(type, {key, tags}) {
-      t.equal(type, 'm3:decrement', 'calls with correct event type');
-      t.equal(key, 'key', 'decrement passes key through');
-      t.looseEqual(tags, {tags: 'tags'}, 'decrement passes tags through');
-      t.end();
+      expect(type).toBe('m3:decrement');
+      expect(key).toBe('key');
+      expect(tags).toStrictEqual({tags: 'tags'});
+      done();
     },
   }: any): UniversalEventsType);
   const app = new App('el', el => el);

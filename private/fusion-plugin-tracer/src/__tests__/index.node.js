@@ -1,7 +1,5 @@
 // @flow
 
-import test from 'tape-cup';
-
 import {LoggerToken} from 'fusion-tokens';
 import App, {RouteTagsToken} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
@@ -22,12 +20,11 @@ const MockLogger = {
   silly: (msg: any): any => {},
 };
 
-test('Tracer Plugin Interface', t => {
-  t.ok(TracerPlugin, 'exported correctly');
-  t.end();
+test('Tracer Plugin Interface', () => {
+  expect(TracerPlugin).toBeTruthy();
 });
 
-test('Tracer Plugin', async t => {
+test('Tracer Plugin', async () => {
   const config = {
     serviceName: 'uber',
   };
@@ -39,12 +36,9 @@ test('Tracer Plugin', async t => {
   };
 
   function MockInitTracer(cfg, options): any {
-    t.looseEquals(cfg, config, 'config is passed down');
-    t.looseEquals(
-      options,
-      {logger: MockLogger},
-      'options needs to be passed down'
-    );
+    expect(cfg).toStrictEqual(config);
+    expect(options).toStrictEqual({logger: MockLogger});
+
     return mockTracer;
   }
 
@@ -54,62 +48,49 @@ test('Tracer Plugin', async t => {
   app.register(InitTracerToken, MockInitTracer);
   app.register(TracerConfigToken, config);
   app.middleware({Tracer: TracerToken}, ({Tracer}) => {
-    t.equals(Tracer.tracer, mockTracer, 'should have tracer instance created');
+    expect(Tracer.tracer).toBe(mockTracer);
     return (ctx, next) => next();
   });
   getSimulator(app);
-  t.end();
 });
 
-test('Tracer Middleware', async t => {
+test('Tracer Middleware', async done => {
   const mockSpan = {
     setTag(key, value) {
-      t.equals(key, 'http.status_code', 'should set status code');
-      t.equals(value, 200, 'status code should have value');
+      expect(key).toBe('http.status_code');
+      expect(value).toBe(200);
     },
     finish() {
-      t.ok(true, 'span.finish should be called');
-      t.end();
+      expect(true).toBeTruthy();
+      done();
     },
     setOperationName(name) {
-      t.equal(name, 'route_name');
+      expect(name).toBe('route_name');
     },
   };
 
   const mockTracer = {
     extract(type, headers) {
-      t.equals(
-        type,
-        'http_headers',
-        'extract root span from inbound http headers'
-      );
-      t.looseEquals(
-        headers,
-        {'x-uber-source': 'fusion'},
-        'headers should be passed as is'
-      );
+      expect(type).toBe('http_headers');
+      expect(headers).toStrictEqual({'x-uber-source': 'fusion'});
       return 'inbound_context';
     },
     startSpan(name, options) {
-      t.equals(name, 'unknown_route', 'starts span with unknown_route');
-      t.looseEquals(
-        options.tags,
-        {
-          component: 'fusion',
-          'span.kind': 'server',
-          'http.url': '/path',
-          'http.method': 'GET',
-          'peer.service': 'web_client',
-        },
-        'span options should match'
-      );
+      expect(name).toBe('unknown_route');
+      expect(options.tags).toStrictEqual({
+        component: 'fusion',
+        'span.kind': 'server',
+        'http.url': '/path',
+        'http.method': 'GET',
+        'peer.service': 'web_client',
+      });
 
-      t.equals(options.childOf, 'inbound_context', 'span childOf should match');
+      expect(options.childOf).toBe('inbound_context');
 
       return mockSpan;
     },
     setOperationName(name) {
-      t.equal(name, 'route_name');
+      expect(name).toBe('route_name');
     },
   };
 
@@ -123,13 +104,9 @@ test('Tracer Middleware', async t => {
   app.register(InitTracerToken, MockInitTracer);
   app.middleware({Tracer: TracerToken}, ({Tracer}) => {
     return async (ctx, next) => {
-      t.ok(true, 'Next is called');
-      t.equals(Tracer.from(ctx).span, mockSpan, 'span should be defined');
-      t.equals(
-        Tracer.from(ctx).tracer,
-        Tracer.tracer,
-        'tracer should be defined'
-      );
+      expect(true).toBeTruthy();
+      expect(Tracer.from(ctx).span).toBe(mockSpan);
+      expect(Tracer.from(ctx).tracer).toBe(Tracer.tracer);
       await next();
       ctx.body = 'Hello world';
     };
@@ -145,50 +122,43 @@ test('Tracer Middleware', async t => {
   await sim.request('/path', {headers: {'x-uber-source': 'fusion'}});
 });
 
-test('Tracer Middleware with response set above tracer', async t => {
+test('Tracer Middleware with response set above tracer', async done => {
   const mockSpan = {
     setTag(key, value) {
-      t.equals(key, 'http.status_code', 'should set status code');
-      t.equals(value, 200, 'status code should have value');
+      expect(key).toBe('http.status_code');
+      expect(value).toBe(200);
     },
     finish() {
-      t.ok(true, 'span.finish should be called');
-      t.end();
+      expect(true).toBeTruthy();
+      done();
     },
     setOperationName(name) {
-      t.equal(name, 'route_name');
+      expect(name).toBe('route_name');
     },
   };
 
   const mockTracer = {
     extract(type, headers) {
-      t.equals(
-        type,
-        'http_headers',
-        'extract root span from inbound http headers'
-      );
-      t.looseEquals(
-        headers,
-        {'x-uber-source': 'fusion'},
-        'headers should be passed as is'
-      );
+      expect(type).toBe('http_headers');
+      expect(headers).toStrictEqual({'x-uber-source': 'fusion'});
+      // 'headers should be passed as is'
+      // );
       return 'inbound_context';
     },
     startSpan(name, options) {
-      t.equals(name, 'unknown_route', 'span name starts with unknown_route');
-      t.looseEquals(
-        options.tags,
+      expect(name).toBe('unknown_route');
+      expect(options.tags).toStrictEqual(
         {
           component: 'fusion',
           'span.kind': 'server',
           'http.url': '/path',
           'http.method': 'GET',
           'peer.service': 'web_client',
-        },
-        'span options should match'
+        }
+        // 'span options should match'
       );
 
-      t.equals(options.childOf, 'inbound_context', 'span childOf should match');
+      expect(options.childOf).toBe('inbound_context');
 
       return mockSpan;
     },

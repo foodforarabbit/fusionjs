@@ -2,7 +2,6 @@
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
-import tape from 'tape-cup';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import Plugin from '../browser';
 import {supportedLevels} from '../constants';
@@ -10,7 +9,7 @@ import TestEmitter from './test-emitter';
 
 const emitter = new TestEmitter();
 
-tape('test all methods exist for browser', t => {
+test('test all methods exist for browser', () => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
   // $FlowFixMe
@@ -19,34 +18,29 @@ tape('test all methods exist for browser', t => {
   const logger = sim.getService(LoggerToken);
   supportedLevels.concat(['log']).forEach(fn => {
     // $FlowFixMe - Logger has methods that the LoggerToken does not.
-    t.equal(typeof logger[fn], 'function', `${fn} was set`);
+    expect(typeof logger[fn]).toBe('function');
   });
-  t.end();
 });
 
-tape('test info method', t => {
+test('test info method', () => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
   // $FlowFixMe
   app.register(UniversalEventsToken, emitter);
   const sim = getSimulator(app);
   const logger = sim.getService(LoggerToken);
-  t.equal(typeof logger.info, 'function', 'exposes logger functions');
-  t.doesNotThrow(
-    () => logger.info('hello world', {some: 'data'}),
-    'does not throw when logging'
-  );
-  t.end();
+  expect(typeof logger.info).toBe('function');
+  expect(() => logger.info('hello world', {some: 'data'})).not.toThrow();
 });
 
-tape('test info method with message of an error', t => {
+test('test info method with message of an error', done => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
   // $FlowFixMe
   app.register(UniversalEventsToken, {
     emit: (scope, params) => {
-      t.equal(typeof params.meta.error, 'object', 'meta is correctly set');
-      t.end();
+      expect(typeof params.meta.error).toBe('object');
+      done();
     },
   });
   const sim = getSimulator(app);
@@ -54,14 +48,14 @@ tape('test info method with message of an error', t => {
   logger.info(new Error('some error'));
 });
 
-tape('test info method with meta of an error', t => {
+test('test info method with meta of an error', done => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
   // $FlowFixMe
   app.register(UniversalEventsToken, {
     emit: (scope, params) => {
-      t.equal(typeof params.meta.error, 'object', 'meta is correctly set');
-      t.end();
+      expect(typeof params.meta.error).toBe('object');
+      done();
     },
   });
   const sim = getSimulator(app);

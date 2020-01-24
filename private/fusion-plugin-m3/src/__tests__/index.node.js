@@ -1,5 +1,4 @@
 // @flow
-import tape from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {
@@ -9,7 +8,7 @@ import {
 import {M3Token, M3ClientToken, CommonTagsToken} from '../index';
 import M3Plugin from '../server';
 
-tape.test('m3 server plugin', t => {
+test('m3 server plugin', () => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
@@ -27,113 +26,85 @@ tape.test('m3 server plugin', t => {
   };
   const events = (({
     on(type) {
-      t.equal(type, `m3:${types.shift()}`, 'adds event handler correctly');
+      expect(type).toBe(`m3:${types.shift()}`);
     },
   }: any): UniversalEventsType);
   class Client {
     constructor(config) {
-      t.equal(typeof config.commonTags.dc, 'string', 'passes in common tag dc');
-      t.equal(
-        typeof config.commonTags.deployment,
-        'string',
-        'passes in common tag deployment'
-      );
-      t.equal(
-        config.commonTags.service,
-        'dev-service',
-        'passes in common tag service'
-      );
-      t.equal(
-        config.commonTags.scaffolded_web_app,
-        true,
-        'passes in common tag scaffolded_web_app'
-      );
-      t.equal(
-        typeof config.commonTags.runtime,
-        'string',
-        'passes in common tag runtime'
-      );
-      t.equal(config.commonTags.a, 'a', 'allows passing in commonTags config');
+      expect(typeof config.commonTags.dc).toBe('string');
+      expect(typeof config.commonTags.deployment).toBe('string');
+      expect(config.commonTags.service).toBe('dev-service');
+      expect(config.commonTags.scaffolded_web_app).toBe(true);
+      expect(typeof config.commonTags.runtime).toBe('string');
+      expect(config.commonTags.a).toBe('a');
     }
     counter(key, value, {tags}) {
       flags.counter = true;
-      t.equal(key, 'key', 'counter passes key through');
-      t.equal(value, 100, 'counter passes value through');
-      t.looseEqual(tags, {tags: 'tags'}, 'counter passes tags through');
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     increment(key, value, {tags}) {
       flags.increment = true;
-      t.equal(key, 'key', 'increment passes key through');
-      t.equal(value, 1, 'increment calls with value 1');
-      t.looseEqual(tags, {tags: 'tags'}, 'increment passes tags through');
+      expect(key).toBe('key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     decrement(key, value, {tags}) {
       flags.decrement = true;
-      t.equal(key, 'key', 'decrement passes key through');
-      t.equal(value, 1, 'decrement calls with value 1');
-      t.looseEqual(tags, {tags: 'tags'}, 'decrement passes tags through');
+      expect(key).toBe('key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     timing(key, value, {tags}) {
       flags.timing = true;
-      t.equal(key, 'key', 'timing passes key through');
-      t.equal(value, 100, 'timing passes value through');
-      t.looseEqual(tags, {tags: 'tags'}, 'timing passes tags through');
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     gauge(key, value, {tags}) {
       flags.gauge = true;
-      t.equal(key, 'key', 'gauge passes key through');
-      t.equal(value, 100, 'gauge passes value through');
-      t.looseEqual(tags, {tags: 'tags'}, 'gauge passes tags through');
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     scope(arg) {
       flags.scope = true;
-      t.equal(arg, 'test', 'scope passes through arguments');
+      expect(arg).toBe('test');
     }
     immediateCounter(key, value, {tags}) {
       flags.immediateCounter = true;
-      t.equal(key, 'key', 'immediateCounter passes key through');
-      t.equal(value, 100, 'immediateCounter passes value through');
-      t.looseEqual(
-        tags,
-        {tags: 'tags'},
-        'immediateCounter passes tags through'
-      );
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     immediateIncrement(key, value, {tags}) {
       flags.immediateIncrement = true;
-      t.equal(key, 'key', 'immediateIncrement passes key through');
-      t.equal(value, 1, 'immediateIncrement uses 1 as value');
-      t.looseEqual(
-        tags,
-        {tags: 'tags'},
-        'immediateIncrement passes tags through'
-      );
+      expect(key).toBe('key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     immediateDecrement(key, value, {tags}) {
       flags.immediateDecrement = true;
-      t.equal(key, 'key', 'immediateDecrement passes key through');
-      t.equal(value, 1, 'immediateDecrement uses 1 as value');
-      t.looseEqual(
-        tags,
-        {tags: 'tags'},
-        'immediateDecrement passes tags through'
-      );
+      expect(key).toBe('key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     immediateTiming(key, value, {tags}) {
       flags.immediateTiming = true;
-      t.equal(key, 'key', 'immediateTiming passes key through');
-      t.equal(value, 100, 'immediateTiming passes value through');
-      t.looseEqual(tags, {tags: 'tags'}, 'immediateTiming passes tags through');
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     immediateGauge(key, value, {tags}) {
       flags.immediateGauge = true;
-      t.equal(key, 'key', 'immediateGauge passes key through');
-      t.equal(value, 100, 'immediateGauge passes value through');
-      t.looseEqual(tags, {tags: 'tags'}, 'immediateGauge passes tags through');
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
     }
     close(arg) {
       flags.close = true;
-      t.equal(arg, 'test', 'close passes through arguments');
+      expect(arg).toBe('test');
     }
   }
   const app = new App('el', el => el);
@@ -157,22 +128,21 @@ tape.test('m3 server plugin', t => {
     return (ctx, next) => next();
   });
   getSimulator(app);
-  t.ok(flags.counter, 'calls counter');
-  t.ok(flags.increment, 'calls increment');
-  t.ok(flags.decrement, 'calls decrement');
-  t.ok(flags.timing, 'calls timing');
-  t.ok(flags.gauge, 'calls gauge');
-  t.ok(flags.scope, 'calls scope');
-  t.ok(flags.immediateCounter, 'calls immediateCounter');
-  t.ok(flags.immediateIncrement, 'calls immediateIncrement');
-  t.ok(flags.immediateDecrement, 'calls immediateDecrement');
-  t.ok(flags.immediateTiming, 'calls immediateTiming');
-  t.ok(flags.immediateGauge, 'calls immediateGauge');
-  t.ok(flags.close, 'calls close');
-  t.end();
+  expect(flags.counter).toBeTruthy();
+  expect(flags.increment).toBeTruthy();
+  expect(flags.decrement).toBeTruthy();
+  expect(flags.timing).toBeTruthy();
+  expect(flags.gauge).toBeTruthy();
+  expect(flags.scope).toBeTruthy();
+  expect(flags.immediateCounter).toBeTruthy();
+  expect(flags.immediateIncrement).toBeTruthy();
+  expect(flags.immediateDecrement).toBeTruthy();
+  expect(flags.immediateTiming).toBeTruthy();
+  expect(flags.immediateGauge).toBeTruthy();
+  expect(flags.close).toBeTruthy();
 });
 
-tape.test('m3 server plugin - event handlers', t => {
+test('m3 server plugin - event handlers', () => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
@@ -184,8 +154,8 @@ tape.test('m3 server plugin - event handlers', t => {
   const events = (({
     on(type, handler) {
       const m3Type = types.shift();
-      t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
-      t.equal(typeof handler, 'function', 'passes a function handler');
+      expect(type).toBe(`m3:${m3Type}`);
+      expect(typeof handler).toBe('function');
       handler({
         key: `${m3Type}-key`,
         value: 'value',
@@ -197,49 +167,33 @@ tape.test('m3 server plugin - event handlers', t => {
   class Client {
     counter(key, value, {tags}) {
       flags.counter = true;
-      t.equal(key, 'counter-key', 'counter passes key through');
-      t.equal(value, 'value', 'counter passes value through');
-      t.deepLooseEqual(
-        tags,
-        {something: 'value'},
-        'counter passes tags through'
-      );
+      expect(key).toBe('counter-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({something: 'value'});
     }
     increment(key, value, {tags}) {
       flags.increment = true;
-      t.equal(key, 'increment-key', 'increment passes key through');
-      t.equal(value, 1, 'increment calls with value 1');
-      t.deepLooseEqual(
-        tags,
-        {something: 'value'},
-        'increment passes tags through'
-      );
+      expect(key).toBe('increment-key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({something: 'value'});
     }
     decrement(key, value, {tags}) {
       flags.decrement = true;
-      t.equal(key, 'decrement-key', 'decrement passes key through');
-      t.equal(value, 1, 'decrement calls with value 1');
-      t.deepLooseEqual(
-        tags,
-        {something: 'value'},
-        'decrement passes tags through'
-      );
+      expect(key).toBe('decrement-key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({something: 'value'});
     }
     timing(key, value, {tags}) {
       flags.timing = true;
-      t.equal(key, 'timing-key', 'timing passes key through');
-      t.equal(value, 'value', 'timing passes value through');
-      t.deepLooseEqual(
-        tags,
-        {something: 'value'},
-        'timing passes tags through'
-      );
+      expect(key).toBe('timing-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({something: 'value'});
     }
     gauge(key, value, {tags}) {
       flags.gauge = true;
-      t.equal(key, 'gauge-key', 'gauge passes key through');
-      t.equal(value, 'value', 'gauge passes value through');
-      t.deepLooseEqual(tags, {something: 'value'}, 'gauge passes tags through');
+      expect(key).toBe('gauge-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({something: 'value'});
     }
     scope() {}
     immediateCounter() {}
@@ -255,15 +209,14 @@ tape.test('m3 server plugin - event handlers', t => {
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
-  t.ok(flags.counter, 'calls counter');
-  t.ok(flags.increment, 'calls increment');
-  t.ok(flags.decrement, 'calls decrement');
-  t.ok(flags.timing, 'calls timing');
-  t.ok(flags.gauge, 'calls gauge');
-  t.end();
+  expect(flags.counter).toBeTruthy();
+  expect(flags.increment).toBeTruthy();
+  expect(flags.decrement).toBeTruthy();
+  expect(flags.timing).toBeTruthy();
+  expect(flags.gauge).toBeTruthy();
 });
 
-tape.test('m3 server plugin - event handlers with __url__', t => {
+test('m3 server plugin - event handlers with __url__', () => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
@@ -276,8 +229,8 @@ tape.test('m3 server plugin - event handlers with __url__', t => {
     emit() {},
     on(type, handler) {
       const m3Type = types.shift();
-      t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
-      t.equal(typeof handler, 'function', 'passes a function handler');
+      expect(type).toBe(`m3:${m3Type}`);
+      expect(typeof handler).toBe('function');
       handler({
         key: `${m3Type}-key`,
         value: 'value',
@@ -290,53 +243,33 @@ tape.test('m3 server plugin - event handlers with __url__', t => {
   class Client {
     counter(key, value, {tags}) {
       flags.counter = true;
-      t.equal(key, 'counter-key', 'counter passes key through');
-      t.equal(value, 'value', 'counter passes value through');
-      t.deepLooseEqual(
-        tags,
-        {route: '/test', something: 'value'},
-        'counter passes tags through'
-      );
+      expect(key).toBe('counter-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({route: '/test', something: 'value'});
     }
     increment(key, value, {tags}) {
       flags.increment = true;
-      t.equal(key, 'increment-key', 'increment passes key through');
-      t.equal(value, 1, 'increment calls with value 1');
-      t.deepLooseEqual(
-        tags,
-        {route: '/test', something: 'value'},
-        'increment passes tags through'
-      );
+      expect(key).toBe('increment-key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({route: '/test', something: 'value'});
     }
     decrement(key, value, {tags}) {
       flags.decrement = true;
-      t.equal(key, 'decrement-key', 'decrement passes key through');
-      t.equal(value, 1, 'decrement calls with value 1');
-      t.deepLooseEqual(
-        tags,
-        {route: '/test', something: 'value'},
-        'decrement passes tags through'
-      );
+      expect(key).toBe('decrement-key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({route: '/test', something: 'value'});
     }
     timing(key, value, {tags}) {
       flags.timing = true;
-      t.equal(key, 'timing-key', 'timing passes key through');
-      t.equal(value, 'value', 'timing passes value through');
-      t.deepLooseEqual(
-        tags,
-        {route: '/test', something: 'value'},
-        'timing passes tags through'
-      );
+      expect(key).toBe('timing-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({route: '/test', something: 'value'});
     }
     gauge(key, value, {tags}) {
       flags.gauge = true;
-      t.equal(key, 'gauge-key', 'gauge passes key through');
-      t.equal(value, 'value', 'gauge passes value through');
-      t.deepLooseEqual(
-        tags,
-        {route: '/test', something: 'value'},
-        'gauge passes tags through'
-      );
+      expect(key).toBe('gauge-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({route: '/test', something: 'value'});
     }
     scope() {}
     immediateCounter() {}
@@ -352,15 +285,14 @@ tape.test('m3 server plugin - event handlers with __url__', t => {
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
-  t.ok(flags.counter, 'calls counter');
-  t.ok(flags.increment, 'calls increment');
-  t.ok(flags.decrement, 'calls decrement');
-  t.ok(flags.timing, 'calls timing');
-  t.ok(flags.gauge, 'calls gauge');
-  t.end();
+  expect(flags.counter).toBeTruthy();
+  expect(flags.increment).toBeTruthy();
+  expect(flags.decrement).toBeTruthy();
+  expect(flags.timing).toBeTruthy();
+  expect(flags.gauge).toBeTruthy();
 });
 
-tape.test('m3 server plugin - event handlers with __url__ and no tags', t => {
+test('m3 server plugin - event handlers with __url__ and no tags', () => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
@@ -372,8 +304,8 @@ tape.test('m3 server plugin - event handlers with __url__ and no tags', t => {
   const events = (({
     on(type, handler) {
       const m3Type = types.shift();
-      t.equal(type, `m3:${m3Type}`, 'adds event handler correctly');
-      t.equal(typeof handler, 'function', 'passes a function handler');
+      expect(type).toBe(`m3:${m3Type}`);
+      expect(typeof handler).toBe('function');
       handler({
         key: `${m3Type}-key`,
         value: 'value',
@@ -385,33 +317,33 @@ tape.test('m3 server plugin - event handlers with __url__ and no tags', t => {
   class Client {
     counter(key, value, {tags}) {
       flags.counter = true;
-      t.equal(key, 'counter-key', 'counter passes key through');
-      t.equal(value, 'value', 'counter passes value through');
-      t.deepLooseEqual(tags, {route: '/test'}, 'counter passes tags through');
+      expect(key).toBe('counter-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({route: '/test'});
     }
     increment(key, value, {tags}) {
       flags.increment = true;
-      t.equal(key, 'increment-key', 'increment passes key through');
-      t.equal(value, 1, 'increment calls with value 1');
-      t.deepLooseEqual(tags, {route: '/test'}, 'increment passes tags through');
+      expect(key).toBe('increment-key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({route: '/test'});
     }
     decrement(key, value, {tags}) {
       flags.decrement = true;
-      t.equal(key, 'decrement-key', 'decrement passes key through');
-      t.equal(value, 1, 'decrement calls with value 1');
-      t.deepLooseEqual(tags, {route: '/test'}, 'decrement passes tags through');
+      expect(key).toBe('decrement-key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({route: '/test'});
     }
     timing(key, value, {tags}) {
       flags.timing = true;
-      t.equal(key, 'timing-key', 'timing passes key through');
-      t.equal(value, 'value', 'timing passes value through');
-      t.deepLooseEqual(tags, {route: '/test'}, 'timing passes tags through');
+      expect(key).toBe('timing-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({route: '/test'});
     }
     gauge(key, value, {tags}) {
       flags.gauge = true;
-      t.equal(key, 'gauge-key', 'gauge passes key through');
-      t.equal(value, 'value', 'gauge passes value through');
-      t.deepLooseEqual(tags, {route: '/test'}, 'gauge passes tags through');
+      expect(key).toBe('gauge-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({route: '/test'});
     }
     scope() {}
     immediateCounter() {}
@@ -427,10 +359,9 @@ tape.test('m3 server plugin - event handlers with __url__ and no tags', t => {
   app.register(UniversalEventsToken, events);
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
-  t.ok(flags.counter, 'calls counter');
-  t.ok(flags.increment, 'calls increment');
-  t.ok(flags.decrement, 'calls decrement');
-  t.ok(flags.timing, 'calls timing');
-  t.ok(flags.gauge, 'calls gauge');
-  t.end();
+  expect(flags.counter).toBeTruthy();
+  expect(flags.increment).toBeTruthy();
+  expect(flags.decrement).toBeTruthy();
+  expect(flags.timing).toBeTruthy();
+  expect(flags.gauge).toBeTruthy();
 });

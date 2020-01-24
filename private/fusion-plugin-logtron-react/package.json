@@ -5,26 +5,36 @@
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
-    "dist",
-    "src"
+    "src/",
+    "dist-*/"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.es.js",
+  "sideEffects": false,
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
   "browser": {
-    "./dist/index.js": "./dist/browser.es5.js",
-    "./dist/index.es.js": "./dist/browser.es5.es.js"
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
-  "es2015": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
+  "scripts": {
+    "clean": "cup-clean",
+    "flow": "flow",
+    "lint": "eslint src/",
+    "test": "jest",
+    "prepublish": "npm run build",
+    "build": "npm run clean && cup-build"
   },
-  "es2017": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
+  "dependencies": {
+    "@uber/fusion-plugin-logtron": "0.0.0-monorepo"
+  },
+  "peerDependencies": {
+    "fusion-react": "0.0.0-monorepo",
+    "fusion-tokens": "0.0.0-monorepo",
+    "react": "^16.8.6"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "babel-plugin-istanbul": "^5.1.4",
-    "create-universal-package": "^3.4.7",
+    "create-universal-package": "^4.1.0",
     "eslint": "^6.0.1",
     "eslint-config-fusion": "0.0.0-monorepo",
     "eslint-plugin-cup": "^2.0.1",
@@ -37,33 +47,11 @@
     "fusion-react": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
-    "nyc": "^14.1.0",
     "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "tape-cup": "^4.7.1",
-    "unitest": "^2.1.1",
+    "jest": "^24.9.0",
     "eslint-plugin-react-hooks": "^1.6.1"
-  },
-  "scripts": {
-    "clean": "rm -rf dist",
-    "flow": "flow check",
-    "lint": "eslint src/",
-    "build-test": "rm -rf dist-tests && NODE_ENV=test cup build-tests",
-    "just-test": "node_modules/.bin/unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
-    "cover": "npm run build-test && npm run just-cover",
-    "just-cover": "nyc --reporter=cobertura --reporter=text npm run just-test",
-    "test": "npm run build-test && npm run just-test",
-    "prepublish": "npm run build",
-    "build": "npm run clean && cup build"
-  },
-  "dependencies": {
-    "@uber/fusion-plugin-logtron": "0.0.0-monorepo"
-  },
-  "peerDependencies": {
-    "fusion-react": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo",
-    "react": "^16.8.6"
   },
   "engines": {
     "node": ">=8.9.4",
@@ -75,6 +63,5 @@
     "directory": "private/fusion-plugin-logtron-react",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  },
-  "sideEffects": false
+  }
 }

@@ -1,6 +1,4 @@
 // @flow
-import test from 'tape-cup';
-
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
@@ -17,7 +15,7 @@ const createMockLogger = () => ({
   debug: () => createMockLogger(),
   silly: () => createMockLogger(),
 });
-function createTestFixture(t): App {
+function createTestFixture(shouldExpect): App {
   const mockLogger = createMockLogger();
   const mockFliprClient = function(config) {
     const {
@@ -27,26 +25,20 @@ function createTestFixture(t): App {
       dcPath,
       diskCachePath,
     } = config;
-    t &&
-      t.ok(
+    shouldExpect &&
+      expect(
         propertiesNamespaces &&
           propertiesNamespaces.includes('foo') &&
           propertiesNamespaces.includes('foo.local') &&
-          propertiesNamespaces.length >= 3,
-        'propertiesNamespaces automatically mapped'
-      );
-    t && t.equal(logger, mockLogger, 'Logger passed onto Flipr client');
-    t &&
-      t.equal(
-        updateInterval,
-        DEFAULT_UPDATE_INTERVAL,
-        'set default update interval'
-      );
-    t && t.ok(dcPath, 'set DEV dcPath');
-    t && t.ok(diskCachePath, 'set DEV diskCachePath');
+          propertiesNamespaces.length >= 3
+      ).toBeTruthy();
+    shouldExpect && expect(logger).toBe(mockLogger);
+    shouldExpect && expect(updateInterval).toBe(DEFAULT_UPDATE_INTERVAL);
+    shouldExpect && expect(dcPath).toBeTruthy();
+    shouldExpect && expect(diskCachePath).toBeTruthy();
 
     return {
-      startUpdating: (): void => t && t.pass('invoked startUpdating()'),
+      startUpdating: (): void => shouldExpect && expect(true).toBeTruthy(), // invoked startUpdating()
       randomValue: 999,
       randomFunction: function(): number {
         return this.randomValue;
@@ -65,14 +57,13 @@ function createTestFixture(t): App {
   return app;
 }
 
-test('plugin - exported as expected', t => {
-  t.ok(FliprPlugin, 'plugin defined as expected');
-  t.equal(typeof FliprPlugin, 'object', 'plugin is an object');
-  t.end();
+test('plugin - exported as expected', () => {
+  expect(FliprPlugin).toBeTruthy();
+  expect(typeof FliprPlugin).toBe('object');
 });
 
-test('plugin - service resolved as expected', (t): void => {
-  const app = createTestFixture(t);
+test('plugin - service resolved as expected', () => {
+  const app = createTestFixture(true);
 
   let wasResolved = false;
   getSimulator(
@@ -82,17 +73,16 @@ test('plugin - service resolved as expected', (t): void => {
 
       provides: deps => {
         const {flipr} = deps;
-        t.ok(flipr);
+        expect(flipr).toBeTruthy();
         wasResolved = true;
       },
     })
   );
 
-  t.true(wasResolved, 'test plugin was resolved');
-  t.end();
+  expect(wasResolved).toBeTruthy();
 });
 
-test('plugin - initialization', (t): void => {
+test('plugin - initialization', () => {
   let app = createTestFixture();
   getSimulator(
     app,
@@ -100,19 +90,13 @@ test('plugin - initialization', (t): void => {
       deps: {flipr: FliprToken},
 
       provides: ({flipr}): void => {
-        t.equal(
-          flipr.randomFunction(),
-          999,
-          'Flipr client functions proxied on the service'
-        );
+        expect(flipr.randomFunction()).toBe(999);
       },
     })
   );
-
-  t.end();
 });
 
-test('service - initialization with client error', (t): void => {
+test('service - initialization with client error', () => {
   const MockGrumpyFliprClient = function() {
     this.startUpdating = (cb): void => {
       cb(new Error('flipr client is unhappy'));
@@ -120,20 +104,14 @@ test('service - initialization with client error', (t): void => {
     return this;
   };
 
-  t.throws(
-    () => {
-      const provides = FliprPlugin.provides;
-      if (provides) {
-        provides({
-          config: {defaultNamespace: 'foo'},
-          logger: createMockLogger(),
-          Client: MockGrumpyFliprClient,
-        });
-      }
-    },
-    /unhappy/g,
-    're-throws on startUpdating()'
-  );
-
-  t.end();
+  expect(() => {
+    const provides = FliprPlugin.provides;
+    if (provides) {
+      provides({
+        config: {defaultNamespace: 'foo'},
+        logger: createMockLogger(),
+        Client: MockGrumpyFliprClient,
+      });
+    }
+  }).toThrow(/unhappy/g);
 });

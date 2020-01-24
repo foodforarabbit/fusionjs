@@ -3,21 +3,14 @@
   "version": "0.0.0-monorepo",
   "description": "A fusion plugin for magellan",
   "files": [
-    "dist",
-    "src"
+    "src/",
+    "dist-*/"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
   "browser": {
-    "./dist/index.js": "./dist/browser.es5.js",
-    "./dist/index.es.js": "./dist/browser.es5.es.js"
-  },
-  "es2015": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
-  },
-  "es2017": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "peerDependencies": {
     "fusion-core": "0.0.0-monorepo",
@@ -26,7 +19,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "babel-plugin-istanbul": "^5.1.4",
-    "create-universal-package": "^3.4.7",
+    "create-universal-package": "^4.1.0",
     "eslint": "^6.0.1",
     "eslint-config-fusion": "0.0.0-monorepo",
     "eslint-plugin-cup": "^2.0.1",
@@ -42,24 +35,18 @@
     "get-port": "^5.0.0",
     "idl": "^3.1.12",
     "koa": "^2.7.0",
-    "nyc": "^14.1.0",
     "prettier": "^1.18.2",
-    "tape-cup": "^4.7.1",
-    "unitest": "^2.1.1",
+    "jest": "^24.9.0",
     "eslint-plugin-react-hooks": "^1.6.1"
   },
   "scripts": {
-    "flow": "flow check",
+    "flow": "flow",
     "lint": "eslint src/",
-    "clean": "rm -rf dist",
-    "build-test": "rm -rf dist-tests && NODE_ENV=test cup build-tests",
-    "just-test": "unitest --browser=dist-tests/browser.js --node=dist-tests/node.js",
-    "test": "npm run build-test && npm run just-test",
-    "cover": "npm run build-test && npm run just-cover",
-    "just-cover": "nyc --reporter=cobertura npm run just-test",
+    "clean": "cup-clean",
+    "test": "jest",
     "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html",
     "prepublish": "npm run build",
-    "build": "npm run clean && cup build"
+    "build": "npm run clean && cup-build"
   },
   "dependencies": {
     "request": "^2.88.0",

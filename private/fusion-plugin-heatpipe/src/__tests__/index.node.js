@@ -2,18 +2,15 @@
 /* eslint-env node */
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import tape from 'tape-cup';
 import {LoggerToken} from 'fusion-tokens';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {HeatpipeToken} from '../tokens';
 import HeatpipePlugin from '../server';
 
-const {test} = tape;
-
-test('heatpipe-plugin no-op in __DEV__ mode', async t => {
+test('heatpipe-plugin no-op in __DEV__ mode', async done => {
   const events = {
     on(type) {
-      t.equal(type, `heatpipe:publish`, 'adds event handler correctly');
+      expect(type).toBe(`heatpipe:publish`);
     },
   };
   const app = new App('content', el => el);
@@ -31,8 +28,8 @@ test('heatpipe-plugin no-op in __DEV__ mode', async t => {
         heatpipe
           .asyncPublish({topic: 'foo', version: 1}, {hello: 'world'})
           .then(resp => {
-            t.equal(resp, undefined, 'resolves with undefined in __DEV__ mode');
-            t.end();
+            expect(resp).toBe(undefined);
+            done();
           });
       },
     })

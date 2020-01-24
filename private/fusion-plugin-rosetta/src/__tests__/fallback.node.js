@@ -1,9 +1,7 @@
 // @flow
-import tape from 'tape-cup';
-
 import getTranslatons from '../fallback.js';
 
-tape('getTranslatons', t => {
+test('getTranslatons', () => {
   const client = {
     locales: ['ar'],
     translations: {
@@ -26,64 +24,39 @@ tape('getTranslatons', t => {
     },
   };
 
-  t.deepLooseEqual(
-    getTranslatons(client, 'en'),
-    {
-      hello: 'world',
-      ab: 'en',
-      ac: 'en',
-    },
-    'getTranslations en directly'
-  );
+  expect(getTranslatons(client, 'en')).toStrictEqual({
+    hello: 'world',
+    ab: 'en',
+    ac: 'en',
+  }); // 'getTranslations en directly'
 
-  t.deepLooseEqual(
-    getTranslatons(client, 'ar-SA'),
-    {
-      hello: 'world',
-      ab: 'ar-SA',
-      ac: 'ar-SA',
-    },
-    'getTranslations without finding the fallbacks'
-  );
+  expect(getTranslatons(client, 'ar-SA')).toStrictEqual({
+    hello: 'world',
+    ab: 'ar-SA',
+    ac: 'ar-SA',
+  }); // 'getTranslations without finding the fallbacks'
 
-  t.deepLooseEqual(
-    getTranslatons(client, 'ar-AE'),
-    {
-      hello: 'world',
-      ab: 'ar-AE',
-      ac: 'ar-SA',
-    },
-    'getTranslations from fallback chain'
-  );
+  expect(getTranslatons(client, 'ar-AE')).toStrictEqual({
+    hello: 'world',
+    ab: 'ar-AE',
+    ac: 'ar-SA',
+  }); // 'getTranslations from fallback chain'
 
-  t.deepLooseEqual(
-    getTranslatons(client, 'ar'),
-    {
-      hello: 'world',
-      ab: 'ar-AE',
-      ac: 'ar-SA',
-    },
-    'getTranslations from bestmatch: ar'
-  );
+  expect(getTranslatons(client, 'ar')).toStrictEqual({
+    hello: 'world',
+    ab: 'ar-AE',
+    ac: 'ar-SA',
+  }); // 'getTranslations from bestmatch: ar'
 
-  t.deepLooseEqual(
-    getTranslatons(client, 'ar-AR'),
-    {
-      hello: 'world',
-      ab: 'ar-AE',
-      ac: 'ar-SA',
-    },
-    'getTranslations from bestmatch: ar-AR'
-  );
+  expect(getTranslatons(client, 'ar-AR')).toStrictEqual({
+    hello: 'world',
+    ab: 'ar-AE',
+    ac: 'ar-SA',
+  }); // 'getTranslations from bestmatch: ar-AR'
 
-  t.deepLooseEqual(
-    getTranslatons(client, 'ch'),
-    {
-      hello: 'world',
-      ab: 'en',
-      ac: 'en',
-    },
-    'locale not found, fallback to en'
-  );
-  t.end();
+  expect(getTranslatons(client, 'ch')).toStrictEqual({
+    hello: 'world',
+    ab: 'en',
+    ac: 'en',
+  }); // 'locale not found, fallback to en'
 });

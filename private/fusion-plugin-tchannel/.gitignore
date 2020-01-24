@@ -9,7 +9,6 @@ jshint-proper.xml
 core
 npm-debug.log
 
-dist/
-dist-tests/
+dist-*/
 .DS_Store
 .nyc_output/

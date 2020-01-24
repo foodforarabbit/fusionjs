@@ -1,18 +1,16 @@
 // @flow
 /* eslint-env node */
-import test from 'tape-cup';
 import {consumeSanitizedHTML} from 'fusion-core';
 import TealiumPlugin from '../server';
 
 function noop() {}
 
-test('plugin - exported as expected', t => {
-  t.ok(TealiumPlugin, 'plugin defined as expected');
-  t.equal(typeof TealiumPlugin, 'object', 'plugin is an object');
-  t.end();
+test('plugin - exported as expected', () => {
+  expect(TealiumPlugin).toBeTruthy();
+  expect(typeof TealiumPlugin).toBe('object');
 });
 
-test('plugin - server init', t => {
+test('plugin - server init', done => {
   const mockConfig = {
     account: 'foo',
     profile: 'main',
@@ -26,18 +24,15 @@ test('plugin - server init', t => {
     template: {
       head: {
         push: h => {
-          t.equal(
-            consumeSanitizedHTML(h),
-            "<script async nonce='abc123' src='https://tags.tiqcdn.com/utag/foo/strict/prod/utag.js'></script>",
-            'constructs and sanitizes script tag correctly'
+          expect(consumeSanitizedHTML(h)).toBe(
+            "<script async nonce='abc123' src='https://tags.tiqcdn.com/utag/foo/strict/prod/utag.js'></script>"
           );
-          t.pass('script tag pushed');
         },
       },
     },
   };
 
-  t.plan(3);
+  expect.assertions(1);
   if (TealiumPlugin.middleware) {
     TealiumPlugin.middleware(
       {
@@ -46,15 +41,14 @@ test('plugin - server init', t => {
       },
       (null: any)
     )(mockCtx, async () => {
-      t.pass('next() called');
-      t.end();
+      done();
     });
   }
 });
 
-test('plugin accepts config as a function', t => {
+test('plugin accepts config as a function', done => {
   const configStub = ctx => {
-    t.equal(ctx.nonce, 'cakeface', 'context was passed to config initializer');
+    expect(ctx.nonce).toBe('cakeface');
 
     return Promise.resolve({
       account: 'foo',
@@ -70,18 +64,15 @@ test('plugin accepts config as a function', t => {
     template: {
       head: {
         push: h => {
-          t.equal(
-            consumeSanitizedHTML(h),
-            "<script async nonce='cakeface' src='https://tags.tiqcdn.com/utag/foo/main/prod/utag.js'></script>",
-            'constructs and sanitizes script tag correctly'
+          expect(consumeSanitizedHTML(h)).toBe(
+            "<script async nonce='cakeface' src='https://tags.tiqcdn.com/utag/foo/main/prod/utag.js'></script>"
           );
-          t.pass('script tag pushed');
         },
       },
     },
   };
 
-  t.plan(4);
+  expect.assertions(2);
   if (TealiumPlugin.middleware) {
     TealiumPlugin.middleware(
       {
@@ -90,15 +81,15 @@ test('plugin accepts config as a function', t => {
       },
       (null: any)
     )(mockCtx, async () => {
-      t.pass('next() called');
-      t.end();
+      done();
     });
   }
 });
 
-test('plugin skips processing non-HTML request', t => {
+test('plugin skips processing non-HTML request', done => {
   const configStub = () => {
-    t.fail('config initializer should not be called');
+    // $FlowFixMe
+    done.fail('config initializer should not be called');
     return {};
   };
 
@@ -111,7 +102,6 @@ test('plugin skips processing non-HTML request', t => {
     },
   };
 
-  t.plan(1);
   if (TealiumPlugin.middleware) {
     TealiumPlugin.middleware(
       {
@@ -120,13 +110,12 @@ test('plugin skips processing non-HTML request', t => {
       },
       (null: any)
     )(mockCtx, async () => {
-      t.pass('next() called');
-      t.end();
+      done();
     });
   }
 });
 
-test('plugin skips requests that dont have a full config', t => {
+test('plugin skips requests that dont have a full config', done => {
   const configStub = () => {
     return {
       name: 'partial_config',
@@ -138,13 +127,13 @@ test('plugin skips requests that dont have a full config', t => {
     template: {
       head: {
         push: () => {
-          t.fail('push should not be called');
+          // $FlowFixMe
+          done.fail('push should not be called');
         },
       },
     },
   };
 
-  t.plan(1);
   if (TealiumPlugin.middleware) {
     TealiumPlugin.middleware(
       {
@@ -153,8 +142,7 @@ test('plugin skips requests that dont have a full config', t => {
       },
       (null: any)
     )(mockCtx, async () => {
-      t.pass('next() called');
-      t.end();
+      done();
     });
   }
 });

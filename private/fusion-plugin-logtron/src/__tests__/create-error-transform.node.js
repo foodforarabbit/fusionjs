@@ -1,7 +1,6 @@
 // @flow
 /* eslint-env node */
 import path from 'path';
-import tape from 'tape-cup';
 import createErrorTransform from '../create-error-transform';
 
 const mockError = {
@@ -17,13 +16,12 @@ const expectedTransformed = {
     Object.<anonymous> at test.js:6:1`,
 };
 
-tape('createErrorTransform - basics', async t => {
-  t.plan(1);
+test('createErrorTransform - basics', async () => {
+  expect.assertions(1);
   const transformError = createErrorTransform({
     path: path.join(process.cwd(), `src/__fixtures__`),
     ext: '.map',
   });
   const transformed = await transformError({error: mockError});
-  t.deepEqual(transformed, expectedTransformed, 'Error transformed correctly');
-  t.end();
+  expect(transformed).toEqual(expectedTransformed);
 });

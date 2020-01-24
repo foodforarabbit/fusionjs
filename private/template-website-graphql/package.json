@@ -112,7 +112,7 @@
   },
   "scripts": {
     "lint": "eslint src/",
-    "flow": "flow check",
+    "flow": "flow",
     "build": "fusion build",
     "dev": "SVC_ID='{{name}}' fusion-dev-cli fusion dev",
     "test": "fusion test",

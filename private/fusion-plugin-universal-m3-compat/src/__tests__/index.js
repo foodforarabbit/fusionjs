@@ -1,8 +1,7 @@
 // @noflow
-import tape from 'tape-cup';
 import createM3Plugin from '../plugin.js';
 
-tape('universal m3 api', async t => {
+test('universal m3 api', async () => {
   const {m3, plugin} = createM3Plugin();
   let flags = {
     counter: false,
@@ -34,32 +33,26 @@ tape('universal m3 api', async t => {
   Object.keys(flags).forEach(method => {
     realM3[method] = (first, second) => {
       flags[method] = true;
-      t.equal(first, `first-${method}`, `calls ${method} correctly`);
-      t.equal(second, `second-${method}`, `calls ${method} correctly`);
+      expect(first).toBe(`first-${method}`);
+      expect(second).toBe(`second-${method}`);
     };
   });
 
   plugin.provides({m3: realM3});
 
   Object.keys(flags).forEach(flag => {
-    t.equal(flags[flag], true, `calls ${flag} when buffer flushed`);
+    expect(flags[flag]).toBe(true);
     flags[flag] = false;
     m3[flag](`first-${flag}`, `second-${flag}`);
-    t.equal(flags[flag], true, `calls ${flag} after m3 set`);
+    expect(flags[flag]).toBe(true);
   });
 
   flags.increment = false;
   increment('first-increment', 'second-increment');
-  t.equal(
-    flags.increment,
-    true,
-    'proxy works even if using a ref to the original fn'
-  );
-
-  t.end();
+  expect(flags.increment).toBe(true);
 });
 
-tape('universal m3 api calling provides multiple times', t => {
+test('universal m3 api calling provides multiple times', () => {
   const {plugin} = createM3Plugin();
   const realM3 = {
     scope() {},
@@ -76,16 +69,14 @@ tape('universal m3 api calling provides multiple times', t => {
     immediateGauge() {},
   };
 
-  t.doesNotThrow(() => {
+  expect(() => {
     plugin.provides({m3: realM3});
     plugin.provides({m3: realM3});
-  });
-
-  t.end();
+  }).not.toThrow();
 });
 
 __BROWSER__ &&
-  tape('universal m3 browser api', t => {
+  test('universal m3 browser api', () => {
     const {plugin} = createM3Plugin();
     const realM3 = {
       counter() {},
@@ -95,10 +86,8 @@ __BROWSER__ &&
       gauge() {},
     };
 
-    t.doesNotThrow(() => {
+    expect(() => {
       plugin.provides({m3: realM3});
       plugin.provides({m3: realM3});
-    });
-
-    t.end();
+    }).not.toThrow();
   });

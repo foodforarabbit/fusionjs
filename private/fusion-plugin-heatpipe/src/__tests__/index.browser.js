@@ -2,7 +2,6 @@
 /* eslint-env browser */
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import tape from 'tape-cup';
 
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
@@ -19,13 +18,13 @@ const fixture = {
   },
 };
 
-tape.test('heatpipe:publish', t => {
+test('heatpipe:publish', done => {
   const MockUniversalEvents = {
     emit(type, {topicInfo, message}) {
-      t.equal(type, 'heatpipe:publish', 'calls with correct event type');
-      t.equal(topicInfo, fixture.topicInfo, 'topicInfo passes through');
-      t.equal(message, fixture.message, 'message passes through');
-      t.end();
+      expect(type).toBe('heatpipe:publish');
+      expect(topicInfo).toBe(fixture.topicInfo);
+      expect(message).toBe(fixture.message);
+      done();
     },
   };
 

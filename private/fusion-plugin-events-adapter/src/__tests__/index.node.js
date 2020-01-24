@@ -1,6 +1,5 @@
 // @noflow
 import EventEmitter from './custom-event-emitter.js';
-import tape from 'tape-cup';
 import {getSimulator} from 'fusion-test-utils';
 import App, {createPlugin} from 'fusion-core';
 
@@ -17,20 +16,20 @@ import {EventsAdapterToken} from '../tokens';
 
 import ServerPlugin from '../server';
 
-tape('Server plugin', async t => {
-  t.plan(11);
+test('Server plugin', async () => {
+  expect.assertions(11);
   const app = new App('content', el => el);
   app.register(EventsAdapterToken, ServerPlugin);
   app.register(UniversalEventsToken, new EventEmitter());
   app.register(M3Token, M3Mock);
   app.register(LoggerToken, {
     info(msg, meta) {
-      t.equal(msg, 'access log');
-      t.equal(meta.type, 'request');
-      t.equal(meta.route, '/test');
-      t.equal(meta.url, '/test');
-      t.equal(meta.status, 200);
-      t.equal(typeof meta.timing, 'number');
+      expect(msg).toBe('access log');
+      expect(meta.type).toBe('request');
+      expect(meta.route).toBe('/test');
+      expect(meta.url).toBe('/test');
+      expect(meta.status).toBe(200);
+      expect(typeof meta.timing).toBe('number');
     },
   });
   app.register(HeatpipeToken, {});
@@ -75,8 +74,8 @@ tape('Server plugin', async t => {
         EventsAdapter: EventsAdapterToken,
       },
       provides({EventsAdapter}) {
-        t.ok(EventsAdapter, 'plugin correctly provided');
-        t.ok(EventsAdapter.logTiming, 'plugin service provides logTiming()');
+        expect(EventsAdapter).toBeTruthy();
+        expect(EventsAdapter.logTiming).toBeTruthy();
       },
     })
   );
@@ -85,7 +84,7 @@ tape('Server plugin', async t => {
   await ctx.timing.end;
   const m3Calls = M3.getCalls();
 
-  t.deepEqual(m3Calls[0], [
+  expect(m3Calls[0]).toEqual([
     'timing',
     [
       'request',
@@ -94,7 +93,7 @@ tape('Server plugin', async t => {
     ],
   ]);
 
-  t.deepEqual(m3Calls[1], [
+  expect(m3Calls[1]).toEqual([
     'timing',
     [
       'downstream',
@@ -103,7 +102,7 @@ tape('Server plugin', async t => {
     ],
   ]);
 
-  t.deepEqual(m3Calls[2], [
+  expect(m3Calls[2]).toEqual([
     'timing',
     [
       'upstream',
@@ -111,11 +110,9 @@ tape('Server plugin', async t => {
       {route: 'test', status: 200, method: 'GET', abcd: 'abcd'},
     ],
   ]);
-
-  t.end();
 });
 
-tape('Server plugin with /_static asset request', async t => {
+test('Server plugin with /_static asset request', async () => {
   const app = new App('content', el => el);
   class Events extends EventEmitter {
     from() {
@@ -165,8 +162,8 @@ tape('Server plugin with /_static asset request', async t => {
         EventsAdapter: EventsAdapterToken,
       },
       provides({EventsAdapter}) {
-        t.ok(EventsAdapter, 'plugin correctly provided');
-        t.ok(EventsAdapter.logTiming, 'plugin service provides logTiming()');
+        expect(EventsAdapter).toBeTruthy();
+        expect(EventsAdapter.logTiming).toBeTruthy();
       },
     })
   );
@@ -175,7 +172,7 @@ tape('Server plugin with /_static asset request', async t => {
   await ctx.timing.end;
   const m3Calls = M3.getCalls();
 
-  t.deepEqual(m3Calls[0], [
+  expect(m3Calls[0]).toEqual([
     'timing',
     [
       'request',
@@ -184,7 +181,7 @@ tape('Server plugin with /_static asset request', async t => {
     ],
   ]);
 
-  t.deepEqual(m3Calls[1], [
+  expect(m3Calls[1]).toEqual([
     'timing',
     [
       'downstream',
@@ -193,7 +190,7 @@ tape('Server plugin with /_static asset request', async t => {
     ],
   ]);
 
-  t.deepEqual(m3Calls[2], [
+  expect(m3Calls[2]).toEqual([
     'timing',
     [
       'upstream',
@@ -201,6 +198,4 @@ tape('Server plugin with /_static asset request', async t => {
       {route: 'static_asset', status: 200, method: 'GET'},
     ],
   ]);
-
-  t.end();
 });

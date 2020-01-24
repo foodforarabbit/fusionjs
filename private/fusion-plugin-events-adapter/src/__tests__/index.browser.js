@@ -1,5 +1,4 @@
 // @noflow
-import tape from 'tape-cup';
 import EventEmitter from './custom-event-emitter.js';
 import {getSimulator} from 'fusion-test-utils';
 import App, {createPlugin} from 'fusion-core';
@@ -10,7 +9,7 @@ import {EventsAdapterToken, EventsAdapterAnalyticsToken} from '../tokens';
 
 import BrowserPlugin from '../browser';
 
-tape('Browser plugin', async t => {
+test('Browser plugin', async () => {
   const mapped = [];
 
   class Events extends EventEmitter {
@@ -37,13 +36,11 @@ tape('Browser plugin', async t => {
         EventsAdapter: EventsAdapterToken,
       },
       provides({EventsAdapter}) {
-        t.ok(EventsAdapter, 'plugin correctly provided');
-        t.throws(EventsAdapter.from, 'plugin provides no service for browser');
+        expect(EventsAdapter).toBeTruthy();
+        expect(EventsAdapter.from).toThrow();
       },
     })
   );
   await sim.render('/');
-  t.deepEqual(mapped, ['*'], 'All event types to be mapped');
-
-  t.end();
+  expect(mapped).toEqual(['*']);
 });

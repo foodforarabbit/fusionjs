@@ -24,11 +24,10 @@
     "bootstrap": "rm -rf node_modules && yarn",
     "lint": "eslint src --fix",
     "flow": "flow check || true",
-    "build": "cup build && eslint src",
+    "build": "cup-build && eslint src",
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest && yarn flow",
-    "cover": "yarn lint && yarn flow && yarn test",
-    "prepublish": "cup build",
+    "prepublish": "cup-build",
     "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
   },
   "devDependencies": {
@@ -60,54 +59,6 @@
       "eslint-config-fusion"
     ]
   },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "dist-(browser|node)-cjs/**/*.js",
-      "!src"
-    ],
-    "coverageDirectory": "coverage",
-    "coverageReporters": [
-      "cobertura",
-      "html",
-      "json",
-      "text-summary",
-      "text"
-    ],
-    "projects": [
-      {
-        "displayName": "browser",
-        "browser": true,
-        "testEnvironment": "jest-environment-jsdom-global",
-        "testPathIgnorePatterns": [
-          "/node_modules/",
-          "/dist/",
-          ".*\\.node\\.js"
-        ],
-        "testURL": "http://localhost",
-        "globals": {
-          "__DEV__": true,
-          "__NODE__": false,
-          "__BROWSER__": true
-        }
-      },
-      {
-        "displayName": "server",
-        "browser": false,
-        "testEnvironment": "node",
-        "testPathIgnorePatterns": [
-          "/node_modules/",
-          "/dist/",
-          ".*\\.browser\\.js"
-        ],
-        "globals": {
-          "__DEV__": true,
-          "__NODE__": true,
-          "__BROWSER__": false
-        }
-      }
-    ]
-  },
   "engines": {
     "node": ">=0",
     "npm": ">=0",
@@ -118,7 +69,7 @@
     "dist-browser-esm",
     "dist-node-cjs",
     "dist-node-esm",
-    "src",
+    "src/",
     "!test"
   ],
   "resolutions": {
@@ -129,5 +80,6 @@
     "@uber/fusion-plugin-marketing": "^2.0.11",
     "styletron-react": "^5.2.6",
     "@uber/typed-rpc-cli": "^3.3.3"
-  }
+  },
+  "sideEffects": false
 }

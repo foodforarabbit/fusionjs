@@ -1,18 +1,17 @@
 // @flow
-import tape from 'tape-cup';
-
 import getInitialState from '../index.js';
 
-tape('getInitialState', (t): void => {
+test('getInitialState', () => {
   // $FlowFixMe
-  t.deepLooseEqual(getInitialState({}), {});
+  expect(getInitialState({})).toStrictEqual({});
 
   // $FlowFixMe
-  t.deepLooseEqual(getInitialState({res: {locals: {}}}), {});
+  expect(getInitialState({res: {locals: {}}})).toStrictEqual({});
 
   // $FlowFixMe
-  t.deepLooseEqual(getInitialState({res: {locals: {state: {test: true}}}}), {
-    test: true,
-  });
-  t.end();
+  expect(getInitialState({res: {locals: {state: {test: true}}}})).toStrictEqual(
+    {
+      test: true,
+    }
+  );
 });

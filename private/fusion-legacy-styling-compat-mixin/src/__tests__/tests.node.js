@@ -1,11 +1,9 @@
 /* @noflow */
-import tape from 'tape-cup';
-
 import styletron from 'styletron-legacy';
 
 import {serverWrapper} from '../server.js';
 
-tape('serverWrapper', async t => {
+test('serverWrapper', async () => {
   // Render *could* take arbitrary arguments,
   // all should be passed through transparently.
   const mockRender = (shouldStyle, ...content) => {
@@ -17,13 +15,10 @@ tape('serverWrapper', async t => {
 
   const wrapped = serverWrapper(mockRender);
 
-  t.equal(wrapped(false, 'hello'), `<div>hello</div>`);
-  t.equal(wrapped(false, 'hi', ' ', 'world'), `<div>hi world</div>`);
+  expect(wrapped(false, 'hello')).toBe(`<div>hello</div>`);
+  expect(wrapped(false, 'hi', ' ', 'world')).toBe(`<div>hi world</div>`);
 
-  t.equal(
-    wrapped(true, 'hello'),
+  expect(wrapped(true, 'hello')).toBe(
     `<style>.foo{color:red}</style><div class="foo">hello</div><script id="_fusion_legacy_styling_hydration_keys_" type="application/json">["foo_key"]</script>`
   );
-
-  t.end();
 });

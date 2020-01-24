@@ -1,38 +1,40 @@
 // @flow
 import EventEmitter from './custom-event-emitter.js';
-import tape from 'tape-cup';
 import perf from '../handlers/node-performance';
 
-tape('node performance rss', gaugeTest('rss', 'rss'));
-tape('node performance rss', gaugeTest('externalMemory', 'external_memory'));
-tape('node performance heapTotal', gaugeTest('heapTotal', 'heaptotal'));
-tape('node performance heapUsed', gaugeTest('heapUsed', 'heapused'));
-tape(
+test('node performance rss', gaugeTest('rss', 'rss'));
+test(
+  'node performance externalMemory',
+  gaugeTest('externalMemory', 'external_memory')
+);
+test('node performance heapTotal', gaugeTest('heapTotal', 'heaptotal'));
+test('node performance heapUsed', gaugeTest('heapUsed', 'heapused'));
+test(
   'node performance event_loop_lag',
   gaugeTest('event_loop_lag', 'event_loop_lag')
 );
-tape(
+test(
   'node performance globalAgentSockets',
   gaugeTest('globalAgentSockets', 'globalagentsockets')
 );
-tape(
+test(
   'node performance globalAgentRequests',
   gaugeTest('globalAgentRequests', 'globalagentrequests')
 );
-tape(
+test(
   'node performance globalAgentFreeSockets',
   gaugeTest('globalAgentFreeSockets', 'globalagentfreesockets')
 );
 
 function gaugeTest(emitKey, expectKey) {
-  return t => {
+  return done => {
     const events = new EventEmitter();
 
     const mockM3 = {
       gauge(key, value) {
-        t.equal(key, expectKey);
-        t.equal(value, 10);
-        t.end();
+        expect(key).toBe(expectKey);
+        expect(value).toBe(10);
+        done();
       },
     };
 
@@ -41,15 +43,15 @@ function gaugeTest(emitKey, expectKey) {
   };
 }
 
-tape('node performance gc timing', t => {
+test('node performance gc timing', done => {
   const events = new EventEmitter();
 
   const mockM3 = {
     timing(key, value, tags) {
-      t.equal(key, 'gc');
-      t.equal(value, 5);
-      t.deepLooseEqual(tags, {gctype: 'test'});
-      t.end();
+      expect(key).toBe('gc');
+      expect(value).toBe(5);
+      expect(tags).toStrictEqual({gctype: 'test'});
+      done();
     },
   };
 

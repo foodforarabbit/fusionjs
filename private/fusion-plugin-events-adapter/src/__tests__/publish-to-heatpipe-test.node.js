@@ -1,12 +1,11 @@
 // @flow
 import publishToHeatpipe from '../utils/publish-to-heatpipe.js';
-import tape from 'tape-cup';
 
 const goodData = {pass: true};
 const badData = {fail: true};
 
-tape('good data publishes', t => {
-  t.plan(2);
+test('good data publishes', done => {
+  expect.assertions(1);
   publishToHeatpipe(
     {enhancedMetrics: goodData, __url__: 'https://abc.com'},
     {request: {}},
@@ -21,16 +20,15 @@ tape('good data publishes', t => {
   );
 
   function mockPublish(name, details, data) {
-    t.pass('should publish');
-    t.deepEquals(data, {pass: true});
-    t.end();
+    expect(data).toEqual({pass: true});
+    done();
     return Promise.resolve();
   }
 });
 
-tape('bad data does not publish or throw an exception', t => {
-  t.plan(1);
-  t.doesNotThrow(() =>
+test('bad data does not publish or throw an exception', done => {
+  expect.assertions(1);
+  expect(() =>
     publishToHeatpipe(
       {enhancedMetrics: badData, __url__: 'https://abc.com'},
       {request: {}},
@@ -43,18 +41,19 @@ tape('bad data does not publish or throw an exception', t => {
         serverPerfCollectorFn: () => (_, data) => data,
       }
     )
-  );
-  t.end();
+  ).not.toThrow();
 
   function mockPublish(name, details, data) {
-    t.fail('should not publish because data is badly formed');
+    // $FlowFixMe
+    done.fail('should not publish because data is badly formed');
     return Promise.resolve();
   }
+  done();
 });
 
-tape('null data does not publish or throw an excpetion', t => {
-  t.plan(1);
-  t.doesNotThrow(() =>
+test('null data does not publish or throw an excpetion', done => {
+  expect.assertions(1);
+  expect(() =>
     publishToHeatpipe(
       {enhancedMetrics: null, __url__: 'https://abc.com'},
       {request: {}},
@@ -67,13 +66,14 @@ tape('null data does not publish or throw an excpetion', t => {
         serverPerfCollectorFn: () => (_, data) => data,
       }
     )
-  );
-  t.end();
+  ).not.toThrow();
 
   function mockPublish(name, details, data) {
-    t.fail('should not publish because no data');
+    // $FlowFixMe
+    done.fail('should not publish because no data');
     return Promise.resolve();
   }
+  done();
 });
 
 function mockHeatpipeAdapter(data) {

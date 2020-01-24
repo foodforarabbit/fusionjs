@@ -22,7 +22,7 @@
     "lint": "eslint src",
     "test": "$(find templates -name node_modules -prune -exec rm -rf {} \\;); jest --maxWorkers 1",
     "cover": "yarn run test --coverage",
-    "flow": "flow check",
+    "flow": "flow",
     "prepublish": "babel src -d dist && ./prepublish.sh"
   },
   "watch": {
@@ -60,13 +60,10 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
-    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
-    "@babel/preset-flow": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/plugin-transform-flow-strip-types": "^7.8.3",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
-    "babel-preset-flow": "^6.23.0",
     "eslint": "^6.0.1",
     "eslint-config-fusion": "0.0.0-monorepo",
     "eslint-plugin-cup": "^2.0.1",
@@ -83,25 +80,6 @@
   },
   "resolutions": {
     "event-stream": "3.3.5"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-flow"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-object-rest-spread",
-      "@babel/plugin-transform-modules-commonjs"
-    ]
-  },
-  "jest": {
-    "setupFiles": [
-      "<rootDir>/test-setup.js"
-    ],
-    "testRegex": "src/(commands|utils|codemods)/.*?.test.js",
-    "coverageReporters": [
-      "text",
-      "cobertura"
-    ]
   },
   "engines": {
     "node": ">=8.9.4",

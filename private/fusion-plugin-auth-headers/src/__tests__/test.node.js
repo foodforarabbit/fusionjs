@@ -1,7 +1,5 @@
 // @flow
 
-import test from 'tape-cup';
-
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 
@@ -21,31 +19,29 @@ function createTestFixture() {
   return app;
 }
 
-test('exported as expected', t => {
-  t.ok(AuthHeadersPlugin, 'plugin defined as expected');
-  t.equal(typeof AuthHeadersPlugin, 'object', 'plugin is an object');
-  t.end();
+test('exported as expected', () => {
+  expect(AuthHeadersPlugin).toBeTruthy();
+  expect(typeof AuthHeadersPlugin).toBe('object');
 });
 
-test('auth headers plugin resolved in test plugin', t => {
-  t.plan(1);
+test('auth headers plugin resolved in test plugin', () => {
+  expect.assertions(1);
 
   const app = createTestFixture();
   const testPlugin = createPlugin({
     deps: {authHeaders: AuthHeadersToken},
     provides: deps => {
       const {authHeaders} = deps;
-      t.ok(authHeaders, 'plugin defined as expected');
+      expect(authHeaders).toBeTruthy();
     },
   });
   app.register(testPlugin);
 
   getSimulator(app);
-  t.end();
 });
 
-test('missing auth param', t => {
-  t.plan(1);
+test('missing auth param', () => {
+  expect.assertions(1);
 
   // $FlowFixMe
   const mockContext = {
@@ -60,21 +56,16 @@ test('missing auth param', t => {
     deps: {authHeaders: AuthHeadersToken},
     provides: deps => {
       const {authHeaders} = deps;
-      t.equal(
-        authHeaders.from(mockContext).get('uuid'),
-        '',
-        'should return empty string if field is not present in headers'
-      );
+      expect(authHeaders.from(mockContext).get('uuid')).toBe('');
     },
   });
   app.register(testPlugin);
 
   getSimulator(app);
-  t.end();
 });
 
-test('service - get authentication param from context', t => {
-  t.plan(1);
+test('service - get authentication param from context', () => {
+  expect.assertions(1);
 
   // $FlowFixMe
   const mockContext = {
@@ -92,21 +83,18 @@ test('service - get authentication param from context', t => {
     provides: deps => {
       const {authHeaders} = deps;
       const service = authHeaders.from(mockContext);
-      t.equal(
-        service.get('uuid'),
-        mockContext.request.headers['x-auth-params-uuid'],
-        'correct value associated with uuid provided by service.'
+      expect(service.get('uuid')).toBe(
+        mockContext.request.headers['x-auth-params-uuid']
       );
     },
   });
   app.register(testPlugin);
 
   getSimulator(app);
-  t.end();
 });
 
-test('service - get authentication param from context (breeze)', t => {
-  t.plan(2);
+test('service - get authentication param from context (breeze)', () => {
+  expect.assertions(2);
 
   // $FlowFixMe
   const mockContext = {
@@ -125,26 +113,21 @@ test('service - get authentication param from context (breeze)', t => {
     provides: deps => {
       const {authHeaders} = deps;
       const service = authHeaders.from(mockContext);
-      t.equal(
-        service.get('uuid'),
-        mockContext.request.headers['x-auth-params-user-uuid'],
-        'correct value associated with uuid provided by service.'
+      expect(service.get('uuid')).toBe(
+        mockContext.request.headers['x-auth-params-user-uuid']
       );
-      t.equal(
-        service.get('token'),
-        mockContext.request.headers['x-uber-breeze-rtapi-token'],
-        'correct value associated with token provided by service.'
+      expect(service.get('token')).toBe(
+        mockContext.request.headers['x-uber-breeze-rtapi-token']
       );
     },
   });
   app.register(testPlugin);
 
   getSimulator(app);
-  t.end();
 });
 
-test('get authentication param from override', t => {
-  t.plan(1);
+test('get authentication param from override', () => {
+  expect.assertions(1);
 
   // $FlowFixMe
   const mockContext = {
@@ -166,17 +149,11 @@ test('get authentication param from override', t => {
       const service = authHeaders.from(mockContext);
       if (__DEV__) {
         /* Check development environment */
-        t.equal(
-          service.get('uuid'),
-          uuidOverride,
-          'correctly applies override value associated with uuid provided by service'
-        );
+        expect(service.get('uuid')).toBe(uuidOverride);
       } else {
         /* Check production environment */
-        t.equal(
-          service.get('uuid'),
-          mockContext.request.headers['x-auth-params-uuid'],
-          'correctly ignores override value associated with uuid provided by service (in production)'
+        expect(service.get('uuid')).toBe(
+          mockContext.request.headers['x-auth-params-uuid']
         );
       }
     },
@@ -184,5 +161,4 @@ test('get authentication param from override', t => {
   app.register(testPlugin);
 
   getSimulator(app);
-  t.end();
 });

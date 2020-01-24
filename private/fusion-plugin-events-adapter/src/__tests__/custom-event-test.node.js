@@ -1,13 +1,12 @@
 // @flow
 import EventEmitter from './custom-event-emitter.js';
-import tape from 'tape-cup';
 
 import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
 
 import customEvent from '../handlers/custom-event';
 
-tape('custom-event handler', t => {
-  t.plan(4);
+test('custom-event handler', () => {
+  expect.assertions(3);
   const events = new EventEmitter();
   const ctx = {};
   const payload = {
@@ -26,31 +25,26 @@ tape('custom-event handler', t => {
 
   const m3 = {
     increment(key, tags) {
-      t.equal(key, 'custom_web_event');
-      t.deepLooseEqual(tags, {event_name: payload.name});
-      t.pass('m3 incremented');
+      expect(key).toBe('custom_web_event');
+      expect(tags).toStrictEqual({event_name: payload.name});
     },
   };
 
   const mockHeatpipe = {
     asyncPublish(topicInfo, message) {
-      t.deepEqual(
-        {topicInfo, message},
-        {
-          topicInfo: webTopicInfo,
-          message: {
-            ...message,
-            name: payload.name,
-            type: payload.type,
-            value: payload.value,
-            meta: {testString: payload._trackingMeta.testString},
-            meta_long: {testLong: payload._trackingMeta.testLong},
-            meta_bool: {testBool: payload._trackingMeta.testBool},
-            time_ms: 1000,
-          },
+      expect({topicInfo, message}).toEqual({
+        topicInfo: webTopicInfo,
+        message: {
+          ...message,
+          name: payload.name,
+          type: payload.type,
+          value: payload.value,
+          meta: {testString: payload._trackingMeta.testString},
+          meta_long: {testLong: payload._trackingMeta.testLong},
+          meta_bool: {testBool: payload._trackingMeta.testBool},
+          time_ms: 1000,
         },
-        `Heatpipe event published`
-      );
+      });
       return Promise.resolve();
     },
   };
@@ -69,5 +63,4 @@ tape('custom-event handler', t => {
   customEvent({events, heatpipeEmitter, m3});
 
   events.emit('custom-hp-web-event', payload, ctx);
-  t.end();
 });

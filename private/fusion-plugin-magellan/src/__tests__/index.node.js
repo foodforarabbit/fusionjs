@@ -3,7 +3,6 @@
 
 import Koa from 'koa';
 import http from 'http';
-import test from 'tape-cup';
 import getPort from 'get-port';
 import {MagellanUriToken, JarvisUriToken} from '../tokens';
 import MagellanPlugin from '../server.js';
@@ -12,7 +11,7 @@ import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
 import request from 'request-promise';
 
-test('Server side plugin', async t => {
+test('Server side plugin', async () => {
   const app = new App('test', () => 'test');
   const magellanPort = await getPort();
   const jarvisPort = await getPort();
@@ -49,27 +48,23 @@ test('Server side plugin', async t => {
   const simulator = getSimulator(app);
   // $FlowFixMe
   const ctx = await simulator.render('/');
-  t.ok(ctx.body.includes('<div>Hello World</div>'), 'includes magellan html');
-  t.ok(ctx.body.includes(`console.log('test')`), 'includes magellan scripts');
-  t.ok(
-    ctx.body.includes(`<link rel='stylesheet' href='/test.css' />`),
-    'includes magellan css'
-  );
-  t.ok(
-    ctx.body.includes(`<link rel='stylesheet' href='/other.css' />`),
-    'includes magellan css'
-  );
-  t.ok(ctx.body.includes(`src='/test.js'`), 'includes jarvis scripts');
-  t.ok(
-    ctx.body.includes(`<link rel='stylesheet' href='/jarvis.css' />`),
-    'includes jarvis css'
-  );
+  expect(ctx.body.includes('<div>Hello World</div>')).toBeTruthy();
+  expect(ctx.body.includes(`console.log('test')`)).toBeTruthy();
+  expect(
+    ctx.body.includes(`<link rel='stylesheet' href='/test.css' />`)
+  ).toBeTruthy();
+  expect(
+    ctx.body.includes(`<link rel='stylesheet' href='/other.css' />`)
+  ).toBeTruthy();
+  expect(ctx.body.includes(`src='/test.js'`)).toBeTruthy();
+  expect(
+    ctx.body.includes(`<link rel='stylesheet' href='/jarvis.css' />`)
+  ).toBeTruthy();
   magellanConnection.close();
   jarvisConnection.close();
-  t.end();
 });
 
-test('Server side plugin proxies', async t => {
+test('Server side plugin proxies', async () => {
   const app = new App('test', () => 'test');
   const magellanPort = await getPort();
   const jarvisPort = await getPort();
@@ -106,10 +101,9 @@ test('Server side plugin proxies', async t => {
   const jarvisResponse = await request(
     `http://localhost:${rootPort}/jarvis-standalone/test`
   );
-  t.equal(magellanResponse, 'OK', 'proxies magellan requests');
-  t.equal(jarvisResponse, 'OK', 'proxies magellan requests');
+  expect(magellanResponse).toBe('OK');
+  expect(jarvisResponse).toBe('OK');
   appServer.close();
   magellanConnection.close();
   jarvisConnection.close();
-  t.end();
 });

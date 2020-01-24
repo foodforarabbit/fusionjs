@@ -2,26 +2,23 @@
 /* eslint-env node */
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
-import test from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import plugin from '../server';
 import {TChannelClientToken} from '../tokens';
 import {TChannelToken} from '../index';
 
-test('interface', async t => {
-  t.ok(plugin);
+test('interface', async done => {
+  expect(plugin).toBeTruthy();
 
   class TChannelClient {
     constructor(options) {
-      t.ok(options, 'passes options to tchannel');
+      expect(options).toBeTruthy();
     }
     listen(...args) {
-      t.equal(args.length, 3, 'calls listen with three args');
+      expect(args.length).toBe(3);
     }
-    close() {
-      t.pass('calls close');
-    }
+    close() {}
   }
 
   const mockLogger = {
@@ -41,13 +38,10 @@ test('interface', async t => {
   app.register(M3Token, mockM3);
   app.middleware({Tchannel: TChannelToken}, ({Tchannel}) => {
     const {tchannel} = Tchannel;
-    t.ok(
-      tchannel instanceof TChannelClient,
-      'creates an instance of the tchannel client'
-    );
-    t.equal(typeof Tchannel.cleanup, 'function', 'exports a cleanup function');
+    expect(tchannel instanceof TChannelClient).toBeTruthy();
+    expect(typeof Tchannel.cleanup).toBe('function');
     Tchannel.cleanup();
-    t.end();
+    done();
     return (ctx, next) => next();
   });
 

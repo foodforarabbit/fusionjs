@@ -1,7 +1,5 @@
 // @flow
 /* eslint-env node */
-import test from 'tape-cup';
-
 import App, {createToken} from 'fusion-core';
 import type {Context} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
@@ -61,9 +59,8 @@ const mockM3 = {
 };
 const mockTracer: any = {tracer: 'tracer'};
 
-test('Galileo Plugin', (t): void => {
-  t.ok(GalileoPlugin, 'exported correctly');
-  t.end();
+test('Galileo Plugin', () => {
+  expect(GalileoPlugin).toBeTruthy();
 });
 
 function assertPlugin(
@@ -89,79 +86,69 @@ function assertPlugin(
   getSimulator(app);
 }
 
-test('fusion Galileo Plugin', (t): void => {
+test('fusion Galileo Plugin', () => {
   const config = {test: 'test'};
 
   function MockGalileo(cfg, tracer, format, logger, m3): {||} {
-    t.looseEquals(
-      cfg,
-      {
-        appName: process.env.UBER_OWNER,
-        galileo: {
-          enabled: true,
-          test: 'test',
-          allowedEntities: ['EVERYONE'],
-          enforcePercentage: 0.0,
-          wonkamasterUrl: 'https://wonkabar.uberinternal.com',
-        },
+    expect(cfg).toStrictEqual({
+      appName: process.env.UBER_OWNER,
+      galileo: {
+        enabled: true,
+        test: 'test',
+        allowedEntities: ['EVERYONE'],
+        enforcePercentage: 0.0,
+        wonkamasterUrl: 'https://wonkabar.uberinternal.com',
       },
-      'config is passed down'
-    );
-    t.equal(tracer, 'tracer', 'tracer instance needs to be passed down');
-    t.equal(m3, mockM3, 'm3 needs to be passed down');
-    t.equal(logger, 'logger', 'logger instance needs to be passed down');
-    t.equal(format, 'http_headers', 'format needs to be passed down');
+    }); // 'config is passed down'
+
+    expect(tracer).toBe('tracer');
+    expect(m3).toBe(mockM3);
+    expect(logger).toBe('logger');
+    expect(format).toBe('http_headers');
     return Object.freeze({});
   }
 
   assertPlugin(config, MockGalileo, Galileo => {
-    t.ok(Galileo.galileo, 'should have galileo instance created');
-    t.ok(Galileo.destroy(), 'should destory the galileo instance');
+    expect(Galileo.galileo).toBeTruthy();
+    expect(Galileo.destroy()).toBeTruthy();
   });
-  t.end();
 });
 
-test('fusion Galileo Plugin custom appName', t => {
+test('fusion Galileo Plugin custom appName', () => {
   const config = {appName: 'my-app-name', test: 'test'};
 
   function MockGalileo(cfg, tracer, format, logger, m3): {||} {
-    t.looseEquals(
-      cfg,
-      {
-        appName: 'my-app-name',
-        galileo: {
-          enabled: true,
-          test: 'test',
-          allowedEntities: ['EVERYONE'],
-          enforcePercentage: 0.0,
-          wonkamasterUrl: 'https://wonkabar.uberinternal.com',
-        },
+    expect(cfg).toStrictEqual({
+      appName: 'my-app-name',
+      galileo: {
+        enabled: true,
+        test: 'test',
+        allowedEntities: ['EVERYONE'],
+        enforcePercentage: 0.0,
+        wonkamasterUrl: 'https://wonkabar.uberinternal.com',
       },
-      'config is passed down'
-    );
+    }); // 'config is passed down'
+
     return Object.freeze({});
   }
 
   assertPlugin(config, MockGalileo, Galileo => {
-    t.ok(Galileo.galileo, 'should have galileo instance created');
-    t.ok(Galileo.destroy(), 'should destory the galileo instance');
+    expect(Galileo.galileo).toBeTruthy();
+    expect(Galileo.destroy()).toBeTruthy();
   });
-  t.end();
 });
 
-test('fusion Galileo Plugin disabled', (t): void => {
+test('fusion Galileo Plugin disabled', done => {
   const config = {enabled: false};
 
   function MockGalileo(): void {
-    t.fail('should not instantiate galileo client');
+    // $FlowFixMe
+    done.fail('should not instantiate galileo client');
   }
 
   assertPlugin(config, MockGalileo, Galileo => {
-    t.equal(Galileo.galileo, null, 'should have null galileo client');
-    t.doesNotThrow(
-      (): boolean | void => Galileo.destroy(),
-      'should have destroy function'
-    );
+    expect(Galileo.galileo).toBe(null);
+    expect((): boolean | void => Galileo.destroy()).not.toThrow();
   });
-  t.end();
+  done();
 });

@@ -1,7 +1,6 @@
 // @flow
 /* eslint-env browser */
 import * as React from 'react';
-import test from 'tape-cup';
 
 import App from 'fusion-react';
 import {getSimulator} from 'fusion-test-utils';
@@ -17,16 +16,12 @@ if (__BROWSER__) {
   document.body && document.body.appendChild(root);
 }
 
-test('HOC', async t => {
+test('HOC', async () => {
   let didRender = false;
   class Test extends React.Component<any, any> {
     render() {
       if (__BROWSER__) {
-        t.equal(
-          typeof this.props.tealium,
-          'object',
-          'Tealium is correctly provided'
-        );
+        expect(typeof this.props.tealium).toBe('object');
       }
 
       didRender = true;
@@ -51,12 +46,10 @@ test('HOC', async t => {
   __NODE__ && app.register(TealiumConfigToken, {});
   const sim = getSimulator(app);
   const res = await sim.render('/');
-  t.ok(
+  expect(
     __NODE__
       ? String(res.body).includes('hello')
-      : document.body && document.body.innerHTML.includes('hello'),
-    'Test content rendered correctly'
-  );
-  t.ok(didRender, 'Test component rendered');
-  t.end();
+      : document.body && document.body.innerHTML.includes('hello')
+  ).toBeTruthy();
+  expect(didRender).toBeTruthy();
 });

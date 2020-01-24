@@ -1,8 +1,7 @@
 // @noflow
-import tape from 'tape-cup';
 import createLoggerPlugin from '../plugin.js';
 
-tape('universal logger log api', async t => {
+test('universal logger log api', async () => {
   const {logger, plugin} = createLoggerPlugin();
   const flags = {
     trace: false,
@@ -23,38 +22,38 @@ tape('universal logger log api', async t => {
   class RealLogger {
     trace(message, meta) {
       flags.trace = true;
-      t.equal(message, 'trace first arg', 'trace works');
-      t.equal(meta, 'second arg', 'trace works');
+      expect(message).toBe('trace first arg');
+      expect(meta).toBe('second arg');
     }
     debug(message, meta) {
       flags.debug = true;
-      t.equal(message, 'debug first arg', 'debug works');
-      t.equal(meta, 'second arg', 'debug works');
+      expect(message).toBe('debug first arg');
+      expect(meta).toBe('second arg');
     }
     info(message, meta) {
       flags.info = true;
-      t.equal(message, 'info first arg', 'info works');
-      t.equal(meta, 'second arg', 'info works');
+      expect(message).toBe('info first arg');
+      expect(meta).toBe('second arg');
     }
     access(message, meta) {
       flags.access = true;
-      t.equal(message, 'access first arg', 'access works');
-      t.equal(meta, 'second arg', 'access works');
+      expect(message).toBe('access first arg');
+      expect(meta).toBe('second arg');
     }
     warn(message, meta) {
       flags.warn = true;
-      t.equal(message, 'warn first arg', 'warn works');
-      t.equal(meta, 'second arg', 'warn works');
+      expect(message).toBe('warn first arg');
+      expect(meta).toBe('second arg');
     }
     error(message, meta) {
       flags.error = true;
-      t.equal(message, 'error first arg', 'error works');
-      t.equal(meta, 'second arg', 'error works');
+      expect(message).toBe('error first arg');
+      expect(meta).toBe('second arg');
     }
     fatal(message, meta) {
       flags.fatal = true;
-      t.equal(message, 'fatal first arg', 'fatal works');
-      t.equal(meta, 'second arg', 'fatal works');
+      expect(message).toBe('fatal first arg');
+      expect(meta).toBe('second arg');
     }
     createChild() {}
   }
@@ -62,24 +61,18 @@ tape('universal logger log api', async t => {
   plugin.provides({logger: new RealLogger()});
 
   Object.keys(flags).forEach(flag => {
-    t.equal(flags[flag], true, `calls ${flag} when buffer flushed`);
+    expect(flags[flag]).toBe(true);
     flags[flag] = false;
     logger[flag](`${flag} first arg`, 'second arg');
-    t.equal(flags[flag], true, `calls ${flag} after logger set`);
+    expect(flags[flag]).toBe(true);
   });
 
   flags.info = false;
   infoLog('info first arg', 'second arg');
-  t.equal(
-    flags.info,
-    true,
-    'proxy works even if using a ref to the original fn'
-  );
-
-  t.end();
+  expect(flags.info).toBe(true);
 });
 
-tape('universal logger with no createChild', async t => {
+test('universal logger with no createChild', async () => {
   const {plugin} = createLoggerPlugin();
   class RealLogger {
     trace() {}
@@ -91,14 +84,12 @@ tape('universal logger with no createChild', async t => {
     fatal() {}
   }
 
-  t.doesNotThrow(() => {
+  expect(() => {
     plugin.provides({logger: new RealLogger()});
-  });
-
-  t.end();
+  }).not.toThrow();
 });
 
-tape('universal logger calling setLogger multiple times', async t => {
+test('universal logger calling setLogger multiple times', async () => {
   const {plugin} = createLoggerPlugin();
 
   class RealLogger {
@@ -111,10 +102,8 @@ tape('universal logger calling setLogger multiple times', async t => {
     fatal() {}
   }
 
-  t.doesNotThrow(() => {
+  expect(() => {
     plugin.provides({logger: new RealLogger()});
     plugin.provides({logger: new RealLogger()});
-  });
-
-  t.end();
+  }).not.toThrow();
 });

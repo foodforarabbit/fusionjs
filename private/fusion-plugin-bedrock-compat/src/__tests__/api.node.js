@@ -10,18 +10,16 @@ import App, {createPlugin} from 'fusion-core';
 import getPort from 'get-port';
 import http from 'http';
 import request from 'request-promise';
-import tape from 'tape-cup';
 
 import Plugin, {InitializeServerToken, BedrockCompatToken} from '../index.js';
 
-tape('exports api', t => {
-  t.ok(Plugin, 'export default a Plugin');
-  t.ok(InitializeServerToken, 'exports an InitializeServerToken');
-  t.ok(BedrockCompatToken, 'exports a BedrockCompatToken');
-  t.end();
+test('exports api', () => {
+  expect(Plugin).toBeTruthy();
+  expect(InitializeServerToken).toBeTruthy();
+  expect(BedrockCompatToken).toBeTruthy();
 });
 
-tape('provides', async t => {
+test('provides', async () => {
   const app = new App('el', () => 'hello');
   app.register(BedrockCompatToken, Plugin);
   app.register(LoggerToken, ('logger': any));
@@ -30,21 +28,17 @@ tape('provides', async t => {
   app.register(GalileoToken, {galileo: 'galileo'});
   app.register(FliprToken, ('flipr': any));
   app.register(InitializeServerToken, (server, cb) => {
-    t.equal(server.config.test, true);
-    t.equal(server.logger, 'logger');
-    t.equal(server.m3, 'm3');
-    t.equal(server.clients.logger, 'logger');
-    t.equal(server.clients.m3, 'm3');
-    t.equal(server.clients.galileo, 'galileo');
-    t.equal(server.clients.atreyu, 'atreyu');
-    t.equal(server.clients.flipr, 'flipr');
-    t.equal(typeof cb, 'function');
+    expect(server.config.test).toBe(true);
+    expect(server.logger).toBe('logger');
+    expect(server.m3).toBe('m3');
+    expect(server.clients.logger).toBe('logger');
+    expect(server.clients.m3).toBe('m3');
+    expect(server.clients.galileo).toBe('galileo');
+    expect(server.clients.atreyu).toBe('atreyu');
+    expect(server.clients.flipr).toBe('flipr');
+    expect(typeof cb).toBe('function');
     server.get('/', (req, res) => {
-      t.equal(
-        req.headers['x-test'],
-        'test-value',
-        'sets mock headers for bedrock middleware'
-      );
+      expect(req.headers['x-test']).toBe('test-value');
       res.status(200);
       res.json(res.locals.state);
     });
@@ -64,8 +58,7 @@ tape('provides', async t => {
   const port = await getPort();
   server.listen(port);
   const res = JSON.parse(await request(`http://localhost:${port}/`));
-  t.equal(typeof res.bedrock.assets, 'object');
-  t.equal(typeof res.bedrock.auth, 'object');
+  expect(typeof res.bedrock.assets).toBe('object');
+  expect(typeof res.bedrock.auth).toBe('object');
   server.close();
-  t.end();
 });

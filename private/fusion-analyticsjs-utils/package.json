@@ -5,26 +5,19 @@
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "license": "UNLICENSED",
   "files": [
-    "dist",
-    "src"
+    "src/",
+    "dist-*/"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
   "browser": {
-    "./dist/index.js": "./dist/browser.es5.js",
-    "./dist/index.es.js": "./dist/browser.es5.es.js"
-  },
-  "es2015": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2015.es.js"
-  },
-  "es2017": {
-    "./dist/browser.es5.es.js": "./dist/browser.es2017.es.js",
-    "./dist/browser.es2015.es.js": "./dist/browser.es2017.es.js"
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
-    "create-universal-package": "^3.4.7",
+    "create-universal-package": "^4.1.0",
     "eslint": "^6.0.1",
     "eslint-config-fusion": "0.0.0-monorepo",
     "eslint-plugin-cup": "^2.0.1",
@@ -35,24 +28,19 @@
     "eslint-plugin-react": "^7.14.2",
     "eslint-plugin-react-hooks": "^1.6.1",
     "flow-bin": "^0.109.0",
-    "nyc": "^14.1.0",
     "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "tape-cup": "^4.7.1",
-    "unitest": "^2.1.1"
+    "jest": "^24.9.0",
+    "@babel/preset-env": "^7.8.3"
   },
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "cup-clean",
     "lint": "eslint . --ignore-path .gitignore",
-    "build-test": "rm -rf dist-tests && cup build-tests",
-    "just-test": "node dist-tests/node.js",
-    "cover": "npm run build-test && npm run just-cover",
-    "just-cover": "nyc --reporter=cobertura --reporter=html npm run just-test",
-    "test": "npm run build-test && npm run just-test",
+    "test": "jest",
     "prepublish": "npm run build",
-    "build": "npm run clean && cup build",
-    "flow": "flow check"
+    "build": "npm run clean && cup-build",
+    "flow": "flow"
   },
   "engines": {
     "node": ">=8.9.4",
@@ -64,5 +52,6 @@
     "directory": "private/fusion-analyticsjs-utils",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
-  }
+  },
+  "sideEffects": false
 }

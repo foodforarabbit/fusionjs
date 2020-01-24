@@ -25,18 +25,17 @@
     "dist-browser-esm",
     "dist-node-cjs",
     "dist-node-esm",
-    "src",
+    "src/",
     "!test"
   ],
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
     "lint": "eslint src --fix",
     "flow": "flow check || true",
-    "build": "cup build",
+    "build": "cup-build",
     "dev": "npm-watch | grep --invert-match nodemon",
     "test": "jest && yarn flow",
-    "cover": "yarn lint && yarn flow && yarn test",
-    "prepublish": "cup build",
+    "prepublish": "cup-build",
     "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
   },
   "dependencies": {},
@@ -87,5 +86,6 @@
     "node": ">=0",
     "npm": ">=0",
     "yarn": ">=0"
-  }
+  },
+  "sideEffects": false
 }

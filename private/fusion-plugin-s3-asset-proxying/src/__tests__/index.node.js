@@ -1,6 +1,5 @@
 // @flow
 /* eslint-env node */
-import test from 'tape-cup';
 import S3rver from 's3rver';
 import getPort from 'get-port';
 import tmp from 'tmp';
@@ -12,15 +11,12 @@ import {getSimulator} from 'fusion-test-utils';
 import {S3ConfigToken, AssetProxyingResponseHeaderOverrides} from '../tokens';
 import AssetProxyingPlugin from '../server.js';
 
-// $FlowFixMe hack due to cup limitation
-const getConfig = require('../s3-config.js'); // eslint-disable-line import/no-unresolved
 const AWS = require('aws-sdk');
 
-// weird path because things are built to 'dist-test'
-// $FlowFixMe hack due to cup limitation
-const upload = require('../upload.js'); // eslint-disable-line import/no-unresolved
+const getConfig = require('../../s3-config.js');
+const upload = require('../../upload.js');
 
-test('Server Client', t => {
+test('Server Client', done => {
   (async () => {
     const {tmpPath, cleanup} = await new Promise((resolve, reject) => {
       tmp.dir((err, tmpPath, cleanup) => {
@@ -74,16 +70,12 @@ test('Server Client', t => {
     const sim = getSimulator(app);
     const ctx = await sim.request('/_static/test.txt');
 
-    t.equal(ctx.status, 200, 'fetch test file 200');
+    expect(ctx.status).toBe(200);
     const respBody = await util.promisify(zlib.gunzip)(ctx.body);
-    t.equal(
-      respBody.toString(),
-      'test file content\n',
-      'can fetch test file contents'
-    );
+    expect(respBody.toString()).toBe('test file content\n');
 
     const missingCtx = await sim.request('test.txt');
-    t.equal(missingCtx.status, 404, 'fetch no prefix 404');
+    expect(missingCtx.status).toBe(404);
 
     await util.promisify(s3.deleteObjects.bind(s3))({
       Bucket: s3Config.bucket,
@@ -98,11 +90,12 @@ test('Server Client', t => {
 
     cleanup();
   })()
-    .then(t.end)
-    .catch(t.fail);
+    .then(done)
+    // $FlowFixMe
+    .catch(done.fail);
 });
 
-test('upload with FUSION_UPLOAD_DIR set', t => {
+test('upload with FUSION_UPLOAD_DIR set', done => {
   (async () => {
     const {tmpPath, cleanup} = await new Promise((resolve, reject) => {
       tmp.dir((err, tmpPath, cleanup) => {
@@ -159,16 +152,14 @@ test('upload with FUSION_UPLOAD_DIR set', t => {
     const sim = getSimulator(app);
     const ctx = await sim.request('/_static/test.txt');
 
-    t.equal(ctx.status, 200, 'fetch test file 200');
+    expect(ctx.status).toBe(200);
     const respBody = await util.promisify(zlib.gunzip)(ctx.body);
-    t.equal(
-      respBody.toString(),
-      'test file content\n',
-      'can fetch test file contents'
-    );
+    expect(respBody.toString()).toBe('test file content\n');
 
-    t.equal(ctx.response.headers['cache-control'], 'public, max-age=31536000');
-    t.equal(ctx.response.headers['timing-allow-origin'], '*');
+    expect(ctx.response.headers['cache-control']).toBe(
+      'public, max-age=31536000'
+    );
+    expect(ctx.response.headers['timing-allow-origin']).toBe('*');
 
     await util.promisify(s3.deleteObjects.bind(s3))({
       Bucket: s3Config.bucket,
@@ -183,11 +174,12 @@ test('upload with FUSION_UPLOAD_DIR set', t => {
 
     cleanup();
   })()
-    .then(t.end)
-    .catch(t.fail);
+    .then(done)
+    // $FlowFixMe
+    .catch(done.fail);
 });
 
-test('upload with custom response headers', t => {
+test('upload with custom response headers', done => {
   (async () => {
     const {tmpPath, cleanup} = await new Promise((resolve, reject) => {
       tmp.dir((err, tmpPath, cleanup) => {
@@ -241,20 +233,14 @@ test('upload with custom response headers', t => {
     const sim = getSimulator(app);
     const ctx = await sim.request('/_static/test.txt');
 
-    t.equal(ctx.status, 200, 'fetch test file 200');
+    expect(ctx.status).toBe(200);
     const respBody = await util.promisify(zlib.gunzip)(ctx.body);
-    t.equal(
-      respBody.toString(),
-      'test file content\n',
-      'can fetch test file contents'
-    );
+    expect(respBody.toString()).toBe('test file content\n');
 
-    t.equal(
-      ctx.response.headers['cache-control'],
+    expect(ctx.response.headers['cache-control']).toBe(
       headerOverrides['cache-control']
     );
-    t.equal(
-      ctx.response.headers['timing-allow-origin'],
+    expect(ctx.response.headers['timing-allow-origin']).toBe(
       headerOverrides['timing-allow-origin']
     );
 
@@ -271,26 +257,19 @@ test('upload with custom response headers', t => {
 
     cleanup();
   })()
-    .then(t.end)
-    .catch(t.fail);
+    .then(done)
+    // $FlowFixMe
+    .catch(done.fail);
 });
 
-test('s3 config reading makes sense', t => {
-  t.throws(
-    () => getConfig({secretsPath: `src/__tests__/fixture/inexistent.json`}),
-    /Could not find/,
-    'inexistent file has meaningful error'
-  );
-  t.throws(
-    () => getConfig({secretsPath: `src/__tests__/fixture/invalid_json.txt`}),
-    /Invalid JSON/,
-    'invalid json has meaninful error'
-  );
-  t.throws(
-    () =>
-      getConfig({secretsPath: `src/__tests__/fixture/invalid_secrets.json`}),
-    /should be a string/,
-    'invalid configs has meaningful error'
-  );
-  t.end();
+test('s3 config reading makes sense', () => {
+  expect(() =>
+    getConfig({secretsPath: `src/__tests__/fixture/inexistent.json`})
+  ).toThrow(/Could not find/);
+  expect(() =>
+    getConfig({secretsPath: `src/__tests__/fixture/invalid_json.txt`})
+  ).toThrow(/Invalid JSON/);
+  expect(() =>
+    getConfig({secretsPath: `src/__tests__/fixture/invalid_secrets.json`})
+  ).toThrow(/should be a string/);
 });

@@ -1,6 +1,5 @@
 node_modules/
-dist/
-dist-tests/
+dist-*/
 *.log
 coverage/
 .nyc_output/

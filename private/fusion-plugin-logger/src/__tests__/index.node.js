@@ -1,5 +1,4 @@
 // @flow
-import tape from 'tape-cup';
 import App from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 // import {M3Token} from '@uber/fusion-plugin-m3';
@@ -17,7 +16,7 @@ import TestEmitter from './test-emitter';
 
 const transformError = createErrorTransform(); // ignore source maps
 
-tape('supports all logger methods in production', t => {
+test('supports all logger methods in production', () => {
   const emitter = new TestEmitter();
 
   const app = new App('el', el => el);
@@ -28,7 +27,7 @@ tape('supports all logger methods in production', t => {
   app.register(EnvOverrideToken, 'production');
   const sim = getSimulator(app);
   const logger = sim.getService(LoggerToken);
-  t.plan(4 * (supportedLevels.length + 1) + 1);
+  expect.assertions(4 * (supportedLevels.length + 1) + 1);
   const message = 'this is a message';
   // $FlowFixMe - Logger has methods that the LoggerToken does not.
   const child = logger.createChild('test-child');
@@ -38,57 +37,46 @@ tape('supports all logger methods in production', t => {
   // Supported level methods
   supportedLevels.forEach(fn => {
     // $FlowFixMe - Logger has methods that the LoggerToken does not.
-    t.equal(typeof logger[fn], 'function', `${fn} was set`);
-    t.equal(typeof child[fn], 'function', `${fn} was set on child logger`);
+    expect(typeof logger[fn]).toBe('function');
+    expect(typeof child[fn]).toBe('function');
     const consoleSpy = spy(console, 'log');
-    t.doesNotThrow(
+    expect(
       // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, {a: {b: {c: 3}}}, () => {}),
-      'does not throw when logging'
-    );
+      () => logger[fn](message, {a: {b: {c: 3}}}, () => {})
+    ).not.toThrow();
 
     formatPattern = new RegExp(
       `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
     ); // based on `utils/format-stdout.js`
 
-    t.ok(
-      consoleSpy.calledWithMatch(formatPattern),
-      'logs normally with valid payload'
-    );
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
     consoleSpy.restore();
   });
 
   // `log` method
   // $FlowFixMe - Logger has methods that the LoggerToken does not.
-  t.equal(typeof logger.log, 'function', `'log' was set`);
-  t.equal(typeof child.log, 'function', `'log' was set on child logger`);
+  expect(typeof logger.log).toBe('function');
+  expect(typeof child.log).toBe('function');
   const consoleSpy = spy(console, 'log');
-  t.doesNotThrow(
-    () => logger.log('info', message, {a: {b: {c: 3}}}, () => {}),
-    'does not throw when logging'
-  );
+  expect(() =>
+    logger.log('info', message, {a: {b: {c: 3}}}, () => {})
+  ).not.toThrow();
 
   formatPattern = new RegExp(
     `\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
   ); // based on `utils/format-stdout.js`
 
-  t.ok(
-    consoleSpy.calledWithMatch(formatPattern),
-    'logs normally with valid payload'
-  );
+  expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
   consoleSpy.restore();
 
   // unsupported method
-  t.throws(
-    () =>
-      // $FlowFixMe - LoggerToken does not support unavaialable method `lol`
-      logger.lol(message, {a: {b: {c: 3}}}, () => {}),
-    'throws when logging unsupported method'
-  );
-  t.end();
+  expect(() =>
+    // $FlowFixMe - LoggerToken does not support unavaialable method `lol`
+    logger.lol(message, {a: {b: {c: 3}}}, () => {})
+  ).toThrow();
 });
 
-tape('supports all logger methods in development', t => {
+test('supports all logger methods in development', () => {
   const emitter = new TestEmitter();
 
   const app = new App('el', el => el);
@@ -99,7 +87,7 @@ tape('supports all logger methods in development', t => {
   app.register(EnvOverrideToken, 'dev');
   const sim = getSimulator(app);
   const logger = sim.getService(LoggerToken);
-  t.plan(2 * (supportedLevels.length + 1));
+  expect.assertions(2 * (supportedLevels.length + 1));
   const message = 'this is a message';
   const meta = {a: {aa: {aaa: 3}}, b: 5, c: 'hi'};
 
@@ -108,40 +96,28 @@ tape('supports all logger methods in development', t => {
   // Supported level methods
   supportedLevels.forEach(fn => {
     const consoleSpy = spy(console, 'log');
-    t.doesNotThrow(
+    expect(
       // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, meta, () => {}),
-      'does not throw when logging'
-    );
+      () => logger[fn](message, meta, () => {})
+    ).not.toThrow();
 
     formatPattern = new RegExp(`${fn}\\:?.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
 
-    t.ok(
-      consoleSpy.calledWithMatch(formatPattern),
-      'logs normally with valid payload'
-    );
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
     consoleSpy.restore();
   });
 
   // `log` method
   const consoleSpy = spy(console, 'log');
-  t.doesNotThrow(
-    () => logger.log('info', message, meta, () => {}),
-    'does not throw when logging'
-  );
+  expect(() => logger.log('info', message, meta, () => {})).not.toThrow();
 
   formatPattern = new RegExp(`info\\:.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
 
-  t.ok(
-    consoleSpy.calledWithMatch(formatPattern),
-    'logs normally with valid payload'
-  );
+  expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
   consoleSpy.restore();
-
-  t.end();
 });
 
-tape('handleLog recognizes meta objects sent as messages in production', t => {
+test('handleLog recognizes meta objects sent as messages in production', () => {
   const emitter = new TestEmitter();
 
   const app = new App('el', el => el);
@@ -152,7 +128,7 @@ tape('handleLog recognizes meta objects sent as messages in production', t => {
   app.register(EnvOverrideToken, 'production');
   const sim = getSimulator(app);
   const logger = sim.getService(LoggerToken);
-  t.plan(2 * (supportedLevels.length + 1));
+  expect.assertions(2 * (supportedLevels.length + 1));
   const message = {a: {b: {c: 3}}};
 
   let formatPattern;
@@ -160,11 +136,10 @@ tape('handleLog recognizes meta objects sent as messages in production', t => {
   // Supported level methods
   supportedLevels.forEach(fn => {
     const consoleSpy = spy(console, 'log');
-    t.doesNotThrow(
+    expect(
       // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, {a: {b: {c: 3}}}, () => {}),
-      'does not throw when meta object sent as message'
-    );
+      () => logger[fn](message, {a: {b: {c: 3}}}, () => {})
+    ).not.toThrow();
 
     formatPattern = new RegExp(
       `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"\\".*\\"fields\\"\\:${JSON.stringify(
@@ -172,20 +147,16 @@ tape('handleLog recognizes meta objects sent as messages in production', t => {
       )}`
     ); // based on `utils/format-stdout.js`
 
-    t.ok(
-      consoleSpy.calledWithMatch(formatPattern),
-      'logs normally when meta object sent as message'
-    );
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
     consoleSpy.restore();
   });
 
   // `log` method
   const consoleSpy = spy(console, 'log');
-  t.doesNotThrow(
+  expect(
     // $FlowFixMe - message argument intentionally misused.
-    () => logger.log('info', message, '', () => {}),
-    'does not throw when meta object sent as message'
-  );
+    () => logger.log('info', message, '', () => {})
+  ).not.toThrow();
 
   formatPattern = new RegExp(
     `\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"\\".*\\"fields\\"\\:${JSON.stringify(
@@ -193,253 +164,208 @@ tape('handleLog recognizes meta objects sent as messages in production', t => {
     )}`
   ); // based on `utils/format-stdout.js`
 
-  t.ok(
-    consoleSpy.calledWithMatch(formatPattern),
-    'logs normally when meta object sent as message'
-  );
+  expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
   consoleSpy.restore();
-
-  t.end();
 });
 
-tape(
-  'logs partial data when level is valid but arguments incomplete in production',
-  t => {
-    const emitter = new TestEmitter();
+test('logs partial data when level is valid but arguments incomplete in production', done => {
+  const emitter = new TestEmitter();
 
-    const app = new App('el', el => el);
-    app.register(LoggerToken, Plugin);
-    // $FlowFixMe - TestEmitter is only a partial implementation.
-    app.register(UniversalEventsToken, emitter);
-    app.register(TeamToken, 'team');
-    app.register(EnvOverrideToken, 'production');
-    app.middleware({logger: LoggerToken}, ({logger}) => {
-      t.plan(2 * (supportedLevels.length + 1));
-      const message = '123';
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'production');
+  app.middleware({logger: LoggerToken}, ({logger}) => {
+    expect.assertions(2 * (supportedLevels.length + 1));
+    const message = '123';
 
-      let formatPattern;
+    let formatPattern;
 
-      // Supported level methods
-      supportedLevels.forEach(fn => {
-        const consoleSpy = spy(console, 'log');
-        t.doesNotThrow(
-          // $FlowFixMe - Logger has methods that the LoggerToken does not.
-          () => logger[fn](message),
-          'does not throw when logging with incomplete arguments'
-        );
-
-        formatPattern = new RegExp(
-          `^(?!.*fields.*).*\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*$`
-        ); // based on `utils/format-stdout.js`
-
-        t.ok(
-          consoleSpy.calledWithMatch(formatPattern),
-          'logs normally with incomplete arguments'
-        );
-        consoleSpy.restore();
-      });
-
-      // `log` method
+    // Supported level methods
+    supportedLevels.forEach(fn => {
       const consoleSpy = spy(console, 'log');
-      t.doesNotThrow(
-        () => logger.log('info', message),
-        'does not throw when logging with incomplete arguments'
-      );
+      expect(
+        // $FlowFixMe - Logger has methods that the LoggerToken does not.
+        () => logger[fn](message)
+      ).not.toThrow();
 
       formatPattern = new RegExp(
-        `^(?!.*fields.*).*\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"${message}\\".*$`
+        `^(?!.*fields.*).*\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*$`
       ); // based on `utils/format-stdout.js`
 
-      t.ok(
-        consoleSpy.calledWithMatch(formatPattern),
-        'logs normally with incomplete arguments'
-      );
+      expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
       consoleSpy.restore();
-
-      t.end();
-      return (ctx, next) => next();
     });
-    getSimulator(app);
-  }
-);
 
-tape(
-  'handleLog calls sentry for errors a) where `meta.error` is an error-like object in production',
-  t => {
-    t.plan(3);
-    const mockLogger = {
-      log: (type, meta) => {
-        t.ok(type === 'error', 'logs as an error');
-        t.ok(typeof meta === 'object', 'passes `meta` as an object');
-        t.deepEqual(
-          meta,
-          {
-            error: {message: 'all gone wrong', stack: 'this: 123, that: 324'},
-            message: 'all gone wrong',
-            stack: 'this: 123, that: 324',
-          },
-          'error details are hoisted'
-        );
-        t.end();
-      },
-    };
+    // `log` method
+    const consoleSpy = spy(console, 'log');
+    expect(() => logger.log('info', message)).not.toThrow();
 
-    const message = 'all gone wrong';
+    formatPattern = new RegExp(
+      `^(?!.*fields.*).*\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"${message}\\".*$`
+    ); // based on `utils/format-stdout.js`
 
-    // $FlowFixMe - missing logger methods in mock
-    handleLog({
-      transformError,
-      payload: {
-        level: 'error',
-        message,
-        meta: {error: {message, stack: 'this: 123, that: 324'}},
-      },
-      sentryLogger: mockLogger,
-      env: 'production',
-    });
-  }
-);
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+    consoleSpy.restore();
 
-tape(
-  'handleLog calls sentry for errors b) where `meta.error` is a real error, and passing a callback in production',
-  t => {
-    t.plan(5);
+    done();
+    return (ctx, next) => next();
+  });
+  getSimulator(app);
+});
 
-    const message = 'all gone wrong';
-    const error = new Error(message);
+test('handleLog calls sentry for errors a) where `meta.error` is an error-like object in production', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      expect(meta).toEqual({
+        error: {message: 'all gone wrong', stack: 'this: 123, that: 324'},
+        message: 'all gone wrong',
+        stack: 'this: 123, that: 324',
+      });
+      done();
+    },
+  };
 
-    const callback = thisError => {
-      t.pass('callback is called');
-      t.ok((thisError = error), 'callback is logged with error');
-    };
+  const message = 'all gone wrong';
 
-    const mockLogger = {
-      log: (type, meta: PayloadMetaType) => {
-        t.ok(type === 'error', 'logs as an error');
-        t.ok(
-          {}.toString.call(meta.error) === '[object Error]' ||
-            meta.error instanceof Error,
-          'Error instance is preseved'
-        );
-        t.ok(
-          'error' in meta && 'stack' in meta && meta.message === message,
-          'error details are hoisted'
-        );
-        t.end();
-      },
-    };
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {error: {message, stack: 'this: 123, that: 324'}},
+    },
+    sentryLogger: mockLogger,
+    env: 'production',
+  });
+});
 
-    // $FlowFixMe - missing logger methods in mock
-    handleLog({
-      transformError,
-      payload: {
-        level: 'error',
-        message,
-        meta: {error},
-        callback,
-      },
-      sentryLogger: mockLogger,
-      env: 'production',
-    });
-  }
-);
+test('handleLog calls sentry for errors b) where `meta.error` is a real error, and passing a callback in production', done => {
+  expect.assertions(4);
 
-tape(
-  'handleLog calls sentry for errors c) where `meta` itself is an error-like object in production',
-  t => {
-    t.plan(3);
-    const mockLogger = {
-      log: (type, meta) => {
-        t.ok(type === 'error', 'logs as an error');
-        t.ok(typeof meta === 'object', 'passes `meta` as an object');
-        t.deepEqual(
-          meta,
-          {message, stack: 'this: 123, that: 324'},
-          'meta is preserved'
-        );
-        t.end();
-      },
-    };
+  const message = 'all gone wrong';
+  const error = new Error(message);
 
-    const message = 'all gone wrong';
+  const callback = thisError => {
+    expect((thisError = error)).toBeTruthy();
+  };
 
-    // $FlowFixMe - missing logger methods in mock
-    handleLog({
-      transformError,
-      payload: {
-        level: 'error',
-        message,
-        meta: {message, stack: 'this: 123, that: 324'},
-      },
-      sentryLogger: mockLogger,
-      env: 'production',
-    });
-  }
-);
+  const mockLogger = {
+    log: (type, meta: PayloadMetaType) => {
+      expect(type === 'error').toBeTruthy();
+      expect(
+        {}.toString.call(meta.error) === '[object Error]' ||
+          meta.error instanceof Error
+      ).toBeTruthy();
+      expect(
+        'error' in meta && 'stack' in meta && meta.message === message
+      ).toBeTruthy();
+      done();
+    },
+  };
 
-tape(
-  'handleLog calls sentry for errors d) where `meta` itself is a real error in production',
-  t => {
-    t.plan(4);
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {error},
+      callback,
+    },
+    sentryLogger: mockLogger,
+    env: 'production',
+  });
+});
 
-    const message = 'all gone wrong';
-    const error = new Error(message);
+test('handleLog calls sentry for errors c) where `meta` itself is an error-like object in production', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      expect(meta).toEqual({message, stack: 'this: 123, that: 324'});
+      done();
+    },
+  };
 
-    const mockLogger = {
-      log: (type, meta: PayloadMetaType) => {
-        t.ok(type === 'error', 'logs as an error');
-        t.ok(
-          {}.toString.call(meta) === '[object Error]' || meta instanceof Error
-        );
-        t.deepEqual(meta, error, 'meta is preserved');
-        t.ok(meta.message === message, 'message is preserved');
-        t.end();
-      },
-    };
+  const message = 'all gone wrong';
 
-    // $FlowFixMe - missing logger methods in mock
-    handleLog({
-      payload: {
-        level: 'error',
-        message,
-        meta: error,
-      },
-      sentryLogger: mockLogger,
-      env: 'production',
-    });
-  }
-);
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {message, stack: 'this: 123, that: 324'},
+    },
+    sentryLogger: mockLogger,
+    env: 'production',
+  });
+});
 
-tape(
-  'handleLog does not call sentry for errors where `meta` itself is a real error in development',
-  t => {
-    t.plan(0);
+test('handleLog calls sentry for errors d) where `meta` itself is a real error in production', done => {
+  expect.assertions(4);
 
-    const message = 'all gone wrong';
-    const error = new Error(message);
+  const message = 'all gone wrong';
+  const error = new Error(message);
 
-    const mockLogger = {
-      log: (type, meta: PayloadMetaType) => {
-        t.fail('should not call sentry logger in development');
-      },
-    };
+  const mockLogger = {
+    log: (type, meta: PayloadMetaType) => {
+      expect(type === 'error').toBeTruthy();
+      expect(
+        {}.toString.call(meta) === '[object Error]' || meta instanceof Error
+      ).toBeTruthy();
+      expect(meta).toEqual(error);
+      expect(meta.message === message).toBeTruthy();
+      done();
+    },
+  };
 
-    // $FlowFixMe - missing logger methods in mock
-    handleLog({
-      payload: {
-        level: 'error',
-        message,
-        meta: error,
-      },
-      sentryLogger: mockLogger,
-      env: 'dev',
-    });
-    t.end();
-  }
-);
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    payload: {
+      level: 'error',
+      message,
+      meta: error,
+    },
+    sentryLogger: mockLogger,
+    env: 'production',
+  });
+});
 
-tape('warns if handleLog called with invalid method in production', t => {
-  t.plan(2);
+test('handleLog does not call sentry for errors where `meta` itself is a real error in development', done => {
+  const message = 'all gone wrong';
+  const error = new Error(message);
+
+  const mockLogger = {
+    log: (type, meta: PayloadMetaType) => {
+      // $FlowFixMe
+      done.fail('should not call sentry logger in development');
+    },
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    payload: {
+      level: 'error',
+      message,
+      meta: error,
+    },
+    sentryLogger: mockLogger,
+    env: 'dev',
+  });
+  done();
+});
+
+test('warns if handleLog called with invalid method in production', () => {
+  expect.assertions(2);
 
   const unsupportedMethodWarning = new RegExp(
     `^(?!.*fields.*).*\\"level\\"\\:\\"warn\\".*\\"msg\\"\\:\\"logger called with unsupported method.*\\".*$`
@@ -448,7 +374,7 @@ tape('warns if handleLog called with invalid method in production', t => {
   const consoleSpy = spy(console, 'log');
   const message = '123';
 
-  t.doesNotThrow(() =>
+  expect(() =>
     // $FlowFixMe - `meta` property intentionally not passed
     handleLog({
       payload: {
@@ -460,12 +386,8 @@ tape('warns if handleLog called with invalid method in production', t => {
       env: 'production',
       team: 'lol',
     })
-  );
+  ).not.toThrow();
 
-  t.ok(
-    consoleSpy.calledWithMatch(unsupportedMethodWarning),
-    'logs bad method warning'
-  );
+  expect(consoleSpy.calledWithMatch(unsupportedMethodWarning)).toBeTruthy();
   consoleSpy.restore();
-  t.end();
 });

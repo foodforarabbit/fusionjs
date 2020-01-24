@@ -51,10 +51,7 @@ export default (app: FusionApp) => {
   app.register(EnhancerToken, ActionEmitterEnhancerPlugin);
   if (reduxOptions.enhancer) {
     app.enhance(EnhancerToken, prevEnhancer => {
-      return compose(
-        prevEnhancer,
-        reduxOptions.enhancer
-      );
+      return compose(prevEnhancer, reduxOptions.enhancer);
     });
   }
 };

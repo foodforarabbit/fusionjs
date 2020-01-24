@@ -1,43 +1,38 @@
 // @flow
 /* eslint-env node */
 
-import test from 'tape-cup';
 import plugin from '../server';
 
-function createAtreyuPlugin(t) {
+function createAtreyuPlugin() {
   let numConstructors = 0;
   class Client {
     constructor(config, options) {
       numConstructors++;
-      t.equal(numConstructors, 1, 'only calls constructor once');
-      t.deepLooseEqual(config, {a: true, appName: 'dev-service'});
-      t.equal(options.a, 'b', 'extends options');
-      t.equal(options.m3, 'm3', 'passes through m3 client');
-      t.equal(options.logger, 'logger', 'passes through logger client');
-      t.equal(options.galileo, 'galileo', 'passes through galileo client');
-      t.equal(options.tracer, 'tracer', 'passes through tracer client');
-      t.equal(
-        options.hyperbahnClient,
-        'hyperbahn',
-        'passes through hyperbahn client'
-      );
+      expect(numConstructors).toBe(1);
+      expect(config).toStrictEqual({a: true, appName: 'dev-service'});
+      expect(options.a).toBe('b');
+      expect(options.m3).toBe('m3');
+      expect(options.logger).toBe('logger');
+      expect(options.galileo).toBe('galileo');
+      expect(options.tracer).toBe('tracer');
+      expect(options.hyperbahnClient).toBe('hyperbahn');
     }
     createGraph(arg, arg2) {
-      t.equal(arg, 'graph-arg');
-      t.equal(arg2, 'graph-arg2');
+      expect(arg).toBe('graph-arg');
+      expect(arg2).toBe('graph-arg2');
       return {
         resolve: (resolveArg1, options, cb) => {
-          t.equal(resolveArg1, 'graph-resolve-arg');
+          expect(resolveArg1).toBe('graph-resolve-arg');
           cb(null, 'graph-result');
         },
       };
     }
     createRequest(arg, arg2) {
-      t.equal(arg, 'req-arg');
-      t.equal(arg2, 'req-arg2');
+      expect(arg).toBe('req-arg');
+      expect(arg2).toBe('req-arg2');
       return {
         resolve: (resolveArg1, options, cb) => {
-          t.equal(resolveArg1, 'req-resolve-arg');
+          expect(resolveArg1).toBe('req-resolve-arg');
           cb(null, 'req-result');
         },
       };
@@ -64,40 +59,38 @@ function createAtreyuPlugin(t) {
       Client,
     });
 
-    t.ok(atreyu instanceof Client, 'passes through context');
+    expect(atreyu instanceof Client).toBeTruthy();
 
     return atreyu;
   }
 }
 
-test('Atreyu Plugin Interface', async t => {
-  t.equals(typeof plugin, 'object');
-  const atreyu = createAtreyuPlugin(t);
+test('Atreyu Plugin Interface', async done => {
+  expect(typeof plugin).toBe('object');
+  const atreyu = createAtreyuPlugin();
   if (atreyu) {
     // make flow happy
-    t.equals(
+    expect(
       await atreyu.createAsyncGraph(
         'graph-arg',
         'graph-arg2'
-      )('graph-resolve-arg'),
-      'graph-result'
-    );
-    t.equals(
-      await atreyu.createAsyncRequest('req-arg', 'req-arg2')('req-resolve-arg'),
-      'req-result'
-    );
-    t.end();
+      )('graph-resolve-arg')
+    ).toBe('graph-result');
+    expect(
+      await atreyu.createAsyncRequest('req-arg', 'req-arg2')('req-resolve-arg')
+    ).toBe('req-result');
+    done();
   }
 });
 
-test('Atreyu Plugin optional deps', async t => {
-  t.equals(typeof plugin, 'object');
+test('Atreyu Plugin optional deps', async done => {
+  expect(typeof plugin).toBe('object');
 
   class OptDepsClient {
     constructor(config, options) {
-      t.deepLooseEqual(config, {a: true, appName: 'dev-service'});
-      t.equal(options.galileo, null, 'galileo client does not pass through');
-      t.equal(options.tracer, null, 'tracer client does not pass through');
+      expect(config).toStrictEqual({a: true, appName: 'dev-service'});
+      expect(options.galileo).toBe(null);
+      expect(options.tracer).toBe(null);
     }
   }
 
@@ -119,10 +112,7 @@ test('Atreyu Plugin optional deps', async t => {
       Client: OptDepsClient,
     });
 
-    t.ok(
-      atreyu instanceof OptDepsClient,
-      'atreyu instance successfully created'
-    );
-    t.end();
+    expect(atreyu instanceof OptDepsClient).toBeTruthy();
+    done();
   }
 });

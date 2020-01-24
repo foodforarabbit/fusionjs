@@ -10,7 +10,7 @@ test('Welcome', async () => {
   expect(result.getByText('Welcome')).toMatchInlineSnapshot(`
     <div
       class="_ao _ap _aq _ar _as"
-      data-baseweb="typo-display1"
+      data-baseweb="typo-displaylarge"
     >
       Welcome
     </div>

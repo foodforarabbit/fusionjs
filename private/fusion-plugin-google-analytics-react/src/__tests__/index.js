@@ -3,7 +3,6 @@
 import App from 'fusion-react';
 import {getSimulator} from 'fusion-test-utils';
 import React from 'react';
-import test from 'tape-cup';
 
 import plugin from '../plugin';
 import {GoogleAnalyticsToken, GoogleAnalyticsConfigToken} from '../index';
@@ -15,16 +14,12 @@ if (__BROWSER__) {
   document.body && document.body.appendChild(root);
 }
 
-test('HOC', async t => {
+test('HOC', async () => {
   let didRender = false;
   class Test extends React.Component<any> {
     render() {
       if (__BROWSER__) {
-        t.equal(
-          typeof this.props.googleAnalytics,
-          'object',
-          'Google Analytics is correctly provided'
-        );
+        expect(typeof this.props.googleAnalytics).toBe('object');
       }
       didRender = true;
       return React.createElement('div', null, 'hello');
@@ -41,12 +36,10 @@ test('HOC', async t => {
 
   const sim = getSimulator(app);
   const res = await sim.render('/');
-  t.ok(
+  expect(
     __NODE__
       ? String(res.body).includes('hello')
-      : document.body && document.body.innerHTML.includes('hello'),
-    'Test content rendered correctly'
-  );
-  t.ok(didRender, 'Test component rendered');
-  t.end();
+      : document.body && document.body.innerHTML.includes('hello')
+  ).toBeTruthy();
+  expect(didRender).toBeTruthy();
 });

@@ -1,34 +1,28 @@
 // @flow
-import tape from 'tape-cup';
 import Plugin from '../server';
 
-tape('ga plugin on the server', (t): void => {
-  t.equal(
-    typeof Plugin.middleware,
-    'function',
-    'exposes a middleware function'
-  );
+test('ga plugin on the server', () => {
+  expect(typeof Plugin.middleware).toBe('function');
   // $FlowFixMe
   const api = Plugin.provides();
-  t.equal(typeof api.identify, 'function');
-  t.equal(typeof api.track, 'function');
-  t.equal(typeof api.pageview, 'function');
-  t.throws(api.identify);
-  t.throws(api.track);
-  t.throws(api.pageview);
-  t.end();
+  expect(typeof api.identify).toBe('function');
+  expect(typeof api.track).toBe('function');
+  expect(typeof api.pageview).toBe('function');
+  expect(api.identify).toThrow();
+  expect(api.track).toThrow();
+  expect(api.pageview).toThrow();
 });
 
-tape('ga plugin server middleware with element', (t): void => {
+test('ga plugin server middleware with element', done => {
   // $FlowFixMe
   const middleware = Plugin.middleware();
-  t.plan(1);
+  expect.assertions(1);
   const ctx = {
     element: true,
     template: {
       head: {
         push(content): void {
-          t.equal(typeof content, 'object', 'pushes sanitized html into head');
+          expect(typeof content).toBe('object');
         },
       },
     },
@@ -38,12 +32,12 @@ tape('ga plugin server middleware with element', (t): void => {
     ctx,
     // $FlowFixMe
     (): void => {
-      t.end();
+      done();
     }
   );
 });
 
-tape('ga plugin server middleware with no element', (t): void => {
+test('ga plugin server middleware with no element', done => {
   // $FlowFixMe
   const middleware = Plugin.middleware();
   const ctx = {element: false};
@@ -52,8 +46,7 @@ tape('ga plugin server middleware with no element', (t): void => {
     ctx,
     // $FlowFixMe
     (): void => {
-      t.pass('calls next');
-      t.end();
+      done();
     }
   );
 });

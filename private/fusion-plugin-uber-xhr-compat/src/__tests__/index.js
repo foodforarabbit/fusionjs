@@ -1,16 +1,15 @@
 // @noflow
-import tape from 'tape-cup';
 import createXhrPlugin from '../plugin.js';
 import {UberXhr} from '../index';
 
-tape('xhr get request using bind', t => {
+test('xhr get request using bind', done => {
   const {xhr, plugin} = createXhrPlugin();
 
   const get = xhr.get.bind(xhr);
 
   function mockFetch(uri, options) {
-    t.equal(uri, '/test');
-    t.equal(options.method, 'GET');
+    expect(uri).toBe('/test');
+    expect(options.method).toBe('GET');
     return Promise.resolve('test');
   }
 
@@ -18,27 +17,27 @@ tape('xhr get request using bind', t => {
 
   get('/test', (err, result) => {
     hitFlushCb = true;
-    t.equal(err, null);
-    t.equal(result, 'test');
+    expect(err).toBe(null);
+    expect(result).toBe('test');
   });
 
   plugin.provides({fetch: mockFetch});
 
   get('/test', (err, result) => {
-    t.equal(err, null);
-    t.equal(result, 'test');
-    t.equal(hitFlushCb, true);
-    t.end();
+    expect(err).toBe(null);
+    expect(result).toBe('test');
+    expect(hitFlushCb).toBe(true);
+    done();
   });
 });
 
-tape('xhr post request, json true', t => {
+test('xhr post request, json true', done => {
   const {xhr, plugin} = createXhrPlugin();
 
   function mockFetch(uri, options) {
-    t.equal(uri, '/test');
-    t.equal(options.body, JSON.stringify({}));
-    t.equal(options.method, 'POST');
+    expect(uri).toBe('/test');
+    expect(options.body).toBe(JSON.stringify({}));
+    expect(options.method).toBe('POST');
     return Promise.resolve({
       json: () => ({
         hello: 'world',
@@ -53,21 +52,21 @@ tape('xhr post request, json true', t => {
       body: {},
     },
     (err, result) => {
-      t.equal(err, null);
-      t.equal(result.hello, 'world');
-      t.end();
+      expect(err).toBe(null);
+      expect(result.hello).toBe('world');
+      done();
     }
   );
   plugin.provides({fetch: mockFetch});
 });
 
-tape('xhr put request, json object', t => {
+test('xhr put request, json object', done => {
   const {xhr, plugin} = createXhrPlugin();
 
   function mockFetch(uri, options) {
-    t.equal(uri, '/test');
-    t.equal(options.body, JSON.stringify({}));
-    t.equal(options.method, 'PUT');
+    expect(uri).toBe('/test');
+    expect(options.body).toBe(JSON.stringify({}));
+    expect(options.method).toBe('PUT');
     return Promise.resolve({
       json: () => ({
         hello: 'world',
@@ -81,21 +80,21 @@ tape('xhr put request, json object', t => {
       json: {},
     },
     (err, result) => {
-      t.equal(err, null);
-      t.equal(result.hello, 'world');
-      t.end();
+      expect(err).toBe(null);
+      expect(result.hello).toBe('world');
+      done();
     }
   );
   plugin.provides({fetch: mockFetch});
 });
 
-tape('xhr delete request, no body', t => {
+test('xhr delete request, no body', done => {
   const {xhr, plugin} = createXhrPlugin();
 
   function mockFetch(uri, options) {
-    t.equal(uri, '/test');
-    t.equal(options.method, 'DELETE');
-    t.equal(options.headers['test'], 'lol');
+    expect(uri).toBe('/test');
+    expect(options.method).toBe('DELETE');
+    expect(options.headers['test']).toBe('lol');
     return Promise.resolve('test');
   }
 
@@ -107,21 +106,21 @@ tape('xhr delete request, no body', t => {
       },
     },
     (err, result) => {
-      t.equal(err, null);
-      t.equal(result, 'test');
-      t.end();
+      expect(err).toBe(null);
+      expect(result).toBe('test');
+      done();
     }
   );
   plugin.provides({fetch: mockFetch});
 });
 
-tape('headers, GET request', t => {
+test('headers, GET request', done => {
   const {xhr, plugin} = createXhrPlugin();
 
   function mockFetch(uri, options) {
-    t.equal(uri, '/test');
-    t.equal(options.method, 'GET');
-    t.deepLooseEqual(options.headers, {
+    expect(uri).toBe('/test');
+    expect(options.method).toBe('GET');
+    expect(options.headers).toStrictEqual({
       'x-uber-origin': 'test-app',
       'x-test': 'testing',
       'x-other': 'something',
@@ -143,21 +142,21 @@ tape('headers, GET request', t => {
       },
     },
     (err, result) => {
-      t.equal(err, null);
-      t.equal(result, 'test');
-      t.end();
+      expect(err).toBe(null);
+      expect(result).toBe('test');
+      done();
     }
   );
   plugin.provides({fetch: mockFetch});
 });
 
-tape('headers, GET request no overrides', t => {
+test('headers, GET request no overrides', done => {
   const {xhr, plugin} = createXhrPlugin();
 
   function mockFetch(uri, options) {
-    t.equal(uri, '/test');
-    t.equal(options.method, 'GET');
-    t.deepLooseEqual(options.headers, {
+    expect(uri).toBe('/test');
+    expect(options.method).toBe('GET');
+    expect(options.headers).toStrictEqual({
       'x-uber-origin': 'test-app',
       'x-test': 'testing',
       'x-other': 'other',
@@ -169,10 +168,10 @@ tape('headers, GET request no overrides', t => {
   xhr.setHeaderItem('x-other', 'other');
   xhr.setOrigin('test-app');
 
-  t.equal(xhr.getOrigin(), 'test-app');
-  t.equal(xhr.getHeader('x-other'), 'other');
+  expect(xhr.getOrigin()).toBe('test-app');
+  expect(xhr.getHeader('x-other')).toBe('other');
 
-  t.throws(xhr.configureRoot);
+  expect(xhr.configureRoot).toThrow();
 
   xhr(
     {
@@ -180,29 +179,26 @@ tape('headers, GET request no overrides', t => {
       method: 'GET',
     },
     (err, result) => {
-      t.equal(err, null);
-      t.equal(result, 'test');
-      t.end();
+      expect(err).toBe(null);
+      expect(result).toBe('test');
+      done();
     }
   );
   plugin.provides({fetch: mockFetch});
 });
 
-tape('xhr calling setFetch multiple times', async t => {
+test('xhr calling setFetch multiple times', async () => {
   const {plugin} = createXhrPlugin();
 
   function mockFetch() {}
 
-  t.doesNotThrow(() => {
+  expect(() => {
     plugin.provides({fetch: mockFetch});
     plugin.provides({fetch: mockFetch});
-  });
-
-  t.end();
+  }).not.toThrow();
 });
 
-tape('export can be called with new', async t => {
+test('export can be called with new', async () => {
   const xhr = new UberXhr();
-  t.equal(typeof xhr, 'function', 'returns a function from the constructor');
-  t.end();
+  expect(typeof xhr).toBe('function');
 });

@@ -95,7 +95,7 @@
     "bootstrap": "rm -rf node_modules && yarn",
     "codegen": "rpc-cli generate",
     "lint": "eslint src --fix",
-    "flow": "flow check",
+    "flow": "flow",
     "build": "fusion build",
     "dev": "SVC_ID='{{name}}' fusion-dev-cli fusion dev",
     "test": "fusion test",

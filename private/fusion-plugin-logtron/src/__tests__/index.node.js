@@ -1,5 +1,4 @@
 // @flow
-import tape from 'tape-cup';
 import App from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
@@ -13,7 +12,7 @@ import TestEmitter from './test-emitter';
 
 import type {Logger as LoggerType} from 'fusion-tokens';
 
-tape('test all methods exist for server', t => {
+test('test all methods exist for server', done => {
   const emitter = new TestEmitter();
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
@@ -29,17 +28,17 @@ tape('test all methods exist for server', t => {
     const child = logger.createChild('test-child');
     supportedLevels.concat(['log']).forEach(fn => {
       // $FlowFixMe
-      t.equal(typeof logger[fn], 'function', `${fn} was set`);
+      expect(typeof logger[fn]).toBe('function');
       // $FlowFixMe
-      t.equal(typeof child[fn], 'function', `${fn} was set on child logger`);
+      expect(typeof child[fn]).toBe('function');
     });
-    t.end();
+    done();
     return (ctx, next) => next();
   });
   getSimulator(app);
 });
 
-tape('server plugin basic creation', t => {
+test('server plugin basic creation', done => {
   const emitter = new TestEmitter();
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
@@ -49,18 +48,15 @@ tape('server plugin basic creation', t => {
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.middleware({logger: LoggerToken}, ({logger}) => {
-    t.equal(typeof logger.info, 'function', 'exposes logger functions');
-    t.doesNotThrow(
-      () => logger.info('hello world', {some: 'data'}),
-      'does not throw when logging'
-    );
-    t.end();
+    expect(typeof logger.info).toBe('function');
+    expect(() => logger.info('hello world', {some: 'data'})).not.toThrow();
+    done();
     return (ctx, next) => next();
   });
   getSimulator(app);
 });
 
-tape('server test handleLog with valid payload', t => {
+test('server test handleLog with valid payload', () => {
   const loggerMock = {
     error: spy(),
   };
@@ -70,11 +66,10 @@ tape('server test handleLog with valid payload', t => {
     level: 'error',
     message: 'hello world',
   });
-  t.ok(loggerMock.error.called, 'logger.error was called');
-  t.end();
+  expect(loggerMock.error.called).toBeTruthy();
 });
 
-tape('server test handleLog with invalid payload', t => {
+test('server test handleLog with invalid payload', () => {
   // $FlowFixMe - missing logger methods in mock
   const loggerMock: LoggerType = {
     error: spy(),
@@ -88,11 +83,10 @@ tape('server test handleLog with invalid payload', t => {
     {message: '', level: '', meta: {}}
   );
   // $FlowFixMe - called is only used for testing
-  t.ok(loggerMock.error.called, 'logger.error was called');
-  t.end();
+  expect(loggerMock.error.called).toBeTruthy();
 });
 
-tape('server test handleLog object message', t => {
+test('server test handleLog object message', () => {
   const loggerMock = {
     error: spy(),
     info: spy(),
@@ -106,22 +100,13 @@ tape('server test handleLog object message', t => {
     level: 'info',
     message,
   });
-  t.notok(loggerMock.error.called, 'logger.error was not called');
-  t.ok(loggerMock.info.called, 'calls info');
-  t.equal(
-    loggerMock.info.getCall(0).args[0],
-    '',
-    'calls with empty string for message'
-  );
-  t.equal(
-    loggerMock.info.getCall(0).args[1],
-    message,
-    'uses object message as meta'
-  );
-  t.end();
+  expect(loggerMock.error.called).toBeFalsy();
+  expect(loggerMock.info.called).toBeTruthy();
+  expect(loggerMock.info.getCall(0).args[0]).toBe('');
+  expect(loggerMock.info.getCall(0).args[1]).toBe(message);
 });
 
-tape('server test handleLog with object message and meta', t => {
+test('server test handleLog with object message and meta', () => {
   const loggerMock = {
     error: spy(),
     info: spy(),
@@ -139,18 +124,13 @@ tape('server test handleLog with object message and meta', t => {
     message,
     meta,
   });
-  t.notok(loggerMock.error.called, 'logger.error was not called');
-  t.ok(loggerMock.info.called, 'calls info');
-  t.equal(
-    loggerMock.info.getCall(0).args[0],
-    '',
-    'calls with empty string for message'
-  );
-  t.equal(loggerMock.info.getCall(0).args[1], meta, 'uses meta as meta');
-  t.end();
+  expect(loggerMock.error.called).toBeFalsy();
+  expect(loggerMock.info.called).toBeTruthy();
+  expect(loggerMock.info.getCall(0).args[0]).toBe('');
+  expect(loggerMock.info.getCall(0).args[1]).toBe(meta);
 });
 
-tape('server test handleLog with null message and object meta', t => {
+test('server test handleLog with null message and object meta', () => {
   const loggerMock = {
     error: spy(),
     info: spy(),
@@ -166,18 +146,13 @@ tape('server test handleLog with null message and object meta', t => {
     message,
     meta,
   });
-  t.notok(loggerMock.error.called, 'logger.error was not called');
-  t.ok(loggerMock.info.called, 'calls info');
-  t.equal(
-    loggerMock.info.getCall(0).args[0],
-    '',
-    'calls with empty string for message'
-  );
-  t.equal(loggerMock.info.getCall(0).args[1], meta, 'uses meta as meta');
-  t.end();
+  expect(loggerMock.error.called).toBeFalsy();
+  expect(loggerMock.info.called).toBeTruthy();
+  expect(loggerMock.info.getCall(0).args[0]).toBe('');
+  expect(loggerMock.info.getCall(0).args[1]).toBe(meta);
 });
 
-tape('server test handleLog with invalid level', t => {
+test('server test handleLog with invalid level', () => {
   const loggerMock = {
     error: spy(),
     info: spy(),
@@ -193,12 +168,11 @@ tape('server test handleLog with invalid level', t => {
     message,
     meta,
   });
-  t.ok(loggerMock.error.called, 'logger.error called');
-  t.notok(loggerMock.info.called, 'does not call info');
-  t.end();
+  expect(loggerMock.error.called).toBeTruthy();
+  expect(loggerMock.info.called).toBeFalsy();
 });
 
-tape('server test handleLog with error set in meta', async t => {
+test('server test handleLog with error set in meta', async () => {
   const loggerMock = {
     error: spy(),
   };
@@ -219,11 +193,10 @@ tape('server test handleLog with error set in meta', async t => {
       },
     }
   );
-  t.ok(loggerMock.error.called, 'logger.error was called');
-  t.end();
+  expect(loggerMock.error.called).toBeTruthy();
 });
 
-tape('server test log methods', t => {
+test('server test log methods', done => {
   const emitter = new TestEmitter();
 
   const app = new App('el', el => el);
@@ -245,8 +218,8 @@ tape('server test log methods', t => {
     logger.debug('message', {});
     logger.silly('message', {});
     logger.verbose('message', {});
-    t.equal(emitterCalls, 7);
-    t.end();
+    expect(emitterCalls).toBe(7);
+    done();
     return (ctx, next) => next();
   });
   getSimulator(app);

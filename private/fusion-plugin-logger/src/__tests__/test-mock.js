@@ -1,11 +1,10 @@
 // @flow
-import tape from 'tape-cup';
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
 import mock from '../mock';
 
-tape('mock with check log values', async t => {
+test('mock with check log values', async done => {
   const message = 'cats are not dogs';
   const meta = {areCatsDogs: false};
 
@@ -14,10 +13,10 @@ tape('mock with check log values', async t => {
   app.middleware({logger: LoggerToken}, ({logger}) => {
     logger.info(message, meta);
     // $FlowFixMe
-    t.equal(logger.calls[0][0], 'info');
+    expect(logger.calls[0][0]).toBe('info');
     // $FlowFixMe
-    t.deepLooseEqual(logger.calls[0][1], [message, {areCatsDogs: false}]);
-    t.end();
+    expect(logger.calls[0][1]).toStrictEqual([message, {areCatsDogs: false}]);
+    done();
     return (ctx, next) => next();
   });
   getSimulator(app);

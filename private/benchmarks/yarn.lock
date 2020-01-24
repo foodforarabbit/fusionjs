@@ -12,6 +12,13 @@
     jsonwebtoken "^8.3.0"
     lru-cache "^5.1.1"
 
+"@octokit/auth-token@^2.4.0":
+  version "2.4.0"
+  resolved "https://unpm.uberinternal.com/@octokit%2fauth-token/-/auth-token-2.4.0.tgz#b64178975218b99e4dfe948253f0673cbbb59d9f"
+  integrity sha1-tkF4l1IYuZ5N/pSCU/BnPLu1nZ8=
+  dependencies:
+    "@octokit/types" "^2.0.0"
+
 "@octokit/endpoint@^5.1.0", "@octokit/endpoint@^5.5.0":
   version "5.5.1"
   resolved "https://unpm.uberinternal.com/@octokit%2fendpoint/-/endpoint-5.5.1.tgz#2eea81e110ca754ff2de11c79154ccab4ae16b3f"
@@ -57,10 +64,11 @@
     universal-user-agent "^4.0.0"
 
 "@octokit/rest@^16.25.5":
-  version "16.35.0"
-  resolved "https://unpm.uberinternal.com/@octokit%2frest/-/rest-16.35.0.tgz#7ccc1f802f407d5b8eb21768c6deca44e7b4c0d8"
-  integrity sha1-fMwfgC9AfVuOshdoxt7KROe0wNg=
+  version "16.38.1"
+  resolved "https://unpm.uberinternal.com/@octokit%2frest/-/rest-16.38.1.tgz#be24e0faa7d0bdb9459fbc089ec866ed11774b72"
+  integrity sha1-viTg+qfQvblFn7wInshm7RF3S3I=
   dependencies:
+    "@octokit/auth-token" "^2.4.0"
     "@octokit/request" "^5.2.0"
     "@octokit/request-error" "^1.0.2"
     atob-lite "^2.0.0"
@@ -75,9 +83,9 @@
     universal-user-agent "^4.0.0"
 
 "@octokit/types@^2.0.0":
-  version "2.0.2"
-  resolved "https://unpm.uberinternal.com/@octokit%2ftypes/-/types-2.0.2.tgz#0888497f5a664e28b0449731d5e88e19b2a74f90"
-  integrity sha1-CIhJf1pmTiiwRJcx1eiOGbKnT5A=
+  version "2.1.1"
+  resolved "https://unpm.uberinternal.com/@octokit%2ftypes/-/types-2.1.1.tgz#77e80d1b663c5f1f829e5377b728fa3c4fe5a97d"
+  integrity sha1-d+gNG2Y8Xx+CnlN3tyj6PE/lqX0=
   dependencies:
     "@types/node" ">= 8"
 
@@ -87,9 +95,9 @@
   integrity sha1-V/Io8rgMBGtKG9XKwDH4HyB/TwM=
 
 "@types/node@>= 8":
-  version "13.1.7"
-  resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-13.1.7.tgz#db51d28b8dfacfe4fb2d0da88f5eb0a2eca00675"
-  integrity sha1-21HSi436z+T7LQ2oj16wouygBnU=
+  version "13.5.0"
+  resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-13.5.0.tgz#4e498dbf355795a611a87ae5ef811a8660d42662"
+  integrity sha1-TkmNvzVXlaYRqHrl74EahmDUJmI=
 
 atob-lite@^2.0.0:
   version "2.0.0"
@@ -185,9 +193,9 @@ execa@^1.0.0:
     strip-eof "^1.0.0"
 
 folder-hash@^3.1.0:
-  version "3.2.0"
-  resolved "https://unpm.uberinternal.com/folder-hash/-/folder-hash-3.2.0.tgz#a9c5d9d6eafe536318d1ad0b61e8aa5467e7093a"
-  integrity sha1-qcXZ1ur+U2MY0a0LYeiqVGfnCTo=
+  version "3.3.0"
+  resolved "https://unpm.uberinternal.com/folder-hash/-/folder-hash-3.3.0.tgz#542e3fdfdf1d2ad6c81c2f20b014594ebdcb01c6"
+  integrity sha1-VC4/398dKtbIHC8gsBRZTr3LAcY=
   dependencies:
     debug "^4.1.1"
     graceful-fs "~4.2.0"
@@ -459,9 +467,9 @@ signal-exit@^3.0.0:
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
 simple-git@^1.124.0:
-  version "1.126.0"
-  resolved "https://unpm.uberinternal.com/simple-git/-/simple-git-1.126.0.tgz#0c345372275139c8433b8277f4b3e155092aa434"
-  integrity sha1-DDRTcidROchDO4J39LPhVQkqpDQ=
+  version "1.130.0"
+  resolved "https://unpm.uberinternal.com/simple-git/-/simple-git-1.130.0.tgz#b689c4163bc021df563a81f256de54482005195d"
+  integrity sha1-tonEFjvAId9WOoHyVt5USCAFGV0=
   dependencies:
     debug "^4.0.1"
 

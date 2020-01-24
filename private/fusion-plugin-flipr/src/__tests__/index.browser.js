@@ -1,14 +1,11 @@
 // @flow
 /* eslint-env browser */
-import tape from 'tape-cup';
-
 import FliprPlugin from '../browser.js';
 
-tape('plugin - exported corectly', (t): void => {
-  t.ok(FliprPlugin, 'plugin exported correctly');
+test('plugin - exported corectly', () => {
+  expect(FliprPlugin).toBeTruthy();
   // $FlowFixMe
-  t.equal(FliprPlugin.provides, undefined, 'service is undefined');
+  expect(FliprPlugin.provides).toBe(undefined);
   // $FlowFixMe
-  t.equal(FliprPlugin.middleware, undefined, 'middleware is undefined');
-  t.end();
+  expect(FliprPlugin.middleware).toBe(undefined);
 });

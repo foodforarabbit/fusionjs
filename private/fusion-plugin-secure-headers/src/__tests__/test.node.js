@@ -1,6 +1,4 @@
 // @flow
-import test from 'tape-cup';
-
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 
@@ -30,28 +28,25 @@ function createTestFixture() {
   return app;
 }
 
-test('Exported as expected', t => {
-  t.ok(SecureHeadersPlugin, 'plugin defined as expected');
-  t.equal(typeof SecureHeadersPlugin, 'object', 'plugin is an object');
-  t.end();
+test('Exported as expected', () => {
+  expect(SecureHeadersPlugin).toBeTruthy();
+  expect(typeof SecureHeadersPlugin).toBe('object');
 });
 
-test('basics - default CSP headers', async t => {
+test('basics - default CSP headers', async () => {
   const app = createTestFixture();
 
-  t.plan(3);
+  expect.assertions(3);
   const simulator = getSimulator(app);
   const ctx = await simulator.render('/test-url', fixtureHeaders);
-  t.equal(
-    ctx.response.header['content-security-policy'],
+  expect(ctx.response.header['content-security-policy']).toBe(
     fixtureCSP(ctx.nonce)
   );
-  t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
-  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
-  t.end();
+  expect(ctx.response.header['x-frame-options']).toBe('SAMEORIGIN');
+  expect(ctx.response.header['x-xss-protection']).toBe('1; mode=block');
 });
 
-test('basics - csp override', async t => {
+test('basics - csp override', async () => {
   const app = createTestFixture();
   // $FlowFixMe
   app.register(SecureHeadersCSPConfigToken, {
@@ -59,19 +54,17 @@ test('basics - csp override', async t => {
       connectSrc: ['test.uber.com'],
     },
   });
-  t.plan(3);
+  expect.assertions(3);
   const simulator = getSimulator(app);
   const ctx = await simulator.render('/test-url', fixtureHeaders);
-  t.equal(
-    ctx.response.header['content-security-policy'],
+  expect(ctx.response.header['content-security-policy']).toBe(
     fixtureCSPWithOverrides(ctx.nonce)
   );
-  t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
-  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
-  t.end();
+  expect(ctx.response.header['x-frame-options']).toBe('SAMEORIGIN');
+  expect(ctx.response.header['x-xss-protection']).toBe('1; mode=block');
 });
 
-test('basics - csp override with a function', async t => {
+test('basics - csp override with a function', async () => {
   const app = createTestFixture();
   const overrideFunc = function() {
     return {
@@ -82,20 +75,18 @@ test('basics - csp override with a function', async t => {
   };
   // $FlowFixMe
   app.register(SecureHeadersCSPConfigToken, overrideFunc);
-  t.plan(3);
+  expect.assertions(3);
   const simulator = getSimulator(app);
   const ctx = await simulator.render('/test-url', fixtureHeaders);
-  t.equal(
-    ctx.response.header['content-security-policy'],
+  expect(ctx.response.header['content-security-policy']).toBe(
     fixtureCSPWithOverrides(ctx.nonce)
   );
-  t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
-  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
-  t.end();
+  expect(ctx.response.header['x-frame-options']).toBe('SAMEORIGIN');
+  expect(ctx.response.header['x-xss-protection']).toBe('1; mode=block');
 });
 
-test('basics - csp override with a function and a service call', async t => {
-  t.plan(3);
+test('basics - csp override with a function and a service call', async () => {
+  expect.assertions(3);
 
   const app = createTestFixture();
 
@@ -124,33 +115,29 @@ test('basics - csp override with a function and a service call', async t => {
   );
 
   const ctx = await simulator.render('/test-url', fixtureHeaders);
-  t.equal(
-    ctx.response.header['content-security-policy'],
+  expect(ctx.response.header['content-security-policy']).toBe(
     fixtureCSPWithExtendedOverrides(ctx.nonce)
   );
-  t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
-  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
-  t.end();
+  expect(ctx.response.header['x-frame-options']).toBe('SAMEORIGIN');
+  expect(ctx.response.header['x-xss-protection']).toBe('1; mode=block');
 });
 
-test('basics - disabling frameguard does not add x-frame-origin header', async t => {
+test('basics - disabling frameguard does not add x-frame-origin header', async () => {
   const app = createTestFixture();
   app.register(SecureHeadersUseFrameguardConfigToken, false);
 
-  t.plan(3);
+  expect.assertions(3);
   const simulator = getSimulator(app);
   const ctx = await simulator.render('/test-url', fixtureHeaders);
-  t.equal(
-    ctx.response.header['content-security-policy'],
+  expect(ctx.response.header['content-security-policy']).toBe(
     fixtureCSP(ctx.nonce)
   );
-  t.equal(ctx.response.header['x-frame-options'], undefined);
-  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
-  t.end();
+  expect(ctx.response.header['x-frame-options']).toBe(undefined);
+  expect(ctx.response.header['x-xss-protection']).toBe('1; mode=block');
 });
 
-test('basics - frameGuardAllowFromDomain override', async t => {
-  t.plan(2);
+test('basics - frameGuardAllowFromDomain override', async () => {
+  expect.assertions(2);
 
   const app = createTestFixture();
   const simulator = getSimulator(
@@ -168,16 +155,14 @@ test('basics - frameGuardAllowFromDomain override', async t => {
   );
 
   const ctx = await simulator.render('/test-url', fixtureHeaders);
-  t.equal(
-    ctx.response.header['x-frame-options'],
+  expect(ctx.response.header['x-frame-options']).toBe(
     'ALLOW-FROM http://localhost:3000'
   );
-  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
-  t.end();
+  expect(ctx.response.header['x-xss-protection']).toBe('1; mode=block');
 });
 
-test('basics - frameGuardAllowFromDomain override non-matching domain', async t => {
-  t.plan(2);
+test('basics - frameGuardAllowFromDomain override non-matching domain', async () => {
+  expect.assertions(2);
 
   const app = createTestFixture();
   const simulator = getSimulator(
@@ -195,7 +180,6 @@ test('basics - frameGuardAllowFromDomain override non-matching domain', async t 
   );
 
   const ctx = await simulator.render('/test-url', fixtureHeaders);
-  t.equal(ctx.response.header['x-frame-options'], 'SAMEORIGIN');
-  t.equal(ctx.response.header['x-xss-protection'], '1; mode=block');
-  t.end();
+  expect(ctx.response.header['x-frame-options']).toBe('SAMEORIGIN');
+  expect(ctx.response.header['x-xss-protection']).toBe('1; mode=block');
 });

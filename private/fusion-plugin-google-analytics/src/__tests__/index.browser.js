@@ -1,6 +1,5 @@
 // @flow
 /* eslint-env browser */
-import tape from 'tape-cup';
 import Plugin from '../browser';
 
 const loadGA = (): void => {};
@@ -18,32 +17,29 @@ function createMock(): Mock {
   return mock;
 }
 
-tape('ga plugin browser', (t): void => {
+test('ga plugin browser', () => {
   const mock = createMock();
-  t.throws(
+  expect(
     // $FlowFixMe
-    () => Plugin.provides({options: {}}),
-    /Tracking id required/,
-    'trackingId is required'
-  );
+    () => Plugin.provides({options: {}})
+  ).toThrow(/Tracking id required/);
   // $FlowFixMe
   const ga = Plugin.provides({
     options: {loadGA, mock, trackingId: 'test-id'},
   });
-  t.ok(ga, 'returns a service from provides');
-  t.equal(mock.args[0][0], 'create', 'calls create');
-  t.equal(mock.args[0][1], 'test-id', 'users correct trackingId');
-  t.equal(mock.args[0][2], 'auto', 'defaults cookie domain to auto');
-  t.equal(mock.args[0][3], 'test_id', 'uses name replacing dashes');
+  expect(ga).toBeTruthy();
+  expect(mock.args[0][0]).toBe('create');
+  expect(mock.args[0][1]).toBe('test-id');
+  expect(mock.args[0][2]).toBe('auto');
+  expect(mock.args[0][3]).toBe('test_id');
 
-  t.equal(mock.args[1][0], 'test_id.send', 'calls send');
-  t.equal(mock.args[1][1], 'pageview', 'sending pageview');
+  expect(mock.args[1][0]).toBe('test_id.send');
+  expect(mock.args[1][1]).toBe('pageview');
 
-  t.equal(mock.args.length, 2, 'ga.create then pageview tracking by default');
-  t.end();
+  expect(mock.args.length).toBe(2);
 });
 
-tape('initializeFeatures', (t): void => {
+test('initializeFeatures', () => {
   const mock = createMock();
   // $FlowFixMe
   const ga = Plugin.provides({
@@ -57,50 +53,48 @@ tape('initializeFeatures', (t): void => {
       trackPage: true,
     },
   });
-  t.ok(ga);
-  t.equal(mock.args[1][0], 'test_id.require');
-  t.equal(mock.args[1][1], 'displayfeatures');
+  expect(ga).toBeTruthy();
+  expect(mock.args[1][0]).toBe('test_id.require');
+  expect(mock.args[1][1]).toBe('displayfeatures');
 
-  t.equal(mock.args[2][0], 'test_id.require');
-  t.equal(mock.args[2][1], 'linkid');
-  t.equal(mock.args[2][2], 'linkid.js');
+  expect(mock.args[2][0]).toBe('test_id.require');
+  expect(mock.args[2][1]).toBe('linkid');
+  expect(mock.args[2][2]).toBe('linkid.js');
 
-  t.equal(mock.args[3][0], 'test_id.send');
-  t.equal(mock.args[3][1], 'pageview');
+  expect(mock.args[3][0]).toBe('test_id.send');
+  expect(mock.args[3][1]).toBe('pageview');
 
-  t.equal(mock.args[4][0], 'test_id.set');
-  t.equal(mock.args[4][1], 'anonymizeIp');
-  t.equal(mock.args[4][2], true);
-  t.end();
+  expect(mock.args[4][0]).toBe('test_id.set');
+  expect(mock.args[4][1]).toBe('anonymizeIp');
+  expect(mock.args[4][2]).toBe(true);
 });
 
-tape('identify', (t): void => {
+test('identify', () => {
   const mock = createMock();
   // $FlowFixMe
   const ga = Plugin.provides({
     options: {loadGA, mock, trackingId: 'test-id'},
   });
-  t.equal(typeof ga.identify, 'function', 'exposes an identify function');
+  expect(typeof ga.identify).toBe('function');
   ga.identify('test-id');
   const userIdArgs = mock.args.pop();
-  t.equal(userIdArgs[0], 'test_id.set', 'calls set method');
-  t.equal(userIdArgs[1], 'userId', 'passes userId string');
-  t.equal(userIdArgs[2], 'test-id', 'passes correct id through');
-  t.end();
+  expect(userIdArgs[0]).toBe('test_id.set');
+  expect(userIdArgs[1]).toBe('userId');
+  expect(userIdArgs[2]).toBe('test-id');
 });
 
-tape('pageview', (t): void => {
+test('pageview', () => {
   const mock = createMock();
   // $FlowFixMe
   const ga = Plugin.provides({
     options: {loadGA, mock, trackingId: 'test-id'},
   });
-  t.equal(typeof ga.pageview, 'function', 'exposes an pageview function');
+  expect(typeof ga.pageview).toBe('function');
   ga.pageview({title: 'test-title', page: 'test-page', location: 'data'});
   mock.args.pop();
   let pageviewArgs = mock.args.pop();
-  t.equal(pageviewArgs[0], 'test_id.set');
-  t.deepLooseEqual(pageviewArgs[1], {
+  expect(pageviewArgs[0]).toBe('test_id.set');
+  expect(pageviewArgs[1]).toStrictEqual({
     title: 'test-title',
     page: 'test-page',
     location: 'data',
@@ -109,22 +103,21 @@ tape('pageview', (t): void => {
   ga.pageview({});
   mock.args.pop();
   pageviewArgs = mock.args.pop();
-  t.equal(pageviewArgs[0], 'test_id.set');
-  t.deepLooseEqual(pageviewArgs[1], {
+  expect(pageviewArgs[0]).toBe('test_id.set');
+  expect(pageviewArgs[1]).toStrictEqual({
     title: document.title,
     page: window.location.pathname,
     location: window.location.href,
   });
-  t.end();
 });
 
-tape('track', (t): void => {
+test('track', () => {
   const mock = createMock();
   // $FlowFixMe
   const ga = Plugin.provides({
     options: {loadGA, mock, trackingId: 'test-id'},
   });
-  t.equal(typeof ga.track, 'function', 'exposes an track function');
+  expect(typeof ga.track).toBe('function');
   ga.track({
     eventCategory: 'test-name',
     eventAction: 'test-type',
@@ -132,13 +125,12 @@ tape('track', (t): void => {
     eventValue: 5,
   });
   const trackArgs = mock.args.pop();
-  t.equal(trackArgs[0], 'test_id.send');
-  t.equal(trackArgs[1], 'event');
-  t.deepLooseEqual(trackArgs[2], {
+  expect(trackArgs[0]).toBe('test_id.send');
+  expect(trackArgs[1]).toBe('event');
+  expect(trackArgs[2]).toStrictEqual({
     eventCategory: 'test-name',
     eventAction: 'test-type',
     eventLabel: 'test-value',
     eventValue: 5,
   });
-  t.end();
 });

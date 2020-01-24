@@ -1,7 +1,6 @@
 // @flow
 /* eslint-env node */
 
-import test from 'tape-cup';
 import App from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
@@ -30,56 +29,54 @@ const setupApp = async (Logger, M3, errorType) => {
   await sim.request('/');
 };
 
-test('interface', async t => {
+test('interface', async () => {
   let calledLogger = false;
   let calledM3 = false;
   const Logger = {
     error(message, error, cb) {
-      t.equal(message, 'error');
-      t.equal(error.message, 'error');
-      t.equal(error.tags.captureType, 'server', 'tags capture type');
-      t.equal(error.tags.captureSource, 'server');
-      t.equal(error.tags.framework, 'fusion');
+      expect(message).toBe('error');
+      expect(error.message).toBe('error');
+      expect(error.tags.captureType).toBe('server');
+      expect(error.tags.captureSource).toBe('server');
+      expect(error.tags.framework).toBe('fusion');
       calledLogger = true;
       cb();
     },
   };
   const M3 = {
     immediateIncrement(name, tags) {
-      t.equal(name, 'exception');
-      t.equal(tags.captureType, 'server');
+      expect(name).toBe('exception');
+      expect(tags.captureType).toBe('server');
       calledM3 = true;
     },
   };
   await setupApp(Logger, M3, 'server');
-  t.ok(calledLogger);
-  t.ok(calledM3);
-  t.end();
+  expect(calledLogger).toBeTruthy();
+  expect(calledM3).toBeTruthy();
 });
 
-test('test captureSource, framework', async t => {
+test('test captureSource, framework', async () => {
   let calledLogger = false;
   let calledM3 = false;
   const Logger = {
     error(message, error, cb) {
-      t.equal(message, 'error');
-      t.equal(error.message, 'error');
-      t.equal(error.tags.captureType, 'browser', 'tags capture type');
-      t.equal(error.tags.captureSource, 'client');
-      t.equal(error.tags.framework, 'fusion');
+      expect(message).toBe('error');
+      expect(error.message).toBe('error');
+      expect(error.tags.captureType).toBe('browser');
+      expect(error.tags.captureSource).toBe('client');
+      expect(error.tags.framework).toBe('fusion');
       calledLogger = true;
       cb();
     },
   };
   const M3 = {
     immediateIncrement(name, tags) {
-      t.equal(name, 'exception');
-      t.equal(tags.captureType, 'browser');
+      expect(name).toBe('exception');
+      expect(tags.captureType).toBe('browser');
       calledM3 = true;
     },
   };
   await setupApp(Logger, M3, 'browser');
-  t.ok(calledLogger);
-  t.ok(calledM3);
-  t.end();
+  expect(calledLogger).toBeTruthy();
+  expect(calledM3).toBeTruthy();
 });

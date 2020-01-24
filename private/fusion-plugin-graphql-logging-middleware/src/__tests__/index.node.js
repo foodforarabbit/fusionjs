@@ -36,7 +36,7 @@ function testApp({typeDefs, resolvers}) {
   const logger = getMockLogger();
   const m3 = getMockM3();
   const tracer = getMockTracer();
-  const app = new App(<div />);
+  const app = new App((<div />));
   app.enhance(RenderToken, ApolloRenderEnhancer);
   app.register(
     GraphQLSchemaToken,

@@ -1,40 +1,34 @@
 // @flow
 import EventEmitter from './custom-event-emitter.js';
-import tape from 'tape-cup';
 
 import HeatpipeEmitter, {webTopicInfo} from '../emitters/heatpipe-emitter';
 
 import reactAction from '../handlers/redux-action';
 
-tape('redux-action handler', t => {
+test('redux-action handler', () => {
   const events = new EventEmitter();
 
   const mockM3 = {
     increment(key, tags) {
-      t.equal(key, 'action');
-      t.deepLooseEqual(tags, {action_type: 'foo'});
-      t.pass('m3 incremented');
+      expect(key).toBe('action');
+      expect(tags).toStrictEqual({action_type: 'foo'});
     },
   };
 
   const mockHeatpipe = {
     asyncPublish(topicInfo, message) {
-      t.deepEqual(
-        {topicInfo, message},
-        {
-          topicInfo: webTopicInfo,
-          message: {
-            app_name: 'test',
-            app_runtime: 'development',
-            type: 'action',
-            name: 'foo',
-            meta: {s: 'str'},
-            meta_bool: {b: false},
-            meta_long: {i: 53},
-          },
+      expect({topicInfo, message}).toEqual({
+        topicInfo: webTopicInfo,
+        message: {
+          app_name: 'test',
+          app_runtime: 'development',
+          type: 'action',
+          name: 'foo',
+          meta: {s: 'str'},
+          meta_bool: {b: false},
+          meta_long: {i: 53},
         },
-        `Heatpipe event published`
-      );
+      });
       return Promise.resolve();
     },
   };
@@ -52,22 +46,22 @@ tape('redux-action handler', t => {
     type: 'foo',
     _trackingMeta: {s: 'str', b: false, i: 53},
   });
-
-  t.end();
 });
 
-tape('redux-action handler - action is not a plain-object', t => {
+test('redux-action handler - action is not a plain-object', done => {
   const events = new EventEmitter();
 
   const mockM3 = {
     increment() {
-      t.fail('should not emit non-plain-object actions');
+      // $FlowFixMe
+      done.fail('should not emit non-plain-object actions');
     },
   };
 
   const mockHeatpipe = {
     asyncPublish() {
-      t.fail('should not emit non-plain-object actions');
+      // $FlowFixMe
+      done.fail('should not emit non-plain-object actions');
     },
   };
 
@@ -82,41 +76,33 @@ tape('redux-action handler - action is not a plain-object', t => {
   events.emit('redux-action-emitter:action', dispatch => {
     dispatch({type: 'foo'});
   });
-
-  t.pass('Do not emit non-plain-object actions');
-
-  t.end();
+  done();
 });
 
-tape('redux-action handler - nested _trackingMeta', t => {
+test('redux-action handler - nested _trackingMeta', () => {
   const events = new EventEmitter();
 
   const mockM3 = {
     increment(key, tags) {
-      t.equal(key, 'action');
-      t.deepLooseEqual(tags, {action_type: 'foo'});
-      t.pass('m3 incremented');
+      expect(key).toBe('action');
+      expect(tags).toStrictEqual({action_type: 'foo'});
     },
   };
 
   const mockHeatpipe = {
     asyncPublish(topicInfo, message) {
-      t.deepEqual(
-        {topicInfo, message},
-        {
-          topicInfo: webTopicInfo,
-          message: {
-            app_name: 'test',
-            app_runtime: 'development',
-            type: 'action',
-            name: 'foo',
-            meta: {s: 'str'},
-            meta_bool: {b: false},
-            meta_long: {i: 53},
-          },
+      expect({topicInfo, message}).toEqual({
+        topicInfo: webTopicInfo,
+        message: {
+          app_name: 'test',
+          app_runtime: 'development',
+          type: 'action',
+          name: 'foo',
+          meta: {s: 'str'},
+          meta_bool: {b: false},
+          meta_long: {i: 53},
         },
-        `Heatpipe event published`
-      );
+      });
       return Promise.resolve();
     },
   };
@@ -136,6 +122,4 @@ tape('redux-action handler - nested _trackingMeta', t => {
       _trackingMeta: {s: 'str', b: false, i: 53},
     },
   });
-
-  t.end();
 });

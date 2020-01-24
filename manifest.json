@@ -11,6 +11,7 @@
     "public/fusion-plugin-universal-events-react",
     "public/fusion-plugin-styletron-react",
     "public/fusion-plugin-service-worker",
+    "public/fusion-plugin-service-worker-tests",
     "public/fusion-plugin-rpc",
     "public/fusion-plugin-rpc-redux-react",
     "public/fusion-plugin-redux-action-emitter-enhancer",
@@ -89,6 +90,7 @@
   ],
   "excludeFromPublishing": [
     "public/fusion-cli-tests",
+    "public/fusion-plugin-service-worker-tests",
     "private/fusion-plugin-s3-asset-proxying-tests",
     "private/monorepo-actions",
     "private/benchmarks",

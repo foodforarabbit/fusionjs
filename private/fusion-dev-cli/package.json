@@ -24,7 +24,7 @@
   "scripts": {
     "build": "echo ok",
     "test": "echo ok",
-    "flow": "flow check",
+    "flow": "flow",
     "lint": "echo ok"
   },
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-dev-cli",

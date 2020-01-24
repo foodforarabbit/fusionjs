@@ -7,12 +7,11 @@
   },
   "scripts": {
     "test": "jest",
-    "cover": "jest --collectCoverage",
     "integration": "node src/integration-test.js",
     "debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "lint": "eslint src/",
     "build": "echo ok",
-    "flow": "flow check"
+    "flow": "flow"
   },
   "dependencies": {
     "@babel/core": "^7.5.4",
@@ -40,7 +39,7 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-tester": "^5.5.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "create-universal-package": "^3.4.7",
+    "create-universal-package": "^4.1.0",
     "eslint": "^6.0.1",
     "eslint-config-fusion": "0.0.0-monorepo",
     "eslint-plugin-cup": "^2.0.1",
@@ -58,23 +57,11 @@
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
-  "jest": {
-    "coverageReporters": [
-      "text",
-      "cobertura"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/__fixtures__/"
-    ]
-  },
   "repository": {
     "directory": "private/fusion-migrate",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
   },
-  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-migrate"
+  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-migrate",
+  "sideEffects": false
 }

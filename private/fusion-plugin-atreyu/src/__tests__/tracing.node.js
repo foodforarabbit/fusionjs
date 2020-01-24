@@ -13,7 +13,6 @@ import TracerPlugin, {
 import AtreyuPlugin, {AtreyuToken, AtreyuConfigToken} from '../index';
 import {getSimulator} from 'fusion-test-utils';
 import jaeger from 'jaeger-client';
-import test from 'tape-cup';
 import unique from 'array-unique';
 
 const mockLogger = {
@@ -100,113 +99,95 @@ const getServer = () => {
   return app;
 };
 
-const verifyTrace = (t, type, traceSpans, singleTrace) => {
+const verifyTrace = (type, traceSpans, singleTrace) => {
   const isRequest = type === 'request';
   const spans = traceSpans.map(function m(span) {
     return span._operationName;
   });
-  t.deepEquals(
-    spans,
-    [
-      isRequest ? 'GET.api.request' : 'GET.api.user',
-      isRequest ? 'atreyu.node.request' : 'atreyu.node.user',
-      'atreyu.graph.atreyu',
-      'unknown_route',
-    ],
-    'should have all traces end to end'
-  );
+  expect(spans).toEqual([
+    isRequest ? 'GET.api.request' : 'GET.api.user',
+    isRequest ? 'atreyu.node.request' : 'atreyu.node.user',
+    'atreyu.graph.atreyu',
+    'unknown_route',
+  ]);
 
   const traceIds = traceSpans.map(function m(span) {
     return span._spanContext._traceId.toString('hex');
   });
-  t.equals(
-    unique(traceIds).length,
-    singleTrace ? 1 : 2,
-    'should have the same traceId for all spans'
-  );
+  expect(unique(traceIds).length).toBe(singleTrace ? 1 : 2);
 };
 
-const fireAndVerifyResponse = async (t, app) => {
+const fireAndVerifyResponse = async app => {
   const sim = getSimulator(app);
   const response = await sim.request('/userinfo', {
     headers: {'x-uber-source': 'fusion'},
   });
 
-  t.deepEquals(
-    response.body,
-    {name: 'Uber', id: 123},
-    'should receive a successful response'
-  );
+  expect(response.body).toEqual({name: 'Uber', id: 123});
 };
 
-test('graph should support end to end tracing', async t => {
+test('graph should support end to end tracing', async () => {
   const app = getServer();
   app.register(getPlugin('graph', true));
-  await fireAndVerifyResponse(t, app);
+  await fireAndVerifyResponse(app);
 
-  verifyTrace(t, 'graph', inMemoryReporter._spans, true);
+  verifyTrace('graph', inMemoryReporter._spans, true);
 
   inMemoryReporter.clear();
   app.cleanup();
-  t.end();
 });
 
-test('graph should support end to end tracing when options are passed', async t => {
+test('graph should support end to end tracing when options are passed', async () => {
   const app = getServer();
   app.register(getPlugin('graph', false));
-  await fireAndVerifyResponse(t, app);
+  await fireAndVerifyResponse(app);
 
-  verifyTrace(t, 'graph', inMemoryReporter._spans, true);
+  verifyTrace('graph', inMemoryReporter._spans, true);
 
   inMemoryReporter.clear();
   app.cleanup();
-  t.end();
 });
 
-test('graph should individually trace', async t => {
+test('graph should individually trace', async () => {
   const app = getServer();
   app.register(getPlugin('graph'));
-  await fireAndVerifyResponse(t, app);
+  await fireAndVerifyResponse(app);
 
-  verifyTrace(t, 'graph', inMemoryReporter._spans, false);
+  verifyTrace('graph', inMemoryReporter._spans, false);
 
   inMemoryReporter.clear();
   app.cleanup();
-  t.end();
 });
 
-test('request should support end to end tracing', async t => {
+test('request should support end to end tracing', async () => {
   const app = getServer();
   app.register(getPlugin('request', true));
-  await fireAndVerifyResponse(t, app);
+  await fireAndVerifyResponse(app);
 
-  verifyTrace(t, 'request', inMemoryReporter._spans, true);
+  verifyTrace('request', inMemoryReporter._spans, true);
 
   inMemoryReporter.clear();
   app.cleanup();
-  t.end();
 });
 
-test('request should support end to end tracing when options are passed', async t => {
+test('request should support end to end tracing when options are passed', async () => {
   const app = getServer();
   app.register(getPlugin('request', false));
-  await fireAndVerifyResponse(t, app);
+  await fireAndVerifyResponse(app);
 
-  verifyTrace(t, 'request', inMemoryReporter._spans, true);
+  verifyTrace('request', inMemoryReporter._spans, true);
 
   inMemoryReporter.clear();
   app.cleanup();
-  t.end();
 });
 
-test('request should individually trace', async t => {
+test('request should individually trace', async () => {
   const app = getServer();
   app.register(getPlugin('request'));
-  await fireAndVerifyResponse(t, app);
+  await fireAndVerifyResponse(app);
 
-  verifyTrace(t, 'request', inMemoryReporter._spans, false);
+  verifyTrace('request', inMemoryReporter._spans, false);
 
   inMemoryReporter.clear();
   app.cleanup();
-  t.end();
 });
