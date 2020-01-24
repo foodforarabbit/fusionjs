@@ -27,6 +27,7 @@ import {codemodFusionApollo} from '../codemods/fusion-plugin-apollo/codemod-fusi
 import {codemodTypedRPCCLI} from '../codemods/typed-rpc-cli/codemod-typed-rpc-cli';
 import {migrateGraphQLMetrics} from '../codemods/graphql-metrics/codemod';
 import {addESLintPluginGraphQL} from '../codemods/add-eslint-plugin-graphql/add-eslint-plugin-graphql';
+import {addESLintPluginBaseui} from '../codemods/add-eslint-plugin-baseui/add-eslint-plugin-baseui';
 import {codemodIntrospectionMatcher} from '../codemods/introspection-matcher/codemod-introspection-matcher';
 import {moveTypedRPCCLI} from '../codemods/move-typed-rpc-cli/move-typed-rpc-cli';
 import {installFeatureToggles} from '../codemods/fusion-plugin-feature-toggles/installation';
@@ -194,6 +195,9 @@ export const upgrade = async ({
       }),
       step('Add eslint-plugin-graphql', async () => {
         await addESLintPluginGraphQL({dir, strategy});
+      }),
+      step('Add eslint-plugin-baseui', async () => {
+        await addESLintPluginBaseui({dir});
       }),
       step('moveTypedRPCCLI', async () => {
         await moveTypedRPCCLI({dir, strategy});

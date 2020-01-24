@@ -1856,6 +1856,11 @@ eslint-plugin-babel@^5.3.0:
   dependencies:
     eslint-rule-composer "^0.3.0"
 
+eslint-plugin-baseui@^9.41.0:
+  version "9.44.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-baseui/-/eslint-plugin-baseui-9.44.0.tgz#5cddf8663976462aafb4a627b45044e27e305b45"
+  integrity sha1-XN34Zjl2RiqvtKYntFBE4n4wW0U=
+
 eslint-plugin-cup@^2.0.2:
   version "2.0.2"
   resolved "https://unpm.uberinternal.com/eslint-plugin-cup/-/eslint-plugin-cup-2.0.2.tgz#1eff3d9dee973c7764e2d3957d446b41154236ea"
