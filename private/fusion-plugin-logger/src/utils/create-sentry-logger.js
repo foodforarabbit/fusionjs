@@ -18,13 +18,10 @@ if (__NODE__) {
   function onRavenError(e) {
     // do something
   }
-  function computeErrLoc(msg) {
-    var error = new Error(msg);
-    var lines = error.stack.split('\n');
-    var line = lines[11];
-    var errLoc = line ? line.replace(/^\s*at .*\/([^:/]*).*$/, '$1') : '';
 
-    return errLoc;
+  function computeErrLoc(msg) {
+    // this will be basis of healthline event title
+    return msg;
   }
 
   createLogger = function createLogger(

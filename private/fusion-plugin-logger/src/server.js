@@ -88,8 +88,6 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
 
   let {level, message, meta, callback} = payload;
 
-  let formattedMeta = meta;
-
   if (validateLevel(level)) {
     // check for meta in message field
     if (typeof message !== 'string') {
@@ -114,6 +112,8 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
          * in all three cases, Error properties will end up as root properties of `meta`
          */
 
+        let formattedMeta = meta;
+
         if (isErrorMeta(meta)) {
           const parsedMeta = await transformError(meta);
           formattedMeta = {...meta, ...parsedMeta};
@@ -124,6 +124,11 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
 
         if (callback && typeof callback === 'function') {
           callback(meta.error);
+        }
+
+        if (!formattedMeta.stack) {
+          // otherwise sentry logger tries to create it's own local stack which is a useless destraction
+          formattedMeta.stack = 'no stack available';
         }
 
         // No idea why Flow takes issue with this call. See https://github.com/winstonjs/winston/blob/master/lib/winston/logger.js#L201
