@@ -67,3 +67,4 @@ dist
 # Jazelle files
 third_party/jazelle/temp
 bazel-*
+public/jazelle/tests/tmp
