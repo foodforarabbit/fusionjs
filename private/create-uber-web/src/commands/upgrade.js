@@ -8,7 +8,6 @@ import {
 import {readJson} from 'fs-extra';
 import {bumpDeps} from '../utils/bump-deps.js';
 import {installFlowLibdefs} from '../utils/install-flow-libdefs.js';
-import {getNodeVersion} from '../utils/get-node-version.js';
 import {checkMajorVersion} from '../utils/check-major-version.js';
 import {migrateCsrfProtectionToV2} from '../codemods/fusion-plugin-csrf-protection/enhancer.js';
 import {replacePackage} from '../codemods/replace-package/codemod-replace-package.js';
@@ -65,7 +64,7 @@ export const upgrade = async ({
     );
     return;
   }
-  const supportedVersion = await getNodeVersion();
+  const supportedVersion = '10.0.0'; // minimum node major version
   // Allow as long as the defined version is GTE than the supported major version
   if (!checkMajorVersion(engines.node, supportedVersion)) {
     // eslint-disable-next-line no-console
