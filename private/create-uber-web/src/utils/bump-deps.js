@@ -8,7 +8,7 @@ import {getProgress} from './progress';
 import {getLatestVersion} from './get-latest-version';
 import type {UpgradeStrategy} from '../types.js';
 
-const BLACKLIST = ['babel-core', 'react-redux', 'create-universal-package'];
+const BLACKLIST = ['babel-core', 'create-universal-package'];
 
 type BumpOptions = {
   dir: string,
