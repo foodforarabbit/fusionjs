@@ -94,7 +94,7 @@ test('xhr delete request, no body', done => {
   function mockFetch(uri, options) {
     expect(uri).toBe('/test');
     expect(options.method).toBe('DELETE');
-    expect(options.headers['test']).toBe('lol');
+    expect(options.headers.test).toBe('lol');
     return Promise.resolve('test');
   }
 

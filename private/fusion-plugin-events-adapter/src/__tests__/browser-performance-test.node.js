@@ -30,7 +30,7 @@ const expectedHeatpipeEvents = [
       type: 'stat',
       name: 'time_to_first_byte',
       value_number:
-        browserPerformanceEventFixture.calculatedStats['time_to_first_byte'],
+        browserPerformanceEventFixture.calculatedStats.time_to_first_byte,
     },
   },
   {
@@ -94,7 +94,7 @@ test('browser-performance handler', () => {
       {
         key: 'time_to_first_byte',
         value:
-          browserPerformanceEventFixture.calculatedStats['time_to_first_byte'],
+          browserPerformanceEventFixture.calculatedStats.time_to_first_byte,
         tags: {},
       },
     ],
@@ -130,7 +130,7 @@ test('browser-performance handler with __url__', () => {
       {
         key: 'time_to_first_byte',
         value:
-          browserPerformanceEventFixture.calculatedStats['time_to_first_byte'],
+          browserPerformanceEventFixture.calculatedStats.time_to_first_byte,
         tags: {route: '/view/__itemUuid'},
       },
     ],

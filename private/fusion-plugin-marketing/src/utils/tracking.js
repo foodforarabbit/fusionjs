@@ -36,7 +36,7 @@ export function createTrackingPayload(
     prefetched:
       ctx.headers['x-moz'] === 'prefetch' ||
       ctx.headers['x-purpose'] === 'preview',
-    referrer: ctx.headers['referer'] || '',
+    referrer: ctx.headers.referer || '',
     user_agent: getUserAgentInfo(ctx),
     optimizely_cookie: getOptimizelyCookieInfo(ctx),
   };

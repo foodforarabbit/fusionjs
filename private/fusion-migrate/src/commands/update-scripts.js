@@ -35,8 +35,8 @@ module.exports = async function updateScripts({srcDir, destDir, filter}) {
     if (!destPackage.scripts) destPackage.scripts = {};
     destPackage.scripts['compile-sass'] =
       'node-sass src/client/stylesheets/ -o dist-client/';
-    destPackage.scripts['predev'] = 'yarn compile-sass';
-    destPackage.scripts['prebuild'] = 'yarn compile-sass';
+    destPackage.scripts.predev = 'yarn compile-sass';
+    destPackage.scripts.prebuild = 'yarn compile-sass';
     destPackage.scripts['prebuild-production'] = 'yarn compile-sass';
   }
   fs.writeFileSync(destPackagePath, JSON.stringify(destPackage, null, 2));

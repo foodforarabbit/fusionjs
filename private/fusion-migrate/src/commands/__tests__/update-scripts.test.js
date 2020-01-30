@@ -29,8 +29,8 @@ test.skip('updateScripts', async () => {
   );
   expect(finalPackage.scripts.test).toEqual('new test');
   expect(finalPackage.scripts.build).toEqual('new build');
-  expect(finalPackage.scripts['__old__test']).toEqual('old test');
-  expect(finalPackage.scripts['__old__something']).toEqual('something');
+  expect(finalPackage.scripts.__old__test).toEqual('old test');
+  expect(finalPackage.scripts.__old__something).toEqual('something');
 });
 
 test.skip('updateScripts with scss files', async () => {
@@ -49,13 +49,13 @@ test.skip('updateScripts with scss files', async () => {
     fs.readFileSync(path.join(dir, 'package.json'))
   );
   expect(finalPackage.scripts['compile-sass']).toMatch('node-sass');
-  expect(finalPackage.scripts['predev']).toEqual('yarn compile-sass');
-  expect(finalPackage.scripts['prebuild']).toEqual('yarn compile-sass');
+  expect(finalPackage.scripts.predev).toEqual('yarn compile-sass');
+  expect(finalPackage.scripts.prebuild).toEqual('yarn compile-sass');
   expect(finalPackage.scripts['prebuild-production']).toEqual(
     'yarn compile-sass'
   );
   expect(finalPackage.scripts.test).toEqual('new test');
   expect(finalPackage.scripts.build).toEqual('new build');
-  expect(finalPackage.scripts['__old__test']).toEqual('old test');
-  expect(finalPackage.scripts['__old__something']).toEqual('something');
+  expect(finalPackage.scripts.__old__test).toEqual('old test');
+  expect(finalPackage.scripts.__old__something).toEqual('something');
 });

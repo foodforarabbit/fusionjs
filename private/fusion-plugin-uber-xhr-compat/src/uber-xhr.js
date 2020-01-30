@@ -53,7 +53,7 @@ export default function getXhr() {
         }
         if (options.json) {
           options.headers['content-type'] = 'application/json';
-          options.headers['accept'] = 'application/json';
+          options.headers.accept = 'application/json';
           if (typeof options.json === 'object') {
             options.body = JSON.stringify(options.json);
           } else {

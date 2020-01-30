@@ -379,8 +379,8 @@ function printStatusReport(data: Object[]) {
   augmentedData.forEach((row: Object) => {
     table.push([
       row['Task Name'],
-      row['Completed'],
-      row['Status'],
+      row.Completed,
+      row.Status,
       row['Current Step'],
       row['Step %'],
     ]);
