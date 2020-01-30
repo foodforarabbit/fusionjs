@@ -48,20 +48,22 @@ export class FliprService {
       defaultNamespace,
       dataCenter,
       overrides,
-      propertiesNamespaces,
+      propertiesNamespaces = [],
       updateInterval,
       defaultProperties,
       diskCachePath,
     } = config;
 
+    const namespaces = (defaultNamespace
+      ? getFliprPropertiesNamespaces({
+          rootNamespace: defaultNamespace,
+          dataCenter,
+        })
+      : []
+    ).concat(propertiesNamespaces);
+
     const flipr = new Client({
-      propertiesNamespaces:
-        (defaultNamespace &&
-          getFliprPropertiesNamespaces({
-            rootNamespace: defaultNamespace,
-            dataCenter,
-          })) ||
-        propertiesNamespaces,
+      propertiesNamespaces: namespaces,
       logger,
       dcPath: getFliprDatacenterPath(),
       updateInterval: updateInterval || DEFAULT_UPDATE_INTERVAL,

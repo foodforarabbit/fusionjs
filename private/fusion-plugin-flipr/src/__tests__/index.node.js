@@ -5,6 +5,7 @@ import {LoggerToken} from 'fusion-tokens';
 
 import FliprPlugin, {DEFAULT_UPDATE_INTERVAL} from '../server.js';
 import {FliprToken, FliprClientToken, FliprConfigToken} from '../tokens.js';
+import type {FliprConfigType} from '../types';
 
 const createMockLogger = () => ({
   log: () => createMockLogger(),
@@ -15,7 +16,11 @@ const createMockLogger = () => ({
   debug: () => createMockLogger(),
   silly: () => createMockLogger(),
 });
-function createTestFixture(shouldExpect): App {
+function createTestFixture(options?: {|
+  shouldExpect?: boolean,
+  config?: FliprConfigType,
+  expectedAdditionalPropertiesNamespaces?: string[],
+|}): App {
   const mockLogger = createMockLogger();
   const mockFliprClient = function(config) {
     const {
@@ -25,34 +30,42 @@ function createTestFixture(shouldExpect): App {
       dcPath,
       diskCachePath,
     } = config;
-    shouldExpect &&
+
+    if (options && options.shouldExpect) {
+      expect(propertiesNamespaces).toContain('foo');
+      expect(propertiesNamespaces).toContain('foo.local');
       expect(
-        propertiesNamespaces &&
-          propertiesNamespaces.includes('foo') &&
-          propertiesNamespaces.includes('foo.local') &&
-          propertiesNamespaces.length >= 3
+        propertiesNamespaces && propertiesNamespaces.length >= 3
       ).toBeTruthy();
-    shouldExpect && expect(logger).toBe(mockLogger);
-    shouldExpect && expect(updateInterval).toBe(DEFAULT_UPDATE_INTERVAL);
-    shouldExpect && expect(dcPath).toBeTruthy();
-    shouldExpect && expect(diskCachePath).toBeTruthy();
+      if (options.expectedAdditionalPropertiesNamespaces) {
+        for (const namespace of options.expectedAdditionalPropertiesNamespaces) {
+          expect(propertiesNamespaces).toContain(namespace);
+        }
+      }
+      expect(logger).toBe(mockLogger);
+      expect(updateInterval).toBe(DEFAULT_UPDATE_INTERVAL);
+      expect(dcPath).toBeTruthy();
+      expect(diskCachePath).toBeTruthy();
+    }
 
     return {
-      startUpdating: (): void => shouldExpect && expect(true).toBeTruthy(), // invoked startUpdating()
+      startUpdating: (): void => {
+        if (options && options.shouldExpect) {
+          expect(true).toBeTruthy(); // invoked startUpdating()
+        }
+      },
       randomValue: 999,
       randomFunction: function(): number {
         return this.randomValue;
       },
     };
   };
-  const mockConfig = {defaultNamespace: 'foo'};
+  const mockConfig = (options && options.config) || {defaultNamespace: 'foo'};
 
   const app = new App('content', el => el);
   app.register(FliprToken, FliprPlugin);
   app.register(FliprClientToken, mockFliprClient);
   app.register(FliprConfigToken, mockConfig);
-
-  // $FlowFixMe
   app.register(LoggerToken, mockLogger);
   return app;
 }
@@ -63,7 +76,36 @@ test('plugin - exported as expected', () => {
 });
 
 test('plugin - service resolved as expected', () => {
-  const app = createTestFixture(true);
+  const app = createTestFixture({
+    shouldExpect: true,
+  });
+
+  let wasResolved = false;
+  getSimulator(
+    app,
+    createPlugin({
+      deps: {flipr: FliprToken},
+
+      provides: deps => {
+        const {flipr} = deps;
+        expect(flipr).toBeTruthy();
+        wasResolved = true;
+      },
+    })
+  );
+
+  expect(wasResolved).toBeTruthy();
+});
+
+test('plugin - service resolved as expected with additional namespaces', () => {
+  const app = createTestFixture({
+    shouldExpect: true,
+    expectedAdditionalPropertiesNamespaces: ['bar'],
+    config: {
+      defaultNamespace: 'foo',
+      propertiesNamespaces: ['bar'],
+    },
+  });
 
   let wasResolved = false;
   getSimulator(
