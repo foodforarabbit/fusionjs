@@ -59,9 +59,9 @@
     "fusion-tokens": "0.0.0-monorepo",
     "jest-environment-jsdom": "^24.9.0",
     "prop-types": "^15.7.2",
-    "react": "^16.11.0",
+    "react": "^16.12.0",
     "react-axe": "^3.3.0",
-    "react-dom": "^16.11.0",
+    "react-dom": "^16.12.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
     "styletron-react": "^5.2.6",
@@ -79,7 +79,7 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.4.1",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^23.0.3",
+    "eslint-plugin-jest": "^23.0.4",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.2.0",
@@ -89,7 +89,7 @@
     "long": "^4.0.0",
     "prettier": "^1.18.2",
     "puppeteer": "^2.0.0",
-    "react-test-renderer": "^16.11.0"
+    "react-test-renderer": "^16.12.0"
   },
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",

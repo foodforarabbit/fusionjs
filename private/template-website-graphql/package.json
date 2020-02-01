@@ -101,7 +101,7 @@
     "eslint-plugin-baseui": "^9.41.0",
     "flow-bin": "^0.109.0",
     "fusion-test-utils": "0.0.0-monorepo",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "jest-image-snapshot": "^2.11.1",
     "prettier": "^1.19.1",
     "puppeteer": "^2.0.0"

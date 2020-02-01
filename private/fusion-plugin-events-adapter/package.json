@@ -41,7 +41,7 @@
     "fusion-tokens": "0.0.0-monorepo",
     "prettier": "^1.18.2",
     "jest": "^24.9.0",
-    "eslint-plugin-jest": "^22.7.2",
+    "eslint-plugin-jest": "^23.0.4",
     "eslint-plugin-react-hooks": "^1.6.1"
   },
   "scripts": {

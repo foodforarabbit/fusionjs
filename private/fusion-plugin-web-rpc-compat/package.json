@@ -23,7 +23,7 @@
     "flow": "flow"
   },
   "dependencies": {
-    "eslint-plugin-jest": "^22.7.2"
+    "eslint-plugin-jest": "^23.0.4"
   },
   "peerDependencies": {
     "fusion-core": "0.0.0-monorepo",
@@ -46,7 +46,7 @@
     "idl": "^3.1.12",
     "prettier": "^1.18.2",
     "jest": "^24.9.0",
-    "eslint-plugin-jest": "^22.7.2",
+    "eslint-plugin-jest": "^23.0.4",
     "eslint-plugin-react-hooks": "^1.6.1"
   },
   "engines": {
