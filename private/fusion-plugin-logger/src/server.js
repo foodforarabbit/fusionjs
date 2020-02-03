@@ -4,12 +4,17 @@ import {createPlugin} from 'fusion-core';
 
 import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
-import type {ErrorLogOptionsType, LevelMapType} from './types.js';
+import type {
+  PayloadMetaType,
+  ErrorLogOptionsType,
+  LevelMapType,
+} from './types.js';
 import {ErrorTrackingToken, TeamToken, EnvOverrideToken} from './tokens.js';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import createSentryLogger from './utils/create-sentry-logger';
 import createErrorTransform from './utils/create-error-transform';
+import {isErrorLikeObject, isError} from './utils/error';
 import formatStdout from './utils/format-stdout';
 import path from 'path';
 
@@ -35,7 +40,18 @@ const plugin =
       envOverride: EnvOverrideToken.optional,
     },
     provides: ({events, errorTracker, team, envOverride}) => {
-      const env = envOverride || (__DEV__ ? 'dev' : process.env.NODE_ENV);
+      const env =
+        envOverride ||
+        (__DEV__
+          ? 'dev'
+          : process.env.UBER_RUNTIME_ENVIRONMENT || process.env.NODE_ENV);
+      const envMeta = {
+        appID: process.env.SVC_ID,
+        runtimeEnvironment: env,
+        deploymentName: process.env.GIT_DESCRIBE,
+        gitSha: process.env.GITHUB_TOKEN,
+      };
+
       const transformError =
         env === 'production'
           ? createErrorTransform({
@@ -75,7 +91,7 @@ const plugin =
           transformError,
           payload,
           sentryLogger,
-          env,
+          envMeta,
         });
       });
 
@@ -84,7 +100,7 @@ const plugin =
   });
 
 export const handleLog = async (options: ErrorLogOptionsType) => {
-  const {transformError, payload, env, sentryLogger} = options;
+  const {transformError, payload, envMeta, sentryLogger} = options;
 
   let {level, message, meta, callback} = payload;
 
@@ -97,29 +113,40 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
       message = '';
     }
 
-    console.log(formatStdout({level, message, meta}, env));
+    console.log(
+      formatStdout({level, message, meta}, envMeta.runtimeEnvironment)
+    );
 
     // also log to healthline (via sentry) for errors
-    //TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
-    if (sentryLogger && env && env === 'production') {
+    // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
+    if (sentryLogger && envMeta.runtimeEnvironment === 'production') {
       if (level === 'error' && sentryLogger && meta) {
         /*
-         * three possible input formats for meta argument
+         * four supported formats for meta argument
          * a) <an error object>
-         * b) {error: <an error object>}
-         * c) {error: an object with error-like properties}
+         * b) an object with error-like properties (but only if c or d don't apply)
+         * c) {error: <an error object>}
+         * d) {error: an object with error-like properties}
          *
-         * in all three cases, Error properties will end up as root properties of `meta`
+         * in all four cases, Error properties will end up as root properties of `formattedMeta`
          */
 
-        let formattedMeta = meta;
+        if (isError(meta)) {
+          // case a
+          // $FlowFixMe: we just proved meta is an error ^
+          const err: Error = meta;
+          meta = {error: err};
+        } else if (isErrorLikeObject(meta) && !isErrorLikeObject(meta.error)) {
+          // case b (but only if c or d don't apply)
+          meta.message = String(meta.message || '');
+          meta = {error: meta};
+        }
 
-        if (isErrorMeta(meta)) {
-          const parsedMeta = await transformError(meta);
-          formattedMeta = {...meta, ...parsedMeta};
-          if (!isError(meta.error)) {
-            meta.error = createError(parsedMeta);
-          }
+        let formattedMeta: PayloadMetaType = meta;
+
+        // case c and d (or a and b after above property reassignnent)
+        if (isErrorLikeObject(meta.error)) {
+          formattedMeta = await transformError(meta);
         }
 
         if (callback && typeof callback === 'function') {
@@ -127,13 +154,13 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
         }
 
         if (!formattedMeta.stack) {
-          // otherwise sentry logger tries to create it's own local stack which is a useless destraction
+          // otherwise sentry logger tries to create it's own local stack which is a useless distraction
           formattedMeta.stack = 'no stack available';
         }
 
         // No idea why Flow takes issue with this call. See https://github.com/winstonjs/winston/blob/master/lib/winston/logger.js#L201
         // $FlowFixMe
-        sentryLogger.log('error', formattedMeta);
+        sentryLogger.log('error', {...formattedMeta, ...envMeta});
       }
     }
   } else {
@@ -143,32 +170,11 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
           level: 'warn',
           message: `logger called with unsupported method: ${level}`,
         },
-        env
+        envMeta.runtimeEnvironment
       )
     );
   }
 };
-
-function isErrorMeta(meta: any) {
-  if (!meta) {
-    return false;
-  }
-  return (meta.error && meta.error.stack) || (meta.source && meta.line);
-}
-
-function createError(meta) {
-  const message = meta.message || 'unknown error occurred';
-  const newErr = new Error(message);
-  if (meta.stack) {
-    newErr.stack = meta.stack;
-  }
-  return newErr;
-}
-
-function isError(err) {
-  const errString = Object.prototype.toString.call(err);
-  return errString === '[object Error]' || err instanceof Error;
-}
 
 function validateLevel(level) {
   return level === 'log' || levelMap[level];

@@ -54,7 +54,6 @@ test('supports all logger methods in production', () => {
   });
 
   // `log` method
-  // $FlowFixMe - Logger has methods that the LoggerToken does not.
   expect(typeof logger.log).toBe('function');
   expect(typeof child.log).toBe('function');
   const consoleSpy = spy(console, 'log');
@@ -216,102 +215,9 @@ test('logs partial data when level is valid but arguments incomplete in producti
   getSimulator(app);
 });
 
-test('handleLog calls sentry for errors a) where `meta.error` is an error-like object in production', done => {
-  expect.assertions(3);
-  const mockLogger = {
-    log: (type, meta) => {
-      expect(type === 'error').toBeTruthy();
-      expect(typeof meta === 'object').toBeTruthy();
-      expect(meta).toEqual({
-        error: {message: 'all gone wrong', stack: 'this: 123, that: 324'},
-        message: 'all gone wrong',
-        stack: 'this: 123, that: 324',
-      });
-      done();
-    },
-  };
-
-  const message = 'all gone wrong';
-
-  // $FlowFixMe - missing logger methods in mock
-  handleLog({
-    transformError,
-    payload: {
-      level: 'error',
-      message,
-      meta: {error: {message, stack: 'this: 123, that: 324'}},
-    },
-    sentryLogger: mockLogger,
-    env: 'production',
-  });
-});
-
-test('handleLog calls sentry for errors b) where `meta.error` is a real error, and passing a callback in production', done => {
-  expect.assertions(4);
-
-  const message = 'all gone wrong';
-  const error = new Error(message);
-
-  const callback = thisError => {
-    expect((thisError = error)).toBeTruthy();
-  };
-
-  const mockLogger = {
-    log: (type, meta: PayloadMetaType) => {
-      expect(type === 'error').toBeTruthy();
-      expect(
-        {}.toString.call(meta.error) === '[object Error]' ||
-          meta.error instanceof Error
-      ).toBeTruthy();
-      expect(
-        'error' in meta && 'stack' in meta && meta.message === message
-      ).toBeTruthy();
-      done();
-    },
-  };
-
-  // $FlowFixMe - missing logger methods in mock
-  handleLog({
-    transformError,
-    payload: {
-      level: 'error',
-      message,
-      meta: {error},
-      callback,
-    },
-    sentryLogger: mockLogger,
-    env: 'production',
-  });
-});
-
-test('handleLog calls sentry for errors c) where `meta` itself is an error-like object in production', done => {
-  expect.assertions(3);
-  const mockLogger = {
-    log: (type, meta) => {
-      expect(type === 'error').toBeTruthy();
-      expect(typeof meta === 'object').toBeTruthy();
-      expect(meta).toEqual({message, stack: 'this: 123, that: 324'});
-      done();
-    },
-  };
-
-  const message = 'all gone wrong';
-
-  // $FlowFixMe - missing logger methods in mock
-  handleLog({
-    transformError,
-    payload: {
-      level: 'error',
-      message,
-      meta: {message, stack: 'this: 123, that: 324'},
-    },
-    sentryLogger: mockLogger,
-    env: 'production',
-  });
-});
-
+// case a (see `../server.js`)
 test('handleLog calls sentry for errors d) where `meta` itself is a real error in production', done => {
-  expect.assertions(4);
+  expect.assertions(3);
 
   const message = 'all gone wrong';
   const error = new Error(message);
@@ -319,27 +225,39 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
   const mockLogger = {
     log: (type, meta: PayloadMetaType) => {
       expect(type === 'error').toBeTruthy();
-      expect(
-        {}.toString.call(meta) === '[object Error]' || meta instanceof Error
-      ).toBeTruthy();
-      expect(meta).toEqual(error);
-      expect(meta.message === message).toBeTruthy();
+      expect(meta).toEqual(
+        expect.objectContaining({
+          message: error.message,
+          appID: 'my-app',
+          deploymentName: 'lol',
+          gitSha: 'a1234567',
+          runtimeEnvironment: 'production',
+        })
+      );
+      expect(typeof meta.stack == 'string').toBeTruthy(); // can't test exact match for stack
       done();
     },
   };
 
   // $FlowFixMe - missing logger methods in mock
   handleLog({
+    transformError,
     payload: {
       level: 'error',
       message,
       meta: error,
     },
     sentryLogger: mockLogger,
-    env: 'production',
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
   });
 });
 
+// case a (see `../server.js`)
 test('handleLog does not call sentry for errors where `meta` itself is a real error in development', done => {
   const message = 'all gone wrong';
   const error = new Error(message);
@@ -359,9 +277,215 @@ test('handleLog does not call sentry for errors where `meta` itself is a real er
       meta: error,
     },
     sentryLogger: mockLogger,
-    env: 'dev',
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'dev',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
   });
   done();
+});
+
+// case b (see `../server.js`)
+test('handleLog calls sentry for errors c1) where `meta` itself is an error-like object in production', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      expect(meta).toEqual({
+        message,
+        stack: 'this: 123, that: 324',
+        appID: 'my-app',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+        runtimeEnvironment: 'production',
+      });
+      done();
+    },
+  };
+
+  const message = 'all gone wrong';
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {message, stack: 'this: 123, that: 324'},
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case b (see `../server.js`)
+test('handleLog calls sentry for errors c2) where `meta` itself is an error-like object in production but there is no stack', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      expect(meta).toEqual({
+        message,
+        stack: 'no stack available',
+        appID: 'my-app',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+        runtimeEnvironment: 'production',
+      });
+      done();
+    },
+  };
+
+  const message = 'all gone wrong';
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {message},
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case c (see `../server.js`)
+test('handleLog calls sentry for errors where `meta.error` is a real error, and passing a callback in production', done => {
+  expect.assertions(3);
+
+  const message = 'all gone wrong';
+  const error = new Error(message);
+
+  const callback = thisError => {
+    expect((thisError = error)).toBeTruthy();
+  };
+
+  const mockLogger = {
+    log: (type, meta: PayloadMetaType) => {
+      expect(type === 'error').toBeTruthy();
+      expect(
+        typeof meta.stack === 'string' && meta.message === message
+      ).toBeTruthy();
+      done();
+    },
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {error},
+      callback,
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case d (see `../server.js`)
+test('handleLog calls sentry for errors where `meta.error` is an error-like object in production', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      expect(meta).toEqual({
+        message: 'all gone wrong',
+        stack: 'this: 123, that: 324',
+        appID: 'my-app',
+        runtimeEnvironment: 'production',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+      });
+      done();
+    },
+  };
+
+  const message = 'all gone wrong';
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {error: {message, stack: 'this: 123, that: 324'}},
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case d (see `../server.js`)
+test('handleLog calls sentry for errorswhere `meta.error` is an error-like object in production with no stack', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      // doesn't map to stack because no sourcemaps (create-error-transform tests covers that behavior)
+      expect(meta).toEqual({
+        error: {
+          message: 'all gone wrong',
+          source: 'this: 123, that: 324',
+          line: 123,
+        },
+        stack: 'no stack available',
+        appID: 'my-app',
+        runtimeEnvironment: 'production',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+      });
+      done();
+    },
+  };
+
+  const message = 'all gone wrong';
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {error: {message, source: 'this: 123, that: 324', line: 123}},
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
 });
 
 test('warns if handleLog called with invalid method in production', () => {
@@ -383,7 +507,12 @@ test('warns if handleLog called with invalid method in production', () => {
         nonMeta: {a: {b: {c: 3}}}, // instead of 'meta'
         callback: () => {},
       },
-      env: 'production',
+      envMeta: {
+        appID: 'my-app',
+        runtimeEnvironment: 'production',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+      },
       team: 'lol',
     })
   ).not.toThrow();

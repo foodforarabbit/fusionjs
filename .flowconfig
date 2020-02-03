@@ -6,6 +6,9 @@
 .*/public/jazelle/tests/fixtures/.*
 .*/public/jazelle/tests/tmp/.*
 .*/__fixtures__/.*
+.*/dist/.*
+.*/dist-browser.*/.*
+.*/dist-node.*/.*
 
 [include]
 public

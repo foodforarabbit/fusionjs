@@ -20,8 +20,8 @@ if (__NODE__) {
   }
 
   function computeErrLoc(msg) {
-    // this will be basis of healthline event title
-    return msg;
+    // this will be propened to ': <message>' in healthline event title
+    return 'Error';
   }
 
   createLogger = function createLogger(

@@ -10,11 +10,16 @@ export type PayloadMetaType = {
   message?: string | {},
   col?: number,
   source?: string,
-  line?: string,
-  error?: {
-    stack: string,
-    message: string,
-  },
+  line?: number,
+  error?:
+    | Error
+    | {
+        stack?: string,
+        // TODO: message should just be string but Flow...  ¯\_(ツ)_/¯
+        message?: any,
+        source?: string,
+        line?: number,
+      },
   stack?: string,
 };
 
@@ -42,7 +47,12 @@ export type SentryConfigType = {id: string};
 export type ErrorLogOptionsType = {
   transformError: PayloadMetaType => PayloadMetaType,
   payload: PayloadType,
-  env: ?string,
+  envMeta: {
+    runtimeEnvironment: ?string,
+    deploymentName: ?string,
+    gitSha: ?string,
+    appID: ?string,
+  },
   sentryLogger: ?Logger<{[string]: number}>,
   team?: string,
 };

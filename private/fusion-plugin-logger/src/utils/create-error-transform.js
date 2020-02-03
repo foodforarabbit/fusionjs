@@ -16,35 +16,36 @@ export default function createErrorTransform(config: ConfigType = {}) {
 
   return async function parseError(data: PayloadMetaType) {
     const {message, source, line, col, error} = data;
-
-    let parsed: {source?: string, stack?: string, line?: string};
+    // TODO: message should just be string but Flow...  ¯\_(ツ)_/¯
+    let parsedError: ?{
+      message?: string,
+      source?: string,
+      stack?: string,
+      line?: number,
+    };
     if (error && error.stack) {
       // Newer browsers send the error object
-      parsed = await handleErrorObject(error);
-    } else if (line) {
-      if (col) {
-        // Older browsers send line and column
-        parsed = await handleLineAndCol(message, source, line, col);
-      } else {
-        // Oldest browsers only include message, source, and line
-        parsed = {
-          message,
-          source,
-          line,
-        };
-      }
-    } else {
-      // can't transform, early return to continue
+      parsedError = await handleErrorObject(error);
+    } else if (source && line) {
+      // Older browsers send only source, line and maybe column
+      parsedError = await handleSourceAndLine(
+        String(message),
+        source,
+        line,
+        col
+      );
+    }
+    if (!parsedError) {
+      // can't transform, early return
+      // TODO: should we hoist nested error properties?
       return data;
     }
 
-    parsed.stack = parsed.stack
-      ? parsed.stack.trim()
-      : `${String(parsed.message)}\n    at ${String(parsed.source)}:${String(
-          parsed.line
-        )}`;
+    if (parsedError.stack) {
+      parsedError.stack = parsedError.stack.trim();
+    }
 
-    return parsed;
+    return parsedError;
   };
 
   async function applySourceMap(fileName, line, column) {
@@ -53,28 +54,21 @@ export default function createErrorTransform(config: ConfigType = {}) {
   }
 
   // Returns log for older browsers that don't send the entire error object
-  async function handleLineAndCol(message, source, line, col) {
+  async function handleSourceAndLine(message, source, line, col) {
     const mapped = await applySourceMap(source, line, col);
 
-    // Couldn't find sourcemap, using raw data instead
-    if (!mapped) {
-      return {
-        message,
-        source,
-        line,
-        col,
-      };
-    }
-
-    const name = mapped.name || 'unknown function name';
+    const name = mapped && mapped.name ? mapped.name : 'unknown function name';
+    source = mapped ? mapped.source : source;
+    line = mapped ? mapped.line : line;
+    col = (mapped ? mapped.column : col) || '';
 
     return {
       message: message,
-      stack: `${name} at ${mapped.source}:${mapped.line}:${mapped.column}`,
+      stack: `${name} at ${String(source)}:${String(line)}:${String(col)}`,
     };
   }
 
-  // Returns log data for browsers that send the entire error object
+  // Returns log data for browsers that send th e entire error object
   async function handleErrorObject(error) {
     const frames = (
       await Promise.all(
