@@ -11,5 +11,7 @@ export {
   AuthHeadersGroupsConfigToken,
 } from './tokens';
 
+export type {AuthHeadersService} from './server';
+
 declare var __NODE__: Boolean;
 export default __NODE__ ? ServerClient : BrowserClient;
