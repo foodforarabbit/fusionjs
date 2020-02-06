@@ -1,7 +1,6 @@
 // @flow
 /* eslint-env node */
 import {createPlugin} from 'fusion-core';
-
 import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
 import type {
@@ -144,7 +143,7 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
 
         let formattedMeta: PayloadMetaType = meta;
 
-        // case c and d (or a and b after above property reassignnent)
+        // case c and d (or a and b after above property reassignment)
         if (isErrorLikeObject(meta.error)) {
           formattedMeta = await transformError(meta);
         }
@@ -155,12 +154,16 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
 
         if (!formattedMeta.stack) {
           // otherwise sentry logger tries to create it's own local stack which is a useless distraction
-          formattedMeta.stack = 'no stack available';
+          formattedMeta.stack = 'not available';
         }
 
         // No idea why Flow takes issue with this call. See https://github.com/winstonjs/winston/blob/master/lib/winston/logger.js#L201
         // $FlowFixMe
-        sentryLogger.log('error', {...formattedMeta, ...envMeta});
+        sentryLogger.log('error', {
+          tags: meta.tags || {},
+          ...formattedMeta,
+          ...envMeta,
+        });
       }
     }
   } else {

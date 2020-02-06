@@ -21,6 +21,7 @@ export type PayloadMetaType = {
         line?: number,
       },
   stack?: string,
+  tags?: {ua?: {}},
 };
 
 export type PayloadType = {

@@ -60,5 +60,8 @@
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "ua-parser-js": "0.7.21"
+  }
 }

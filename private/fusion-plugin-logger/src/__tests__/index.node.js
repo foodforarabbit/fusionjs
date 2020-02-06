@@ -232,6 +232,7 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
           deploymentName: 'lol',
           gitSha: 'a1234567',
           runtimeEnvironment: 'production',
+          tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
         })
       );
       expect(typeof meta.stack == 'string').toBeTruthy(); // can't test exact match for stack
@@ -245,7 +246,10 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
     payload: {
       level: 'error',
       message,
-      meta: error,
+      meta: {
+        error,
+        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+      },
     },
     sentryLogger: mockLogger,
     envMeta: {
@@ -301,6 +305,7 @@ test('handleLog calls sentry for errors c1) where `meta` itself is an error-like
         deploymentName: 'lol',
         gitSha: 'a1234567',
         runtimeEnvironment: 'production',
+        tags: {},
       });
       done();
     },
@@ -335,11 +340,12 @@ test('handleLog calls sentry for errors c2) where `meta` itself is an error-like
       expect(typeof meta === 'object').toBeTruthy();
       expect(meta).toEqual({
         message,
-        stack: 'no stack available',
+        stack: 'not available',
         appID: 'my-app',
         deploymentName: 'lol',
         gitSha: 'a1234567',
         runtimeEnvironment: 'production',
+        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
       });
       done();
     },
@@ -353,7 +359,10 @@ test('handleLog calls sentry for errors c2) where `meta` itself is an error-like
     payload: {
       level: 'error',
       message,
-      meta: {message},
+      meta: {
+        message,
+        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+      },
     },
     sentryLogger: mockLogger,
     envMeta: {
@@ -419,6 +428,7 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
         runtimeEnvironment: 'production',
         deploymentName: 'lol',
         gitSha: 'a1234567',
+        tags: {},
       });
       done();
     },
@@ -445,7 +455,7 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
 });
 
 // case d (see `../server.js`)
-test('handleLog calls sentry for errorswhere `meta.error` is an error-like object in production with no stack', done => {
+test('handleLog calls sentry for errors where `meta.error` is an error-like object in production with no stack', done => {
   expect.assertions(3);
   const mockLogger = {
     log: (type, meta) => {
@@ -458,11 +468,12 @@ test('handleLog calls sentry for errorswhere `meta.error` is an error-like objec
           source: 'this: 123, that: 324',
           line: 123,
         },
-        stack: 'no stack available',
+        stack: 'not available',
         appID: 'my-app',
         runtimeEnvironment: 'production',
         deploymentName: 'lol',
         gitSha: 'a1234567',
+        tags: {},
       });
       done();
     },
