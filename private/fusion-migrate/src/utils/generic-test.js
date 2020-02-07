@@ -4,6 +4,7 @@ const path = require('path');
 
 const readFile = promisify(fs.readFile);
 
+// eslint-disable-next-line jest/no-export
 module.exports = function test(
   fixtureDir,
   pluginName,

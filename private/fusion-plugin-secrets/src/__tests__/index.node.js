@@ -13,11 +13,7 @@ test('Server Client - development', done => {
   global.__DEV__ = true;
   let app = new App('el', el => el);
   app.register(SecretsToken, SecretsPlugin);
-  try {
-    getSimulator(app);
-  } catch (e) {
-    expect(e).toBeTruthy();
-  }
+  expect(() => getSimulator(app)).toThrow();
 
   app = new App('el', el => el);
   app.register(SecretsToken, SecretsPlugin);

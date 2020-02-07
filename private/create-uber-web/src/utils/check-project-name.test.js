@@ -14,11 +14,9 @@ test('checkProjectName with numbers', async () => {
 });
 
 test('checkProjectName fails if name has staging', async () => {
-  try {
-    await checkProjectName('service-name-staging', 'root');
-  } catch (e) {
-    expect(e).toBeInstanceOf(Error);
-  }
+  await expect(
+    checkProjectName('service-name-staging', 'root')
+  ).rejects.toThrow(Error);
 });
 
 test('checkProjectName fails if name starts with a capital letter', async () => {
@@ -26,11 +24,7 @@ test('checkProjectName fails if name starts with a capital letter', async () => 
     return {value: 'Malformed-name'};
   });
   expect.assertions(1);
-  try {
-    await checkProjectName(undefined, 'root');
-  } catch (e) {
-    expect(e).toBeInstanceOf(Error);
-  }
+  await expect(checkProjectName(undefined, 'root')).rejects.toThrowError(Error);
 });
 
 test('checkProjectName fails if name contains symbols', async () => {
@@ -38,9 +32,5 @@ test('checkProjectName fails if name contains symbols', async () => {
     return {value: 'service-name!@#$'};
   });
   expect.assertions(1);
-  try {
-    await checkProjectName(undefined, 'root');
-  } catch (e) {
-    expect(e).toBeInstanceOf(Error);
-  }
+  await expect(checkProjectName(undefined, 'root')).rejects.toThrowError(Error);
 });

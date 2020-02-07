@@ -98,5 +98,8 @@
     "private/template-library",
     "private/template-website",
     "private/template-website-graphql"
-  ]
+  ],
+  "versionPolicy": {
+    "lockstep": true
+  }
 }

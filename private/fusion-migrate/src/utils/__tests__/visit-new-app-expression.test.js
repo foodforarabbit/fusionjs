@@ -37,7 +37,7 @@ test('visitNewAppExpression no match', async () => {
       }),
     };
   };
-  try {
+  expect(() =>
     transform(
       `
     import App from 'fusion-react';
@@ -46,12 +46,9 @@ test('visitNewAppExpression no match', async () => {
     App.test();
   `,
       plugin
-    );
-    throw new Error('fail');
-  } catch (e) {
-    expect(e.message).toMatch(`Could not find 'new App' expression`);
-    expect(visitCount).toEqual(0);
-  }
+    )
+  ).toThrow(`Could not find 'new App' expression`);
+  expect(visitCount).toEqual(0);
 });
 
 test('visitNewAppExpression multiple matches', async () => {
@@ -63,7 +60,7 @@ test('visitNewAppExpression multiple matches', async () => {
       }),
     };
   };
-  try {
+  expect(() =>
     transform(
       `
     import App from 'fusion-react';
@@ -74,12 +71,9 @@ test('visitNewAppExpression multiple matches', async () => {
     const otherApp = new App(<div />);
   `,
       plugin
-    );
-    throw new Error('fail');
-  } catch (e) {
-    expect(e.message).toMatch(`Found 2 'new App' expressions. Expected 1`);
-    expect(visitCount).toEqual(0);
-  }
+    )
+  ).toThrow(`Found 2 'new App' expressions. Expected 1`);
+  expect(visitCount).toEqual(0);
 });
 
 function transform(code, plugin) {

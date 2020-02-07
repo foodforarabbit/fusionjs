@@ -163,7 +163,7 @@ test('simple enhance Morpheus context', async () => {
     {enhanceContext: enhancer}
   );
 
-  await expect(client.load()); // should call getTreatmentGroupsByName
+  await expect(client.load()).resolves.not.toThrow(); // should call getTreatmentGroupsByName
 
   // Verify that the arguments passed to getTreatmentGroupsByName match the enhanced
   // context.

@@ -359,6 +359,11 @@
   resolved "https://unpm.uberinternal.com/@types%2flong/-/long-4.0.1.tgz#459c65fa1867dafe6a8f322c4c51695663cc55e9"
   integrity sha1-RZxl+hhn2v5qjzIsTFFpVmPMVek=
 
+"@types/mime-types@^2.1.0":
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/@types%2fmime-types/-/mime-types-2.1.0.tgz#9ca52cda363f699c69466c2a6ccdaad913ea7a73"
+  integrity sha1-nKUs2jY/aZxpRmwqbM2q2RPqenM=
+
 "@types/node@*":
   version "13.5.0"
   resolved "https://unpm.uberinternal.com/@types%2fnode/-/node-13.5.0.tgz#4e498dbf355795a611a87ae5ef811a8660d42662"
@@ -394,18 +399,18 @@
     "@types/yargs-parser" "*"
 
 "@typescript-eslint/experimental-utils@^2.5.0":
-  version "2.18.0"
-  resolved "https://unpm.uberinternal.com/@typescript-eslint%2fexperimental-utils/-/experimental-utils-2.18.0.tgz#e4eab839082030282496c1439bbf9fdf2a4f3da8"
-  integrity sha1-5Oq4OQggMCgklsFDm7+f3ypPPag=
+  version "2.19.0"
+  resolved "https://unpm.uberinternal.com/@typescript-eslint%2fexperimental-utils/-/experimental-utils-2.19.0.tgz#d5ca732f22c009e515ba09fcceb5f2127d841568"
+  integrity sha1-1cpzLyLACeUVugn8zrXyEn2EFWg=
   dependencies:
     "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.18.0"
+    "@typescript-eslint/typescript-estree" "2.19.0"
     eslint-scope "^5.0.0"
 
-"@typescript-eslint/typescript-estree@2.18.0":
-  version "2.18.0"
-  resolved "https://unpm.uberinternal.com/@typescript-eslint%2ftypescript-estree/-/typescript-estree-2.18.0.tgz#cfbd16ed1b111166617d718619c19b62764c8460"
-  integrity sha1-z70W7RsREWZhfXGGGcGbYnZMhGA=
+"@typescript-eslint/typescript-estree@2.19.0":
+  version "2.19.0"
+  resolved "https://unpm.uberinternal.com/@typescript-eslint%2ftypescript-estree/-/typescript-estree-2.19.0.tgz#6bd7310b9827e04756fe712909f26956aac4b196"
+  integrity sha1-a9cxC5gn4EdW/nEpCfJpVqrEsZY=
   dependencies:
     debug "^4.1.1"
     eslint-visitor-keys "^1.1.0"
@@ -482,7 +487,7 @@
     thrift "^0.9.2"
     thriftrw "^3.11.3"
 
-"@uber/atreyu@^6.3.2":
+"@uber/atreyu@^6.4.0":
   version "6.4.0"
   resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-6.4.0.tgz#865824c0e04f6a14bfc35e9d183bd62491d51e52"
   integrity sha512-Tf3PSgEd7OwtxjwY5oM5wNOgy2RmCDQ+htVhXOAlOUY0iiVRe1tqLAqQgoOsG6RMNYQtkOixrApwh5KHiHECfg==
@@ -505,7 +510,7 @@
     dottie "^2.0.1"
     just-extend "^4.0.2"
 
-"@uber/icons@^1.0.30":
+"@uber/icons@^1.0.33":
   version "1.0.33"
   resolved "https://unpm.uberinternal.com/%40uber%2Ficons/-/private/%40uber%2Ficons-1.0.33.tgz#f07fd61c2e15cf5561618546cd7b9ede341e42ac"
   integrity sha512-DtsUZi8SmTh3Oqh0/tCaVr1E9cNeQhT7nkWcHJ5KekFmtO1HWcbVZmvsOjYWsM7LhltEOOHUfzd+PqU2gFt7jw==
@@ -623,12 +628,10 @@ acorn@^7.1.0:
   resolved "https://unpm.uberinternal.com/acorn/-/acorn-7.1.0.tgz#949d36f2c292535da602283586c2477c57eb2d6c"
   integrity sha1-lJ028sKSU12mAig1hsJHfFfrLWw=
 
-agent-base@^4.3.0:
-  version "4.3.0"
-  resolved "https://unpm.uberinternal.com/agent-base/-/agent-base-4.3.0.tgz#8165f01c436009bccad0b1d122f05ed770efc6ee"
-  integrity sha1-gWXwHENgCbzK0LHRIvBe13Dvxu4=
-  dependencies:
-    es6-promisify "^5.0.0"
+agent-base@5:
+  version "5.1.1"
+  resolved "https://unpm.uberinternal.com/agent-base/-/agent-base-5.1.1.tgz#e8fb3f242959db44d63be665db7a8e739537a32c"
+  integrity sha1-6Ps/JClZ20TWO+Zl23qOc5U3oyw=
 
 airbnb-prop-types@^2.15.0:
   version "2.15.0"
@@ -968,13 +971,14 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-baseui@^9.18.0:
-  version "9.44.2"
-  resolved "https://unpm.uberinternal.com/baseui/-/baseui-9.44.2.tgz#854c92925f474dac1d941b6d5badb48dfa56f1f7"
-  integrity sha1-hUySkl9HTawdlBttW620jfpW8fc=
+baseui@^9.51.0:
+  version "9.51.0"
+  resolved "https://unpm.uberinternal.com/baseui/-/baseui-9.51.0.tgz#da69979d15611a71e4a294d3b30dc15ce341f83f"
+  integrity sha1-2mmXnRVhGnHkopTTsw3BXONB+D8=
   dependencies:
     card-validator "^6.2.0"
     date-fns "^2.6.0"
+    glob "^7.1.6"
     just-extend "^4.0.2"
     memoize-one "^5.1.1"
     polished "^3.2.0"
@@ -985,7 +989,7 @@ baseui@^9.18.0:
     react-is "^16.8.6"
     react-movable "^2.4.0"
     react-multi-ref "^1.0.0"
-    react-range "^1.4.8"
+    react-range "^1.5.1"
     react-virtualized "^9.21.1"
     react-virtualized-auto-sizer "^1.0.2"
     react-window "^1.8.5"
@@ -1459,17 +1463,17 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@^3.1.0, debug@^3.2.6:
-  version "3.2.6"
-  resolved "https://unpm.uberinternal.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
-  integrity sha1-6D0X3hbYp++3cX7b5fsQE17uYps=
-  dependencies:
-    ms "^2.1.1"
-
-debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
+debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   version "4.1.1"
   resolved "https://unpm.uberinternal.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   integrity sha1-O3ImAlUQnGtYnO4FDx1RYTlmR5E=
+  dependencies:
+    ms "^2.1.1"
+
+debug@^3.2.6:
+  version "3.2.6"
+  resolved "https://unpm.uberinternal.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
+  integrity sha1-6D0X3hbYp++3cX7b5fsQE17uYps=
   dependencies:
     ms "^2.1.1"
 
@@ -1716,7 +1720,7 @@ entities@^2.0.0:
   resolved "https://unpm.uberinternal.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
   integrity sha1-aNYITKsbB5dnVA2A5Wo5tCPkq/Q=
 
-enzyme-adapter-react-16@^1.15.1:
+enzyme-adapter-react-16@^1.15.2:
   version "1.15.2"
   resolved "https://unpm.uberinternal.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.2.tgz#b16db2f0ea424d58a808f9df86ab6212895a4501"
   integrity sha1-sW2y8OpCTVioCPnfhqtiEolaRQE=
@@ -1751,7 +1755,7 @@ enzyme-shallow-equal@^1.0.1:
     has "^1.0.3"
     object-is "^1.0.2"
 
-enzyme@^3.10.0:
+enzyme@^3.11.0:
   version "3.11.0"
   resolved "https://unpm.uberinternal.com/enzyme/-/enzyme-3.11.0.tgz#71d680c580fe9349f6f5ac6c775bc3e6b7a79c28"
   integrity sha1-cdaAxYD+k0n29axsd1vD5rennCg=
@@ -1827,27 +1831,15 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-es6-promise@^4.0.3:
-  version "4.2.8"
-  resolved "https://unpm.uberinternal.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
-  integrity sha1-TrIVlMlyvEBVPSduUQU5FD21Pgo=
-
-es6-promisify@^5.0.0:
-  version "5.0.0"
-  resolved "https://unpm.uberinternal.com/es6-promisify/-/es6-promisify-5.0.0.tgz#5109d62f3e56ea967c4b63505aef08291c8a5203"
-  integrity sha1-UQnWLz5W6pZ8S2NQWu8IKRyKUgM=
-  dependencies:
-    es6-promise "^4.0.3"
-
 escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://unpm.uberinternal.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
 escodegen@^1.9.1:
-  version "1.13.0"
-  resolved "https://unpm.uberinternal.com/escodegen/-/escodegen-1.13.0.tgz#c7adf9bd3f3cc675bb752f202f79a720189cab29"
-  integrity sha1-x635vT88xnW7dS8gL3mnIBicqyk=
+  version "1.14.1"
+  resolved "https://unpm.uberinternal.com/escodegen/-/escodegen-1.14.1.tgz#ba01d0c8278b5e95a9a45350142026659027a457"
+  integrity sha1-ugHQyCeLXpWppFNQFCAmZZAnpFc=
   dependencies:
     esprima "^4.0.1"
     estraverse "^4.2.0"
@@ -1891,17 +1883,17 @@ eslint-plugin-cup@^2.0.2:
   dependencies:
     globals "^11.5.0"
 
-eslint-plugin-flowtype@^4.4.1:
+eslint-plugin-flowtype@^4.6.0:
   version "4.6.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-4.6.0.tgz#82b2bd6f21770e0e5deede0228e456cb35308451"
   integrity sha1-grK9byF3Dg5d7t4CKORWyzUwhFE=
   dependencies:
     lodash "^4.17.15"
 
-eslint-plugin-import@^2.18.2:
-  version "2.20.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-import/-/eslint-plugin-import-2.20.0.tgz#d749a7263fb6c29980def8e960d380a6aa6aecaa"
-  integrity sha1-10mnJj+2wpmA3vjpYNOApqpq7Ko=
+eslint-plugin-import@^2.20.1:
+  version "2.20.1"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-import/-/eslint-plugin-import-2.20.1.tgz#802423196dcb11d9ce8435a5fc02a6d3b46939b3"
+  integrity sha1-gCQjGW3LEdnOhDWl/AKm07RpObM=
   dependencies:
     array-includes "^3.0.3"
     array.prototype.flat "^1.2.1"
@@ -1916,7 +1908,7 @@ eslint-plugin-import@^2.18.2:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-jest@^23.0.4:
+eslint-plugin-jest@^23.6.0:
   version "23.6.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-23.6.0.tgz#508b32f80d44058c8c01257c0ee718cfbd521e9d"
   integrity sha1-UIsy+A1EBYyMASV8DucYz71SHp0=
@@ -1924,22 +1916,22 @@ eslint-plugin-jest@^23.0.4:
     "@typescript-eslint/experimental-utils" "^2.5.0"
     micromatch "^4.0.2"
 
-eslint-plugin-prettier@^3.1.1:
+eslint-plugin-prettier@^3.1.2:
   version "3.1.2"
   resolved "https://unpm.uberinternal.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.1.2.tgz#432e5a667666ab84ce72f945c72f77d996a5c9ba"
   integrity sha1-Qy5aZnZmq4TOcvlFxy932Zalybo=
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@^2.2.0:
+eslint-plugin-react-hooks@^2.3.0:
   version "2.3.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.3.0.tgz#53e073961f1f5ccf8dd19558036c1fac8c29d99a"
   integrity sha1-U+Bzlh8fXM+N0ZVYA2wfrIwp2Zo=
 
-eslint-plugin-react@^7.16.0:
-  version "7.18.0"
-  resolved "https://unpm.uberinternal.com/eslint-plugin-react/-/eslint-plugin-react-7.18.0.tgz#2317831284d005b30aff8afb7c4e906f13fa8e7e"
-  integrity sha1-IxeDEoTQBbMK/4r7fE6QbxP6jn4=
+eslint-plugin-react@^7.18.3:
+  version "7.18.3"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-react/-/eslint-plugin-react-7.18.3.tgz#8be671b7f6be095098e79d27ac32f9580f599bc8"
+  integrity sha1-i+Zxt/a+CVCY550nrDL5WA9Zm8g=
   dependencies:
     array-includes "^3.1.1"
     doctrine "^2.1.0"
@@ -1950,6 +1942,7 @@ eslint-plugin-react@^7.16.0:
     object.values "^1.1.1"
     prop-types "^15.7.2"
     resolve "^1.14.2"
+    string.prototype.matchall "^4.0.2"
 
 eslint-rule-composer@^0.3.0:
   version "0.3.0"
@@ -1976,7 +1969,7 @@ eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0:
   resolved "https://unpm.uberinternal.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
   integrity sha1-4qgs6oT/JGrW+1f5veW0ZiFFnsI=
 
-eslint@^6.6.0:
+eslint@^6.8.0:
   version "6.8.0"
   resolved "https://unpm.uberinternal.com/eslint/-/eslint-6.8.0.tgz#62262d6729739f9275723824302fb227c8c93ffb"
   integrity sha1-YiYtZylzn5J1cjgkMC+yJ8jJP/s=
@@ -2689,13 +2682,13 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-https-proxy-agent@^3.0.0:
-  version "3.0.1"
-  resolved "https://unpm.uberinternal.com/https-proxy-agent/-/https-proxy-agent-3.0.1.tgz#b8c286433e87602311b01c8ea34413d856a4af81"
-  integrity sha1-uMKGQz6HYCMRsByOo0QT2Fakr4E=
+https-proxy-agent@^4.0.0:
+  version "4.0.0"
+  resolved "https://unpm.uberinternal.com/https-proxy-agent/-/https-proxy-agent-4.0.0.tgz#702b71fb5520a132a66de1f67541d9e62154d82b"
+  integrity sha1-cCtx+1UgoTKmbeH2dUHZ5iFU2Cs=
   dependencies:
-    agent-base "^4.3.0"
-    debug "^3.1.0"
+    agent-base "5"
+    debug "4"
 
 hyphenate-style-name@^1.0.2:
   version "1.0.3"
@@ -2804,9 +2797,9 @@ inquirer@^6.2.1:
     through "^2.3.6"
 
 inquirer@^7.0.0:
-  version "7.0.3"
-  resolved "https://unpm.uberinternal.com/inquirer/-/inquirer-7.0.3.tgz#f9b4cd2dff58b9f73e8d43759436ace15bed4567"
-  integrity sha1-+bTNLf9Yufc+jUN1lDas4VvtRWc=
+  version "7.0.4"
+  resolved "https://unpm.uberinternal.com/inquirer/-/inquirer-7.0.4.tgz#99af5bde47153abca23f5c7fc30db247f39da703"
+  integrity sha1-ma9b3kcVOryiP1x/ww2yR/OdpwM=
   dependencies:
     ansi-escapes "^4.2.1"
     chalk "^2.4.2"
@@ -2821,6 +2814,15 @@ inquirer@^7.0.0:
     string-width "^4.1.0"
     strip-ansi "^5.1.0"
     through "^2.3.6"
+
+internal-slot@^1.0.2:
+  version "1.0.2"
+  resolved "https://unpm.uberinternal.com/internal-slot/-/internal-slot-1.0.2.tgz#9c2e9fb3cd8e5e4256c6f45fe310067fcfa378a3"
+  integrity sha1-nC6fs82OXkJWxvRf4xAGf8+jeKM=
+  dependencies:
+    es-abstract "^1.17.0-next.1"
+    has "^1.0.3"
+    side-channel "^1.0.2"
 
 invariant@^2.2.4:
   version "2.2.4"
@@ -3641,7 +3643,7 @@ mime-db@1.43.0:
   resolved "https://unpm.uberinternal.com/mime-db/-/mime-db-1.43.0.tgz#0a12e0502650e473d735535050e7c8f4eb4fae58"
   integrity sha1-ChLgUCZQ5HPXNVNQUOfI9OtPrlg=
 
-mime-types@^2.1.12, mime-types@~2.1.19:
+mime-types@^2.1.12, mime-types@^2.1.25, mime-types@~2.1.19:
   version "2.1.26"
   resolved "https://unpm.uberinternal.com/mime-types/-/mime-types-2.1.26.tgz#9c921fc09b7e149a65dfdc0da4d20997200b0a06"
   integrity sha1-nJIfwJt+FJpl39wNpNIJlyALCgY=
@@ -4368,7 +4370,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^1.14.2, prettier@^1.15.3, prettier@^1.18.2:
+prettier@^1.14.2, prettier@^1.15.3, prettier@^1.19.1:
   version "1.19.1"
   resolved "https://unpm.uberinternal.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha1-99f1/4qc2HKnvkyhQglZVqYHl8s=
@@ -4481,15 +4483,17 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://unpm.uberinternal.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha1-tYsBCsQMIsVldhbI0sLALHv0eew=
 
-puppeteer@^2.0.0:
-  version "2.0.0"
-  resolved "https://unpm.uberinternal.com/puppeteer/-/puppeteer-2.0.0.tgz#0612992e29ec418e0a62c8bebe61af1a64d7ec01"
-  integrity sha1-BhKZLinsQY4KYsi+vmGvGmTX7AE=
+puppeteer@^2.1.1:
+  version "2.1.1"
+  resolved "https://unpm.uberinternal.com/puppeteer/-/puppeteer-2.1.1.tgz#ccde47c2a688f131883b50f2d697bd25189da27e"
+  integrity sha1-zN5HwqaI8TGIO1Dy1pe9JRidon4=
   dependencies:
+    "@types/mime-types" "^2.1.0"
     debug "^4.1.0"
     extract-zip "^1.6.6"
-    https-proxy-agent "^3.0.0"
+    https-proxy-agent "^4.0.0"
     mime "^2.0.3"
+    mime-types "^2.1.25"
     progress "^2.0.1"
     proxy-from-env "^1.0.0"
     rimraf "^2.6.1"
@@ -4627,10 +4631,10 @@ react-multi-ref@^1.0.0:
   dependencies:
     "@babel/runtime" "^7.1.2"
 
-react-range@^1.4.8:
-  version "1.5.1"
-  resolved "https://unpm.uberinternal.com/react-range/-/react-range-1.5.1.tgz#161075cbfd37186f8336ab37a0ed0d7cf72dd1c6"
-  integrity sha1-FhB1y/03GG+DNqs3oO0NfPct0cY=
+react-range@^1.5.1:
+  version "1.5.3"
+  resolved "https://unpm.uberinternal.com/react-range/-/react-range-1.5.3.tgz#8f50fb810771bbeb39051148f29979ef463d3941"
+  integrity sha1-j1D7gQdxu+s5BRFI8pl570Y9OUE=
 
 react-redux@^7.1.0:
   version "7.1.3"
@@ -4779,7 +4783,7 @@ reduce-object@^0.1.3:
   dependencies:
     for-own "^0.1.1"
 
-redux@^4.0.4:
+redux@^4.0.5:
   version "4.0.5"
   resolved "https://unpm.uberinternal.com/redux/-/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
   integrity sha1-TbXeWBbheJHeioDEJCMtBvBR2T8=
@@ -4814,6 +4818,14 @@ regex-not@^1.0.0, regex-not@^1.0.2:
   dependencies:
     extend-shallow "^3.0.2"
     safe-regex "^1.1.0"
+
+regexp.prototype.flags@^1.3.0:
+  version "1.3.0"
+  resolved "https://unpm.uberinternal.com/regexp.prototype.flags/-/regexp.prototype.flags-1.3.0.tgz#7aba89b3c13a64509dabcf3ca8d9fbb9bdf5cb75"
+  integrity sha1-erqJs8E6ZFCdq888qNn7ub31y3U=
+  dependencies:
+    define-properties "^1.1.3"
+    es-abstract "^1.17.0-next.1"
 
 regexpp@^2.0.1:
   version "2.0.1"
@@ -5160,6 +5172,14 @@ shimmer@^1.1.0:
   resolved "https://unpm.uberinternal.com/shimmer/-/shimmer-1.2.1.tgz#610859f7de327b587efebf501fb43117f9aff337"
   integrity sha1-YQhZ994ye1h+/r9QH7QxF/mv8zc=
 
+side-channel@^1.0.2:
+  version "1.0.2"
+  resolved "https://unpm.uberinternal.com/side-channel/-/side-channel-1.0.2.tgz#df5d1abadb4e4bf4af1cd8852bf132d2f7876947"
+  integrity sha1-310auttOS/SvHNiFK/Ey0veHaUc=
+  dependencies:
+    es-abstract "^1.17.0-next.1"
+    object-inspect "^1.7.0"
+
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://unpm.uberinternal.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -5380,6 +5400,18 @@ string-width@^4.1.0:
     emoji-regex "^8.0.0"
     is-fullwidth-code-point "^3.0.0"
     strip-ansi "^6.0.0"
+
+string.prototype.matchall@^4.0.2:
+  version "4.0.2"
+  resolved "https://unpm.uberinternal.com/string.prototype.matchall/-/string.prototype.matchall-4.0.2.tgz#48bb510326fb9fdeb6a33ceaa81a6ea04ef7648e"
+  integrity sha1-SLtRAyb7n962ozzqqBpuoE73ZI4=
+  dependencies:
+    define-properties "^1.1.3"
+    es-abstract "^1.17.0"
+    has-symbols "^1.0.1"
+    internal-slot "^1.0.2"
+    regexp.prototype.flags "^1.3.0"
+    side-channel "^1.0.2"
 
 string.prototype.trim@^1.2.1:
   version "1.2.1"

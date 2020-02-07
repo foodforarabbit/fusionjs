@@ -96,7 +96,7 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@dubstep/core@^3.3.1":
+"@dubstep/core@^3.5.2":
   version "3.5.2"
   resolved "https://unpm.uberinternal.com/@dubstep%2fcore/-/core-3.5.2.tgz#260fbe32d7deac3dcf7a05c49c9524ab035ec354"
   integrity sha1-Jg++MtferD3PegXEnJUkqwNew1Q=

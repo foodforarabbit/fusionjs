@@ -215,7 +215,9 @@ test('fusion flags codemod w/ malformed main.js', async () => {
   await writeFile(`${root}/package.json`, '{"name": "foo"}');
   await writeFile(fixture, contents);
 
-  await expect(installFeatureToggles({dir: root, strategy: 'latest'}));
+  await expect(
+    installFeatureToggles({dir: root, strategy: 'latest'})
+  ).resolves.not.toThrow();
   expect(await readFile(fixture)).toEqual(contents);
   await removeFile(root);
 });
