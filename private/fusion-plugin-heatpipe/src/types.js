@@ -38,3 +38,7 @@ export type HeatpipePluginType = FusionPlugin<
   HeatpipePluginDepsType,
   HeatpipePluginServiceType
 >;
+
+export type HeatpipeConfigType = {|
+  ignoreUniversalEvents?: boolean,
+|};

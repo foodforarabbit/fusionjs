@@ -4,6 +4,7 @@ import {createPlugin} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 import heatpipePublish from '@uber/heatpipe';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+import {HeatpipeConfigToken} from './tokens';
 
 import type {
   EventPayload,
@@ -19,13 +20,16 @@ const plugin =
     deps: {
       events: UniversalEventsToken,
       Logger: LoggerToken,
+      config: HeatpipeConfigToken.optional,
     },
-    provides({events, Logger}) {
+    provides({events, Logger, config}) {
       const appId = process.env.SVC_ID || 'dev-service';
 
-      events.on<EventPayload>('heatpipe:publish', ({topicInfo, message}) => {
-        asyncPublish(topicInfo, message);
-      });
+      if (!config || !config.ignoreUniversalEvents) {
+        events.on<EventPayload>('heatpipe:publish', ({topicInfo, message}) => {
+          asyncPublish(topicInfo, message);
+        });
+      }
 
       function noopPublish(topicInfo: TopicInfoType, message: MessageType) {
         return Promise.resolve();
