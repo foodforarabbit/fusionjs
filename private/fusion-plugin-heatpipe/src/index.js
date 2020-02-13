@@ -5,4 +5,4 @@ import browser from './browser';
 
 declare var __NODE__: Boolean;
 export default __NODE__ ? server : browser;
-export {HeatpipeToken} from './tokens';
+export {HeatpipeToken, HeatpipeConfigToken} from './tokens';
