@@ -1,7 +1,7 @@
 // @flow
 import App from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
-// import {M3Token} from '@uber/fusion-plugin-m3';
+import {M3Token} from '@uber/fusion-plugin-m3';
 import {getSimulator} from 'fusion-test-utils';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {spy} from 'sinon';
@@ -25,6 +25,8 @@ test('supports all logger methods in production', () => {
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
   const sim = getSimulator(app);
   const logger = sim.getService(LoggerToken);
   expect.assertions(4 * (supportedLevels.length + 1) + 1);
@@ -84,6 +86,8 @@ test('supports all logger methods in development', () => {
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, 'dev');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
   const sim = getSimulator(app);
   const logger = sim.getService(LoggerToken);
   expect.assertions(2 * (supportedLevels.length + 1));
@@ -125,6 +129,8 @@ test('handleLog recognizes meta objects sent as messages in production', () => {
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
   const sim = getSimulator(app);
   const logger = sim.getService(LoggerToken);
   expect.assertions(2 * (supportedLevels.length + 1));
@@ -176,6 +182,8 @@ test('logs partial data when level is valid but arguments incomplete in producti
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
   app.middleware({logger: LoggerToken}, ({logger}) => {
     expect.assertions(2 * (supportedLevels.length + 1));
     const message = '123';
@@ -530,4 +538,68 @@ test('warns if handleLog called with invalid method in production', () => {
 
   expect(consoleSpy.calledWithMatch(unsupportedMethodWarning)).toBeTruthy();
   consoleSpy.restore();
+});
+
+test('logs to M3 in production', () => {
+  const emitter = new TestEmitter();
+  const mockM3 = {
+    increment() {
+      return true;
+    },
+  };
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, mockM3);
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect.assertions(supportedLevels.length);
+  const message = {a: {b: {c: 3}}};
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    const consoleSpy = spy(mockM3, 'increment');
+    // $FlowFixMe - Logger has methods that the LoggerToken does not.
+    logger[fn](message, {a: {b: {c: 3}}}, () => {});
+    expect(
+      consoleSpy.calledWithMatch('fusion-logger', {level: fn})
+    ).toBeTruthy();
+    consoleSpy.restore();
+  });
+});
+
+test('does not log to M3 in development', () => {
+  const emitter = new TestEmitter();
+  const mockM3 = {
+    increment() {
+      return true;
+    },
+  };
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'development');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, mockM3);
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect.assertions(supportedLevels.length);
+  const message = {a: {b: {c: 3}}};
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    const consoleSpy = spy(mockM3, 'increment');
+    // $FlowFixMe - Logger has methods that the LoggerToken does not.
+    logger[fn](message, {a: {b: {c: 3}}}, () => {});
+    expect(consoleSpy.notCalled).toBeTruthy();
+    consoleSpy.restore();
+  });
 });

@@ -1,5 +1,6 @@
 // @flow
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
+import type {M3Type} from '@uber/fusion-plugin-m3';
 import type {Logger} from 'winston';
 
 type ExtractReturnType = <V>(() => V) => V;
@@ -55,5 +56,6 @@ export type ErrorLogOptionsType = {
     appID: ?string,
   },
   sentryLogger: ?Logger<{[string]: number}>,
+  m3?: M3Type,
   team?: string,
 };

@@ -1,5 +1,6 @@
 // @flow
 import {createPlugin} from 'fusion-core';
+import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {supportedLevels} from './constants';
 
@@ -12,8 +13,9 @@ const plugin =
   createPlugin({
     deps: {
       events: UniversalEventsToken,
+      m3: M3Token,
     },
-    provides: ({events}) => {
+    provides: ({events, m3}) => {
       class UniversalLogger {
         emitter: IEmitter;
 

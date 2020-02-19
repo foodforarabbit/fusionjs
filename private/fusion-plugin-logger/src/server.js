@@ -1,6 +1,7 @@
 // @flow
 /* eslint-env node */
 import {createPlugin} from 'fusion-core';
+import {M3Token} from '@uber/fusion-plugin-m3';
 import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
 import type {
@@ -29,16 +30,19 @@ const levelMap: LevelMapType = {
   fatal: 'fatal',
 };
 
+const m3Topic = 'fusion-logger';
+
 const plugin =
   __NODE__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
+      m3: M3Token,
       errorTracker: ErrorTrackingToken.optional,
       team: TeamToken,
       envOverride: EnvOverrideToken.optional,
     },
-    provides: ({events, errorTracker, team, envOverride}) => {
+    provides: ({events, m3, errorTracker, team, envOverride}) => {
       const env =
         envOverride ||
         (__DEV__
@@ -91,6 +95,7 @@ const plugin =
           payload,
           sentryLogger,
           envMeta,
+          m3,
         });
       });
 
@@ -99,7 +104,7 @@ const plugin =
   });
 
 export const handleLog = async (options: ErrorLogOptionsType) => {
-  const {transformError, payload, envMeta, sentryLogger} = options;
+  const {transformError, payload, envMeta, sentryLogger, m3} = options;
 
   let {level, message, meta, callback} = payload;
 
@@ -112,13 +117,17 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
       message = '';
     }
 
+    // stdout -> kafka
     console.log(
       formatStdout({level, message, meta}, envMeta.runtimeEnvironment)
     );
 
-    // also log to healthline (via sentry) for errors
-    // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
-    if (sentryLogger && envMeta.runtimeEnvironment === 'production') {
+    if (envMeta.runtimeEnvironment === 'production') {
+      const tags = (meta && meta.tags) || {};
+      m3 && m3.increment(m3Topic, {level, ...tags});
+
+      // also log to healthline (via sentry) for errors
+      // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
       if (level === 'error' && sentryLogger && meta) {
         /*
          * four supported formats for meta argument
@@ -160,7 +169,7 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
         // No idea why Flow takes issue with this call. See https://github.com/winstonjs/winston/blob/master/lib/winston/logger.js#L201
         // $FlowFixMe
         sentryLogger.log('error', {
-          tags: meta.tags || {},
+          tags,
           ...formattedMeta,
           ...envMeta,
         });

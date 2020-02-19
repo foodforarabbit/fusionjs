@@ -23,11 +23,13 @@
     "airlock": "2.3.0"
   },
   "peerDependencies": {
+    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo"
   },
   "devDependencies": {
+    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "babel-eslint": "^10.0.3",
     "create-universal-package": "^4.1.0",
     "eslint": "^6.8.0",
