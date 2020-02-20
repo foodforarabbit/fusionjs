@@ -5,222 +5,601 @@ import {M3Token} from '@uber/fusion-plugin-m3';
 import {getSimulator} from 'fusion-test-utils';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {spy} from 'sinon';
+
+import type {PayloadMetaType} from '../src/types';
 import Plugin, {handleLog} from '../src/server';
-import {TeamToken} from '../src/tokens';
+import {TeamToken, EnvOverrideToken} from '../src/tokens';
 import {supportedLevels} from '../src/constants';
+import createErrorTransform from '../src/utils/create-error-transform';
+import {prettify} from '../src/utils/format-stdout';
 import TestEmitter from './test-emitter';
 
-import type {Logger as LoggerType} from 'fusion-tokens';
+const transformError = createErrorTransform(); // ignore source maps
 
-test('test all methods exist for server', done => {
+test('supports all logger methods in production', () => {
   const emitter = new TestEmitter();
+
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
-  // $FlowFixMe
-  app.register(M3Token, {});
-  // $FlowFixMe
+  // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect.assertions(4 * (supportedLevels.length + 1) + 1);
+  const message = 'this is a message';
+  // $FlowFixMe - Logger has methods that the LoggerToken does not.
+  const child = logger.createChild('test-child');
+
+  let formatPattern;
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    // $FlowFixMe - Logger has methods that the LoggerToken does not.
+    expect(typeof logger[fn]).toBe('function');
+    expect(typeof child[fn]).toBe('function');
+    const consoleSpy = spy(console, 'log');
+    expect(
+      // $FlowFixMe - Logger has methods that the LoggerToken does not.
+      () => logger[fn](message, {a: {b: {c: 3}}}, () => {})
+    ).not.toThrow();
+
+    formatPattern = new RegExp(
+      `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
+    ); // based on `utils/format-stdout.js`
+
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+    consoleSpy.restore();
+  });
+
+  // `log` method
+  expect(typeof logger.log).toBe('function');
+  expect(typeof child.log).toBe('function');
+  const consoleSpy = spy(console, 'log');
+  expect(() =>
+    logger.log('info', message, {a: {b: {c: 3}}}, () => {})
+  ).not.toThrow();
+
+  formatPattern = new RegExp(
+    `\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
+  ); // based on `utils/format-stdout.js`
+
+  expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+  consoleSpy.restore();
+
+  // unsupported method
+  expect(() =>
+    // $FlowFixMe - LoggerToken does not support unavaialable method `lol`
+    logger.lol(message, {a: {b: {c: 3}}}, () => {})
+  ).toThrow();
+});
+
+test('supports all logger methods in development', () => {
+  const emitter = new TestEmitter();
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'dev');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect.assertions(2 * (supportedLevels.length + 1));
+  const message = 'this is a message';
+  const meta = {a: {aa: {aaa: 3}}, b: 5, c: 'hi'};
+
+  let formatPattern;
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    const consoleSpy = spy(console, 'log');
+    expect(
+      // $FlowFixMe - Logger has methods that the LoggerToken does not.
+      () => logger[fn](message, meta, () => {})
+    ).not.toThrow();
+
+    formatPattern = new RegExp(`${fn}\\:?.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
+
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+    consoleSpy.restore();
+  });
+
+  // `log` method
+  const consoleSpy = spy(console, 'log');
+  expect(() => logger.log('info', message, meta, () => {})).not.toThrow();
+
+  formatPattern = new RegExp(`info\\:.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
+
+  expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+  consoleSpy.restore();
+});
+
+test('handleLog recognizes meta objects sent as messages in production', () => {
+  const emitter = new TestEmitter();
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect.assertions(2 * (supportedLevels.length + 1));
+  const message = {a: {b: {c: 3}}};
+
+  let formatPattern;
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    const consoleSpy = spy(console, 'log');
+    expect(
+      // $FlowFixMe - Logger has methods that the LoggerToken does not.
+      () => logger[fn](message, {a: {b: {c: 3}}}, () => {})
+    ).not.toThrow();
+
+    formatPattern = new RegExp(
+      `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"\\".*\\"fields\\"\\:${JSON.stringify(
+        message
+      )}`
+    ); // based on `utils/format-stdout.js`
+
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+    consoleSpy.restore();
+  });
+
+  // `log` method
+  const consoleSpy = spy(console, 'log');
+  expect(
+    // $FlowFixMe - message argument intentionally misused.
+    () => logger.log('info', message, '', () => {})
+  ).not.toThrow();
+
+  formatPattern = new RegExp(
+    `\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"\\".*\\"fields\\"\\:${JSON.stringify(
+      message
+    )}`
+  ); // based on `utils/format-stdout.js`
+
+  expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+  consoleSpy.restore();
+});
+
+test('logs partial data when level is valid but arguments incomplete in production', done => {
+  const emitter = new TestEmitter();
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
   app.middleware({logger: LoggerToken}, ({logger}) => {
-    // Logtron has some additional logging methods not present in the LoggerToken interface such as createChild, trace, access, and fatal.
-    // We keep these around for compatiblity with libraries and existing code.
-    // $FlowFixMe
-    const child = logger.createChild('test-child');
-    supportedLevels.concat(['log']).forEach(fn => {
-      // $FlowFixMe
-      expect(typeof logger[fn]).toBe('function');
-      // $FlowFixMe
-      expect(typeof child[fn]).toBe('function');
+    expect.assertions(2 * (supportedLevels.length + 1));
+    const message = '123';
+
+    let formatPattern;
+
+    // Supported level methods
+    supportedLevels.forEach(fn => {
+      const consoleSpy = spy(console, 'log');
+      expect(
+        // $FlowFixMe - Logger has methods that the LoggerToken does not.
+        () => logger[fn](message)
+      ).not.toThrow();
+
+      formatPattern = new RegExp(
+        `^(?!.*fields.*).*\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*$`
+      ); // based on `utils/format-stdout.js`
+
+      expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+      consoleSpy.restore();
     });
+
+    // `log` method
+    const consoleSpy = spy(console, 'log');
+    expect(() => logger.log('info', message)).not.toThrow();
+
+    formatPattern = new RegExp(
+      `^(?!.*fields.*).*\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"${message}\\".*$`
+    ); // based on `utils/format-stdout.js`
+
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+    consoleSpy.restore();
+
     done();
     return (ctx, next) => next();
   });
   getSimulator(app);
 });
 
-test('server plugin basic creation', done => {
-  const emitter = new TestEmitter();
-  const app = new App('el', el => el);
-  app.register(LoggerToken, Plugin);
-  // $FlowFixMe
-  app.register(M3Token, {});
-  // $FlowFixMe
-  app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
-  app.middleware({logger: LoggerToken}, ({logger}) => {
-    expect(typeof logger.info).toBe('function');
-    expect(() => logger.info('hello world', {some: 'data'})).not.toThrow();
-    done();
-    return (ctx, next) => next();
-  });
-  getSimulator(app);
-});
+// case a (see `../server.js`)
+test('handleLog calls sentry for errors d) where `meta` itself is a real error in production', done => {
+  expect.assertions(3);
 
-test('server test handleLog with valid payload', () => {
-  const loggerMock = {
-    error: spy(),
-  };
+  const message = 'all gone wrong';
+  const error = new Error(message);
 
-  // $FlowFixMe - missing logger methods in mock
-  handleLog(loggerMock, function() {}, {
-    level: 'error',
-    message: 'hello world',
-  });
-  expect(loggerMock.error.called).toBeTruthy();
-});
-
-test('server test handleLog with invalid payload', () => {
-  // $FlowFixMe - missing logger methods in mock
-  const loggerMock: LoggerType = {
-    error: spy(),
-  };
-
-  handleLog(
-    loggerMock,
-    function() {
-      return {};
+  const mockLogger = {
+    log: (type, meta: PayloadMetaType) => {
+      expect(type === 'error').toBeTruthy();
+      expect(meta).toEqual(
+        expect.objectContaining({
+          message: error.message,
+          appID: 'my-app',
+          deploymentName: 'lol',
+          gitSha: 'a1234567',
+          runtimeEnvironment: 'production',
+          tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+        })
+      );
+      expect(typeof meta.stack == 'string').toBeTruthy(); // can't test exact match for stack
+      done();
     },
-    {message: '', level: '', meta: {}}
-  );
-  // $FlowFixMe - called is only used for testing
-  expect(loggerMock.error.called).toBeTruthy();
-});
-
-test('server test handleLog object message', () => {
-  const loggerMock = {
-    error: spy(),
-    info: spy(),
-  };
-  const message = {
-    test: 'test',
   };
 
   // $FlowFixMe - missing logger methods in mock
-  handleLog(loggerMock, function() {}, {
-    level: 'info',
-    message,
-  });
-  expect(loggerMock.error.called).toBeFalsy();
-  expect(loggerMock.info.called).toBeTruthy();
-  expect(loggerMock.info.getCall(0).args[0]).toBe('');
-  expect(loggerMock.info.getCall(0).args[1]).toBe(message);
-});
-
-test('server test handleLog with object message and meta', () => {
-  const loggerMock = {
-    error: spy(),
-    info: spy(),
-  };
-  const message = {
-    test: 'test',
-  };
-  const meta = {
-    a: 'b',
-  };
-
-  // $FlowFixMe - missing logger methods in mock
-  handleLog(loggerMock, function() {}, {
-    level: 'info',
-    message,
-    meta,
-  });
-  expect(loggerMock.error.called).toBeFalsy();
-  expect(loggerMock.info.called).toBeTruthy();
-  expect(loggerMock.info.getCall(0).args[0]).toBe('');
-  expect(loggerMock.info.getCall(0).args[1]).toBe(meta);
-});
-
-test('server test handleLog with null message and object meta', () => {
-  const loggerMock = {
-    error: spy(),
-    info: spy(),
-  };
-  const message = null;
-  const meta = {
-    a: 'b',
-  };
-
-  // $FlowFixMe - missing logger methods in mock
-  handleLog(loggerMock, function() {}, {
-    level: 'info',
-    message,
-    meta,
-  });
-  expect(loggerMock.error.called).toBeFalsy();
-  expect(loggerMock.info.called).toBeTruthy();
-  expect(loggerMock.info.getCall(0).args[0]).toBe('');
-  expect(loggerMock.info.getCall(0).args[1]).toBe(meta);
-});
-
-test('server test handleLog with invalid level', () => {
-  const loggerMock = {
-    error: spy(),
-    info: spy(),
-  };
-  const message = 'test';
-  const meta = {
-    a: 'b',
-  };
-
-  // $FlowFixMe - missing logger methods in mock
-  handleLog(loggerMock, function() {}, {
-    level: 'invalid',
-    message,
-    meta,
-  });
-  expect(loggerMock.error.called).toBeTruthy();
-  expect(loggerMock.info.called).toBeFalsy();
-});
-
-test('server test handleLog with error set in meta', async () => {
-  const loggerMock = {
-    error: spy(),
-  };
-
-  await handleLog(
-    // $FlowFixMe
-    loggerMock,
-    function() {
-      return Promise.resolve({});
-    },
-    {
+  handleLog({
+    transformError,
+    payload: {
       level: 'error',
-      message: 'hello world',
+      message,
       meta: {
-        error: {
-          stack: [],
-        },
+        error,
+        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
       },
-    }
-  );
-  expect(loggerMock.error.called).toBeTruthy();
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
 });
 
-test('server test log methods', done => {
+// case a (see `../server.js`)
+test('handleLog does not call sentry for errors where `meta` itself is a real error in development', done => {
+  const message = 'all gone wrong';
+  const error = new Error(message);
+
+  const mockLogger = {
+    log: (type, meta: PayloadMetaType) => {
+      // $FlowFixMe
+      done.fail('should not call sentry logger in development');
+    },
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    payload: {
+      level: 'error',
+      message,
+      meta: error,
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'dev',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+  done();
+});
+
+// case b (see `../server.js`)
+test('handleLog calls sentry for errors c1) where `meta` itself is an error-like object in production', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      expect(meta).toEqual({
+        message,
+        stack: 'this: 123, that: 324',
+        appID: 'my-app',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+        runtimeEnvironment: 'production',
+        tags: {},
+      });
+      done();
+    },
+  };
+
+  const message = 'all gone wrong';
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {message, stack: 'this: 123, that: 324'},
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case b (see `../server.js`)
+test('handleLog calls sentry for errors c2) where `meta` itself is an error-like object in production but there is no stack', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      expect(meta).toEqual({
+        message,
+        stack: 'not available',
+        appID: 'my-app',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+        runtimeEnvironment: 'production',
+        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+      });
+      done();
+    },
+  };
+
+  const message = 'all gone wrong';
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {
+        message,
+        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+      },
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case c (see `../server.js`)
+test('handleLog calls sentry for errors where `meta.error` is a real error, and passing a callback in production', done => {
+  expect.assertions(3);
+
+  const message = 'all gone wrong';
+  const error = new Error(message);
+
+  const callback = thisError => {
+    expect((thisError = error)).toBeTruthy();
+  };
+
+  const mockLogger = {
+    log: (type, meta: PayloadMetaType) => {
+      expect(type === 'error').toBeTruthy();
+      expect(
+        typeof meta.stack === 'string' && meta.message === message
+      ).toBeTruthy();
+      done();
+    },
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {error},
+      callback,
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case d (see `../server.js`)
+test('handleLog calls sentry for errors where `meta.error` is an error-like object in production', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      expect(meta).toEqual({
+        message: 'all gone wrong',
+        stack: 'this: 123, that: 324',
+        appID: 'my-app',
+        runtimeEnvironment: 'production',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+        tags: {},
+      });
+      done();
+    },
+  };
+
+  const message = 'all gone wrong';
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {error: {message, stack: 'this: 123, that: 324'}},
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case d (see `../server.js`)
+test('handleLog calls sentry for errors where `meta.error` is an error-like object in production with no stack', done => {
+  expect.assertions(3);
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      // doesn't map to stack because no sourcemaps (create-error-transform tests covers that behavior)
+      expect(meta).toEqual({
+        error: {
+          message: 'all gone wrong',
+          source: 'this: 123, that: 324',
+          line: 123,
+        },
+        stack: 'not available',
+        appID: 'my-app',
+        runtimeEnvironment: 'production',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+        tags: {},
+      });
+      done();
+    },
+  };
+
+  const message = 'all gone wrong';
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {error: {message, source: 'this: 123, that: 324', line: 123}},
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+test('warns if handleLog called with invalid method in production', () => {
+  expect.assertions(2);
+
+  const unsupportedMethodWarning = new RegExp(
+    `^(?!.*fields.*).*\\"level\\"\\:\\"warn\\".*\\"msg\\"\\:\\"logger called with unsupported method.*\\".*$`
+  ); // based on `utils/format-stdout.js`
+
+  const consoleSpy = spy(console, 'log');
+  const message = '123';
+
+  expect(() =>
+    // $FlowFixMe - `meta` property intentionally not passed
+    handleLog({
+      payload: {
+        level: 'haha',
+        message,
+        nonMeta: {a: {b: {c: 3}}}, // instead of 'meta'
+        callback: () => {},
+      },
+      envMeta: {
+        appID: 'my-app',
+        runtimeEnvironment: 'production',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+      },
+      team: 'lol',
+    })
+  ).not.toThrow();
+
+  expect(consoleSpy.calledWithMatch(unsupportedMethodWarning)).toBeTruthy();
+  consoleSpy.restore();
+});
+
+test('logs to M3 in production', () => {
   const emitter = new TestEmitter();
+  const mockM3 = {
+    increment() {
+      return true;
+    },
+  };
 
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
-  // $FlowFixMe
-  app.register(M3Token, {});
-  // $FlowFixMe
+  // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
-  app.middleware({logger: LoggerToken}, ({logger}) => {
-    let emitterCalls = 0;
-    emitter.on('logtron:log', () => {
-      emitterCalls += 1;
-    });
-    logger.log('error', 'message', {});
-    logger.error('message', {});
-    logger.warn('message', {});
-    logger.info('message', {});
-    logger.debug('message', {});
-    logger.silly('message', {});
-    logger.verbose('message', {});
-    expect(emitterCalls).toBe(7);
-    done();
-    return (ctx, next) => next();
+  app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, mockM3);
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect.assertions(supportedLevels.length);
+  const message = {a: {b: {c: 3}}};
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    const consoleSpy = spy(mockM3, 'increment');
+    // $FlowFixMe - Logger has methods that the LoggerToken does not.
+    logger[fn](message, {a: {b: {c: 3}}}, () => {});
+    expect(
+      consoleSpy.calledWithMatch('fusion-logger', {level: fn})
+    ).toBeTruthy();
+    consoleSpy.restore();
   });
-  getSimulator(app);
+});
+
+test('does not log to M3 in development', () => {
+  const emitter = new TestEmitter();
+  const mockM3 = {
+    increment() {
+      return true;
+    },
+  };
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'development');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, mockM3);
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect.assertions(supportedLevels.length);
+  const message = {a: {b: {c: 3}}};
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    const consoleSpy = spy(mockM3, 'increment');
+    // $FlowFixMe - Logger has methods that the LoggerToken does not.
+    logger[fn](message, {a: {b: {c: 3}}}, () => {});
+    expect(consoleSpy.notCalled).toBeTruthy();
+    consoleSpy.restore();
+  });
 });

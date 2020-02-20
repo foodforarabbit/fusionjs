@@ -1,21 +1,28 @@
 // @flow
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
-import {M3Token} from '@uber/fusion-plugin-m3';
-import {BackendsToken, TeamToken, TransformsToken} from './tokens.js';
+import type {M3Type} from '@uber/fusion-plugin-m3';
+import type {Logger} from 'winston';
 
 type ExtractReturnType = <V>(() => V) => V;
 
 export type IEmitter = $Call<ExtractReturnType, typeof UniversalEventsToken>;
 
 export type PayloadMetaType = {
-  message?: string,
+  message?: string | {},
   col?: number,
   source?: string,
-  line?: string,
-  error?: {
-    stack: string | Array<mixed>,
-    message?: string,
-  },
+  line?: number,
+  error?:
+    | Error
+    | {
+        stack?: string,
+        // TODO: message should just be string but Flow...  ¯\_(ツ)_/¯
+        message?: any,
+        source?: string,
+        line?: number,
+      },
+  stack?: string,
+  tags?: {ua?: {}},
 };
 
 export type PayloadType = {
@@ -25,10 +32,30 @@ export type PayloadType = {
   meta: PayloadMetaType,
 };
 
-export type LogtronDepsType = {
-  events: typeof UniversalEventsToken,
-  m3: typeof M3Token,
-  backends: typeof BackendsToken.optional,
-  team: typeof TeamToken,
-  transforms: typeof TransformsToken.optional,
+export type LevelMapType = {
+  error: string,
+  warn: string,
+  info: string,
+  debug: string,
+  silly: string,
+  verbose: string,
+  trace: string,
+  access: string,
+  fatal: string,
+};
+
+export type SentryConfigType = {id: string};
+
+export type ErrorLogOptionsType = {
+  transformError: PayloadMetaType => PayloadMetaType,
+  payload: PayloadType,
+  envMeta: {
+    runtimeEnvironment: ?string,
+    deploymentName: ?string,
+    gitSha: ?string,
+    appID: ?string,
+  },
+  sentryLogger: ?Logger<{[string]: number}>,
+  m3?: M3Type,
+  team?: string,
 };

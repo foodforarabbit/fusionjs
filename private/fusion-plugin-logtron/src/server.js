@@ -1,176 +1,197 @@
 // @flow
 /* eslint-env node */
-import path from 'path';
-import Logtron from '@uber/logtron';
 import {createPlugin} from 'fusion-core';
 import {M3Token} from '@uber/fusion-plugin-m3';
-import {UniversalEventsToken} from 'fusion-plugin-universal-events';
-import createErrorTransform from './create-error-transform';
-import {supportedLevels} from './constants';
-
 import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
-import type {PayloadType, PayloadMetaType, LogtronDepsType} from './types.js';
-import {BackendsToken, TeamToken, TransformsToken} from './tokens.js';
+import type {
+  PayloadMetaType,
+  ErrorLogOptionsType,
+  LevelMapType,
+} from './types.js';
+import {ErrorTrackingToken, TeamToken, EnvOverrideToken} from './tokens.js';
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
-function validateItem(item) {
-  item = item || {};
-  const {level} = item;
-  if (!level || !supportedLevels.includes(level)) {
-    return false;
-  }
-  return true;
-}
+import createSentryLogger from './utils/create-sentry-logger';
+import createErrorTransform from './utils/create-error-transform';
+import {isErrorLikeObject, isError} from './utils/error';
+import formatStdout from './utils/format-stdout';
+import path from 'path';
+
+const levelMap: LevelMapType = {
+  error: 'error',
+  warn: 'warn',
+  info: 'info',
+  debug: 'debug',
+  silly: 'silly',
+  verbose: 'verbose',
+  trace: 'trace',
+  access: 'access',
+  fatal: 'fatal',
+};
+
+const m3Topic = 'fusion-logger';
 
 const plugin =
   __NODE__ &&
-  createPlugin<LogtronDepsType, LoggerType>({
+  createPlugin({
     deps: {
       events: UniversalEventsToken,
       m3: M3Token,
-      backends: BackendsToken.optional,
+      errorTracker: ErrorTrackingToken.optional,
       team: TeamToken,
-      transforms: TransformsToken.optional,
+      envOverride: EnvOverrideToken.optional,
     },
-    provides: ({events, m3, backends = {}, team, transforms}) => {
-      const env = __DEV__ ? 'dev' : process.env.NODE_ENV;
-      const service = process.env.SVC_ID || 'dev-service';
-      const runtime = process.env.UBER_RUNTIME_ENVIRONMENT || '';
-      if (backends.console !== false) {
-        backends.console = true;
-      }
-      // Default json logs to true in production for integration with healthline/elk via filebeat
-      if (env === 'production' && backends.json !== false) {
-        backends.json = true;
-      }
-      if (backends.sentry != null) {
-        //Override default `backends.sentry.computeErrLoc` in sentry config
-        if (__DEV__) {
-          delete backends.sentry;
-        }
-      }
-      if (env === 'production') {
-        backends.kafka = {
-          proxyHost: 'localhost',
-          proxyPort: 18084,
-        };
-      }
-      const logtron = Logtron({
-        meta: {team, project: service, runtime},
-        statsd: m3,
-        backends: Logtron.defaultBackends(backends),
-        transforms,
-      });
-
-      // Logtron is missing LoggerToken interface methods so we need to define the custom levels
-      // Utilize pre-existing methods and assign them to matching levels in the heirarchy
-      const levelMap = {
-        error: 'error',
-        warn: 'warn',
-        info: 'info',
-        debug: 'debug',
-        silly: 'trace',
-        verbose: 'info',
-        trace: 'trace',
-        access: 'access',
-        fatal: 'fatal',
+    provides: ({events, m3, errorTracker, team, envOverride}) => {
+      const env =
+        envOverride ||
+        (__DEV__
+          ? 'dev'
+          : process.env.UBER_RUNTIME_ENVIRONMENT || process.env.NODE_ENV);
+      const envMeta = {
+        appID: process.env.SVC_ID,
+        runtimeEnvironment: env,
+        deploymentName: process.env.GIT_DESCRIBE,
+        gitSha: process.env.GITHUB_TOKEN,
       };
+
+      const transformError =
+        env === 'production'
+          ? createErrorTransform({
+              path: path.join(
+                process.cwd(),
+                `.fusion/dist/${String(env)}/client`
+              ),
+              ext: '.map',
+            })
+          : _ => _;
+
+      const sentryLogger =
+        errorTracker && errorTracker.sentry
+          ? createSentryLogger(errorTracker.sentry, team)
+          : null;
+
       const wrappedLogger = {};
 
-      wrappedLogger.destroy = () => logtron.destroy();
+      wrappedLogger.destroy = () => {};
 
-      // We process all log methods through the error transformer.
       const logEmitter = (level, message, meta, callback) => {
-        events.emit('logtron:log', {callback, level, message, meta});
+        events.emit('logger:log', {callback, level, message, meta});
         return wrappedLogger;
       };
 
       Object.keys(levelMap).forEach(tokenLevel => {
         wrappedLogger[tokenLevel] = (message, meta, callback) => {
-          logEmitter(levelMap[tokenLevel], message, meta, callback);
-          return wrappedLogger;
+          return logEmitter(levelMap[tokenLevel], message, meta, callback);
         };
       });
+
       wrappedLogger.log = logEmitter;
-      // TODO: Consider implementing a real createChild. For now, this is simply a chainable noop.
       wrappedLogger.createChild = () => wrappedLogger;
 
-      const transformError =
-        env === 'production'
-          ? createErrorTransform({
-              path: path.join(process.cwd(), `.fusion/dist/${env}/client`),
-              ext: '.map',
-            })
-          : // in dev we don't send client errors to the server
-            o => o;
-      events.on('logtron:log', payload => {
-        handleLog(logtron, transformError, payload);
+      events.on('logger:log', payload => {
+        handleLog({
+          transformError,
+          payload,
+          sentryLogger,
+          envMeta,
+          m3,
+        });
       });
 
       return wrappedLogger;
     },
-    // $FlowFixMe
-    cleanup: logtron => logtron.destroy(),
   });
 
-export const handleLog = async (
-  logger: LoggerType,
-  transformError: PayloadMetaType => {},
-  payload: PayloadType
-) => {
-  const {callback} = payload;
+export const handleLog = async (options: ErrorLogOptionsType) => {
+  const {transformError, payload, envMeta, sentryLogger, m3} = options;
 
-  if (validateItem(payload)) {
-    const {level} = payload;
-    let {meta, message} = payload;
-    if (isErrorMeta(meta)) {
-      const parsedMeta = await transformError(meta);
-      meta = {...meta, ...parsedMeta};
-      if (!isError(meta.error)) {
-        meta.error = createError(parsedMeta);
-      }
-    }
+  let {level, message, meta, callback} = payload;
+
+  if (validateLevel(level)) {
+    // check for meta in message field
     if (typeof message !== 'string') {
       if (message && typeof message == 'object' && !meta) {
         meta = message;
-        message = '';
-      } else {
-        message = '';
+      }
+      message = '';
+    }
+
+    // stdout -> kafka
+    console.log(
+      formatStdout({level, message, meta}, envMeta.runtimeEnvironment)
+    );
+
+    // also log to healthline (via sentry) for errors
+    // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
+    if (envMeta.runtimeEnvironment === 'production') {
+      const tags = (meta && meta.tags) || {};
+      m3 && m3.increment(m3Topic, {level, ...tags});
+
+      // also log to healthline (via sentry) for errors
+      // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
+      if (level === 'error' && sentryLogger && meta) {
+        /*
+         * four supported formats for meta argument
+         * a) <an error object>
+         * b) an object with error-like properties (but only if c or d don't apply)
+         * c) {error: <an error object>}
+         * d) {error: an object with error-like properties}
+         *
+         * in all four cases, Error properties will end up as root properties of `formattedMeta`
+         */
+
+        if (isError(meta)) {
+          // case a
+          // $FlowFixMe: we just proved meta is an error ^
+          const err: Error = meta;
+          meta = {error: err};
+        } else if (isErrorLikeObject(meta) && !isErrorLikeObject(meta.error)) {
+          // case b (but only if c or d don't apply)
+          meta.message = String(meta.message || '');
+          meta = {error: meta};
+        }
+
+        let formattedMeta: PayloadMetaType = meta;
+
+        // case c and d (or a and b after above property reassignment)
+        if (isErrorLikeObject(meta.error)) {
+          formattedMeta = await transformError(meta);
+        }
+
+        if (callback && typeof callback === 'function') {
+          callback(meta.error);
+        }
+
+        if (!formattedMeta.stack) {
+          // otherwise sentry logger tries to create it's own local stack which is a useless distraction
+          formattedMeta.stack = 'not available';
+        }
+
+        // No idea why Flow takes issue with this call. See https://github.com/winstonjs/winston/blob/master/lib/winston/logger.js#L201
+        // $FlowFixMe
+        sentryLogger.log('error', {
+          tags,
+          ...formattedMeta,
+          ...envMeta,
+        });
       }
     }
-    logger[level](message, meta, callback);
   } else {
-    const error = new Error('Invalid data in log event');
-
-    if (callback && typeof callback === 'function') {
-      callback(error);
-    }
-
-    logger.error(error.message, error);
+    console.log(
+      formatStdout(
+        {
+          level: 'warn',
+          message: `logger called with unsupported method: ${level}`,
+        },
+        envMeta.runtimeEnvironment
+      )
+    );
   }
 };
 
-function isError(err) {
-  const errString = Object.prototype.toString.call(err);
-  return errString === '[object Error]' || err instanceof Error;
+function validateLevel(level) {
+  return level === 'log' || levelMap[level];
 }
 
-function createError(meta) {
-  // $FlowFixMe
-  const message = meta.message || 'unknown error occurred';
-  const newErr = new Error(message);
-  // $FlowFixMe
-  if (meta.stack) {
-    newErr.stack = meta.stack;
-  }
-  return newErr;
-}
-
-function isErrorMeta(meta) {
-  if (!meta) {
-    return false;
-  }
-  return (meta.error && meta.error.stack) || (meta.source && meta.line);
-}
-
-export default ((plugin: any): FusionPlugin<LogtronDepsType, LoggerType>);
+export default ((plugin: any): FusionPlugin<any, LoggerType>);

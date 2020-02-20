@@ -3,14 +3,16 @@
 import ServerLogger from './server.js';
 import BrowserLogger from './browser.js';
 
-import {BackendsToken, TransformsToken, TeamToken} from './tokens.js';
-
-export {default as mock} from './mock';
+import {ErrorTrackingToken, TeamToken} from './tokens.js';
 
 export default __NODE__ ? ServerLogger : BrowserLogger;
+export {default as mock} from './mock';
 
-export const LogtronBackendsToken = BackendsToken;
+// TODO: temporarily renamed exports for logtron backwards compat
+// (they now have nothing to do with logtron)
+export const LogtronBackendsToken = ErrorTrackingToken;
 export const LogtronTeamToken = TeamToken;
-export const LogtronTransformsToken = TransformsToken;
+// export const LoggerErrorTrackingToken = ErrorTrackingToken;
+// export const LoggerTeamToken = TeamToken;
 
 export type * from './types.js';

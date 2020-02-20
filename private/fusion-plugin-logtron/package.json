@@ -1,7 +1,7 @@
 {
   "name": "@uber/fusion-plugin-logtron",
   "version": "0.0.0-monorepo",
-  "description": "fusion plugin for universal logging via logtron",
+  "description": "fusion plugin for universal logging",
   "files": [
     "src/",
     "dist-*/"
@@ -13,10 +13,13 @@
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "dependencies": {
-    "@uber/logtron": "^9.0.9",
     "error-stack-parser": "^2.0.2",
     "koa-bodyparser": "^4.2.1",
-    "source-map": "^0.8.0-beta.0"
+    "source-map": "^0.8.0-beta.0",
+    "sentry-logger": "3.0.9",
+    "winston": "^3.2.1",
+    "uber-raven": "0.6.3-project-name",
+    "airlock": "2.3.0"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
@@ -55,7 +58,7 @@
     "build": "npm run clean && cup-build"
   },
   "engines": {
-    "node": ">=8.9.4",
+    "node": ">=8.9.0",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },

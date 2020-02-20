@@ -1,6 +1,6 @@
 /* @flow */
 import {createToken} from 'fusion-core';
 
-export const BackendsToken = createToken<Object>('LogtronBackends');
-export const TeamToken = createToken<string>('LogtronTeam');
-export const TransformsToken = createToken<any>('LogtronTransform');
+export const ErrorTrackingToken = createToken<Object>('LoggerErrorTracking');
+export const TeamToken = createToken<string>('LoggerTeam');
+export const EnvOverrideToken = createToken<string>('EnvOverride');

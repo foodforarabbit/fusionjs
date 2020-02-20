@@ -6,9 +6,12 @@ import withLogger from './hoc';
 export type * from '@uber/fusion-plugin-logtron';
 
 export {
+  // TODO: temporarily renamed exports for logtron backwards compat
+  // (they now have nothing to do with logtron)
   LogtronBackendsToken,
   LogtronTeamToken,
-  LogtronTransformsToken,
+  // LoggerErrorTrackingToken,
+  // LoggerTeamToken,
   mock,
 } from '@uber/fusion-plugin-logtron';
 

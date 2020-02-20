@@ -1,19 +1,21 @@
 // @flow
 import {createPlugin} from 'fusion-core';
+import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {supportedLevels} from './constants';
 
 import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
-import type {IEmitter, LogtronDepsType} from './types.js';
+import type {IEmitter} from './types.js';
 
 const plugin =
   __BROWSER__ &&
   createPlugin({
     deps: {
       events: UniversalEventsToken,
+      m3: M3Token,
     },
-    provides: ({events}) => {
+    provides: ({events, m3}) => {
       class UniversalLogger {
         emitter: IEmitter;
 
@@ -54,7 +56,7 @@ const plugin =
 
           return (
             this.emitter &&
-            this.emitter.emit('logtron:log', {level, message, meta})
+            this.emitter.emit('logger:log', {level, message, meta})
           );
         }
       }
@@ -62,4 +64,4 @@ const plugin =
     },
   });
 
-export default ((plugin: any): FusionPlugin<LogtronDepsType, LoggerType>);
+export default ((plugin: any): FusionPlugin<any, LoggerType>);

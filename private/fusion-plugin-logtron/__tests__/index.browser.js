@@ -2,40 +2,40 @@
 import App from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
 import {LoggerToken} from 'fusion-tokens';
+import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import Plugin from '../src/browser';
 import {supportedLevels} from '../src/constants';
+import TestEmitter from './test-emitter';
 
-test('test all methods exist for browser', done => {
+const emitter = new TestEmitter();
+
+test('test all methods exist for browser', () => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
   // $FlowFixMe
-  app.register(UniversalEventsToken, {});
-  app.middleware({logger: LoggerToken}, ({logger}) => {
-    supportedLevels.concat(['log']).forEach(fn => {
-      // $FlowFixMe - Logtron has methods that the LoggerToken does not.
-      expect(typeof logger[fn]).toBe('function');
-    });
-    done();
-    return (ctx, next) => next();
+  app.register(UniversalEventsToken, emitter);
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  supportedLevels.concat(['log']).forEach(fn => {
+    // $FlowFixMe - Logger has methods that the LoggerToken does not.
+    expect(typeof logger[fn]).toBe('function');
   });
-  getSimulator(app);
 });
 
-test('test info method', done => {
+test('test info method', () => {
   const app = new App('el', el => el);
   app.register(LoggerToken, Plugin);
   // $FlowFixMe
-  app.register(UniversalEventsToken, {
-    emit: () => {},
-  });
-  app.middleware({logger: LoggerToken}, ({logger}) => {
-    expect(typeof logger.info).toBe('function');
-    expect(() => logger.info('hello world', {some: 'data'})).not.toThrow();
-    done();
-    return (ctx, next) => next();
-  });
-  getSimulator(app);
+  app.register(UniversalEventsToken, emitter);
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect(typeof logger.info).toBe('function');
+  expect(() => logger.info('hello world', {some: 'data'})).not.toThrow();
 });
 
 test('test info method with message of an error', done => {
@@ -48,11 +48,11 @@ test('test info method with message of an error', done => {
       done();
     },
   });
-  app.middleware({logger: LoggerToken}, ({logger}) => {
-    logger.info(new Error('some error'));
-    return (ctx, next) => next();
-  });
-  getSimulator(app);
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  logger.info(new Error('some error'));
 });
 
 test('test info method with meta of an error', done => {
@@ -65,9 +65,9 @@ test('test info method with meta of an error', done => {
       done();
     },
   });
-  app.middleware({logger: LoggerToken}, ({logger}) => {
-    logger.info('hello world', new Error('some error'));
-    return (ctx, next) => next();
-  });
-  getSimulator(app);
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  logger.info('hello world', new Error('some error'));
 });

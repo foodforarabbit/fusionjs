@@ -14,4 +14,6 @@ export default class TestEmitter {
   on(event: string, callback: Function) {
     this.events[event] = callback;
   }
+
+  flush() {}
 }
