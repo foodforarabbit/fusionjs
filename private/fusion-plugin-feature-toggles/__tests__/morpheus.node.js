@@ -273,7 +273,7 @@ test('default transform metadata', async () => {
 
   // Transformed property
   expect(details.metadata).not.toHaveProperty('id');
-  expect(details.metadata).not.toHaveProperty('name');
+  expect(details.metadata).toHaveProperty('name');
   expect(details.metadata).toHaveProperty('parameters');
   if (details.metadata && details.metadata.parameters) {
     const params = details.metadata.parameters;

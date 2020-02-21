@@ -141,13 +141,14 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: mixed}
   ): Promise<{+[experimentName: string]: MorpheusTreatmentGroupType | mixed}> {
     /* For security, if no metadataTransform is provided, default to stripping
-     * out all metadata except those provided as parameters.
+     * out all metadata except the name and those provided as parameters.
      */
     const defaultMetadataTransform = (
       metadata: MorpheusTreatmentGroupType
     ): {+[string]: mixed} =>
       metadata && metadata.parameters
         ? {
+            name: metadata.name,
             parameters: metadata.parameters,
           }
         : {};
