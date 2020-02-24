@@ -29,7 +29,7 @@ export const codemodPackageJson = async ({
   await replaceNunjucksFile(`${path}`, {
     description,
     name,
-    gitName: await getUserName(),
+    author: await getUserName(),
     email: await getUserEmail(),
     team,
     version: packageJson.version,
