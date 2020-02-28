@@ -90,13 +90,26 @@ const plugin =
       wrappedLogger.createChild = () => wrappedLogger;
 
       events.on('logger:log', payload => {
-        handleLog({
-          transformError,
-          payload,
-          sentryLogger,
-          envMeta,
-          m3,
-        });
+        try {
+          handleLog({
+            transformError,
+            payload,
+            sentryLogger,
+            envMeta,
+            m3,
+          });
+        } catch (e) {
+          console.log(
+            formatStdout(
+              {
+                level: 'warn',
+                message: `error while logging to heathline: ${e}
+payload = ${payload}`,
+              },
+              envMeta.runtimeEnvironment
+            )
+          );
+        }
       });
 
       return wrappedLogger;
