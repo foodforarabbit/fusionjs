@@ -95,7 +95,7 @@ git commit -m 'initial code push'
 arc diff
 ```
 
-Go to your project's Phab page and verify that the Jenkins job named `test-{YOUR_TEAM}-{YOUR_PROJECT_NAME}` triggered and passed. If not, try waiting a few minutes, commit a documentation change and diff again.
+Go to your project's Phab page and verify that the Jenkins job named `test-{YOUR_TEAM}-{YOUR_PROJECT_NAME}` triggered and passed. If not try waiting a few minutes, commit a documentation change and diff again.
 
 ---
 

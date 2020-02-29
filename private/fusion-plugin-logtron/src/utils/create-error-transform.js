@@ -118,7 +118,6 @@ function loadSourceMaps(config) {
   } catch (e) {
     console.log(`Failed to read sourcemaps from ${config.path}`);
   }
-  console.log('********', mappers);
   return mappers;
 
   function toSourceMapper(maps, fName) {
