@@ -176,7 +176,11 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
           callback(meta.error);
         }
 
-        if (!formattedMeta.stack) {
+        if (
+          formattedMeta &&
+          typeof formattedMeta === 'object' &&
+          !formattedMeta.stack
+        ) {
           // otherwise sentry logger tries to create it's own local stack which is a useless distraction
           formattedMeta.stack = 'not available';
         }
