@@ -1,20 +1,16 @@
 // @flow
+/* eslint-env node */
+/* eslint-disable import/no-dynamic-require */
+
+// require is used so this file can be bundled by ncc into single JS file
+
 import {exec} from '@dubstep/core';
-import fs from 'fs';
 import type {UpgradeStrategy} from '../types.js';
 
-const websitePkg = JSON.parse(
-  fs.readFileSync(
-    `${__dirname}/../../templates/template-website/package.json`,
-    'utf8'
-  )
-);
-const gqlPkg = JSON.parse(
-  fs.readFileSync(
-    `${__dirname}/../../templates/template-website-graphql/package.json`,
-    'utf8'
-  )
-);
+// $FlowFixMe
+const websitePkg = require(`${__dirname}/../../templates/template-website/package.json`);
+// $FlowFixMe
+const gqlPkg = require(`${__dirname}/../../templates/template-website-graphql/package.json`);
 
 const deps = {
   ...getFusionVersions(),
@@ -57,10 +53,13 @@ export async function getLatestVersion(
 }
 
 function getFusionVersions() {
-  const versionedPackagesPath = `${__dirname}/../../templates/versioned_packages.json`;
-  const versionedPackages = fs.existsSync(versionedPackagesPath)
-    ? JSON.parse(fs.readFileSync(versionedPackagesPath, 'utf8'))
-    : {};
+  let versionedPackages = {};
+  try {
+    // $FlowFixMe
+    versionedPackages = require(`${__dirname}/../../templates/versioned_packages.json`);
+  } catch (e) {
+    // If doesn't exist, use empty object
+  }
   const fusionVersionMap = {};
   Object.keys(versionedPackages).forEach(dep => {
     fusionVersionMap[dep] = versionedPackages[dep].version;
