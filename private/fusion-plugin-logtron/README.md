@@ -4,6 +4,8 @@
 
 Provides a logger that can be connected to standard Uber log consumption services. Wraps over [@uber/logtron](https://code.uberinternal.com/diffusion/WELOGTK/) (which, in turn, is a fork of [https://github.com/uber/logtron](https://github.com/uber/logtron).
 
+If you need to use this plugin from a React component, you should use `useService` from [`fusion-react`](https://github.com/uber/fusionjs/tree/master/fusion-react) in combination with this package.
+
 ---
 
 ### Table of contents
@@ -110,7 +112,7 @@ The universal events plugin, which is used as an event bus. See [https://github.
 ##### `LogtronTeamToken`
 
 ```js
-import {LogtronTeamToken} from '@uber/fusion-plugin-logtron-react';
+import {LogtronTeamToken} from '@uber/fusion-plugin-logtron';
 ```
 
 The Uber team name. Server-only. Required. Should be a string. Comes pre-configured in the `uber-web` scaffold.
@@ -118,7 +120,7 @@ The Uber team name. Server-only. Required. Should be a string. Comes pre-configu
 ##### `LogtronBackendsToken`
 
 ```js
-import {LogtronBackendsToken} from '@uber/fusion-plugin-logtron-react';
+import {LogtronBackendsToken} from '@uber/fusion-plugin-logtron';
 ```
 
 Backends configuration for logtron. Server-only. Optional. See [https://github.com/uber/logtron#optionsbackends](https://github.com/uber/logtron#optionsbackends)
@@ -126,7 +128,7 @@ Backends configuration for logtron. Server-only. Optional. See [https://github.c
 ##### `LogtronTransformsToken`
 
 ```js
-import {LogtronTransformsToken} from '@uber/fusion-plugin-logtron-react';
+import {LogtronTransformsToken} from '@uber/fusion-plugin-logtron';
 ```
 
 Array of transform functions. Server-only. Optional. See [https://github.com/uber/logtron#optionstransforms](https://github.com/uber/logtron#optionstransforms)

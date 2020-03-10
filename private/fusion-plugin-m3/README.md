@@ -8,7 +8,7 @@ M3 is Uber's internal metrics system.  Leverage this plugin to emit metrics to M
 
 This plugin is primarily a wrapper on top of [m3-client](https://code.uberinternal.com/diffusion/WEMCLXD/).
 
-If you're using React, you should use [fusion-plugin-m3-react](https://code.uberinternal.com/diffusion/WEFUSVD/) instead of this package.
+If you need to use this plugin from a React component, you should use `useService` from [`fusion-react`](https://github.com/uber/fusionjs/tree/master/fusion-react) in combination with this package.
 
 ---
 

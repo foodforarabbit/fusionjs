@@ -8,7 +8,7 @@ Tealium is a tag management tool for marketers that provides control over third-
 
 This plugin adds Tealium iQ's `utag.js` to your web application and exposes a programmatic API for tracking, identifying, and logging pageviews.  For more details on `utag.js`, see the [`JavaScript (utag.js)`](https://community.tealiumiq.com/t5/JavaScript-utag-js/tkb-p/utag) documentation.
 
-If you're using React, you should use [@uber/fusion-plugin-tealium-react](https://code.uberinternal.com/diffusion/WEFUSEC/) instead of this package.
+If you need to use this plugin from a React component, you should use `useService` from [`fusion-react`](https://github.com/uber/fusionjs/tree/master/fusion-react) in combination with this package.
 
 ---
 

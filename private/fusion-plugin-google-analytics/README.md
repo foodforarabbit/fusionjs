@@ -4,7 +4,7 @@
 
 This plugin provides a minimal wrapper on top of Google Analytics. Google Analytics are useful for understanding traffic volume and patterns.
 
-If you're using React, you should use [@uber/fusion-plugin-google-analytics-react](https://code.uberinternal.com/diffusion/WEFUSKK/) instead of this package.
+If you need to use this plugin from a React component, you should use `useService` from [`fusion-react`](https://github.com/uber/fusionjs/tree/master/fusion-react) in combination with this package.
 
 ---
 
