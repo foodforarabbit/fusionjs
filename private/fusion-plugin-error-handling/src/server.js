@@ -32,7 +32,10 @@ const plugin =
             ? captureSources.client
             : captureSources.server;
 
-        let _err: {message: string, tags?: {}} = e;
+        let ua = {};
+        let headers = {};
+        let url = '';
+        let _err: {message: string, tags?: {}, request?: {}} = e;
         if (typeof _err !== 'object') {
           _err = {
             message: (typeof e === 'string' && e) || defaultMessage,
@@ -41,11 +44,26 @@ const plugin =
           _err.message = _err.message || defaultMessage;
         }
 
+        if (ctx && ctx.request) {
+          const request = ctx.request;
+          url = request.url;
+          if (request.header) {
+            headers = request.header;
+            ua = uaParser(headers['user-agent']);
+            if (url === '/_errors' && headers.referer) {
+              // url will always be '/_errors' when sent via client error_handling, so use referer
+              url = headers.referer;
+            }
+          }
+        }
+
         _err.tags = {
           captureType,
           captureSource,
           framework,
-          ua: ctx && ctx.headers && uaParser(ctx.headers['user-agent']),
+          ua,
+          url,
+          headers,
         };
 
         return new Promise(resolve => {

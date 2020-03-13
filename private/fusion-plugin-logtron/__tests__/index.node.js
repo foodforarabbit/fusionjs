@@ -240,7 +240,11 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
           deploymentName: 'lol',
           gitSha: 'a1234567',
           runtimeEnvironment: 'production',
-          tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+          tags: {
+            ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}},
+            url: 'https://lol.com',
+            headers: {thiss: 'this', that: 'that'},
+          },
         })
       );
       expect(typeof meta.stack == 'string').toBeTruthy(); // can't test exact match for stack
@@ -256,7 +260,11 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
       message,
       meta: {
         error,
-        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+        tags: {
+          ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}},
+          url: 'https://lol.com',
+          headers: {thiss: 'this', that: 'that'},
+        },
       },
     },
     sentryLogger: mockLogger,
@@ -353,7 +361,11 @@ test('handleLog calls sentry for errors c2) where `meta` itself is an error-like
         deploymentName: 'lol',
         gitSha: 'a1234567',
         runtimeEnvironment: 'production',
-        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+        tags: {
+          ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}},
+          url: 'https://lol.com',
+          headers: {thiss: 'this', that: 'that'},
+        },
       });
       done();
     },
@@ -369,7 +381,11 @@ test('handleLog calls sentry for errors c2) where `meta` itself is an error-like
       message,
       meta: {
         message,
-        tags: {ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}}},
+        tags: {
+          ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}},
+          url: 'https://lol.com',
+          headers: {thiss: 'this', that: 'that'},
+        },
       },
     },
     sentryLogger: mockLogger,
