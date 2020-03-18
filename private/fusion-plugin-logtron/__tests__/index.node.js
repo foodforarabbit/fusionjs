@@ -309,20 +309,28 @@ test('handleLog does not call sentry for errors where `meta` itself is a real er
 
 // case b (see `../server.js`)
 test('handleLog calls sentry for errors c1) where `meta` itself is an error-like object in production', done => {
-  expect.assertions(3);
+  expect.assertions(6);
   const mockLogger = {
     log: (type, meta) => {
       expect(type === 'error').toBeTruthy();
       expect(typeof meta === 'object').toBeTruthy();
-      expect(meta).toEqual({
-        message,
-        stack: 'this: 123, that: 324',
-        appID: 'my-app',
-        deploymentName: 'lol',
-        gitSha: 'a1234567',
-        runtimeEnvironment: 'production',
-        tags: {},
-      });
+      expect(meta).toEqual(
+        expect.objectContaining({
+          message,
+          stack: 'this: 123, that: 324',
+          appID: 'my-app',
+          deploymentName: 'lol',
+          gitSha: 'a1234567',
+          runtimeEnvironment: 'production',
+          tags: {},
+        })
+      );
+      if (meta) {
+        console.log(meta.error, meta.error.stack, meta.error.message);
+        expect(meta.error instanceof Error).toEqual(true);
+        expect(meta.error.stack).toEqual('\nthis: 123, that: 324');
+        expect(meta.error.message).toEqual(message);
+      }
       done();
     },
   };
@@ -440,20 +448,28 @@ test('handleLog calls sentry for errors where `meta.error` is a real error, and 
 
 // case d (see `../server.js`)
 test('handleLog calls sentry for errors where `meta.error` is an error-like object in production', done => {
-  expect.assertions(3);
+  expect.assertions(6);
   const mockLogger = {
     log: (type, meta) => {
       expect(type === 'error').toBeTruthy();
       expect(typeof meta === 'object').toBeTruthy();
-      expect(meta).toEqual({
-        message: 'all gone wrong',
-        stack: 'this: 123, that: 324',
-        appID: 'my-app',
-        runtimeEnvironment: 'production',
-        deploymentName: 'lol',
-        gitSha: 'a1234567',
-        tags: {},
-      });
+      expect(meta).toEqual(
+        expect.objectContaining({
+          message,
+          stack: 'this: 123, that: 324',
+          appID: 'my-app',
+          deploymentName: 'lol',
+          gitSha: 'a1234567',
+          runtimeEnvironment: 'production',
+          tags: {},
+        })
+      );
+      if (meta) {
+        console.log(meta.error, meta.error.stack, meta.error.message);
+        expect(meta.error instanceof Error).toEqual(true);
+        expect(meta.error.stack).toEqual('\nthis: 123, that: 324');
+        expect(meta.error.message).toEqual(message);
+      }
       done();
     },
   };

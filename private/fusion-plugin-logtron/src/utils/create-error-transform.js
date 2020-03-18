@@ -19,6 +19,7 @@ export default function createErrorTransform(config: ConfigType = {}) {
     // TODO: message should just be string but Flow...  ¯\_(ツ)_/¯
     let parsedError: ?{
       message?: string,
+      error?: Error,
       source?: string,
       stack?: string,
       line?: number,
@@ -97,8 +98,18 @@ export default function createErrorTransform(config: ConfigType = {}) {
 
     // Extra \n at the beginning lines up the stack
     const stackString = `\n${frames.join('\n    ')}`;
+    const message = error.message;
+    const stack = stackString
+      .replace(/(js)(\?.+)$/gm, '$1')
+      .replace(/webpack:\/\/\//g, './')
+      .replace(/~\//g, 'node_modules/');
+    // healthline additionally wants a real Error object
+    // so stack gets its own panel ¯\_(ツ)_/¯
+    const errorInstance = new Error(message);
+    errorInstance.stack = stack;
     const logMeta = {
-      message: error.message,
+      message,
+      error: errorInstance,
       stack: stackString
         .replace(/(js)(\?.+)$/gm, '$1')
         .replace(/webpack:\/\/\//g, './')
