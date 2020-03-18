@@ -20,8 +20,11 @@ if (__NODE__) {
   }
 
   function computeErrLoc(msg) {
-    // this will be propened to ': <message>' in healthline event title
-    return 'Error';
+    // This is used by sentry-logger to prepend error line to message title.
+    // However it's unreliable (relies on guessing where in stack local code
+    // begins). Better to leave original message unchanged and let developers
+    // view the stack
+    return '';
   }
 
   createLogger = function createLogger(
