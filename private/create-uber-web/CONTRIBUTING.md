@@ -10,12 +10,6 @@ The `yarn dev` command starts a watcher for babel, eslint, jest and flow.
 
 As a rule of thumb, the implementation for each command should be in a file named after the command in the `commands` folder. Each step implementation should be wrapped in an async function in the `utils` folder.
 
-### Upgrading dependencies
-
-To upgrade dependencies, run `./renovate.sh`
-
-Note: this will also patch this package's version
-
 ### Release verification
 
 Run `./verify.sh` to ensure that templates test/lint/flow without errors.
