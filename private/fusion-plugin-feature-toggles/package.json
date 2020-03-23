@@ -58,7 +58,7 @@
     "fusion-test-utils": "0.0.0-monorepo",
     "jest": "^25.1.0",
     "jest-environment-jsdom-global": "^1.2.0",
-    "jsdom": "^15.0.0",
+    "jsdom": "^15.1.1",
     "npm-watch": "^0.6.0",
     "prettier": "^1.19.1",
     "@uber/fusion-plugin-marketing": "0.0.0-monorepo"
