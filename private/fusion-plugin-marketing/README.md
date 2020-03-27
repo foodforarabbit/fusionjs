@@ -50,6 +50,38 @@ export default () => {
 };
 ```
 
+### Setup with CanActivateToken configuration
+
+```js
+// src/app.js
+import UberMarketingPlugin, {
+  UberMarketingToken,
+  UberMarketingConfigToken,
+  UberMarketingCanActivateToken,
+} from '@uber/fusion-plugin-marketing';
+import FliprPlugin, {FliprToken} from '@uber/fusion-plugin-flipr';
+
+const CustomCanActivatePlugin = createPlugin({
+    deps: {
+      flipr:  ,
+    },
+    provides: async ({flipr}) => {
+        return {
+          canActivate: await flipr.get('some.flipr.boolean'),
+        }
+    }
+});
+
+export default () => {
+  const app = new App(...);
+  // ...
+  app.register(UberMarketingCanActivateToken, CustomCanActivatePlugin)
+  app.register(UberMarketingToken, UberMarketingPlugin);
+  // ...
+  return app;
+};
+```
+
 ---
 
 ## API

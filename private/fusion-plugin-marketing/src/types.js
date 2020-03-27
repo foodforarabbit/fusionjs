@@ -20,3 +20,7 @@ export type PluginServiceType = {
     getCookieId: () => string,
   },
 };
+
+export type PluginCanActivate = {
+  canActivate: boolean,
+};

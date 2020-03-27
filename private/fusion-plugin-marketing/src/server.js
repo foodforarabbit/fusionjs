@@ -14,13 +14,17 @@ import {TRACK_TOPIC} from './constants';
 import {getCookieId, setCookieId} from './utils/cookies';
 import {createTrackingPayload, shouldSkipTracking} from './utils/tracking';
 
-import {UberMarketingConfigToken} from './tokens';
+import {
+  UberMarketingConfigToken,
+  UberMarketingCanActivateToken,
+} from './tokens';
 
 const plugin =
   __NODE__ &&
   createPlugin({
     deps: {
       userConfig: UberMarketingConfigToken.optional,
+      canActivate: UberMarketingCanActivateToken.optional,
       heatpipe: HeatpipeToken,
       logger: LoggerToken,
     },
@@ -59,12 +63,15 @@ const plugin =
         from: memoize(ctx => new MarketingPlugin(ctx)),
       };
     },
-    middleware({userConfig = {}, heatpipe, logger}, MarketingPlugin) {
+    middleware(
+      {userConfig = {}, canActivate = true, heatpipe, logger},
+      MarketingPlugin
+    ) {
       return async (ctx: Context, next) => {
         const marketing = MarketingPlugin.from(ctx);
         const {config} = marketing;
 
-        setCookieId(ctx, marketing.getCookieId(), config);
+        canActivate && setCookieId(ctx, marketing.getCookieId(), config);
         await next();
 
         ctx.timing.end.then(() => {
