@@ -11,16 +11,15 @@ const readdir = promisify(fs.readdir);
 
 const { DRAFT_BRANCH_PREFIX } = require("@publisher/core/releases.js");
 const { PackageHashes } = require("@publisher/core/package-hashes.js");
-const { pack } = require("@publisher/npm-helpers");
 
 const getMonorepoPackages = require("./get-packages.js");
-const { create_github_app } = require("./gh_api_helper.js");
+const { create_github_app } = require("./gh-api-helper.js");
 
 pushHandler({
   branch: (process.env.BUILDKITE_BRANCH /*: any */),
   commit: (process.env.BUILDKITE_COMMIT /*: any */),
   owner: "uber",
-  repo: "fusionjs",
+  repo: "fusionjs"
 }).catch(err => {
   console.error(err);
   process.exit(1);
@@ -48,7 +47,7 @@ async function reportChangedPackages(github, { owner, repo, commit }) {
   const started_at = new Date().toISOString();
 
   const pkgs = await getMonorepoPackages();
-  const packages = await getPackedHashes(pkgs);
+  const packages = getPackedHashes(pkgs);
 
   await github.checks.create({
     owner,
@@ -62,24 +61,21 @@ async function reportChangedPackages(github, { owner, repo, commit }) {
     output: {
       title: "Package tarball hashes",
       summary: "Package tarball hashes",
-      text: PackageHashes.serializeCheckRunOutputText(packages),
-    },
+      text: PackageHashes.serializeCheckRunOutputText(packages)
+    }
   });
 }
 
-async function getPackedHashes(pkgs) {
-  const packed = await Promise.all(
-    Object.keys(pkgs).map(async pkg => {
-      const { location, localDependencies } = pkgs[pkg];
-      return await pack(location);
-    })
-  );
-
+function getPackedHashes(pkgs) {
   const data = {};
-  for (const item of packed) {
-    data[item.name] = {
-      shasum: item.shasum,
-      localDependencies: pkgs[item.name].localDependencies,
+  for (const id of Object.keys(pkgs)) {
+    const pkg = pkgs[id];
+    const shasumPath = `${process.cwd()}/${encodeURIComponent(id)}-shasum.json`;
+    // $FlowFixMe (dynamic require)
+    const shasum = require(shasumPath);
+    data[id] = {
+      shasum,
+      localDependencies: pkg.localDependencies
     };
   }
   return data;

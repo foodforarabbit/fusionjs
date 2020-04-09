@@ -69,15 +69,3 @@ for DIR in $CHANGES ; do (
     fi;
   fi;
 ); done;
-
-echo "  - label: 'calculate package hashes'";
-echo "    command: jazelle ci --cwd private/monorepo-actions && node private/monorepo-actions/calculate-package-hashes.js";
-echo "    timeout_in_minutes: 5";
-echo "    plugins:";
-echo "      'derekju/docker-compose#1346e78909a17f800064a37e7dfb716200d514a4':";
-echo "        run: ci";
-echo "        env:";
-echo "          - UNPM_TOKEN";
-echo "          - NPM_TOKEN";
-echo "    agents:";
-echo "      queue: private-default";
