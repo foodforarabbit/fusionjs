@@ -74,7 +74,7 @@ const plugin =
         canActivate && setCookieId(ctx, marketing.getCookieId(), config);
         await next();
 
-        ctx.timing.end.then(() => {
+        ctx.timing.end.then(async () => {
           // Publish tracking during request upstream for the status code
           if (!config.disableHeatpipe) {
             try {
@@ -89,7 +89,7 @@ const plugin =
                     marketingTrackingPayload: stringify(trackingInfo),
                   });
                 }
-                heatpipe.publish(TRACK_TOPIC, trackingInfo);
+                await heatpipe.asyncPublish(TRACK_TOPIC, trackingInfo);
               }
             } catch (e) {
               logger.error('[fusion-plugin-marketing] Unexpected Error', {

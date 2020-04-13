@@ -41,7 +41,7 @@ function createMockApp({
   testPlugin?: Object,
   config?: Object,
 }) {
-  const heatpipeMock = {publish: jest.fn()};
+  const heatpipeMock = {asyncPublish: jest.fn()};
   const loggerMock = {info: jest.fn()};
 
   const app = new App({}, () => 'ok');
@@ -153,7 +153,7 @@ function BasicPublishTest(
       return async (ctx, next) => {
         await next();
         setTimeout(() => {
-          expect((heatpipeMock.publish: any).mock.calls[0]).toMatchSnapshot();
+          expect((heatpipeMock.asyncPublish: any).mock.calls[0]).toMatchSnapshot();
           expect(loggerMock.info).not.toHaveBeenCalled();
           done();
         }, 100);
@@ -210,7 +210,7 @@ test('log when debugLogging is enabled', async done => {
       return async (ctx, next) => {
         await next();
         setTimeout(() => {
-          expect((heatpipeMock.publish: any).mock.calls[0]).toMatchSnapshot();
+          expect((heatpipeMock.asyncPublish: any).mock.calls[0]).toMatchSnapshot();
           expect(loggerMock.info).toHaveBeenCalled();
           done();
         }, 100);
