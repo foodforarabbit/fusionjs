@@ -11,14 +11,14 @@ export const checkServiceDirectory = async (): Promise<{
 }> => {
   // Check if we are inside of the monorepo or inside of a stand-alone service
   // If we are inside of the monorepo, infer what service we are by the directory name
-  const isMonorepo = await checkAppMonorepoRoot('../..');
+  const isMonorepo = await checkAppMonorepoRoot('../../../../..');
 
   let rootPath = '/';
   let pinocchioFilePath = 'udeploy/pinocchio.yaml';
   if (isMonorepo) {
     const {name: serviceDirectory} = path.parse(process.cwd());
-    // Two directories up since we can only provision within the project itself
-    rootPath = '../../../';
+    // Five directories up since we can only provision within the project itself
+    rootPath = '../../../../../../';
     pinocchioFilePath = `udeploy/pinocchio/${serviceDirectory}.yaml`;
   }
 
