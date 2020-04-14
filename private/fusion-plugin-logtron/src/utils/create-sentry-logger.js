@@ -3,6 +3,7 @@
 
 import SentryLogger from 'sentry-logger';
 import type {Logger} from 'winston';
+import stringify from 'json-stringify-safe';
 import type {SentryConfigType} from '../types';
 
 // let winstonLogger: Logger<{[string]: number}>;
@@ -58,7 +59,7 @@ if (__NODE__) {
 
     return winston.createLogger({
       level: 'info',
-      format: format.printf(info => JSON.stringify(info)),
+      format: format.printf(info => stringify(info)),
       transports: [
         SentryLogger({
           sentryProber: {

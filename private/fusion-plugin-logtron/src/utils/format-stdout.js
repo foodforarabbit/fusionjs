@@ -1,6 +1,7 @@
 // @flow
 
 import os from 'os';
+import stringify from 'json-stringify-safe';
 
 const host = os.hostname();
 
@@ -27,7 +28,7 @@ export default function formatStdout(
       msg: message,
       fields: meta,
     };
-    return JSON.stringify(data);
+    return stringify(data);
   } else {
     // format for terminal
     const levelString = (level + ':    ').slice(0, 7);

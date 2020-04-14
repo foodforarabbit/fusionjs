@@ -77,6 +77,71 @@ test('supports all logger methods in production', () => {
   ).toThrow();
 });
 
+test('doesn`t crash when meta is a circular reference in production', () => {
+  const emitter = new TestEmitter();
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, 'production');
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  expect.assertions(4 * (supportedLevels.length + 1) + 1);
+  const message = 'this is a message';
+  const meta = {a: {b: {c: 3}}, d: {}};
+  meta.d = meta;
+
+  // $FlowFixMe - Logger has methods that the LoggerToken does not.
+  const child = logger.createChild('test-child');
+
+  let formatPattern;
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    // $FlowFixMe - Logger has methods that the LoggerToken does not.
+    expect(typeof logger[fn]).toBe('function');
+    expect(typeof child[fn]).toBe('function');
+    const consoleSpy = spy(console, 'log');
+    expect(
+      // $FlowFixMe - Logger has methods that the LoggerToken does not.
+      () => logger[fn](message, meta, () => {})
+    ).not.toThrow();
+
+    formatPattern = new RegExp(
+      `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
+    ); // based on `utils/format-stdout.js`
+
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+    consoleSpy.restore();
+  });
+
+  // `log` method
+  expect(typeof logger.log).toBe('function');
+  expect(typeof child.log).toBe('function');
+  const consoleSpy = spy(console, 'log');
+  expect(() =>
+    logger.log('info', message, meta, () => {})
+  ).not.toThrow();
+
+  formatPattern = new RegExp(
+    `\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
+  ); // based on `utils/format-stdout.js`
+
+  expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+  consoleSpy.restore();
+
+  // unsupported method
+  expect(() =>
+    // $FlowFixMe - LoggerToken does not support unavaialable method `lol`
+    logger.lol(message, {a: {b: {c: 3}}}, () => {})
+  ).toThrow();
+});
+
+
 test('supports all logger methods in development', () => {
   const emitter = new TestEmitter();
 

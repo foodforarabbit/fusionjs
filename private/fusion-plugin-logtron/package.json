@@ -19,7 +19,8 @@
     "sentry-logger": "3.0.9",
     "winston": "^3.2.1",
     "uber-raven": "0.6.3-project-name",
-    "airlock": "2.3.0"
+    "airlock": "2.3.0",
+    "json-stringify-safe": "5.0.1"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
