@@ -2,7 +2,7 @@
 import React from 'react';
 import {assetUrl} from 'fusion-core';
 import {Helmet} from 'fusion-plugin-react-helmet-async';
-import {BaseProvider, createTheme, lightThemePrimitives} from 'baseui';
+import {BaseProvider, createTheme} from 'baseui';
 import App from './app';
 
 import {
@@ -33,7 +33,7 @@ const primaryFontFamily =
 const secondaryFontFamily =
   'UberMove, UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif';
 const theme = createTheme(
-  {...lightThemePrimitives, primaryFontFamily},
+  {primaryFontFamily},
   {
     icons: {
       Alert: AlertFilled,
@@ -58,7 +58,28 @@ const theme = createTheme(
       Upload: UploadFilled,
     },
     typography: {
-      font1100: {
+      font1450: {
+        fontFamily: secondaryFontFamily,
+      },
+      font1350: {
+        fontFamily: secondaryFontFamily,
+      },
+      font1250: {
+        fontFamily: secondaryFontFamily,
+      },
+      font1150: {
+        fontFamily: secondaryFontFamily,
+      },
+      DisplayLarge: {
+        fontFamily: secondaryFontFamily,
+      },
+      DisplayMedium: {
+        fontFamily: secondaryFontFamily,
+      },
+      DisplaySmall: {
+        fontFamily: secondaryFontFamily,
+      },
+      DisplayXSmall: {
         fontFamily: secondaryFontFamily,
       },
     },
