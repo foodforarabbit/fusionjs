@@ -2,9 +2,17 @@
 
 [![Build status](https://badge.buildkite.com/e962e49f800a98e953516b0d036bc66501ccb5e90dcd7eff2f.svg?branch=master)](https://buildkite.com/uber/fusionjs)
 
-Provides a logger that can be connected to standard Uber log consumption services. Wraps over [@uber/logtron](https://code.uberinternal.com/diffusion/WELOGTK/) (which, in turn, is a fork of [https://github.com/uber/logtron](https://github.com/uber/logtron).
+Provides a logger that can be connected to standard Uber log consumption services (kafka and healthline)
 
-If you need to use this plugin from a React component, you should use `useService` from [`fusion-react`](https://github.com/uber/fusionjs/tree/master/fusion-react) in combination with this package.
+**IMPORTANT changes in V3.x.x:**
+* As of v3.x.x the name format for the kafka topic has changed
+  * *before 3.x.x*\
+`<team>-<appName>` (e.g. "everything-web-restaurant-signup")
+  * *3.x.x and after*\
+`<appName>` (e.g. "web-restaurant-signup")
+
+* fusion-plugin-logtron-react is now deprecated
+  * If you need to use this plugin from a React component, you should use `useService` from [`fusion-react`](https://github.com/uber/fusionjs/tree/master/fusion-react) in combination with this package. See the [example](#in-react-component) below.
 
 ---
 
@@ -33,6 +41,8 @@ npm install @uber/fusion-plugin-logtron
 
 ### Usage
 
+#### In Fusion middleware
+
 ```js
 import createPlugin from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
@@ -47,6 +57,21 @@ export default createPlugin({
     }
   }
 });
+```
+
+#### In React Component
+
+```js
+import {LoggerToken} from 'fusion-tokens';
+import {useService} from 'fusion-react';
+
+const MyComponent = props => {
+  const logger = useService(LoggerToken);
+  if (badThings) {
+    logger.error(new Error('bad things happened'));
+  }
+  // ..
+}
 ```
 
 ---
