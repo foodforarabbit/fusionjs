@@ -123,9 +123,7 @@ test('doesn`t crash when meta is a circular reference in production', () => {
   expect(typeof logger.log).toBe('function');
   expect(typeof child.log).toBe('function');
   const consoleSpy = spy(console, 'log');
-  expect(() =>
-    logger.log('info', message, meta, () => {})
-  ).not.toThrow();
+  expect(() => logger.log('info', message, meta, () => {})).not.toThrow();
 
   formatPattern = new RegExp(
     `\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
@@ -140,7 +138,6 @@ test('doesn`t crash when meta is a circular reference in production', () => {
     logger.lol(message, {a: {b: {c: 3}}}, () => {})
   ).toThrow();
 });
-
 
 test('supports all logger methods in development', () => {
   const emitter = new TestEmitter();
@@ -343,7 +340,7 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
 });
 
 // case a (see `../server.js`)
-test('handleLog does not call sentry for errors where `meta` itself is a real error in development', done => {
+test('handleLog does not call sentry for errors in development', done => {
   const message = 'all gone wrong';
   const error = new Error(message);
 
@@ -568,6 +565,7 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
       expect(typeof meta === 'object').toBeTruthy();
       // doesn't map to stack because no sourcemaps (create-error-transform tests covers that behavior)
       expect(meta).toEqual({
+        message: 'all gone wrong',
         error: {
           message: 'all gone wrong',
           source: 'this: 123, that: 324',
@@ -593,6 +591,48 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
       level: 'error',
       message,
       meta: {error: {message, source: 'this: 123, that: 324', line: 123}},
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
+});
+
+// case d (see `../server.js`)
+test('preserves message when logging to sentry even if `meta` is not error-shaped', done => {
+  expect.assertions(3);
+  const message = 'all gone wrong';
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      // doesn't map to stack because no sourcemaps (create-error-transform tests covers that behavior)
+      expect(meta).toEqual({
+        message,
+        a: 22,
+        b: 99,
+        stack: 'not available',
+        appID: 'my-app',
+        runtimeEnvironment: 'production',
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+        tags: {},
+      });
+      done();
+    },
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {a: 22, b: 99},
     },
     sentryLogger: mockLogger,
     envMeta: {

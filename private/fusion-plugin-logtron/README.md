@@ -51,8 +51,16 @@ export default createPlugin({
   deps: {logger: LoggerToken},
   middleware({logger}) {
     return (ctx, next) => {
-      // see https://github.com/uber/logtron for api documentation on the logger
-      logger.info('hello world');
+      // log info
+      logger.info('hello world', {some: metadata});
+      // this does the same as above statement
+      logger.log('info', 'hello world', {some: metadata});
+      // log an error with an instance of Error
+      logger.error('something broke', anErrorObject);
+      // log an error with an error-like object
+      logger.error('something broke', {message, stack: '..blah..', });
+      // you can also skip the message field
+      logger.error(anErrorObject);
       return next();
     }
   }
@@ -101,6 +109,58 @@ export default () => {
 ---
 
 ### API
+
+#### Logger API
+
+The following logger levels/methods are supported:
+```js
+logger.error
+logger.warn
+logger.info
+logger.debug
+logger.silly
+logger.verbose
+logger.trace
+logger.access
+logger.fatal
+```
+
+You can also call also pass any level as the first argument to `logger.log` (see [Usage](#usage) above)
+All methods will log to kafka in production. Additionally `error` will log to Healthline.
+
+##### Arguments
+
+Generically all logger.methods (except `log`) accept arguments in the following format:
+
+```js
+logger.<method>(message: string, meta?: any, callback?: function)
+```
+
+**Additional guidance for `error` method only:** In order to generate well populated Healthline logs, developers are encouraged to supply a `meta` object in one of the following formats.
+
+* An Error object
+* An object with Error-like properties
+* `{error: <an Error object>}`
+* `{error: <an object with Error-like properties>}`
+
+"With Error-like properties" means containing at least `message` and `stack` properties.
+
+
+Here are some examples of well-formatted `error` calls:
+
+```js
+logger.error('oh no!', new Error('oh no!'));
+logger.error('oh no!', new Error('oh no!'), aCallbackFunction);
+logger.error('oh no!', {message: 'oh no!', stack: aStackString});
+logger.error('oh no!', {error: new Error('oh no!'), some: otherData});
+logger.error('oh no!', {error: {message: 'oh no!', stack: aStackString});
+```
+
+NOTE: For `error` calls, the initial message argument will be ignored be healthline should a `message` property exist in the `meta` argument. For backwards comptability, the `message` argument can also be omitted, providing there is no callback argument:
+
+```js
+logger.error(new Error('oh no!'));
+```
 
 #### Registration API
 
@@ -157,4 +217,3 @@ import {LogtronTransformsToken} from '@uber/fusion-plugin-logtron';
 ```
 
 Array of transform functions. Server-only. Optional. See [https://github.com/uber/logtron#optionstransforms](https://github.com/uber/logtron#optionstransforms)
-

@@ -128,6 +128,7 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
         meta = message;
       }
       message = '';
+      callback = null;
     }
 
     // stdout -> kafka
@@ -140,6 +141,11 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
     if (envMeta.runtimeEnvironment === 'production') {
       const tags = (meta && meta.tags) || {};
       m3 && m3.increment(m3Topic, {level, ...tags});
+
+      // healthline uses `meta` for message, make sure it gets a message
+      if (!meta.message) {
+        meta.message = message;
+      }
 
       // also log to healthline (via sentry) for errors
       // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
@@ -167,8 +173,8 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
 
         let formattedMeta: PayloadMetaType = meta;
 
-        // case c and d (or a and b after above property reassignment)
         if (isErrorLikeObject(meta.error)) {
+          // case c and d (or a and b after above property reassignment)
           formattedMeta = await transformError(meta);
         }
 
