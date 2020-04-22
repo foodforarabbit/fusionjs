@@ -63,7 +63,6 @@
     "flow-bin": "^0.109.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-apollo": "0.0.0-monorepo",
-    "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-react": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
@@ -81,6 +80,7 @@
     "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-apollo": "0.0.0-monorepo",
+    "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
     "graphql": "^14.5.8"
   },

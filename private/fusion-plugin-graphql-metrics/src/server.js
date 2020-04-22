@@ -11,6 +11,7 @@ import type {PluginServiceType, DepsType} from './types.js';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken, type Span} from '@uber/fusion-plugin-tracer';
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {snakeCase} from './snakecase';
 import {ApolloLink} from 'apollo-link';
 import {GraphQLSchemaToken} from 'fusion-plugin-apollo';
@@ -31,15 +32,40 @@ function getSpanList(ctx: Context, operationName: string): Array<[Span, any]> {
   return spanTuples;
 }
 
+const noop = (_1, _2, _3) => {};
+
+export const GRAPHQL_METRIC_EVENT_NAME = 'fusion-plugin-graphql-metrics-event';
+
+export type GraphQLMetricEventPayload = {
+  start: Date,
+  operation_type: string,
+  operation_name: string,
+  result: 'success' | 'failure',
+  variables: {[name: string]: mixed},
+};
+
 const plugin = createPlugin<DepsType, PluginServiceType>({
   deps: {
     logger: LoggerToken,
     m3: M3Token,
     Tracer: TracerToken.optional,
     schema: GraphQLSchemaToken.optional,
+    events: UniversalEventsToken.optional,
   },
-  provides({logger, m3, Tracer, schema}) {
+  provides({logger, m3, Tracer, schema, events}) {
     return (links, ctx) => {
+      const emit = events
+        ? (start, tags, variables) =>
+            events.from(ctx).emit(
+              GRAPHQL_METRIC_EVENT_NAME,
+              ({
+                ...tags,
+                start,
+                variables,
+              }: GraphQLMetricEventPayload)
+            )
+        : noop;
+
       if (Tracer) {
         // This is a private API which is necessary for correct tracing hierarchy. This will be used by atreyu generated code.
         // We may be able to remove this API in favor of a cleaner solution if we move away from graphql-tools and apollo-server
@@ -128,6 +154,7 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
                 span.finish();
               }
               m3.timing('graphql_operation', start, tags);
+              emit(start, tags, op.variables);
               throw errors[0];
             }
           }
@@ -151,6 +178,7 @@ const plugin = createPlugin<DepsType, PluginServiceType>({
               span.finish();
             }
             m3.timing('graphql_operation', start, tags);
+            emit(start, tags);
             return result;
           });
 

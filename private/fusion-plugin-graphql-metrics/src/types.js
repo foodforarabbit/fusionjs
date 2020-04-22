@@ -5,6 +5,7 @@ import type {GraphQLResolveInfo} from 'graphql';
 import {LoggerToken} from 'fusion-tokens';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {TracerToken} from '@uber/fusion-plugin-tracer';
+import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {
   GetApolloClientLinksToken,
   GraphQLSchemaToken,
@@ -17,6 +18,7 @@ export type DepsType = {
   m3: typeof M3Token,
   Tracer: typeof TracerToken.optional,
   schema: typeof GraphQLSchemaToken.optional,
+  events: typeof UniversalEventsToken.optional,
 };
 type ResolveFn = (
   root: any,

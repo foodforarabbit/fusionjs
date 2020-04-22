@@ -16,7 +16,7 @@ A fusion plugin which provides a graphql plugin to handle logging, tracing, and 
     * [`TracerToken`](#tracertoken)
   * [Service API](#service-api)
 
-### Installation 
+### Installation
 
 ```
 yarn add @uber/fusion-plugin-graphql-metrics
@@ -48,11 +48,11 @@ operation_type: 'query' | 'mutation' | 'subscription'
 result: 'success' | 'failure'
 ```
 
-### Tracing 
+### Tracing
 
 TODO
 
-### API 
+### API
 
 #### Dependencies
 
@@ -79,3 +79,11 @@ import {TracerToken} from '@uber/fusion-plugin-tracer';
 ```
 
 Required - The token for the tracer client which is used to report tracing. See [https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-tracer](https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-tracer)
+
+### Events
+
+This plugin emits events using [fusion-plugin-universal-events](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events). This is useful if you want to ingest info about GraphQL queries for data analytics.
+
+#### `fusion-plugin-graphql-metrics-event`
+
+The payload type is given by the `GraphQLMetricEventPayload` type.
