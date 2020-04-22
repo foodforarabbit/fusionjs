@@ -60,7 +60,6 @@ import LoggerPlugin, {
 } from '@uber/fusion-plugin-logtron';
 import Router from 'fusion-plugin-react-router';
 import TracerPlugin, {TracerToken} from '@uber/fusion-plugin-tracer';
-import GalileoPlugin, {GalileoToken} from '@uber/fusion-plugin-galileo';
 import TChannel, {TChannelToken} from '@uber/fusion-plugin-tchannel';
 import Styletron, {AtomicPrefixToken} from 'fusion-plugin-styletron-react';
 import AtreyuPlugin, {
@@ -156,7 +155,6 @@ export default async function start(options: any = {}) {
       app.register(AuthHeadersEmailConfigToken, authHeadersDevConfig.email);
     app.register(NodePerfEmitterPlugin);
     !__DEV__ && app.register(TracerToken, TracerPlugin);
-    !__DEV__ && app.register(GalileoToken, GalileoPlugin);
     app.register(TChannelToken, TChannel);
     app.register(AtreyuToken, AtreyuPlugin);
     app.register(AtreyuConfigToken, atreyuConfig);
