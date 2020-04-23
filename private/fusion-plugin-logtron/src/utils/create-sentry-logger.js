@@ -10,7 +10,7 @@ import type {SentryConfigType} from '../types';
 
 // default function to please flow for imaginary browser case
 // eslint-disable-next-line import/no-mutable-exports
-let createLogger = (sentry: SentryConfigType, team?: string) => null;
+let createLogger = (sentry: SentryConfigType, env?: stringify) => null;
 
 if (__NODE__) {
   const winston = require('winston');
@@ -30,9 +30,13 @@ if (__NODE__) {
 
   createLogger = function createLogger(
     {id: sentryDSN}: SentryConfigType,
-    team?: string
+    env: ?string
   ): Logger<{[string]: number}> {
     const RavenClient = require('uber-raven').Client;
+    if (env && env !== 'production') {
+      // e.g. staging
+      sentryDSN = `${sentryDSN}-${env}`;
+    }
     const ravenClient = new RavenClient(sentryDSN);
     const Prober = require('airlock');
 

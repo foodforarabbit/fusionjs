@@ -43,32 +43,36 @@ const plugin =
       envOverride: EnvOverrideToken.optional,
     },
     provides: ({events, m3, errorTracker, team, envOverride}) => {
-      const env =
-        envOverride ||
+      const runtimeEnvironment =
+        (envOverride && envOverride.uberRuntime) ||
         (__DEV__
           ? 'dev'
           : process.env.UBER_RUNTIME_ENVIRONMENT || process.env.NODE_ENV);
+      // this includes staging
+      const isProduction =
+        (envOverride && envOverride.node === 'production') ||
+        process.env.NODE_ENV === 'production';
       const envMeta = {
         appID: process.env.SVC_ID,
-        runtimeEnvironment: env,
+        isProduction,
+        runtimeEnvironment,
         deploymentName: process.env.GIT_DESCRIBE,
         gitSha: process.env.GITHUB_TOKEN,
       };
 
-      const transformError =
-        env === 'production'
-          ? createErrorTransform({
-              path: path.join(
-                process.cwd(),
-                `.fusion/dist/${String(env)}/client`
-              ),
-              ext: '.map',
-            })
-          : _ => _;
+      const transformError = isProduction
+        ? createErrorTransform({
+            path: path.join(
+              process.cwd(),
+              `.fusion/dist/${String(runtimeEnvironment)}/client`
+            ),
+            ext: '.map',
+          })
+        : _ => _;
 
       const sentryLogger =
         errorTracker && errorTracker.sentry
-          ? createSentryLogger(errorTracker.sentry, team)
+          ? createSentryLogger(errorTracker.sentry, runtimeEnvironment)
           : null;
 
       const wrappedLogger = {};
@@ -106,7 +110,7 @@ const plugin =
                 message: `error while logging to heathline: ${e}
 payload = ${payload}`,
               },
-              envMeta.runtimeEnvironment
+              envMeta.isProduction
             )
           );
         }
@@ -132,23 +136,14 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
     }
 
     // stdout -> kafka
-    console.log(
-      formatStdout({level, message, meta}, envMeta.runtimeEnvironment)
-    );
+    console.log(formatStdout({level, message, meta}, envMeta.isProduction));
 
     // also log to healthline (via sentry) for errors
     // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
-    if (envMeta.runtimeEnvironment === 'production') {
+    if (envMeta.isProduction) {
       const tags = (meta && meta.tags) || {};
       m3 && m3.increment(m3Topic, {level, ...tags});
 
-      // healthline uses `meta` for message, make sure it gets a message
-      if (!meta.message) {
-        meta.message = message;
-      }
-
-      // also log to healthline (via sentry) for errors
-      // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
       if (level === 'error' && sentryLogger && meta) {
         /*
          * four supported formats for meta argument
@@ -159,6 +154,11 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
          *
          * in all four cases, Error properties will end up as root properties of `formattedMeta`
          */
+
+        // healthline uses `meta` for message, make sure it gets a message
+        if (!meta.message) {
+          meta.message = message;
+        }
 
         if (isError(meta)) {
           // case a
@@ -207,7 +207,7 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
           level: 'warn',
           message: `logger called with unsupported method: ${level}`,
         },
-        envMeta.runtimeEnvironment
+        envMeta.isProduction
       )
     );
   }

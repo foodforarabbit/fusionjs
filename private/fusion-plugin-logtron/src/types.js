@@ -51,6 +51,7 @@ export type ErrorLogOptionsType = {
   payload: PayloadType,
   envMeta: {
     runtimeEnvironment: ?string,
+    isProduction?: boolean,
     deploymentName: ?string,
     gitSha: ?string,
     appID: ?string,
@@ -59,3 +60,5 @@ export type ErrorLogOptionsType = {
   m3?: M3Type,
   team?: string,
 };
+
+export type EnvOverrideType = {uberRuntime?: string, node?: string};

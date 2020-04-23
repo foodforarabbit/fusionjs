@@ -11,14 +11,14 @@ export default function formatStdout(
     message: string,
     meta?: any,
   },
-  env: ?string
+  isProduction?: boolean
 ) {
   const {level, message, meta} = payload;
   const date = new Date();
   const iso = date.toISOString();
   const ts = date.getTime();
 
-  if (env && env == 'production') {
+  if (isProduction) {
     // format for kafka
     const data = {
       host,

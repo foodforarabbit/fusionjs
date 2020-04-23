@@ -11,6 +11,8 @@ Provides a logger that can be connected to standard Uber log consumption service
   * *3.x.x and after*\
 `<appName>` (e.g. "web-restaurant-signup")
 
+* Staging errors are now logged to healthline (in a dedicated Healthline service). See [here](#healthline-url) for more info.
+
 * fusion-plugin-logtron-react is now deprecated
   * If you need to use this plugin from a React component, you should use `useService` from [`fusion-react`](https://github.com/uber/fusionjs/tree/master/fusion-react) in combination with this package. See the [example](#in-react-component) below.
 
@@ -20,8 +22,13 @@ Provides a logger that can be connected to standard Uber log consumption service
 
 * [Installation](#installation)
 * [Usage](#usage)
+  * [In Fusion middleware](#in-fusion-middleware)
+  * [In React Component](#in-react-component)
+  * [Healthline](#healthline)
 * [Setup](#setup)
 * [API](#api)
+  * [Logger API](#logger-api)
+    * [Arguments](#arguments)
   * [Registration API](#registration-api)
     * [`Logger`](#logger)
     * [`LoggerToken`](#loggertoken)
@@ -81,6 +88,28 @@ const MyComponent = props => {
   // ..
 }
 ```
+
+---
+
+### Healthline
+
+All uncaught errors, or calls to `logger.error` should appear on the Healthline dashboard for your app.
+
+#### Configuration
+
+Make sure your sentry DSN is correctly configured by checking `src/congig/sentry.js`. It should look something like this:
+
+```js
+export default {
+  id: `http://uber:uber@localhost:16921/<your-app-name>`,
+};
+```
+
+#### Healthline URL
+
+Production errors should go to `https://healthline.uberinternal.com/service/<your-app-name>/issues`
+
+As of v3.x.x, staging errors should now go to `https://healthline.uberinternal.com/service/<your-app-name>-staging/issues`
 
 ---
 

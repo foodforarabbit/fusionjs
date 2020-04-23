@@ -24,7 +24,10 @@ test('supports all logger methods in production', () => {
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
-  app.register(EnvOverrideToken, 'production');
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'production',
+    node: 'production',
+  });
   // $FlowFixMe - Dummy M3 Token.
   app.register(M3Token, {});
   const sim = getSimulator(app);
@@ -85,7 +88,10 @@ test('doesn`t crash when meta is a circular reference in production', () => {
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
-  app.register(EnvOverrideToken, 'production');
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'production',
+    node: 'production',
+  });
   // $FlowFixMe - Dummy M3 Token.
   app.register(M3Token, {});
   const sim = getSimulator(app);
@@ -147,7 +153,9 @@ test('supports all logger methods in development', () => {
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
-  app.register(EnvOverrideToken, 'dev');
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'dev',
+  });
   // $FlowFixMe - Dummy M3 Token.
   app.register(M3Token, {});
   const sim = getSimulator(app);
@@ -190,7 +198,10 @@ test('handleLog recognizes meta objects sent as messages in production', () => {
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
-  app.register(EnvOverrideToken, 'production');
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'production',
+    node: 'production',
+  });
   // $FlowFixMe - Dummy M3 Token.
   app.register(M3Token, {});
   const sim = getSimulator(app);
@@ -243,7 +254,10 @@ test('logs partial data when level is valid but arguments incomplete in producti
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
-  app.register(EnvOverrideToken, 'production');
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'production',
+    node: 'production',
+  });
   // $FlowFixMe - Dummy M3 Token.
   app.register(M3Token, {});
   app.middleware({logger: LoggerToken}, ({logger}) => {
@@ -302,6 +316,7 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
           deploymentName: 'lol',
           gitSha: 'a1234567',
           runtimeEnvironment: 'production',
+          isProduction: true,
           tags: {
             ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}},
             url: 'https://lol.com',
@@ -333,6 +348,7 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
     envMeta: {
       appID: 'my-app',
       runtimeEnvironment: 'production',
+      isProduction: true,
       deploymentName: 'lol',
       gitSha: 'a1234567',
     },
@@ -411,6 +427,7 @@ test('handleLog calls sentry for errors c1) where `meta` itself is an error-like
     envMeta: {
       appID: 'my-app',
       runtimeEnvironment: 'production',
+      isProduction: true,
       deploymentName: 'lol',
       gitSha: 'a1234567',
     },
@@ -431,6 +448,7 @@ test('handleLog calls sentry for errors c2) where `meta` itself is an error-like
         deploymentName: 'lol',
         gitSha: 'a1234567',
         runtimeEnvironment: 'production',
+        isProduction: true,
         tags: {
           ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}},
           url: 'https://lol.com',
@@ -462,6 +480,7 @@ test('handleLog calls sentry for errors c2) where `meta` itself is an error-like
     envMeta: {
       appID: 'my-app',
       runtimeEnvironment: 'production',
+      isProduction: true,
       deploymentName: 'lol',
       gitSha: 'a1234567',
     },
@@ -502,6 +521,7 @@ test('handleLog calls sentry for errors where `meta.error` is a real error, and 
     envMeta: {
       appID: 'my-app',
       runtimeEnvironment: 'production',
+      isProduction: true,
       deploymentName: 'lol',
       gitSha: 'a1234567',
     },
@@ -550,6 +570,7 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
     envMeta: {
       appID: 'my-app',
       runtimeEnvironment: 'production',
+      isProduction: true,
       deploymentName: 'lol',
       gitSha: 'a1234567',
     },
@@ -574,6 +595,7 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
         stack: 'not available',
         appID: 'my-app',
         runtimeEnvironment: 'production',
+        isProduction: true,
         deploymentName: 'lol',
         gitSha: 'a1234567',
         tags: {},
@@ -596,6 +618,7 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
     envMeta: {
       appID: 'my-app',
       runtimeEnvironment: 'production',
+      isProduction: true,
       deploymentName: 'lol',
       gitSha: 'a1234567',
     },
@@ -618,6 +641,7 @@ test('preserves message when logging to sentry even if `meta` is not error-shape
         stack: 'not available',
         appID: 'my-app',
         runtimeEnvironment: 'production',
+        isProduction: true,
         deploymentName: 'lol',
         gitSha: 'a1234567',
         tags: {},
@@ -638,6 +662,7 @@ test('preserves message when logging to sentry even if `meta` is not error-shape
     envMeta: {
       appID: 'my-app',
       runtimeEnvironment: 'production',
+      isProduction: true,
       deploymentName: 'lol',
       gitSha: 'a1234567',
     },
@@ -666,6 +691,7 @@ test('warns if handleLog called with invalid method in production', () => {
       envMeta: {
         appID: 'my-app',
         runtimeEnvironment: 'production',
+        isProduction: true,
         deploymentName: 'lol',
         gitSha: 'a1234567',
       },
@@ -690,7 +716,10 @@ test('logs to M3 in production', () => {
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
-  app.register(EnvOverrideToken, 'production');
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'production',
+    node: 'production',
+  });
   // $FlowFixMe - Dummy M3 Token.
   app.register(M3Token, mockM3);
   const sim = getSimulator(app);
@@ -723,7 +752,9 @@ test('does not log to M3 in development', () => {
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
   app.register(TeamToken, 'team');
-  app.register(EnvOverrideToken, 'development');
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'dev',
+  });
   // $FlowFixMe - Dummy M3 Token.
   app.register(M3Token, mockM3);
   const sim = getSimulator(app);
