@@ -66,7 +66,8 @@
     "redux": "^4.0.5",
     "styletron-react": "^5.2.6",
     "unfetch": "^4.1.0",
-    "@uber/typed-rpc-cli": "^3.3.3"
+    "@uber/typed-rpc-cli": "^3.3.3",
+    "ubook": "^0.0.14"
   },
   "devDependencies": {
     "@uber/fusion-dev-cli": "0.0.0-monorepo",

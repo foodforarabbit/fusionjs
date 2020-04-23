@@ -1,16 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Welcome 1`] = `
-<Styled(div)>
+<div
+  className=""
+>
   <div>
     <Styled(div)
       $delay="500ms"
     >
-      <ForwardRef(FontLoader)>
+      <h1
+        className=""
+      >
         Welcome
-      </ForwardRef(FontLoader)>
+      </h1>
     </Styled(div)>
-    <Styled(div)>
+    <div
+      className=""
+    >
       <Styled(div)
         $delay="1.5s"
       >
@@ -18,7 +24,7 @@ exports[`Welcome 1`] = `
           Let's get started
         </ButtonLink>
       </Styled(div)>
-    </Styled(div)>
+    </div>
   </div>
-</Styled(div)>
+</div>
 `;

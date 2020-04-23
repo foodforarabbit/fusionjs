@@ -8,11 +8,10 @@ import Welcome from '../welcome';
 test('Welcome', async () => {
   const result = await renderTest(<Welcome />);
   expect(result.getByText('Welcome')).toMatchInlineSnapshot(`
-    <div
-      class="_ao _ap _aq _ar _as"
-      data-baseweb="typo-displaylarge"
+    <h1
+      class="_ai _aj _ak _al _am"
     >
       Welcome
-    </div>
+    </h1>
   `);
 });

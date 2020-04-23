@@ -3,7 +3,6 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {styled, useStyletron} from 'baseui';
 import {Button} from 'baseui/button';
-import {Display1} from 'baseui/typography';
 import {ChevronRightFilled} from '@uber/icons';
 
 const FadeIn = styled<{$delay: string}>('div', props => ({
@@ -18,7 +17,7 @@ const FadeIn = styled<{$delay: string}>('div', props => ({
 }));
 
 export default function Hello() {
-  const [css] = useStyletron();
+  const [css, theme] = useStyletron();
 
   const centered = css({
     display: 'flex',
@@ -27,11 +26,16 @@ export default function Hello() {
     height: '100%',
   });
 
+  const h1 = css({
+    ...theme.typography.DisplayMedium,
+    color: theme.colors.contentPrimary,
+  });
+
   return (
     <div className={centered}>
       <div>
         <FadeIn $delay="500ms">
-          <Display1>Welcome</Display1>
+          <h1 className={h1}>Welcome</h1>
         </FadeIn>
         <div className={css({textAlign: 'right'})}>
           <FadeIn $delay="1.5s">
