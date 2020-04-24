@@ -270,7 +270,7 @@ src/fixtures/zh-CN.json
 ```
 
 
-- If you want to use prod translations, you should set `useSnapshot=true` in the config and connect to the VPN to access Artifactory.
+- If you want to use prod translations, you should set `useSnapshot=true` in the config and the client will load translations from terrablob (If in local, please add terrablob-gateway http service in your cerberus, e.g., run cerberus -s terrablob-gateway).
 
 ```
 src/config/rosetta.js
