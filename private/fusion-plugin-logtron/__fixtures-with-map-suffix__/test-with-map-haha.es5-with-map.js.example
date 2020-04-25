@@ -1,0 +1,14 @@
+'use strict';
+
+function test(foo) {
+  var err = new Error('hello world');
+
+  for (var _len = arguments.length, other = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    other[_key - 1] = arguments[_key];
+  }
+
+  console.log(other, err.stack);
+}
+
+test(1, 2, 3);
+//# sourceMappingURL=test-with-map-haha.es5.js.map

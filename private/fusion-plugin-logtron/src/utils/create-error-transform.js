@@ -50,7 +50,12 @@ export default function createErrorTransform(config: ConfigType = {}) {
   };
 
   async function applySourceMap(fileName, line, column) {
-    const map = mappers ? await mappers[path.basename(String(fileName))] : null;
+    // '-with-map.js' uses same map as non-suffixed file
+    const baseFileName = path
+      .basename(String(fileName))
+      // replace last occurence
+      .replace(/-with-map(?!.*-with-map.*)/, '');
+    const map = mappers ? await mappers[baseFileName] : null;
     return map ? map.originalPositionFor({line, column}) : null;
   }
 

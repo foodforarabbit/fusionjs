@@ -8,6 +8,12 @@ regularError.stack = `Error: hello world
         at test (test.es5.js:4:13)
         at Object.<anonymous> (test.es5.js:13:1)`;
 
+const regularErrorSourceHasWithMapSuffix = new Error('hi from regular error');
+// put additional 'with-map' in base name too to ensure omly last occurence removed
+regularErrorSourceHasWithMapSuffix.stack = `Error: hello world
+        at test (test-with-map-haha.es5-with-map.js:4:13)
+        at Object.<anonymous> (test-with-map-haha.es5-with-map.js:13:1)`;
+
 const sourceAndLineError = {
   message: 'hi from source and line error',
   source: `test.es5.js`,
@@ -19,6 +25,13 @@ const expectedRegularErrorTransformed = {
   message: 'hi from regular error',
   stack: `test at test.js:2:14
     Object.<anonymous> at test.js:6:1`,
+  error: regularError,
+};
+
+const expectedRegularErrorSourceHasWithMapSuffixTransformed = {
+  message: 'hi from regular error',
+  stack: `test at test-with-map-haha.js:2:14
+    Object.<anonymous> at test-with-map-haha.js:6:1`,
   error: regularError,
 };
 
@@ -47,6 +60,20 @@ test('createErrorTransform - regular error', async () => {
   });
   const transformed = await transformError({error: regularError});
   expect(transformed).toEqual(expectedRegularErrorTransformed);
+});
+
+test('createErrorTransform - regular error, source has `with-map` suffix', async () => {
+  expect.assertions(1);
+  const transformError = createErrorTransform({
+    path: path.join(process.cwd(), `__fixtures-with-map-suffix__`),
+    ext: '.map',
+  });
+  const transformed = await transformError({
+    error: regularErrorSourceHasWithMapSuffix,
+  });
+  expect(transformed).toEqual(
+    expectedRegularErrorSourceHasWithMapSuffixTransformed
+  );
 });
 
 test('createErrorTransform - regular error, no map', async () => {

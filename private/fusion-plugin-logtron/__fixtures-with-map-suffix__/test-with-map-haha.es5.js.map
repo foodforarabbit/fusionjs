@@ -1,0 +1,12 @@
+{
+  "version":3,
+  "sources":[
+    "test-with-map-haha.js"
+  ],
+  "names":[],
+  "mappings":";;AAAA,SAAS,IAAT,CAAc,GAAd,EAA6B;AAC3B,MAAM,MAAM,IAAI,KAAJ,CAAU,aAAV,CAAZ;;AAD2B,oCAAP,KAAO;AAAP,SAAO;AAAA;;AAE3B,UAAQ,GAAR,CAAY,KAAZ,EAAmB,IAAI,KAAvB;AACD;;AAED,KAAK,CAAL,EAAQ,CAAR,EAAW,CAAX",
+  "file":"test.es5.js",
+  "sourcesContent":[
+    "function test(foo, ...other) {\n  const err = new Error('hello world');\n  console.log(other, err.stack);\n}\n\ntest(1, 2, 3);\n"
+  ]
+}

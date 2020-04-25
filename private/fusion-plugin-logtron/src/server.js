@@ -62,10 +62,7 @@ const plugin =
 
       const transformError = isProduction
         ? createErrorTransform({
-            path: path.join(
-              process.cwd(),
-              `.fusion/dist/${String(runtimeEnvironment)}/client`
-            ),
+            path: path.join(process.cwd(), `.fusion/dist/production/client`),
             ext: '.map',
           })
         : _ => _;
