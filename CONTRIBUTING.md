@@ -76,6 +76,17 @@ If you're in the private monorepo, comment `!land`, and it'll land the change in
 
 **DO NOT manually use the GitHub merge button**. This will result in a lopsided change in only one of the monorepos. If you can't possibly stop yourself, install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) for Chrome and visit [this userscript](https://gist.github.com/chrisdothtml/a56cff0ab51bdbccea49d1236b741e94/raw/HideMergeButton.user.js) (should prompt you to install) to hide the merge button.
 
+#### Regarding fusion-cli features and compiler magic
+
+We aim to match as closely as possible the syntax and semantics of vanilla JS.
+
+Any new compiler features or syntax/semantics that deviate from vanilla JS should meet all of the following criteria:
+
+1. Is able to be *trivially* codemodded to vanilla JS
+2. Have a long history of stability without breaking changes (and ideally an mature, established specification)
+3. Have zero configuration options
+
+JSX is a fairly good example of something meeting these criteria.
 
 ## Dependencies
 <sup><a href="#table-of-contents">Back to top</a></sup>
