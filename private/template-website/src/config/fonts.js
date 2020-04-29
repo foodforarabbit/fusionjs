@@ -1,5 +1,6 @@
 // @flow
 
+import * as React from 'react';
 import {assetUrl} from 'fusion-core';
 import {withFontLoading} from 'fusion-plugin-font-loader-react';
 import type {
