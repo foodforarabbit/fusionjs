@@ -120,7 +120,7 @@ As of v3.x.x, staging errors should now go to `https://healthline.uberinternal.c
 import {LoggerToken} from 'fusion-tokens';
 import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3';
-import Logger, {LogtronBackendsToken, LogtronTeamToken} from '@uber/fusion-plugin-logger';
+import Logger, {LogtronBackendsToken, LogtronTeamToken} from '@uber/fusion-plugin-logtron';
 
 export default () => {
   const app = new App(<Home />);
@@ -196,7 +196,7 @@ logger.error(new Error('oh no!'));
 ##### `Logger`
 
 ```js
-import Logger from '@uber/fusion-plugin-logger';
+import Logger from '@uber/fusion-plugin-logtron';
 ```
 
 The plugin. Should typically be registered to [`LoggerToken`](https://github.com/fusionjs/fusionjs/tree/master/fusion-tokens#loggertoken)
