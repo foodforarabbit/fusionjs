@@ -3,6 +3,7 @@
 import os from 'os';
 import stringify from 'json-stringify-safe';
 
+const MAX_LOG_DATA = 3000;
 const host = os.hostname();
 
 export default function formatStdout(
@@ -28,7 +29,11 @@ export default function formatStdout(
       msg: message,
       fields: meta,
     };
-    return stringify(data);
+    let toText = stringify(data);
+    if (toText.length > MAX_LOG_DATA) {
+      toText = `${toText.slice(0, MAX_LOG_DATA)}...`;
+    }
+    return toText;
   } else {
     // format for terminal
     const levelString = (level + ':    ').slice(0, 7);
