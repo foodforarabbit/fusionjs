@@ -23,9 +23,14 @@ function proxy() {
   process.argv.shift();
   const cmd = process.argv.shift();
   const args = process.argv;
-  return cp.spawn(cmd, args, {
+  const proc = cp.spawn(cmd, args, {
     stdio: 'inherit',
   });
+  proc.on('exit', (code) => {
+    console.log(`Dev server exited with code ${code}`);
+    process.exit(code);
+  });
+  return proc;
 }
 
 run();
