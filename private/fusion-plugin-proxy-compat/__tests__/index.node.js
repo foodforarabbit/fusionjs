@@ -154,6 +154,71 @@ test('proxies GET requests', async () => {
   ]);
 });
 
+test('proxies GET 302 requests', async () => {
+  const app = new App('el', el => el);
+  const proxyPort = await getPort();
+  const appPort = await getPort();
+
+  app.register(M3Token, mockM3);
+  app.register(
+    createPlugin({
+      deps: {m3: M3Token},
+
+      middleware: ({m3}) => async (
+        ctx /*: Context */,
+        next /*: () => Promise<void> */
+      ) /*: Promise<void> */ => {
+        next();
+      },
+    })
+  );
+
+  app.register(ProxyPlugin);
+
+  // $FlowFixMe
+  app.register(LoggerToken, console);
+  app.register(TracerToken, getMockTracer());
+  app.register(
+    GalileoToken,
+    getMockGalileo((proxyName, type, span, cb) /*: void */ => {
+      cb(null);
+    })
+  );
+  app.register(ProxyConfigToken, {
+    test: {
+      uri: `http://localhost:${proxyPort}`,
+      routes: [{route: '/*', headers: {'x-next': 'correct'}, m3Key: 'root'}],
+    },
+  });
+
+  const proxyServer = http.createServer((
+    req /*: IncomingMessage */,
+    res /*: ServerResponse */
+  ) /*: void */ => {
+    expect(req.url).toBe('/hello');
+    res.writeHead(302, {
+      Location: 'yolo',
+    });
+    res.end();
+  });
+  const proxyConnection = proxyServer.listen(proxyPort);
+
+  // $FlowFixMe
+  const appServer = http.createServer(app.callback());
+  const connection = appServer.listen(appPort);
+
+  expect.assertions(5);
+  const req = await request(`http://localhost:${appPort}/test/hello`, {
+    followRedirect: false,
+  }).catch(res => {
+    expect(res.statusCode).toBe(302);
+    expect(res.response.headers.location).toBe('yolo');
+  });
+  expect(req).toBeUndefined();
+  proxyConnection.close();
+  connection.close();
+});
+
 test('galileo error handling', async () => {
   const app = new App('el', el => el);
   const proxyPort = await getPort();

@@ -73,6 +73,7 @@ const plugin /*: ProxyCompatPluginType */ = createPlugin({
         });
       }
       const proxyReq = request(getProxyUrl(proxyConfig, ctx), {
+        followRedirect: false,
         headers: proxyHeaders,
       });
       proxyReq.on('request', (req) /*: void */ => {
