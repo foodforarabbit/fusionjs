@@ -43,7 +43,12 @@ const plugin =
           if (__DEV__) return noopPublish(topicInfo, message);
           return await heatpipePublish(appId, topicInfo, message);
         } catch (e) {
-          Logger.error(e);
+          Logger.error(
+            `[fusion-plugin-heatpipe error], ${JSON.stringify(
+              topicInfo
+            )}, ${JSON.stringify(message)}`,
+            e
+          );
         }
       }
 
