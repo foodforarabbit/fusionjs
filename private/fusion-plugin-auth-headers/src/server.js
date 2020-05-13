@@ -45,15 +45,15 @@ class AuthHeaders {
 
   get(key: AuthHeaderKey): string {
     let xAuthValue =
-      //$FlowFixMe
-      this.devOverrideConfig[key] ||
       this.ctx.request.headers[breezeHeaderMapping[key]] ||
       this.ctx.request.headers[`${authHeaderPrefix}${key}`] ||
+      // $FlowFixMe
+      this.devOverrideConfig[key] ||
+      /**
+       * should return a string not `undefined` in the default case per the docs
+       * https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-auth-headers
+       */
       '';
-    /**
-     * should return a string not `undefined` in the default case per the docs
-     * https://engdocs.uberinternal.com/web/api/uber-fusion-plugin-auth-headers
-     */
 
     return xAuthValue;
   }

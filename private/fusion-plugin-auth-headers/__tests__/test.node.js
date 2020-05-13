@@ -132,6 +132,38 @@ test('get authentication param from override', () => {
   // $FlowFixMe
   const mockContext = {
     request: {
+      headers: {},
+    },
+    memoized: memoizedMock,
+  };
+  const uuidOverride = 'some-other-auth-uuid';
+
+  const app = createTestFixture();
+  app.register(AuthHeadersUUIDConfigToken, uuidOverride);
+  const testPlugin = createPlugin({
+    deps: {authHeaders: AuthHeadersToken},
+    provides: deps => {
+      const {authHeaders} = deps;
+      const service = authHeaders.from(mockContext);
+      if (__DEV__) {
+        expect(service.get('uuid')).toBe(uuidOverride);
+      } else {
+        // Ensure override does not leak into production
+        expect(service.get('uuid')).toBe('');
+      }
+    },
+  });
+  app.register(testPlugin);
+
+  getSimulator(app);
+});
+
+test('get authentication param from header > override', () => {
+  expect.assertions(1);
+
+  // $FlowFixMe
+  const mockContext = {
+    request: {
       headers: {
         'x-auth-params-uuid': 'some-auth-uuid',
       },
@@ -147,15 +179,9 @@ test('get authentication param from override', () => {
     provides: deps => {
       const {authHeaders} = deps;
       const service = authHeaders.from(mockContext);
-      if (__DEV__) {
-        /* Check development environment */
-        expect(service.get('uuid')).toBe(uuidOverride);
-      } else {
-        /* Check production environment */
-        expect(service.get('uuid')).toBe(
-          mockContext.request.headers['x-auth-params-uuid']
-        );
-      }
+      expect(service.get('uuid')).toBe(
+        mockContext.request.headers['x-auth-params-uuid']
+      );
     },
   });
   app.register(testPlugin);

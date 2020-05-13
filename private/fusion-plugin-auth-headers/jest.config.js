@@ -14,6 +14,16 @@ module.exports = {
       },
     },
     {
+      displayName: 'node',
+      testEnvironment: 'node',
+      testPathIgnorePatterns: ['/node_modules/', '.browser.js', 'dist'],
+      globals: {
+        __NODE__: true,
+        __BROWSER__: false,
+        __DEV__: false,
+      },
+    },
+    {
       displayName: 'browser',
       testEnvironment: 'jsdom',
       testPathIgnorePatterns: ['/node_modules/', '.node.js', 'dist'],
