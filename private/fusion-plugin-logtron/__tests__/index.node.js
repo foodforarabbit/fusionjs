@@ -404,7 +404,6 @@ test('handleLog calls sentry for errors c1) where `meta` itself is an error-like
         })
       );
       if (meta) {
-        console.log(meta.error, meta.error.stack, meta.error.message);
         expect(meta.error instanceof Error).toEqual(true);
         expect(meta.error.stack).toEqual('\nthis: 123, that: 324');
         expect(meta.error.message).toEqual(message);

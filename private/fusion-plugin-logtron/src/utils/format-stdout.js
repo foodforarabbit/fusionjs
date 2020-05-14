@@ -44,6 +44,9 @@ export default function formatStdout(
 
 export function prettify(obj: any) {
   let arr = [];
+  if (typeof obj === 'string') {
+    return obj;
+  }
   // using `for in` instead of `Object.entries` for perf because this will be called many times
   for (let p in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, p)) {
