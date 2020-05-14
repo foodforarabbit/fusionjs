@@ -6,7 +6,7 @@ export default function routeTiming({events, m3, logger}) {
   // increment handlers
   const incrementHandler = key => ({title, status}) => {
     m3.increment(key, {
-      route: sanitizeRouteForM3(title),
+      route: status === 404 ? 'not-found' : sanitizeRouteForM3(title),
       status,
     });
   };
@@ -14,7 +14,7 @@ export default function routeTiming({events, m3, logger}) {
   // timing handlers
   const timingHandler = key => ({title, timing, status}) => {
     m3.timing(key, timing, {
-      route: sanitizeRouteForM3(title),
+      route: status === 404 ? 'not-found' : sanitizeRouteForM3(title),
       status,
     });
   };

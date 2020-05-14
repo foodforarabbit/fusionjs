@@ -86,7 +86,8 @@ const plugin =
       const accessLog = AccessLog(events.from(ctx));
       ctx.timing.end.then(timing => {
         const tags = {
-          route: sanitizeRouteForM3(ctx.path),
+          route:
+            ctx.status === 404 ? 'not-found' : sanitizeRouteForM3(ctx.path),
           status: ctx.status,
           method: ctx.method,
           ...ctx.req.m3Tags, // Bedrock compatability
