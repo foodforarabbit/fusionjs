@@ -114,7 +114,7 @@ git commit -m '{NEW_VERSION}'
 git push origin {NEW_VERSION}
 ```
 
-Publishing may take a few minutes to reflect in unpm.uberinternal.com due to caching, but should appear immediately in unpmsearch.uberinternal.com.
+Publishing may take a few minutes to reflect in unpm.uberinternal.com due to caching, but should appear immediately in `unpmsearch.uberinternal.com`.
 
 Technical Details: Publishing happens via herald rule [500](https://code.uberinternal.com/herald/rule/500/) which calls harbormaster plan [162](https://code.uberinternal.com/harbormaster/plan/162/) which in turn calls Jenkins job [unpm-publish](https://ci.uberinternal.com/job/unpm-publish/)
 
