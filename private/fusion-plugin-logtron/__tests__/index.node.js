@@ -190,6 +190,49 @@ test('supports all logger methods in development', () => {
   consoleSpy.restore();
 });
 
+test('does not crash with string meta', () => {
+  const emitter = new TestEmitter();
+
+  const app = new App('el', el => el);
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(TeamToken, 'team');
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'dev',
+  });
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  // expect.assertions(supportedLevels.length + 1);
+  expect.assertions(19);
+  const message = 'this is a message';
+
+  let formatPattern;
+
+  // Supported level methods
+  supportedLevels.forEach(fn => {
+    const consoleSpy = spy(console, 'log');
+    expect(
+      // $FlowFixMe - Logger has methods that the LoggerToken does not.
+      () => logger[fn](message, message)
+    ).not.toThrow();
+
+    formatPattern = new RegExp(`${fn}\\:?.*${message}`); // based on `utils/format-stdout.js`
+
+    expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+    consoleSpy.restore();
+  });
+
+  // `log` method
+  const consoleSpy = spy(console, 'log');
+  expect(() => logger.log('info', message, message)).not.toThrow();
+
+  // expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+  consoleSpy.restore();
+});
+
 test('handleLog recognizes meta objects sent as messages in production', () => {
   const emitter = new TestEmitter();
 

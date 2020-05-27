@@ -153,7 +153,7 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
          */
 
         // healthline uses `meta` for message, make sure it gets a message
-        if (!meta.message) {
+        if (meta && typeof meta === 'object' && !meta.message) {
           meta.message = message;
         }
 
