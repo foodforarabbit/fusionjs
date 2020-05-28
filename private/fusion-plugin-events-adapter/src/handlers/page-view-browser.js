@@ -7,7 +7,7 @@ export default function pageViewBrowser({events, heatpipeEmitter, analytics}) {
         message: {
           type: 'view',
           name: title,
-          page,
+          page: typeof page === 'string' ? {url: page} : page,
         },
         ctx,
         webEventsMeta,
