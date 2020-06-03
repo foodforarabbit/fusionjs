@@ -1,6 +1,7 @@
 // @flow
 
 export const QUERY_KEYS = [
+  'uclick_id',
   'utm_source',
   'utm_term',
   'utm_content',
