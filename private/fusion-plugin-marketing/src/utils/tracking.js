@@ -9,7 +9,7 @@ import type {Context} from 'fusion-core';
 
 export function createTrackingPayload(
   ctx: Context,
-  cookieId: string,
+  payload: Object,
   {serverDomain}: PluginConfig
 ) {
   // Add in the url parameters
@@ -31,7 +31,6 @@ export function createTrackingPayload(
     url: `https://${serverDomain}${ctx.path}`,
     original_url: `https://${serverDomain}${ctx.originalUrl}`,
     ip: requestIp.getClientIp(ctx),
-    cookie_id: cookieId,
     status_code: ctx.status,
     prefetched:
       ctx.headers['x-moz'] === 'prefetch' ||
@@ -39,6 +38,7 @@ export function createTrackingPayload(
     referrer: ctx.headers.referer || '',
     user_agent: getUserAgentInfo(ctx),
     optimizely_cookie: getOptimizelyCookieInfo(ctx),
+    ...payload,
   };
 }
 

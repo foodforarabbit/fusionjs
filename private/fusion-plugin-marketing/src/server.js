@@ -8,6 +8,7 @@ import type {PluginServiceType, PluginConfig} from './types.js';
 
 import {LoggerToken} from 'fusion-tokens';
 import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 
 import {TRACK_TOPIC} from './constants';
 
@@ -27,6 +28,7 @@ const plugin =
       canActivate: UberMarketingCanActivateToken.optional,
       heatpipe: HeatpipeToken,
       logger: LoggerToken,
+      AnalyticsSession: AnalyticsSessionToken.optional,
     },
     provides({userConfig = {}}) {
       class MarketingPlugin {
@@ -64,11 +66,13 @@ const plugin =
       };
     },
     middleware(
-      {userConfig = {}, canActivate = true, heatpipe, logger},
+      {userConfig = {}, canActivate = true, heatpipe, logger, AnalyticsSession},
       MarketingPlugin
     ) {
       return async (ctx: Context, next) => {
         const marketing = MarketingPlugin.from(ctx);
+        const {session_id = 'unknown'} =
+          (AnalyticsSession && AnalyticsSession.from(ctx)) || {};
         const {config} = marketing;
 
         canActivate && setCookieId(ctx, marketing.getCookieId(), config);
@@ -80,7 +84,7 @@ const plugin =
             try {
               const trackingInfo = createTrackingPayload(
                 ctx,
-                marketing.getCookieId(),
+                {cookie_id: marketing.getCookieId(), session_id},
                 config
               );
               if (!shouldSkipTracking(ctx, trackingInfo)) {
