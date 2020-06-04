@@ -77,6 +77,22 @@ function getPackedHashes(pkgs) {
       shasum,
       localDependencies: pkg.localDependencies
     };
+
+    // We need to specify this so that if the _dependencies_ of
+    // the templates change, create-uber-web is considered to be changed too.
+    // We don't create versions until publish time, so unless the templates
+    // themselves change (aside from dependency versions), the scaffolder would
+    // not be considered changed without this.
+
+    if (id === "@uber/create-uber-web") {
+      data[id].localDependencies.push(
+        "@uber/template-fusion-plugin",
+        "@uber/template-fusion-library",
+        "@uber/template-fusion-website",
+        "@uber/template-website-graphql",
+      );
+    }
+
   }
   return data;
 }
