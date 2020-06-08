@@ -16,6 +16,9 @@ import {EventsAdapterToken} from '../src/tokens';
 
 import ServerPlugin from '../src/server';
 
+// during app runtime these resolves to true versions
+const version = '0.0.0-monorepo';
+
 test('Server plugin', async () => {
   expect.assertions(11);
   const app = new App('content', el => el);
@@ -60,7 +63,7 @@ test('Server plugin', async () => {
   app.middleware((ctx, next) => {
     if (ctx.path === '/test') {
       // $FlowFixMe
-      ctx.req.m3Tags = {abcd: 'abcd', route: 'test'};
+      ctx.req.m3Tags = {abcd: 'abcd', route: 'test', version};
       ctx.status = 200;
       ctx.body = 'test';
     }
@@ -89,7 +92,7 @@ test('Server plugin', async () => {
     [
       'request',
       m3Calls[0][1][1],
-      {route: 'test', status: 200, method: 'GET', abcd: 'abcd'},
+      {route: 'test', status: 200, method: 'GET', abcd: 'abcd', version},
     ],
   ]);
 
@@ -98,7 +101,7 @@ test('Server plugin', async () => {
     [
       'downstream',
       m3Calls[1][1][1],
-      {route: 'test', status: 200, method: 'GET', abcd: 'abcd'},
+      {route: 'test', status: 200, method: 'GET', abcd: 'abcd', version},
     ],
   ]);
 
@@ -107,7 +110,7 @@ test('Server plugin', async () => {
     [
       'upstream',
       m3Calls[2][1][1],
-      {route: 'test', status: 200, method: 'GET', abcd: 'abcd'},
+      {route: 'test', status: 200, method: 'GET', abcd: 'abcd', version},
     ],
   ]);
 });
@@ -177,7 +180,7 @@ test('Server plugin with /_static asset request', async () => {
     [
       'request',
       m3Calls[0][1][1],
-      {route: 'static_asset', status: 200, method: 'GET'},
+      {route: 'static_asset', status: 200, method: 'GET', version},
     ],
   ]);
 
@@ -186,7 +189,7 @@ test('Server plugin with /_static asset request', async () => {
     [
       'downstream',
       m3Calls[1][1][1],
-      {route: 'static_asset', status: 200, method: 'GET'},
+      {route: 'static_asset', status: 200, method: 'GET', version},
     ],
   ]);
 
@@ -195,7 +198,7 @@ test('Server plugin with /_static asset request', async () => {
     [
       'upstream',
       m3Calls[2][1][1],
-      {route: 'static_asset', status: 200, method: 'GET'},
+      {route: 'static_asset', status: 200, method: 'GET', version},
     ],
   ]);
 });

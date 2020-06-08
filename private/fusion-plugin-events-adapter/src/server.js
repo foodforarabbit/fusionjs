@@ -27,6 +27,10 @@ import sanitizeRouteForM3 from './utils/sanitize-route-for-m3.js';
 
 import type {EventsAdapterDepsType, EventsAdapterType} from './types.js';
 
+import packageFile from '../package.json';
+
+let version = packageFile.version;
+
 const plugin =
   __NODE__ &&
   createPlugin<EventsAdapterDepsType, EventsAdapterType>({
@@ -90,6 +94,7 @@ const plugin =
             ctx.status === 404 ? 'not-found' : sanitizeRouteForM3(ctx.path),
           status: ctx.status,
           method: ctx.method,
+          version,
           ...ctx.req.m3Tags, // Bedrock compatability
         };
 
@@ -102,6 +107,7 @@ const plugin =
             url: ctx.url,
             route: ctx.path,
             status: ctx.status,
+            version,
             timing,
           });
         }

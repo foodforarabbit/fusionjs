@@ -1,6 +1,9 @@
 // @noflow
 import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
 import AccessLog from '../utils/access-log.js';
+import packageFile from '../../package.json';
+
+let version = packageFile.version;
 
 export default function routeTiming({events, m3, logger}) {
   // increment handlers
@@ -8,6 +11,7 @@ export default function routeTiming({events, m3, logger}) {
     m3.increment(key, {
       route: status === 404 ? 'not-found' : sanitizeRouteForM3(title),
       status,
+      version,
     });
   };
 
@@ -16,6 +20,7 @@ export default function routeTiming({events, m3, logger}) {
     m3.timing(key, timing, {
       route: status === 404 ? 'not-found' : sanitizeRouteForM3(title),
       status,
+      version,
     });
   };
 

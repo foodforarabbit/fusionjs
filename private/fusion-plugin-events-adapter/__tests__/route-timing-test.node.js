@@ -2,6 +2,9 @@
 import EventEmitter from './custom-event-emitter.js';
 import routeTiming from '../src/handlers/route-timing';
 
+// during app runtime these resolves to true versions
+const version = '0.0.0-monorepo';
+
 test('route timing - pageview:server', () => {
   const events = new EventEmitter();
   expect.assertions(4);
@@ -21,7 +24,7 @@ test('route timing - pageview:server', () => {
   const mockM3 = {
     increment(key, tags) {
       expect(key).toBe('pageview_server');
-      expect(tags).toStrictEqual({route: 'test', status: 200}); // 'logs the correct tags'
+      expect(tags).toStrictEqual({route: 'test', status: 200, version}); // 'logs the correct tags'
     },
     timing() {},
   };
@@ -30,7 +33,7 @@ test('route timing - pageview:server', () => {
 
   events.emit(
     'pageview:server',
-    {title: 'test', status: 200, timing: 5},
+    {title: 'test', status: 200, timing: 5, version},
     {url: '/test'}
   );
 });
@@ -54,7 +57,11 @@ test('route timing - pageview:browser', () => {
   const mockM3 = {
     increment(key, tags) {
       expect(key).toBe('pageview_browser');
-      expect(tags).toStrictEqual({route: 'test', status: 200}); // 'logs the correct tags'
+      expect(tags).toStrictEqual({
+        route: 'test',
+        status: 200,
+        version,
+      }); // 'logs the correct tags'
     },
     timing() {},
   };
@@ -82,7 +89,7 @@ test('route timing - pageview:server - 404 not found', () => {
   const mockM3 = {
     increment(key, tags) {
       expect(key).toBe('pageview_server');
-      expect(tags).toStrictEqual({route: 'not-found', status: 404}); // 'logs the correct tags'
+      expect(tags).toStrictEqual({route: 'not-found', status: 404, version}); // 'logs the correct tags'
     },
     timing() {},
   };
@@ -115,7 +122,7 @@ test('route timing - pageview:browser - 404 not found', () => {
   const mockM3 = {
     increment(key, tags) {
       expect(key).toBe('pageview_browser');
-      expect(tags).toStrictEqual({route: 'not-found', status: 404}); // 'logs the correct tags'
+      expect(tags).toStrictEqual({route: 'not-found', status: 404, version}); // 'logs the correct tags'
     },
     timing() {},
   };
@@ -139,7 +146,11 @@ test('route timing - route_time', () => {
     timing(key, value, tags) {
       expect(key).toBe('route_time');
       expect(value).toBe(5);
-      expect(tags).toStrictEqual({route: 'test-route', status: 'test-status'}); // 'logs the correct tags'
+      expect(tags).toStrictEqual({
+        route: 'test-route',
+        status: 'test-status',
+        version,
+      }); // 'logs the correct tags'
     },
   };
 
@@ -162,7 +173,11 @@ test('route timing - render:server', () => {
     timing(key, value, tags) {
       expect(key).toBe('render_server');
       expect(value).toBe(5);
-      expect(tags).toStrictEqual({route: 'test-route', status: 'test-status'}); // 'logs the correct tags'
+      expect(tags).toStrictEqual({
+        route: 'test-route',
+        status: 'test-status',
+        version,
+      }); // 'logs the correct tags'
     },
   };
 
@@ -188,6 +203,7 @@ test('route timing - route with invalid m3 characters', () => {
       expect(tags).toStrictEqual({
         route: '/__test-route__another-route__/__someUuid',
         status: 'test-status',
+        version,
       }); // 'logs the correct tags'
     },
   };
