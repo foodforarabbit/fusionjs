@@ -27,9 +27,7 @@ import sanitizeRouteForM3 from './utils/sanitize-route-for-m3.js';
 
 import type {EventsAdapterDepsType, EventsAdapterType} from './types.js';
 
-import packageFile from '../package.json';
-
-let version = packageFile.version;
+import {M3_ROUTE_METRICS_VERSION as version} from './utils/constants';
 
 const plugin =
   __NODE__ &&

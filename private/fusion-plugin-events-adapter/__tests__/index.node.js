@@ -15,9 +15,7 @@ import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 import {EventsAdapterToken} from '../src/tokens';
 
 import ServerPlugin from '../src/server';
-
-// during app runtime these resolves to true versions
-const version = '0.0.0-monorepo';
+import {M3_ROUTE_METRICS_VERSION as version} from '../src/utils/constants';
 
 test('Server plugin', async () => {
   expect.assertions(11);

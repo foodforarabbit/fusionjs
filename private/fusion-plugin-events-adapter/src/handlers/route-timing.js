@@ -1,9 +1,7 @@
 // @noflow
 import sanitizeRouteForM3 from '../utils/sanitize-route-for-m3';
 import AccessLog from '../utils/access-log.js';
-import packageFile from '../../package.json';
-
-let version = packageFile.version;
+import {M3_ROUTE_METRICS_VERSION as version} from '../utils/constants';
 
 export default function routeTiming({events, m3, logger}) {
   // increment handlers

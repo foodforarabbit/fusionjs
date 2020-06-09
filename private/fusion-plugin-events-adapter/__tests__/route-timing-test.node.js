@@ -1,9 +1,7 @@
 // @flow
 import EventEmitter from './custom-event-emitter.js';
 import routeTiming from '../src/handlers/route-timing';
-
-// during app runtime these resolves to true versions
-const version = '0.0.0-monorepo';
+import {M3_ROUTE_METRICS_VERSION as version} from '../src/utils/constants';
 
 test('route timing - pageview:server', () => {
   const events = new EventEmitter();
