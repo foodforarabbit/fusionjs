@@ -94,7 +94,16 @@ async function publishCanary(github, payload) {
       const packages /*: Packages */ = {};
 
       for (const name of Object.keys(workspace)) {
-        const { location, localDependencies } = workspace[name];
+        const {
+          location,
+          localDependencies,
+          excludeFromPublishing,
+        } = workspace[name];
+
+        if (excludeFromPublishing) {
+          continue;
+        }
+
         if (unchangedPackages[name]) {
           packages[name] = {
             dir: location,

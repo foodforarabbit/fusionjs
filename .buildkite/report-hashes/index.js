@@ -70,6 +70,11 @@ function getPackedHashes(pkgs) {
   const data = {};
   for (const id of Object.keys(pkgs)) {
     const pkg = pkgs[id];
+
+    if (pkg.excludeFromPublishing) {
+      continue;
+    }
+
     const shasumPath = `${process.cwd()}/${encodeURIComponent(id)}-shasum.json`;
     // $FlowFixMe (dynamic require)
     const shasum = require(shasumPath);
@@ -85,12 +90,19 @@ function getPackedHashes(pkgs) {
     // not be considered changed without this.
 
     if (id === "@uber/create-uber-web") {
-      data[id].localDependencies.push(
+      const templateDeps = new Set();
+      for (let templateId of [
         "@uber/template-fusion-plugin",
-        "@uber/template-fusion-library",
-        "@uber/template-fusion-website",
+        "@uber/template-library",
+        "@uber/template-website",
         "@uber/template-website-graphql",
-      );
+      ]) {
+        let template = pkgs[templateId];
+        for (let dep of template.localDependencies) {
+          templateDeps.add(dep);
+        }
+      }
+      data[id].localDependencies.push(...Array.from(templateDeps));
     }
 
   }

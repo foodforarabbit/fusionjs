@@ -25,6 +25,7 @@ type Packages = {
   [string]: {
     location: string,
     localDependencies: Array<string>,
+    excludeFromPublishing: boolean,
   }
 };
 */
@@ -55,10 +56,6 @@ async function getMonorepoPackages() /*: Promise<Packages> */ {
   const pkgs /*: Packages */ = {};
 
   for (const project of projectData) {
-    if (excludeFromPublishing.includes(project.path)) {
-      continue;
-    }
-
     const pkg = localPackages.get(project.name);
     if (!pkg) throw new Error(`No package.json for ${project.name}`);
 
@@ -87,7 +84,8 @@ async function getMonorepoPackages() /*: Promise<Packages> */ {
 
     pkgs[project.name] = {
       location: project.path,
-      localDependencies: Array.from(localDependencies)
+      localDependencies: Array.from(localDependencies),
+      excludeFromPublishing: excludeFromPublishing.includes(project.path),
     };
   }
 

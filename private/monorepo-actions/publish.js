@@ -26,8 +26,6 @@ const {
 
 const { pack } = require("@publisher/npm-helpers");
 
-const getMonorepoPackages = require("./get-packages.js");
-
 /*::
 type Packages = {
   [string]: {
