@@ -3,8 +3,9 @@
 import semver from 'semver';
 
 export const checkMajorVersion = (
-  version: string,
+  semverString: string,
   supportedVersion: string
 ): boolean => {
-  return semver.major(version) >= semver.major(supportedVersion);
+  const versionToCheck = semver.minVersion(semverString).version;
+  return semver.major(versionToCheck) >= semver.major(supportedVersion);
 };
