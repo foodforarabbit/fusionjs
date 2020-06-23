@@ -705,6 +705,51 @@ test('preserves message when logging to sentry even if `meta` is not error-shape
   });
 });
 
+test('does not pass non-object tags', done => {
+  expect.assertions(3);
+  const message = 'all gone wrong';
+  const mockLogger = {
+    log: (type, meta) => {
+      expect(type === 'error').toBeTruthy();
+      expect(typeof meta === 'object').toBeTruthy();
+      // doesn't map to stack because no sourcemaps (create-error-transform tests covers that behavior)
+      expect(meta).toEqual({
+        message,
+        a: 22,
+        b: 99,
+        stack: 'not available',
+        appID: 'my-app',
+        runtimeEnvironment: 'production',
+        isProduction: true,
+        deploymentName: 'lol',
+        gitSha: 'a1234567',
+        tags: {a: 'this one is good'},
+      });
+      done();
+    },
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {a: 22, b: 99},
+      tags: 'ignore me',
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      isProduction: true,
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+      tags: {a: 'this one is good'},
+    },
+  });
+});
+
 test('warns if handleLog called with invalid method in production', () => {
   expect.assertions(2);
 

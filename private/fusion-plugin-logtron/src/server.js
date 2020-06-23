@@ -137,7 +137,10 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
     // also log to healthline (via sentry) for errors
     // TODO: replace sentry with stderr logging once filebeat supports stderr->healthline
     if (envMeta.isProduction) {
-      const tags = (meta && meta.tags) || {};
+      let tags = {};
+      if (meta && typeof meta.tags === 'object') {
+        tags = meta.tags;
+      }
       m3 && m3.increment(m3Topic, {level, ...tags});
 
       if (level === 'error' && sentryLogger && meta) {
