@@ -35,7 +35,6 @@ Provides a logger that can be connected to standard Uber log consumption service
   * [Dependencies](#dependencies)
     * [`M3Token`](#m3token)
     * [`UniversalEventsToken`](#universaleventstoken)
-    * [`LogtronTeamToken`](#logtronteamtoken)
     * [`LogtronBackendsToken`](#logtronbackendstoken)
 
 ### Installation
@@ -120,14 +119,13 @@ As of v3.x.x, staging errors should now go to `https://healthline.uberinternal.c
 import {LoggerToken} from 'fusion-tokens';
 import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3';
-import Logger, {LogtronBackendsToken, LogtronTeamToken} from '@uber/fusion-plugin-logtron';
+import Logger, {LogtronBackendsToken} from '@uber/fusion-plugin-logtron';
 
 export default () => {
   const app = new App(<Home />);
   app.register(LoggerToken, Logger);
   app.register(M3Token, M3Plugin);
   app.register(UniversalEventsToken, UniversalEvents);
-  app.register(LogtronTeamToken, 'team-name');
   app.register(LogtronBackendsToken, {
     // backends config
     // see https://github.com/uber/logtron for api documentation on the logger
@@ -222,14 +220,6 @@ import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 ```
 
 The universal events plugin, which is used as an event bus. See [https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events](https://github.com/fusionjs/fusionjs/tree/master/fusion-plugin-universal-events)
-
-##### `LogtronTeamToken`
-
-```js
-import {LogtronTeamToken} from '@uber/fusion-plugin-logtron';
-```
-
-The Uber team name. Server-only. Required. Should be a string. Comes pre-configured in the `uber-web` scaffold.
 
 ##### `LogtronBackendsToken`
 

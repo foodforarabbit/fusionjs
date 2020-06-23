@@ -6,10 +6,7 @@ import UniversalEvents, {
   UniversalEventsToken,
 } from 'fusion-plugin-universal-events';
 import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3';
-import LoggerPlugin, {
-  LogtronTeamToken,
-  LogtronBackendsToken,
-} from '@uber/fusion-plugin-logtron';
+import LoggerPlugin, {LogtronBackendsToken} from '@uber/fusion-plugin-logtron';
 import BrowserPerformanceEmitterPlugin from 'fusion-plugin-browser-performance-emitter';
 import EventsAdapterPlugin from '@uber/fusion-plugin-events-adapter';
 import ErrorHandlingPlugin, {
@@ -26,9 +23,6 @@ import AnalyticsSession, {
 // configuration
 import sentryConfig from '../config/sentry.js';
 
-// other
-const team = '{{team}}';
-
 export default function initLogging(app: FusionApp) {
   app.register(ErrorHandlingPlugin);
   app.register(UniversalEventsToken, UniversalEvents);
@@ -41,7 +35,6 @@ export default function initLogging(app: FusionApp) {
   app.register(AnalyticsCookieTypeToken, UberWebEventCookie);
   if (__NODE__) {
     app.register(ErrorHandlerToken, UberErrorHandlingPlugin);
-    app.register(LogtronTeamToken, team);
     app.register(LogtronBackendsToken, {sentry: sentryConfig});
     app.register(NodePerfEmitterPlugin);
   }

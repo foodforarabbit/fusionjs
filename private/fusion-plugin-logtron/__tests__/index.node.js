@@ -8,7 +8,7 @@ import {spy} from 'sinon';
 
 import type {PayloadMetaType} from '../src/types';
 import Plugin, {handleLog} from '../src/server';
-import {TeamToken, EnvOverrideToken} from '../src/tokens';
+import {EnvOverrideToken} from '../src/tokens';
 import {supportedLevels} from '../src/constants';
 import createErrorTransform from '../src/utils/create-error-transform';
 import {prettify} from '../src/utils/format-stdout';
@@ -23,7 +23,6 @@ test('supports all logger methods in production', () => {
   app.register(LoggerToken, Plugin);
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, {
     uberRuntime: 'production',
     node: 'production',
@@ -87,7 +86,6 @@ test('doesn`t crash when meta is a circular reference in production', () => {
   app.register(LoggerToken, Plugin);
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, {
     uberRuntime: 'production',
     node: 'production',
@@ -152,7 +150,6 @@ test('supports all logger methods in development', () => {
   app.register(LoggerToken, Plugin);
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, {
     uberRuntime: 'dev',
   });
@@ -197,7 +194,6 @@ test('does not crash with string meta', () => {
   app.register(LoggerToken, Plugin);
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, {
     uberRuntime: 'dev',
   });
@@ -240,7 +236,6 @@ test('handleLog recognizes meta objects sent as messages in production', () => {
   app.register(LoggerToken, Plugin);
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, {
     uberRuntime: 'production',
     node: 'production',
@@ -296,7 +291,6 @@ test('logs partial data when level is valid but arguments incomplete in producti
   app.register(LoggerToken, Plugin);
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, {
     uberRuntime: 'production',
     node: 'production',
@@ -757,7 +751,6 @@ test('logs to M3 in production', () => {
   app.register(LoggerToken, Plugin);
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, {
     uberRuntime: 'production',
     node: 'production',
@@ -793,7 +786,6 @@ test('does not log to M3 in development', () => {
   app.register(LoggerToken, Plugin);
   // $FlowFixMe - TestEmitter is only a partial implementation.
   app.register(UniversalEventsToken, emitter);
-  app.register(TeamToken, 'team');
   app.register(EnvOverrideToken, {
     uberRuntime: 'dev',
   });

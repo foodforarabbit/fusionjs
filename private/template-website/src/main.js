@@ -55,7 +55,6 @@ import UniversalEvents, {
 } from 'fusion-plugin-universal-events';
 import M3Plugin, {M3Token} from '@uber/fusion-plugin-m3';
 import LoggerPlugin, {
-  LogtronTeamToken,
   LogtronBackendsToken,
 } from '@uber/fusion-plugin-logtron';
 import Router from 'fusion-plugin-react-router';
@@ -100,8 +99,6 @@ import registerPlugins from './app.js';
 import introspect from 'fusion-plugin-introspect';
 import metricsStore from '@uber/fusion-metrics';
 
-const team = '{{team}}';
-
 export default async function start(options: any = {}) {
   const root = options.root || DefaultRoot;
   const app = new App(root, options.render);
@@ -137,7 +134,6 @@ export default async function start(options: any = {}) {
     app.register(SecureHeadersToken, SecureHeaders);
     app.register(SecureHeadersCSPConfigToken, secureHeadersConfig.csp);
     app.register(AuthHeadersToken, AuthHeadersPlugin);
-    app.register(LogtronTeamToken, team);
     app.register(LogtronBackendsToken, {sentry: sentryConfig});
     app.register(SecretsToken, SecretsPlugin);
     app.register(SessionToken, Session);

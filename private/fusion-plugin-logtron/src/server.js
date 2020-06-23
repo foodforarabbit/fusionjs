@@ -9,7 +9,7 @@ import type {
   ErrorLogOptionsType,
   LevelMapType,
 } from './types.js';
-import {ErrorTrackingToken, TeamToken, EnvOverrideToken} from './tokens.js';
+import {ErrorTrackingToken, EnvOverrideToken} from './tokens.js';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
 import createSentryLogger from './utils/create-sentry-logger';
@@ -39,10 +39,9 @@ const plugin =
       events: UniversalEventsToken,
       m3: M3Token,
       errorTracker: ErrorTrackingToken.optional,
-      team: TeamToken,
       envOverride: EnvOverrideToken.optional,
     },
-    provides: ({events, m3, errorTracker, team, envOverride}) => {
+    provides: ({events, m3, errorTracker, envOverride}) => {
       const runtimeEnvironment =
         (envOverride && envOverride.uberRuntime) ||
         (__DEV__

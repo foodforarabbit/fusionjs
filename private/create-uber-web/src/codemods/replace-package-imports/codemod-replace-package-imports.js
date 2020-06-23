@@ -37,12 +37,7 @@ const config: ReplaceConfig = {
   '@uber/fusion-plugin-logtron-react': [
     {
       replacement: '@uber/fusion-plugin-logtron',
-      imports: [
-        'default',
-        'LogtronBackendsToken',
-        'LogtronTeamToken',
-        'LogtronTransformsToken',
-      ],
+      imports: ['default', 'LogtronBackendsToken', 'LogtronTransformsToken'],
     },
   ],
   '@uber/fusion-plugin-google-analytics-react': [

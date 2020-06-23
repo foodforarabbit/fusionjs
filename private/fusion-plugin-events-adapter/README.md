@@ -65,7 +65,7 @@ import AnalyticsSession, {
 import M3, {M3Token} from '@uber/fusion-plugin-m3';
 import Heatpipe, {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
 import {LoggerToken} from 'fusion-tokens';
-import Logger, {LogtronTeamToken} from '@uber/fusion-plugin-logtron';
+import Logger from '@uber/fusion-plugin-logtron';
 
 export default async function start() {
   const app = new App(<div>hello</div>);
@@ -76,7 +76,6 @@ export default async function start() {
   app.register(M3Token, M3);
   app.register(HeatpipeToken, Heatpipe);
   app.register(LoggerToken, Logger);
-  app.register(LogtronTeamToken, team);
   return app;
 }
 ```
