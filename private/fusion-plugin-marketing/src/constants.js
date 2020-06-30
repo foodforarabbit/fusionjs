@@ -1,4 +1,5 @@
 // @flow
+export const TRACK_URL = '/_track';
 
 export const QUERY_KEYS = [
   'uclick_id',

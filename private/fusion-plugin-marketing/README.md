@@ -5,6 +5,7 @@
 Fusion.js plugin for web marketing attributions. Previously @uber/node-marketing-utils on Bedrock.
 1. Generates a persistent UUID in cookie on a root domain to identify a non-auth visitor.
 2. Publish server requests to Heatpipe with the the UUID for attributions at conversions.
+3. Optional MarketingBrowserPlugin to send tracking information to the server for situations where page is served from cache
 
 See ["RFC - Uber Cookie and New Marketing Attribution"](https://docs.google.com/document/d/1NXNfqN-P5wp0hglbJkj39DpFAFUTlL3Uou3T56pu5Ko/edit?usp=drive_web&ouid=115611216150329318223) for more information.
 
@@ -32,7 +33,7 @@ app.middleware(({Marketing: UberMarketingToken}) => (ctx, next) => {
 
 ---
 
-### Setup
+### Setup (server-side only - default setup)
 
 ```js
 // src/app.js
@@ -63,7 +64,7 @@ import FliprPlugin, {FliprToken} from '@uber/fusion-plugin-flipr';
 
 const CustomCanActivatePlugin = createPlugin({
     deps: {
-      flipr:  ,
+      flipr: FliprToken,
     },
     provides: async ({flipr}) => {
         return {
@@ -77,6 +78,50 @@ export default () => {
   // ...
   app.register(UberMarketingCanActivateToken, CustomCanActivatePlugin)
   app.register(UberMarketingToken, UberMarketingPlugin);
+  // ...
+  return app;
+};
+```
+
+### Setup with MarketingBrowserPlugin
+note: the server-side plugin is still required to handle the api call from the client-side plugin
+
+the cookie_id and session_id used in the heatpipe event is returned
+- if these values were not already set as cookies and sent in the request then they will be generated server-side
+- see CustomPlugin for usage
+```js
+// src/app.js
+import UberMarketingPlugin, {
+  MarketingBrowserPlugin,
+  UberMarketingToken,
+  UberMarketingBrowserToken,
+} from '@uber/fusion-plugin-marketing';
+
+const CustomPlugin = createPlugin({
+    deps: {
+      MarketingPlugin: UberMarketingBrowserToken,
+    },
+    middleware({MarketingPlugin}) {
+      return async (ctx: Context, next) => {
+        const marketing = MarketingPlugin.from(ctx);
+        const responseFromServerPlugin = marketing.getTrackResponse();
+        console.log('do something with marketing and analytics session tokens, cookie_id and session_id respectively, such as setting it to a cookie', {
+          responseFromServerPlugin
+        })
+        return next();
+      };
+    },
+});
+
+export default () => {
+  const app = new App(...);
+  // ...
+  if (__NODE__) {
+    app.register(UberMarketingToken, UberMarketingPlugin);
+  } else {
+    app.register(UberMarketingBrowserToken, MarketingBrowserPlugin);
+    app.register(CustomPlugin)
+  }
   // ...
   return app;
 };

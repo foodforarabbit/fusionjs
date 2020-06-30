@@ -44,7 +44,8 @@
     "parse-domain": "^2.1.2",
     "request-ip": "^2.1.1",
     "uuid": "^3.3.2",
-    "validator": "^10.7.1"
+    "validator": "^10.7.1",
+    "koa-bodyparser": "^4.2.1"
   },
   "devDependencies": {
     "just-map-values": "^1.1.0",

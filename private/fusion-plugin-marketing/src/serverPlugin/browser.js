@@ -2,8 +2,8 @@
 /* eslint-env browser */
 
 import {createPlugin} from 'fusion-core';
-import type {Context, FusionPlugin} from 'fusion-core';
-import type {PluginServiceType} from './types.js';
+import type {FusionPlugin, Context} from 'fusion-core';
+import type {PluginServiceType} from '../types.js';
 
 const plugin =
   __BROWSER__ &&
@@ -12,7 +12,7 @@ const plugin =
       return {
         from: (ctx?: Context) => {
           throw new Error(
-            '[fusion-plugin-marketing] No service avaiable in browser.'
+            '[fusion-plugin-marketing] No service avaiable in browser, did you mean to use MarketingBrowserPlugin?'
           );
         },
       };

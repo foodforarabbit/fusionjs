@@ -1,12 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Basic publish(UA desktop) 1`] = `
+exports[`_track endpoint handler, heatpipe publish and response: _track json response 1`] = `
+Object {
+  "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
+  "session_id": "mock_analytics_session_id",
+}
+`;
+
+exports[`_track endpoint handler, heatpipe publish and response: heatpipe asyncPublish params 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
     "version": 10,
   },
   Object {
+    "captureSource": "client",
+    "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
+    "ip": "127.0.0.1",
+    "optimizely_cookie": Object {
+      "campaign_id": null,
+      "experiment_id": null,
+      "project_id": null,
+      "variation_id": null,
+    },
+    "original_url": "https://awesome.com/currentPage",
+    "prefetched": false,
+    "referrer": "https://awesome.com/referrerToCurrentPage",
+    "session_id": "mock_analytics_session_id",
+    "status_code": 200,
+    "timestamp": 1536789961.819,
+    "url": "https://www.uber.com/_track",
+    "user_agent": Object {
+      "browser_family": "Chrome",
+      "browser_version": "64.0.3282.189",
+      "is_bot": false,
+      "is_mobile": false,
+      "os_family": "Mac OS",
+      "os_version": "10.13.4",
+      "string": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.189 Safari/537.36 Viv/1.95.1077.60",
+    },
+    "utm_campaign": "bar",
+    "utm_source": "foo",
+  },
+]
+`;
+
+exports[`Basic publish(UA desktop): heatpipe asyncPublish params 1`] = `
+Array [
+  Object {
+    "topic": "hp-clay_marketing_tracking-track",
+    "version": 10,
+  },
+  Object {
+    "captureSource": "server",
     "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
     "ip": "127.0.0.1",
     "optimizely_cookie": Object {
@@ -18,7 +64,7 @@ Array [
     "original_url": "https://www.uber.com/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
     "prefetched": false,
     "referrer": "https://awesome.com/",
-    "session_id": "hello",
+    "session_id": "mock_analytics_session_id",
     "status_code": 200,
     "timestamp": 1536789961.819,
     "url": "https://www.uber.com/app",
@@ -37,15 +83,16 @@ Array [
 ]
 `;
 
-exports[`User Agent - isBot(should skip) 1`] = `undefined`;
+exports[`User Agent - isBot(should skip): heatpipe asyncPublish params 1`] = `undefined`;
 
-exports[`User Agent - isMobile 1`] = `
+exports[`User Agent - isMobile: heatpipe asyncPublish params 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
     "version": 10,
   },
   Object {
+    "captureSource": "server",
     "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
     "ip": "127.0.0.1",
     "optimizely_cookie": Object {
@@ -57,7 +104,7 @@ Array [
     "original_url": "https://www.uber.com/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
     "prefetched": false,
     "referrer": "https://awesome.com/",
-    "session_id": "hello",
+    "session_id": "mock_analytics_session_id",
     "status_code": 200,
     "timestamp": 1536789961.819,
     "url": "https://www.uber.com/app",
@@ -76,13 +123,14 @@ Array [
 ]
 `;
 
-exports[`log when debugLogging is enabled 1`] = `
+exports[`log when debugLogging is enabled: heatpipe asyncPublish params 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
     "version": 10,
   },
   Object {
+    "captureSource": "server",
     "cookie_id": "7f51756d-053d-43e3-9de3-1b103fffc625",
     "ip": "127.0.0.1",
     "optimizely_cookie": Object {
@@ -94,7 +142,7 @@ Array [
     "original_url": "https://UNKNOWN/app?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
     "prefetched": false,
     "referrer": "https://awesome.com/",
-    "session_id": "hello",
+    "session_id": "mock_analytics_session_id",
     "status_code": 200,
     "timestamp": 1536789961.819,
     "url": "https://UNKNOWN/app",
@@ -113,6 +161,6 @@ Array [
 ]
 `;
 
-exports[`should skip - /health 1`] = `undefined`;
+exports[`should skip - /health: heatpipe asyncPublish params 1`] = `undefined`;
 
-exports[`should skip - assets 1`] = `undefined`;
+exports[`should skip - assets: heatpipe asyncPublish params 1`] = `undefined`;

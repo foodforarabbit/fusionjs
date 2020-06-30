@@ -10,7 +10,7 @@ import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 import {LoggerToken} from 'fusion-tokens';
 
 import {UberMarketingToken, UberMarketingConfigToken} from '../src/tokens';
-import Plugin from '../src/server';
+import Plugin from '../src/serverPlugin/server';
 
 const mockUA = {
   desktop:
@@ -45,11 +45,13 @@ function createMockApp({
   const heatpipeMock = {asyncPublish: jest.fn()};
   const analyticsSessionMock = {
     from: jest.fn().mockReturnValue({
-      session_id: 'hello',
+      session_id: 'mock_analytics_session_id',
       session_time_ms: 42,
     }),
   };
-  const loggerMock = {info: jest.fn()};
+  const loggerMock = {
+    info: jest.fn(),
+  };
 
   const app = new App({}, () => 'ok');
   // $FlowFixMe
@@ -164,7 +166,7 @@ function BasicPublishTest(
         setTimeout(() => {
           expect(
             (heatpipeMock.asyncPublish: any).mock.calls[0]
-          ).toMatchSnapshot();
+          ).toMatchSnapshot('heatpipe asyncPublish params');
           expect(loggerMock.info).not.toHaveBeenCalled();
           done();
         }, 100);
@@ -223,7 +225,7 @@ test('log when debugLogging is enabled', async done => {
         setTimeout(() => {
           expect(
             (heatpipeMock.asyncPublish: any).mock.calls[0]
-          ).toMatchSnapshot();
+          ).toMatchSnapshot('heatpipe asyncPublish params');
           expect(loggerMock.info).toHaveBeenCalled();
           done();
         }, 100);
@@ -242,4 +244,52 @@ test('log when debugLogging is enabled', async done => {
       },
     }
   );
+});
+
+test('_track endpoint handler, heatpipe publish and response', async done => {
+  const mockUuid = '7f51756d-053d-43e3-9de3-1b103fffc625';
+  const testPlugin = createPlugin({
+    deps: {
+      Marketing: UberMarketingToken,
+      heatpipeMock: HeatpipeToken,
+      loggerMock: LoggerToken,
+    },
+    middleware({Marketing, heatpipeMock, loggerMock}) {
+      return async (ctx, next) => {
+        await next();
+        setTimeout(() => {
+          expect(
+            'Marketing Plugin should have returned early, testPlugin should not have run'
+          ).toBeFalsy();
+          done();
+        }, 100);
+      };
+    },
+  });
+
+  const simulator = createMockApp({testPlugin});
+  const res = await simulator.request(
+    '/_track?utm_source=foo&utm_campaign=bar#withHash',
+    {
+      method: 'POST',
+      body: {
+        referrer: 'https://awesome.com/referrerToCurrentPage',
+      },
+      headers: {
+        cookie: `marketing_vistor_id=${mockUuid}`,
+        'user-agent': mockUA.desktop,
+        referer: 'https://awesome.com/currentPage',
+      },
+    }
+  );
+
+  const responseBody = await res.response.body;
+  expect(responseBody).toMatchSnapshot('_track json response');
+  expect(
+    (simulator.getService(HeatpipeToken).asyncPublish: any).mock.calls[0]
+  ).toMatchSnapshot('heatpipe asyncPublish params');
+  setTimeout(() => {
+    expect('testPlugin should not have run').toBeTruthy();
+    done();
+  }, 200);
 });

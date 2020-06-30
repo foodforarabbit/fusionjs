@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should POST to /_track with query string and referrer: fetch request params 1`] = `
+Array [
+  "/_track?utm_source=foo&utm_campaign=bar&utm_campaign=not-picked",
+  Object {
+    "body": "{\\"referrer\\":\\"https://www.uber.com/referrer\\"}",
+    "headers": Object {
+      "Content-Type": "application/json",
+    },
+    "method": "POST",
+  },
+]
+`;
+
+exports[`should POST to /_track with query string and referrer: fetch response 1`] = `
+Object {
+  "cookie_id": "mock_cookie_id",
+  "session_id": "mock_session_id",
+}
+`;

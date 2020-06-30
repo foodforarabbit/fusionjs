@@ -26,6 +26,7 @@ export function createTrackingPayload(
   }, {});
 
   return {
+    captureSource: 'server',
     ...queryParamsPicked,
     timestamp: new Date().valueOf() / 1000,
     url: `https://${serverDomain}${ctx.path}`,
