@@ -11,7 +11,7 @@ exports[`_track endpoint handler, heatpipe publish and response: heatpipe asyncP
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
-    "version": 10,
+    "version": 11,
   },
   Object {
     "captureSource": "client",
@@ -49,7 +49,7 @@ exports[`Basic publish(UA desktop): heatpipe asyncPublish params 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
-    "version": 10,
+    "version": 11,
   },
   Object {
     "captureSource": "server",
@@ -89,7 +89,7 @@ exports[`User Agent - isMobile: heatpipe asyncPublish params 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
-    "version": 10,
+    "version": 11,
   },
   Object {
     "captureSource": "server",
@@ -127,7 +127,7 @@ exports[`log when debugLogging is enabled: heatpipe asyncPublish params 1`] = `
 Array [
   Object {
     "topic": "hp-clay_marketing_tracking-track",
-    "version": 10,
+    "version": 11,
   },
   Object {
     "captureSource": "server",

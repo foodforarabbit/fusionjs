@@ -44,7 +44,7 @@ export const QUERY_KEYS = [
 ];
 
 export const TRACK_TOPIC = {
-  version: 10,
+  version: 11,
   topic: 'hp-clay_marketing_tracking-track',
 };
 
