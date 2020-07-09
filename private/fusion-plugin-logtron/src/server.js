@@ -4,31 +4,20 @@ import {createPlugin} from 'fusion-core';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
-import type {
-  PayloadMetaType,
-  ErrorLogOptionsType,
-  LevelMapType,
-} from './types.js';
-import {ErrorTrackingToken, EnvOverrideToken} from './tokens.js';
+import type {PayloadMetaType, ErrorLogOptionsType} from './types.js';
+import {
+  ErrorTrackingToken,
+  LoggerConfigToken,
+  EnvOverrideToken,
+} from './tokens.js';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 
+import {levelMap} from './constants';
 import createSentryLogger from './utils/create-sentry-logger';
 import createErrorTransform from './utils/create-error-transform';
 import {isErrorLikeObject, isError} from './utils/error';
 import formatStdout from './utils/format-stdout';
 import path from 'path';
-
-const levelMap: LevelMapType = {
-  error: 'error',
-  warn: 'warn',
-  info: 'info',
-  debug: 'debug',
-  silly: 'silly',
-  verbose: 'verbose',
-  trace: 'trace',
-  access: 'access',
-  fatal: 'fatal',
-};
 
 const m3Topic = 'fusion-logger';
 
@@ -39,9 +28,11 @@ const plugin =
       events: UniversalEventsToken,
       m3: M3Token,
       errorTracker: ErrorTrackingToken.optional,
+      config: LoggerConfigToken.optional,
       envOverride: EnvOverrideToken.optional,
     },
-    provides: ({events, m3, errorTracker, envOverride}) => {
+    provides: ({events, m3, errorTracker, config, envOverride}) => {
+      const minLogLevelName = config && config.minimumLogLevel;
       const runtimeEnvironment =
         (envOverride && envOverride.uberRuntime) ||
         (__DEV__
@@ -80,9 +71,21 @@ const plugin =
         return wrappedLogger;
       };
 
-      Object.keys(levelMap).forEach(tokenLevel => {
-        wrappedLogger[tokenLevel] = (message, meta, callback) => {
-          return logEmitter(levelMap[tokenLevel], message, meta, callback);
+      let minLogLevel;
+      if (minLogLevelName) {
+        const minLogLevelObj = levelMap[minLogLevelName];
+        minLogLevel = minLogLevelObj && minLogLevelObj.level;
+      }
+
+      Object.keys(levelMap).forEach(key => {
+        const {levelName, level} = levelMap[key];
+        wrappedLogger[key] = (message, meta, callback) => {
+          // paradoxically, 0 log level is most critical, hence <=
+          if (!minLogLevel || level <= minLogLevel) {
+            return logEmitter(levelName, message, meta, callback);
+          } else {
+            return () => {};
+          }
         };
       });
 

@@ -8,13 +8,14 @@ import {spy} from 'sinon';
 
 import type {PayloadMetaType} from '../src/types';
 import Plugin, {handleLog} from '../src/server';
-import {EnvOverrideToken} from '../src/tokens';
-import {supportedLevels} from '../src/constants';
+import {LoggerConfigToken, EnvOverrideToken} from '../src/tokens';
+import {levelMap} from '../src/constants';
 import createErrorTransform from '../src/utils/create-error-transform';
 import {prettify} from '../src/utils/format-stdout';
 import TestEmitter from './test-emitter';
 
 const transformError = createErrorTransform(); // ignore source maps
+const supportedLevels = Object.keys(levelMap);
 
 test('supports all logger methods in production', () => {
   const emitter = new TestEmitter();
@@ -40,14 +41,10 @@ test('supports all logger methods in production', () => {
 
   // Supported level methods
   supportedLevels.forEach(fn => {
-    // $FlowFixMe - Logger has methods that the LoggerToken does not.
     expect(typeof logger[fn]).toBe('function');
     expect(typeof child[fn]).toBe('function');
     const consoleSpy = spy(console, 'log');
-    expect(
-      // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, {a: {b: {c: 3}}}, () => {})
-    ).not.toThrow();
+    expect(() => logger[fn](message, {a: {b: {c: 3}}}, () => {})).not.toThrow();
 
     formatPattern = new RegExp(
       `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
@@ -59,6 +56,76 @@ test('supports all logger methods in production', () => {
 
   // `log` method
   expect(typeof logger.log).toBe('function');
+  expect(typeof child.log).toBe('function');
+  const consoleSpy = spy(console, 'log');
+  expect(() =>
+    logger.log('info', message, {a: {b: {c: 3}}}, () => {})
+  ).not.toThrow();
+
+  formatPattern = new RegExp(
+    `\\"level\\"\\:\\"info\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
+  ); // based on `utils/format-stdout.js`
+
+  expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+  consoleSpy.restore();
+
+  // unsupported method
+  expect(() =>
+    // $FlowFixMe - LoggerToken does not support unavaialable method `lol`
+    logger.lol(message, {a: {b: {c: 3}}}, () => {})
+  ).toThrow();
+});
+
+test('respects minimum logging level config', () => {
+  const emitter = new TestEmitter();
+
+  const app = new App('el', el => el);
+  const minimumLogLevel = 'info';
+  app.register(LoggerToken, Plugin);
+  // $FlowFixMe - TestEmitter is only a partial implementation.
+  app.register(UniversalEventsToken, emitter);
+  app.register(LoggerConfigToken, {minimumLogLevel});
+  app.register(EnvOverrideToken, {
+    uberRuntime: 'production',
+    node: 'production',
+  });
+  // $FlowFixMe - Dummy M3 Token.
+  app.register(M3Token, {});
+  const sim = getSimulator(app);
+  const logger = sim.getService(LoggerToken);
+  const message = 'this is a message';
+  // $FlowFixMe - Logger has methods that the LoggerToken does not.
+  const child = logger.createChild('test-child');
+
+  let formatPattern;
+
+  supportedLevels.forEach(fn => {
+    // $FlowFixMe - Logger has methods that the LoggerToken does not.
+    const logFn = logger[fn];
+    expect(typeof logFn).toBe('function');
+    expect(typeof child[fn]).toBe('function');
+    const consoleSpy = spy(console, 'log');
+    expect(
+      // $FlowFixMe - Logger has methods that the LoggerToken does not.
+      () => logger[fn](message, {a: {b: {c: 3}}}, () => {})
+    ).not.toThrow();
+
+    const shouldLog = levelMap[minimumLogLevel].level >= levelMap[fn].level;
+    if (shouldLog) {
+      formatPattern = new RegExp(
+        `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
+      ); // based on `utils/format-stdout.js`
+
+      expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
+    } else {
+      expect(consoleSpy.notCalled).toBeTruthy();
+    }
+    consoleSpy.restore();
+  });
+
+  // `log` method
+  expect(typeof logger.log).toBe('function');
+  expect(logger.log.length).toBe(4);
   expect(typeof child.log).toBe('function');
   const consoleSpy = spy(console, 'log');
   expect(() =>
@@ -224,8 +291,6 @@ test('does not crash with string meta', () => {
   // `log` method
   const consoleSpy = spy(console, 'log');
   expect(() => logger.log('info', message, message)).not.toThrow();
-
-  // expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
   consoleSpy.restore();
 });
 

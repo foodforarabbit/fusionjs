@@ -32,17 +32,7 @@ export type PayloadType = {
   meta: PayloadMetaType,
 };
 
-export type LevelMapType = {
-  error: string,
-  warn: string,
-  info: string,
-  debug: string,
-  silly: string,
-  verbose: string,
-  trace: string,
-  access: string,
-  fatal: string,
-};
+export type LevelMapType = {[string]: {levelName: string, level: number}};
 
 export type SentryConfigType = {id: string};
 
@@ -61,4 +51,5 @@ export type ErrorLogOptionsType = {
   team?: string,
 };
 
+export type LoggerConfigType = {minimumLogLevel: string};
 export type EnvOverrideType = {uberRuntime?: string, node?: string};

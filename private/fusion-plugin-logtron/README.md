@@ -36,6 +36,7 @@ Provides a logger that can be connected to standard Uber log consumption service
     * [`M3Token`](#m3token)
     * [`UniversalEventsToken`](#universaleventstoken)
     * [`LogtronBackendsToken`](#logtronbackendstoken)
+    * [`LogtronConfigToken`](#logtronconfigtoken)
 
 ### Installation
 
@@ -130,6 +131,8 @@ export default () => {
     // backends config
     // see https://github.com/uber/logtron for api documentation on the logger
   });
+  // optionally set the lowest level for which logs should be generated
+  app.register(LogtronConfigToken, {minimumLogLevel: 'info'});
 }
 ```
 
@@ -229,10 +232,10 @@ import {LogtronBackendsToken} from '@uber/fusion-plugin-logtron';
 
 Backends configuration for logtron. Server-only. Optional. See [https://github.com/uber/logtron#optionsbackends](https://github.com/uber/logtron#optionsbackends)
 
-##### `LogtronTransformsToken`
+##### `LogtronConfigToken`
 
-```js
-import {LogtronTransformsToken} from '@uber/fusion-plugin-logtron';
-```
+Additional logger configuration.
+Currently supported keys:
+`minimumLogLevel: string`: The lowest level for which logs will be generated (e.g. `info`). (See [supportedLevels](https://github.com/uber/fusionjs/blob/master/private/fusion-plugin-logtron/src/constants.js) for highest to lowest ranked array of log levels)
 
-Array of transform functions. Server-only. Optional. See [https://github.com/uber/logtron#optionstransforms](https://github.com/uber/logtron#optionstransforms)
+

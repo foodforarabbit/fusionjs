@@ -2,10 +2,11 @@
 import {createPlugin} from 'fusion-core';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
-import {supportedLevels} from './constants';
-
 import type {FusionPlugin} from 'fusion-core';
 import type {Logger as LoggerType} from 'fusion-tokens';
+
+import {LoggerConfigToken} from './tokens.js';
+import {levelMap} from './constants';
 import type {IEmitter} from './types.js';
 
 const plugin =
@@ -14,18 +15,32 @@ const plugin =
     deps: {
       events: UniversalEventsToken,
       m3: M3Token,
+      config: LoggerConfigToken.optional,
     },
-    provides: ({events, m3}) => {
+    provides: ({events, m3, config}) => {
+      const minLogLevelName = config && config.minimumLogLevel;
       class UniversalLogger {
         emitter: IEmitter;
 
         constructor() {
           this.emitter = events;
-          supportedLevels.forEach(level => {
-            // Cast to object to trick flow into thinking we have an indexer.
-            (this: Object)[level] = (message, meta) => {
-              return this.log(level, message, meta);
+          let minLogLevel;
+          if (minLogLevelName) {
+            const minLogLevelObj = levelMap[minLogLevelName];
+            minLogLevel = minLogLevelObj && minLogLevelObj.level;
+          }
+          Object.keys(levelMap).forEach(key => {
+            const {levelName, level} = levelMap[key];
+            const logFn = (message, meta) => {
+              // paradoxically, 0 log level is most critical, hence <=
+              if (!minLogLevel || level <= minLogLevel) {
+                return this.log(levelName, message, meta);
+              } else {
+                return () => {};
+              }
             };
+            // Cast to object to trick flow into thinking we have an indexer.
+            (this: Object)[key] = logFn;
           });
         }
 
