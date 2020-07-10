@@ -100,15 +100,11 @@ test('respects minimum logging level config', () => {
   let formatPattern;
 
   supportedLevels.forEach(fn => {
-    // $FlowFixMe - Logger has methods that the LoggerToken does not.
     const logFn = logger[fn];
     expect(typeof logFn).toBe('function');
     expect(typeof child[fn]).toBe('function');
     const consoleSpy = spy(console, 'log');
-    expect(
-      // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, {a: {b: {c: 3}}}, () => {})
-    ).not.toThrow();
+    expect(() => logger[fn](message, {a: {b: {c: 3}}}, () => {})).not.toThrow();
 
     const shouldLog = levelMap[minimumLogLevel].level >= levelMap[fn].level;
     if (shouldLog) {
@@ -173,14 +169,10 @@ test('doesn`t crash when meta is a circular reference in production', () => {
 
   // Supported level methods
   supportedLevels.forEach(fn => {
-    // $FlowFixMe - Logger has methods that the LoggerToken does not.
     expect(typeof logger[fn]).toBe('function');
     expect(typeof child[fn]).toBe('function');
     const consoleSpy = spy(console, 'log');
-    expect(
-      // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, meta, () => {})
-    ).not.toThrow();
+    expect(() => logger[fn](message, meta, () => {})).not.toThrow();
 
     formatPattern = new RegExp(
       `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:`
@@ -233,10 +225,7 @@ test('supports all logger methods in development', () => {
   // Supported level methods
   supportedLevels.forEach(fn => {
     const consoleSpy = spy(console, 'log');
-    expect(
-      // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, meta, () => {})
-    ).not.toThrow();
+    expect(() => logger[fn](message, meta, () => {})).not.toThrow();
 
     formatPattern = new RegExp(`${fn}\\:?.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
 
@@ -277,10 +266,7 @@ test('does not crash with string meta', () => {
   // Supported level methods
   supportedLevels.forEach(fn => {
     const consoleSpy = spy(console, 'log');
-    expect(
-      // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, message)
-    ).not.toThrow();
+    expect(() => logger[fn](message, message)).not.toThrow();
 
     formatPattern = new RegExp(`${fn}\\:?.*${message}`); // based on `utils/format-stdout.js`
 
@@ -317,10 +303,7 @@ test('handleLog recognizes meta objects sent as messages in production', () => {
   // Supported level methods
   supportedLevels.forEach(fn => {
     const consoleSpy = spy(console, 'log');
-    expect(
-      // $FlowFixMe - Logger has methods that the LoggerToken does not.
-      () => logger[fn](message, {a: {b: {c: 3}}}, () => {})
-    ).not.toThrow();
+    expect(() => logger[fn](message, {a: {b: {c: 3}}}, () => {})).not.toThrow();
 
     formatPattern = new RegExp(
       `\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"\\".*\\"fields\\"\\:${JSON.stringify(
@@ -371,10 +354,7 @@ test('logs partial data when level is valid but arguments incomplete in producti
     // Supported level methods
     supportedLevels.forEach(fn => {
       const consoleSpy = spy(console, 'log');
-      expect(
-        // $FlowFixMe - Logger has methods that the LoggerToken does not.
-        () => logger[fn](message)
-      ).not.toThrow();
+      expect(() => logger[fn](message)).not.toThrow();
 
       formatPattern = new RegExp(
         `^(?!.*fields.*).*\\"level\\"\\:\\"${fn}\\".*\\"msg\\"\\:\\"${message}\\".*$`
@@ -875,7 +855,6 @@ test('logs to M3 in production', () => {
   // Supported level methods
   supportedLevels.forEach(fn => {
     const consoleSpy = spy(mockM3, 'increment');
-    // $FlowFixMe - Logger has methods that the LoggerToken does not.
     logger[fn](message, {a: {b: {c: 3}}}, () => {});
     expect(
       consoleSpy.calledWithMatch('fusion-logger', {level: fn})
@@ -909,7 +888,6 @@ test('does not log to M3 in development', () => {
   // Supported level methods
   supportedLevels.forEach(fn => {
     const consoleSpy = spy(mockM3, 'increment');
-    // $FlowFixMe - Logger has methods that the LoggerToken does not.
     logger[fn](message, {a: {b: {c: 3}}}, () => {});
     expect(consoleSpy.notCalled).toBeTruthy();
     consoleSpy.restore();

@@ -23,7 +23,6 @@ test('test all methods exist for browser', () => {
   const sim = getSimulator(app);
   const logger = sim.getService(LoggerToken);
   supportedLevels.concat(['log']).forEach(fn => {
-    // $FlowFixMe - Logger has methods that the LoggerToken does not.
     expect(typeof logger[fn]).toBe('function');
   });
 });
@@ -44,10 +43,9 @@ test('test minimum log level', () => {
   expect(typeof logger.log).toBe('function');
   expect(logger.log.length).toBe(3);
   // ...then stub it to test other methods
-  // $FlowFixMe (not using real logger type)
   logger.log = level => {
     expect(
-      // $FlowFixMe (not using real logger type)
+      // $FlowFixMe (this stub is not a real logger type)
       levelMap[minimumLogLevel].level >= levelMap[level].level
     ).toBeTruthy();
     return logger;
