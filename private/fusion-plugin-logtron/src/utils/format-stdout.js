@@ -2,6 +2,7 @@
 
 import os from 'os';
 import stringify from 'json-stringify-safe';
+import chalk from 'chalk';
 
 const host = os.hostname();
 
@@ -31,7 +32,20 @@ export default function formatStdout(
     return stringify(data);
   } else {
     // format for terminal
-    const levelString = (level + ':    ').slice(0, 7);
+    const levelColor = {
+      error: chalk.red,
+      fatal: chalk.redBright,
+      warn: chalk.yellow,
+      info: chalk.cyan,
+      debug: chalk.gray,
+      silly: chalk.gray,
+      verbose: chalk.gray,
+      trace: chalk.blue,
+      access: chalk.magenta,
+    };
+
+    const colorize = (__DEV__ && levelColor[level]) || (v => v);
+    const levelString = colorize(level) + ':    '.slice(0, 7 - level.length);
     const metaString = meta ? prettify(meta) : '';
     return `${iso} - ${levelString}${message} ${metaString}`;
   }

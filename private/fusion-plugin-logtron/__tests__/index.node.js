@@ -227,7 +227,7 @@ test('supports all logger methods in development', () => {
     const consoleSpy = spy(console, 'log');
     expect(() => logger[fn](message, meta, () => {})).not.toThrow();
 
-    formatPattern = new RegExp(`${fn}\\:?.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
+    formatPattern = new RegExp(`${fn}.*\\:?.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
 
     expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
     consoleSpy.restore();
@@ -237,7 +237,7 @@ test('supports all logger methods in development', () => {
   const consoleSpy = spy(console, 'log');
   expect(() => logger.log('info', message, meta, () => {})).not.toThrow();
 
-  formatPattern = new RegExp(`info\\:.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
+  formatPattern = new RegExp(`info.*\\:.*${message}.*${prettify(meta)}`); // based on `utils/format-stdout.js`
 
   expect(consoleSpy.calledWithMatch(formatPattern)).toBeTruthy();
   consoleSpy.restore();

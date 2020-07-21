@@ -47,7 +47,7 @@ function getFormatPattern(env, level, message, meta): RegExp {
         `\\"level\\"\\:\\"${level}\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:\\{\\"a\\":1,\\"b\\":2,\\"c\\":\\"apple\\"\\}`
       ); // based on `utils/format-stdout.js`
     }
-    return new RegExp(`${level}:.*${message} a=1, b=2, c=apple`);
+    return new RegExp(`${level}.*:.*${message} a=1, b=2, c=apple`);
   }
   if (meta === stringMeta) {
     if (env === 'production') {
@@ -55,7 +55,7 @@ function getFormatPattern(env, level, message, meta): RegExp {
         `\\"level\\"\\:\\"${level}\\".*\\"msg\\"\\:\\"${message}\\".*\\"fields\\"\\:\\"${stringMeta}\\"`
       ); // based on `utils/format-stdout.js`
     }
-    return new RegExp(`${level}:.*${message} ${stringMeta}`);
+    return new RegExp(`${level}.*:.*${message} ${stringMeta}`);
   }
   // keep flow happy
   return /fail/;

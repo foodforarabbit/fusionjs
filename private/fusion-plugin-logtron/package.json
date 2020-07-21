@@ -20,7 +20,8 @@
     "winston": "^3.2.1",
     "uber-raven": "0.6.3-project-name",
     "airlock": "2.3.0",
-    "json-stringify-safe": "5.0.1"
+    "json-stringify-safe": "5.0.1",
+    "chalk": "^2.4.2"
   },
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
