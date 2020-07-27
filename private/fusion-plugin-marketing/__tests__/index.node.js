@@ -283,7 +283,7 @@ test('_track endpoint handler, heatpipe publish and response', async done => {
     }
   );
 
-  const responseBody = await res.response.body;
+  const responseBody = res.response.body;
   expect(responseBody).toMatchSnapshot('_track json response');
   expect(
     (simulator.getService(HeatpipeToken).asyncPublish: any).mock.calls[0]

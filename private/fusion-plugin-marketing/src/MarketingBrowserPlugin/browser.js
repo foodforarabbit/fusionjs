@@ -2,7 +2,7 @@
 /* eslint-env browser */
 
 import {createPlugin, memoize} from 'fusion-core';
-import {FetchToken} from 'fusion-tokens';
+import {FetchToken, LoggerToken} from 'fusion-tokens';
 import type {Fetch} from 'fusion-tokens';
 import type {FusionPlugin, Context} from 'fusion-core';
 import type {BrowserPluginServiceType, TrackResponse} from '../types.js';
@@ -12,6 +12,7 @@ const plugin =
   __BROWSER__ &&
   createPlugin({
     deps: {
+      logger: LoggerToken,
       fetch: FetchToken,
     },
     provides({fetch}) {
@@ -51,10 +52,14 @@ const plugin =
         }),
       };
     },
-    middleware(_, MarketingPlugin) {
+    middleware({logger}, MarketingPlugin) {
       return async (ctx: Context, next) => {
-        const marketing = MarketingPlugin.from(ctx);
-        await marketing.track();
+        try {
+          const marketing = MarketingPlugin.from(ctx);
+          await marketing.track();
+        } catch (e) {
+          logger.error(e);
+        }
         return next();
       };
     },

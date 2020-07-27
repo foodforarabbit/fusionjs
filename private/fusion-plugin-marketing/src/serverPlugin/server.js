@@ -166,7 +166,7 @@ const plugin =
 
         // handle api call from MarketingBrowserPlugin
         if (ctx.path === TRACK_URL) {
-          const trackResponse = marketing.handleClientTrackRequest();
+          const trackResponse = await marketing.handleClientTrackRequest();
           ctx.body = ((trackResponse: any): JSON);
           return Promise.resolve();
         }

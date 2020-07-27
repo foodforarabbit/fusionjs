@@ -4,7 +4,7 @@
 
 import App, {createPlugin} from 'fusion-core';
 import {getSimulator} from 'fusion-test-utils';
-import {FetchToken} from 'fusion-tokens';
+import {FetchToken, LoggerToken} from 'fusion-tokens';
 
 import {UberMarketingBrowserToken} from '../src/tokens';
 import Plugin from '../src/MarketingBrowserPlugin/browser';
@@ -36,8 +36,14 @@ const fetchMock = jest.fn().mockImplementation(() => {
 
 function createMockApp({testPlugin}: {testPlugin?: Object}) {
   const app = new App({}, () => 'ok');
+  const loggerMock = {
+    info: jest.fn(),
+    error: jest.fn(),
+  };
   // $FlowFixMe
   app.register(testPlugin);
+  // $FlowFixMe
+  app.register(LoggerToken, loggerMock);
   // $FlowFixMe
   app.register(FetchToken, fetchMock);
   app.register(UberMarketingBrowserToken, Plugin);
