@@ -15,7 +15,7 @@ import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {levelMap} from './constants';
 import createSentryLogger from './utils/create-sentry-logger';
 import createErrorTransform from './utils/create-error-transform';
-import {isErrorLikeObject, isError} from './utils/error';
+import {isErrorLikeObject} from './utils/error';
 import formatStdout from './utils/format-stdout';
 import path from 'path';
 
@@ -162,14 +162,8 @@ export const handleLog = async (options: ErrorLogOptionsType) => {
           meta.message = message;
         }
 
-        if (isError(meta)) {
-          // case a
-          // $FlowFixMe: we just proved meta is an error ^
-          const err: Error = meta;
-          meta = {error: err};
-        } else if (isErrorLikeObject(meta) && !isErrorLikeObject(meta.error)) {
-          // case b (but only if c or d don't apply)
-          meta.message = String(meta.message || '');
+        if (isErrorLikeObject(meta) && !isErrorLikeObject(meta.error)) {
+          // cases a and b (but only if c or d don't apply)
           meta = {error: meta};
         }
 

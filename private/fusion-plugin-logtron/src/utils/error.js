@@ -14,7 +14,10 @@ export function isErrorLikeObject(obj: any) {
   if (!obj) {
     return false;
   }
-  return obj.message && (obj.stack || (obj.source && obj.line));
+
+  return (
+    isError(obj) || (obj.message && (obj.stack || (obj.source && obj.line)))
+  );
 }
 
 export function isError(err: ?{}) {

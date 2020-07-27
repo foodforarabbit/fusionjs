@@ -14,12 +14,15 @@ regularErrorSourceHasWithMapSuffix.stack = `Error: hello world
         at test (test-with-map-haha.es5-with-map.js:4:13)
         at Object.<anonymous> (test-with-map-haha.es5-with-map.js:13:1)`;
 
-const sourceAndLineError = {
-  message: 'hi from source and line error',
-  source: `test.es5.js`,
+const error = new Error('hi from source and line error');
+// $FlowFixMe - testing the legacy Error pattern
+delete error.stack;
+// $FlowFixMe - testing the legacy Error pattern
+const sourceAndLineError = Object.assign(error, {
+  source: 'test.es5.js',
   line: 4,
   col: 13,
-};
+});
 
 const expectedRegularErrorTransformed = {
   message: 'hi from regular error',
@@ -45,11 +48,13 @@ const expectedRegularErrorTransformedNoMap = {
 const expectedSourceAndLineErrorTransformed = {
   message: 'hi from source and line error',
   stack: `unknown function name at test.js:2:14`,
+  error: sourceAndLineError,
 };
 
 const expectedSourceAndLineErrorTransformedNoMap = {
   message: 'hi from source and line error',
   stack: `unknown function name at test.es5.js:4:13`,
+  error: sourceAndLineError,
 };
 
 test('createErrorTransform - regular error', async () => {
@@ -92,7 +97,7 @@ test('createErrorTransform - source and line error', async () => {
     path: path.join(process.cwd(), `__fixtures__`),
     ext: '.map',
   });
-  const transformed = await transformError(sourceAndLineError);
+  const transformed = await transformError({error: sourceAndLineError});
   expect(transformed).toEqual(expectedSourceAndLineErrorTransformed);
 });
 
@@ -102,6 +107,6 @@ test('createErrorTransform - source and line error, no map', async () => {
     path: path.join(process.cwd(), `__wrong__`),
     ext: '.map',
   });
-  const transformed = await transformError(sourceAndLineError);
+  const transformed = await transformError({error: sourceAndLineError});
   expect(transformed).toEqual(expectedSourceAndLineErrorTransformedNoMap);
 });

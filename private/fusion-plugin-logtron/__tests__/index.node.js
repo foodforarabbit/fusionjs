@@ -382,8 +382,8 @@ test('logs partial data when level is valid but arguments incomplete in producti
 });
 
 // case a (see `../server.js`)
-test('handleLog calls sentry for errors d) where `meta` itself is a real error in production', done => {
-  expect.assertions(3);
+test('handleLog calls sentry for errors where `meta` itself is a real error in production', done => {
+  expect.assertions(5);
 
   const message = 'all gone wrong';
   const error = new Error(message);
@@ -407,6 +407,12 @@ test('handleLog calls sentry for errors d) where `meta` itself is a real error i
         })
       );
       expect(typeof meta.stack == 'string').toBeTruthy(); // can't test exact match for stack
+      expect(meta.error instanceof Error).toBeTruthy();
+      // check error is cloned
+      // $FlowFixMe - see previous assertion
+      meta.error.message = '123';
+      expect(error.message).toEqual(message);
+
       done();
     },
   };
@@ -465,6 +471,71 @@ test('handleLog does not call sentry for errors in development', done => {
     },
   });
   done();
+});
+
+// case a (see `../server.js`) but no stack property
+// typical scenario is an error from graphql (https://t3.uberinternal.com/browse/WPT-6272)
+test('handleLog calls sentry for errors where `meta` itself is a real error, but has no stack property. Production', done => {
+  expect.assertions(5);
+
+  const message = 'all gone wrong';
+  const error = new Error(message);
+  // $FlowFixMe testing legacy Error format
+  delete error.stack;
+
+  const mockLogger = {
+    log: (type, meta: PayloadMetaType) => {
+      expect(type === 'error').toBeTruthy();
+      expect(meta).toEqual(
+        expect.objectContaining({
+          message: error.message,
+          appID: 'my-app',
+          deploymentName: 'lol',
+          gitSha: 'a1234567',
+          runtimeEnvironment: 'production',
+          isProduction: true,
+          tags: {
+            ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}},
+            url: 'https://lol.com',
+            headers: {thiss: 'this', that: 'that'},
+          },
+        })
+      );
+      expect(typeof meta.stack == 'string').toBeTruthy(); // can't test exact match for stack
+      expect(meta.error instanceof Error).toBeTruthy();
+      // check error is cloned
+      // $FlowFixMe - see previous assertion
+      meta.error.message = '123';
+      expect(error.message).toEqual(message);
+
+      done();
+    },
+  };
+
+  // $FlowFixMe - missing logger methods in mock
+  handleLog({
+    transformError,
+    payload: {
+      level: 'error',
+      message,
+      meta: {
+        error,
+        tags: {
+          ua: {browser: {name: 'Chrome'}, engine: {name: 'Blink'}},
+          url: 'https://lol.com',
+          headers: {thiss: 'this', that: 'that'},
+        },
+      },
+    },
+    sentryLogger: mockLogger,
+    envMeta: {
+      appID: 'my-app',
+      runtimeEnvironment: 'production',
+      isProduction: true,
+      deploymentName: 'lol',
+      gitSha: 'a1234567',
+    },
+  });
 });
 
 // case b (see `../server.js`)
@@ -570,7 +641,7 @@ test('handleLog calls sentry for errors c2) where `meta` itself is an error-like
 
 // case c (see `../server.js`)
 test('handleLog calls sentry for errors where `meta.error` is a real error, and passing a callback in production', done => {
-  expect.assertions(3);
+  expect.assertions(6);
 
   const message = 'all gone wrong';
   const error = new Error(message);
@@ -585,6 +656,13 @@ test('handleLog calls sentry for errors where `meta.error` is a real error, and 
       expect(
         typeof meta.stack === 'string' && meta.message === message
       ).toBeTruthy();
+      expect(typeof meta.stack == 'string').toBeTruthy(); // can't test exact match for stack
+      expect(meta.error instanceof Error).toBeTruthy();
+      // check error is cloned
+      // $FlowFixMe - see previous assertion
+      meta.error.message = '123';
+      expect(error.message).toEqual(message);
+
       done();
     },
   };
@@ -627,8 +705,8 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
           tags: {},
         })
       );
+
       if (meta) {
-        console.log(meta.error, meta.error.stack, meta.error.message);
         expect(meta.error instanceof Error).toEqual(true);
         expect(meta.error.stack).toEqual('\nthis: 123, that: 324');
         expect(meta.error.message).toEqual(message);
@@ -659,28 +737,25 @@ test('handleLog calls sentry for errors where `meta.error` is an error-like obje
 });
 
 // case d (see `../server.js`)
-test('handleLog calls sentry for errors where `meta.error` is an error-like object in production with no stack', done => {
-  expect.assertions(3);
+test('handleLog calls sentry for errors where `meta.error` is an error-like object in production with source and line but no stack', done => {
+  expect.assertions(4);
   const mockLogger = {
     log: (type, meta) => {
       expect(type === 'error').toBeTruthy();
       expect(typeof meta === 'object').toBeTruthy();
-      // doesn't map to stack because no sourcemaps (create-error-transform tests covers that behavior)
-      expect(meta).toEqual({
-        message: 'all gone wrong',
-        error: {
+      // $FlowFixMe - see previous assertion
+      expect(meta.error instanceof Error).toBeTruthy();
+      expect(meta).toEqual(
+        expect.objectContaining({
           message: 'all gone wrong',
-          source: 'this: 123, that: 324',
-          line: 123,
-        },
-        stack: 'not available',
-        appID: 'my-app',
-        runtimeEnvironment: 'production',
-        isProduction: true,
-        deploymentName: 'lol',
-        gitSha: 'a1234567',
-        tags: {},
-      });
+          stack: 'unknown function name at this: 123, that: 324:123:',
+          appID: 'my-app',
+          deploymentName: 'lol',
+          gitSha: 'a1234567',
+          runtimeEnvironment: 'production',
+          tags: {},
+        })
+      );
       done();
     },
   };

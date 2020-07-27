@@ -15,7 +15,6 @@ export default function createErrorTransform(config: ConfigType = {}) {
   const mappers = config.path && config.ext ? loadSourceMaps(config) : null;
 
   return async function parseError(data: PayloadMetaType) {
-    const {message, source, line, col, error} = data;
     // TODO: message should just be string but Flow...  ¯\_(ツ)_/¯
     let parsedError: ?{
       message?: string,
@@ -24,21 +23,11 @@ export default function createErrorTransform(config: ConfigType = {}) {
       stack?: string,
       line?: number,
     };
-    if (error && error.stack) {
-      // Newer browsers send the error object
-      parsedError = await handleErrorObject(error);
-    } else if (source && line) {
-      // Older browsers send only source, line and maybe column
-      parsedError = await handleSourceAndLine(
-        String(message),
-        source,
-        line,
-        col
-      );
-    }
-    if (!parsedError) {
-      // can't transform, early return
-      // TODO: should we hoist nested error properties?
+
+    if (data.error) {
+      parsedError = await handleErrorObject(data.error);
+    } else {
+      // can't transform
       return data;
     }
 
@@ -48,6 +37,51 @@ export default function createErrorTransform(config: ConfigType = {}) {
 
     return parsedError;
   };
+
+  // Returns log data for browsers that send the real error object or an error-like object
+  async function handleErrorObject(error) {
+    let stack = '';
+    if (error.stack) {
+      stack = await getMappedStackFromErrorStack(error);
+    } else if (error.source && error.line) {
+      stack = await getMappedStackFromErrorSourceAndLine(error);
+    }
+    const message = error.message;
+
+    // create real Error if error-like object, clone if already real Error, because:
+    // 1) healthline requires real Error with stack
+    // 2) sentry logger potentially updates message
+    error = new Error(message);
+    error.stack = stack;
+
+    const logMeta = {
+      message,
+      error,
+      stack,
+    };
+    return logMeta;
+  }
+
+  function loadSourceMaps(config) {
+    const mappers = {};
+
+    try {
+      fs.readdirSync(config.path)
+        .filter(fName => fName.endsWith(config.ext))
+        .reduce(toSourceMapper, mappers);
+    } catch (e) {
+      console.log(`Failed to read sourcemaps from ${config.path}`);
+    }
+    return mappers;
+
+    function toSourceMapper(maps, fName) {
+      const jsName = path.basename(fName, config.ext);
+      const fullFname = path.join(config.path, fName);
+      const sourceMapConents = fs.readFileSync(fullFname, 'utf8');
+      maps[jsName] = new sourcemap.SourceMapConsumer(sourceMapConents);
+      return maps;
+    }
+  }
 
   async function applySourceMap(fileName, line, column) {
     // '-with-map.js' uses same map as non-suffixed file
@@ -59,23 +93,7 @@ export default function createErrorTransform(config: ConfigType = {}) {
     return map ? map.originalPositionFor({line, column}) : null;
   }
 
-  // Returns log for older browsers that don't send the entire error object
-  async function handleSourceAndLine(message, source, line, col) {
-    const mapped = await applySourceMap(source, line, col);
-
-    const name = mapped && mapped.name ? mapped.name : 'unknown function name';
-    source = mapped ? mapped.source : source;
-    line = mapped ? mapped.line : line;
-    col = (mapped ? mapped.column : col) || '';
-
-    return {
-      message: message,
-      stack: `${name} at ${String(source)}:${String(line)}:${String(col)}`,
-    };
-  }
-
-  // Returns log data for browsers that send th e entire error object
-  async function handleErrorObject(error) {
+  async function getMappedStackFromErrorStack(error) {
     const frames = (
       await Promise.all(
         ErrorStackParser.parse(error).map(async frame => {
@@ -102,45 +120,22 @@ export default function createErrorTransform(config: ConfigType = {}) {
     ).filter(Boolean);
 
     // Extra \n at the beginning lines up the stack
-    const stackString = `\n${frames.join('\n    ')}`;
-    const message = error.message;
-    const stack = stackString
+    return `\n${frames.join('\n    ')}`
       .replace(/(js)(\?.+)$/gm, '$1')
       .replace(/webpack:\/\/\//g, './')
       .replace(/~\//g, 'node_modules/');
-    // healthline additionally wants a real Error object
-    // so stack gets its own panel ¯\_(ツ)_/¯
-    const errorInstance = new Error(message);
-    errorInstance.stack = stack;
-    const logMeta = {
-      message,
-      error: errorInstance,
-      stack: stackString
-        .replace(/(js)(\?.+)$/gm, '$1')
-        .replace(/webpack:\/\/\//g, './')
-        .replace(/~\//g, 'node_modules/'),
-    };
-    return logMeta;
   }
-}
 
-function loadSourceMaps(config) {
-  const mappers = {};
+  async function getMappedStackFromErrorSourceAndLine(error) {
+    // $FlowFixMe - legacy Error properties
+    let {source, line, col} = error;
+    const mapped = await applySourceMap(source, line, col);
 
-  try {
-    fs.readdirSync(config.path)
-      .filter(fName => fName.endsWith(config.ext))
-      .reduce(toSourceMapper, mappers);
-  } catch (e) {
-    console.log(`Failed to read sourcemaps from ${config.path}`);
-  }
-  return mappers;
+    const name = mapped && mapped.name ? mapped.name : 'unknown function name';
+    source = mapped ? mapped.source : source;
+    line = mapped ? mapped.line : line;
+    col = (mapped ? mapped.column : col) || '';
 
-  function toSourceMapper(maps, fName) {
-    const jsName = path.basename(fName, config.ext);
-    const fullFname = path.join(config.path, fName);
-    const sourceMapConents = fs.readFileSync(fullFname, 'utf8');
-    maps[jsName] = new sourcemap.SourceMapConsumer(sourceMapConents);
-    return maps;
+    return `${name} at ${String(source)}:${String(line)}:${String(col)}`;
   }
 }
