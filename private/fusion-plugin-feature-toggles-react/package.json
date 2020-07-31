@@ -72,6 +72,7 @@
     "prettier": "^1.19.1"
   },
   "peerDependencies": {
+    "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
     "fusion-core": "0.0.0-monorepo",
     "fusion-react": "0.0.0-monorepo",
     "react": "^16.12.0"
