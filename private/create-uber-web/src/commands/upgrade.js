@@ -36,6 +36,7 @@ import {
 } from '../codemods/flowconfig/codemod-flowconfig';
 import {updateSchemaPath} from '../codemods/update-schema-path/update-schema-path';
 import {inlineReactHocs} from '../codemods/inline-react-hocs/codemod-inline-react-hocs.js';
+import {codemodFusionPluginLogtron} from '../codemods/fusion-plugin-logtron/codemod-fusion-plugin-logtron';
 
 export type UpgradeOptions = {
   dir: string,
@@ -200,6 +201,9 @@ export const upgrade = async ({
       }),
       step('moveTypedRPCCLI', async () => {
         await moveTypedRPCCLI({dir, strategy});
+      }),
+      step('logtron codemod', async () => {
+        await codemodFusionPluginLogtron({dir, strategy});
       }),
       step('Remind about new deps', async () => {
         // eslint-disable-next-line no-console
