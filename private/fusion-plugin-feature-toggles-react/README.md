@@ -127,7 +127,7 @@ export default createPlugin({
     return (ctx, next) => {
       if (__NODE__ && ctx.path === '/some-path') {
         const instance = featureToggles.from(ctx);
-        const showHelloWorld = await instance.get('showHelloWorldToggle');
+        const showHelloWorld = instance.get('showHelloWorldToggle');
         if(showHelloWorld.enabled) {
           ctx.body = { message: 'hello world!' };
         }
@@ -163,7 +163,7 @@ export default () => {
     app.register(AtreyuToken, AtreyuPlugin); // required only if using default Morpheus client
     app.register(FeatureTogglesTogglesConfigToken, ['some-toggle-name']);
   }
-  
+
   return app;
 };
 ```
@@ -273,14 +273,14 @@ type FeatureTogglesServiceType = {|
   +from: (ctx?: Context) => {|
     +get: (toggleName: string) => Promise<?{|
       +enabled: boolean,
-      +metadata?: {[string]: any}, 
+      +metadata?: {[string]: any},
     |}>;
   |},
 |};
 ```
 
 * `from: (ctx?: Context) => ...` - Scopes the service to a specific request (via `Context`).
-* `get(toggleName: string) => ...` - Gets toggle information for the provided toggle. 
+* `get(toggleName: string) => ...` - Gets toggle information for the provided toggle.
   * `+enabled: boolean` - Whether or not the requested toggle is enabled.
   * `+metadata?: {[string]: any}` - Additional information provided by the specific Client being used (e.g. Morpheus may provide some experimentation-specific properties).
 
