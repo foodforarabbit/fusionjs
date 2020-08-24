@@ -10,12 +10,13 @@ const plugin: FusionPlugin<M3DepsType, ServiceType> = createPlugin({
       // eslint-disable-next-line no-console
       calls.push([methodName, args]);
     };
-    return {
+    const client = {
       getCalls() {
         return calls;
       },
       scope(...args) {
         callbackFunc('scope', ...args);
+        return client;
       },
       async close(...args) {
         callbackFunc('close', ...args);
@@ -51,6 +52,8 @@ const plugin: FusionPlugin<M3DepsType, ServiceType> = createPlugin({
         callbackFunc('immediateGauge', ...args);
       },
     };
+
+    return client;
   },
 });
 

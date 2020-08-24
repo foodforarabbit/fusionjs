@@ -19,7 +19,7 @@ export type TagsType = {
 };
 
 export type M3Type = Class<{
-  +scope: TagsType => void,
+  +scope: TagsType => M3Type,
   +close: () => void,
   +counter: (string, number, TagsType) => void,
   +increment: (string, number, TagsType) => void,
@@ -39,7 +39,7 @@ export type ServiceType = {
   decrement: (string, ?TagsType) => void,
   timing: (string, ?number | ?Date, ?TagsType) => void,
   gauge: (string, ?number, ?TagsType) => void,
-  scope: string => void,
+  scope: TagsType => ServiceType,
   immediateCounter: (string, ?number, ?TagsType) => void,
   immediateIncrement: (string, ?TagsType) => void,
   immediateDecrement: (string, ?TagsType) => void,

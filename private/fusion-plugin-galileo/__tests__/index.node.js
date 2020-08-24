@@ -37,7 +37,7 @@ const mockM3 = {
     TagsType: ?TagsType
   ): void => {},
   gauge: (string: string, number: ?number, TagsType: ?TagsType): void => {},
-  scope: (string: string): void => {},
+  scope: (TagsType: ?TagsType) => mockM3,
   immediateCounter: (
     string: string,
     number: ?number,

@@ -7,6 +7,7 @@ import {
 } from 'fusion-plugin-universal-events';
 import {M3Token, M3ClientToken, CommonTagsToken} from '../src/index';
 import M3Plugin from '../src/server';
+import type {M3Type} from '../src/types';
 
 test('m3 server plugin', () => {
   const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
@@ -68,9 +69,10 @@ test('m3 server plugin', () => {
       expect(value).toBe(100);
       expect(tags).toStrictEqual({tags: 'tags'});
     }
-    scope(arg) {
+    scope(tags) {
       flags.scope = true;
-      expect(arg).toBe('test');
+      expect(tags).toEqual({tags: 'tags'});
+      return ((this: any): M3Type);
     }
     immediateCounter(key, value, {tags}) {
       flags.immediateCounter = true;
@@ -118,7 +120,7 @@ test('m3 server plugin', () => {
     m3.decrement('key', {tags: 'tags'});
     m3.timing('key', 100, {tags: 'tags'});
     m3.gauge('key', 100, {tags: 'tags'});
-    m3.scope('test');
+    m3.scope({tags: 'tags'});
     m3.immediateCounter('key', 100, {tags: 'tags'});
     m3.immediateIncrement('key', {tags: 'tags'});
     m3.immediateDecrement('key', {tags: 'tags'});
@@ -195,7 +197,9 @@ test('m3 server plugin - event handlers', () => {
       expect(value).toBe('value');
       expect(tags).toStrictEqual({something: 'value'});
     }
-    scope() {}
+    scope() {
+      return ((this: any): M3Type);
+    }
     immediateCounter() {}
     immediateIncrement() {}
     immediateDecrement() {}
@@ -271,7 +275,9 @@ test('m3 server plugin - event handlers with __url__', () => {
       expect(value).toBe('value');
       expect(tags).toStrictEqual({route: '/test', something: 'value'});
     }
-    scope() {}
+    scope() {
+      return ((this: any): M3Type);
+    }
     immediateCounter() {}
     immediateIncrement() {}
     immediateDecrement() {}
@@ -345,7 +351,9 @@ test('m3 server plugin - event handlers with __url__ and no tags', () => {
       expect(value).toBe('value');
       expect(tags).toStrictEqual({route: '/test'});
     }
-    scope() {}
+    scope() {
+      return ((this: any): M3Type);
+    }
     immediateCounter() {}
     immediateIncrement() {}
     immediateDecrement() {}

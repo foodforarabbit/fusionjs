@@ -25,7 +25,13 @@ test('mock with ensure methods are called', async done => {
   app.register(M3Token, mock);
   app.middleware({m3: M3Token}, ({m3}) => {
     methods.forEach(m => {
-      if (m === 'scope' || m === 'close') {
+      if (m === 'scope') {
+        m3[m]({tags: 'tags'});
+        // $FlowFixMe
+        const called = m3.getCalls().pop();
+        expect(called[0]).toBe(m);
+        expect(called[1]).toStrictEqual([{tags: 'tags'}]);
+      } else if (m === 'close') {
         m3[m]('arg1');
         // $FlowFixMe
         const called = m3.getCalls().pop();
