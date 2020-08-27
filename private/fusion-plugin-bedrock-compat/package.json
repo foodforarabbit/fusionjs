@@ -1,13 +1,7 @@
 {
   "name": "@uber/fusion-plugin-bedrock-compat",
-  "version": "0.0.0-monorepo",
   "description": "fusion plugin for bedrock compatability",
-  "files": [
-    "src/",
-    "dist-*/"
-  ],
-  "main": "./dist-node-cjs/index.js",
-  "module": "./dist-node-esm/index.js",
+  "version": "0.0.0-monorepo",
   "browser": {
     "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
@@ -15,15 +9,6 @@
   "dependencies": {
     "@uber/bedrock-14-compat": "^1.1.1",
     "zero-config": "^7.1.1"
-  },
-  "peerDependencies": {
-    "@uber/atreyu": "^6.4.0",
-    "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
-    "@uber/fusion-plugin-flipr": "0.0.0-monorepo",
-    "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
-    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
-    "fusion-core": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo"
   },
   "devDependencies": {
     "@uber/atreyu": "^6.4.0",
@@ -38,38 +23,53 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-http-handler": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
     "get-port": "^5.1.1",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "jest": "^25.1.0",
-    "eslint-plugin-react-hooks": "^2.3.0"
-  },
-  "scripts": {
-    "clean": "cup-clean",
-    "lint": "eslint src/",
-    "flow": "flow",
-    "test": "jest",
-    "prepublish": "npm run build",
-    "build": "npm run clean && cup-build"
+    "request-promise": "^4.2.4"
   },
   "engines": {
     "node": ">=8.9.4",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
+  "files": [
+    "dist-*/",
+    "src/"
+  ],
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-bedrock-compat",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "peerDependencies": {
+    "@uber/atreyu": "^6.4.0",
+    "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
+    "@uber/fusion-plugin-flipr": "0.0.0-monorepo",
+    "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
+    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
+    "fusion-core": "0.0.0-monorepo",
+    "fusion-tokens": "0.0.0-monorepo"
+  },
   "repository": {
     "directory": "private/fusion-plugin-bedrock-compat",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
+  },
+  "scripts": {
+    "build": "npm run clean && cup-build",
+    "clean": "cup-clean",
+    "flow": "flow",
+    "lint": "eslint src/",
+    "prepublish": "npm run build",
+    "test": "jest"
   },
   "sideEffects": false
 }

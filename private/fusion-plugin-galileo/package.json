@@ -2,13 +2,6 @@
   "name": "@uber/fusion-plugin-galileo",
   "version": "0.0.0-monorepo",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
-  "license": "UNLICENSED",
-  "files": [
-    "src/",
-    "dist-*/"
-  ],
-  "main": "./dist-node-cjs/index.js",
-  "module": "./dist-node-esm/index.js",
   "browser": {
     "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
@@ -16,12 +9,6 @@
   "dependencies": {
     "@uber/jaeger-client": "^4.0.0",
     "@uber/unpm-galileo": "^2.0.0"
-  },
-  "peerDependencies": {
-    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
-    "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
-    "fusion-core": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo"
   },
   "devDependencies": {
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
@@ -34,35 +21,48 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
-    "prettier": "^1.19.1",
     "jest": "^25.1.0",
-    "eslint-plugin-react-hooks": "^2.3.0"
-  },
-  "scripts": {
-    "clean": "cup-clean",
-    "lint": "eslint .",
-    "test": "jest",
-    "prepublish": "npm run build",
-    "build": "npm run clean && cup-build",
-    "flow": "flow"
+    "prettier": "^1.19.1"
   },
   "engines": {
     "node": ">=8.9.4",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
+  "files": [
+    "dist-*/",
+    "src/"
+  ],
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-galileo",
+  "license": "UNLICENSED",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "peerDependencies": {
+    "@uber/fusion-plugin-m3": "0.0.0-monorepo",
+    "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
+    "fusion-core": "0.0.0-monorepo",
+    "fusion-tokens": "0.0.0-monorepo"
+  },
   "repository": {
     "directory": "private/fusion-plugin-galileo",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
+  },
+  "scripts": {
+    "build": "npm run clean && cup-build",
+    "clean": "cup-clean",
+    "flow": "flow",
+    "lint": "eslint .",
+    "prepublish": "npm run build",
+    "test": "jest"
   },
   "sideEffects": false
 }

@@ -1,17 +1,9 @@
 {
   "name": "@uber/fusion-migrate",
-  "version": "0.0.0-monorepo",
   "description": "Migration scripts for migrating from @uber/bedrock to Fusion.js",
+  "version": "0.0.0-monorepo",
   "bin": {
     "ufusion": "bin/fusion-migrate.js"
-  },
-  "scripts": {
-    "test": "jest",
-    "integration": "node src/integration-test.js",
-    "debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "lint": "eslint src/",
-    "build": "echo ok",
-    "flow": "flow"
   },
   "dependencies": {
     "@babel/core": "^7.8.4",
@@ -45,10 +37,10 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "jest": "^25.1.0"
   },
@@ -57,11 +49,19 @@
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
+  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-migrate",
   "repository": {
     "directory": "private/fusion-migrate",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
   },
-  "homepage": "https://engdocs.uberinternal.com/web/api/fusion-migrate",
+  "scripts": {
+    "build": "echo ok",
+    "debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "flow": "flow",
+    "integration": "node src/integration-test.js",
+    "lint": "eslint src/",
+    "test": "jest"
+  },
   "sideEffects": false
 }

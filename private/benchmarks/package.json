@@ -1,14 +1,6 @@
 {
   "name": "@uber/benchmarks",
-  "private": true,
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo ok",
-    "lint": "echo ok",
-    "build": "echo ok",
-    "flow": "echo ok"
-  },
   "dependencies": {
     "@octokit/app": "^2.2.4",
     "@octokit/rest": "^16.25.5",
@@ -16,5 +8,13 @@
     "fusion-cli": "0.0.0-monorepo",
     "rimraf": "^3.0.1",
     "simple-git": "^1.124.0"
+  },
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build": "echo ok",
+    "flow": "echo ok",
+    "lint": "echo ok",
+    "test": "echo ok"
   }
 }

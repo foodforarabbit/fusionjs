@@ -1,14 +1,6 @@
 {
   "name": "@uber/monorepo-actions",
-  "private": true,
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo ok",
-    "lint": "echo ok",
-    "build": "echo ok",
-    "flow": "echo ok"
-  },
   "dependencies": {
     "@dubstep/core": "^3.5.2",
     "@iarna/toml": "^2.2.3",
@@ -17,5 +9,13 @@
     "@publisher/core": "0.2.1",
     "@publisher/npm-helpers": "0.1.2",
     "@rtsao/scc": "^1.0.0"
+  },
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build": "echo ok",
+    "flow": "echo ok",
+    "lint": "echo ok",
+    "test": "echo ok"
   }
 }

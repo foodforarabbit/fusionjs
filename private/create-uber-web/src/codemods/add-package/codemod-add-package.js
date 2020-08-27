@@ -8,9 +8,16 @@ type AddOptions = {
   dir: string,
   strategy: UpgradeStrategy,
   dev?: boolean,
+  forceVersion?: boolean,
 };
 
-export const addPackage = async ({name, dir, strategy, dev}: AddOptions) => {
+export const addPackage = async ({
+  name,
+  dir,
+  strategy,
+  dev,
+  forceVersion = true,
+}: AddOptions) => {
   if (strategy === 'curated') strategy = 'latest';
   await withJsonFile(`${dir}/package.json`, async pkg => {
     const version = await getLatestVersion(name, strategy);
@@ -18,10 +25,18 @@ export const addPackage = async ({name, dir, strategy, dev}: AddOptions) => {
     const devDependencies = pkg.devDependencies || {};
     if (dev) {
       delete dependencies[name];
-      devDependencies[name] = version;
+      if (forceVersion) {
+        devDependencies[name] = version;
+      } else {
+        devDependencies[name] = devDependencies[name] || version;
+      }
     } else {
       delete devDependencies[name];
-      dependencies[name] = version;
+      if (forceVersion) {
+        dependencies[name] = version;
+      } else {
+        dependencies[name] = dependencies[name] || version;
+      }
     }
     pkg.dependencies = dependencies;
     pkg.devDependencies = devDependencies;

@@ -2,15 +2,10 @@
   "name": "@uber/template-website-graphql",
   "description": "{{description}}",
   "version": "0.0.1",
-  "scaffold-version": "{{version}}",
   "author": "{{author}} <{{email}}>",
-  "repository": {
-    "type": "git",
-    "url": "gitolite@code.uber.internal:{{team}}/{{name}}.git"
-  },
   "bugs": {
-    "url": "https://code.uberinternal.com/maniphest/task/create/",
-    "email": "{{email}}"
+    "email": "{{email}}",
+    "url": "https://code.uberinternal.com/maniphest/task/create/"
   },
   "dependencies": {
     "@apollo/react-common": "^3.1.3",
@@ -19,6 +14,7 @@
     "@apollo/react-hooks": "^3.1.3",
     "@apollo/react-ssr": "^3.1.3",
     "@babel/plugin-proposal-optional-chaining": "^7.7.4",
+    "@testing-library/react": "^10.0.3",
     "@uber/atreyu": "^6.4.0",
     "@uber/fusion-metrics": "0.0.0-monorepo",
     "@uber/fusion-plugin-analytics-session": "0.0.0-monorepo",
@@ -43,6 +39,7 @@
     "@uber/fusion-plugin-web-analytics": "^1.0.9",
     "@uber/graphql-scripts": "^0.4.2",
     "@uber/icons": "^1.0.33",
+    "@uber/typed-rpc-cli": "^3.3.3",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
     "baseui": "^9.69.0",
@@ -73,11 +70,9 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "styletron-react": "^5.2.6",
-    "unfetch": "^4.1.0",
-    "@uber/typed-rpc-cli": "^3.3.3",
+    "styletron-react": "^5.2.7",
     "ubook": "^0.0.14",
-    "@testing-library/react": "^10.0.3"
+    "unfetch": "^4.1.0"
   },
   "devDependencies": {
     "@apollo/react-testing": "^3.1.3",
@@ -90,15 +85,15 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
     "eslint-config-fusion": "0.0.0-monorepo",
+    "eslint-plugin-baseui": "^9.69.0",
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-graphql": "^3.1.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.3.0",
-    "eslint-plugin-baseui": "^9.69.0",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "fusion-test-utils": "0.0.0-monorepo",
     "jest": "^25.1.0",
@@ -106,31 +101,36 @@
     "prettier": "^1.19.1",
     "puppeteer": "^2.1.1"
   },
-  "resolutions": {
-    "**/graphql": "^14.5.8",
-    "graphql": "^14.5.8"
-  },
-  "scripts": {
-    "lint": "eslint src/",
-    "flow": "flow",
-    "build": "fusion build",
-    "dev": "SVC_ID='{{name}}' fusion-dev-cli fusion dev",
-    "test": "fusion test",
-    "cover": "fusion test --coverage",
-    "start": "PORT_HTTP=\"$UBER_PORT_HTTP\" fusion start",
-    "build-production": "fusion build --production && upload-assets-to-s3",
-    "codegen-rpc": "rpc-cli generate --target=graphql",
-    "codegen-query-types": "gql codegen",
-    "validate-codegen": "gql validate-codegen",
-    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts",
-    "test-integration": "yarn test --env=node --testFolder=__integration__",
-    "posttest-integration": "yarn validate-codegen"
-  },
-  "sideEffects": false,
   "engines": {
     "node": ">=0",
     "npm": ">=0",
     "yarn": ">=0"
   },
-  "private": true
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "gitolite@code.uber.internal:{{team}}/{{name}}.git"
+  },
+  "resolutions": {
+    "**/graphql": "^14.5.8",
+    "graphql": "^14.5.8"
+  },
+  "scaffold-version": "{{version}}",
+  "scripts": {
+    "build": "fusion build",
+    "build-production": "fusion build --production && upload-assets-to-s3",
+    "codegen-query-types": "gql codegen",
+    "codegen-rpc": "rpc-cli generate --target=graphql",
+    "cover": "fusion test --coverage",
+    "dev": "SVC_ID='{{name}}' fusion-dev-cli fusion dev",
+    "flow": "flow",
+    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts",
+    "lint": "eslint src/",
+    "posttest-integration": "yarn validate-codegen",
+    "start": "PORT_HTTP=\"$UBER_PORT_HTTP\" fusion start",
+    "test": "fusion test",
+    "test-integration": "yarn test --env=node --testFolder=__integration__",
+    "validate-codegen": "gql validate-codegen"
+  },
+  "sideEffects": false
 }

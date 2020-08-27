@@ -119,6 +119,7 @@ export const upgrade = async ({
           name: '@uber/fusion-plugin-marketing',
           dir,
           strategy,
+          forceVersion: false, // The actual plugin version is dictated in the final `bumpDeps` step
         });
       }),
       step('add @uber/fusion-plugin-feature-toggles', async () => {

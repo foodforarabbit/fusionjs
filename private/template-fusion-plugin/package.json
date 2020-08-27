@@ -2,47 +2,21 @@
   "name": "@uber/template-fusion-plugin",
   "description": "{{description}}",
   "version": "0.0.1",
-  "scaffold-version": "{{version}}",
-  "private": true,
   "author": "{{author}} <{{email}}>",
-  "repository": {
-    "type": "git",
-    "url": "gitolite@code.uber.internal:{{team}}/{{name}}.git"
-  },
-  "bugs": {
-    "url": "https://code.uberinternal.com/maniphest/task/create/",
-    "email": "{{email}}"
-  },
-  "license": "UNLICENSED",
-  "main": "./dist-node-cjs/index.js",
-  "module": "./dist-node-esm/index.js",
   "browser": {
     "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
-  "files": [
-    "dist-browser-cjs",
-    "dist-browser-esm",
-    "dist-node-cjs",
-    "dist-node-esm",
-    "src/",
-    "!test"
-  ],
-  "scripts": {
-    "bootstrap": "rm -rf node_modules && yarn",
-    "lint": "eslint src --fix",
-    "flow": "flow check || true",
-    "build": "cup-build",
-    "dev": "npm-watch | grep --invert-match nodemon",
-    "test": "jest && yarn flow",
-    "prepublish": "cup-build",
-    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
+  "bugs": {
+    "email": "{{email}}",
+    "url": "https://code.uberinternal.com/maniphest/task/create/"
   },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-flow": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
+    "@uber/standard-fonts": "^0.1.4",
     "babel-eslint": "^10.0.3",
     "create-universal-package": "^4.1.0",
     "enzyme": "^3.11.0",
@@ -52,10 +26,10 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "fusion-cli": "0.0.0-monorepo",
     "fusion-core": "0.0.0-monorepo",
@@ -70,22 +44,48 @@
     "prettier": "^1.19.1",
     "puppeteer": "^2.1.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "@uber/standard-fonts": "^0.1.4"
+    "react-dom": "^16.12.0"
   },
-  "peerDependencies": {
-    "fusion-core": "0.0.0-monorepo",
-    "react": "^16.12.0"
+  "engines": {
+    "node": ">=0",
+    "npm": ">=0",
+    "yarn": ">=0"
   },
   "eslintConfig": {
     "extends": [
       "eslint-config-fusion"
     ]
   },
-  "engines": {
-    "node": ">=0",
-    "npm": ">=0",
-    "yarn": ">=0"
+  "files": [
+    "!test",
+    "dist-browser-cjs",
+    "dist-browser-esm",
+    "dist-node-cjs",
+    "dist-node-esm",
+    "src/"
+  ],
+  "license": "UNLICENSED",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "peerDependencies": {
+    "fusion-core": "0.0.0-monorepo",
+    "react": "^16.12.0"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "gitolite@code.uber.internal:{{team}}/{{name}}.git"
+  },
+  "scaffold-version": "{{version}}",
+  "scripts": {
+    "bootstrap": "rm -rf node_modules && yarn",
+    "build": "cup-build",
+    "dev": "npm-watch | grep --invert-match nodemon",
+    "flow": "flow check || true",
+    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts",
+    "lint": "eslint src --fix",
+    "prepublish": "cup-build",
+    "test": "jest && yarn flow"
   },
   "sideEffects": false
 }

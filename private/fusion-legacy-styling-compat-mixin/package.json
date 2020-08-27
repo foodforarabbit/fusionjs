@@ -1,13 +1,7 @@
 {
   "name": "@uber/fusion-legacy-styling-compat-mixin",
-  "version": "0.0.0-monorepo",
   "description": "Fusion App mixin for legacy isorender/bedrock styling",
-  "files": [
-    "src/",
-    "dist-*/"
-  ],
-  "main": "./dist-node-cjs/index.js",
-  "module": "./dist-node-esm/index.js",
+  "version": "0.0.0-monorepo",
   "browser": {
     "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
@@ -17,10 +11,8 @@
     "safe-string": "^1.0.1",
     "styletron-legacy": "^2.6.1"
   },
-  "peerDependencies": {
-    "react-dom": "^16.12.0"
-  },
   "devDependencies": {
+    "@babel/preset-env": "^7.8.4",
     "babel-eslint": "^10.0.3",
     "create-universal-package": "^4.1.0",
     "eslint": "^6.8.0",
@@ -28,33 +20,41 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.3.0",
-    "prettier": "^1.19.1",
-    "react-dom": "^16.12.0",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "jest": "^25.1.0",
-    "@babel/preset-env": "^7.8.4"
-  },
-  "scripts": {
-    "clean": "cup-clean",
-    "lint": "eslint src/",
-    "test": "jest",
-    "prepublish": "npm run build",
-    "build": "npm run clean && cup-build",
-    "flow": "flow"
+    "prettier": "^1.19.1",
+    "react-dom": "^16.12.0"
   },
   "engines": {
     "node": ">=8.9.4",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
+  "files": [
+    "dist-*/",
+    "src/"
+  ],
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-legacy-styling-compat-mixin",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "peerDependencies": {
+    "react-dom": "^16.12.0"
+  },
   "repository": {
     "directory": "private/fusion-legacy-styling-compat-mixin",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
+  },
+  "scripts": {
+    "build": "npm run clean && cup-build",
+    "clean": "cup-clean",
+    "flow": "flow",
+    "lint": "eslint src/",
+    "prepublish": "npm run build",
+    "test": "jest"
   },
   "sideEffects": false
 }

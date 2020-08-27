@@ -2,38 +2,26 @@
   "name": "@uber/template-library",
   "description": "{{description}}",
   "version": "0.0.1",
-  "scaffold-version": "{{version}}",
-  "private": true,
   "author": "{{author}} <{{email}}>",
-  "repository": {
-    "type": "git",
-    "url": "gitolite@code.uber.internal:{{team}}/{{name}}.git"
-  },
-  "bugs": {
-    "url": "https://code.uberinternal.com/maniphest/task/create/",
-    "email": "{{email}}"
-  },
-  "license": "UNLICENSED",
-  "main": "./dist-node-cjs/index.js",
-  "module": "./dist-node-esm/index.js",
   "browser": {
     "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
-  "scripts": {
-    "bootstrap": "rm -rf node_modules && yarn",
-    "lint": "eslint src --fix",
-    "flow": "flow check || true",
-    "build": "cup-build && eslint src",
-    "dev": "npm-watch | grep --invert-match nodemon",
-    "test": "jest && yarn flow",
-    "prepublish": "cup-build",
-    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts"
+  "bugs": {
+    "email": "{{email}}",
+    "url": "https://code.uberinternal.com/maniphest/task/create/"
+  },
+  "dependencies": {
+    "@uber/fusion-plugin-graphql-metrics": "0.0.0-monorepo",
+    "@uber/fusion-plugin-marketing": "0.0.0-monorepo",
+    "@uber/typed-rpc-cli": "^3.3.3",
+    "styletron-react": "^5.2.7"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
+    "@uber/standard-fonts": "^0.1.4",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",
     "create-universal-package": "^4.1.0",
@@ -42,44 +30,56 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "jest": "^25.1.0",
     "jest-environment-jsdom": "^24.9.0",
     "jest-environment-jsdom-global": "^1.2.0",
     "npm-watch": "^0.6.0",
-    "prettier": "^1.19.1",
-    "@uber/standard-fonts": "^0.1.4"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint-config-fusion"
-    ]
+    "prettier": "^1.19.1"
   },
   "engines": {
     "node": ">=0",
     "npm": ">=0",
     "yarn": ">=0"
   },
+  "eslintConfig": {
+    "extends": [
+      "eslint-config-fusion"
+    ]
+  },
   "files": [
+    "!test",
     "dist-browser-cjs",
     "dist-browser-esm",
     "dist-node-cjs",
     "dist-node-esm",
-    "src/",
-    "!test"
+    "src/"
   ],
+  "license": "UNLICENSED",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "gitolite@code.uber.internal:{{team}}/{{name}}.git"
+  },
   "resolutions": {
     "event-stream": "3.3.5"
   },
-  "dependencies": {
-    "@uber/fusion-plugin-graphql-metrics": "0.0.0-monorepo",
-    "@uber/fusion-plugin-marketing": "0.0.0-monorepo",
-    "styletron-react": "^5.2.6",
-    "@uber/typed-rpc-cli": "^3.3.3"
+  "scaffold-version": "{{version}}",
+  "scripts": {
+    "bootstrap": "rm -rf node_modules && yarn",
+    "build": "cup-build && eslint src",
+    "dev": "npm-watch | grep --invert-match nodemon",
+    "flow": "flow check || true",
+    "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts",
+    "lint": "eslint src --fix",
+    "prepublish": "cup-build",
+    "test": "jest && yarn flow"
   },
   "sideEffects": false
 }

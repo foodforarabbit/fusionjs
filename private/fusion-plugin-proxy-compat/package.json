@@ -1,22 +1,12 @@
 {
   "name": "@uber/fusion-plugin-proxy-compat",
-  "version": "0.0.0-monorepo",
   "description": "fusion plugin for bedrock proxies",
-  "files": [
-    "src"
-  ],
-  "main": "src/index.js",
+  "version": "0.0.0-monorepo",
   "browser": "src/browser.js",
   "dependencies": {
     "@uber/request-m3-events": "^2.0.0",
     "path-to-regexp": "^1.7.0",
     "request": "^2.88.0"
-  },
-  "peerDependencies": {
-    "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
-    "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
-    "fusion-core": "0.0.0-monorepo",
-    "fusion-tokens": "0.0.0-monorepo"
   },
   "devDependencies": {
     "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
@@ -28,9 +18,10 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
@@ -38,26 +29,35 @@
     "get-port": "^5.1.1",
     "nyc": "^14.1.0",
     "prettier": "^1.19.1",
-    "request-promise": "^4.2.4",
-    "eslint-plugin-react-hooks": "^2.3.0"
-  },
-  "scripts": {
-    "lint": "eslint src/",
-    "test": "jest",
-    "cover": "nyc --reporter=cobertura --reporter=text yarn test",
-    "build": "echo ok",
-    "flow": "flow"
+    "request-promise": "^4.2.4"
   },
   "engines": {
     "node": ">=8.9.4",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
+  "files": [
+    "src"
+  ],
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-proxy-compat",
+  "main": "src/index.js",
+  "peerDependencies": {
+    "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
+    "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
+    "fusion-core": "0.0.0-monorepo",
+    "fusion-tokens": "0.0.0-monorepo"
+  },
   "repository": {
     "directory": "private/fusion-plugin-proxy-compat",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
+  },
+  "scripts": {
+    "build": "echo ok",
+    "cover": "nyc --reporter=cobertura --reporter=text yarn test",
+    "flow": "flow",
+    "lint": "eslint src/",
+    "test": "jest"
   },
   "sideEffects": false
 }

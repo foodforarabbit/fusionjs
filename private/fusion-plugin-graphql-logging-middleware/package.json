@@ -2,14 +2,9 @@
   "name": "@uber/fusion-plugin-graphql-logging-middleware",
   "description": "A fusion plugin which provides a graphql middleware to handle logging, tracing, and metrics",
   "version": "0.0.0-monorepo",
-  "scripts": {
-    "bootstrap": "rm -rf node_modules && yarn",
-    "lint": "eslint src --fix",
-    "flow": "flow",
-    "build": "cup-build",
-    "dev": "npm-watch | grep --invert-match nodemon",
-    "test": "jest",
-    "prepublish": "cup-build"
+  "browser": {
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "dependencies": {
     "graphql-middleware": "^3.0.2",
@@ -30,10 +25,10 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-apollo": "0.0.0-monorepo",
@@ -50,6 +45,19 @@
     "prettier": "^1.19.1",
     "react-apollo": "^2.5.8"
   },
+  "engines": {
+    "node": ">=8.9.4",
+    "npm": ">=5.6.0",
+    "yarn": ">=1.4.0"
+  },
+  "files": [
+    "!__tests__",
+    "dist-*/",
+    "src/"
+  ],
+  "license": "UNLICENSED",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
@@ -58,22 +66,16 @@
     "fusion-tokens": "0.0.0-monorepo",
     "graphql": "^14.5.8"
   },
-  "files": [
-    "dist-*/",
-    "src/",
-    "!__tests__"
-  ],
-  "engines": {
-    "node": ">=8.9.4",
-    "npm": ">=5.6.0",
-    "yarn": ">=1.4.0"
+  "scripts": {
+    "bootstrap": "rm -rf node_modules && yarn",
+    "build": "cup-build",
+    "dev": "npm-watch | grep --invert-match nodemon",
+    "flow": "flow",
+    "lint": "eslint src --fix",
+    "prepublish": "cup-build",
+    "test": "jest"
   },
-  "main": "./dist-node-cjs/index.js",
-  "module": "./dist-node-esm/index.js",
-  "browser": {
-    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
-    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
-  },
+  "sideEffects": false,
   "watch": {
     "build": {
       "patterns": [
@@ -87,7 +89,5 @@
       ],
       "quiet": true
     }
-  },
-  "license": "UNLICENSED",
-  "sideEffects": false
+  }
 }

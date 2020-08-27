@@ -3,34 +3,34 @@
   "description": "Fusion.js development CLI with Uber-specific concerns (e.g. starting Cerberus)",
   "version": "0.0.0-monorepo",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
-  "license": "UNLICENSED",
   "bin": {
     "fusion-dev-cli": "bin/cli.js"
   },
-  "main": "bin/cli.js",
   "dependencies": {
     "promptly": "^3.0.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.109.0"
   },
   "engines": {
     "node": ">=8.9.4",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
-  "devDependencies": {
-    "flow-bin": "^0.109.0"
-  },
-  "scripts": {
-    "build": "echo ok",
-    "test": "echo ok",
-    "flow": "flow",
-    "lint": "echo ok"
-  },
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-dev-cli",
+  "license": "UNLICENSED",
+  "main": "bin/cli.js",
   "repository": {
     "directory": "private/fusion-dev-cli",
     "type": "git",
     "url": "https://github.com/uber/fusionjs"
+  },
+  "scripts": {
+    "build": "echo ok",
+    "flow": "flow",
+    "lint": "echo ok",
+    "test": "echo ok"
   }
 }

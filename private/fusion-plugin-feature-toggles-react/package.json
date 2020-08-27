@@ -2,40 +2,14 @@
   "name": "@uber/fusion-plugin-feature-toggles-react",
   "description": "The 'fusion-plugin-feature-toggles-react' package provides a React-supported feature toggles plugin for Fusion.js",
   "version": "0.0.0-monorepo",
-  "scaffold-version": "0.0.19",
   "author": " <amsmith@uber.com>",
-  "repository": {
-    "directory": "private/fusion-plugin-feature-toggles-react",
-    "type": "git",
-    "url": "https://github.com/uber/fusionjs"
+  "browser": {
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "bugs": {
-    "url": "https://code.uberinternal.com/maniphest/task/create/",
-    "email": "amsmith@uber.com"
-  },
-  "license": "UNLICENSED",
-  "scripts": {
-    "bootstrap": "rm -rf node_modules && yarn",
-    "lint": "eslint src",
-    "flow": "flow",
-    "build": "cup-build",
-    "dev": "npm-watch | grep --invert-match nodemon",
-    "test": "jest",
-    "prepublish": "cup-build"
-  },
-  "watch": {
-    "build": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    },
-    "test": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    }
+    "email": "amsmith@uber.com",
+    "url": "https://code.uberinternal.com/maniphest/task/create/"
   },
   "dependencies": {
     "@uber/fusion-plugin-feature-toggles": "0.0.0-monorepo"
@@ -57,10 +31,10 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-react": "0.0.0-monorepo",
@@ -71,31 +45,57 @@
     "npm-watch": "^0.6.0",
     "prettier": "^1.19.1"
   },
-  "peerDependencies": {
-    "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
-    "fusion-core": "0.0.0-monorepo",
-    "fusion-react": "0.0.0-monorepo",
-    "react": "^16.12.0"
-  },
-  "resolutions": {
-    "event-stream": "3.3.5"
-  },
-  "main": "./dist-node-cjs/index.js",
-  "module": "./dist-node-esm/index.js",
-  "browser": {
-    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
-    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
-  },
   "engines": {
     "node": ">=8.9.4",
     "npm": ">=5.0.0",
     "yarn": ">=1.0.0"
   },
   "files": [
+    "!__tests__",
     "dist-*/",
-    "src/",
-    "!__tests__"
+    "src/"
   ],
   "homepage": "https://engdocs.uberinternal.com/web/api/fusion-plugin-feature-toggles-react",
-  "sideEffects": false
+  "license": "UNLICENSED",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "peerDependencies": {
+    "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
+    "fusion-core": "0.0.0-monorepo",
+    "fusion-react": "0.0.0-monorepo",
+    "react": "^16.12.0"
+  },
+  "repository": {
+    "directory": "private/fusion-plugin-feature-toggles-react",
+    "type": "git",
+    "url": "https://github.com/uber/fusionjs"
+  },
+  "resolutions": {
+    "event-stream": "3.3.5"
+  },
+  "scaffold-version": "0.0.19",
+  "scripts": {
+    "bootstrap": "rm -rf node_modules && yarn",
+    "build": "cup-build",
+    "dev": "npm-watch | grep --invert-match nodemon",
+    "flow": "flow",
+    "lint": "eslint src",
+    "prepublish": "cup-build",
+    "test": "jest"
+  },
+  "sideEffects": false,
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    },
+    "test": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    }
+  }
 }

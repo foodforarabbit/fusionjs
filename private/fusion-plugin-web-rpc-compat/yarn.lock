@@ -486,6 +486,19 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
+"@typescript-eslint/typescript-estree@2.34.0":
+  version "2.34.0"
+  resolved "https://unpm.uberinternal.com/@typescript-eslint%2ftypescript-estree/-/typescript-estree-2.34.0.tgz#14aeb6353b39ef0732cc7f1b8285294937cf37d5"
+  integrity sha1-FK62NTs57wcyzH8bgoUpSTfPN9U=
+  dependencies:
+    debug "^4.1.1"
+    eslint-visitor-keys "^1.1.0"
+    glob "^7.1.6"
+    is-glob "^4.0.1"
+    lodash "^4.17.15"
+    semver "^7.3.2"
+    tsutils "^3.17.1"
+
 abab@^2.0.0:
   version "2.0.3"
   resolved "https://unpm.uberinternal.com/abab/-/abab-2.0.3.tgz#623e2075e02eb2d3f2475e49f99c91846467907a"
@@ -1461,6 +1474,13 @@ eslint-plugin-import@^2.20.1:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
+eslint-plugin-jest@^23.20.0:
+  version "23.20.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-23.20.0.tgz#e1d69c75f639e99d836642453c4e75ed22da4099"
+  integrity sha1-4dacdfY56Z2DZkJFPE517SLaQJk=
+  dependencies:
+    "@typescript-eslint/experimental-utils" "^2.5.0"
+
 eslint-plugin-jest@^23.6.0:
   version "23.6.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-jest/-/eslint-plugin-jest-23.6.0.tgz#508b32f80d44058c8c01257c0ee718cfbd521e9d"
@@ -1480,6 +1500,11 @@ eslint-plugin-react-hooks@^2.3.0:
   version "2.3.0"
   resolved "https://unpm.uberinternal.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.3.0.tgz#53e073961f1f5ccf8dd19558036c1fac8c29d99a"
   integrity sha1-U+Bzlh8fXM+N0ZVYA2wfrIwp2Zo=
+
+eslint-plugin-react-hooks@^4.1.0:
+  version "4.1.0"
+  resolved "https://unpm.uberinternal.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.1.0.tgz#6323fbd5e650e84b2987ba76370523a60f4e7925"
+  integrity sha1-YyP71eZQ6Esph7p2NwUjpg9OeSU=
 
 eslint-plugin-react@^7.18.3:
   version "7.18.3"
@@ -1509,6 +1534,13 @@ eslint-utils@^1.4.3:
   version "1.4.3"
   resolved "https://unpm.uberinternal.com/eslint-utils/-/eslint-utils-1.4.3.tgz#74fec7c54d0776b6f67e0251040b5806564e981f"
   integrity sha1-dP7HxU0Hdrb2fgJRBAtYBlZOmB8=
+  dependencies:
+    eslint-visitor-keys "^1.1.0"
+
+eslint-utils@^2.0.0:
+  version "2.1.0"
+  resolved "https://unpm.uberinternal.com/eslint-utils/-/eslint-utils-2.1.0.tgz#d2de5e03424e707dc10c74068ddedae708741b27"
+  integrity sha1-0t5eA0JOcH3BDHQGjd7a5wh0Gyc=
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
@@ -4032,6 +4064,11 @@ semver@^7.1.1:
   resolved "https://unpm.uberinternal.com/semver/-/semver-7.1.2.tgz#847bae5bce68c5d08889824f02667199b70e3d87"
   integrity sha1-hHuuW85oxdCIiYJPAmZxmbcOPYc=
 
+semver@^7.3.2:
+  version "7.3.2"
+  resolved "https://unpm.uberinternal.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
+  integrity sha1-YElisFK4HtB4aq6EOJ/7pw/9OTg=
+
 sentence-case@^1.1.1:
   version "1.1.3"
   resolved "https://unpm.uberinternal.com/sentence-case/-/sentence-case-1.1.3.tgz#8034aafc2145772d3abe1509aa42c9e1042dc139"
@@ -4572,7 +4609,12 @@ try-call@0.0.2:
   resolved "https://unpm.uberinternal.com/try-call/-/try-call-0.0.2.tgz#6e7dd18ddda109be795027b248d520e41a5d5145"
   integrity sha1-bn3Rjd2hCb55UCeySNUg5BpdUUU=
 
-tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.8.1:
+  version "1.11.1"
+  resolved "https://unpm.uberinternal.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
+  integrity sha1-6xXRKIJ/vuKEFUnhcfRe0zisfjU=
+
+tslib@^1.9.0:
   version "1.10.0"
   resolved "https://unpm.uberinternal.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha1-w8GflZc/sKYpc/sJ2Q2WHuQ+XIo=

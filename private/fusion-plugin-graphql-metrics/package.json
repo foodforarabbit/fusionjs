@@ -2,40 +2,14 @@
   "name": "@uber/fusion-plugin-graphql-metrics",
   "description": "A fusion plugin which provides a graphql extension to handle logging, tracing, and metrics",
   "version": "0.0.0-monorepo",
-  "scaffold-version": "2.0.2",
   "author": " <ganemone@uber.com>",
-  "repository": {
-    "directory": "private/fusion-plugin-graphql-metrics",
-    "type": "git",
-    "url": "https://github.com/uber/fusionjs"
+  "browser": {
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "bugs": {
-    "url": "https://code.uberinternal.com/maniphest/task/create/",
-    "email": "ganemone@uber.com"
-  },
-  "license": "UNLICENSED",
-  "scripts": {
-    "bootstrap": "rm -rf node_modules && yarn",
-    "lint": "eslint src --fix",
-    "flow": "flow",
-    "build": "cup-build",
-    "dev": "npm-watch | grep --invert-match nodemon",
-    "test": "jest",
-    "prepublish": "cup-build"
-  },
-  "watch": {
-    "build": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    },
-    "test": {
-      "patterns": [
-        "src"
-      ],
-      "quiet": true
-    }
+    "email": "ganemone@uber.com",
+    "url": "https://code.uberinternal.com/maniphest/task/create/"
   },
   "dependencies": {
     "apollo-link": "^1.2.12",
@@ -56,10 +30,10 @@
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "flow-bin": "^0.109.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-apollo": "0.0.0-monorepo",
@@ -75,6 +49,19 @@
     "prettier": "^1.19.1",
     "react": "^16.12.0"
   },
+  "engines": {
+    "node": ">=8.9.4",
+    "npm": ">=5.6.0",
+    "yarn": ">=1.4.0"
+  },
+  "files": [
+    "!__tests__",
+    "dist-*/",
+    "src/"
+  ],
+  "license": "UNLICENSED",
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
   "peerDependencies": {
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "@uber/fusion-plugin-tracer": "0.0.0-monorepo",
@@ -84,21 +71,34 @@
     "fusion-tokens": "0.0.0-monorepo",
     "graphql": "^14.5.8"
   },
-  "main": "./dist-node-cjs/index.js",
-  "module": "./dist-node-esm/index.js",
-  "browser": {
-    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
-    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
+  "repository": {
+    "directory": "private/fusion-plugin-graphql-metrics",
+    "type": "git",
+    "url": "https://github.com/uber/fusionjs"
   },
-  "engines": {
-    "node": ">=8.9.4",
-    "npm": ">=5.6.0",
-    "yarn": ">=1.4.0"
+  "scaffold-version": "2.0.2",
+  "scripts": {
+    "bootstrap": "rm -rf node_modules && yarn",
+    "build": "cup-build",
+    "dev": "npm-watch | grep --invert-match nodemon",
+    "flow": "flow",
+    "lint": "eslint src --fix",
+    "prepublish": "cup-build",
+    "test": "jest"
   },
-  "files": [
-    "dist-*/",
-    "src/",
-    "!__tests__"
-  ],
-  "sideEffects": false
+  "sideEffects": false,
+  "watch": {
+    "build": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    },
+    "test": {
+      "patterns": [
+        "src"
+      ],
+      "quiet": true
+    }
+  }
 }
