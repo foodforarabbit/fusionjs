@@ -220,7 +220,6 @@ export const upgrade = async ({
         await installFlowLibdefs({
           dir,
           packages: [
-            'koa@2.7.0',
             'locale@0.1.0',
             'redux', // use local version
             'redux-reactors@1.0.3',
