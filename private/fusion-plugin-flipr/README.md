@@ -78,9 +78,7 @@ export default () => {
 };
 ```
 
-In production, Flipr [bootstraps](https://engdocs.uberinternal.com/fliprdocs/head_flipr_clients/cflipr_client-bootstrap.html) by finding cache files and loading their configurations into memory. The cache files live on production hosts and the easiest way to retrieve them is through [Boxer - the virtual machine toolbox at Uber](https://engdocs.uberinternal.com/boxer/docker.html#setup-flipr).
-
-To simplify the process fetching the caches for local development, this package provides a CLI command: `yarn update-flipr-bootstrap [your-flipr-namespace]`
+In production, Flipr [bootstraps](https://engdocs.uberinternal.com/fliprdocs/head_flipr_clients/cflipr_client-bootstrap.html) by finding cache files and loading their configurations into memory. The cache files live on production hosts and the easiest way to retrieve them is by running the CLI command that is packaged with this plugin: `yarn update-flipr-bootstrap [your-flipr-namespace]`
 
 ---
 
@@ -173,7 +171,6 @@ To simplify the process fetching flipr cached files for local development, run t
 yarn update-flipr-bootstrap [your-flipr-namespace]
 ```
 
-The command is just a convenience on [the steps described by Boxer](https://engdocs.uberinternal.com/boxer/docker.html#setup-flipr). It only fetches the global namespace, which means Flipr properties rolled out to specific DCs are excluded from the result.
+The command uses cerberus to talk to the `flipr` service directly. It only fetches the global namespace, which means Flipr properties rolled out to specific DCs are excluded from the result.
 
-If you need production bootstrap files, it's located `/var/cache/flipr-config/` on production hosts according to [Flipr](https://engdocs.uberinternal.com/fliprdocs/faq.html). You should adhere to security policies when fetching and committing cache files from production hosts.
-
+If you need production bootstrap files, it's located at `/var/cache/flipr-config/` on production hosts according to [Flipr](https://engdocs.uberinternal.com/fliprdocs/faq.html). You should adhere to security policies when fetching and committing cache files from production hosts.
