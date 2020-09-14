@@ -6,7 +6,7 @@ Heatpipe publisher plugin for Fusion.js apps.
 
 Heatpipe is Uber's structured data pipeline which formalizes the process for publishing and consuming data and runs on top of the Kafka messaging system. This involves naming and defining data schemas as well as associating them with  topics. For more details, see the [Heatpipe](https://code.uberinternal.com/w/projects/database/heatpipe/) and [Kafka](https://engdocs.uberinternal.com/Kafka-documentation/index.html) documentation.
 
-This plugin is primarily a wrapper on top of [web-heatpipe](https://code.uberinternal.com/diffusion/WEWEBGU/).
+This plugin is primarily a wrapper on top of [web/heatpipe](https://code.uberinternal.com/diffusion/WEHEAWV/) which calls the backend service [web/web-heatpipe](https://code.uberinternal.com/diffusion/WEWEBGU/)
 
 ---
 
