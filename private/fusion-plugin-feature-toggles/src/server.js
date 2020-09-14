@@ -5,6 +5,7 @@ import {createPlugin, memoize, html} from 'fusion-core';
 import type {Context} from 'fusion-core';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
 import {UberMarketingToken} from '@uber/fusion-plugin-marketing';
+
 import MorpheusClient from './clients/morpheus.js';
 import {
   FeatureTogglesClientToken,
@@ -25,9 +26,9 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
       Client: FeatureTogglesClientToken.optional,
       clientConfig: FeatureTogglesClientConfigToken.optional,
       atreyu: AtreyuToken.optional, // explicitly used by bundled Morpheus client
-      marketing: UberMarketingToken.optional, // implicitly used by bundled Morpheus client
+      marketing: UberMarketingToken.optional, // explicitly used by bundled Morpheus client
     },
-    provides({toggleConfigs, Client, clientConfig, atreyu}) {
+    provides({toggleConfigs, Client, clientConfig, atreyu, marketing}) {
       const config = clientConfig || Object.freeze({});
 
       if (!Client) {
@@ -39,7 +40,9 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
         typeof config === 'string' ? config : config.name
       );
       const C = Client; // TODO: Remove this and ensure Flow does not complain
-      const scoper = memoize(ctx => new C(ctx, toggleNames, {atreyu}, config));
+      const scoper = memoize(
+        ctx => new C(ctx, toggleNames, {atreyu, marketing}, config)
+      );
       const service: FeatureTogglesServiceType = {
         from: (ctx?: Context) => {
           if (!ctx)

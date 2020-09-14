@@ -3,30 +3,26 @@
 
 import type {Context} from 'fusion-core';
 
-import MorpheusClient, {type MorpheusContextType} from '../src/clients/morpheus.js';
+import MorpheusClient, {
+  type MorpheusContextType,
+} from '../src/clients/morpheus.js';
+
+import mockMarketingFn from '../mocks/marketing.js';
+import mockContextFn from '../mocks/context.js';
+import mockAtreyuFn from '../mocks/atreyu.js';
 
 test('ensure .load works as expected', async () => {
-  const mockContext = createMockContext({
+  const mockContext = mockContextFn({
     headers: {'user-uuid': '0000'},
     cookies: undefined,
   });
 
-  const mockAtreyu = {
-    createAsyncGraph: jest.fn(() =>
-      jest.fn(() => ({
-        treatments: {
-          someExperiment: {
-            id: 12345,
-          },
-        },
-      }))
-    ),
-  };
+  const mockAtreyu = mockAtreyuFn();
 
   const client = new MorpheusClient(
     mockContext,
     [],
-    {atreyu: mockAtreyu},
+    {atreyu: mockAtreyu, marketing: mockMarketingFn()},
     {metadataTransform: metadata => metadata}
   );
 
@@ -51,31 +47,16 @@ test('ensure .load works as expected', async () => {
 });
 
 test('simple service sanity check - toggle on/off with mocked dependencies', async () => {
-  const mockContext = createMockContext({
+  const mockContext = mockContextFn({
     headers: {'user-uuid': '0000'},
     cookies: undefined,
   });
-  const mockAtreyu = {
-    createAsyncGraph: jest.fn(() =>
-      jest.fn(() => ({
-        treatments: {
-          someExperiment: {
-            id: 12345,
-            name: 'treatment',
-          },
-          controlExperiment: {
-            id: 12346,
-            name: 'control',
-          },
-        },
-      }))
-    ),
-  };
+  const mockAtreyu = mockAtreyuFn();
 
   const client = new MorpheusClient(
     mockContext,
     ['someExperiment', 'controlExperiment', 'noDataExperiment'],
-    {atreyu: mockAtreyu},
+    {atreyu: mockAtreyu, marketing: mockMarketingFn()},
     {metadataTransform: metadata => metadata}
   );
   await client.load();
@@ -118,21 +99,26 @@ test('simple service sanity check - toggle on/off with mocked dependencies', asy
 });
 
 test('test atreyu "getTreatmentGroupsByNames" failure', async () => {
-  const mockContext = createMockContext();
-  const mockAtreyu = {
+  const mockContext = mockContextFn();
+  const mockAtreyu = mockAtreyuFn({
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => {
         throw new Error('Unable to create async graph!');
       })
     ),
-  };
+  });
 
-  const client = new MorpheusClient(mockContext, [], {atreyu: mockAtreyu}, {});
+  const client = new MorpheusClient(
+    mockContext,
+    [],
+    {atreyu: mockAtreyu, marketing: mockMarketingFn()},
+    {}
+  );
   await expect(client.load()).rejects.toThrow();
 });
 
 test('simple enhance Morpheus context', async () => {
-  const mockContext = createMockContext();
+  const mockContext = mockContextFn();
   const mockAtreyu = {
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => ({
@@ -159,7 +145,7 @@ test('simple enhance Morpheus context', async () => {
   const client = new MorpheusClient(
     mockContext,
     ['someExperiment'],
-    {atreyu: mockAtreyu},
+    {atreyu: mockAtreyu, marketing: mockMarketingFn()},
     {enhanceContext: enhancer}
   );
 
@@ -180,8 +166,8 @@ test('simple enhance Morpheus context', async () => {
 });
 
 test('simple transform metadata', async () => {
-  const mockContext = createMockContext();
-  const mockAtreyu = {
+  const mockContext = mockContextFn();
+  const mockAtreyu = mockAtreyuFn({
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => ({
         treatments: {
@@ -192,7 +178,7 @@ test('simple transform metadata', async () => {
         },
       }))
     ),
-  };
+  });
 
   const transform = data => {
     expect(data).not.toBeNull();
@@ -210,7 +196,7 @@ test('simple transform metadata', async () => {
   const client = new MorpheusClient(
     mockContext,
     ['someExperiment'],
-    {atreyu: mockAtreyu},
+    {atreyu: mockAtreyu, marketing: mockMarketingFn()},
     {metadataTransform: transform}
   );
 
@@ -239,8 +225,8 @@ test('simple transform metadata', async () => {
 });
 
 test('default transform metadata', async () => {
-  const mockContext = createMockContext();
-  const mockAtreyu = {
+  const mockContext = mockContextFn();
+  const mockAtreyu = mockAtreyuFn({
     createAsyncGraph: jest.fn(() =>
       jest.fn(() => ({
         treatments: {
@@ -254,12 +240,12 @@ test('default transform metadata', async () => {
         },
       }))
     ),
-  };
+  });
 
   const client = new MorpheusClient(
     mockContext,
     ['someExperiment'],
-    {atreyu: mockAtreyu},
+    {atreyu: mockAtreyu, marketing: mockMarketingFn()},
     {}
   );
 
@@ -283,26 +269,26 @@ test('default transform metadata', async () => {
 });
 
 test('timeout threshold exceeded', async () => {
-  const mockContext = createMockContext();
-  const createMockAtreyu = (ms: number) => ({
-    createAsyncGraph: jest.fn(() =>
-      jest.fn(async () => {
-        await delay(ms);
-
-        return {
-          treatments: {
-            someExperiment: {},
-          },
-        };
-      })
-    ),
-  });
+  const mockContext = mockContextFn();
+  const createMockAtreyu = (ms: number) =>
+    mockAtreyuFn({
+      createAsyncGraph: jest.fn(() =>
+        jest.fn(async () => {
+          await delay(ms);
+          return {
+            treatments: {
+              someExperiment: {},
+            },
+          };
+        })
+      ),
+    });
 
   /* Atreyu call resolves  before timeout */
   let client = new MorpheusClient(
     mockContext,
     ['someExperiment'],
-    {atreyu: createMockAtreyu(150)},
+    {atreyu: createMockAtreyu(150), marketing: mockMarketingFn()},
     {timeoutThreshold: 200}
   );
   await client.load();
@@ -312,7 +298,7 @@ test('timeout threshold exceeded', async () => {
   client = new MorpheusClient(
     mockContext,
     ['someExperiment'],
-    {atreyu: createMockAtreyu(250)},
+    {atreyu: createMockAtreyu(250), marketing: mockMarketingFn()},
     {timeoutThreshold: 200}
   );
   await client.load();
@@ -320,24 +306,19 @@ test('timeout threshold exceeded', async () => {
 });
 
 test('multiple url params with the same key', async () => {
-  const mockContext = createMockContext({
+  const mockContext = mockContextFn({
     headers: {'user-uuid': '0000'},
     cookies: undefined,
     query: {
       mykey: ['myfirstval', 'mysecondval'],
     },
   });
-  const mockAtreyu = {
-    createAsyncGraph: jest.fn(() =>
-      jest.fn(() => ({
-        treatments: {},
-      }))
-    ),
-  };
+  const mockAtreyu = mockAtreyuFn();
+
   const client = new MorpheusClient(
     mockContext,
     ['someExperiment', 'controlExperiment', 'noDataExperiment'],
-    {atreyu: mockAtreyu},
+    {atreyu: mockAtreyu, marketing: mockMarketingFn()},
     {metadataTransform: metadata => metadata}
   );
 
@@ -346,34 +327,40 @@ test('multiple url params with the same key', async () => {
   });
 });
 
-/* HELPER FUNCTIONS */
+test('test calls to provided marketing service', async () => {
+  const mockContext = mockContextFn();
+  const mockAtreyu = mockAtreyuFn();
+  const mockMarketing = mockMarketingFn();
 
+  const clientWithoutMarketing = new MorpheusClient(
+    mockContext,
+    ['someExperiment', 'controlExperiment', 'noDataExperiment'],
+    {atreyu: mockAtreyu, marketing: null},
+    {metadataTransform: metadata => metadata}
+  );
+  await clientWithoutMarketing.load();
+
+  // No UUID fallback, so should be empty
+  expect(clientWithoutMarketing.getContext(mockContext).cookieID).toEqual('');
+
+  const clientWithMarketing = new MorpheusClient(
+    mockContext,
+    ['someExperiment', 'controlExperiment', 'noDataExperiment'],
+    {atreyu: mockAtreyu, marketing: mockMarketing},
+    {metadataTransform: metadata => metadata}
+  );
+  await clientWithMarketing.load();
+
+  // Use value from marketing client
+  expect(clientWithMarketing.getContext(mockContext).cookieID).toEqual(
+    mockMarketing.from(mockContext).getCookieId()
+  );
+});
+
+/* HELPER FUNCTIONS */
 /**
  * Helper that asynchronously delays for the provided time, ms, in milliseconds.
  */
 async function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/**
- * Helper that generates a basic mock Context object.
- */
-function createMockContext(ctx?: {[string]: any} = {}): Context {
-  const def = {
-    headers: {
-      'user-agent': 'some-user-agent',
-      'accept-language': 'en-US',
-    },
-    cookies: {
-      get: name => (name === 'marketing_vistor_id' ? '0000' : null),
-    },
-    url: 'some-url',
-    query: '',
-    ip: '192.168.0.0',
-  };
-
-  return {
-    ...def,
-    ...ctx,
-  };
 }

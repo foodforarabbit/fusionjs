@@ -2,6 +2,7 @@
 
 import type {Context, FusionPlugin} from 'fusion-core';
 import {AtreyuToken} from '@uber/fusion-plugin-atreyu';
+import {UberMarketingToken} from '@uber/fusion-plugin-marketing';
 
 import {
   FeatureTogglesTogglesConfigToken,
@@ -19,6 +20,7 @@ export type FeatureTogglesDepsType = {
   +Client: typeof FeatureTogglesClientToken.optional,
   +clientConfig: typeof FeatureTogglesClientConfigToken.optional,
   +atreyu: typeof AtreyuToken.optional,
+  +marketing: typeof UberMarketingToken.optional,
 };
 
 export type ToggleDetailsType = {|

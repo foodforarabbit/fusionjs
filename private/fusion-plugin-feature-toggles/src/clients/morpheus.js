@@ -2,6 +2,8 @@
 
 import type {Context} from 'fusion-core';
 
+import type {MarketingPluginServiceType} from '@uber/fusion-plugin-marketing';
+
 import type {IFeatureTogglesClient, ToggleDetailsType} from '../types.js';
 
 export type MorpheusContextType = {
@@ -63,6 +65,7 @@ export default class MorpheusClient implements IFeatureTogglesClient {
   ) => EnhancedMorpheusContextType;
   +metadataTransform: ?(MorpheusTreatmentGroupType) => {+[string]: any};
   +timeoutThreshold: number;
+  +marketingService: ?MarketingPluginServiceType;
 
   hasLoaded: boolean;
   experiments: {[experimentName: string]: MorpheusTreatmentGroupType};
@@ -70,10 +73,10 @@ export default class MorpheusClient implements IFeatureTogglesClient {
   constructor(
     ctx: Context,
     toggleNames: Array<string>,
-    deps: {atreyu: any},
+    deps: {atreyu: any, marketing: ?MarketingPluginServiceType},
     config: MorpheusConfigType
   ) {
-    const {atreyu} = deps;
+    const {atreyu, marketing} = deps;
     const graphDefinition = {
       treatments: {
         service: 'treatment',
@@ -93,6 +96,7 @@ export default class MorpheusClient implements IFeatureTogglesClient {
     this.hasLoaded = false;
     this.metadataTransform = config.metadataTransform;
     this.timeoutThreshold = config.timeoutThreshold || 0;
+    this.marketingService = marketing;
 
     return this;
   }
@@ -202,7 +206,8 @@ export default class MorpheusClient implements IFeatureTogglesClient {
       ipAddress: ctx.ip,
       cookieID:
         ctx.headers['user-uuid'] ||
-        ctx.cookies.get('marketing_vistor_id') ||
+        (this.marketingService &&
+          this.marketingService.from(ctx).getCookieId()) ||
         '',
     };
 
