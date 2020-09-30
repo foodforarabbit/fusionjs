@@ -35,8 +35,8 @@ export default (app: FusionApp) => {
     // node-specific plugins
     app.middleware(HealthPlugin);
   } else {
-    // browser-specific plugins
-  } // universal plugins
+  } // browser-specific plugins
+  // universal plugins
 };
 "
 `;
