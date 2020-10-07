@@ -30,6 +30,9 @@ const plugin: FusionPlugin<M3DepsType, ServiceType> = createPlugin({
       counter(...args) {
         callbackFunc('counter', ...args);
       },
+      histogram(...args) {
+        callbackFunc('histogram', ...args);
+      },
       timing(...args) {
         callbackFunc('timing', ...args);
       },
@@ -44,6 +47,9 @@ const plugin: FusionPlugin<M3DepsType, ServiceType> = createPlugin({
       },
       immediateCounter(...args) {
         callbackFunc('immediateCounter', ...args);
+      },
+      immediateHistogram(...args) {
+        callbackFunc('immediateHistogram', ...args);
       },
       immediateTiming(...args) {
         callbackFunc('immediateTiming', ...args);

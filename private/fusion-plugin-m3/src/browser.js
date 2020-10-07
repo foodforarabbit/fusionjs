@@ -22,6 +22,9 @@ const plugin =
         counter(key: string, value: number, tags: TagsType) {
           events.emit('m3:counter', {key, value, tags});
         },
+        histogram(key: string, value: number, tags: TagsType) {
+          events.emit('m3:histogram', {key, value, tags});
+        },
         increment(key: string, tags: TagsType) {
           events.emit('m3:increment', {key, tags});
         },

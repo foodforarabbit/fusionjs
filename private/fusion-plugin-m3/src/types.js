@@ -14,6 +14,12 @@ export type M3BrowserDepsType = {
   events: typeof UniversalEventsToken,
 };
 
+export type M3HistogramOptions = {
+  schemaVersion?: string,
+  buckets?: number[],
+  isDurationBuckets?: boolean,
+};
+
 export type TagsType = {
   [string]: mixed,
 };
@@ -22,11 +28,13 @@ export type M3Type = Class<{
   +scope: TagsType => M3Type,
   +close: () => void,
   +counter: (string, number, TagsType) => void,
+  +histogram: (string, number, TagsType) => void,
   +increment: (string, number, TagsType) => void,
   +decrement: (string, number, TagsType) => void,
   +timing: (string, number | Date, TagsType) => void,
   +gauge: (string, number, TagsType) => void,
   +immediateCounter: (string, number, TagsType) => void,
+  +immediateHistogram: (string, number, TagsType) => void,
   +immediateIncrement: (string, number, TagsType) => void,
   +immediateDecrement: (string, number, TagsType) => void,
   +immediateTiming: (string, number | Date, TagsType) => void,
@@ -35,12 +43,14 @@ export type M3Type = Class<{
 
 export type ServiceType = {
   counter: (string, ?number, ?TagsType) => void,
+  histogram: (string, ?number, ?TagsType) => void,
   increment: (string, ?TagsType) => void,
   decrement: (string, ?TagsType) => void,
   timing: (string, ?number | ?Date, ?TagsType) => void,
   gauge: (string, ?number, ?TagsType) => void,
   scope: TagsType => ServiceType,
   immediateCounter: (string, ?number, ?TagsType) => void,
+  immediateHistogram: (string, ?number, ?TagsType) => void,
   immediateIncrement: (string, ?TagsType) => void,
   immediateDecrement: (string, ?TagsType) => void,
   immediateTiming: (string, ?number | ?Date, ?TagsType) => void,
@@ -50,6 +60,7 @@ export type ServiceType = {
 
 export type BrowserServiceType = {
   counter: (string, number, TagsType) => void,
+  histogram: (string, number, TagsType) => void,
   increment: (string, TagsType) => void,
   decrement: (string, TagsType) => void,
   timing: (string, number | Date, TagsType) => void,

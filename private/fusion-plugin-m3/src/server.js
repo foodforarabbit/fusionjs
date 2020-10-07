@@ -3,7 +3,11 @@
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {createPlugin} from 'fusion-core';
 
-import {M3ClientToken, CommonTagsToken} from './tokens.js';
+import {
+  M3ClientToken,
+  CommonTagsToken,
+  HistogramOptionsToken,
+} from './tokens.js';
 
 import type {FusionPlugin} from 'fusion-core';
 import type {M3Type, M3DepsType, ServiceType} from './types.js';
@@ -32,8 +36,9 @@ const plugin =
       events: UniversalEventsToken,
       Client: M3ClientToken.optional,
       commonTags: CommonTagsToken.optional,
+      histogramOptions: HistogramOptionsToken.optional,
     },
-    provides: ({events, Client, commonTags}) => {
+    provides: ({events, Client, commonTags, histogramOptions}) => {
       Client = ((Client || M3Client: any): M3Type);
       const service = __DEV__ ? 'dev-service' : process.env.SVC_ID;
       const m3 = new Client({
@@ -49,6 +54,7 @@ const plugin =
           },
           commonTags
         ),
+        histogramOptions,
       });
       const makeValueHandler = original => ({
         key,
@@ -82,11 +88,13 @@ const plugin =
         scope: m3.scope.bind(m3),
         close: m3.close.bind(m3),
         counter: m3.counter.bind(m3),
+        histogram: m3.histogram.bind(m3),
         increment: m3.increment.bind(m3),
         decrement: m3.decrement.bind(m3),
         timing: m3.timing.bind(m3),
         gauge: m3.gauge.bind(m3),
         immediateCounter: m3.immediateCounter.bind(m3),
+        immediateHistogram: m3.immediateHistogram.bind(m3),
         immediateIncrement: m3.immediateIncrement.bind(m3),
         immediateDecrement: m3.immediateDecrement.bind(m3),
         immediateTiming: m3.immediateTiming.bind(m3),
@@ -95,6 +103,7 @@ const plugin =
 
       const m3Handlers = {
         counter: makeValueHandler(boundM3.counter),
+        histogram: makeValueHandler(boundM3.histogram),
         increment: makeIncrementHandler(boundM3.increment),
         decrement: makeIncrementHandler(boundM3.decrement),
         timing: makeValueHandler(boundM3.timing),
@@ -108,11 +117,13 @@ const plugin =
         scope: boundM3.scope,
         close: boundM3.close,
         counter: makeValueFunction(boundM3.counter),
+        histogram: makeValueFunction(boundM3.histogram),
         increment: makeIncrementFunction(boundM3.increment),
         decrement: makeIncrementFunction(boundM3.decrement),
         timing: makeValueFunction(boundM3.timing),
         gauge: makeValueFunction(boundM3.gauge),
         immediateCounter: makeValueFunction(boundM3.immediateCounter),
+        immediateHistogram: makeValueFunction(boundM3.immediateHistogram),
         immediateIncrement: makeIncrementFunction(boundM3.immediateIncrement),
         immediateDecrement: makeIncrementFunction(boundM3.immediateDecrement),
         immediateTiming: makeValueFunction(boundM3.immediateTiming),

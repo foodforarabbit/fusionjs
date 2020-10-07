@@ -1,9 +1,17 @@
 // @noflow
-let supportedMethods = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+let supportedMethods = [
+  'counter',
+  'histogram',
+  'increment',
+  'decrement',
+  'timing',
+  'gauge',
+];
 if (__NODE__) {
   supportedMethods = supportedMethods.concat([
     'close',
     'immediateCounter',
+    'immediateHistogram',
     'immediateIncrement',
     'immediateDecrement',
     'immediateTiming',

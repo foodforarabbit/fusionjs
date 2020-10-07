@@ -10,15 +10,24 @@ import M3Plugin from '../src/server';
 import type {M3Type} from '../src/types';
 
 test('m3 server plugin', () => {
-  const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+  const types = [
+    'counter',
+    'histogram',
+    'increment',
+    'decrement',
+    'timing',
+    'gauge',
+  ];
   let flags = {
     counter: false,
+    histogram: false,
     increment: false,
     decrement: false,
     timing: false,
     gauge: false,
     scope: false,
     immediateCounter: false,
+    immediateHistogram: false,
     immediateIncrement: false,
     immediateDecrement: false,
     immediateTiming: false,
@@ -41,6 +50,12 @@ test('m3 server plugin', () => {
     }
     counter(key, value, {tags}) {
       flags.counter = true;
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
+    }
+    histogram(key, value, {tags}) {
+      flags.histogram = true;
       expect(key).toBe('key');
       expect(value).toBe(100);
       expect(tags).toStrictEqual({tags: 'tags'});
@@ -76,6 +91,12 @@ test('m3 server plugin', () => {
     }
     immediateCounter(key, value, {tags}) {
       flags.immediateCounter = true;
+      expect(key).toBe('key');
+      expect(value).toBe(100);
+      expect(tags).toStrictEqual({tags: 'tags'});
+    }
+    immediateHistogram(key, value, {tags}) {
+      flags.immediateHistogram = true;
       expect(key).toBe('key');
       expect(value).toBe(100);
       expect(tags).toStrictEqual({tags: 'tags'});
@@ -116,12 +137,14 @@ test('m3 server plugin', () => {
   app.register(CommonTagsToken, {a: 'a'});
   app.middleware({m3: M3Token}, ({m3}) => {
     m3.counter('key', 100, {tags: 'tags'});
+    m3.histogram('key', 100, {tags: 'tags'});
     m3.increment('key', {tags: 'tags'});
     m3.decrement('key', {tags: 'tags'});
     m3.timing('key', 100, {tags: 'tags'});
     m3.gauge('key', 100, {tags: 'tags'});
     m3.scope({tags: 'tags'});
     m3.immediateCounter('key', 100, {tags: 'tags'});
+    m3.immediateHistogram('key', 100, {tags: 'tags'});
     m3.immediateIncrement('key', {tags: 'tags'});
     m3.immediateDecrement('key', {tags: 'tags'});
     m3.immediateTiming('key', 100, {tags: 'tags'});
@@ -131,12 +154,14 @@ test('m3 server plugin', () => {
   });
   getSimulator(app);
   expect(flags.counter).toBeTruthy();
+  expect(flags.histogram).toBeTruthy();
   expect(flags.increment).toBeTruthy();
   expect(flags.decrement).toBeTruthy();
   expect(flags.timing).toBeTruthy();
   expect(flags.gauge).toBeTruthy();
   expect(flags.scope).toBeTruthy();
   expect(flags.immediateCounter).toBeTruthy();
+  expect(flags.immediateHistogram).toBeTruthy();
   expect(flags.immediateIncrement).toBeTruthy();
   expect(flags.immediateDecrement).toBeTruthy();
   expect(flags.immediateTiming).toBeTruthy();
@@ -145,9 +170,10 @@ test('m3 server plugin', () => {
 });
 
 test('m3 server plugin - event handlers', () => {
-  const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+  const types = ['counter', 'histogram', 'increment', 'decrement', 'timing', 'gauge'];
   let flags = {
     counter: false,
+    histogram: false,
     increment: false,
     decrement: false,
     timing: false,
@@ -170,6 +196,12 @@ test('m3 server plugin - event handlers', () => {
     counter(key, value, {tags}) {
       flags.counter = true;
       expect(key).toBe('counter-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({something: 'value'});
+    }
+    histogram(key, value, {tags}) {
+      flags.histogram = true;
+      expect(key).toBe('histogram-key');
       expect(value).toBe('value');
       expect(tags).toStrictEqual({something: 'value'});
     }
@@ -201,6 +233,7 @@ test('m3 server plugin - event handlers', () => {
       return ((this: any): M3Type);
     }
     immediateCounter() {}
+    immediateHistogram() {}
     immediateIncrement() {}
     immediateDecrement() {}
     immediateTiming() {}
@@ -214,6 +247,7 @@ test('m3 server plugin - event handlers', () => {
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
   expect(flags.counter).toBeTruthy();
+  expect(flags.histogram).toBeTruthy();
   expect(flags.increment).toBeTruthy();
   expect(flags.decrement).toBeTruthy();
   expect(flags.timing).toBeTruthy();
@@ -221,9 +255,17 @@ test('m3 server plugin - event handlers', () => {
 });
 
 test('m3 server plugin - event handlers with __url__', () => {
-  const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+  const types = [
+    'counter',
+    'histogram',
+    'increment',
+    'decrement',
+    'timing',
+    'gauge',
+  ];
   let flags = {
     counter: false,
+    histogram: false,
     increment: false,
     decrement: false,
     timing: false,
@@ -251,6 +293,12 @@ test('m3 server plugin - event handlers with __url__', () => {
       expect(value).toBe('value');
       expect(tags).toStrictEqual({route: '/test', something: 'value'});
     }
+    histogram(key, value, {tags}) {
+      flags.histogram = true;
+      expect(key).toBe('histogram-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({route: '/test', something: 'value'});
+    }
     increment(key, value, {tags}) {
       flags.increment = true;
       expect(key).toBe('increment-key');
@@ -279,6 +327,7 @@ test('m3 server plugin - event handlers with __url__', () => {
       return ((this: any): M3Type);
     }
     immediateCounter() {}
+    immediateHistogram() {}
     immediateIncrement() {}
     immediateDecrement() {}
     immediateTiming() {}
@@ -292,6 +341,7 @@ test('m3 server plugin - event handlers with __url__', () => {
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
   expect(flags.counter).toBeTruthy();
+  expect(flags.histogram).toBeTruthy();
   expect(flags.increment).toBeTruthy();
   expect(flags.decrement).toBeTruthy();
   expect(flags.timing).toBeTruthy();
@@ -299,9 +349,17 @@ test('m3 server plugin - event handlers with __url__', () => {
 });
 
 test('m3 server plugin - event handlers with __url__ and no tags', () => {
-  const types = ['counter', 'increment', 'decrement', 'timing', 'gauge'];
+  const types = [
+    'counter',
+    'histogram',
+    'increment',
+    'decrement',
+    'timing',
+    'gauge',
+  ];
   let flags = {
     counter: false,
+    histogram: false,
     increment: false,
     decrement: false,
     timing: false,
@@ -327,6 +385,12 @@ test('m3 server plugin - event handlers with __url__ and no tags', () => {
       expect(value).toBe('value');
       expect(tags).toStrictEqual({route: '/test'});
     }
+    histogram(key, value, {tags}) {
+      flags.histogram = true;
+      expect(key).toBe('histogram-key');
+      expect(value).toBe('value');
+      expect(tags).toStrictEqual({route: '/test'});
+    }
     increment(key, value, {tags}) {
       flags.increment = true;
       expect(key).toBe('increment-key');
@@ -355,6 +419,7 @@ test('m3 server plugin - event handlers with __url__ and no tags', () => {
       return ((this: any): M3Type);
     }
     immediateCounter() {}
+    immediateHistogram() {}
     immediateIncrement() {}
     immediateDecrement() {}
     immediateTiming() {}
@@ -368,6 +433,7 @@ test('m3 server plugin - event handlers with __url__ and no tags', () => {
   app.register(CommonTagsToken, {a: 'a'});
   getSimulator(app);
   expect(flags.counter).toBeTruthy();
+  expect(flags.histogram).toBeTruthy();
   expect(flags.increment).toBeTruthy();
   expect(flags.decrement).toBeTruthy();
   expect(flags.timing).toBeTruthy();

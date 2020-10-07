@@ -12,11 +12,13 @@ test('mock with ensure methods are called', async done => {
     'increment',
     'decrement',
     'counter',
+    'histogram',
     'timing',
     'gauge',
     'immediateIncrement',
     'immediateDecrement',
     'immediateCounter',
+    'immediateHistogram',
     'immediateTiming',
     'immediateGauge',
   ];

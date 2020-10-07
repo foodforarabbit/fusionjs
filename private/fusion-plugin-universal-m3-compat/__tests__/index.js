@@ -5,6 +5,7 @@ test('universal m3 api', async () => {
   const {m3, plugin} = createM3Plugin();
   let flags = {
     counter: false,
+    histogram: false,
     increment: false,
     decrement: false,
     timing: false,
@@ -14,6 +15,7 @@ test('universal m3 api', async () => {
     flags = Object.assign(flags, {
       close: false,
       immediateCounter: false,
+      immediateHistogram: false,
       immediateIncrement: false,
       immediateDecrement: false,
       immediateTiming: false,
@@ -58,11 +60,13 @@ test('universal m3 api calling provides multiple times', () => {
     scope() {},
     close() {},
     counter() {},
+    histogram() {},
     increment() {},
     decrement() {},
     timing() {},
     gauge() {},
     immediateCounter() {},
+    immediateHistogram() {},
     immediateIncrement() {},
     immediateDecrement() {},
     immediateTiming() {},
@@ -80,6 +84,7 @@ __BROWSER__ &&
     const {plugin} = createM3Plugin();
     const realM3 = {
       counter() {},
+      histogram() {},
       increment() {},
       decrement() {},
       timing() {},

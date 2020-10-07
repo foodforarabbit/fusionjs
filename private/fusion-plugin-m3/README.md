@@ -55,6 +55,21 @@ export default createPlugin({
 })
 ```
 
+#### Emitting a histogram metric for timing a service request
+
+```js
+export default createPlugin({
+  deps: {m3: M3Token},
+  provides: ({m3}) => {
+    someMethod: function() {
+      const startTime = new Date();
+      // do some work
+      m3.histogram('latency', Date.now() - startTime.valueOf());
+    }
+  }
+})
+```
+
 ---
 
 ### Setup
@@ -62,7 +77,7 @@ export default createPlugin({
 ```js
 // src/main.js
 import UniversalEvents, {UniversalEventsToken} from 'fusion-plugin-universal-events';
-import M3Plugin, {M3Token, CommonTagsToken} from 'fusion-plugin-m3';
+import M3Plugin, {M3Token, CommonTagsToken, HistogramOptionsToken} from 'fusion-plugin-m3';
 
 export default () => {
   const app = new App(...);
@@ -70,6 +85,7 @@ export default () => {
   app.register(M3Token, M3Plugin);
   app.register(UniversalEventsToken, UniversalEvents); // required
   app.register(CommonTagsToken, {some: 'tags'}); // optional
+  app.register(HistogramOptionsToken, {schemaVersion: 'v2', buckets: [0,100,200]}); // optional
 
   app.middleware({m3: M3Token}, ({m3}) => {
     const startDate = new Date();
@@ -77,6 +93,7 @@ export default () => {
     m3.timing('timing-key', 300, {someTag: 'here'});
     // Can also pass a Date object corresponding to the start of the time span
     m3.timing('timing-key', startDate, {someTag: 'here'});
+    m3.histogram('latency', Date.now() - startDate.valueOf(), {someTag: 'here'});
     m3.gauge('gauge-key', 500, {someTag: 'here'});
     // etc
     return (ctx, next) => next();
@@ -126,6 +143,14 @@ import {CommonTagsToken} from 'fusion-plugin-m3';
 
 Optional.  Common tags that can be provided to the M3 client.
 
+##### `HistogramOptionsToken`
+
+```js
+import {HistogramOptionsToken} from 'fusion-plugin-m3';
+```
+
+Optional.  Additional configuration options for histogram buckets, schemas and type (duration or non-duration based).
+
 ###### Default values
 
 If no common tags are provided, or values are missing for some expected keys, defaults will be supplied.  See [`src/server.js`](https://code.uberinternal.com/diffusion/WEFUSHE/browse/master/src/server.js;223268cf27b346ef192a7c656c5d22dfdac16bf0$19) for more details.
@@ -148,6 +173,11 @@ Writes queued messages and closes the socket.  See [`m3-client/src/client.js`](h
 M3.counter(key: string, value: number, tags?: Object) => void
 ```
 Sets count for provided tags.  A [counter](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#counter) should be a cumulative metric that repesents an ever increasing value (e.g. requests served) during a certain time frame.  See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$65) for more details.
+
+```js
+M3.histogram(key: string, value: number, tags?: Object) => void
+```
+Emits a metric with a bucketid and a bucket name for histogram metrics.  A [histogram](https://engdocs.uberinternal.com/m3_and_umonitor/intro/metric_types.html#histogram) should be a single value (1) with bucketid and bucket tags that the provided value falls within. See [`m3-client/src/client.js`](https://code.uberinternal.com/diffusion/WEMCLXD/browse/master/src/client.js$101) for more details.
 
 ```js
 M3.increment(key: string, tags?: Object) => void
@@ -175,6 +205,7 @@ Each of the measurment functions above also come with an `immediate*` version wh
 
 ```js
 M3.immediateCounter(key: string, value: number, tags?: Object) => void
+M3.immediateHistogram(key: string, value: number, tags?: Object) => void
 M3.immediateIncrement(key: string, tags?: Object) => void
 M3.immediateDecrement(key: string, tags?: Object) => void
 M3.immediateTiming(key: string, value: number | Date, tags?: Object) => void
