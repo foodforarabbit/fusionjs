@@ -47,7 +47,7 @@ const plugin =
         isProduction,
         runtimeEnvironment,
         deploymentName: process.env.GIT_DESCRIBE,
-        gitSha: process.env.GITHUB_TOKEN,
+        gitSha: process.env.GIT_REF,
       };
 
       const transformError = isProduction
