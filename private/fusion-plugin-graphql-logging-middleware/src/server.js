@@ -45,10 +45,12 @@ const enhancer = (schema: any) =>
         try {
           const result = await resolve(root, args, context, info);
           m3.timing('graphql_operation', startTime, tags);
+          m3.histogram('graphql_operation_latency', startTime, tags);
           return result;
         } catch (e) {
           tags.result = 'failure';
           m3.timing('graphql_operation', startTime, tags);
+          m3.histogram('graphql_operation_latency', startTime, tags);
           logger.error(`${operationName} ${operationType} failed`, e);
           throw e;
         }

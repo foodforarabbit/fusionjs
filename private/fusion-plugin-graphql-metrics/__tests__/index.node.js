@@ -27,6 +27,7 @@ function getMockLogger(): any {
 function getMockM3(): any {
   return {
     timing: jest.fn(),
+    histogram: jest.fn(),
   };
 }
 

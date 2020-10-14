@@ -37,6 +37,15 @@ test('rpc method success', () => {
         status: 'success',
       });
     },
+    histogram(key, value, tags) {
+      expect(key).toBe('web_rpc_method_latency');
+      expect(value).toBe(5);
+      expect(tags).toStrictEqual({
+        origin: 'server',
+        rpc_id: 'test',
+        status: 'success',
+      });
+    },
   };
 
   const mockLogger = {};
@@ -57,6 +66,15 @@ test('rpc method failure', () => {
   const mockM3 = {
     timing(key, value, tags) {
       expect(key).toBe('web_rpc_method');
+      expect(value).toBe(5);
+      expect(tags).toStrictEqual({
+        origin: 'server',
+        rpc_id: 'test',
+        status: 'failure',
+      });
+    },
+    histogram(key, value, tags) {
+      expect(key).toBe('web_rpc_method_latency');
       expect(value).toBe(5);
       expect(tags).toStrictEqual({
         origin: 'server',
