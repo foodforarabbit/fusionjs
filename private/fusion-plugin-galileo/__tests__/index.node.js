@@ -29,7 +29,11 @@ const mockLogger = {
 };
 const mockM3 = {
   counter: (string: string, number: ?number, TagsType: ?TagsType): void => {},
-  histogram: (string: string, number: ?number, TagsType: ?TagsType): void => {},
+  histogram: (
+    string: string,
+    number: ?number | ?Date,
+    TagsType: ?TagsType
+  ): void => {},
   increment: (string: string, TagsType: ?TagsType): void => {},
   decrement: (string: string, TagsType: ?TagsType): void => {},
   timing: (
@@ -46,7 +50,7 @@ const mockM3 = {
   ): void => {},
   immediateHistogram: (
     string: string,
-    number: ?number,
+    number: ?number | ?Date,
     TagsType: ?TagsType
   ): void => {},
   immediateIncrement: (string: string, TagsType: ?TagsType): void => {},

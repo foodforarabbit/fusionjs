@@ -170,7 +170,14 @@ test('m3 server plugin', () => {
 });
 
 test('m3 server plugin - event handlers', () => {
-  const types = ['counter', 'histogram', 'increment', 'decrement', 'timing', 'gauge'];
+  const types = [
+    'counter',
+    'histogram',
+    'increment',
+    'decrement',
+    'timing',
+    'gauge',
+  ];
   let flags = {
     counter: false,
     histogram: false,

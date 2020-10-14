@@ -8,7 +8,7 @@
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "dependencies": {
-    "@uber/m3-client": "^1.3.6"
+    "@uber/m3-client": "^1.3.9"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",

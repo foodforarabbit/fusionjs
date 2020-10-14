@@ -499,10 +499,10 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@uber/m3-client@^1.3.6":
-  version "1.3.6"
-  resolved "https://unpm.uberinternal.com/%40uber%2Fm3-client/-/private/%40uber%2Fm3-client-1.3.6.tgz#07564b36a103abb5c440818e1e83c309dd31f95d"
-  integrity sha512-Sv3/50x6dvaRq+rJXDZhPST5ahKeQibnuUqSR3m4VwATAdl7hld9bcruAKW5leASqdPxVO8hFPLlTJPcigraHQ==
+"@uber/m3-client@^1.3.9":
+  version "1.3.9"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fm3-client/-/private/%40uber%2Fm3-client-1.3.9.tgz#89e8b61a5e9c758e6e412bc294cd1c6737c28759"
+  integrity sha512-iAYHEASFL50UYTmtvUVgv2qYGZZu6lQXZw29SfncoOKtsPe3m7L04ZPU6VXPtSDyt94mxCh3upCknSdI9Lw/yQ==
   dependencies:
     node-int64 "^0.4.0"
     thriftrw "^3.11.3"

@@ -72,6 +72,49 @@ test('browser m3 timing with date', done => {
   getSimulator(app);
 });
 
+test('browser m3 histogram', done => {
+  const UniversalEvents = (({
+    emit(type, {key, value, tags}) {
+      expect(type).toBe('m3:histogram');
+      expect(key).toBe('key');
+      expect(value).toBe(1);
+      expect(tags).toStrictEqual({tags: 'tags'});
+      done();
+    },
+  }: any): UniversalEventsType);
+  const app = new App('el', el => el);
+  app.register(M3Token, M3Plugin);
+  app.register(UniversalEventsToken, UniversalEvents);
+  app.middleware({m3: M3Token}, ({m3}) => {
+    m3.histogram('key', 1, {tags: 'tags'});
+    return (ctx, next) => next();
+  });
+  getSimulator(app);
+});
+
+test('browser m3 histogram with date', done => {
+  const UniversalEvents = (({
+    emit(type, {key, value, tags}) {
+      expect(type).toBe('m3:histogram');
+      expect(key).toBe('key');
+      expect(value >= 10 && value < 20).toBeTruthy();
+      expect(tags).toStrictEqual({tags: 'tags'});
+      done();
+    },
+  }: any): UniversalEventsType);
+  const app = new App('el', el => el);
+  app.register(M3Token, M3Plugin);
+  app.register(UniversalEventsToken, UniversalEvents);
+  app.middleware({m3: M3Token}, ({m3}) => {
+    const start = new Date();
+    setTimeout(() => {
+      m3.histogram('key', start, {tags: 'tags'});
+    }, 10);
+    return (ctx, next) => next();
+  });
+  getSimulator(app);
+});
+
 test('browser m3 gauge', done => {
   const UniversalEvents = (({
     emit(type, {key, value, tags}) {
