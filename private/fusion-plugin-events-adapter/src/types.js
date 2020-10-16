@@ -3,6 +3,7 @@
 import type {I18nServiceType} from 'fusion-plugin-i18n';
 import type {Context} from 'fusion-core';
 
+import {RouteTagsToken} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 import {I18nToken} from 'fusion-plugin-i18n';
@@ -38,6 +39,7 @@ export type EventsAdapterDepsType = {
   m3: typeof M3Token,
   heatpipe: typeof HeatpipeToken,
   logger: typeof LoggerToken,
+  RouteTags: typeof RouteTagsToken,
 };
 export type EventsAdapterType = {
   logTiming: (string, {[string]: mixed}) => number => void,

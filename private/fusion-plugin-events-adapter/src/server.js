@@ -1,6 +1,6 @@
 // @flow
 /* eslint-env node */
-import {createPlugin} from 'fusion-core';
+import {createPlugin, RouteTagsToken} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 import {AnalyticsSessionToken} from '@uber/fusion-plugin-analytics-session';
 import {I18nToken} from 'fusion-plugin-i18n';
@@ -23,7 +23,6 @@ import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
 import AccessLog from './utils/access-log.js';
 import accessLogHandler from './handlers/access-log';
-import sanitizeRouteForM3 from './utils/sanitize-route-for-m3.js';
 
 import type {EventsAdapterDepsType, EventsAdapterType} from './types.js';
 
@@ -40,6 +39,7 @@ const plugin =
       m3: M3Token,
       heatpipe: HeatpipeToken,
       logger: LoggerToken,
+      RouteTags: RouteTagsToken,
     },
     provides: ({
       events,
@@ -80,16 +80,16 @@ const plugin =
         },
       };
     },
-    middleware: ({logger, events}, service) => async (
+    middleware: ({logger, events, RouteTags}, service) => async (
       ctx: Object,
       next: () => Promise<void>
     ) => {
       const {logTiming} = service;
       const accessLog = AccessLog(events.from(ctx));
       ctx.timing.end.then(timing => {
+        const routeTag = RouteTags.from(ctx).name;
         const tags = {
-          route:
-            ctx.status === 404 ? 'not-found' : sanitizeRouteForM3(ctx.path),
+          route: routeTag,
           status: ctx.status,
           method: ctx.method,
           version,
