@@ -1,6 +1,5 @@
 {
   "projects": [
-    "public/jazelle",
     "public/fusion-tokens",
     "public/fusion-test-utils",
     "public/fusion-scaffolder",
