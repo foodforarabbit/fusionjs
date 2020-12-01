@@ -10,7 +10,7 @@ Object {
   \\"c\\": true
 } : {})",
   "map": null,
-  "rawMappings": null,
+  "rawMappings": undefined,
 }
 `;
 
@@ -20,7 +20,7 @@ Object {
   \\"a\\": \\"something\\"
 }",
   "map": null,
-  "rawMappings": null,
+  "rawMappings": undefined,
 }
 `;
 
@@ -30,7 +30,7 @@ Object {
   \\"a\\": \\"test\\"
 } : {}",
   "map": null,
-  "rawMappings": null,
+  "rawMappings": undefined,
 }
 `;
 
@@ -40,7 +40,7 @@ Object {
   \\"b\\": \\"lol\\"
 } : {}",
   "map": null,
-  "rawMappings": null,
+  "rawMappings": undefined,
 }
 `;
 
@@ -52,7 +52,7 @@ Object {
   \\"b\\": \\"test\\"
 } : {})",
   "map": null,
-  "rawMappings": null,
+  "rawMappings": undefined,
 }
 `;
 
@@ -64,7 +64,7 @@ Object {
   \\"b\\": \\"lol\\"
 } : {})",
   "map": null,
-  "rawMappings": null,
+  "rawMappings": undefined,
 }
 `;
 
@@ -76,7 +76,7 @@ Object {
   \\"b\\": \\"test\\"
 } : {})",
   "map": null,
-  "rawMappings": null,
+  "rawMappings": undefined,
 }
 `;
 
