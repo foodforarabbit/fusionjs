@@ -11,7 +11,7 @@
     "zero-config": "^7.1.1"
   },
   "devDependencies": {
-    "@uber/atreyu": "^6.4.0",
+    "@uber/atreyu": "^6.5.0",
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
     "@uber/fusion-plugin-flipr": "0.0.0-monorepo",
     "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
@@ -50,7 +50,7 @@
   "main": "./dist-node-cjs/index.js",
   "module": "./dist-node-esm/index.js",
   "peerDependencies": {
-    "@uber/atreyu": "^6.4.0",
+    "@uber/atreyu": "^6.5.0",
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
     "@uber/fusion-plugin-flipr": "0.0.0-monorepo",
     "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
