@@ -874,6 +874,15 @@
     google-auth-library "^6.1.1"
     semver "^6.2.0"
 
+"@grpc/grpc-js@^1.1.7":
+  version "1.2.2"
+  resolved "https://unpm.uberinternal.com/@grpc%2fgrpc-js/-/grpc-js-1.2.2.tgz#ee4a7417fe15a686a8e369c36ec4c80678445c67"
+  integrity sha1-7kp0F/4Vpoao42nDbsTIBnhEXGc=
+  dependencies:
+    "@types/node" "^12.12.47"
+    google-auth-library "^6.1.1"
+    semver "^6.2.0"
+
 "@grpc/proto-loader@^0.5.4":
   version "0.5.5"
   resolved "https://unpm.uberinternal.com/@grpc%2fproto-loader/-/proto-loader-0.5.5.tgz#6725e7a1827bdf8e92e29fbf4e9ef0203c0906a9"
@@ -1324,12 +1333,48 @@
     string-format "^0.5.0"
     xtend "^4.0.1"
 
+"@uber/atreyu-graph@^5.4.1":
+  version "5.4.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-graph/-/private/%40uber%2Fatreyu-graph-5.4.1.tgz#278d2c4354c672261023c42097a9db896046f7c9"
+  integrity sha512-KlftpjDkKfTclSIyY+RoOAznwkhGy0nDrziBfKaA/2rSwKx5iRJDiI2fMjU87/pfSZ3wVfWIzzfXxDNcSM7oLw==
+  dependencies:
+    "@uber/node-uber-context" "^1.6.1"
+    async "^1.5.0"
+    auto-async "^1.0.1"
+    deep-extend "^0.6.0"
+    dotty "0.0.2"
+    error "^7.2.1"
+    fclone "^1.0.11"
+    flatten "^1.0.3"
+    getports "^1.0.2"
+    grpc "^1.24.4"
+    is-object "^1.0.1"
+    jaeger-client "^3.5.3"
+    jsgraph "^0.6.1"
+    null-logtron "^2.2.0"
+    object.map "^0.2.0"
+    object.omit "^3.0.0"
+    omit-empty "^0.3.6"
+    string-format "^0.5.0"
+    xtend "^4.0.1"
+
 "@uber/atreyu-request@^4.2.4":
   version "4.2.4"
   resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-request/-/private/%40uber%2Fatreyu-request-4.2.4.tgz#05ce158463d35e1dc4fe571bfb83e89969476bdb"
   integrity sha512-OC6nmy6o8bF3DJzwMbqJitJla0y6SHqHINsdAC0xwXvYNvEPzRmEn64jEi24zs9IhMIy7AzaqXo+nLDXU1+JMg==
   dependencies:
     "@grpc/grpc-js" "^1.0.3"
+    "@uber/node-uber-context" "^1.6.0"
+    "@uber/request-statsd" "^1.0.4"
+    error "^7.2.1"
+    request "^2.65.0"
+
+"@uber/atreyu-request@^4.3.0":
+  version "4.3.0"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-request/-/private/%40uber%2Fatreyu-request-4.3.0.tgz#09d31f7ac9e08465a0cb8cb20ab90af32d8b71ac"
+  integrity sha512-jQx15dHHpQ4gWZamRAN18FnDQLa7wyVPWvp5ldBZhPCteXl0KIY+OE41YEt3fFOE60NXcjpVFHZgJKaM+U72BA==
+  dependencies:
+    "@grpc/grpc-js" "^1.1.7"
     "@uber/node-uber-context" "^1.6.0"
     "@uber/request-statsd" "^1.0.4"
     error "^7.2.1"
@@ -1397,6 +1442,37 @@
     thrift "0.13.0-hotfix.1"
     thriftrw "^3.11.3"
 
+"@uber/atreyu-transport@^5.7.1":
+  version "5.7.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu-transport/-/private/%40uber%2Fatreyu-transport-5.7.1.tgz#5612b11450d103fe038b8fca97bdcf55a7fce40b"
+  integrity sha512-PwKJK5aoinSVy8INNq2i2zCe03m4QuZ/WqQRPKbInr82DD6UeSDge7TlT7CVQlIEVonYtvc1DqNrbSDgdkaWOQ==
+  dependencies:
+    "@grpc/grpc-js" "^1.1.7"
+    "@grpc/proto-loader" "^0.5.4"
+    "@uber/atreyu-request" "^4.3.0"
+    assert "^1.3.0"
+    deep-extend "^0.6.0"
+    dotty "0.0.2"
+    glob "^6.0.3"
+    google-protobuf "^3.11.4"
+    is-plain-object "^2.0.1"
+    jaeger-client "^3.5.3"
+    joi "^6.6.1"
+    just-omit "^1.0.1"
+    lodash.compact "^3.0.0"
+    my-local-ip "^1.0.0"
+    null-logtron "^2.2.0"
+    object.omit "^3.0.0"
+    object.pick "^1.1.1"
+    omit "^1.0.1"
+    open-cli "^5.0.0"
+    path "^0.12.7"
+    process "^0.11.2"
+    safe-json-parse "^4.0.0"
+    tchannel "^3.6.24"
+    thrift "0.13.0-hotfix.1"
+    thriftrw "^3.11.3"
+
 "@uber/atreyu@^6.4.0":
   version "6.4.3"
   resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-6.4.3.tgz#14d985a572de00156d5c48a2f528163dd7264f1e"
@@ -1413,6 +1489,15 @@
   dependencies:
     "@uber/atreyu-graph" "^5.4.0"
     "@uber/atreyu-transport" "^5.7.0"
+    inherits "^2.0.1"
+
+"@uber/atreyu@^6.5.1":
+  version "6.5.1"
+  resolved "https://unpm.uberinternal.com/%40uber%2Fatreyu/-/private/%40uber%2Fatreyu-6.5.1.tgz#f3780e25b8ea35dea2e0d53e1dcaab346d77fff4"
+  integrity sha512-SI1CONnWKolN4uhm27Wit2RNml+Q3wiNzngG4zTb7NiHR5jR65oMrjKWO4iCakCAlsPueThi598TG3/f8uIPBw==
+  dependencies:
+    "@uber/atreyu-graph" "^5.4.1"
+    "@uber/atreyu-transport" "^5.7.1"
     inherits "^2.0.1"
 
 "@uber/node-rpc-context@^2.0.0":
@@ -3519,7 +3604,7 @@ growly@^1.3.0:
   resolved "https://unpm.uberinternal.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
-grpc@^1.24.2:
+grpc@^1.24.2, grpc@^1.24.4:
   version "1.24.4"
   resolved "https://unpm.uberinternal.com/grpc/-/grpc-1.24.4.tgz#9240a3ea33cfaf04cd32ce8346798709bbd6782d"
   integrity sha1-kkCj6jPPrwTNMs6DRnmHCbvWeC0=
