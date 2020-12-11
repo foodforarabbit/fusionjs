@@ -8,6 +8,7 @@
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "babel-eslint": "^10.0.3",

@@ -11,6 +11,7 @@
     "zero-config": "^7.1.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@uber/atreyu": "^6.5.1",
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
     "@uber/fusion-plugin-flipr": "0.0.0-monorepo",

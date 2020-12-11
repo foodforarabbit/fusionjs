@@ -28,6 +28,7 @@
     "tmp": "^0.0.33"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "babel-eslint": "^10.0.3",
     "babel-plugin-tester": "^5.5.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",

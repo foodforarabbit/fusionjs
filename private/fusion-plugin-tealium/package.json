@@ -11,6 +11,7 @@
     "@uber/fusion-analyticsjs-utils": "0.0.0-monorepo"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "babel-eslint": "^10.0.3",
     "babel-plugin-istanbul": "^5.1.4",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",

@@ -14,6 +14,7 @@
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-flow": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "@uber/standard-fonts": "^0.1.4",

@@ -13,6 +13,7 @@
     "koa-helmet": "^4.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@uber/eslint-config-graphene": "^0.2.1",
     "babel-eslint": "^10.0.3",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
