@@ -2,11 +2,11 @@
 "use strict";
 
 const path = require("path");
-const { merge } = require("../public/jazelle/utils/lockfile.js");
-const { getManifest } = require("../public/jazelle/utils/get-manifest.js");
+const { merge } = require("jazelle/utils/lockfile.js");
+const { getManifest } = require("jazelle/utils/get-manifest.js");
 const {
   getLocalDependencies
-} = require("../public/jazelle/utils/get-local-dependencies.js");
+} = require("jazelle/utils/get-local-dependencies.js");
 const child_process = require("child_process");
 const { promisify } = require("util");
 

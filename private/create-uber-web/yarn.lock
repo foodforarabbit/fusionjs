@@ -4282,6 +4282,11 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
+jazelle@latest:
+  version "0.0.0-alpha.22"
+  resolved "https://unpm.uberinternal.com/jazelle/-/jazelle-0.0.0-alpha.22.tgz#f9c56510520061a24b0bcdf7a3745c6d14cbd05f"
+  integrity sha1-+cVlEFIAYaJLC833o3RcbRTL0F8=
+
 jest-changed-files@^25.5.0:
   version "25.5.0"
   resolved "https://unpm.uberinternal.com/jest-changed-files/-/jest-changed-files-25.5.0.tgz#141cc23567ceb3f534526f8614ba39421383634c"

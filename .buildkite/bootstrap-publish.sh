@@ -32,7 +32,6 @@ for DIR in $PROJECTS ; do (
     echo "    - 'jazelle ci --cwd $DIR'";
     echo "    - 'node scripts/write-package-versions.js versioned_packages.json $DIR'";
     if [ "$PROJECT" = "create-uber-web" ]; then
-      echo "    - 'jazelle ci --cwd public/jazelle'";
       echo "    - 'node scripts/synthesize-template-lockfiles.js'";
       echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-fusion-plugin'";
       echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-library'";
