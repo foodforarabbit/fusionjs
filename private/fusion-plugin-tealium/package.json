@@ -11,7 +11,10 @@
     "@uber/fusion-analyticsjs-utils": "0.0.0-monorepo"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "babel-eslint": "^10.0.3",
     "babel-plugin-istanbul": "^5.1.4",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -55,11 +58,10 @@
     "url": "https://github.com/uber/fusionjs"
   },
   "scripts": {
-    "build": "npm run clean && cup-build",
     "clean": "cup-clean",
     "flow": "flow",
     "lint": "eslint src/",
-    "prepublish": "npm run build",
+    "prepack": "cup-build --force-flow",
     "test": "jest",
     "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html"
   },

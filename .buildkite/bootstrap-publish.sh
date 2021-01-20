@@ -1,8 +1,7 @@
 echo "steps:"
 echo "  - label: 'prepare publish'";
 echo "    commands:";
-echo "    - 'jazelle ci --cwd=private/monorepo-actions'";
-echo "    - 'node private/monorepo-actions/plan-publish.js'";
+echo "    - 'yarn node private/monorepo-actions/plan-publish.js'";
 echo "    - 'buildkite-agent artifact upload versioned_packages.json'";
 echo "    timeout_in_minutes: 5";
 echo "    plugins:";
@@ -29,18 +28,16 @@ for DIR in $PROJECTS ; do (
     echo "    - 'buildkite-agent artifact download versioned_packages.json .'";
     # Exit early if not publishing this package
     echo "    - 'jq -e \".\$(jq .name $DIR/package.json).publish\" versioned_packages.json || (echo \"skipping...\" && exit 0)'"
-    echo "    - 'jazelle ci --cwd $DIR'";
-    echo "    - 'node scripts/write-package-versions.js versioned_packages.json $DIR'";
+    echo "    - 'yarn node scripts/write-package-versions.js versioned_packages.json $DIR'";
     if [ "$PROJECT" = "create-uber-web" ]; then
-      echo "    - 'node scripts/synthesize-template-lockfiles.js'";
-      echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-fusion-plugin'";
-      echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-library'";
-      echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-website'";
-      echo "    - 'node scripts/write-package-versions.js versioned_packages.json private/template-website-graphql'";
+      echo "    - 'yarn node scripts/synthesize-template-lockfiles.js'";
+      echo "    - 'yarn node scripts/write-package-versions.js versioned_packages.json private/template-fusion-plugin'";
+      echo "    - 'yarn node scripts/write-package-versions.js versioned_packages.json private/template-library'";
+      echo "    - 'yarn node scripts/write-package-versions.js versioned_packages.json private/template-website'";
+      echo "    - 'yarn node scripts/write-package-versions.js versioned_packages.json private/template-website-graphql'";
       echo "    - 'cp versioned_packages.json private/create-uber-web/templates'";
     fi;
     echo "    - 'cd $DIR'";
-    echo "    - 'npm run prepublish --if-present'";
     echo "    - 'git --no-pager diff .'";
     echo "    - 'buildkite-agent artifact upload \$(npm pack)'";
     echo "    timeout_in_minutes: 10";
@@ -62,10 +59,9 @@ for DIR in $PROJECTS ; do (
 echo "  - wait"
 echo "  - label: 'publish'";
 echo "    commands:";
-echo "    - 'jazelle ci --cwd private/monorepo-actions'";
 echo "    - 'buildkite-agent artifact download versioned_packages.json .'";
 echo "    - 'buildkite-agent artifact download \"*.tgz\" .'";
-echo "    - 'node private/monorepo-actions/publish.js'";
+echo "    - 'yarn node private/monorepo-actions/publish.js'";
 echo "    timeout_in_minutes: 20";
 echo "    plugins:";
 echo "      'derekju/docker-compose#1346e78909a17f800064a37e7dfb716200d514a4':";

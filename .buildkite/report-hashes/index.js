@@ -47,7 +47,7 @@ async function reportChangedPackages(github, { owner, repo, commit }) {
   const started_at = new Date().toISOString();
 
   const pkgs = await getMonorepoPackages();
-  const packages = getPackedHashes(pkgs);
+  const packages = await getPackedHashes(pkgs);
 
   await github.checks.create({
     owner,
@@ -66,8 +66,9 @@ async function reportChangedPackages(github, { owner, repo, commit }) {
   });
 }
 
-function getPackedHashes(pkgs) {
+async function getPackedHashes(pkgs) {
   const data = {};
+
   for (const id of Object.keys(pkgs)) {
     const pkg = pkgs[id];
 
@@ -75,9 +76,9 @@ function getPackedHashes(pkgs) {
       continue;
     }
 
-    const shasumPath = `${process.cwd()}/${encodeURIComponent(id)}-shasum.json`;
-    // $FlowFixMe (dynamic require)
-    const shasum = require(shasumPath);
+    const result = await execFile("npm", ["pack", "--ignore-scripts", "--json"], {cwd: pkg.location});
+    const shasum = JSON.parse(result.stdout)[0].shasum;
+
     data[id] = {
       shasum,
       localDependencies: pkg.localDependencies

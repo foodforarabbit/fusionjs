@@ -11,8 +11,9 @@ for template in "template-fusion-plugin" "template-library" "template-website" "
   # Overwrite template package.json with versioned package.json
   cp "../$template/package.json" "templates/$template"
 
-  # Overwrite template yarn.lock with synthesized yarn.lock
-  cp "../$template/yarn.lock" "templates/$template"
+  # Skip lockfiles for yarn v2
+  # # Overwrite template yarn.lock with synthesized yarn.lock
+  # cp "../$template/yarn.lock" "templates/$template"
 
   cd "templates/$template"
 
@@ -27,8 +28,9 @@ for template in "template-fusion-plugin" "template-library" "template-website" "
   # Rename to dotigignore prior to publish, which will be undone by scaffold codemod
   mv .gitignore dotgitignore
 
-  sed '/# BEGIN REMOVE BEFORE PUBLISH/,/# END REMOVE BEFORE PUBLISH/d' .flowconfig > __flowconfig
+  # Skip flowconfig for yarn v2
+  # sed '/# BEGIN REMOVE BEFORE PUBLISH/,/# END REMOVE BEFORE PUBLISH/d' .flowconfig > __flowconfig
 
-  mv __flowconfig .flowconfig
+  # mv __flowconfig .flowconfig
 
 ); done

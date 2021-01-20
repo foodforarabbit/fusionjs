@@ -17,9 +17,10 @@
     "opentracing": "^0.14.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "@babel/preset-flow": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
@@ -38,6 +39,7 @@
     "flow-bin": "^0.109.0",
     "fusion-core": "0.0.0-monorepo",
     "fusion-plugin-apollo": "0.0.0-monorepo",
+    "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-react": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
@@ -80,11 +82,10 @@
   "scaffold-version": "2.0.2",
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
-    "build": "cup-build",
     "dev": "npm-watch | grep --invert-match nodemon",
     "flow": "flow",
     "lint": "eslint src --fix",
-    "prepublish": "cup-build",
+    "prepack": "cup-build --force-flow",
     "test": "jest"
   },
   "sideEffects": false,

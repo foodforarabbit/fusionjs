@@ -11,8 +11,11 @@
     "zero-config": "^7.1.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@uber/atreyu": "^6.5.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@uber/atreyu": "^6.4.0",
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
     "@uber/fusion-plugin-flipr": "0.0.0-monorepo",
     "@uber/fusion-plugin-galileo": "0.0.0-monorepo",
@@ -65,11 +68,10 @@
     "url": "https://github.com/uber/fusionjs"
   },
   "scripts": {
-    "build": "npm run clean && cup-build",
     "clean": "cup-clean",
     "flow": "flow",
     "lint": "eslint src/",
-    "prepublish": "npm run build",
+    "prepack": "cup-build --force-flow",
     "test": "jest"
   },
   "sideEffects": false

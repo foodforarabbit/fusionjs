@@ -2,13 +2,14 @@
  * @jest-environment node
  */
 
-const { spawn } = require("child_process");
+const { spawn, execSync } = require("child_process");
 const getPort = require("get-port");
 const S3rver = require("s3rver");
 const fetch = require("node-fetch");
 const AWS = require("aws-sdk");
 const upload = require("@uber/fusion-plugin-s3-asset-proxying/upload.js");
 const { promisify } = require("util");
+const treeKill = require('tree-kill');
 
 let fusionPort;
 let s3Server;
@@ -33,6 +34,16 @@ test("Fusion server still serves local assets", async () => {
 });
 
 beforeAll(async () => {
+
+  execSync("yarn fusion build --production", {
+    cwd: __dirname,
+    env: {
+      ...process.env,
+      NODE_ENV: "production"
+    },
+    stdio: "inherit"
+  });
+
   const s3Port = await getPort();
 
   s3Server = await new Promise((resolve, reject) => {
@@ -66,7 +77,7 @@ beforeAll(async () => {
 
   fusionPort = await getPort();
 
-  fusionServer = spawn(__dirname + "/node_modules/.bin/fusion", ["start"], {
+  fusionServer = spawn("yarn", ["fusion", "start"], {
     cwd: __dirname,
     env: {
       ...process.env,
@@ -86,7 +97,14 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  fusionServer.kill("SIGKILL");
+  if (fusionServer) {
+    // Note: doesn't work with yarn berry for now:
+    // https://github.com/yarnpkg/berry/issues/1741#issuecomment-678754626
+    // fusionServer.kill("SIGKILL");
+
+    // So we kill tree of subprocesses instead
+    treeKill(fusionServer.pid);
+  }
   await promisify(s3Server.close.bind(s3Server))();
 });
 

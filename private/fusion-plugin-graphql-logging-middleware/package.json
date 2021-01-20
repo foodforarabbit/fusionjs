@@ -12,9 +12,10 @@
     "react-dom": "^16.12.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "@babel/preset-flow": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
@@ -69,11 +70,10 @@
   },
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
-    "build": "cup-build",
     "dev": "npm-watch | grep --invert-match nodemon",
     "flow": "flow",
     "lint": "eslint src --fix",
-    "prepublish": "cup-build",
+    "prepack": "cup-build --force-flow",
     "test": "jest"
   },
   "sideEffects": false,

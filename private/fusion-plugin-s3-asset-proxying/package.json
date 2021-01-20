@@ -18,7 +18,10 @@
     "mime-db": "^1.36.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "babel-eslint": "^10.0.3",
     "babel-plugin-istanbul": "^5.1.4",
     "create-universal-package": "^4.1.0",
@@ -65,13 +68,11 @@
     "url": "https://github.com/uber/fusionjs"
   },
   "scripts": {
-    "build": "npm run clean && cup-build",
     "clean": "cup-clean",
     "flow": "flow",
     "lint": "eslint .",
-    "prepublish": "npm run build",
-    "test": "jest",
-    "view-cover": "npm run build-test && nyc --reporter=html npm run just-test && open coverage/index.html"
+    "prepack": "cup-build --force-flow",
+    "test": "npm_package_name='@uber/fusion-plugin-s3-asset-proxying-tests' jest"
   },
   "sideEffects": false
 }

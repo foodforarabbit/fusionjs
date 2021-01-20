@@ -28,11 +28,13 @@
     "tmp": "^0.0.33"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.3",
     "babel-plugin-tester": "^5.5.1",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "create-universal-package": "^4.1.0",
     "eslint": "^6.8.0",
     "eslint-config-fusion": "0.0.0-monorepo",
     "eslint-plugin-cup": "^2.0.2",
@@ -57,7 +59,6 @@
     "url": "https://github.com/uber/fusionjs"
   },
   "scripts": {
-    "build": "echo ok",
     "debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "flow": "flow",
     "integration": "node src/integration-test.js",

@@ -15,5 +15,5 @@ cd docker-cache
 node ../scripts/calculate-package-files.js "${PACKAGES[@]}"
 cd ..
 
-tar -czf packages.tar.gz docker-cache
-buildkite-agent artifact upload packages.tar.gz
+# tar -czf packages.tar.gz docker-cache
+# buildkite-agent artifact upload packages.tar.gz

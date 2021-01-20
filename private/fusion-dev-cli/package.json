@@ -3,15 +3,17 @@
   "description": "Fusion.js development CLI with Uber-specific concerns (e.g. starting Cerberus)",
   "version": "0.0.0-monorepo",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
-  "bin": {
-    "fusion-dev-cli": "bin/cli.js"
-  },
+  "bin": "bin/cli.js",
   "dependencies": {
     "promptly": "^3.0.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "flow-bin": "^0.109.0"
   },
   "engines": {

@@ -30,7 +30,13 @@ type Packages = {
     distTag: string,
   }
 };
+
+type Manifest = {
+  projects: Array<string>,
+  excludeFromPublishing: Array<string>,
+};
 */
+
 
 const deploymentEnvironment =
   process.env.BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT;
@@ -97,12 +103,7 @@ async function publishCanary(github, payload) {
         const {
           location,
           localDependencies,
-          excludeFromPublishing,
         } = workspace[name];
-
-        if (excludeFromPublishing) {
-          continue;
-        }
 
         if (unchangedPackages[name]) {
           packages[name] = {

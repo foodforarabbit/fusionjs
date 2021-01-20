@@ -54,4 +54,4 @@ test('updateDeps', async () => {
   assert.ok(finalDevDeps.includes('just-entries'));
   assert.ok(finalDevDeps.includes('just-extend'));
   assert.equal(finalDevDeps.length, 4);
-}, 15000);
+}, 35000);

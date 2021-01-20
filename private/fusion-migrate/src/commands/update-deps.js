@@ -125,10 +125,10 @@ module.exports = async function updateDeps({
   fs.writeFileSync(destPackagePath, JSON.stringify(destPackage, null, 2));
 
   // generate lockfile
-  await exec.shell(`yarn --ignore-engines`, opts);
+  await exec.shell(`yarn`, opts);
 };
 
 async function getVersion(module) {
-  const {stdout} = await exec.shell(`yarn info ${module} version --json`);
-  return JSON.parse(stdout).data;
+  const {stdout} = await exec.shell(`npm info ${module} version --json`);
+  return JSON.parse(stdout);
 }

@@ -32,8 +32,7 @@
     "public/fusion-cli",
     "public/fusion-cli-tests",
     "public/eslint-config-fusion",
-    "public/create-fusion-plugin",
-    "public/create-fusion-app",
+    "public/jest-resolver-fusion",
     "public/fusion-plugin-web-app-manifest",
     "private/fusion-plugin-web-rpc-compat",
     "private/fusion-plugin-universal-m3-compat",
@@ -84,6 +83,7 @@
   ],
   "excludeFromPublishing": [
     "public/fusion-cli-tests",
+    "public/jest-resolver-fusion",
     "public/fusion-plugin-service-worker-tests",
     "private/fusion-plugin-s3-asset-proxying-tests",
     "private/monorepo-actions",

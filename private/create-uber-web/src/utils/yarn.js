@@ -12,5 +12,5 @@ export const install = async (dir: string) => {
 };
 
 export const test = async (dir: string) => {
-  return exec(`yarn test`, 'Running tests', {cwd: dir});
+  return exec(`npm test`, 'Running tests', {cwd: dir});
 };

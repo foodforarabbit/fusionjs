@@ -6,6 +6,7 @@ ARG UNPM_TOKEN
 
 RUN echo "//unpm.uberinternal.com/:_auth = \${UNPM_TOKEN}" > ~/.npmrc && \
   echo "//unpm.uberinternal.com/:always-auth = true" >> ~/.npmrc && \
+  echo "npmAuthIdent: \${UNPM_TOKEN}" > ~/.yarnrc.yml && \
   echo "registry = https://unpm.uberinternal.com" >> ~/.npmrc && \
   echo "registry \"https://unpm.uberinternal.com\"" >> ~/.yarnrc && \
   git config --global user.name "Fake CI User" && \
@@ -15,3 +16,5 @@ RUN echo "//unpm.uberinternal.com/:_auth = \${UNPM_TOKEN}" > ~/.npmrc && \
 RUN mkdir /monorepo
 WORKDIR /monorepo
 COPY . /monorepo/
+
+RUN yarn install && yarn workspaces foreach --all --parallel run prepack

@@ -11,10 +11,11 @@
     "email": "lhorie@uber.com",
     "url": "https://code.uberinternal.com/maniphest/task/create/"
   },
-  "dependencies": {},
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "@babel/preset-flow": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "babel-core": "^7.0.0-bridge.0",
@@ -71,11 +72,10 @@
   "scaffold-version": "0.2.5",
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
-    "build": "cup-build",
     "dev": "npm-watch | grep --invert-match nodemon",
     "flow": "flow",
     "lint": "eslint src",
-    "prepublish": "cup-build",
+    "prepack": "cup-build --force-flow",
     "test": "jest"
   },
   "sideEffects": false,

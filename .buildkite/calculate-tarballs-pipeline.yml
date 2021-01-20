@@ -2,6 +2,6 @@ steps:
   - label: ":pipeline:"
     timeout_in_minutes: 5
     commands:
-      - ".buildkite/create-pipeline-calculate-tarballs.sh | buildkite-agent pipeline upload"
+      - "echo vestigial-pipeline-to-be-deleted"
     agents:
       queue: private-default

@@ -15,8 +15,10 @@
     "@uber/fusion-plugin-feature-toggles": "0.0.0-monorepo"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "@babel/preset-flow": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "@uber/atreyu": "^6.5.1",
@@ -42,9 +44,11 @@
     "fusion-test-utils": "0.0.0-monorepo",
     "jest": "^25.1.0",
     "jest-environment-jsdom-global": "^1.2.0",
+    "jest-resolver-fusion": "0.0.0-monorepo",
     "jsdom": "^15.1.1",
     "npm-watch": "^0.6.0",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "react": "^16.12.0"
   },
   "engines": {
     "node": ">=8.9.4",
@@ -64,7 +68,7 @@
     "@uber/fusion-plugin-atreyu": "0.0.0-monorepo",
     "fusion-core": "0.0.0-monorepo",
     "fusion-react": "0.0.0-monorepo",
-    "react": "^16.12.0"
+    "react": "*"
   },
   "repository": {
     "directory": "private/fusion-plugin-feature-toggles-react",
@@ -77,11 +81,10 @@
   "scaffold-version": "0.0.19",
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
-    "build": "cup-build",
     "dev": "npm-watch | grep --invert-match nodemon",
     "flow": "flow",
     "lint": "eslint src",
-    "prepublish": "cup-build",
+    "prepack": "cup-build --force-flow",
     "test": "jest"
   },
   "sideEffects": false,

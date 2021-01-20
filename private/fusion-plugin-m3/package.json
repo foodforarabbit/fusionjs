@@ -11,7 +11,10 @@
     "@uber/m3-client": "^1.3.9"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "babel-eslint": "^10.0.3",
     "babel-plugin-istanbul": "^5.1.4",
     "create-universal-package": "^4.1.0",
@@ -54,11 +57,10 @@
     "url": "https://github.com/uber/fusionjs"
   },
   "scripts": {
-    "build": "npm run clean && cup-build",
     "clean": "cup-clean",
     "flow": "flow",
     "lint": "eslint src/",
-    "prepublish": "npm run build",
+    "prepack": "cup-build --force-flow",
     "test": "jest"
   },
   "sideEffects": false

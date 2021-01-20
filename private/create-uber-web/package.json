@@ -2,9 +2,7 @@
   "name": "@uber/create-uber-web",
   "description": "CLI to scaffold a new Uber web application or library",
   "version": "0.0.0-monorepo",
-  "bin": {
-    "create-uber-web": "dist/cli.js"
-  },
+  "bin": "dist/cli.js",
   "dependencies": {
     "@babel/core": "^7.8.4",
     "@babel/types": "^7.5.0",
@@ -26,12 +24,14 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
-    "@babel/plugin-transform-flow-strip-types": "^7.8.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
     "@babel/preset-env": "^7.8.4",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",
     "eslint": "^6.8.0",
     "eslint-config-fusion": "0.0.0-monorepo",
+    "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-cup": "^2.0.2",
     "eslint-plugin-flowtype": "^4.6.0",
     "eslint-plugin-import": "^2.20.1",
@@ -66,13 +66,13 @@
     "event-stream": "3.3.5"
   },
   "scripts": {
-    "build": "babel src -d dist && ./prepublish.sh",
+    "prepack": "babel src -d dist && yarn workspaces foreach -A --include='@uber/template-*' run prepack && ./prepublish.sh",
     "cover": "yarn run test --coverage",
     "dev": "npm-watch | grep --invert-match nodemon",
     "flow": "flow",
     "lint": "eslint src",
     "prepublish": "babel src -d dist && ./prepublish.sh",
-    "test": "$(find templates -name node_modules -prune -exec rm -rf {} \\;); jest --maxWorkers 1"
+    "test": "jest --maxWorkers 1"
   },
   "watch": {
     "build": {

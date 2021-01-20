@@ -20,6 +20,7 @@ module.exports = {
     {
       displayName: 'browser',
       testEnvironment: 'jsdom',
+      browser: true,
       testPathIgnorePatterns: [
         '/node_modules/',
         '.node.js',

@@ -18,9 +18,10 @@
     "styletron-react": "^5.2.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.8.3",
     "@uber/standard-fonts": "^0.1.4",
     "babel-eslint": "^10.0.3",
@@ -74,12 +75,11 @@
   "scaffold-version": "{{version}}",
   "scripts": {
     "bootstrap": "rm -rf node_modules && yarn",
-    "build": "cup-build && eslint src",
     "dev": "npm-watch | grep --invert-match nodemon",
     "flow": "flow check || true",
     "get-uber-fonts": "copy-fonts src/config/fonts.js src/static/fonts",
     "lint": "eslint src --fix",
-    "prepublish": "cup-build",
+    "prepack": "cup-build --force-flow",
     "test": "jest && yarn flow"
   },
   "sideEffects": false

@@ -17,5 +17,10 @@
     "flow": "echo ok",
     "lint": "echo ok",
     "test": "echo ok"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1"
   }
 }

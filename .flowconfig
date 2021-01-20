@@ -1,23 +1,114 @@
 [ignore]
-.*/templates/.*
+
 .*/fixtures/failure/.*
 .*/test-artifacts/.*
 .*/resources/.*
 .*/public/jazelle/tests/fixtures/.*
 .*/public/jazelle/tests/tmp/.*
 .*/__fixtures__/.*
-.*/dist/.*
+
+.*/.fusion/.*
 .*/dist-browser.*/.*
 .*/dist-node.*/.*
+!.*/dist-node-cjs/index.js.flow
+.*/.yarn/.*
+.pnp.js
+
+.*/private/create-uber-web/templates/.*
 
 [include]
-public
-private
 
 [libs]
 
 [lints]
 
 [options]
+
+module.name_mapper='@uber/benchmarks' -> '<PROJECT_ROOT>/private/benchmarks/'
+module.name_mapper='@uber/create-uber-web' -> '<PROJECT_ROOT>/private/create-uber-web/'
+module.name_mapper='@uber/fusion-analyticsjs-utils' -> '<PROJECT_ROOT>/private/fusion-analyticsjs-utils/'
+module.name_mapper='@uber/fusion-dev-cli' -> '<PROJECT_ROOT>/private/fusion-dev-cli/'
+module.name_mapper='@uber/fusion-legacy-styling-compat-mixin' -> '<PROJECT_ROOT>/private/fusion-legacy-styling-compat-mixin/'
+module.name_mapper='@uber/fusion-metrics' -> '<PROJECT_ROOT>/private/fusion-metrics/'
+module.name_mapper='@uber/fusion-migrate' -> '<PROJECT_ROOT>/private/fusion-migrate/'
+module.name_mapper='@uber/fusion-plugin-analytics-session' -> '<PROJECT_ROOT>/private/fusion-plugin-analytics-session/'
+module.name_mapper='@uber/fusion-plugin-atreyu' -> '<PROJECT_ROOT>/private/fusion-plugin-atreyu/'
+module.name_mapper='@uber/fusion-plugin-auth-headers' -> '<PROJECT_ROOT>/private/fusion-plugin-auth-headers/'
+module.name_mapper='@uber/fusion-plugin-bedrock-compat' -> '<PROJECT_ROOT>/private/fusion-plugin-bedrock-compat/'
+module.name_mapper='@uber/fusion-plugin-error-handling' -> '<PROJECT_ROOT>/private/fusion-plugin-error-handling/'
+module.name_mapper='@uber/fusion-plugin-events-adapter' -> '<PROJECT_ROOT>/private/fusion-plugin-events-adapter/'
+module.name_mapper='@uber/fusion-plugin-feature-toggles' -> '<PROJECT_ROOT>/private/fusion-plugin-feature-toggles/'
+module.name_mapper='@uber/fusion-plugin-feature-toggles-react' -> '<PROJECT_ROOT>/private/fusion-plugin-feature-toggles-react/'
+module.name_mapper='@uber/fusion-plugin-flipr' -> '<PROJECT_ROOT>/private/fusion-plugin-flipr/'
+module.name_mapper='@uber/fusion-plugin-galileo' -> '<PROJECT_ROOT>/private/fusion-plugin-galileo/'
+module.name_mapper='@uber/fusion-plugin-google-analytics' -> '<PROJECT_ROOT>/private/fusion-plugin-google-analytics/'
+module.name_mapper='@uber/fusion-plugin-graphql-logging-middleware' -> '<PROJECT_ROOT>/private/fusion-plugin-graphql-logging-middleware/'
+module.name_mapper='@uber/fusion-plugin-graphql-metrics' -> '<PROJECT_ROOT>/private/fusion-plugin-graphql-metrics/'
+module.name_mapper='@uber/fusion-plugin-heatpipe' -> '<PROJECT_ROOT>/private/fusion-plugin-heatpipe/'
+module.name_mapper='@uber/fusion-plugin-initial-state-compat' -> '<PROJECT_ROOT>/private/fusion-plugin-initial-state-compat/'
+module.name_mapper='@uber/fusion-plugin-logger' -> '<PROJECT_ROOT>/private/fusion-plugin-logger/'
+module.name_mapper='@uber/fusion-plugin-logtron' -> '<PROJECT_ROOT>/private/fusion-plugin-logtron/'
+module.name_mapper='@uber/fusion-plugin-m3' -> '<PROJECT_ROOT>/private/fusion-plugin-m3/'
+module.name_mapper='@uber/fusion-plugin-magellan' -> '<PROJECT_ROOT>/private/fusion-plugin-magellan/'
+module.name_mapper='@uber/fusion-plugin-marketing' -> '<PROJECT_ROOT>/private/fusion-plugin-marketing/'
+module.name_mapper='@uber/fusion-plugin-page-skeleton-compat' -> '<PROJECT_ROOT>/private/fusion-plugin-page-skeleton-compat/'
+module.name_mapper='@uber/fusion-plugin-proxy-compat' -> '<PROJECT_ROOT>/private/fusion-plugin-proxy-compat/'
+module.name_mapper='@uber/fusion-plugin-rosetta' -> '<PROJECT_ROOT>/private/fusion-plugin-rosetta/'
+module.name_mapper='@uber/fusion-plugin-s3-asset-proxying' -> '<PROJECT_ROOT>/private/fusion-plugin-s3-asset-proxying/'
+module.name_mapper='@uber/fusion-plugin-s3-asset-proxying-tests' -> '<PROJECT_ROOT>/private/fusion-plugin-s3-asset-proxying-tests/'
+module.name_mapper='@uber/fusion-plugin-secrets' -> '<PROJECT_ROOT>/private/fusion-plugin-secrets/'
+module.name_mapper='@uber/fusion-plugin-secure-headers' -> '<PROJECT_ROOT>/private/fusion-plugin-secure-headers/'
+module.name_mapper='@uber/fusion-plugin-tchannel' -> '<PROJECT_ROOT>/private/fusion-plugin-tchannel/'
+module.name_mapper='@uber/fusion-plugin-tealium' -> '<PROJECT_ROOT>/private/fusion-plugin-tealium/'
+module.name_mapper='@uber/fusion-plugin-tracer' -> '<PROJECT_ROOT>/private/fusion-plugin-tracer/'
+module.name_mapper='@uber/fusion-plugin-uber-xhr-compat' -> '<PROJECT_ROOT>/private/fusion-plugin-uber-xhr-compat/'
+module.name_mapper='@uber/fusion-plugin-universal-logger-compat' -> '<PROJECT_ROOT>/private/fusion-plugin-universal-logger-compat/'
+module.name_mapper='@uber/fusion-plugin-universal-m3-compat' -> '<PROJECT_ROOT>/private/fusion-plugin-universal-m3-compat/'
+module.name_mapper='@uber/fusion-plugin-web-rpc-compat' -> '<PROJECT_ROOT>/private/fusion-plugin-web-rpc-compat/'
+module.name_mapper='@uber/monorepo-actions' -> '<PROJECT_ROOT>/private/monorepo-actions/'
+module.name_mapper='@uber/template-fusion-plugin' -> '<PROJECT_ROOT>/private/template-fusion-plugin/'
+module.name_mapper='@uber/template-library' -> '<PROJECT_ROOT>/private/template-library/'
+module.name_mapper='@uber/template-website' -> '<PROJECT_ROOT>/private/template-website/'
+module.name_mapper='@uber/template-website-graphql' -> '<PROJECT_ROOT>/private/template-website-graphql/'
+module.name_mapper='fusionjs-monorepo' -> '<PROJECT_ROOT>/public/'
+module.name_mapper='create-fusion-app' -> '<PROJECT_ROOT>/public/create-fusion-app/'
+module.name_mapper='create-fusion-plugin' -> '<PROJECT_ROOT>/public/create-fusion-plugin/'
+module.name_mapper='eslint-config-fusion' -> '<PROJECT_ROOT>/public/eslint-config-fusion/'
+module.name_mapper='fusion-cli' -> '<PROJECT_ROOT>/public/fusion-cli/'
+module.name_mapper='fusion-cli-tests' -> '<PROJECT_ROOT>/public/fusion-cli-tests/'
+module.name_mapper='fusion-cli-tests-fixtures' -> '<PROJECT_ROOT>/public/fusion-cli-tests-fixtures/'
+module.name_mapper='fusion-core' -> '<PROJECT_ROOT>/public/fusion-core/'
+module.name_mapper='fusion-plugin-apollo' -> '<PROJECT_ROOT>/public/fusion-plugin-apollo/'
+module.name_mapper='fusion-plugin-browser-performance-emitter' -> '<PROJECT_ROOT>/public/fusion-plugin-browser-performance-emitter/'
+module.name_mapper='fusion-plugin-connected-react-router' -> '<PROJECT_ROOT>/public/fusion-plugin-connected-react-router/'
+module.name_mapper='fusion-plugin-csrf-protection' -> '<PROJECT_ROOT>/public/fusion-plugin-csrf-protection/'
+module.name_mapper='fusion-plugin-error-handling' -> '<PROJECT_ROOT>/public/fusion-plugin-error-handling/'
+module.name_mapper='fusion-plugin-font-loader-react' -> '<PROJECT_ROOT>/public/fusion-plugin-font-loader-react/'
+module.name_mapper='fusion-plugin-http-handler' -> '<PROJECT_ROOT>/public/fusion-plugin-http-handler/'
+module.name_mapper='fusion-plugin-i18n' -> '<PROJECT_ROOT>/public/fusion-plugin-i18n/'
+module.name_mapper='fusion-plugin-i18n-react' -> '<PROJECT_ROOT>/public/fusion-plugin-i18n-react/'
+module.name_mapper='fusion-plugin-introspect' -> '<PROJECT_ROOT>/public/fusion-plugin-introspect/'
+module.name_mapper='fusion-plugin-jwt' -> '<PROJECT_ROOT>/public/fusion-plugin-jwt/'
+module.name_mapper='fusion-plugin-node-performance-emitter' -> '<PROJECT_ROOT>/public/fusion-plugin-node-performance-emitter/'
+module.name_mapper='fusion-plugin-react-helmet-async' -> '<PROJECT_ROOT>/public/fusion-plugin-react-helmet-async/'
+module.name_mapper='fusion-plugin-react-redux' -> '<PROJECT_ROOT>/public/fusion-plugin-react-redux/'
+module.name_mapper='fusion-plugin-react-router' -> '<PROJECT_ROOT>/public/fusion-plugin-react-router/'
+module.name_mapper='fusion-plugin-redux-action-emitter-enhancer' -> '<PROJECT_ROOT>/public/fusion-plugin-redux-action-emitter-enhancer/'
+module.name_mapper='fusion-plugin-rpc' -> '<PROJECT_ROOT>/public/fusion-plugin-rpc/'
+module.name_mapper='fusion-plugin-rpc-redux-react' -> '<PROJECT_ROOT>/public/fusion-plugin-rpc-redux-react/'
+module.name_mapper='fusion-plugin-service-worker' -> '<PROJECT_ROOT>/public/fusion-plugin-service-worker/'
+module.name_mapper='fusion-plugin-service-worker-tests' -> '<PROJECT_ROOT>/public/fusion-plugin-service-worker-tests/'
+module.name_mapper='fusion-plugin-styletron-react' -> '<PROJECT_ROOT>/public/fusion-plugin-styletron-react/'
+module.name_mapper='fusion-plugin-universal-events' -> '<PROJECT_ROOT>/public/fusion-plugin-universal-events/'
+module.name_mapper='fusion-plugin-universal-logger' -> '<PROJECT_ROOT>/public/fusion-plugin-universal-logger/'
+module.name_mapper='fusion-plugin-web-app-manifest' -> '<PROJECT_ROOT>/public/fusion-plugin-web-app-manifest/'
+module.name_mapper='fusion-react' -> '<PROJECT_ROOT>/public/fusion-react/'
+module.name_mapper='fusion-rpc-redux' -> '<PROJECT_ROOT>/public/fusion-rpc-redux/'
+module.name_mapper='fusion-scaffolder' -> '<PROJECT_ROOT>/public/fusion-scaffolder/'
+module.name_mapper='fusion-test-utils' -> '<PROJECT_ROOT>/public/fusion-test-utils/'
+module.name_mapper='fusion-tokens' -> '<PROJECT_ROOT>/public/fusion-tokens/'
+module.name_mapper='jest-resolver-fusion' -> '<PROJECT_ROOT>/public/jest-resolver-fusion/'
+module.name_mapper='fixture-es2017-pkg' -> '<PROJECT_ROOT>/public/fusion-cli-tests-fixtures/fixtures/node_modules/fixture-es2017-pkg/'
+module.name_mapper='fixture-macro-pkg' -> '<PROJECT_ROOT>/public/fusion-cli-tests-fixtures/fixtures/node_modules/fixture-macro-pkg/'
 
 [strict]

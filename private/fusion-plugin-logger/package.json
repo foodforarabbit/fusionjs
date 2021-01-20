@@ -16,7 +16,10 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "@uber/fusion-plugin-m3": "0.0.0-monorepo",
     "babel-eslint": "^10.0.3",
     "create-universal-package": "^4.1.0",
@@ -34,6 +37,7 @@
     "fusion-plugin-universal-events": "0.0.0-monorepo",
     "fusion-test-utils": "0.0.0-monorepo",
     "fusion-tokens": "0.0.0-monorepo",
+    "jest": "^25.5.4",
     "prettier": "^1.19.1",
     "sinon": "^7.1.1"
   },
@@ -61,11 +65,10 @@
     "url": "https://github.com/uber/fusionjs"
   },
   "scripts": {
-    "build": "cup-clean && cup build",
     "clean": "cup-clean",
     "flow": "flow",
     "lint": "eslint src/",
-    "prepublish": "npm run build",
+    "prepack": "cup-build --force-flow",
     "test": "jest"
   },
   "sideEffects": false
