@@ -98,7 +98,7 @@ test('simple service sanity check - toggle on/off with mocked dependencies', asy
   expect(() => client.get('someMissingExperiment')).toThrow();
 });
 
-test('test atreyu "getTreatmentGroupsByNames" failure', async () => {
+test('gracefully handles atreyu "getTreatmentGroupsByNames" failure', async () => {
   const mockContext = mockContextFn();
   const mockAtreyu = mockAtreyuFn({
     createAsyncGraph: jest.fn(() =>
@@ -110,11 +110,15 @@ test('test atreyu "getTreatmentGroupsByNames" failure', async () => {
 
   const client = new MorpheusClient(
     mockContext,
-    [],
+    ['someExperiment'],
     {atreyu: mockAtreyu, marketing: mockMarketingFn()},
     {}
   );
-  await expect(client.load()).rejects.toThrow();
+
+  await expect(client.load()).resolves.toBeUndefined();
+  expect(client.get('someExperiment')).toEqual({
+    enabled: false
+  })
 });
 
 test('simple enhance Morpheus context', async () => {

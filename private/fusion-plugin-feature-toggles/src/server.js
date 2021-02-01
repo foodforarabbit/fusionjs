@@ -63,7 +63,13 @@ const pluginFactory: () => FeatureTogglesPluginType = () =>
         }
 
         const scoped = service.from(ctx);
-        await scoped.load();
+
+        try {
+          await scoped.load();
+        } catch (e) {
+          embedToggleData(ctx, {} /*no toggle details*/);
+          return next();
+        }
 
         await next();
 

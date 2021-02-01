@@ -6,6 +6,12 @@ exports[`__FEATURE_TOGGLES__ populated: __FEATURE_TOGGLES__ 1`] = `
     </script>"
 `;
 
+exports[`gracefully handle error if client failed to load: __FEATURE_TOGGLES__-client-failed-to-load 1`] = `
+"<script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
+      {\\\\u0022data\\\\u0022:{}}
+    </script>"
+`;
+
 exports[`only client-safe toggles exposed in __FEATURE_TOGGLES__ : __FEATURE_TOGGLES__-limited-client-side 1`] = `
 "<script type=\\"application/json\\" id=\\"__FEATURE_TOGGLES__\\">
       {\\\\u0022data\\\\u0022:{\\\\u0022weatherToggle\\\\u0022:{\\\\u0022enabled\\\\u0022:true,\\\\u0022metadata\\\\u0022:{\\\\u0022isItSunnyToday\\\\u0022:true,\\\\u0022areThereWaves\\\\u0022:false}}}}

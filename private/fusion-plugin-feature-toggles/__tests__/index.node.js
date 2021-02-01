@@ -30,6 +30,7 @@ const mockContextFactory: () => Context = () =>
   }: any);
 const mockAtreyuFactory: () => AtreyuType = () => ({}: any);
 type MockDataType = {[string]: ToggleDetailsType};
+const mockClientLoadFn = jest.fn(() => Promise.resolve());
 const mockClientFactory: (
   data?: MockDataType
 ) => Class<IFeatureTogglesClient> = data => {
@@ -37,7 +38,11 @@ const mockClientFactory: (
     constructor(ctx: Context): IFeatureTogglesClient {
       return this;
     }
-    async load(): Promise<void> {}
+
+    async load(): Promise<void> {
+      await mockClientLoadFn();
+    }
+
     get(toggleName: string): ToggleDetailsType {
       if (!data || !data[toggleName]) return {enabled: false};
       return data[toggleName];
@@ -62,7 +67,11 @@ const appCreator = (
   );
 
   return app;
-};
+  };
+
+beforeEach(() => {
+  mockClientLoadFn.mockClear();
+});
 
 test('simple service sanity check - toggle on/off with mocked dependencies', async () => {
   const mockContext = mockContextFactory();
@@ -263,3 +272,18 @@ test('skip middleware if no toggle details provided', async () => {
     '__FEATURE_TOGGLES__-empty-no-details-provided'
   );
 });
+
+test('gracefully handle error if client failed to load', async () => {
+  mockClientLoadFn.mockReturnValueOnce(Promise.reject('Client failed to load'));
+
+  const app = appCreator()();
+  const result = await getSimulator(app).render('/');
+
+  const dom = new JSDOM(result.body);
+  const elem = dom.window.document.querySelector(
+    'script[id="__FEATURE_TOGGLES__"]'
+  );
+  expect(elem).toBeTruthy();
+  expect(elem).toHaveProperty('outerHTML');
+  expect(elem.outerHTML).toMatchSnapshot('__FEATURE_TOGGLES__-client-failed-to-load');
+})
