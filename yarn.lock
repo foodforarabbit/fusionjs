@@ -2529,6 +2529,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@micburks/compression-webpack-plugin@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@micburks/compression-webpack-plugin@npm:3.1.1"
+  dependencies:
+    cacache: ^13.0.1
+    find-cache-dir: ^3.0.0
+    neo-async: ^2.5.0
+    schema-utils: ^2.6.1
+    serialize-javascript: ^3.1.0
+    webpack-sources: ^1.0.1
+  peerDependencies:
+    webpack: ^4.3.0 || ^5.0.0
+  checksum: 4275e636588900fefcd06b478d040ccfa4e9da7ca4ba7f0db2fb795f59d555f17cc0c948cc77a35c33adadc732db2fb4f8293e670dd0de9c81a9a4945e0d7f62
+  languageName: node
+  linkType: hard
+
 "@mrmlnc/readdir-enhanced@npm:^2.2.1":
   version: 2.2.1
   resolution: "@mrmlnc/readdir-enhanced@npm:2.2.1"
@@ -10755,28 +10771,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cacache@npm:^11.2.0":
-  version: 11.3.3
-  resolution: "cacache@npm:11.3.3"
-  dependencies:
-    bluebird: ^3.5.5
-    chownr: ^1.1.1
-    figgy-pudding: ^3.5.1
-    glob: ^7.1.4
-    graceful-fs: ^4.1.15
-    lru-cache: ^5.1.1
-    mississippi: ^3.0.0
-    mkdirp: ^0.5.1
-    move-concurrently: ^1.0.1
-    promise-inflight: ^1.0.1
-    rimraf: ^2.6.3
-    ssri: ^6.0.1
-    unique-filename: ^1.1.1
-    y18n: ^4.0.0
-  checksum: c1ddb5312933185135e7d53463673493a88eb01a5f9b237650e6ed72e5fb49d514f59929ccc0869b176fe8c39ae57bcff46425f515acaa7a7e82483d2459c18e
-  languageName: node
-  linkType: hard
-
 "cacache@npm:^12.0.2":
   version: 12.0.4
   resolution: "cacache@npm:12.0.4"
@@ -12008,24 +12002,6 @@ __metadata:
   version: 1.1.1
   resolution: "component-props@npm:1.1.1"
   checksum: 42d852bfbabc9d57c510b93a3ddc316e0a9ab5fd822186037eac8cea1147b3de5e8724745d32114a818b6687c9c59e1f27df97aaaee40dd3c2bb73b1c474f2b5
-  languageName: node
-  linkType: hard
-
-"compression-webpack-plugin@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "compression-webpack-plugin@npm:2.0.0"
-  dependencies:
-    cacache: ^11.2.0
-    find-cache-dir: ^2.0.0
-    neo-async: ^2.5.0
-    schema-utils: ^1.0.0
-    serialize-javascript: ^1.4.0
-    webpack-sources: ^1.0.1
-  peerDependencies:
-    webpack: ^4.3.0
-  bin:
-    compression-webpack-plugin: ""
-  checksum: 1ac7bf5391fdd892f6b44b665e1c73deefc8755ae73566e6f73a11efc1e90f07e124d5350c3c6abebebf34694e43376c09d6937da4c4f1e97a8048c886d416cc
   languageName: node
   linkType: hard
 
@@ -16188,6 +16164,7 @@ fsevents@~2.1.2:
     "@babel/plugin-transform-flow-strip-types": ^7.8.3
     "@babel/preset-env": ^7.8.4
     "@babel/preset-react": ^7.8.3
+    "@micburks/compression-webpack-plugin": ^3.1.1
     "@rtsao/plugin-proposal-class-properties": 7.0.1-patch.1
     ansi-to-html: ^0.6.14
     babel-core: ^7.0.0-bridge.0
@@ -16199,7 +16176,6 @@ fsevents@~2.1.2:
     bundle-analyzer: ^0.0.6
     case-sensitive-paths-webpack-plugin: ^2.1.2
     chalk: ^2.4.2
-    compression-webpack-plugin: ^2.0.0
     core-js: ^3.3.0
     default-no-import-side-effects-webpack-plugin: 1.0.0
     enhanced-resolve: 5.0.0-beta.4
@@ -28816,7 +28792,7 @@ resolve@~1.17.0:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^2.0.1, schema-utils@npm:^2.5.0, schema-utils@npm:^2.6.5, schema-utils@npm:^2.6.6, schema-utils@npm:^2.7.0":
+"schema-utils@npm:^2.0.1, schema-utils@npm:^2.5.0, schema-utils@npm:^2.6.1, schema-utils@npm:^2.6.5, schema-utils@npm:^2.6.6, schema-utils@npm:^2.7.0":
   version: 2.7.1
   resolution: "schema-utils@npm:2.7.1"
   dependencies:
@@ -28958,10 +28934,12 @@ resolve@~1.17.0:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:^1.4.0":
-  version: 1.9.1
-  resolution: "serialize-javascript@npm:1.9.1"
-  checksum: 84293fb87b0884a0ad7b5a4497cf197e3013d928c5b5162a9e199b91ff5ee28b5eba02e636a69a1c3ae22ad5d512775b17ba0950f16181939f510841eb37b5e3
+"serialize-javascript@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "serialize-javascript@npm:3.1.0"
+  dependencies:
+    randombytes: ^2.1.0
+  checksum: e3036658c26b4aa0c74b89c91dc702f1b98c34ffc108e7944e2e227f910896367e98374a1a8c9923385ddfccd1759bfbd133d7857f4e315070594bb8761740e7
   languageName: node
   linkType: hard
 
