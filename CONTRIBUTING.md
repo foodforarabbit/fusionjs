@@ -34,7 +34,7 @@ npm install --global jazelle
 ```sh
 yarn install
 cd some/package/path
-yarn workspaces foreach prepack
+yarn workspaces foreach run prepack
 yarn test
 ```
 
