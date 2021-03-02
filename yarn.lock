@@ -6569,7 +6569,7 @@ __metadata:
     jest-environment-jsdom-global: ^1.2.0
     npm-watch: ^0.6.0
     prettier: ^1.19.1
-    styletron-react: ^5.2.7
+    styletron-react: ^6.0.0
   languageName: unknown
   linkType: soft
 
@@ -6667,7 +6667,7 @@ __metadata:
     puppeteer: ^2.1.1
     react: ^16.12.0
     react-dom: ^16.12.0
-    styletron-react: ^5.2.7
+    styletron-react: ^6.0.0
     ubook: ^0.0.14
     unfetch: ^4.1.0
   languageName: unknown
@@ -6753,7 +6753,7 @@ __metadata:
     react-redux: ^7.1.0
     react-test-renderer: ^16.12.0
     redux: ^4.0.5
-    styletron-react: ^5.2.7
+    styletron-react: ^6.0.0
     ubook: ^0.0.14
     unfetch: ^4.1.0
   languageName: unknown
@@ -17036,7 +17036,7 @@ fsevents@~2.1.2:
     react-dom: ^16.12.0
     react-redux: ^7.1.0
     redux: ^4.0.5
-    styletron-react: ^5.2.7
+    styletron-react: ^6.0.0
   languageName: unknown
   linkType: soft
 
@@ -17105,7 +17105,7 @@ fsevents@~2.1.2:
     react-dom: ^16.12.0
     styletron-engine-atomic: ^1.4.1
     styletron-engine-monolithic: ^0.0.3
-    styletron-react: ^5.2.7
+    styletron-react: ^6.0.0
   peerDependencies:
     fusion-core: 0.0.0-monorepo
     react: ^16.12.0
@@ -30076,15 +30076,15 @@ resolve@~1.17.0:
   languageName: node
   linkType: hard
 
-"styletron-react@npm:^5.2.7":
-  version: 5.2.7
-  resolution: "styletron-react@npm:5.2.7"
+"styletron-react@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "styletron-react@npm:6.0.0"
   dependencies:
     prop-types: ^15.6.0
-    styletron-standard: ^3.0.4
+    styletron-standard: ^3.0.5
   peerDependencies:
     react: ^16.8.0
-  checksum: 1e80401f3150ff22f0b838d8b82719a8128248139b40e965e2c17f589264672e33325d23731bee5746ee0290d14f4a41381e7e30aa0bbba6a413dfed6baed831
+  checksum: 85c315f8cfa53ff30e85061629e4c89ea33e9a9db9c0e36c64de7d3ba334944efa57bd75585f9cce9d7ef02d89aa860bf35a8d96d6a8c4bc6593a7b55bbb86b7
   languageName: node
   linkType: hard
 
@@ -30095,6 +30095,16 @@ resolve@~1.17.0:
     "@rtsao/csstype": 2.6.5-forked.0
     inline-style-prefixer: ^5.1.0
   checksum: 4e75028a867060c0e047f33fc803fa2d2eefe35a7c241fe8577ea1d54cd847aa0a728370f6acbdb5ede4aaf6c685373aa1c63b6c9a2c2e47b2d7703cd7235e51
+  languageName: node
+  linkType: hard
+
+"styletron-standard@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "styletron-standard@npm:3.0.5"
+  dependencies:
+    "@rtsao/csstype": 2.6.5-forked.0
+    inline-style-prefixer: ^5.1.0
+  checksum: fc90909cca2f65445f7fa584c9d87a5abc71e378e5a6bd6a4d822f834a6ee499c55f9787dd748ef65cde8cdbf14fae0feea412658e450a5145ed7fa9d021b778
   languageName: node
   linkType: hard
 

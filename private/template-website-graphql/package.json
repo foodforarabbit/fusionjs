@@ -70,7 +70,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "styletron-react": "^5.2.7",
+    "styletron-react": "^6.0.0",
     "ubook": "^0.0.14",
     "unfetch": "^4.1.0"
   },

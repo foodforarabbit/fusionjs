@@ -10961,7 +10961,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-environment-jsdom-global", "virtual:77de98aea4e17ae2dd16715c3642e44cad16e61d7d04d790aeda822fad416c05b33f17d5d16eeb2222b480a139b9e807a1ede4fc27f30086a471b51f5b48e279#npm:1.2.1"],
             ["npm-watch", "npm:0.6.0"],
             ["prettier", "npm:1.19.1"],
-            ["styletron-react", "virtual:c8f556bceec704437649769fcaac3ddd45d6e3fbec3aaabbf8f0806ae4432a86bd442a6ad3f4d5545d1c3a7ec165784b437ef5a05c8760c62fb05b4064900c2f#npm:5.2.7"]
+            ["styletron-react", "virtual:c8f556bceec704437649769fcaac3ddd45d6e3fbec3aaabbf8f0806ae4432a86bd442a6ad3f4d5545d1c3a7ec165784b437ef5a05c8760c62fb05b4064900c2f#npm:6.0.0"]
           ],
           "linkType": "SOFT",
         }]
@@ -11047,7 +11047,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-redux", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:7.2.2"],
             ["react-test-renderer", "virtual:fc16e683620a739c328c229bef14666fb56cc4a37f2e78174ccf0c01345dcaeb19677f197676f69c91a78cba799f1b2efd74f9d793480fc4e0816491f70d6603#npm:16.14.0"],
             ["redux", "npm:4.0.5"],
-            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7"],
+            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0"],
             ["ubook", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:0.0.14"],
             ["unfetch", "npm:4.2.0"]
           ],
@@ -11149,7 +11149,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["puppeteer", "npm:2.1.1"],
             ["react", "npm:16.14.0"],
             ["react-dom", "virtual:0d6a0b58bc9428d512a0ff67fec83ffb5e3a6e2306e52bedc3b9edcdc27154bb9424ecdce2fb2b3e60f22bc77b95a3c588623e1b2699764df27dbf9a1baf5d51#npm:16.14.0"],
-            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7"],
+            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0"],
             ["ubook", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:0.0.14"],
             ["unfetch", "npm:4.2.0"]
           ],
@@ -15285,7 +15285,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-virtualized-auto-sizer", "virtual:55dc50c7a4c514e7e01c9243617126d00c96df751ff632045b7192f9b3b2117e1d55828894edab4a246411b51bbb2fef1a5c77b8e0b2a2cb93e42d0839221485#npm:1.0.2"],
             ["react-window", "virtual:55dc50c7a4c514e7e01c9243617126d00c96df751ff632045b7192f9b3b2117e1d55828894edab4a246411b51bbb2fef1a5c77b8e0b2a2cb93e42d0839221485#npm:1.8.6"],
             ["resize-observer-polyfill", "npm:1.5.1"],
-            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7"],
+            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0"],
             ["styletron-standard", "npm:3.0.4"],
             ["timezone-support", "npm:2.0.2"]
           ],
@@ -24476,7 +24476,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:0d6a0b58bc9428d512a0ff67fec83ffb5e3a6e2306e52bedc3b9edcdc27154bb9424ecdce2fb2b3e60f22bc77b95a3c588623e1b2699764df27dbf9a1baf5d51#npm:16.14.0"],
             ["react-redux", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:7.2.2"],
             ["redux", "npm:4.0.5"],
-            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7"]
+            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0"]
           ],
           "linkType": "SOFT",
         }]
@@ -24518,7 +24518,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:0d6a0b58bc9428d512a0ff67fec83ffb5e3a6e2306e52bedc3b9edcdc27154bb9424ecdce2fb2b3e60f22bc77b95a3c588623e1b2699764df27dbf9a1baf5d51#npm:16.14.0"],
             ["styletron-engine-atomic", "npm:1.4.6"],
             ["styletron-engine-monolithic", "npm:0.0.3"],
-            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7"]
+            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0"]
           ],
           "packagePeers": [
             "@types/fusion-core",
@@ -24563,7 +24563,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:0d6a0b58bc9428d512a0ff67fec83ffb5e3a6e2306e52bedc3b9edcdc27154bb9424ecdce2fb2b3e60f22bc77b95a3c588623e1b2699764df27dbf9a1baf5d51#npm:16.14.0"],
             ["styletron-engine-atomic", "npm:1.4.6"],
             ["styletron-engine-monolithic", "npm:0.0.3"],
-            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7"]
+            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0"]
           ],
           "linkType": "SOFT",
         }]
@@ -39449,14 +39449,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["styletron-react", [
-        ["virtual:c8f556bceec704437649769fcaac3ddd45d6e3fbec3aaabbf8f0806ae4432a86bd442a6ad3f4d5545d1c3a7ec165784b437ef5a05c8760c62fb05b4064900c2f#npm:5.2.7", {
-          "packageLocation": "./.yarn/$$virtual/styletron-react-virtual-a75e7574ef/0/cache/styletron-react-npm-5.2.7-3f749bdb6f-1e80401f31.zip/node_modules/styletron-react/",
+        ["virtual:c8f556bceec704437649769fcaac3ddd45d6e3fbec3aaabbf8f0806ae4432a86bd442a6ad3f4d5545d1c3a7ec165784b437ef5a05c8760c62fb05b4064900c2f#npm:6.0.0", {
+          "packageLocation": "./.yarn/$$virtual/styletron-react-virtual-e69a40eb43/0/cache/styletron-react-npm-6.0.0-b6e2c5ec3e-85c315f8cf.zip/node_modules/styletron-react/",
           "packageDependencies": [
-            ["styletron-react", "virtual:c8f556bceec704437649769fcaac3ddd45d6e3fbec3aaabbf8f0806ae4432a86bd442a6ad3f4d5545d1c3a7ec165784b437ef5a05c8760c62fb05b4064900c2f#npm:5.2.7"],
+            ["styletron-react", "virtual:c8f556bceec704437649769fcaac3ddd45d6e3fbec3aaabbf8f0806ae4432a86bd442a6ad3f4d5545d1c3a7ec165784b437ef5a05c8760c62fb05b4064900c2f#npm:6.0.0"],
             ["@types/react", null],
             ["prop-types", "npm:15.7.2"],
             ["react", null],
-            ["styletron-standard", "npm:3.0.4"]
+            ["styletron-standard", "npm:3.0.5"]
           ],
           "packagePeers": [
             "@types/react",
@@ -39464,14 +39464,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7", {
-          "packageLocation": "./.yarn/$$virtual/styletron-react-virtual-8cb85b7265/0/cache/styletron-react-npm-5.2.7-3f749bdb6f-1e80401f31.zip/node_modules/styletron-react/",
+        ["virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0", {
+          "packageLocation": "./.yarn/$$virtual/styletron-react-virtual-c6dc26fa67/0/cache/styletron-react-npm-6.0.0-b6e2c5ec3e-85c315f8cf.zip/node_modules/styletron-react/",
           "packageDependencies": [
-            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7"],
+            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0"],
             ["@types/react", null],
             ["prop-types", "npm:15.7.2"],
             ["react", "npm:16.14.0"],
-            ["styletron-standard", "npm:3.0.4"]
+            ["styletron-standard", "npm:3.0.5"]
           ],
           "packagePeers": [
             "@types/react",
@@ -39485,6 +39485,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/styletron-standard-npm-3.0.4-1f04daf738-4e75028a86.zip/node_modules/styletron-standard/",
           "packageDependencies": [
             ["styletron-standard", "npm:3.0.4"],
+            ["@rtsao/csstype", "npm:2.6.5-forked.0"],
+            ["inline-style-prefixer", "npm:5.1.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:3.0.5", {
+          "packageLocation": "./.yarn/cache/styletron-standard-npm-3.0.5-399dbc7f89-fc90909cca.zip/node_modules/styletron-standard/",
+          "packageDependencies": [
+            ["styletron-standard", "npm:3.0.5"],
             ["@rtsao/csstype", "npm:2.6.5-forked.0"],
             ["inline-style-prefixer", "npm:5.1.2"]
           ],
@@ -40808,7 +40817,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:16.14.0"],
             ["react-dom", "virtual:0d6a0b58bc9428d512a0ff67fec83ffb5e3a6e2306e52bedc3b9edcdc27154bb9424ecdce2fb2b3e60f22bc77b95a3c588623e1b2699764df27dbf9a1baf5d51#npm:16.14.0"],
             ["styletron-engine-atomic", null],
-            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:5.2.7"],
+            ["styletron-react", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:6.0.0"],
             ["webpack-filter-warnings-plugin", "virtual:0bc248248a69a5412ea48ba44ff8308629f3787dab8439e1d88fd9c6f3ba0068309073b882cd1d4017bd23c1455e1df819f1a29f4ba6a8eff3ce7877900c7711#npm:1.2.1"]
           ],
           "packagePeers": [
