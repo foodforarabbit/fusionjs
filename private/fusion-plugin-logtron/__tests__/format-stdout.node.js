@@ -6,6 +6,25 @@ let message = 'hahaha';
 let stringMeta = 'metametameta';
 let objectMeta = {a: 1, b: 2, c: 'apple'};
 
+test('Includes stack traces in meta', () => {
+  let output = formatStdout(
+    {
+      level: 'error',
+      message: 'Some error',
+      meta: new Error('Some error'),
+    },
+    true
+  );
+
+  let parsed = JSON.parse(output);
+  let lines = parsed.stack.split('\n');
+  let [first, ...rest] = lines;
+  expect(lines.length).toBeGreaterThan(2);
+  for (let line of rest) {
+    expect(line.trim()).toEqual(expect.stringMatching(/^at /));
+  }
+});
+
 ['production', 'development'].forEach(env => {
   ['error', 'info'].forEach(level => {
     test(`format stdout with object meta, level: ${level}, env: ${env} `, () => {

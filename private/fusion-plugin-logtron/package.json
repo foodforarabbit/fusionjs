@@ -69,7 +69,7 @@
   "scripts": {
     "clean": "cup-clean",
     "flow": "flow",
-    "lint": "eslint src/",
+    "lint": "eslint .",
     "prepack": "cup-build --force-flow",
     "test": "jest"
   },

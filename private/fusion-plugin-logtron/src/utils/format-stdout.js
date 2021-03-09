@@ -28,7 +28,11 @@ export default function formatStdout(
       iso,
       msg: message,
       fields: meta,
+      // Stringify the stack trace because it is not serialized by json-stringify-safe
+      // Without doing so, errors lack stack traces in stdout and hence log viewer
+      stack: meta && meta.stack ? String(meta.stack) : void 0,
     };
+
     return stringify(data);
   } else {
     // format for terminal
