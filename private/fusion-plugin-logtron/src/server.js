@@ -67,7 +67,37 @@ const plugin =
       wrappedLogger.destroy = () => {};
 
       const logEmitter = (level, message, meta, callback) => {
-        events.emit('logger:log', {callback, level, message, meta});
+        try {
+          events.emit('logger:log', {callback, level, message, meta});
+        } catch (err) {
+          // If an error is thrown when emitting a log (e.g. bug in log mapper implementation)
+          // we should catch the error and emit to stdout so it shows up in log explorer
+          console.log(
+            formatStdout(
+              {
+                level: 'error',
+                message: err.message,
+                meta: err,
+              },
+              envMeta.isProduction
+            )
+          );
+
+          // Also warn that the original log failed to be emitted
+          console.log(
+            formatStdout(
+              {
+                level: 'warn',
+                message: `Failed to emit log: ${level} - ${message}`,
+              },
+              envMeta.isProduction
+            )
+          );
+
+          // We intentionally do not re-throw the error so there is no uncaught exception
+          // This prevents the process from crashing if there's an error during logging
+        }
+
         return wrappedLogger;
       };
 
