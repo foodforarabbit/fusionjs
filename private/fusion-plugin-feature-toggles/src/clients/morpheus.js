@@ -158,15 +158,22 @@ export default class MorpheusClient implements IFeatureTogglesClient {
         : {};
     const transform = metadataTransform || defaultMetadataTransform;
 
-
     let result: MorpheusResponseType;
     // Attempt to resolve treatment details
     try {
-      result = (await this.getTreatmentGroupsByNames({
-        experimentNames,
-        context: this.getContext(ctx),
-        disableLogging: true,
-      }): MorpheusResponseType);
+      result = (await this.getTreatmentGroupsByNames(
+        {
+          experimentNames,
+          context: this.getContext(ctx),
+          disableLogging: true,
+        },
+        {
+          headers: {
+            'x-uber-backend-mock-session-id':
+              ctx.headers['x-uber-backend-mock-session-id'],
+          },
+        }
+      ): MorpheusResponseType);
     } catch (e) {
       return {};
     }

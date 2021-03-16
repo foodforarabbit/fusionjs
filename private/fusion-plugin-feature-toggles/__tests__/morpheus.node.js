@@ -13,7 +13,7 @@ import mockAtreyuFn from '../mocks/atreyu.js';
 
 test('ensure .load works as expected', async () => {
   const mockContext = mockContextFn({
-    headers: {'user-uuid': '0000'},
+    headers: {'user-uuid': '0000', 'x-uber-backend-mock-session-id': 'test'},
     cookies: undefined,
   });
 
@@ -41,6 +41,13 @@ test('ensure .load works as expected', async () => {
 
   // Loading should be complete
   expect(getTreatmentGroupsByName).toHaveBeenCalledTimes(1);
+  expect(getTreatmentGroupsByName.mock.calls[0][1]).toMatchInlineSnapshot(`
+    Object {
+      "headers": Object {
+        "x-uber-backend-mock-session-id": "test",
+      },
+    }
+  `);
   expect(client.experiments).toHaveProperty('someExperiment');
   expect(client.experiments.someExperiment).toHaveProperty('id');
   expect(client.experiments.someExperiment.id).toBe(12345);
@@ -117,8 +124,8 @@ test('gracefully handles atreyu "getTreatmentGroupsByNames" failure', async () =
 
   await expect(client.load()).resolves.toBeUndefined();
   expect(client.get('someExperiment')).toEqual({
-    enabled: false
-  })
+    enabled: false,
+  });
 });
 
 test('simple enhance Morpheus context', async () => {
