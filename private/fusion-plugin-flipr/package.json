@@ -4,7 +4,7 @@
   "version": "0.0.0-monorepo",
   "author": "Web Platform Team <eng-web-platform@uber.com>",
   "bin": {
-    "update-flipr-bootstrap": "bin/update-flipr-bootstrap.sh"
+    "update-flipr-bootstrap": "bin/update-flipr-bootstrap.js"
   },
   "browser": {
     "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
