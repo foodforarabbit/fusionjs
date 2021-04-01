@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@uber/node-rosetta": "^2.0.3",
+    "fusion-plugin-i18n": "0.0.0-monorepo",
     "locale": "^0.1.0"
   },
   "devDependencies": {

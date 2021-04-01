@@ -1,7 +1,7 @@
 // @flow
 import type {Context} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
-import {ClientToken, ConfigToken, LocaleNegotiationToken} from './tokens';
+import {ClientToken, ConfigToken, LocaleNegotiationToken, GetTranslationsToken} from './tokens';
 // $FlowFixMe
 import Rosetta from '@uber/node-rosetta';
 
@@ -10,6 +10,7 @@ export type RosettaDepsType = {
   Client: typeof ClientToken.optional,
   config: typeof ConfigToken.optional,
   localeNegotiation: typeof LocaleNegotiationToken.optional,
+  getTranslations: typeof GetTranslationsToken.optional,
 };
 export type RosettaType = Rosetta;
 
@@ -19,13 +20,16 @@ export type RosettaConfigType = {
   fixturesDir?: string,
 };
 export type RosettaLocaleNegotiationType = (Context, any) => any;
+export type RosettaGetTranslationsType = (client: any, locale: any) => any;
+
+export type TranslationsType = {[key: string]: string}
 
 export type RosettaServiceType = {
   from: (
     ctx: Context
   ) => {
     locale: any,
-    translations: {[key: string]: string},
+    translations: TranslationsType,
   },
 };
 
@@ -35,6 +39,6 @@ export type InternalRosettaServiceType = {
     ctx: Context
   ) => {
     locale: any,
-    translations: {[key: string]: string},
+    translations: TranslationsType,
   },
 };

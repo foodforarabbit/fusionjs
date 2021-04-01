@@ -11,8 +11,8 @@ import {createPlugin, memoize} from 'fusion-core';
 import type {Context} from 'fusion-core';
 import {LoggerToken} from 'fusion-tokens';
 
-import {ClientToken, ConfigToken, LocaleNegotiationToken} from './tokens';
-import getTranslations from './fallback';
+import {ClientToken, ConfigToken, LocaleNegotiationToken, GetTranslationsToken} from './tokens';
+import defaultGetTranslations from './get-translations';
 
 type ExtractReturnType = <R>(() => R) => R;
 
@@ -49,18 +49,19 @@ function defaultLocaleNegotiationStrategy(
 
 function translationsLoaderFactory(
   client: any,
-  localeNegotiationStrategy: (ctx: Context, supportedLocales: any) => any
+  localeNegotiationStrategy: (ctx: Context, supportedLocales: any) => any,
+  getTranslations: any
 ): (ctx: Context) => TranslationsLoader {
   const supportedLocales = new Locales(client.locales, 'en');
 
   return (ctx: Context): TranslationsLoader => {
     const locale = localeNegotiationStrategy(ctx, supportedLocales);
 
-    const normalizedLocale = locale.normalized;
+
     // getTranslations gets the translation with a fallback strategy
     const translations = getTranslations(
       client,
-      normalizedLocale && normalizedLocale.replace('_', '-')
+      locale
     );
 
     return new TranslationsLoader({locale, translations});
@@ -74,9 +75,10 @@ const pluginFactory = () =>
       Client: ClientToken.optional,
       config: ConfigToken.optional,
       localeNegotiation: LocaleNegotiationToken.optional,
+      getTranslations: GetTranslationsToken.optional,
     },
 
-    provides: ({logger, Client = Rosetta, config = {}, localeNegotiation}) => {
+    provides: ({logger, Client = Rosetta, config = {}, localeNegotiation, getTranslations = defaultGetTranslations}) => {
       config.service = config.service || process.env.SVC_ID || 'dev-service';
       const client = new Client({logger, ...config});
 
@@ -98,7 +100,7 @@ const pluginFactory = () =>
           const realLocaleNegotiationStrategy =
             localeNegotiation || defaultLocaleNegotiationStrategy;
           API.from = memoize(
-            translationsLoaderFactory(client, realLocaleNegotiationStrategy)
+            translationsLoaderFactory(client, realLocaleNegotiationStrategy, getTranslations)
           );
         });
 

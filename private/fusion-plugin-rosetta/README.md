@@ -60,6 +60,35 @@ export default () => {
 
 This ensures that the translations provided by `fusion-plugin-i18n` are powered by Genghis.  See `fusion-plugin-i18n`'s [dependencies documentation](https://github.com/fusionjs/fusion-plugin-i18n#dependencies) for more details.
 
+For additional performance enhancements, we have created optional tokens to significantly speed up translation key processing on the server.  This will be most noticable for services that subscribe to a larger number of keys.
+
+```js
+// src/main.js
+import I18n, {
+  I18nTranslateFnsToken,
+} from 'fusion-plugin-i18n-react';
+
+
+import FusionRosetta, {
+  GetTranslationsToken,
+  getTranslationsV2,
+  translateKeyV2,
+  translateKeysV2,
+} from '@uber/fusion-plugin-rosetta';
+
+export default () => {
+  ...
+  if (__NODE__) {
+    app.register(I18nTranslateFnsToken, {
+      translateKeys: translateKeysV2,
+      translateKey: translateKeyV2,
+    });
+    app.register(GetTranslationsToken, getTranslationsV2);
+  }
+  ...
+}
+```
+
 ---
 
 ### Setup

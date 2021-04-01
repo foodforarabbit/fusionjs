@@ -1,7 +1,10 @@
 // @flow
 
 // the fallback logic is same from go-rosetta
-const getTranslations = (client: any, targetLocale: string) => {
+const getTranslations = (client: any, locale: any) => {
+  const normalizedLocale = locale.normalized;
+  const targetLocale = normalizedLocale.replace('_', '-');
+
   if (
     !client ||
     !client.translations ||

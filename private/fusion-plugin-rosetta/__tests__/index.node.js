@@ -38,7 +38,6 @@ test('Rosetta plugin', async () => {
   app.register(RosettaToken, plugin);
   // $FlowFixMe
   app.register(LoggerToken, 'mock-logger');
-  // $FlowFixMe
   app.register(ClientToken, Client);
   // $FlowFixMe
   app.register(ConfigToken, {thing: 'test'});
