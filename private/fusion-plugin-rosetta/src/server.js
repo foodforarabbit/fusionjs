@@ -2,7 +2,7 @@
 /* eslint-env node */
 import type {RosettaDepsType, InternalRosettaServiceType} from './types';
 
-import {Locales} from 'locale';
+import {Locale, Locales} from 'locale';
 
 // $FlowFixMe
 import Rosetta from '@uber/node-rosetta';
@@ -17,7 +17,7 @@ import defaultGetTranslations from './get-translations';
 type ExtractReturnType = <R>(() => R) => R;
 
 class TranslationsLoader {
-  locale: any;
+  locale: Locale;
   translations: any;
 
   constructor({locale, translations}) {
@@ -40,7 +40,7 @@ class TranslationsLoader {
  */
 function defaultLocaleNegotiationStrategy(
   ctx: Context,
-  supportedLocales: any
+  supportedLocales: Locales
 ): any {
   const locale = ctx.query.localeCode || ctx.headers['accept-language'];
   const expectedLocales = new Locales(locale);
