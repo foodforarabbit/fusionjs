@@ -5401,7 +5401,7 @@ __metadata:
     fusion-core: 0.0.0-monorepo
     fusion-tokens: 0.0.0-monorepo
   bin:
-    update-flipr-bootstrap: bin/update-flipr-bootstrap.sh
+    update-flipr-bootstrap: bin/update-flipr-bootstrap.js
   languageName: unknown
   linkType: soft
 

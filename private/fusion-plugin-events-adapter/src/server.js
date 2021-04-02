@@ -9,10 +9,13 @@ import {AuthHeadersToken} from '@uber/fusion-plugin-auth-headers';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {LoggerToken} from 'fusion-tokens';
 import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+import {EventsAdapterMiddlewareTimingAllowListToken} from './tokens';
 
 import type {FusionPlugin} from 'fusion-core';
 
-import HeatpipeEmitter from './emitters/heatpipe-emitter';
+import HeatpipeEmitter, {
+  middlewareTimingTopicInfo,
+} from './emitters/heatpipe-emitter';
 
 import nodePerformance from './handlers/node-performance';
 import browserPerformance from './handlers/browser-performance';
@@ -21,11 +24,11 @@ import pageViewBrowser from './handlers/page-view-browser';
 import reduxAction from './handlers/redux-action';
 import routeTiming from './handlers/route-timing';
 import rpc from './handlers/rpc';
-import AccessLog from './utils/access-log.js';
 import accessLogHandler from './handlers/access-log';
 
-import type {EventsAdapterDepsType, EventsAdapterType} from './types.js';
+import type {EventsAdapterDepsType, EventsAdapterType} from './types';
 
+import AccessLog from './utils/access-log';
 import {M3_ROUTE_METRICS_VERSION as version} from './utils/constants';
 
 const plugin =
@@ -40,6 +43,8 @@ const plugin =
       heatpipe: HeatpipeToken,
       logger: LoggerToken,
       RouteTags: RouteTagsToken,
+      middlewareTimingAllowList:
+        EventsAdapterMiddlewareTimingAllowListToken.optional,
     },
     provides: ({
       events,
@@ -78,13 +83,16 @@ const plugin =
             m3.timing(key, value, tags);
           };
         },
+        emitHeatpipe(payload) {
+          return heatpipeEmitter.publish(payload);
+        },
       };
     },
-    middleware: ({logger, events, RouteTags}, service) => async (
-      ctx: Object,
-      next: () => Promise<void>
-    ) => {
-      const {logTiming} = service;
+    middleware: (
+      {logger, events, RouteTags, middlewareTimingAllowList},
+      service
+    ) => async (ctx: Object, next: () => Promise<void>) => {
+      const {logTiming, emitHeatpipe} = service;
       const accessLog = AccessLog(events.from(ctx));
       ctx.timing.end.then(timing => {
         const routeTag = RouteTags.from(ctx).name;
@@ -112,6 +120,18 @@ const plugin =
 
         ctx.timing.downstream.then(logTiming('downstream', tags));
         ctx.timing.upstream.then(logTiming('upstream', tags));
+
+        // Log middleware timing
+        if ((middlewareTimingAllowList || []).includes(ctx.url)) {
+          emitHeatpipe({
+            topicInfo: middlewareTimingTopicInfo,
+            message: {
+              serviceName: process.env.SVC_ID || '',
+              url: ctx.url,
+              middleware: ctx.timing.middleware,
+            },
+          });
+        }
       });
 
       return next();

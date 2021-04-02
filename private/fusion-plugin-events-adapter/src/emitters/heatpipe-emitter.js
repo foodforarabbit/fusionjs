@@ -13,6 +13,16 @@ export const webTopicInfo = {
   version: 20,
 };
 
+export const middlewareTimingTopicInfo = {
+  topic: 'hp-web-performance-middleware-timing',
+  version: 2,
+};
+
+export type TopicInfo = {
+  topic: string,
+  version: number,
+};
+
 type HeatpipeArgs = {
   logger: Logger,
   // TODO: HeatpipeEmitter Plugin typing
@@ -50,7 +60,7 @@ export default function({
   runtime,
 }: HeatpipeArgs) {
   const HeatpipeEmitter: HeatpipeEmitter = {
-    publish: (payload: {topicInfo: Object, message: Object}) => {
+    publish: (payload: {topicInfo: TopicInfo, message: Object}) => {
       heatpipe.asyncPublish(payload.topicInfo, payload.message).catch(e => {
         logger.error('Failed to publish events to heatpipe', e);
       });

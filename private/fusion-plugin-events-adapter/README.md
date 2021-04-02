@@ -102,6 +102,15 @@ import {EventsAdapterToken} from '@uber/fusion-plugin-events-adapter';
 
 Should be registered with [`EventsAdapter`](#eventsadapter)
 
+##### `EventsAdapterMiddlewareTimingAllowListToken`
+
+```js
+import {EventsAdapterMiddlewareTimingAllowListToken} from '@uber/fusion-plugin-events-adapter';
+```
+
+Optional. The value registered is an array of URLs that will allow for measuring middleware timing.
+See the RFC [here](https://github.com/uber/fusionjs/blob/master/public/rfcs/text/0000-middleware-timing.md).
+
 #### Dependencies
 
 ##### `AnalyticsSessionToken`

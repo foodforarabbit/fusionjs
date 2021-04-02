@@ -2,6 +2,7 @@
 
 import type {I18nServiceType} from 'fusion-plugin-i18n';
 import type {Context} from 'fusion-core';
+import type {TopicInfo} from './emitters/heatpipe-emitter';
 
 import {RouteTagsToken} from 'fusion-core';
 import {UniversalEventsToken} from 'fusion-plugin-universal-events';
@@ -12,6 +13,7 @@ import {AuthHeadersToken} from '@uber/fusion-plugin-auth-headers';
 import {M3Token} from '@uber/fusion-plugin-m3';
 import {LoggerToken} from 'fusion-tokens';
 import {HeatpipeToken} from '@uber/fusion-plugin-heatpipe';
+import {EventsAdapterMiddlewareTimingAllowListToken} from './tokens';
 
 export interface EventEmitter {
   on(event: string, handler: (Object) => any): any;
@@ -40,9 +42,11 @@ export type EventsAdapterDepsType = {
   heatpipe: typeof HeatpipeToken,
   logger: typeof LoggerToken,
   RouteTags: typeof RouteTagsToken,
+  middlewareTimingAllowList: typeof EventsAdapterMiddlewareTimingAllowListToken.optional,
 };
 export type EventsAdapterType = {
   logTiming: (string, {[string]: mixed}) => number => void,
+  emitHeatpipe: ({topicInfo: TopicInfo, message: Object}) => void,
 };
 
 export type EventsAdapterAnalyticsType = {
@@ -50,5 +54,7 @@ export type EventsAdapterAnalyticsType = {
     pageview: any => void,
   },
 };
+
+export type EventsAdapterMiddlewareTimingAllowListType = Array<string>;
 
 export type {I18nServiceType};
