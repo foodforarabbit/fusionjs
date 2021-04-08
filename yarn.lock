@@ -5416,7 +5416,7 @@ __metadata:
     "@uber/fusion-plugin-m3": 0.0.0-monorepo
     "@uber/fusion-plugin-tracer": 0.0.0-monorepo
     "@uber/jaeger-client": ^4.0.0
-    "@uber/unpm-galileo": ^2.0.0
+    "@uber/unpm-galileo": ^3.0.0
     babel-eslint: ^10.0.3
     babel-plugin-istanbul: ^5.1.4
     create-universal-package: ^4.1.0
@@ -6819,26 +6819,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uber/unpm-galileo@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@uber/unpm-galileo@npm:2.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-2.0.0.tgz"
+"@uber/unpm-galileo@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@uber/unpm-galileo@npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-3.0.0.tgz"
   dependencies:
-    "@uber/unpm-wonka": ^2.4.2
+    "@uber/unpm-wonka": ^3.0.0
     lru-cache: ^4.1.1
-  checksum: 37d0218fb7b476f8f7d811e39e1936c4d95a5c425a64b8c62512c0e3ca9be737654681e7adf7e5ecf256826cb90bbbf73ab0795128564db8ebf228776300e408
+  checksum: 4a9c3fd423fcb1f57c3a3d97568bf60932605efa4fc2c3b04b2ed3cd615157445dc0c06cf5f8d7e5e7f628c197beef765460af5e6038e6667f412bee29c34487
   languageName: node
   linkType: hard
 
-"@uber/unpm-wonka@npm:^2.4.2":
-  version: 2.4.3
-  resolution: "@uber/unpm-wonka@npm:2.4.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-wonka%2F-%2Fprivate%2F%2540uber%252Funpm-wonka-2.4.3.tgz"
+"@uber/unpm-wonka@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@uber/unpm-wonka@npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-wonka%2F-%2Fprivate%2F%2540uber%252Funpm-wonka-3.0.0.tgz"
   dependencies:
     "@uber/libwonka": 0.13.3
     es6-promise: ^3.0.2
-    ffi-napi: ^2.4.5
-    ref-napi: ^1.4.2
-    ref-struct-napi: 1.1.0
-  checksum: f136500fc3e6763c8ce6975cb1542e10995b50cf1ea17c4e537e2e55dc3e3ad7048de0970ebbde3808e9400140ee6cc214d213d46cdec17bf5980c7b08612965
+    ffi-napi: ^4.0.3
+    ref-napi: ^2.0.1
+    ref-struct-di: 1.1.1
+  checksum: ea41aa234935652684e14768e14a0be152aeb47c631eb8b03f5d40cde14315886e074836488448578653efe940bf470644a395275bbe4dc42eba9862a7ef4ef1
   languageName: node
   linkType: hard
 
@@ -12849,7 +12849,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:2, debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.6, debug@npm:^2.6.8, debug@npm:^2.6.9":
+"debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.6, debug@npm:^2.6.8, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
   dependencies:
@@ -15231,18 +15231,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ffi-napi@npm:^2.4.5":
-  version: 2.5.0
-  resolution: "ffi-napi@npm:2.5.0"
+"ffi-napi@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "ffi-napi@npm:4.0.3"
   dependencies:
-    debug: ^3.1.0
+    debug: ^4.1.1
     get-uv-event-loop-napi-h: ^1.0.5
-    node-addon-api: 1.6.1
+    node-addon-api: ^3.0.0
     node-gyp: latest
     node-gyp-build: ^4.2.1
-    ref-napi: ^1.5.2
+    ref-napi: ^2.0.1 || ^3.0.2
     ref-struct-di: ^1.1.0
-  checksum: 047e34b2ae2b3d4e7a363483468bc8f8dc89f9e6710c20876a7c187de6e42f0c8a430d50efa0ad9b8da93ed22ffa6799a761cf1c284700610ae51d178a390e04
+  checksum: 4cbfe9690f37a644a477cf3a0527802d1edcc3b655134963945844896bdee8e34f096d50b3ccef517d458985f11cc7613a1977c50536756c268a993719754042
   languageName: node
   linkType: hard
 
@@ -17569,7 +17569,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"get-symbol-from-current-process-h@npm:^1.0.1":
+"get-symbol-from-current-process-h@npm:^1.0.1, get-symbol-from-current-process-h@npm:^1.0.2":
   version: 1.0.2
   resolution: "get-symbol-from-current-process-h@npm:1.0.2"
   checksum: 6fe90a87893e28ddd071765ff631ced40ab80fd6ee564459867e59db0fc7e61afb93888a0185d7c7174c0171f72c30ff13504260192d7c56e42b43a2fdbcf6db
@@ -23942,15 +23942,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"node-addon-api@npm:1.6.1":
-  version: 1.6.1
-  resolution: "node-addon-api@npm:1.6.1"
-  dependencies:
-    node-gyp: latest
-  checksum: 8ec44d3f6f08929e8092432e347a1b27b95bb71e95eda5b122421f0203d0bca695f58378b52049e512a45aa02bd4b25838272e9838e2c707aebaaf0289cb536c
-  languageName: node
-  linkType: hard
-
 "node-addon-api@npm:^1.7.1":
   version: 1.7.2
   resolution: "node-addon-api@npm:1.7.2"
@@ -23966,6 +23957,15 @@ fsevents@~2.1.2:
   dependencies:
     node-gyp: latest
   checksum: c40748948918fc82b83a9f3442a98f4fa92bd9786bb1d1b507facf77a22fb7a4b5b9332102f6ad94c7e2828ae3cd353907cbaa8eaf4ce9c5edaa9d327d501301
+  languageName: node
+  linkType: hard
+
+"node-addon-api@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "node-addon-api@npm:3.1.0"
+  dependencies:
+    node-gyp: latest
+  checksum: 9b5c1f5f24acb9255fd47914b0f0b80c76d735b7b91611366cd30217f8ead5fafcd1cfeb65e467612b40420b6ad3faf1e7fa3666bd4e15a2bdf1762748f3fa8a
   languageName: node
   linkType: hard
 
@@ -27742,36 +27742,39 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ref-napi@npm:^1.4.2, ref-napi@npm:^1.5.2":
-  version: 1.5.2
-  resolution: "ref-napi@npm:1.5.2"
+"ref-napi@npm:^2.0.1":
+  version: 2.1.2
+  resolution: "ref-napi@npm:2.1.2"
   dependencies:
-    debug: ^3.1.0
+    debug: ^4.1.1
+    get-symbol-from-current-process-h: ^1.0.2
     node-addon-api: ^2.0.0
     node-gyp: latest
     node-gyp-build: ^4.2.1
-  checksum: b1b03e2ccd6191c5c26e3eaff7a2fd492dc88446944dbc4b0a77903bf7d450db3f12865355003f0bcd7cc381a13ee39f49bc4a455628cbdadfd3d5d0df08007c
+  checksum: f022a61c20af4353e55facecc23d2797279909c20c2da6cacac6b2581172e0b1e77449223e8f304fb74f8e193afc400cc0ab101b8644455c70f39a847617863e
   languageName: node
   linkType: hard
 
-"ref-struct-di@npm:^1.1.0":
+"ref-napi@npm:^2.0.1 || ^3.0.2":
+  version: 3.0.2
+  resolution: "ref-napi@npm:3.0.2"
+  dependencies:
+    debug: ^4.1.1
+    get-symbol-from-current-process-h: ^1.0.2
+    node-addon-api: ^2.0.0
+    node-gyp: latest
+    node-gyp-build: ^4.2.1
+  checksum: 0004bcf179e9cf625db04ac3732d54474032c7d683c54ad20c822a9fa37d6a36ce8834d2eda12cc9650cdd03068a9634f9a275200448b64a02058a51eef3e3b0
+  languageName: node
+  linkType: hard
+
+"ref-struct-di@npm:1.1.1, ref-struct-di@npm:^1.1.0":
   version: 1.1.1
   resolution: "ref-struct-di@npm:1.1.1"
   dependencies:
     debug: ^3.1.0
     node-gyp: latest
   checksum: d0ab8765e2fe31330164b79b937ec48c23045254732ff33265228288e8e1d1227d9e045ef8ff9ae362b2404958af2d092a1cad4bbd4e64af8e487984d79f8e88
-  languageName: node
-  linkType: hard
-
-"ref-struct-napi@npm:1.1.0":
-  version: 1.1.0
-  resolution: "ref-struct-napi@npm:1.1.0"
-  dependencies:
-    debug: 2
-    node-gyp: latest
-    ref-napi: ^1.4.2
-  checksum: 38b7c608ddb0231d3c78c257a26934be960b2ebe43bdf6e8e1ffee530400d6864edfc33ddb7c3ece3b7b09bacfa3b7ce70e4e146a32ef866ccec16f273c2b98d
   languageName: node
   linkType: hard
 

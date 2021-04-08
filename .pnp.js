@@ -8765,7 +8765,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@uber/fusion-plugin-m3", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-m3"],
             ["@uber/fusion-plugin-tracer", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-tracer"],
             ["@uber/jaeger-client", "npm:4.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fjaeger-client%2F-%2Fprivate%2F%2540uber%252Fjaeger-client-4.1.0.tgz"],
-            ["@uber/unpm-galileo", "npm:2.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-2.0.0.tgz"],
+            ["@uber/unpm-galileo", "npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-3.0.0.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["babel-plugin-istanbul", "npm:5.2.0"],
             ["create-universal-package", "npm:4.1.1"],
@@ -8811,7 +8811,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@uber/fusion-plugin-m3", "virtual:7ed4335d9989ea6844ceeae18a8d7c559b65105ea52c62c0cec8553710310ed28c915dd202e6b39e35b2b1d020ea60d67f52297452f0b9935b6507c641087e62#workspace:private/fusion-plugin-m3"],
             ["@uber/fusion-plugin-tracer", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-tracer"],
             ["@uber/jaeger-client", "npm:4.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fjaeger-client%2F-%2Fprivate%2F%2540uber%252Fjaeger-client-4.1.0.tgz"],
-            ["@uber/unpm-galileo", "npm:2.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-2.0.0.tgz"],
+            ["@uber/unpm-galileo", "npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-3.0.0.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["babel-plugin-istanbul", "npm:5.2.0"],
             ["create-universal-package", "npm:4.1.1"],
@@ -8858,7 +8858,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@uber/fusion-plugin-m3", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-m3"],
             ["@uber/fusion-plugin-tracer", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-tracer"],
             ["@uber/jaeger-client", "npm:4.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fjaeger-client%2F-%2Fprivate%2F%2540uber%252Fjaeger-client-4.1.0.tgz"],
-            ["@uber/unpm-galileo", "npm:2.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-2.0.0.tgz"],
+            ["@uber/unpm-galileo", "npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-3.0.0.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["babel-plugin-istanbul", "npm:5.2.0"],
             ["create-universal-package", "npm:4.1.1"],
@@ -8901,7 +8901,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@uber/fusion-plugin-m3", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-m3"],
             ["@uber/fusion-plugin-tracer", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-tracer"],
             ["@uber/jaeger-client", "npm:4.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fjaeger-client%2F-%2Fprivate%2F%2540uber%252Fjaeger-client-4.1.0.tgz"],
-            ["@uber/unpm-galileo", "npm:2.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-2.0.0.tgz"],
+            ["@uber/unpm-galileo", "npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-3.0.0.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["babel-plugin-istanbul", "npm:5.2.0"],
             ["create-universal-package", "npm:4.1.1"],
@@ -11283,26 +11283,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@uber/unpm-galileo", [
-        ["npm:2.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-2.0.0.tgz", {
-          "packageLocation": "./.yarn/cache/@uber-unpm-galileo-npm-2.0.0-c98af23cf1-37d0218fb7.zip/node_modules/@uber/unpm-galileo/",
+        ["npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-3.0.0.tgz", {
+          "packageLocation": "./.yarn/cache/@uber-unpm-galileo-npm-3.0.0-3b8fb73d2d-4a9c3fd423.zip/node_modules/@uber/unpm-galileo/",
           "packageDependencies": [
-            ["@uber/unpm-galileo", "npm:2.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-2.0.0.tgz"],
-            ["@uber/unpm-wonka", "npm:2.4.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-wonka%2F-%2Fprivate%2F%2540uber%252Funpm-wonka-2.4.3.tgz"],
+            ["@uber/unpm-galileo", "npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-galileo%2F-%2Fprivate%2F%2540uber%252Funpm-galileo-3.0.0.tgz"],
+            ["@uber/unpm-wonka", "npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-wonka%2F-%2Fprivate%2F%2540uber%252Funpm-wonka-3.0.0.tgz"],
             ["lru-cache", "npm:4.1.5"]
           ],
           "linkType": "HARD",
         }]
       ]],
       ["@uber/unpm-wonka", [
-        ["npm:2.4.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-wonka%2F-%2Fprivate%2F%2540uber%252Funpm-wonka-2.4.3.tgz", {
-          "packageLocation": "./.yarn/cache/@uber-unpm-wonka-npm-2.4.3-98e9d9679a-f136500fc3.zip/node_modules/@uber/unpm-wonka/",
+        ["npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-wonka%2F-%2Fprivate%2F%2540uber%252Funpm-wonka-3.0.0.tgz", {
+          "packageLocation": "./.yarn/cache/@uber-unpm-wonka-npm-3.0.0-638c58e7cb-ea41aa2349.zip/node_modules/@uber/unpm-wonka/",
           "packageDependencies": [
-            ["@uber/unpm-wonka", "npm:2.4.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-wonka%2F-%2Fprivate%2F%2540uber%252Funpm-wonka-2.4.3.tgz"],
+            ["@uber/unpm-wonka", "npm:3.0.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Funpm-wonka%2F-%2Fprivate%2F%2540uber%252Funpm-wonka-3.0.0.tgz"],
             ["@uber/libwonka", "npm:0.13.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Flibwonka%2F-%2Fprivate%2F%2540uber%252Flibwonka-0.13.3.tgz"],
             ["es6-promise", "npm:3.3.1"],
-            ["ffi-napi", "npm:2.5.0"],
-            ["ref-napi", "npm:1.5.2"],
-            ["ref-struct-napi", "npm:1.1.0"]
+            ["ffi-napi", "npm:4.0.3"],
+            ["ref-napi", "npm:2.1.2"],
+            ["ref-struct-di", "npm:1.1.1"]
           ],
           "linkType": "HARD",
         }]
@@ -21234,16 +21234,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ffi-napi", [
-        ["npm:2.5.0", {
-          "packageLocation": "./.yarn/unplugged/ffi-napi-npm-2.5.0-aa0804edf6/node_modules/ffi-napi/",
+        ["npm:4.0.3", {
+          "packageLocation": "./.yarn/unplugged/ffi-napi-npm-4.0.3-fb70453a70/node_modules/ffi-napi/",
           "packageDependencies": [
-            ["ffi-napi", "npm:2.5.0"],
-            ["debug", "virtual:4248438d52dae4f796f8ae7839807024b795f7c70ddf4cbb58a4d6330ce027df2b3c8481d65b7430d525478785f68212512cd0d537d63bda0f170167a0f757f6#npm:3.2.6"],
+            ["ffi-napi", "npm:4.0.3"],
+            ["debug", "virtual:44e47d74364261949c45fe4bf49f62dc5cbc02b526c70f2a5e5e635d8676dd6a3f0ba61699c29a691d17954372f1076cd8c65f9055cfdf313afbbcc8670ec72e#npm:4.3.0"],
             ["get-uv-event-loop-napi-h", "npm:1.0.6"],
-            ["node-addon-api", "npm:1.6.1"],
+            ["node-addon-api", "npm:3.1.0"],
             ["node-gyp", "npm:7.1.2"],
             ["node-gyp-build", "npm:4.2.3"],
-            ["ref-napi", "npm:1.5.2"],
+            ["ref-napi", "npm:3.0.2"],
             ["ref-struct-di", "npm:1.1.1"]
           ],
           "linkType": "HARD",
@@ -32584,14 +32584,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["node-addon-api", [
-        ["npm:1.6.1", {
-          "packageLocation": "./.yarn/unplugged/node-addon-api-npm-1.6.1-c6450b9b94/node_modules/node-addon-api/",
-          "packageDependencies": [
-            ["node-addon-api", "npm:1.6.1"],
-            ["node-gyp", "npm:7.1.2"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:1.7.2", {
           "packageLocation": "./.yarn/unplugged/node-addon-api-npm-1.7.2-c341ccaeb6/node_modules/node-addon-api/",
           "packageDependencies": [
@@ -32604,6 +32596,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/unplugged/node-addon-api-npm-2.0.2-8c2c1e9782/node_modules/node-addon-api/",
           "packageDependencies": [
             ["node-addon-api", "npm:2.0.2"],
+            ["node-gyp", "npm:7.1.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:3.1.0", {
+          "packageLocation": "./.yarn/unplugged/node-addon-api-npm-3.1.0-a15037f88c/node_modules/node-addon-api/",
+          "packageDependencies": [
+            ["node-addon-api", "npm:3.1.0"],
             ["node-gyp", "npm:7.1.2"]
           ],
           "linkType": "HARD",
@@ -36938,11 +36938,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ref-napi", [
-        ["npm:1.5.2", {
-          "packageLocation": "./.yarn/unplugged/ref-napi-npm-1.5.2-bc6c1bcdd5/node_modules/ref-napi/",
+        ["npm:2.1.2", {
+          "packageLocation": "./.yarn/unplugged/ref-napi-npm-2.1.2-012f86d45f/node_modules/ref-napi/",
           "packageDependencies": [
-            ["ref-napi", "npm:1.5.2"],
-            ["debug", "virtual:4248438d52dae4f796f8ae7839807024b795f7c70ddf4cbb58a4d6330ce027df2b3c8481d65b7430d525478785f68212512cd0d537d63bda0f170167a0f757f6#npm:3.2.6"],
+            ["ref-napi", "npm:2.1.2"],
+            ["debug", "virtual:44e47d74364261949c45fe4bf49f62dc5cbc02b526c70f2a5e5e635d8676dd6a3f0ba61699c29a691d17954372f1076cd8c65f9055cfdf313afbbcc8670ec72e#npm:4.3.0"],
+            ["get-symbol-from-current-process-h", "npm:1.0.2"],
+            ["node-addon-api", "npm:2.0.2"],
+            ["node-gyp", "npm:7.1.2"],
+            ["node-gyp-build", "npm:4.2.3"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:3.0.2", {
+          "packageLocation": "./.yarn/unplugged/ref-napi-npm-3.0.2-378daa842c/node_modules/ref-napi/",
+          "packageDependencies": [
+            ["ref-napi", "npm:3.0.2"],
+            ["debug", "virtual:44e47d74364261949c45fe4bf49f62dc5cbc02b526c70f2a5e5e635d8676dd6a3f0ba61699c29a691d17954372f1076cd8c65f9055cfdf313afbbcc8670ec72e#npm:4.3.0"],
+            ["get-symbol-from-current-process-h", "npm:1.0.2"],
             ["node-addon-api", "npm:2.0.2"],
             ["node-gyp", "npm:7.1.2"],
             ["node-gyp-build", "npm:4.2.3"]
@@ -36957,18 +36970,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ref-struct-di", "npm:1.1.1"],
             ["debug", "virtual:4248438d52dae4f796f8ae7839807024b795f7c70ddf4cbb58a4d6330ce027df2b3c8481d65b7430d525478785f68212512cd0d537d63bda0f170167a0f757f6#npm:3.2.6"],
             ["node-gyp", "npm:7.1.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["ref-struct-napi", [
-        ["npm:1.1.0", {
-          "packageLocation": "./.yarn/cache/ref-struct-napi-npm-1.1.0-36e29941ec-38b7c608dd.zip/node_modules/ref-struct-napi/",
-          "packageDependencies": [
-            ["ref-struct-napi", "npm:1.1.0"],
-            ["debug", "virtual:6e177cabfad012f413f9c41366539c04d8701f0567119998690ab02224012faa99ec3a16b9f74f4d7920ab472c12b3e70f47f8f143239c06d0e2569e60ed9f62#npm:2.6.9"],
-            ["node-gyp", "npm:7.1.2"],
-            ["ref-napi", "npm:1.5.2"]
           ],
           "linkType": "HARD",
         }]
