@@ -690,7 +690,7 @@ declare module 'webpack/lib/JavascriptModulesPlugin' {
   declare module.exports: any;
 }
 
-declare module 'webpack/lib/JsonGenerator' {
+declare module 'webpack/lib/json/JsonGenerator' {
   declare module.exports: any;
 }
 
@@ -698,7 +698,7 @@ declare module 'webpack/lib/JsonModulesPlugin' {
   declare module.exports: any;
 }
 
-declare module 'webpack/lib/JsonParser' {
+declare module 'webpack/lib/json/JsonParser' {
   declare module.exports: any;
 }
 
@@ -1760,14 +1760,14 @@ declare module 'webpack/lib/JavascriptGenerator.js' {
 declare module 'webpack/lib/JavascriptModulesPlugin.js' {
   declare module.exports: $Exports<'webpack/lib/JavascriptModulesPlugin'>;
 }
-declare module 'webpack/lib/JsonGenerator.js' {
-  declare module.exports: $Exports<'webpack/lib/JsonGenerator'>;
+declare module 'webpack/lib/json/JsonGenerator.js' {
+  declare module.exports: $Exports<'webpack/lib/json/JsonGenerator'>;
 }
 declare module 'webpack/lib/JsonModulesPlugin.js' {
   declare module.exports: $Exports<'webpack/lib/JsonModulesPlugin'>;
 }
-declare module 'webpack/lib/JsonParser.js' {
-  declare module.exports: $Exports<'webpack/lib/JsonParser'>;
+declare module 'webpack/lib/json/JsonParser.js' {
+  declare module.exports: $Exports<'webpack/lib/json/JsonParser'>;
 }
 declare module 'webpack/lib/LibManifestPlugin.js' {
   declare module.exports: $Exports<'webpack/lib/LibManifestPlugin'>;

@@ -26,7 +26,7 @@ test("Fusion server proxies to s3 for non-local assets", async () => {
 
 test("Fusion server still serves local assets", async () => {
   const res = await fetch(
-    `http://localhost:${fusionPort}/_static/351b4d087e0f0a0ad4cfe12d785fd9c9.json`
+    `http://localhost:${fusionPort}/_static/7cfda5976e74da78a2a5a3fcb9cde75b.json`
   );
   expect(res.status).toBe(200);
   const json = await res.json();
