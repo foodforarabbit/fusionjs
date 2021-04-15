@@ -35,6 +35,7 @@
     "public/jest-resolver-fusion",
     "public/fusion-plugin-web-app-manifest",
     "private/fusion-plugin-web-rpc-compat",
+    "private/fusion-plugin-web-analytics",
     "private/fusion-plugin-universal-m3-compat",
     "private/fusion-plugin-universal-logger-compat",
     "private/fusion-plugin-uber-xhr-compat",

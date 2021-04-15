@@ -1,0 +1,83 @@
+{
+  "name": "@uber/fusion-plugin-web-analytics",
+  "description": "Fusion.js plugin for unified web analytics at Uber",
+  "version": "0.0.0-monorepo",
+  "author": "Web Platform Team <eng-web-platform@uber.com>",
+  "repository": {
+    "directory": "private/fusion-plugin-web-analytics",
+    "type": "git",
+    "url": "https://github.com/uber/fusionjs"
+  },
+  "license": "UNLICENSED",
+  "sideEffects": false,
+  "scripts": {
+    "clean": "cup-clean",
+    "lint": "eslint . --ignore-path .gitignore",
+    "flow": "flow",
+    "prepack": "cup-build --force-flow",
+    "test": "jest",
+    "cover": "yarn lint && yarn flow && yarn test"
+  },
+  "dependencies": {
+    "@uber/fusion-analyticsjs-utils": "0.0.0-monorepo",
+    "dottie": "^2.0.1",
+    "isobject": "^3.0.1",
+    "just-extend": "^4.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-flow-strip-types": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.8.3",
+    "@uber/fusion-plugin-flipr": "0.0.0-monorepo",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
+    "create-universal-package": "^4.1.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "eslint": "^6.8.0",
+    "eslint-config-fusion": "0.0.0-monorepo",
+    "eslint-plugin-cup": "^2.0.2",
+    "eslint-plugin-flowtype": "^4.6.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "flow-bin": "^0.109.0",
+    "fusion-core": "0.0.0-monorepo",
+    "fusion-plugin-universal-events": "0.0.0-monorepo",
+    "fusion-react": "0.0.0-monorepo",
+    "fusion-test-utils": "0.0.0-monorepo",
+    "jest": "^25.1.0",
+    "jest-environment-jsdom-global": "^1.2.0",
+    "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "redux": "^4.0.5"
+  },
+  "peerDependencies": {
+    "@uber/fusion-plugin-flipr": "0.0.0-monorepo",
+    "fusion-core": "0.0.0-monorepo",
+    "fusion-react": "0.0.0-monorepo",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "redux": ">=4.0.0"
+  },
+  "main": "./dist-node-cjs/index.js",
+  "module": "./dist-node-esm/index.js",
+  "browser": {
+    "./dist-node-cjs/index.js": "./dist-browser-cjs/index.js",
+    "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
+  },
+  "engines": {
+    "node": ">=8.9.0",
+    "npm": ">=5.0.0",
+    "yarn": ">=1.0.0"
+  },
+  "files": [
+    "dist-*",
+    "src",
+    "!__tests__"
+  ]
+}

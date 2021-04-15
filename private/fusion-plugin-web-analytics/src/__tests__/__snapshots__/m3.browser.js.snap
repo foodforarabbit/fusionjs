@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`M3 1`] = `
+Object {
+  "_eventContext": Object {
+    "payload": undefined,
+    "redux": Object {},
+    "window": Object {
+      "document": Object {
+        "cookie": Array [],
+      },
+      "referrer": undefined,
+    },
+  },
+  "eventKey": "CREATE_USER_SUCCESS",
+  "eventPayload": undefined,
+  "type": "fusion-plugin-web-analytics.dispatch",
+}
+`;
+
+exports[`M3 2`] = `
+Object {
+  "destinationKey": "m3Test",
+  "dispatchValue": Object {
+    "key": "m3.test.1",
+    "tags": Object {
+      "success": true,
+    },
+  },
+  "eventKey": "CREATE_USER_SUCCESS",
+  "type": "fusion-plugin-web-analytics.destinationDispatch",
+}
+`;
+
+exports[`M3 3`] = `
+Array [
+  "m3:increment",
+  Object {
+    "key": "m3.test.1",
+    "tags": Object {
+      "success": true,
+    },
+  },
+]
+`;
+
+exports[`Nested schema for M3 1`] = `
+Object {
+  "_eventContext": Object {
+    "payload": Object {
+      "data": "test-1",
+    },
+    "redux": Object {},
+    "window": Object {
+      "document": Object {
+        "cookie": Array [],
+      },
+      "referrer": undefined,
+    },
+  },
+  "eventKey": "CREATE_USER_SUCCESS",
+  "eventPayload": Object {
+    "data": "test-1",
+  },
+  "type": "fusion-plugin-web-analytics.dispatch",
+}
+`;
+
+exports[`Nested schema for M3 2`] = `
+Object {
+  "destinationKey": "m3Test",
+  "dispatchValue": Object {
+    "key": "m3.test.2",
+    "tags": Object {
+      "custom": "test-1",
+    },
+  },
+  "eventKey": "CREATE_USER_SUCCESS",
+  "type": "fusion-plugin-web-analytics.destinationDispatch",
+}
+`;
+
+exports[`Nested schema for M3 3`] = `
+Array [
+  "m3:increment",
+  Object {
+    "key": "m3.test.2",
+    "tags": Object {
+      "custom": "test-1",
+    },
+  },
+]
+`;
+
+exports[`Nested schema for M3 4`] = `
+Array [
+  "m3:increment",
+  Object {
+    "key": "m3.test.2",
+    "tags": Object {
+      "custom": "test-2",
+    },
+  },
+]
+`;

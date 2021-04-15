@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tealium 1`] = `
+Object {
+  "_eventContext": Object {
+    "payload": Object {
+      "payload": Object {},
+      "type": "GET_OFFERS_SUCCESS",
+    },
+    "redux": Object {
+      "offers": Object {
+        "data": Array [
+          Object {
+            "description": "foobar barfoo",
+          },
+        ],
+      },
+    },
+    "window": Object {
+      "document": Object {
+        "cookie": Array [],
+      },
+      "referrer": undefined,
+    },
+  },
+  "eventKey": "GET_OFFERS_SUCCESS",
+  "eventPayload": Object {
+    "payload": Object {},
+    "type": "GET_OFFERS_SUCCESS",
+  },
+  "type": "fusion-plugin-web-analytics.dispatch",
+}
+`;
+
+exports[`Tealium 2`] = `
+Object {
+  "destinationKey": "tealium",
+  "dispatchValue": Object {
+    "firstOfferFetched": "foobar barfoo",
+    "foo": Object {
+      "a": 1,
+      "b": 3,
+      "c": Object {
+        "c1": "m",
+        "c2": "p",
+        "c3": "q",
+      },
+      "d": true,
+    },
+  },
+  "eventKey": "GET_OFFERS_SUCCESS",
+  "type": "fusion-plugin-web-analytics.destinationDispatch",
+}
+`;
+
+exports[`Tealium 3`] = `
+Object {
+  "firstOfferFetched": "foobar barfoo",
+  "foo": Object {
+    "a": "1",
+    "b": "3",
+    "c": Object {
+      "c1": "m",
+      "c2": "p",
+      "c3": "q",
+    },
+    "d": "true",
+  },
+}
+`;

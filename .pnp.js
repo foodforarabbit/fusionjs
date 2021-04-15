@@ -183,6 +183,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:private/fusion-plugin-universal-m3-compat"
       },
       {
+        "name": "@uber/fusion-plugin-web-analytics",
+        "reference": "workspace:private/fusion-plugin-web-analytics"
+      },
+      {
         "name": "@uber/fusion-plugin-web-rpc-compat",
         "reference": "workspace:private/fusion-plugin-web-rpc-compat"
       },
@@ -377,7 +381,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@uber/fusion-plugin-events-adapter", ["virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#workspace:private/fusion-plugin-events-adapter", "workspace:private/fusion-plugin-events-adapter"]],
       ["@uber/fusion-plugin-feature-toggles", ["virtual:0ef07ba7b424b3ee1f501a00caefb047d9e6d344c52d4c2886b70beff53a9063ee58faa0d11cb1e5aa1d4492633c6b3a197224c24c3990f2b717294b5a12298f#workspace:private/fusion-plugin-feature-toggles", "virtual:9a1c37e6ab548df65dc2886cbca4adfbdccc2e707995dd9daff5d9854907c4ccf90c3baa628c89022b38867c6fcb639f03ebdd2ee9c52caede7163354fbd8b98#workspace:private/fusion-plugin-feature-toggles", "workspace:private/fusion-plugin-feature-toggles"]],
       ["@uber/fusion-plugin-feature-toggles-react", ["virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#workspace:private/fusion-plugin-feature-toggles-react", "workspace:private/fusion-plugin-feature-toggles-react"]],
-      ["@uber/fusion-plugin-flipr", ["virtual:986bec4e6e636e7392e7559391850b96f54c7513ee66ef1942a9a799d092ace3db5efa1c843581db5ad939d8484c748a45d4ccc7f4ca4ff2a40dd04768b723ed#workspace:private/fusion-plugin-flipr", "workspace:private/fusion-plugin-flipr"]],
+      ["@uber/fusion-plugin-flipr", ["virtual:986bec4e6e636e7392e7559391850b96f54c7513ee66ef1942a9a799d092ace3db5efa1c843581db5ad939d8484c748a45d4ccc7f4ca4ff2a40dd04768b723ed#workspace:private/fusion-plugin-flipr", "virtual:ae8e2192642bb2240cfe4e12c0e6717241060ff86957d00b04f1c0e039e9ca2959dcef7d090d9ae3b0deba7af57a29b9a5e325b051ebc6f9f78fefc65abb074a#workspace:private/fusion-plugin-flipr", "workspace:private/fusion-plugin-flipr"]],
       ["@uber/fusion-plugin-galileo", ["virtual:986bec4e6e636e7392e7559391850b96f54c7513ee66ef1942a9a799d092ace3db5efa1c843581db5ad939d8484c748a45d4ccc7f4ca4ff2a40dd04768b723ed#workspace:private/fusion-plugin-galileo", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#workspace:private/fusion-plugin-galileo", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-galileo", "workspace:private/fusion-plugin-galileo"]],
       ["@uber/fusion-plugin-google-analytics", ["workspace:private/fusion-plugin-google-analytics"]],
       ["@uber/fusion-plugin-graphql-logging-middleware", ["workspace:private/fusion-plugin-graphql-logging-middleware"]],
@@ -402,6 +406,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@uber/fusion-plugin-uber-xhr-compat", ["workspace:private/fusion-plugin-uber-xhr-compat"]],
       ["@uber/fusion-plugin-universal-logger-compat", ["workspace:private/fusion-plugin-universal-logger-compat"]],
       ["@uber/fusion-plugin-universal-m3-compat", ["workspace:private/fusion-plugin-universal-m3-compat"]],
+      ["@uber/fusion-plugin-web-analytics", ["workspace:private/fusion-plugin-web-analytics"]],
       ["@uber/fusion-plugin-web-rpc-compat", ["workspace:private/fusion-plugin-web-rpc-compat"]],
       ["@uber/monorepo-actions", ["workspace:private/monorepo-actions"]],
       ["@uber/template-fusion-plugin", ["workspace:private/template-fusion-plugin"]],
@@ -7656,10 +7661,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@uber/fusion-analyticsjs-utils", [
-        ["npm:2.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-analyticsjs-utils%2F-%2Fprivate%2F%2540uber%252Ffusion-analyticsjs-utils-2.1.4.tgz", {
-          "packageLocation": "./.yarn/cache/@uber-fusion-analyticsjs-utils-npm-2.1.4-444259ed45-54e53c902d.zip/node_modules/@uber/fusion-analyticsjs-utils/",
+        ["npm:2.1.6::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-analyticsjs-utils%2F-%2Fprivate%2F%2540uber%252Ffusion-analyticsjs-utils-2.1.6.tgz", {
+          "packageLocation": "./.yarn/cache/@uber-fusion-analyticsjs-utils-npm-2.1.6-6e8a4df7ca-94790115b9.zip/node_modules/@uber/fusion-analyticsjs-utils/",
           "packageDependencies": [
-            ["@uber/fusion-analyticsjs-utils", "npm:2.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-analyticsjs-utils%2F-%2Fprivate%2F%2540uber%252Ffusion-analyticsjs-utils-2.1.4.tgz"]
+            ["@uber/fusion-analyticsjs-utils", "npm:2.1.6::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-analyticsjs-utils%2F-%2Fprivate%2F%2540uber%252Ffusion-analyticsjs-utils-2.1.6.tgz"]
           ],
           "linkType": "HARD",
         }],
@@ -8715,6 +8720,43 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/fusion-tokens",
             "fusion-core",
             "fusion-tokens"
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:ae8e2192642bb2240cfe4e12c0e6717241060ff86957d00b04f1c0e039e9ca2959dcef7d090d9ae3b0deba7af57a29b9a5e325b051ebc6f9f78fefc65abb074a#workspace:private/fusion-plugin-flipr", {
+          "packageLocation": "./.yarn/$$virtual/@uber-fusion-plugin-flipr-virtual-38fc057894/1/private/fusion-plugin-flipr/",
+          "packageDependencies": [
+            ["@uber/fusion-plugin-flipr", "virtual:ae8e2192642bb2240cfe4e12c0e6717241060ff86957d00b04f1c0e039e9ca2959dcef7d090d9ae3b0deba7af57a29b9a5e325b051ebc6f9f78fefc65abb074a#workspace:private/fusion-plugin-flipr"],
+            ["@babel/core", "npm:7.12.3"],
+            ["@babel/plugin-proposal-class-properties", "virtual:638fec0bd1d169e97fda03282605ac4cd9a000e0b2dcd04ccf4f85f2cbfee335ad42e0ff3d5569faeec86495082aa458f5c6fa1ebf771d273586349e89b91138#npm:7.12.1"],
+            ["@babel/plugin-transform-flow-strip-types", "virtual:638fec0bd1d169e97fda03282605ac4cd9a000e0b2dcd04ccf4f85f2cbfee335ad42e0ff3d5569faeec86495082aa458f5c6fa1ebf771d273586349e89b91138#npm:7.12.1"],
+            ["@babel/preset-env", "virtual:638fec0bd1d169e97fda03282605ac4cd9a000e0b2dcd04ccf4f85f2cbfee335ad42e0ff3d5569faeec86495082aa458f5c6fa1ebf771d273586349e89b91138#npm:7.12.1"],
+            ["@types/fusion-core", null],
+            ["@types/fusion-tokens", null],
+            ["@uber/flipr-client", "npm:17.4.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fflipr-client%2F-%2Fprivate%2F%2540uber%252Fflipr-client-17.4.0.tgz"],
+            ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
+            ["babel-plugin-istanbul", "npm:5.2.0"],
+            ["create-universal-package", "npm:4.1.1"],
+            ["eslint", "npm:6.8.0"],
+            ["eslint-config-fusion", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#workspace:public/eslint-config-fusion"],
+            ["eslint-plugin-cup", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:2.0.3"],
+            ["eslint-plugin-flowtype", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:4.7.0"],
+            ["eslint-plugin-import", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:2.22.1"],
+            ["eslint-plugin-jest", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:23.20.0"],
+            ["eslint-plugin-prettier", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:3.1.4"],
+            ["eslint-plugin-react", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:7.21.5"],
+            ["eslint-plugin-react-hooks", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:4.2.0"],
+            ["flow-bin", "npm:0.109.0"],
+            ["fusion-core", "workspace:public/fusion-core"],
+            ["fusion-test-utils", "virtual:5b5f2c08d6fac301ebcfe664fa75fe37a513a86a03f331e255f015fc58b008edc7190a09f7766027e3a9454911df97535479b4529fd39b82d8df11ad9b33820c#workspace:public/fusion-test-utils"],
+            ["fusion-tokens", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:public/fusion-tokens"],
+            ["jest", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:25.5.4"],
+            ["prettier", "npm:1.19.1"]
+          ],
+          "packagePeers": [
+            "@types/fusion-core",
+            "@types/fusion-tokens",
+            "fusion-core"
           ],
           "linkType": "SOFT",
         }],
@@ -10513,10 +10555,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@uber/fusion-plugin-web-analytics", [
-        ["virtual:ba419c47aea12b176ae04e8460cc68dac31fc4e068c78f622ed924818d903c590baa8ce49af679fc672424c697811a4e8cdcc38ab006402bb3eaf42c7cc9be64#npm:1.1.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.3.tgz", {
-          "packageLocation": "./.yarn/$$virtual/@uber-fusion-plugin-web-analytics-virtual-6739f821f3/0/cache/@uber-fusion-plugin-web-analytics-npm-1.1.3-11c95cd7d6-d8005d2170.zip/node_modules/@uber/fusion-plugin-web-analytics/",
+        ["virtual:ba419c47aea12b176ae04e8460cc68dac31fc4e068c78f622ed924818d903c590baa8ce49af679fc672424c697811a4e8cdcc38ab006402bb3eaf42c7cc9be64#npm:1.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.4.tgz", {
+          "packageLocation": "./.yarn/$$virtual/@uber-fusion-plugin-web-analytics-virtual-7e58a33a2f/0/cache/@uber-fusion-plugin-web-analytics-npm-1.1.4-dda94c9efe-8d1216ca51.zip/node_modules/@uber/fusion-plugin-web-analytics/",
           "packageDependencies": [
-            ["@uber/fusion-plugin-web-analytics", "virtual:ba419c47aea12b176ae04e8460cc68dac31fc4e068c78f622ed924818d903c590baa8ce49af679fc672424c697811a4e8cdcc38ab006402bb3eaf42c7cc9be64#npm:1.1.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.3.tgz"],
+            ["@uber/fusion-plugin-web-analytics", "virtual:ba419c47aea12b176ae04e8460cc68dac31fc4e068c78f622ed924818d903c590baa8ce49af679fc672424c697811a4e8cdcc38ab006402bb3eaf42c7cc9be64#npm:1.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.4.tgz"],
             ["@types/fusion-core", null],
             ["@types/fusion-react", null],
             ["@types/fusion-tokens", null],
@@ -10524,7 +10566,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", null],
             ["@types/redux", null],
             ["@types/uber__fusion-plugin-flipr", null],
-            ["@uber/fusion-analyticsjs-utils", "npm:2.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-analyticsjs-utils%2F-%2Fprivate%2F%2540uber%252Ffusion-analyticsjs-utils-2.1.4.tgz"],
+            ["@uber/fusion-analyticsjs-utils", "npm:2.1.6::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-analyticsjs-utils%2F-%2Fprivate%2F%2540uber%252Ffusion-analyticsjs-utils-2.1.6.tgz"],
             ["@uber/fusion-plugin-flipr", "virtual:986bec4e6e636e7392e7559391850b96f54c7513ee66ef1942a9a799d092ace3db5efa1c843581db5ad939d8484c748a45d4ccc7f4ca4ff2a40dd04768b723ed#workspace:private/fusion-plugin-flipr"],
             ["dottie", "npm:2.0.2"],
             ["fusion-core", "workspace:public/fusion-core"],
@@ -10554,10 +10596,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:1.1.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.3.tgz", {
-          "packageLocation": "./.yarn/$$virtual/@uber-fusion-plugin-web-analytics-virtual-570574baf6/0/cache/@uber-fusion-plugin-web-analytics-npm-1.1.3-11c95cd7d6-d8005d2170.zip/node_modules/@uber/fusion-plugin-web-analytics/",
+        ["virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:1.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.4.tgz", {
+          "packageLocation": "./.yarn/$$virtual/@uber-fusion-plugin-web-analytics-virtual-5cba3beb05/0/cache/@uber-fusion-plugin-web-analytics-npm-1.1.4-dda94c9efe-8d1216ca51.zip/node_modules/@uber/fusion-plugin-web-analytics/",
           "packageDependencies": [
-            ["@uber/fusion-plugin-web-analytics", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:1.1.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.3.tgz"],
+            ["@uber/fusion-plugin-web-analytics", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:1.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.4.tgz"],
             ["@types/fusion-core", null],
             ["@types/fusion-react", null],
             ["@types/fusion-tokens", null],
@@ -10565,7 +10607,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-dom", null],
             ["@types/redux", null],
             ["@types/uber__fusion-plugin-flipr", null],
-            ["@uber/fusion-analyticsjs-utils", "npm:2.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-analyticsjs-utils%2F-%2Fprivate%2F%2540uber%252Ffusion-analyticsjs-utils-2.1.4.tgz"],
+            ["@uber/fusion-analyticsjs-utils", "npm:2.1.6::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-analyticsjs-utils%2F-%2Fprivate%2F%2540uber%252Ffusion-analyticsjs-utils-2.1.6.tgz"],
             ["@uber/fusion-plugin-flipr", "virtual:986bec4e6e636e7392e7559391850b96f54c7513ee66ef1942a9a799d092ace3db5efa1c843581db5ad939d8484c748a45d4ccc7f4ca4ff2a40dd04768b723ed#workspace:private/fusion-plugin-flipr"],
             ["dottie", "npm:2.0.2"],
             ["fusion-core", "workspace:public/fusion-core"],
@@ -10594,6 +10636,47 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "redux"
           ],
           "linkType": "HARD",
+        }],
+        ["workspace:private/fusion-plugin-web-analytics", {
+          "packageLocation": "./private/fusion-plugin-web-analytics/",
+          "packageDependencies": [
+            ["@uber/fusion-plugin-web-analytics", "workspace:private/fusion-plugin-web-analytics"],
+            ["@babel/core", "npm:7.12.3"],
+            ["@babel/plugin-transform-flow-strip-types", "virtual:638fec0bd1d169e97fda03282605ac4cd9a000e0b2dcd04ccf4f85f2cbfee335ad42e0ff3d5569faeec86495082aa458f5c6fa1ebf771d273586349e89b91138#npm:7.12.1"],
+            ["@babel/preset-env", "virtual:638fec0bd1d169e97fda03282605ac4cd9a000e0b2dcd04ccf4f85f2cbfee335ad42e0ff3d5569faeec86495082aa458f5c6fa1ebf771d273586349e89b91138#npm:7.12.1"],
+            ["@babel/preset-react", "virtual:809847555d857db77a13b5e356f8f3b759ffc2d47573504151ed76f5d601c466e1764abb1fe5c389c7b8b41a89a33985e6d10834be557191cc246fdd12c9b99e#npm:7.12.5"],
+            ["@uber/fusion-analyticsjs-utils", "workspace:private/fusion-analyticsjs-utils"],
+            ["@uber/fusion-plugin-flipr", "virtual:ae8e2192642bb2240cfe4e12c0e6717241060ff86957d00b04f1c0e039e9ca2959dcef7d090d9ae3b0deba7af57a29b9a5e325b051ebc6f9f78fefc65abb074a#workspace:private/fusion-plugin-flipr"],
+            ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
+            ["babel-jest", "virtual:e47a65e2e575f8df9ae8cf063711ea8dc1d7f0ab6da6cce74e31d6133d45f8a45c4cdcfc2354f11251432623c62311b7c54e551c93c5bfd1bf453273b114a9b8#npm:25.5.1"],
+            ["create-universal-package", "npm:4.1.1"],
+            ["dottie", "npm:2.0.2"],
+            ["enzyme", "npm:3.11.0"],
+            ["enzyme-adapter-react-16", "virtual:ae8e2192642bb2240cfe4e12c0e6717241060ff86957d00b04f1c0e039e9ca2959dcef7d090d9ae3b0deba7af57a29b9a5e325b051ebc6f9f78fefc65abb074a#npm:1.15.6"],
+            ["eslint", "npm:6.8.0"],
+            ["eslint-config-fusion", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#workspace:public/eslint-config-fusion"],
+            ["eslint-plugin-cup", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:2.0.3"],
+            ["eslint-plugin-flowtype", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:4.7.0"],
+            ["eslint-plugin-import", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:2.22.1"],
+            ["eslint-plugin-jest", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:23.20.0"],
+            ["eslint-plugin-prettier", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:3.1.4"],
+            ["eslint-plugin-react", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:7.21.5"],
+            ["eslint-plugin-react-hooks", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:4.2.0"],
+            ["flow-bin", "npm:0.109.0"],
+            ["fusion-core", "workspace:public/fusion-core"],
+            ["fusion-plugin-universal-events", "virtual:5f9560e3f94c6384289500437af6e318a4cc08dccf52ff4767d3a3ca79b17a01dee429ce511473bcafa6da14ebd8ff3ef50b911005e00b50e858607139f9fe37#workspace:public/fusion-plugin-universal-events"],
+            ["fusion-react", "virtual:6d00f2802a412c169c24d8db82806ab7a6eb93a26926c7e7ac7b73068084397d68d2cbd0d744e0f842eb1bd54d40bcfb35bf88116d44fc124d3bf146423593fd#workspace:public/fusion-react"],
+            ["fusion-test-utils", "virtual:5b5f2c08d6fac301ebcfe664fa75fe37a513a86a03f331e255f015fc58b008edc7190a09f7766027e3a9454911df97535479b4529fd39b82d8df11ad9b33820c#workspace:public/fusion-test-utils"],
+            ["isobject", "npm:3.0.1"],
+            ["jest", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:25.5.4"],
+            ["jest-environment-jsdom-global", "virtual:809847555d857db77a13b5e356f8f3b759ffc2d47573504151ed76f5d601c466e1764abb1fe5c389c7b8b41a89a33985e6d10834be557191cc246fdd12c9b99e#npm:1.2.1"],
+            ["just-extend", "npm:4.1.1"],
+            ["prettier", "npm:1.19.1"],
+            ["react", "npm:16.14.0"],
+            ["react-dom", "virtual:0d6a0b58bc9428d512a0ff67fec83ffb5e3a6e2306e52bedc3b9edcdc27154bb9424ecdce2fb2b3e60f22bc77b95a3c588623e1b2699764df27dbf9a1baf5d51#npm:16.14.0"],
+            ["redux", "npm:4.0.5"]
+          ],
+          "linkType": "SOFT",
         }]
       ]],
       ["@uber/fusion-plugin-web-rpc-compat", [
@@ -10999,7 +11082,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@uber/fusion-plugin-secure-headers", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#workspace:private/fusion-plugin-secure-headers"],
             ["@uber/fusion-plugin-tchannel", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#workspace:private/fusion-plugin-tchannel"],
             ["@uber/fusion-plugin-tracer", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-tracer"],
-            ["@uber/fusion-plugin-web-analytics", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:1.1.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.3.tgz"],
+            ["@uber/fusion-plugin-web-analytics", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:1.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.4.tgz"],
             ["@uber/icons", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:1.2.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ficons%2F-%2Fprivate%2F%2540uber%252Ficons-1.2.4.tgz"],
             ["@uber/standard-fonts", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:0.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fstandard-fonts%2F-%2Fprivate%2F%2540uber%252Fstandard-fonts-0.1.4.tgz"],
             ["@uber/typed-rpc-cli", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:3.3.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ftyped-rpc-cli%2F-%2Fprivate%2F%2540uber%252Ftyped-rpc-cli-3.3.3.tgz"],
@@ -11096,7 +11179,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@uber/fusion-plugin-secure-headers", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#workspace:private/fusion-plugin-secure-headers"],
             ["@uber/fusion-plugin-tchannel", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#workspace:private/fusion-plugin-tchannel"],
             ["@uber/fusion-plugin-tracer", "virtual:ffe65e0a4da8f3974af1d5766444435e0906126b4987f54d3eab0625a1afc83beab6d0fdc189b903dc8664316eba4543dbf62444e6b07e415c3c5778e187d486#workspace:private/fusion-plugin-tracer"],
-            ["@uber/fusion-plugin-web-analytics", "virtual:ba419c47aea12b176ae04e8460cc68dac31fc4e068c78f622ed924818d903c590baa8ce49af679fc672424c697811a4e8cdcc38ab006402bb3eaf42c7cc9be64#npm:1.1.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.3.tgz"],
+            ["@uber/fusion-plugin-web-analytics", "virtual:ba419c47aea12b176ae04e8460cc68dac31fc4e068c78f622ed924818d903c590baa8ce49af679fc672424c697811a4e8cdcc38ab006402bb3eaf42c7cc9be64#npm:1.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ffusion-plugin-web-analytics%2F-%2Fprivate%2F%2540uber%252Ffusion-plugin-web-analytics-1.1.4.tgz"],
             ["@uber/graphql-scripts", "virtual:ba419c47aea12b176ae04e8460cc68dac31fc4e068c78f622ed924818d903c590baa8ce49af679fc672424c697811a4e8cdcc38ab006402bb3eaf42c7cc9be64#npm:0.4.3::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fgraphql-scripts%2F-%2Fprivate%2F%2540uber%252Fgraphql-scripts-0.4.3.tgz"],
             ["@uber/icons", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:1.2.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Ficons%2F-%2Fprivate%2F%2540uber%252Ficons-1.2.4.tgz"],
             ["@uber/standard-fonts", "virtual:e52dd2a979212d43ca9dba33f71598de0f2deeaa631937a16ce4c43289c0ed153ca5d6b956b1abde15ac7a77e692efe6a87f1d6711d41cde4143edf665c01e96#npm:0.1.4::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fstandard-fonts%2F-%2Fprivate%2F%2540uber%252Fstandard-fonts-0.1.4.tgz"],
@@ -16067,6 +16150,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["get-intrinsic", "npm:1.0.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.0.2", {
+          "packageLocation": "./.yarn/cache/call-bind-npm-1.0.2-c957124861-18cc6107a1.zip/node_modules/call-bind/",
+          "packageDependencies": [
+            ["call-bind", "npm:1.0.2"],
+            ["function-bind", "npm:1.1.1"],
+            ["get-intrinsic", "npm:1.1.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["call-me-maybe", [
@@ -19512,6 +19604,36 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
+        ["virtual:ae8e2192642bb2240cfe4e12c0e6717241060ff86957d00b04f1c0e039e9ca2959dcef7d090d9ae3b0deba7af57a29b9a5e325b051ebc6f9f78fefc65abb074a#npm:1.15.6", {
+          "packageLocation": "./.yarn/$$virtual/enzyme-adapter-react-16-virtual-09f137636a/0/cache/enzyme-adapter-react-16-npm-1.15.6-4b0fcfdfcc-d584a49ec8.zip/node_modules/enzyme-adapter-react-16/",
+          "packageDependencies": [
+            ["enzyme-adapter-react-16", "virtual:ae8e2192642bb2240cfe4e12c0e6717241060ff86957d00b04f1c0e039e9ca2959dcef7d090d9ae3b0deba7af57a29b9a5e325b051ebc6f9f78fefc65abb074a#npm:1.15.6"],
+            ["@types/enzyme", null],
+            ["@types/react", null],
+            ["@types/react-dom", null],
+            ["enzyme", "npm:3.11.0"],
+            ["enzyme-adapter-utils", "virtual:09f137636aece62b16c77c7eeae5780c5f7249eb4afd10d584afabf264da7df33a424b4afbce0d776ea53ab630ae8a74ec12bea7b279c3be1fcf29388fd3abcd#npm:1.14.0"],
+            ["enzyme-shallow-equal", "npm:1.0.4"],
+            ["has", "npm:1.0.3"],
+            ["object.assign", "npm:4.1.2"],
+            ["object.values", "npm:1.1.3"],
+            ["prop-types", "npm:15.7.2"],
+            ["react", "npm:16.14.0"],
+            ["react-dom", "virtual:0d6a0b58bc9428d512a0ff67fec83ffb5e3a6e2306e52bedc3b9edcdc27154bb9424ecdce2fb2b3e60f22bc77b95a3c588623e1b2699764df27dbf9a1baf5d51#npm:16.14.0"],
+            ["react-is", "npm:16.13.1"],
+            ["react-test-renderer", "virtual:fc16e683620a739c328c229bef14666fb56cc4a37f2e78174ccf0c01345dcaeb19677f197676f69c91a78cba799f1b2efd74f9d793480fc4e0816491f70d6603#npm:16.14.0"],
+            ["semver", "npm:5.7.1"]
+          ],
+          "packagePeers": [
+            "@types/enzyme",
+            "@types/react-dom",
+            "@types/react",
+            "enzyme",
+            "react-dom",
+            "react"
+          ],
+          "linkType": "HARD",
+        }],
         ["virtual:eaea2acb1339cd467b790159cf06851d2d694b1963cc176898e527b57377c4ecef99b118e04b919d0937e6a4a8b302fd380267be635e7ee7d47f3be651bc8e79#npm:1.15.5", {
           "packageLocation": "./.yarn/$$virtual/enzyme-adapter-react-16-virtual-fc16e68362/0/cache/enzyme-adapter-react-16-npm-1.15.5-46a45a6e17-40920ef232.zip/node_modules/enzyme-adapter-react-16/",
           "packageDependencies": [
@@ -19544,6 +19666,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["enzyme-adapter-utils", [
+        ["virtual:09f137636aece62b16c77c7eeae5780c5f7249eb4afd10d584afabf264da7df33a424b4afbce0d776ea53ab630ae8a74ec12bea7b279c3be1fcf29388fd3abcd#npm:1.14.0", {
+          "packageLocation": "./.yarn/$$virtual/enzyme-adapter-utils-virtual-b4696bac68/0/cache/enzyme-adapter-utils-npm-1.14.0-3639386aab-7105f3bc76.zip/node_modules/enzyme-adapter-utils/",
+          "packageDependencies": [
+            ["enzyme-adapter-utils", "virtual:09f137636aece62b16c77c7eeae5780c5f7249eb4afd10d584afabf264da7df33a424b4afbce0d776ea53ab630ae8a74ec12bea7b279c3be1fcf29388fd3abcd#npm:1.14.0"],
+            ["@types/react", null],
+            ["airbnb-prop-types", "virtual:ac02b0f03d38026c6a31476a58d3b83110c74ad3ff80e63242b658375f550e4f517bf6c520d48c960c6d038bc7c5566d97238442583a603431a1a365a51642e4#npm:2.16.0"],
+            ["function.prototype.name", "npm:1.1.4"],
+            ["has", "npm:1.0.3"],
+            ["object.assign", "npm:4.1.2"],
+            ["object.fromentries", "npm:2.0.4"],
+            ["prop-types", "npm:15.7.2"],
+            ["react", "npm:16.14.0"],
+            ["semver", "npm:5.7.1"]
+          ],
+          "packagePeers": [
+            "@types/react",
+            "react"
+          ],
+          "linkType": "HARD",
+        }],
         ["virtual:c7d6662c6d3758a8ce0e0b3f91dc71239a4967521bbdb89afbde7e774f2e0072092c5a4af04633cf1ee587d0e52e7bf6386a4baf35888fd939d5c7023e467897#npm:1.13.1", {
           "packageLocation": "./.yarn/$$virtual/enzyme-adapter-utils-virtual-864723391e/0/cache/enzyme-adapter-utils-npm-1.13.1-6ae1b81f5e-0c818df1fa.zip/node_modules/enzyme-adapter-utils/",
           "packageDependencies": [
@@ -19696,6 +19838,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["object.assign", "npm:4.1.2"],
             ["string.prototype.trimend", "npm:1.0.2"],
             ["string.prototype.trimstart", "npm:1.0.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.18.0", {
+          "packageLocation": "./.yarn/cache/es-abstract-npm-1.18.0-ac2faa8a98-019fa7c51e.zip/node_modules/es-abstract/",
+          "packageDependencies": [
+            ["es-abstract", "npm:1.18.0"],
+            ["call-bind", "npm:1.0.2"],
+            ["es-to-primitive", "npm:1.2.1"],
+            ["function-bind", "npm:1.1.1"],
+            ["get-intrinsic", "npm:1.1.1"],
+            ["has", "npm:1.0.3"],
+            ["has-symbols", "npm:1.0.2"],
+            ["is-callable", "npm:1.2.3"],
+            ["is-negative-zero", "npm:2.0.1"],
+            ["is-regex", "npm:1.1.2"],
+            ["is-string", "npm:1.0.5"],
+            ["object-inspect", "npm:1.9.0"],
+            ["object-keys", "npm:1.1.1"],
+            ["object.assign", "npm:4.1.2"],
+            ["string.prototype.trimend", "npm:1.0.4"],
+            ["string.prototype.trimstart", "npm:1.0.4"],
+            ["unbox-primitive", "npm:1.0.1"]
           ],
           "linkType": "HARD",
         }],
@@ -22135,6 +22300,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["functions-have-names", "npm:1.2.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.1.4", {
+          "packageLocation": "./.yarn/cache/function.prototype.name-npm-1.1.4-d0c896d158-7c24246177.zip/node_modules/function.prototype.name/",
+          "packageDependencies": [
+            ["function.prototype.name", "npm:1.1.4"],
+            ["call-bind", "npm:1.0.2"],
+            ["define-properties", "npm:1.1.3"],
+            ["es-abstract", "npm:1.18.0"],
+            ["functions-have-names", "npm:1.2.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["functional-red-black-tree", [
@@ -22151,6 +22327,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/functions-have-names-npm-1.2.1-bb6cd3c14d-79c424df47.zip/node_modules/functions-have-names/",
           "packageDependencies": [
             ["functions-have-names", "npm:1.2.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.2.2", {
+          "packageLocation": "./.yarn/cache/functions-have-names-npm-1.2.2-c348c7c2a0-6a23873b0c.zip/node_modules/functions-have-names/",
+          "packageDependencies": [
+            ["functions-have-names", "npm:1.2.2"]
           ],
           "linkType": "HARD",
         }]
@@ -25277,6 +25460,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["has-symbols", "npm:1.0.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.1.1", {
+          "packageLocation": "./.yarn/cache/get-intrinsic-npm-1.1.1-7e868745da-acf1506f25.zip/node_modules/get-intrinsic/",
+          "packageDependencies": [
+            ["get-intrinsic", "npm:1.1.1"],
+            ["function-bind", "npm:1.1.1"],
+            ["has", "npm:1.0.3"],
+            ["has-symbols", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["get-package-type", [
@@ -26240,6 +26433,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["has-bigints", [
+        ["npm:1.0.1", {
+          "packageLocation": "./.yarn/cache/has-bigints-npm-1.0.1-1b93717a74-1074b644f5.zip/node_modules/has-bigints/",
+          "packageDependencies": [
+            ["has-bigints", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["has-color", [
         ["npm:0.1.7", {
           "packageLocation": "./.yarn/cache/has-color-npm-0.1.7-479bfd5090-56775e5d51.zip/node_modules/has-color/",
@@ -26286,6 +26488,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/has-symbols-npm-1.0.1-b783bc25ec-84e2a03ada.zip/node_modules/has-symbols/",
           "packageDependencies": [
             ["has-symbols", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.0.2", {
+          "packageLocation": "./.yarn/cache/has-symbols-npm-1.0.2-50e53af115-1b73928752.zip/node_modules/has-symbols/",
+          "packageDependencies": [
+            ["has-symbols", "npm:1.0.2"]
           ],
           "linkType": "HARD",
         }]
@@ -27522,6 +27731,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["is-bigint", [
+        ["npm:1.0.1", {
+          "packageLocation": "./.yarn/cache/is-bigint-npm-1.0.1-6228cdc523-dd132ab80f.zip/node_modules/is-bigint/",
+          "packageDependencies": [
+            ["is-bigint", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["is-binary-path", [
         ["npm:1.0.1", {
           "packageLocation": "./.yarn/cache/is-binary-path-npm-1.0.1-9af74a6099-25a2cda1e5.zip/node_modules/is-binary-path/",
@@ -27547,6 +27765,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["is-boolean-object", "npm:1.0.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.1.0", {
+          "packageLocation": "./.yarn/cache/is-boolean-object-npm-1.1.0-650a6dfdad-1d6047a022.zip/node_modules/is-boolean-object/",
+          "packageDependencies": [
+            ["is-boolean-object", "npm:1.1.0"],
+            ["call-bind", "npm:1.0.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["is-buffer", [
@@ -27563,6 +27789,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/is-callable-npm-1.2.2-075940758b-c35d37cc46.zip/node_modules/is-callable/",
           "packageDependencies": [
             ["is-callable", "npm:1.2.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.2.3", {
+          "packageLocation": "./.yarn/cache/is-callable-npm-1.2.3-2a68c9d549-8180a1c4e2.zip/node_modules/is-callable/",
+          "packageDependencies": [
+            ["is-callable", "npm:1.2.3"]
           ],
           "linkType": "HARD",
         }]
@@ -27888,6 +28121,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["is-negative-zero", "npm:2.0.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:2.0.1", {
+          "packageLocation": "./.yarn/cache/is-negative-zero-npm-2.0.1-d8f3dbcfe1-e2160af9a6.zip/node_modules/is-negative-zero/",
+          "packageDependencies": [
+            ["is-negative-zero", "npm:2.0.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["is-npm", [
@@ -28070,6 +28310,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/is-regex-npm-1.1.1-6f4125c841-0c5b9d335c.zip/node_modules/is-regex/",
           "packageDependencies": [
             ["is-regex", "npm:1.1.1"],
+            ["has-symbols", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.1.2", {
+          "packageLocation": "./.yarn/cache/is-regex-npm-1.1.2-0aaa524607-5e2f80f495.zip/node_modules/is-regex/",
+          "packageDependencies": [
+            ["is-regex", "npm:1.1.2"],
+            ["call-bind", "npm:1.0.2"],
             ["has-symbols", "npm:1.0.1"]
           ],
           "linkType": "HARD",
@@ -33290,6 +33539,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["object-inspect", "npm:1.8.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.9.0", {
+          "packageLocation": "./.yarn/cache/object-inspect-npm-1.9.0-75d8ab6cd7-63b412167d.zip/node_modules/object-inspect/",
+          "packageDependencies": [
+            ["object-inspect", "npm:1.9.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["object-is", [
@@ -33376,6 +33632,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["has", "npm:1.0.3"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:2.0.4", {
+          "packageLocation": "./.yarn/cache/object.fromentries-npm-2.0.4-cc608f8739-9e02d109f6.zip/node_modules/object.fromentries/",
+          "packageDependencies": [
+            ["object.fromentries", "npm:2.0.4"],
+            ["call-bind", "npm:1.0.2"],
+            ["define-properties", "npm:1.1.3"],
+            ["es-abstract", "npm:1.18.0"],
+            ["has", "npm:1.0.3"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["object.getownpropertydescriptors", [
@@ -33437,6 +33704,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["define-properties", "npm:1.1.3"],
             ["es-abstract", "npm:1.17.7"],
             ["function-bind", "npm:1.1.1"],
+            ["has", "npm:1.0.3"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.1.3", {
+          "packageLocation": "./.yarn/cache/object.values-npm-1.1.3-dd86635500-31111fe8b8.zip/node_modules/object.values/",
+          "packageDependencies": [
+            ["object.values", "npm:1.1.3"],
+            ["call-bind", "npm:1.0.2"],
+            ["define-properties", "npm:1.1.3"],
+            ["es-abstract", "npm:1.18.0"],
             ["has", "npm:1.0.3"]
           ],
           "linkType": "HARD",
@@ -39294,6 +39572,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["es-abstract", "npm:1.18.0-next.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.0.4", {
+          "packageLocation": "./.yarn/cache/string.prototype.trimend-npm-1.0.4-a656b8fe24-ea8793bee1.zip/node_modules/string.prototype.trimend/",
+          "packageDependencies": [
+            ["string.prototype.trimend", "npm:1.0.4"],
+            ["call-bind", "npm:1.0.2"],
+            ["define-properties", "npm:1.1.3"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["string.prototype.trimstart", [
@@ -39303,6 +39590,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["string.prototype.trimstart", "npm:1.0.2"],
             ["define-properties", "npm:1.1.3"],
             ["es-abstract", "npm:1.18.0-next.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.0.4", {
+          "packageLocation": "./.yarn/cache/string.prototype.trimstart-npm-1.0.4-b31f5e7c85-dd2c994af9.zip/node_modules/string.prototype.trimstart/",
+          "packageDependencies": [
+            ["string.prototype.trimstart", "npm:1.0.4"],
+            ["call-bind", "npm:1.0.2"],
+            ["define-properties", "npm:1.1.3"]
           ],
           "linkType": "HARD",
         }]
@@ -40906,6 +41202,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["unbox-primitive", [
+        ["npm:1.0.1", {
+          "packageLocation": "./.yarn/cache/unbox-primitive-npm-1.0.1-50b9fde246-aa944f1ecf.zip/node_modules/unbox-primitive/",
+          "packageDependencies": [
+            ["unbox-primitive", "npm:1.0.1"],
+            ["function-bind", "npm:1.1.1"],
+            ["has-bigints", "npm:1.0.1"],
+            ["has-symbols", "npm:1.0.2"],
+            ["which-boxed-primitive", "npm:1.0.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["undefsafe", [
         ["npm:2.0.3", {
           "packageLocation": "./.yarn/cache/undefsafe-npm-2.0.3-ce5f7e2bb1-0974f82a87.zip/node_modules/undefsafe/",
@@ -41941,6 +42250,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["which", "npm:2.0.2"],
             ["isexe", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["which-boxed-primitive", [
+        ["npm:1.0.2", {
+          "packageLocation": "./.yarn/cache/which-boxed-primitive-npm-1.0.2-e214f9ae5a-771ef43357.zip/node_modules/which-boxed-primitive/",
+          "packageDependencies": [
+            ["which-boxed-primitive", "npm:1.0.2"],
+            ["is-bigint", "npm:1.0.1"],
+            ["is-boolean-object", "npm:1.1.0"],
+            ["is-number-object", "npm:1.0.4"],
+            ["is-string", "npm:1.0.5"],
+            ["is-symbol", "npm:1.0.3"]
           ],
           "linkType": "HARD",
         }]
