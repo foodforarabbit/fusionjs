@@ -5276,7 +5276,7 @@ __metadata:
     "@uber/fusion-plugin-auth-headers": 0.0.0-monorepo
     "@uber/fusion-plugin-heatpipe": 0.0.0-monorepo
     "@uber/fusion-plugin-m3": 0.0.0-monorepo
-    "@uber/heatpipe": ^1.0.1
+    "@uber/heatpipe": ^1.1.0
     "@uber/web-perf-collector": 0.10.5
     babel-eslint: ^10.0.3
     create-universal-package: ^4.1.0
@@ -5609,7 +5609,7 @@ __metadata:
     "@babel/plugin-proposal-class-properties": ^7.12.1
     "@babel/plugin-transform-flow-strip-types": ^7.12.1
     "@babel/preset-env": ^7.12.1
-    "@uber/heatpipe": ^1.0.1
+    "@uber/heatpipe": ^1.1.0
     babel-eslint: ^10.0.3
     create-universal-package: ^4.1.0
     eslint: ^6.8.0
@@ -6420,12 +6420,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uber/heatpipe@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@uber/heatpipe@npm:1.0.1::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.0.1.tgz"
+"@uber/heatpipe@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@uber/heatpipe@npm:1.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.1.0.tgz"
   dependencies:
     node-fetch: ^2.3.0
-  checksum: f7556df13936f057645fafa9f43b64fd730051b34b0f8ff4791033f5b9b6fb1e194b1784ad9c1fa2677bb68919f0f7a45a90702dc006dfb2a2adfdfbb443b1ac
+  checksum: f58819041f1b2c714baf8a326bea03d4b0f62dbfeaa2da95c8549defb14a6cb7f62967c8e9ad5dab94604be64f8aceaf0f4e09966cd2df230967fbe96efb93a9
   languageName: node
   linkType: hard
 

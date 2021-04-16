@@ -8,7 +8,7 @@
     "./dist-node-esm/index.js": "./dist-browser-esm/index.js"
   },
   "dependencies": {
-    "@uber/heatpipe": "^1.0.1",
+    "@uber/heatpipe": "^1.1.0",
     "@uber/web-perf-collector": "0.10.5",
     "request": "^2.88.0"
   },

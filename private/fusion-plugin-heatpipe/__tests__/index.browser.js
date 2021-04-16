@@ -12,6 +12,7 @@ const fixture = {
   topicInfo: {
     topic: 'awesome-topic',
     version: 99,
+    lossless: true,
   },
   message: {
     hello: 'world',

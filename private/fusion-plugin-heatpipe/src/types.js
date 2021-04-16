@@ -6,6 +6,7 @@ import {UniversalEventsToken} from 'fusion-plugin-universal-events';
 export type TopicInfoType = {|
   topic: string,
   version: number,
+  lossless?: boolean,
 |};
 
 export type MessageType = {[string]: any};
@@ -25,7 +26,7 @@ export type PublishResponse = {|
 |};
 
 export type HeatpipePluginServiceType = {
-  asyncPublish: (TopicInfoType, MessageType) => Promise<void>,
+  asyncPublish: (TopicInfoType, MessageType) => Promise<PublishResponse | void>,
   publish: (TopicInfoType, MessageType) => Error | void,
 };
 

@@ -8404,7 +8404,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@uber/fusion-plugin-auth-headers", "virtual:7ed4335d9989ea6844ceeae18a8d7c559b65105ea52c62c0cec8553710310ed28c915dd202e6b39e35b2b1d020ea60d67f52297452f0b9935b6507c641087e62#workspace:private/fusion-plugin-auth-headers"],
             ["@uber/fusion-plugin-heatpipe", "virtual:7ed4335d9989ea6844ceeae18a8d7c559b65105ea52c62c0cec8553710310ed28c915dd202e6b39e35b2b1d020ea60d67f52297452f0b9935b6507c641087e62#workspace:private/fusion-plugin-heatpipe"],
             ["@uber/fusion-plugin-m3", "virtual:7ed4335d9989ea6844ceeae18a8d7c559b65105ea52c62c0cec8553710310ed28c915dd202e6b39e35b2b1d020ea60d67f52297452f0b9935b6507c641087e62#workspace:private/fusion-plugin-m3"],
-            ["@uber/heatpipe", "npm:1.0.1::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.0.1.tgz"],
+            ["@uber/heatpipe", "npm:1.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.1.0.tgz"],
             ["@uber/web-perf-collector", "npm:0.10.5::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fweb-perf-collector%2F-%2Fprivate%2F%2540uber%252Fweb-perf-collector-0.10.5.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["create-universal-package", "npm:4.1.1"],
@@ -8458,7 +8458,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@uber/fusion-plugin-auth-headers", "virtual:7ed4335d9989ea6844ceeae18a8d7c559b65105ea52c62c0cec8553710310ed28c915dd202e6b39e35b2b1d020ea60d67f52297452f0b9935b6507c641087e62#workspace:private/fusion-plugin-auth-headers"],
             ["@uber/fusion-plugin-heatpipe", "virtual:7ed4335d9989ea6844ceeae18a8d7c559b65105ea52c62c0cec8553710310ed28c915dd202e6b39e35b2b1d020ea60d67f52297452f0b9935b6507c641087e62#workspace:private/fusion-plugin-heatpipe"],
             ["@uber/fusion-plugin-m3", "virtual:7ed4335d9989ea6844ceeae18a8d7c559b65105ea52c62c0cec8553710310ed28c915dd202e6b39e35b2b1d020ea60d67f52297452f0b9935b6507c641087e62#workspace:private/fusion-plugin-m3"],
-            ["@uber/heatpipe", "npm:1.0.1::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.0.1.tgz"],
+            ["@uber/heatpipe", "npm:1.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.1.0.tgz"],
             ["@uber/web-perf-collector", "npm:0.10.5::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fweb-perf-collector%2F-%2Fprivate%2F%2540uber%252Fweb-perf-collector-0.10.5.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["create-universal-package", "npm:4.1.1"],
@@ -9316,7 +9316,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/fusion-core", null],
             ["@types/fusion-plugin-universal-events", null],
             ["@types/fusion-tokens", null],
-            ["@uber/heatpipe", "npm:1.0.1::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.0.1.tgz"],
+            ["@uber/heatpipe", "npm:1.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.1.0.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["create-universal-package", "npm:4.1.1"],
             ["eslint", "npm:6.8.0"],
@@ -9358,7 +9358,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/fusion-core", null],
             ["@types/fusion-plugin-universal-events", null],
             ["@types/fusion-tokens", null],
-            ["@uber/heatpipe", "npm:1.0.1::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.0.1.tgz"],
+            ["@uber/heatpipe", "npm:1.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.1.0.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["create-universal-package", "npm:4.1.1"],
             ["eslint", "npm:6.8.0"],
@@ -9396,7 +9396,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/plugin-proposal-class-properties", "virtual:638fec0bd1d169e97fda03282605ac4cd9a000e0b2dcd04ccf4f85f2cbfee335ad42e0ff3d5569faeec86495082aa458f5c6fa1ebf771d273586349e89b91138#npm:7.12.1"],
             ["@babel/plugin-transform-flow-strip-types", "virtual:638fec0bd1d169e97fda03282605ac4cd9a000e0b2dcd04ccf4f85f2cbfee335ad42e0ff3d5569faeec86495082aa458f5c6fa1ebf771d273586349e89b91138#npm:7.12.1"],
             ["@babel/preset-env", "virtual:638fec0bd1d169e97fda03282605ac4cd9a000e0b2dcd04ccf4f85f2cbfee335ad42e0ff3d5569faeec86495082aa458f5c6fa1ebf771d273586349e89b91138#npm:7.12.1"],
-            ["@uber/heatpipe", "npm:1.0.1::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.0.1.tgz"],
+            ["@uber/heatpipe", "npm:1.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.1.0.tgz"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["create-universal-package", "npm:4.1.1"],
             ["eslint", "npm:6.8.0"],
@@ -10769,10 +10769,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@uber/heatpipe", [
-        ["npm:1.0.1::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.0.1.tgz", {
-          "packageLocation": "./.yarn/cache/@uber-heatpipe-npm-1.0.1-fb94aaf4d1-f7556df139.zip/node_modules/@uber/heatpipe/",
+        ["npm:1.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.1.0.tgz", {
+          "packageLocation": "./.yarn/cache/@uber-heatpipe-npm-1.1.0-7b7ebf9a3b-f58819041f.zip/node_modules/@uber/heatpipe/",
           "packageDependencies": [
-            ["@uber/heatpipe", "npm:1.0.1::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.0.1.tgz"],
+            ["@uber/heatpipe", "npm:1.1.0::__archiveUrl=https%3A%2F%2Funpm.uberinternal.com%2F%2540uber%252Fheatpipe%2F-%2Fprivate%2F%2540uber%252Fheatpipe-1.1.0.tgz"],
             ["node-fetch", "npm:2.6.1"]
           ],
           "linkType": "HARD",
