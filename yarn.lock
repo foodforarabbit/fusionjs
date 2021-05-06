@@ -7420,6 +7420,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn@npm:^8.2.4":
+  version: 8.2.4
+  resolution: "acorn@npm:8.2.4"
+  bin:
+    acorn: bin/acorn
+  checksum: 6879266ea9ba4ece99afb4ab4f3ac6eaa3cf866cee40651ca90cde0b1fd5c6954d2006c54877c83287d5d38700327cbd6bda028b6fbb1daa346c7034f18147c2
+  languageName: node
+  linkType: hard
+
 "address@npm:1.0.3":
   version: 1.0.3
   resolution: "address@npm:1.0.3"
@@ -16355,6 +16364,7 @@ fsevents@~2.1.2:
   resolution: "fusion-cli-tests@workspace:public/fusion-cli-tests"
   dependencies:
     "@babel/core": ^7.8.4
+    acorn: ^8.2.4
     axios: ^0.21.0
     babel-eslint: ^10.0.3
     chrome-remote-interface: ^0.27.0

@@ -11903,6 +11903,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["acorn", "npm:8.1.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:8.2.4", {
+          "packageLocation": "./.yarn/cache/acorn-npm-8.2.4-4dfdb01127-6879266ea9.zip/node_modules/acorn/",
+          "packageDependencies": [
+            ["acorn", "npm:8.2.4"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["acorn-globals", [
@@ -22761,6 +22768,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["fusion-cli-tests", "workspace:public/fusion-cli-tests"],
             ["@babel/core", "npm:7.12.3"],
+            ["acorn", "npm:8.2.4"],
             ["axios", "npm:0.21.0"],
             ["babel-eslint", "virtual:0dc7a5f9b47a6b34e361163dfde1a43fb5231d7507ac81b246cad9c3f8cd12eb1a7fba8703a06a7f5876cf66204b42085cec1a04086e4f65b229b7ddcd26a6fa#npm:10.1.0"],
             ["chrome-remote-interface", "npm:0.27.2"],
