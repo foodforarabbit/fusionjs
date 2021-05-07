@@ -1,0 +1,289 @@
+# ═════ Packages to publish ═════
+
+["@uber/create-uber-web"]
+# prior : "5.3.7"
+version = "5.3.8"
+
+[fusion-cli]
+# prior : "2.17.1"
+version = "2.17.2"
+
+[fusion-plugin-service-worker]
+# prior : "3.1.15"
+version = "3.1.16"
+
+# ═════ Unchanged packages ═════
+
+["@uber/fusion-analyticsjs-utils"]
+publish = false
+version = "2.1.6"
+
+["@uber/fusion-dev-cli"]
+publish = false
+version = "3.1.7"
+
+["@uber/fusion-legacy-styling-compat-mixin"]
+publish = false
+version = "2.1.6"
+
+["@uber/fusion-metrics"]
+publish = false
+version = "1.1.8"
+
+["@uber/fusion-migrate"]
+publish = false
+version = "1.3.6"
+
+["@uber/fusion-plugin-analytics-session"]
+publish = false
+version = "2.1.8"
+
+["@uber/fusion-plugin-atreyu"]
+publish = false
+version = "2.1.10"
+
+["@uber/fusion-plugin-auth-headers"]
+publish = false
+version = "4.0.6"
+
+["@uber/fusion-plugin-bedrock-compat"]
+publish = false
+version = "2.1.11"
+
+["@uber/fusion-plugin-error-handling"]
+publish = false
+version = "2.3.8"
+
+["@uber/fusion-plugin-events-adapter"]
+publish = false
+version = "3.4.0"
+
+["@uber/fusion-plugin-feature-toggles"]
+publish = false
+version = "3.2.0"
+
+["@uber/fusion-plugin-feature-toggles-react"]
+publish = false
+version = "3.1.13"
+
+["@uber/fusion-plugin-flipr"]
+publish = false
+version = "2.2.8"
+
+["@uber/fusion-plugin-galileo"]
+publish = false
+version = "3.0.0"
+
+["@uber/fusion-plugin-google-analytics"]
+publish = false
+version = "2.1.9"
+
+["@uber/fusion-plugin-graphql-logging-middleware"]
+publish = false
+version = "1.2.4"
+
+["@uber/fusion-plugin-graphql-metrics"]
+publish = false
+version = "1.2.12"
+
+["@uber/fusion-plugin-heatpipe"]
+publish = false
+version = "3.2.0"
+
+["@uber/fusion-plugin-initial-state-compat"]
+publish = false
+version = "1.1.8"
+
+["@uber/fusion-plugin-logger"]
+publish = false
+version = "0.3.3"
+
+["@uber/fusion-plugin-logtron"]
+publish = false
+version = "3.3.3"
+
+["@uber/fusion-plugin-m3"]
+publish = false
+version = "2.2.3"
+
+["@uber/fusion-plugin-magellan"]
+publish = false
+version = "2.1.8"
+
+["@uber/fusion-plugin-marketing"]
+publish = false
+version = "2.2.10"
+
+["@uber/fusion-plugin-page-skeleton-compat"]
+publish = false
+version = "1.1.8"
+
+["@uber/fusion-plugin-proxy-compat"]
+publish = false
+version = "1.1.11"
+
+["@uber/fusion-plugin-rosetta"]
+publish = false
+version = "3.1.0"
+
+["@uber/fusion-plugin-s3-asset-proxying"]
+publish = false
+version = "2.2.8"
+
+["@uber/fusion-plugin-secrets"]
+publish = false
+version = "2.1.8"
+
+["@uber/fusion-plugin-secure-headers"]
+publish = false
+version = "5.1.8"
+
+["@uber/fusion-plugin-tchannel"]
+publish = false
+version = "2.1.10"
+
+["@uber/fusion-plugin-tealium"]
+publish = false
+version = "2.1.9"
+
+["@uber/fusion-plugin-tracer"]
+publish = false
+version = "2.1.8"
+
+["@uber/fusion-plugin-uber-xhr-compat"]
+publish = false
+version = "1.1.8"
+
+["@uber/fusion-plugin-universal-logger-compat"]
+publish = false
+version = "1.1.8"
+
+["@uber/fusion-plugin-universal-m3-compat"]
+publish = false
+version = "1.2.3"
+
+["@uber/fusion-plugin-web-analytics"]
+publish = false
+version = "1.1.6"
+
+["@uber/fusion-plugin-web-rpc-compat"]
+publish = false
+version = "1.1.10"
+
+[eslint-config-fusion]
+publish = false
+version = "6.2.3"
+
+[fusion-core]
+publish = false
+version = "2.3.0"
+
+[fusion-plugin-apollo]
+publish = false
+version = "3.4.11"
+
+[fusion-plugin-browser-performance-emitter]
+publish = false
+version = "2.2.10"
+
+[fusion-plugin-connected-react-router]
+publish = false
+version = "2.1.13"
+
+[fusion-plugin-csrf-protection]
+publish = false
+version = "3.1.9"
+
+[fusion-plugin-error-handling]
+publish = false
+version = "2.2.8"
+
+[fusion-plugin-font-loader-react]
+publish = false
+version = "2.1.11"
+
+[fusion-plugin-http-handler]
+publish = false
+version = "1.1.8"
+
+[fusion-plugin-i18n]
+publish = false
+version = "2.5.0"
+
+[fusion-plugin-i18n-react]
+publish = false
+version = "3.2.1"
+
+[fusion-plugin-introspect]
+publish = false
+version = "1.2.0"
+
+[fusion-plugin-jwt]
+publish = false
+version = "2.1.8"
+
+[fusion-plugin-node-performance-emitter]
+publish = false
+version = "2.1.10"
+
+[fusion-plugin-react-helmet-async]
+publish = false
+version = "2.2.9"
+
+[fusion-plugin-react-redux]
+publish = false
+version = "2.2.5"
+
+[fusion-plugin-react-router]
+publish = false
+version = "2.2.13"
+
+[fusion-plugin-redux-action-emitter-enhancer]
+publish = false
+version = "3.1.10"
+
+[fusion-plugin-rpc]
+publish = false
+version = "3.7.2"
+
+[fusion-plugin-rpc-redux-react]
+publish = false
+version = "4.3.11"
+
+[fusion-plugin-styletron-react]
+publish = false
+version = "3.2.6"
+
+[fusion-plugin-universal-events]
+publish = false
+version = "2.1.10"
+
+[fusion-plugin-universal-logger]
+publish = false
+version = "2.1.8"
+
+[fusion-plugin-web-app-manifest]
+publish = false
+version = "1.1.8"
+
+[fusion-react]
+publish = false
+version = "4.0.10"
+
+[fusion-rpc-redux]
+publish = false
+version = "2.2.5"
+
+[fusion-scaffolder]
+publish = false
+version = "1.1.5"
+
+[fusion-test-utils]
+publish = false
+version = "2.2.0"
+
+[fusion-tokens]
+publish = false
+version = "2.1.8"
+
+
